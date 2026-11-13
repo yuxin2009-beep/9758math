@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Mathematics | Complete Syllabus Hub & Interactive Course</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;            /* Warm Cream */
+      --panel: #ffffff;         /* Crisp White */
+      --border: #e2e8f0;        /* Soft Slate Border */
+      --text: #334155;          /* Deep Charcoal Slate */
+      --muted: #64748b;         /* Muted Slate */
+      
+      /* Pastel Accents */
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+      
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+      
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+      
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Top Header */
+    header {
+      background: linear-gradient(90deg, #ede9fe 0%, #e0f2fe 45%, #ccfbf1 85%, #ffedd5 100%);
+      padding: 18px 28px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .badge {
+      background: var(--purple);
+      color: #fff;
+      font-size: 0.78rem;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .top-btn {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      color: var(--text);
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.86rem;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .top-btn:hover {
+      border-color: var(--purple);
+      color: var(--purple-dark);
+    }
+
+    .top-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    /* Main App Layout: Sidebar + Content Area */
+    .app-shell {
+      display: grid;
+      grid-template-columns: 310px 1fr;
+      flex: 1;
+      max-width: 1640px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 1024px) {
+      .app-shell {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Syllabus Navigation Sidebar */
+    aside {
+      background: var(--panel);
+      border-right: 1px solid var(--border);
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-height: calc(100vh - 73px);
+      overflow-y: auto;
+      position: sticky;
+      top: 73px;
+    }
+
+    @media (max-width: 1024px) {
+      aside {
+        position: static;
+        max-height: none;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+    }
+
+    .search-box {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      background: #f8fafc;
+    }
+
+    .section-group-title {
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      font-weight: 800;
+      color: var(--muted);
+      margin: 6px 0 6px 6px;
+    }
+
+    .topic-btn {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: 1px solid transparent;
+      padding: 9px 12px;
+      border-radius: 10px;
+      font-size: 0.87rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      margin-bottom: 3px;
+      gap: 8px;
+    }
+
+    .topic-btn:hover {
+      background: #f8fafc;
+      border-color: #e2e8f0;
+    }
+
+    .topic-btn.active {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      border-color: #d8b4fe;
+    }
+
+    .status-pill {
+      font-size: 0.68rem;
+      padding: 2px 7px;
+      border-radius: 999px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .pill-live {
+      background: var(--teal-bg);
+      color: var(--teal);
+    }
+
+    .pill-soon {
+      background: #f1f5f9;
+      color: var(--muted);
+    }
+
+    /* Main Content Canvas */
+    .content-area {
+      padding: 24px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px 24px;
+      box-shadow: 0 4px 16px rgba(148, 163, 184, 0.06);
+    }
+
+    .topic-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 12px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 14px;
+      margin-bottom: 16px;
+    }
+
+    .strand-tag {
+      font-size: 0.76rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      padding: 4px 10px;
+      border-radius: 8px;
+      background: var(--blue-bg);
+      color: var(--blue);
+    }
+
+    .syllabus-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 820px) {
+      .syllabus-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .outcome-box {
+      background: #f8fafc;
+      border-left: 4px solid var(--purple);
+      padding: 14px 16px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    .exclude-box {
+      background: var(--rose-bg);
+      border-left: 4px solid var(--rose);
+      padding: 14px 16px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: #881337;
+    }
+
+    /* Lesson Switcher Pills */
+    .lesson-bar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px dashed #cbd5e1;
+    }
+
+    .lesson-pill {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--text);
+      transition: 0.15s;
+    }
+
+    .lesson-pill:hover {
+      border-color: var(--purple);
+    }
+
+    .lesson-pill.active {
+      background: var(--teal);
+      color: #ffffff;
+      border-color: var(--teal);
+    }
+
+    /* Pedagogical Scaffolding Cards */
+    .pedagogy-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    @media (max-width: 860px) {
+      .pedagogy-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .info-panel {
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 0.89rem;
+      line-height: 1.55;
+      border: 1px solid transparent;
+    }
+
+    .panel-objectives {
+      background: #f3e8ff;
+      border-color: #d8b4fe;
+    }
+
+    .panel-prompts {
+      background: #e0f2fe;
+      border-color: #bae6fd;
+    }
+
+    .panel-pitfalls {
+      background: #ffe4e6;
+      border-color: #fecdd3;
+      color: #881337;
+    }
+
+    .panel-gc {
+      background: #fef3c7;
+      border-color: #fde68a;
+      color: #78350f;
+    }
+
+    .panel-title {
+      font-weight: 800;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    /* Media & Interactive Containers */
+    .video-slot {
+      background: #f8fafc;
+      border: 1.5px dashed #94a3b8;
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 18px;
+      text-align: center;
+    }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 12px;
+      background: #0f172a;
+      margin-bottom: 18px;
+    }
+
+    .video-wrapper iframe,
+    .video-wrapper video {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: 0;
+    }
+
+    .interactive-frame {
+      width: 100%;
+      height: 740px;
+      border: 1px solid #cbd5e1;
+      border-radius: 14px;
+      background: #ffffff;
+      margin-bottom: 18px;
+    }
+
+    /* Collapsible Worked Example & Exit Ticket */
+    details.worked-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin-bottom: 14px;
+    }
+
+    details.worked-box summary {
+      font-weight: 700;
+      cursor: pointer;
+      color: #1e293b;
+      font-size: 0.94rem;
+    }
+
+    .solution-body {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed #cbd5e1;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .exit-ticket {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 12px;
+      padding: 16px 18px;
+    }
+
+    .reveal-btn {
+      background: var(--teal);
+      color: #fff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    .answer-reveal {
+      margin-top: 8px;
+      padding: 8px 12px;
+      background: #ffffff;
+      border-left: 3px solid var(--teal);
+      border-radius: 6px;
+      font-size: 0.88rem;
+    }
+
+    .template-placeholder {
+      background: linear-gradient(135deg, #f8fafc 0%, #f3e8ff 100%);
+      border: 1.5px dashed #a78bfa;
+      border-radius: 14px;
+      padding: 36px 24px;
+      text-align: center;
+    }
+
+    /* Assessment Scheme Table */
+    .exam-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 0.9rem;
+    }
+
+    .exam-table th, .exam-table td {
+      border: 1px solid #cbd5e1;
+      padding: 12px;
+      text-align: left;
+    }
+
+    .exam-table th {
+      background: #f1f5f9;
+      font-weight: 700;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <span class="badge">SINGAPORE-CAMBRIDGE 9758</span>
+      <div>
+        <strong style="font-size:1.12rem; color:#1e293b;">H2 Mathematics Interactive Syllabus Hub</strong>
+        <div style="font-size:0.78rem; color:var(--muted);">Section A: Pure Mathematics &bull; Section B: Probability and Statistics</div>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button class="top-btn active" id="btnViewSyllabus" onclick="switchMainView('syllabus')">Course &amp; Interactives</button>
+      <button class="top-btn" id="btnViewExam" onclick="switchMainView('exam')">Scheme of Assessment &amp; Assumed Knowledge</button>
+    </div>
+  </header>
+
+  <div class="app-shell">
+    <!-- Left Sidebar: Complete 9758 Syllabus Structure -->
+    <aside>
+      <input type="text" class="search-box" id="topicSearch" placeholder="Search 9758 topic or keyword..." oninput="filterTopics()" />
+
+      <div>
+        <div class="section-group-title">Section A: Pure Mathematics</div>
+        <div id="nav-pure"></div>
+      </div>
+
+      <div>
+        <div class="section-group-title">Section B: Probability and Statistics</div>
+        <div id="nav-stats"></div>
+      </div>
+    </aside>
+
+    <!-- Right Content Area -->
+    <main class="content-area">
+
+      <!-- VIEW 1: TOPIC & INTERACTIVE WORKSPACE -->
+      <div id="view-syllabus">
+        <div class="card">
+          <div class="topic-header">
+            <div>
+              <span class="strand-tag" id="topicCodeTag">SECTION A &bull; 1.1</span>
+              <h1 style="margin:8px 0 4px 0; font-size:1.45rem; color:#1e293b;" id="topicTitle">1.1 Functions</h1>
+              <div style="font-size:0.86rem; color:var(--muted);" id="topicSubtitle"></div>
+            </div>
+          </div>
+
+          <!-- Topic Scope & Exclusions -->
+          <div class="syllabus-grid">
+            <div class="outcome-box">
+              <strong style="color:var(--purple-dark); display:block; margin-bottom:6px;">Key Learning Outcomes:</strong>
+              <ul id="topicOutcomes" style="margin:0; padding-left:18px;"></ul>
+            </div>
+            <div class="exclude-box">
+              <strong style="display:block; margin-bottom:6px;">Scope Boundaries &amp; Exclusions:</strong>
+              <div id="topicExclusions"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Complete Lesson Module Card -->
+        <div class="card" style="margin-top:20px;">
+          <div id="lessonSelectorBar" class="lesson-bar"></div>
+          <div id="lessonBody"></div>
+        </div>
+      </div>
+
+      <!-- VIEW 2: SCHEME OF ASSESSMENT & ASSUMED KNOWLEDGE -->
+      <div id="view-exam" class="hidden">
+        <div class="card">
+          <h2 style="margin-top:0; color:#1e293b;">9758 Assessment Overview</h2>
+          <p style="font-size:0.92rem; line-height:1.5;">
+            Assessment consists of two 3-hour written papers, each worth <strong>100 marks (50%)</strong>. An approved graphing calculator (GC) without computer algebra system (CAS) functionality is expected in both papers.
+          </p>
+
+          <table class="exam-table">
+            <thead>
+              <tr>
+                <th>Paper</th>
+                <th>Duration &amp; Weighting</th>
+                <th>Content Breakdown</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Paper 1</strong></td>
+                <td>3 hours (100 marks, 50%)</td>
+                <td>10–12 questions covering <strong>Pure Mathematics (Section A)</strong>, including at least two real-world application contexts (with at least one carrying 12 marks or more).</td>
+              </tr>
+              <tr>
+                <td><strong>Paper 2</strong></td>
+                <td>3 hours (100 marks, 50%)</td>
+                <td>
+                  <strong>Section A (40 marks):</strong> 4–5 questions on <strong>Pure Mathematics</strong>.<br>
+                  <strong>Section B (60 marks):</strong> 6–8 questions on <strong>Probability and Statistics</strong>, including at least one real-world context question worth 12 marks or more.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3 style="margin-top:22px; color:#1e293b;">Assumed Knowledge (O-Level Additional Mathematics)</h3>
+          <p style="font-size:0.88rem; color:var(--muted); line-height:1.5;">
+            Students are expected to be fluent in O-Level Additional Mathematics foundations: quadratic functions and inequalities, surds, polynomials, partial fractions, binomial expansions, exponential and logarithmic functions, trigonometry, 2D coordinate geometry, and basic calculus.
+          </p>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script>
+    const syllabusData = [
+      // ==================== SECTION A: PURE MATHEMATICS ====================
+      {
+        id: "1.1",
+        section: "pure",
+        code: "SECTION A • 1. FUNCTIONS AND GRAPHS",
+        title: "1.1 Functions",
+        subtitle: "Mappings, domain, range, one-to-one functions, inverse functions, and composite functions.",
+        live: true,
+        outcomes: [
+          "Define functions via an algebraic rule and domain, and determine their range.",
+          "Apply standard notation including f : x ↦ x² + 5, f(x), f⁻¹(x), fg(x), and f²(x).",
+          "Test whether a function is one-to-one and restrict domains appropriately to guarantee invertibility.",
+          "Determine the rule and domain of an inverse function f⁻¹ and sketch its reflection across y = x.",
+          "Verify existence conditions for composite functions (R_g ⊆ D_f) and find their rule, domain, and range."
+        ],
+        exclusions: "Not tested: using (fg)⁻¹ = g⁻¹f⁻¹, or artificially restricting the domain of a function solely to form a composite function.",
+        lessons: [
+          {
+            label: "Lesson 1: Domain, Range & VLT",
+            file: "interactives/lesson1.html",
+            videoEmbedUrl: "",
+            prereq: "Interval/set notation (e.g., [1, ∞) or {x ∈ ℝ : x ≥ 1}) and completing the square for quadratics.",
+            objectives: [
+              "Distinguish between a relation and a function using the Vertical Line Test.",
+              "Recognize that two functions with the same formula but different domains are distinct.",
+              "Determine the exact range R_f by sketching the graph over D_f rather than plugging in endpoints."
+            ],
+            prompts: [
+              "Test x² + y² = 9 with the vertical laser scanner to see why one input producing two outputs fails the function test.",
+              "Compare f(x) = x² on ℝ against g(x) = x² on [1, ∞) and observe how restricting D_g changes R_g.",
+              "Explore h(x) = (x − 2)² + 1 on [0, 3] and note why the minimum turning point (2, 1) dictates the lower bound of R_h."
+            ],
+            pitfalls: [
+              "Writing f(x) when referring to the function itself (use f for the function, f(x) for the output value).",
+              "Finding range by substituting only the boundary values of D_f and missing interior turning points or vertical asymptotes."
+            ],
+            gcTip: "To sketch a restricted domain on your TI-84 Plus CE, enter Y1 = (X^2 + 1)/(X ≥ 1) using the inequality signs under [2nd] [MATH] (TEST).",
+            workedQuestion: "The function h is defined by h : x ↦ x² − 4x + 7 for x ∈ [1, 5]. State why h is a valid function and find its range R_h.",
+            workedSolution: "1. Completing the square: h(x) = (x − 2)² + 3.<br>2. For each x ∈ [1, 5], h(x) produces a single unique real output (passes the Vertical Line Test).<br>3. The vertex (2, 3) lies inside D_h = [1, 5], giving a minimum value of 3. At the endpoints, h(1) = 4 and h(5) = 12.<br>4. Therefore, <strong>R_h = [3, 12]</strong>.",
+            exitQuestion: "Let f(x) = 3 − (x + 1)² for −3 ≤ x ≤ 0. Without expanding, state the exact range R_f.",
+            exitAnswer: "<strong>R_f = [−1, 3]</strong>. The maximum turning point (−1, 3) lies inside [−3, 0], and the lowest endpoint is f(−3) = 3 − 4 = −1."
+          },
+          {
+            label: "Lesson 2: One-to-One & HLT",
+            file: "interactives/lesson2.html",
+            videoEmbedUrl: "",
+            prereq: "Solving quadratic and trigonometric equations for multiple roots within an interval.",
+            objectives: [
+              "Apply the Horizontal Line Test visually to determine if a function is one-to-one.",
+              "Prove a function is not one-to-one by providing an explicit numerical counterexample.",
+              "Find the largest possible domain restriction (such as x ≥ k or x ≤ k) so that an inverse exists."
+            ],
+            prompts: [
+              "Sweep the horizontal laser across y = x² − 4x + 3 on ℝ and identify the line of symmetry x = 2.",
+              "Restrict the domain to x ≥ 2 and verify that every horizontal line cuts the curve at most once.",
+              "Test a periodic curve like sin(x) and find the widest interval containing 0 where it remains one-to-one."
+            ],
+            pitfalls: [
+              "Writing a vague explanation like 'it is a U-shaped curve' instead of giving two concrete x-values with the same y-value (e.g., f(0) = f(4) = 3).",
+              "Choosing a domain restriction that cuts across the turning point, leaving a non-injective branch."
+            ],
+            gcTip: "Use [TRACE] or [2nd] [CALC] > [intersect] with a horizontal line Y2 = c to quickly locate two distinct x-coordinates for a counterexample.",
+            workedQuestion: "The function f is defined by f(x) = 2x² − 12x + 23 for x ∈ ℝ. Show that f is not one-to-one, and state the smallest value of k such that f is one-to-one for x ≥ k.",
+            workedSolution: "1. Counterexample: f(0) = 23 and f(6) = 2(36) − 72 + 23 = 23. Since f(0) = f(6) with 0 ≠ 6, f is not one-to-one.<br>2. Completing the square: f(x) = 2(x − 3)² + 5, which has its line of symmetry at x = 3.<br>3. For f to be one-to-one on [k, ∞), we require <strong>k = 3</strong>.",
+            exitQuestion: "Give a valid numerical counterexample to show that g(x) = |2x − 5| for x ∈ ℝ does not have an inverse.",
+            exitAnswer: "For example, <strong>g(2) = |−1| = 1</strong> and <strong>g(3) = |1| = 1</strong>. Since g(2) = g(3) while 2 ≠ 3, g is not one-to-one and therefore has no inverse."
+          },
+          {
+            label: "Lesson 3: Inverse Functions (f⁻¹)",
+            file: "interactives/lesson3.html",
+            videoEmbedUrl: "",
+            prereq: "Rearranging rational, quadratic, exponential, and logarithmic equations to make x the subject.",
+            objectives: [
+              "Derive the algebraic rule for f⁻¹(x) and always accompany it with D_{f⁻¹} = R_f.",
+              "Sketch y = f⁻¹(x) by reflecting y = f(x) across the mirror line y = x (swapping coordinates and asymptotes).",
+              "Solve f(x) = f⁻¹(x) accurately by intersecting with y = x when appropriate."
+            ],
+            prompts: [
+              "Step through the 4-stage Inverse Builder for a restricted quadratic and watch how the ± sign is chosen using D_f.",
+              "Toggle the y = x mirror line and observe how a vertical asymptote x = a of f becomes a horizontal asymptote y = a of f⁻¹.",
+              "Inspect the intersection of f(x) and f⁻¹(x) to see why solutions to f(x) = x automatically satisfy f(x) = f⁻¹(x)."
+            ],
+            pitfalls: [
+              "Omitting the domain D_{f⁻¹} in the final answer—in 9758 exams, an inverse function definition is incomplete without its domain.",
+              "Choosing the wrong sign (±) when taking a square root during rearrangement; always check against D_f."
+            ],
+            gcTip: "On the TI-84 Plus CE, press [2nd] [PRGM] (DRAW) > [8: DrawInv] and type Y1 to visually verify your sketched inverse curve.",
+            workedQuestion: "Given f : x ↦ √(x − 1) + 2 for x ≥ 1, define f⁻¹ in a similar form.",
+            workedSolution: "1. Range of f: Since √(x − 1) ≥ 0 for x ≥ 1, R_f = [2, ∞). Thus D_{f⁻¹} = [2, ∞).<br>2. Let y = √(x − 1) + 2 ⇒ y − 2 = √(x − 1) ⇒ x = (y − 2)² + 1.<br>3. Final answer: <strong>f⁻¹ : x ↦ (x − 2)² + 1, x ≥ 2</strong>.",
+            exitQuestion: "If f(x) = 1/(x − 3) + 4 for x > 3, state the domain D_{f⁻¹} and the horizontal asymptote of y = f⁻¹(x).",
+            exitAnswer: "Since R_f = (4, ∞), <strong>D_{f⁻¹} = (4, ∞)</strong>. Because y = f(x) has a vertical asymptote at x = 3, y = f⁻¹(x) has a horizontal asymptote at <strong>y = 3</strong>."
+          },
+          {
+            label: "Lesson 4: Composite Functions (fg)",
+            file: "interactives/lesson4.html",
+            videoEmbedUrl: "",
+            prereq: "Determining ranges of elementary functions and testing subset inequalities between intervals.",
+            objectives: [
+              "Apply the existence criterion R_g ⊆ D_f before forming fg.",
+              "Identify the domain of a composite function: D_{fg} = D_g.",
+              "Find the exact range R_{fg} by mapping D_g through g first, then feeding R_g as restricted inputs into f."
+            ],
+            prompts: [
+              "Test pairs of functions in the Pipeline Validator to see when R_g spills outside D_f and breaks fg.",
+              "Compare fg(x) and gf(x) on the same functions to verify that composition is non-commutative.",
+              "Trace D_g → R_g → R_{fg} using the Two-Step Range Mapper."
+            ],
+            pitfalls: [
+              "Evaluating g(f(x)) instead of f(g(x))—remember fg means apply g first, then f.",
+              "Finding R_{fg} by looking at the simplified formula of fg(x) over all ℝ instead of restricting f to R_g."
+            ],
+            gcTip: "Define Y1 = f(X) and Y2 = g(X) on your GC, then enter Y3 = Y1(Y2) to plot the composite graph directly over D_g.",
+            workedQuestion: "Functions f and g are defined by f(x) = ln(x) for x > 0, and g(x) = x² + 1 for x ∈ [−1, 2]. Explain why fg exists and find R_{fg}.",
+            workedSolution: "1. Range of g on [−1, 2]: minimum at x = 0 gives 1; maximum at x = 2 gives 5. So R_g = [1, 5].<br>2. Since R_g = [1, 5] ⊆ (0, ∞) = D_f, <strong>fg exists</strong>.<br>3. Mapping R_g = [1, 5] through f(x) = ln(x) (strictly increasing): <strong>R_{fg} = [ln 1, ln 5] = [0, ln 5]</strong>.",
+            exitQuestion: "Suppose D_f = (2, ∞) and R_g = [2, 8]. Does the composite function fg exist? Justify briefly.",
+            exitAnswer: "<strong>No.</strong> Because 2 ∈ R_g but 2 ∉ D_f, R_g is not a subset of D_f (R_g ⊈ D_f)."
+          },
+          {
+            label: "Lesson 5: Synthesis & Topic Mind Map",
+            file: "interactives/lesson5.html",
+            videoEmbedUrl: "",
+            prereq: "Completion of Lessons 1–4 (VLT, HLT, f⁻¹, and composite existence).",
+            objectives: [
+              "Connect all 9758 Functions concepts in a unified workflow from relation to composite/inverse.",
+              "Recognize self-inverse functions where f(x) = f⁻¹(x) and D_f = R_f.",
+              "Solve multi-part H2 exam problems combining domain restriction, inverses, and composites."
+            ],
+            prompts: [
+              "Explore the interactive Topic Mind Map to review the decision tree for existence, invertibility, and range.",
+              "Test self-inverse rational functions of the form y = (ax + b)/(cx − a) and inspect their symmetry across y = x.",
+              "Attempt the timed 9758 Exam Grader scenarios and check your domain and range notation."
+            ],
+            pitfalls: [
+              "Using f⁻¹f(x) = x without checking that x actually belongs to D_f.",
+              "Forgetting that for any invertible function f, ff⁻¹(x) = x for x ∈ R_f and f⁻¹f(x) = x for x ∈ D_f."
+            ],
+            gcTip: "Double-check multi-part answers by verifying that a test point (a, b) on y = f(x) appears as (b, a) in the table of y = f⁻¹(x).",
+            workedQuestion: "The function f is defined by f(x) = (2x + 3)/(x − 2) for x ∈ ℝ, x ≠ 2. Show that f²(x) = x and hence deduce f⁻¹(x).",
+            workedSolution: "1. R_f = ℝ \\ {2} ⊆ D_f, so f² exists.<br>2. f²(x) = f((2x + 3)/(x − 2)) = [2(2x + 3)/(x − 2) + 3] / [(2x + 3)/(x − 2) − 2] = (7x)/7 = x.<br>3. Since f(f(x)) = x for all x ∈ D_f, f is self-inverse: <strong>f⁻¹(x) = (2x + 3)/(x − 2), x ∈ ℝ, x ≠ 2</strong>.",
+            exitQuestion: "If f is one-to-one with D_f = [1, 4] and R_f = [−2, 5], state the domain and range of f⁻¹f.",
+            exitAnswer: "Since f is applied first, <strong>D_{f⁻¹f} = D_f = [1, 4]</strong>, and because f⁻¹f(x) = x on D_f, <strong>R_{f⁻¹f} = [1, 4]</strong>."
+          }
+        ]
+      },
+      {
+        id: "1.2",
+        section: "pure",
+        code: "SECTION A • 1. FUNCTIONS AND GRAPHS",
+        title: "1.2 Graphs and Transformations",
+        subtitle: "Conics, rational functions, asymptotes, graph transformations, and parametric curves.",
+        live: false,
+        outcomes: [
+          "Sketch standard conics (parabolas, circles, ellipses, hyperbolas) and rational functions with vertical, horizontal, and oblique asymptotes.",
+          "Determine equations of asymptotes, axes of symmetry, and restrictions on x and y.",
+          "Apply combinations of translations, scalings, and reflections to y = f(x).",
+          "Deduce sketches of y = |f(x)|, y = f(|x|), y = 1/f(x), and simple parametric curves."
+        ],
+        exclusions: "No additional exclusions listed in the syllabus for this sub-topic.",
+        lessons: []
+      },
+      {
+        id: "1.3",
+        section: "pure",
+        code: "SECTION A • 1. FUNCTIONS AND GRAPHS",
+        title: "1.3 Equations and Inequalities",
+        subtitle: "Formulating and solving equations, 3×3 linear systems, and algebraic/graphical inequalities.",
+        live: false,
+        outcomes: [
+          "Formulate equations, systems of linear equations, and inequalities from contextual problems.",
+          "Solve equations and systems of linear equations using a graphing calculator.",
+          "Solve rational inequalities f(x)/g(x) > 0 and modulus inequalities analytically and graphically."
+        ],
+        exclusions: "No additional exclusions listed in the syllabus for this sub-topic.",
+        lessons: []
+      },
+      {
+        id: "2.1",
+        section: "pure",
+        code: "SECTION A • 2. SEQUENCES AND SERIES",
+        title: "2.1 Sequences and Series",
+        subtitle: "General sequences, recurrence relations, arithmetic and geometric series, and convergence.",
+        live: false,
+        outcomes: [
+          "Relate the nth term u_n and partial sum S_n, and generate sequences from recurrence relations u_{n+1} = f(u_n).",
+          "Evaluate finite and infinite series using sums/differences of series and convergence criteria.",
+          "Apply nth term, finite sum, and sum-to-infinity formulas for arithmetic and geometric progressions."
+        ],
+        exclusions: "No additional exclusions listed in the syllabus for this sub-topic.",
+        lessons: []
+      },
+      {
+        id: "3.1",
+        section: "pure",
+        code: "SECTION A • 3. VECTORS",
+        title: "3.1 Vectors",
+        subtitle: "2D/3D vector operations, scalar and vector products, lines, and planes.",
+        live: false,
+        outcomes: [
+          "Perform vector addition, scalar multiplication, magnitude, unit vector, collinearity, and ratio theorem calculations.",
+          "Compute scalar and vector products, angles between vectors, and projections |a · n̂| and |a × n̂|.",
+          "Find vector and Cartesian equations of lines and planes, foot of perpendicular, distances, and intersections."
+        ],
+        exclusions: "Not tested: scalar/vector triple products, shortest distance between two skew lines, and common perpendicular to skew lines.",
+        lessons: []
+      },
+      {
+        id: "4.1",
+        section: "pure",
+        code: "SECTION A • 4. INTRODUCTION TO COMPLEX NUMBERS",
+        title: "4.1 Complex Numbers (Cartesian Form & Argand Diagrams)",
+        subtitle: "Arithmetic in Cartesian form, conjugate roots, and Argand diagram geometry.",
+        live: false,
+        outcomes: [
+          "Solve quadratic and polynomial equations with real coefficients for complex conjugate roots.",
+          "Compute modulus, argument, conjugate, and the four arithmetic operations in Cartesian form.",
+          "Represent complex numbers on an Argand diagram and interpret conjugation, negation, addition, subtraction, and multiplication by i geometrically."
+        ],
+        exclusions: "Not tested: complex numbers expressed in polar (modulus-argument) form or exponential form.",
+        lessons: []
+      },
+      {
+        id: "5.1",
+        section: "pure",
+        code: "SECTION A • 5. CALCULUS",
+        title: "5.1 Differentiation",
+        subtitle: "Derivative graphs, implicit and parametric differentiation, stationary points, and rates of change.",
+        live: false,
+        outcomes: [
+          "Interpret f'(x) and f''(x) graphically and relate y = f'(x) to y = f(x).",
+          "Differentiate implicit and parametric equations to find tangents, normals, and stationary points.",
+          "Solve local maxima/minima and connected rates of change problems."
+        ],
+        exclusions: "Not tested: non-stationary points of inflexion and finding the second derivative of parametrically defined functions.",
+        lessons: []
+      },
+      {
+        id: "5.2",
+        section: "pure",
+        code: "SECTION A • 5. CALCULUS",
+        title: "5.2 Maclaurin Series",
+        subtitle: "Standard expansions, repeated/implicit differentiation, and small-angle approximations.",
+        live: false,
+        outcomes: [
+          "Apply standard series expansions for (1 + x)ⁿ, eˣ, sin x, cos x, and ln(1 + x) within their convergence ranges.",
+          "Derive Maclaurin polynomials via repeated explicit/implicit differentiation or standard series substitution.",
+          "Use small-angle approximations for sin x, cos x, and tan x."
+        ],
+        exclusions: "Not tested: deriving the general nth term of a Maclaurin series.",
+        lessons: []
+      },
+      {
+        id: "5.3",
+        section: "pure",
+        code: "SECTION A • 5. CALCULUS",
+        title: "5.3 Integration Techniques",
+        subtitle: "Standard forms, trigonometric squares, substitution, and integration by parts.",
+        live: false,
+        outcomes: [
+          "Integrate f'(x)[f(x)]ⁿ, f'(x)e^{f(x)}, sin²x, cos²x, tan²x, and standard quadratic denominator forms.",
+          "Evaluate integrals using a given substitution and integration by parts."
+        ],
+        exclusions: "Not tested: reduction formulae.",
+        lessons: []
+      },
+      {
+        id: "5.4",
+        section: "pure",
+        code: "SECTION A • 5. CALCULUS",
+        title: "5.4 Definite Integrals",
+        subtitle: "Limit of a sum, planar areas, and volumes of revolution.",
+        live: false,
+        outcomes: [
+          "Evaluate definite integrals analytically and numerically via GC.",
+          "Compute areas bounded by curves and lines (including regions below the x-axis) and volumes of revolution about the x- or y-axis."
+        ],
+        exclusions: "Not tested: area and volume of revolution for curves defined parametrically.",
+        lessons: []
+      },
+      {
+        id: "5.5",
+        section: "pure",
+        code: "SECTION A • 5. CALCULUS",
+        title: "5.5 Differential Equations",
+        subtitle: "Formulating, solving, and interpreting separable first-order ODEs.",
+        live: false,
+        outcomes: [
+          "Solve separable differential equations dy/dx = f(x)g(y) and equations reducible via a given substitution.",
+          "Formulate differential equations from problem contexts and interpret general and particular solutions."
+        ],
+        exclusions: "No additional exclusions listed in the syllabus for this sub-topic.",
+        lessons: []
+      },
+
+      // ==================== SECTION B: PROBABILITY AND STATISTICS ====================
+      {
+        id: "6.1",
+        section: "stats",
+        code: "SECTION B • 6. PROBABILITY AND STATISTICS",
+        title: "6.1 Probability",
+        subtitle: "Counting techniques, permutations, combinations, and conditional probability.",
+        live: false,
+        outcomes: [
+          "Solve linear and circular arrangement/selection problems involving repetition and restrictions.",
+          "Compute probabilities using outcome tables, Venn diagrams, tree diagrams, and conditional probability laws."
+        ],
+        exclusions: "No additional exclusions listed in the syllabus for this sub-topic.",
+        lessons: []
+      },
+      {
+        id: "6.2",
+        section: "stats",
+        code: "SECTION B • 6. PROBABILITY AND STATISTICS",
+        title: "6.2 Discrete Random Variables",
+        subtitle: "Probability distributions, expectation, variance, and the binomial model B(n, p).",
+        live: false,
+        outcomes: [
+          "Construct discrete probability distributions and calculate expectation and variance.",
+          "Model situations using the binomial distribution B(n, p), check modelling assumptions, and use its mean and variance."
+        ],
+        exclusions: "Not tested: finding the cumulative distribution function (CDF) of a discrete random variable.",
+        lessons: []
+      },
+      {
+        id: "6.3",
+        section: "stats",
+        code: "SECTION B • 6. PROBABILITY AND STATISTICS",
+        title: "6.3 Normal Distribution",
+        subtitle: "Continuous random variables, N(μ, σ²), standardization, and linear combinations.",
+        live: false,
+        outcomes: [
+          "Calculate probabilities and unknown parameters using N(μ, σ²) and standard normal symmetry.",
+          "Find distributions of linear combinations aX + b and aX + bY for independent normal variables."
+        ],
+        exclusions: "Not tested: normal approximation to the binomial distribution.",
+        lessons: []
+      },
+      {
+        id: "6.4",
+        section: "stats",
+        code: "SECTION B • 6. PROBABILITY AND STATISTICS",
+        title: "6.4 Sampling",
+        subtitle: "Sample mean distribution, Central Limit Theorem, and unbiased estimates.",
+        live: false,
+        outcomes: [
+          "Apply X̄ ~ N(μ, σ²/n) for normal populations and the Central Limit Theorem for large samples (n ≥ 30).",
+          "Compute unbiased estimates of population mean and variance from raw or summarised sample data."
+        ],
+        exclusions: "No additional exclusions listed in the syllabus for this sub-topic.",
+        lessons: []
+      },
+      {
+        id: "6.5",
+        section: "stats",
+        code: "SECTION B • 6. PROBABILITY AND STATISTICS",
+        title: "6.5 Hypothesis Testing",
+        subtitle: "Formulating H₀ and H₁ and conducting 1-tail and 2-tail z-tests for a population mean.",
+        live: false,
+        outcomes: [
+          "Formulate null and alternative hypotheses and identify test statistics, critical regions, and p-values.",
+          "Perform 1-tail and 2-tail z-tests (known variance or large sample) and interpret conclusions in context."
+        ],
+        exclusions: "Not tested: the term 'Type I error', concept of Type II error, and testing the difference between two population means.",
+        lessons: []
+      },
+      {
+        id: "6.6",
+        section: "stats",
+        code: "SECTION B • 6. PROBABILITY AND STATISTICS",
+        title: "6.6 Correlation and Linear Regression",
+        subtitle: "Scatter diagrams, correlation coefficient r, least squares regression, and linearization.",
+        live: false,
+        outcomes: [
+          "Interpret scatter diagrams and the product moment correlation coefficient r.",
+          "Find least squares regression lines, distinguish interpolation from extrapolation, and apply linearizing transformations."
+        ],
+        exclusions: "Not tested: deriving regression formulas, using r² = b₁b₂, and hypothesis tests on correlation.",
+        lessons: []
+      }
+    ];
+
+    let currentTopicId = "1.1";
+    let currentLessonIdx = 0;
+
+    function renderSidebar(filterText = "") {
+      const pureContainer = document.getElementById("nav-pure");
+      const statsContainer = document.getElementById("nav-stats");
+      pureContainer.innerHTML = "";
+      statsContainer.innerHTML = "";
+
+      const q = filterText.toLowerCase().trim();
+
+      syllabusData.forEach(topic => {
+        const match = topic.title.toLowerCase().includes(q) ||
+                      topic.subtitle.toLowerCase().includes(q) ||
+                      topic.outcomes.some(o => o.toLowerCase().includes(q));
+        if (!match) return;
+
+        const btn = document.createElement("button");
+        btn.className = "topic-btn" + (topic.id === currentTopicId ? " active" : "");
+        btn.innerHTML = `
+          <span>${topic.title}</span>
+          <span class="status-pill ${topic.live ? 'pill-live' : 'pill-soon'}">
+            ${topic.live ? '5 Lessons Live' : 'Template'}
+          </span>
+        `;
+        btn.onclick = () => selectTopic(topic.id);
+
+        if (topic.section === "pure") pureContainer.appendChild(btn);
+        else statsContainer.appendChild(btn);
+      });
+    }
+
+    function filterTopics() {
+      renderSidebar(document.getElementById("topicSearch").value);
+    }
+
+    function switchMainView(viewName) {
+      document.getElementById("view-syllabus").classList.toggle("hidden", viewName !== "syllabus");
+      document.getElementById("view-exam").classList.toggle("hidden", viewName !== "exam");
+      document.getElementById("btnViewSyllabus").classList.toggle("active", viewName === "syllabus");
+      document.getElementById("btnViewExam").classList.toggle("active", viewName === "exam");
+    }
+
+    function selectTopic(topicId) {
+      currentTopicId = topicId;
+      currentLessonIdx = 0;
+      switchMainView("syllabus");
+      renderSidebar(document.getElementById("topicSearch").value);
+
+      const topic = syllabusData.find(t => t.id === topicId);
+      document.getElementById("topicCodeTag").textContent = topic.code;
+      document.getElementById("topicTitle").textContent = topic.title;
+      document.getElementById("topicSubtitle").textContent = topic.subtitle;
+
+      const outList = document.getElementById("topicOutcomes");
+      outList.innerHTML = topic.outcomes.map(item => `<li style="margin-bottom:4px;">${item}</li>`).join("");
+      document.getElementById("topicExclusions").textContent = topic.exclusions;
+
+      renderLessonWorkspace(topic);
+    }
+
+    function renderLessonWorkspace(topic) {
+      const bar = document.getElementById("lessonSelectorBar");
+      const body = document.getElementById("lessonBody");
+
+      if (!topic.live || topic.lessons.length === 0) {
+        bar.classList.add("hidden");
+        body.innerHTML = `
+          <div class="template-placeholder">
+            <h3 style="margin:0 0 8px 0; color:var(--purple-dark);">Ready for ${topic.title} Interactive &amp; Video</h3>
+            <p style="margin:0 auto 12px auto; max-width:560px; font-size:0.9rem; color:var(--text); line-height:1.5;">
+              This syllabus module is pre-configured with 9758 learning outcomes and scope boundaries. Add lesson objects to the <code>lessons</code> array for <strong>${topic.title}</strong> in <code>index.html</code> as you create new interactives and videos.
+            </p>
+          </div>
+        `;
+        return;
+      }
+
+      bar.classList.remove("hidden");
+      bar.innerHTML = "";
+      topic.lessons.forEach((les, idx) => {
+        const pill = document.createElement("button");
+        pill.className = "lesson-pill" + (idx === currentLessonIdx ? " active" : "");
+        pill.textContent = les.label;
+        pill.onclick = () => {
+          currentLessonIdx = idx;
+          renderLessonWorkspace(topic);
+        };
+        bar.appendChild(pill);
+      });
+
+      const les = topic.lessons[currentLessonIdx];
+
+      const videoHtml = les.videoEmbedUrl
+        ? `<div class="video-wrapper"><iframe src="${les.videoEmbedUrl}" allowfullscreen></iframe></div>`
+        : `<div class="video-slot">
+             <strong style="color:#1e293b; font-size:0.9rem;">Video Lesson Slot — ${les.label}</strong>
+             <div style="font-size:0.82rem; color:var(--muted); margin-top:4px;">
+               Paste your YouTube/Vimeo embed link into <code>videoEmbedUrl</code> for this lesson in <code>index.html</code>.
+             </div>
+           </div>`;
+
+      body.innerHTML = `
+        <!-- 1. Pre-Lesson Objectives & Guided Interactive Tasks -->
+        <div class="pedagogy-grid">
+          <div class="info-panel panel-objectives">
+            <span class="panel-title" style="color:var(--purple-dark);">Lesson Learning Objectives</span>
+            <div style="font-size:0.82rem; color:var(--muted); margin-bottom:6px;"><strong>Assumed Knowledge:</strong> ${les.prereq}</div>
+            <ul style="margin:0; padding-left:18px;">
+              ${les.objectives.map(o => `<li style="margin-bottom:4px;">${o}</li>`).join("")}
+            </ul>
+          </div>
+          <div class="info-panel panel-prompts">
+            <span class="panel-title" style="color:var(--blue);">Try This in the Interactive</span>
+            <ol style="margin:0; padding-left:18px;">
+              ${les.prompts.map(p => `<li style="margin-bottom:4px;">${p}</li>`).join("")}
+            </ol>
+          </div>
+        </div>
+
+        <!-- 2. Video Lesson -->
+        ${videoHtml}
+
+        <!-- 3. Interactive Applet -->
+        <iframe class="interactive-frame" src="${les.file}" title="${les.label}"></iframe>
+
+        <!-- 4. Exam Pitfalls & GC Tip -->
+        <div class="pedagogy-grid">
+          <div class="info-panel panel-pitfalls">
+            <span class="panel-title">Watch Out! Common 9758 Exam Pitfalls</span>
+            <ul style="margin:0; padding-left:18px;">
+              ${les.pitfalls.map(pit => `<li style="margin-bottom:4px;">${pit}</li>`).join("")}
+            </ul>
+          </div>
+          <div class="info-panel panel-gc">
+            <span class="panel-title">Graphing Calculator (GC) Workflow Tip</span>
+            <div>${les.gcTip}</div>
+          </div>
+        </div>
+
+        <!-- 5. Annotated Worked Example -->
+        <details class="worked-box">
+          <summary>Worked Exam-Style Example (Click to Expand Solution)</summary>
+          <div class="solution-body">
+            <div style="margin-bottom:10px;"><strong>Question:</strong> ${les.workedQuestion}</div>
+            <div style="background:#ffffff; padding:12px; border-radius:8px; border:1px solid #e2e8f0;">
+              <strong>Step-by-Step Solution:</strong><br>${les.workedSolution}
+            </div>
+          </div>
+        </details>
+
+        <!-- 6. Self-Check Exit Ticket -->
+        <div class="exit-ticket">
+          <strong style="color:var(--teal); font-size:0.85rem; text-transform:uppercase; letter-spacing:0.5px; display:block; margin-bottom:6px;">
+            Quick Self-Check Exit Ticket
+          </strong>
+          <div style="font-size:0.92rem; font-weight:600; color:#1e293b;">${les.exitQuestion}</div>
+          <button class="reveal-btn" onclick="document.getElementById('exitAnsBox').classList.toggle('hidden')">
+            Show / Hide Answer
+          </button>
+          <div id="exitAnsBox" class="answer-reveal hidden">${les.exitAnswer}</div>
+        </div>
+      `;
+    }
+
+    // Initialize Hub on Topic 1.1 (Functions)
+    selectTopic("1.1");
+  </script>
+
+</body>
+</html>
