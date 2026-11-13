@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | Lesson 1: The Shadow Caster (Pastel Edition)</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;            /* Warm Cream */
+      --panel: #ffffff;         /* Crisp White */
+      --panel-soft: #f5f3ff;    /* Soft Lavender Tint */
+      --border: #e2e8f0;        /* Soft Slate Border */
+      --text: #334155;          /* Deep Charcoal Slate */
+      --muted: #64748b;         /* Muted Slate */
+      
+      /* Pastel Accents */
+      --domain: #38bdf8;        /* Pastel Sky Blue */
+      --domain-bg: #e0f2fe;
+      --domain-dark: #0284c7;
+      
+      --range: #fb923c;         /* Pastel Peach/Apricot */
+      --range-bg: #ffedd5;
+      --range-dark: #ea580c;
+      
+      --curve: #a78bfa;         /* Pastel Lavender/Periwinkle */
+      --curve-dark: #7c3aed;
+      
+      --mint: #34d399;          /* Pastel Mint */
+      --mint-bg: #d1fae5;
+      --mint-dark: #059669;
+      
+      --rose: #fb7185;          /* Pastel Rose */
+      --rose-bg: #ffe4e6;
+      --rose-dark: #e11d48;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(90deg, #ede9fe 0%, #e0f2fe 50%, #ffedd5 100%);
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    header span.badge {
+      background: #8b5cf6;
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-weight: 700;
+      margin-right: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      background: rgba(255, 255, 255, 0.85);
+      color: var(--muted);
+      border: 1px solid #cbd5e1;
+      padding: 8px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+
+    .tab-btn:hover {
+      background: #ffffff;
+      color: var(--text);
+    }
+
+    .tab-btn.active {
+      background: #8b5cf6;
+      color: white;
+      border-color: #7c3aed;
+      box-shadow: 0 2px 6px rgba(139, 92, 246, 0.25);
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: 1fr 390px;
+      gap: 20px;
+      padding: 20px 24px;
+      flex: 1;
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 960px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .canvas-card {
+      background: var(--panel);
+      border-radius: 16px;
+      padding: 18px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 16px rgba(148, 163, 184, 0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    canvas {
+      background: #fafaf9;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      width: 100%;
+      max-width: 720px;
+      height: auto;
+      cursor: crosshair;
+    }
+
+    .legend {
+      display: flex;
+      gap: 18px;
+      margin-top: 14px;
+      font-size: 0.85rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .controls-card {
+      background: var(--panel);
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 16px rgba(148, 163, 184, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .section-title {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--muted);
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+
+    select, input[type="range"] {
+      width: 100%;
+      accent-color: #8b5cf6;
+    }
+
+    select {
+      background: #f8fafc;
+      color: var(--text);
+      border: 1px solid #cbd5e1;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .slider-group {
+      background: #f8fafc;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+    }
+
+    .toggle-btn {
+      background: var(--domain-bg);
+      color: var(--domain-dark);
+      border: 1px solid #bae6fd;
+      border-radius: 8px;
+      padding: 4px 10px;
+      font-size: 0.78rem;
+      cursor: pointer;
+      font-weight: 700;
+      transition: 0.15s;
+    }
+
+    .toggle-btn.open-int {
+      background: #fef3c7;
+      border-color: #fde68a;
+      color: #b45309;
+    }
+
+    .readout-box {
+      background: var(--domain-bg);
+      border-radius: 12px;
+      padding: 14px;
+      border-left: 5px solid var(--domain);
+    }
+
+    .readout-box.range-box {
+      background: var(--range-bg);
+      border-left-color: var(--range);
+    }
+
+    .readout-box.trap-box {
+      background: var(--rose-bg);
+      border-left-color: var(--rose);
+    }
+
+    .math-display {
+      font-family: 'Cambria Math', 'Times New Roman', serif;
+      font-size: 1.15rem;
+      margin-top: 4px;
+      font-weight: 700;
+      color: #1e293b;
+    }
+
+    .switch-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f8fafc;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* Quiz styles */
+    .quiz-option {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      color: var(--text);
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: 0.15s;
+    }
+
+    .quiz-option:hover:not(:disabled) {
+      border-color: #8b5cf6;
+      background: #f5f3ff;
+    }
+
+    .quiz-option.correct {
+      background: var(--mint-bg);
+      border-color: var(--mint-dark);
+      color: #065f46;
+      font-weight: 600;
+    }
+
+    .quiz-option.wrong {
+      background: var(--rose-bg);
+      border-color: var(--rose-dark);
+      color: #9f1239;
+    }
+
+    .feedback {
+      font-size: 0.88rem;
+      line-height: 1.45;
+      padding: 12px;
+      border-radius: 10px;
+      background: #f5f3ff;
+      border: 1px solid #ddd6fe;
+      margin-top: 8px;
+      color: #3730a3;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div>
+    <span class="badge">9758 H2 MATH</span>
+    <strong style="font-size:1.1rem; color:#1e293b;">Lesson 1: The Shadow Caster (Functions, Domain &amp; Range)</strong>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="setMode('explore')">1. Shadow Caster Lab</button>
+    <button class="tab-btn" onclick="setMode('vlt')">2. Vertical Line Scanner</button>
+    <button class="tab-btn" onclick="setMode('quiz')">3. Misconception Check</button>
+  </div>
+</header>
+
+<main>
+  <!-- Left Canvas Area -->
+  <div class="canvas-card">
+    <canvas id="graphCanvas" width="720" height="520"></canvas>
+    <div class="legend" id="exploreLegend">
+      <div class="legend-item"><span class="dot" style="background:var(--curve-dark)"></span> Graph of <em>y</em> = f(<em>x</em>)</div>
+      <div class="legend-item"><span class="dot" style="background:var(--domain-dark)"></span> Domain Shadow (<em>D</em><sub>f</sub> on <em>x</em>-axis)</div>
+      <div class="legend-item"><span class="dot" style="background:var(--range-dark)"></span> Range Shadow (<em>R</em><sub>f</sub> on <em>y</em>-axis)</div>
+      <div class="legend-item"><span class="dot" style="background:#fff; border:2.5px solid var(--curve-dark)"></span> Open Circle (Excluded)</div>
+    </div>
+    <div class="legend hidden" id="vltLegend">
+      <div class="legend-item"><span class="dot" style="background:var(--domain-dark)"></span> Vertical Scanner Line (<em>x</em> = <em>k</em>)</div>
+      <div class="legend-item"><span class="dot" style="background:var(--mint-dark)"></span> 1 Intersection (Valid Function)</div>
+      <div class="legend-item"><span class="dot" style="background:var(--rose-dark)"></span> &ge;2 Intersections (NOT a Function)</div>
+    </div>
+  </div>
+
+  <!-- Right Control Panel -->
+  <div class="controls-card">
+
+    <!-- MODE 1: SHADOW CASTER -->
+    <div id="panel-explore">
+      <div>
+        <div class="section-title">Select Function Rule</div>
+        <select id="funcSelect" onchange="updateAll()">
+          <option value="quad">f(x) = (x - 1)² - 2  (Quadratic)</option>
+          <option value="cubic">f(x) = 0.25x³ - 1.5x + 1  (Cubic)</option>
+          <option value="rational">f(x) = (2x - 1) / (x - 1)  (Rational)</option>
+          <option value="mod">f(x) = |2x - 2| - 1  (Modulus)</option>
+        </select>
+      </div>
+
+      <div class="slider-group" style="margin-top:12px;">
+        <div class="slider-header">
+          <span>Left Endpoint <strong>a</strong> = <span id="valA">-1.0</span></span>
+          <button id="btnIncA" class="toggle-btn" onclick="toggleInc('a')">[ Included (≤)</button>
+        </div>
+        <input type="range" id="sliderA" min="-4" max="3.5" step="0.5" value="-1" oninput="syncSliders('a')" />
+      </div>
+
+      <div class="slider-group" style="margin-top:10px;">
+        <div class="slider-header">
+          <span>Right Endpoint <strong>b</strong> = <span id="valB">3.0</span></span>
+          <button id="btnIncB" class="toggle-btn" onclick="toggleInc('b')">] Included (≤)</button>
+        </div>
+        <input type="range" id="sliderB" min="-3.5" max="4.5" step="0.5" value="3" oninput="syncSliders('b')" />
+      </div>
+
+      <div class="switch-row" style="margin-top:10px;">
+        <span>Show Pastel Light Projection Rays</span>
+        <input type="checkbox" id="showRays" checked onchange="draw()" style="width:auto; transform:scale(1.2);" />
+      </div>
+
+      <div class="readout-box" style="margin-top:12px;">
+        <div style="font-size:0.78rem; color:var(--domain-dark); font-weight:800;">DOMAIN (D<sub>f</sub>) — Horizontal Shadow</div>
+        <div class="math-display" id="domainOut">D<sub>f</sub> = [-1, 3]</div>
+      </div>
+
+      <div class="readout-box range-box" style="margin-top:10px;">
+        <div style="font-size:0.78rem; color:var(--range-dark); font-weight:800;">TRUE RANGE (R<sub>f</sub>) — Vertical Shadow</div>
+        <div class="math-display" id="rangeOut">R<sub>f</sub> = [-2, 2]</div>
+      </div>
+
+      <div class="readout-box trap-box" id="trapAlert" style="margin-top:10px;">
+        <div style="font-size:0.78rem; color:var(--rose-dark); font-weight:800;">⚠️ EXAM MISCONCEPTION ALERT</div>
+        <div id="trapText" style="font-size:0.85rem; margin-top:4px; line-height:1.4; color:#881337;">
+          Plugging in endpoints gives f(-1) = 2 and f(3) = 2. Naive students write R<sub>f</sub> = {2}, missing the turning point at (1, -2)!
+        </div>
+      </div>
+    </div>
+
+    <!-- MODE 2: VERTICAL LINE TEST -->
+    <div id="panel-vlt" class="hidden">
+      <div class="section-title">Test Relation with Vertical Laser</div>
+      <select id="relSelect" onchange="draw()">
+        <option value="circle">x² + y² = 9  (Circle)</option>
+        <option value="sideparab">y² = 2x + 4  (Parabola)</option>
+        <option value="quadfunc">y = x² - 2  (Quadratic Function)</option>
+        <option value="hyperbola">x²/4 - y²/4 = 1  (Hyperbola)</option>
+      </select>
+
+      <div class="slider-group" style="margin-top:14px;">
+        <div class="slider-header">
+          <span>Laser Position <strong>x</strong> = <span id="valLaser">0.0</span></span>
+        </div>
+        <input type="range" id="sliderLaser" min="-4.5" max="4.5" step="0.1" value="0" oninput="draw()" />
+      </div>
+
+      <div class="readout-box" id="vltStatusBox" style="margin-top:14px;">
+        <div style="font-size:0.78rem; font-weight:800;">VERDICT</div>
+        <div id="vltVerdict" style="font-size:0.92rem; margin-top:4px; line-height:1.45;"></div>
+      </div>
+
+      <div style="font-size:0.85rem; color:var(--muted); margin-top:14px; line-height:1.5; background:#f8fafc; padding:12px; border-radius:10px; border:1px solid #e2e8f0;">
+        <strong style="color:var(--text);">Syllabus 9758 Key Concept:</strong> A function maps <em>each</em> element in the domain to a <strong>unique</strong> image in the range. If any vertical line cuts the graph more than once, it is a relation, <em>not</em> a function.
+      </div>
+    </div>
+
+    <!-- MODE 3: MISCONCEPTION CHECK -->
+    <div id="panel-quiz" class="hidden">
+      <div class="section-title">Quick Exam Check (<span id="qNum">1</span>/3)</div>
+      <p id="qPrompt" style="font-size:0.95rem; line-height:1.45; margin-top:4px; font-weight:500;"></p>
+      <div id="qOptions"></div>
+      <div id="qFeedback" class="feedback hidden"></div>
+      <button class="tab-btn active" style="margin-top:12px; width:100%;" onclick="nextQuestion()">Next Question &rarr;</button>
+    </div>
+
+  </div>
+</main>
+
+<script>
+  const canvas = document.getElementById('graphCanvas');
+  const ctx = canvas.getContext('2d');
+
+  // Default coordinate system settings
+  let xMin = -5, xMax = 5;
+  let yMin = -4, yMax = 5;
+
+  let mode = 'explore';
+  let incA = true;
+  let incB = true;
+  let quizAnswered = false;
+
+  const functions = {
+    quad: {
+      fn: x => Math.pow(x - 1, 2) - 2,
+      asymptoteX: null,
+      label: 'f(x) = (x - 1)² - 2'
+    },
+    cubic: {
+      fn: x => 0.25 * Math.pow(x, 3) - 1.5 * x + 1,
+      asymptoteX: null,
+      label: 'f(x) = 0.25x³ - 1.5x + 1'
+    },
+    rational: {
+      fn: x => (2 * x - 1) / (x - 1),
+      asymptoteX: 1,
+      label: 'f(x) = (2x - 1)/(x - 1)'
+    },
+    mod: {
+      fn: x => Math.abs(2 * x - 2) - 1,
+      asymptoteX: null,
+      label: 'f(x) = |2x - 2| - 1'
+    }
+  };
+
+  function toPxX(x) {
+    return ((x - xMin) / (xMax - xMin)) * canvas.width;
+  }
+
+  function toPxY(y) {
+    return canvas.height - ((y - yMin) / (yMax - yMin)) * canvas.height;
+  }
+
+  function setMode(newMode) {
+    mode = newMode;
+    document.querySelectorAll('.tab-btn').forEach((btn, idx) => {
+      btn.classList.toggle('active',
+        (idx === 0 && mode === 'explore') ||
+        (idx === 1 && mode === 'vlt') ||
+        (idx === 2 && mode === 'quiz')
+      );
+    });
+    document.getElementById('panel-explore').classList.toggle('hidden', mode !== 'explore');
+    document.getElementById('panel-vlt').classList.toggle('hidden', mode !== 'vlt');
+    document.getElementById('panel-quiz').classList.toggle('hidden', mode !== 'quiz');
+
+    document.getElementById('exploreLegend').classList.toggle('hidden', mode === 'vlt');
+    document.getElementById('vltLegend').classList.toggle('hidden', mode !== 'vlt');
+
+    if (mode === 'quiz') {
+      loadQuestion();
+    } else {
+      xMin = -5; xMax = 5;
+      yMin = -4; yMax = 5;
+      draw();
+    }
+  }
+
+  function toggleInc(which) {
+    if (which === 'a') {
+      incA = !incA;
+      const btn = document.getElementById('btnIncA');
+      btn.textContent = incA ? '[ Included (≤)' : '( Excluded (<)';
+      btn.classList.toggle('open-int', !incA);
+    } else {
+      incB = !incB;
+      const btn = document.getElementById('btnIncB');
+      btn.textContent = incB ? '] Included (≤)' : ') Excluded (<)';
+      btn.classList.toggle('open-int', !incB);
+    }
+    updateAll();
+  }
+
+  function syncSliders(changed) {
+    let a = parseFloat(document.getElementById('sliderA').value);
+    let b = parseFloat(document.getElementById('sliderB').value);
+    if (changed === 'a' && a >= b) {
+      b = Math.min(4.5, a + 0.5);
+      document.getElementById('sliderB').value = b;
+    } else if (changed === 'b' && b <= a) {
+      a = Math.max(-4, b - 0.5);
+      document.getElementById('sliderA').value = a;
+    }
+    updateAll();
+  }
+
+  function fmt(num) {
+    return Number.isInteger(num) ? num.toString() : num.toFixed(2).replace(/\.00$/, '');
+  }
+
+  function computeRange(funcKey, a, b, incA, incB) {
+    const fObj = functions[funcKey];
+    const f = fObj.fn;
+
+    if (funcKey === 'rational' && a <= 1 && b >= 1) {
+      if (a === 1 && b === 1) return { text: 'Undefined at x = 1', intervals: [], trap: 'x = 1 is not in the maximal domain because division by zero occurs.' };
+      if (a === 1) {
+        let yb = f(b);
+        return {
+          text: `R<sub>f</sub> = ${incB ? '[' : '('}${fmt(yb)}, ∞)`,
+          intervals: [{ min: yb, max: yMax + 1, incMin: incB, incMax: false }],
+          trap: 'As x → 1⁺, f(x) → +∞! Notice the vertical asymptote at x = 1.'
+        };
+      }
+      if (b === 1) {
+        let ya = f(a);
+        return {
+          text: `R<sub>f</sub> = (-∞, ${fmt(ya)}${incA ? ']' : ')'}`,
+          intervals: [{ min: yMin - 1, max: ya, incMin: false, incMax: incA }],
+          trap: 'As x → 1⁻, f(x) → -∞! Always check behavior near asymptotes.'
+        };
+      }
+      let ya = f(a);
+      let yb = f(b);
+      return {
+        text: `R<sub>f</sub> = (-∞, ${fmt(ya)}${incA ? ']' : ')'} ∪ ${incB ? '[' : '('}${fmt(yb)}, ∞)`,
+        intervals: [
+          { min: yMin - 1, max: ya, incMin: false, incMax: incA },
+          { min: yb, max: yMax + 1, incMin: incB, incMax: false }
+        ],
+        trap: 'x = 1 is excluded from the domain! The graph splits into two branches around x = 1 and y = 2.'
+      };
+    }
+
+    const N = 1000;
+    let minVal = Infinity, maxVal = -Infinity;
+    let minAttained = false, maxAttained = false;
+
+    for (let i = 0; i <= N; i++) {
+      let x = a + (b - a) * (i / N);
+      let y = f(x);
+      if (y < minVal - 1e-6) minVal = y;
+      if (y > maxVal + 1e-6) maxVal = y;
+    }
+
+    for (let i = 0; i <= N; i++) {
+      let x = a + (b - a) * (i / N);
+      let isEndpointA = (i === 0);
+      let isEndpointB = (i === N);
+      let validPoint = (!isEndpointA || incA) && (!isEndpointB || incB);
+      let y = f(x);
+      if (validPoint && Math.abs(y - minVal) < 1e-3) minAttained = true;
+      if (validPoint && Math.abs(y - maxVal) < 1e-3) maxAttained = true;
+    }
+
+    if (funcKey === 'quad' && a < 1 && b > 1) { minVal = -2; minAttained = true; }
+    if (funcKey === 'mod' && a < 1 && b > 1) { minVal = -1; minAttained = true; }
+    if (funcKey === 'cubic') {
+      const tp = Math.sqrt(2);
+      if (a < -tp && b > -tp) { maxVal = f(-tp); maxAttained = true; }
+      if (a < tp && b > tp) { minVal = f(tp); minAttained = true; }
+    }
+
+    const leftBr = minAttained ? '[' : '(';
+    const rightBr = maxAttained ? ']' : ')';
+
+    let ya = f(a), yb = f(b);
+    let naiveMin = Math.min(ya, yb), naiveMax = Math.max(ya, yb);
+    let trapMsg = '';
+    if (Math.abs(minVal - naiveMin) > 0.05 || Math.abs(maxVal - naiveMax) > 0.05) {
+      trapMsg = `Endpoint trap! f(${fmt(a)}) = ${fmt(ya)} and f(${fmt(b)}) = ${fmt(yb)}, which suggests [${fmt(naiveMin)}, ${fmt(naiveMax)}], missing the interior turning point!`;
+    } else if (!incA || !incB) {
+      trapMsg = `Watch the brackets! Because an endpoint is open (${!incA ? 'a' : 'b'}), check whether that open circle restricts the range bracket.`;
+    } else {
+      trapMsg = `Here f(x) is monotonic on [${fmt(a)}, ${fmt(b)}], so the endpoints happen to determine the range—always sketch first to verify!`;
+    }
+
+    return {
+      text: `R<sub>f</sub> = ${leftBr}${fmt(minVal)}, ${fmt(maxVal)}${rightBr}`,
+      intervals: [{ min: minVal, max: maxVal, incMin: minAttained, incMax: maxAttained }],
+      trap: trapMsg
+    };
+  }
+
+  function updateAll() {
+    const funcKey = document.getElementById('funcSelect').value;
+    const a = parseFloat(document.getElementById('sliderA').value);
+    const b = parseFloat(document.getElementById('sliderB').value);
+
+    document.getElementById('valA').textContent = a.toFixed(1);
+    document.getElementById('valB').textContent = b.toFixed(1);
+
+    let domStr = `D<sub>f</sub> = ${incA ? '[' : '('}${fmt(a)}, ${fmt(b)}${incB ? ']' : ')'}`;
+    if (funcKey === 'rational' && a < 1 && b > 1) {
+      domStr += ` \\ {1}`;
+    }
+    document.getElementById('domainOut').innerHTML = domStr;
+
+    const rangeRes = computeRange(funcKey, a, b, incA, incB);
+    document.getElementById('rangeOut').innerHTML = rangeRes.text;
+    document.getElementById('trapText').innerHTML = rangeRes.trap;
+
+    draw();
+  }
+
+  function drawGrid() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Soft pastel grid lines
+    ctx.strokeStyle = '#e2e8f0';
+    ctx.lineWidth = 1;
+    for (let x = Math.ceil(xMin); x <= Math.floor(xMax); x++) {
+      ctx.beginPath();
+      ctx.moveTo(toPxX(x), 0);
+      ctx.lineTo(toPxX(x), canvas.height);
+      ctx.stroke();
+    }
+    for (let y = Math.ceil(yMin); y <= Math.floor(yMax); y++) {
+      ctx.beginPath();
+      ctx.moveTo(0, toPxY(y));
+      ctx.lineTo(canvas.width, toPxY(y));
+      ctx.stroke();
+    }
+
+    // Main Axes
+    ctx.strokeStyle = '#94a3b8';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(0, toPxY(0));
+    ctx.lineTo(canvas.width, toPxY(0));
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(toPxX(0), 0);
+    ctx.lineTo(toPxX(0), canvas.height);
+    ctx.stroke();
+
+    // Axis labels
+    ctx.fillStyle = '#64748b';
+    ctx.font = '600 12px sans-serif';
+    for (let x = Math.ceil(xMin); x <= Math.floor(xMax); x++) {
+      if (x !== 0) ctx.fillText(x, toPxX(x) - 4, toPxY(0) + 16);
+    }
+    for (let y = Math.ceil(yMin); y <= Math.floor(yMax); y++) {
+      if (y !== 0) ctx.fillText(y, toPxX(0) + 8, toPxY(y) + 4);
+    }
+    ctx.fillText('O', toPxX(0) - 14, toPxY(0) + 15);
+    ctx.fillText('x', canvas.width - 16, toPxY(0) - 8);
+    ctx.fillText('y', toPxX(0) + 10, 16);
+  }
+
+  function drawEndpointCircle(px, py, isClosed, color) {
+    ctx.beginPath();
+    ctx.arc(px, py, 6.5, 0, Math.PI * 2);
+    if (isClosed) {
+      ctx.fillStyle = color;
+      ctx.fill();
+    } else {
+      ctx.fillStyle = '#ffffff';
+      ctx.fill();
+      ctx.lineWidth = 2.5;
+      ctx.strokeStyle = color;
+      ctx.stroke();
+    }
+  }
+
+  function drawExplore() {
+    const funcKey = document.getElementById('funcSelect').value;
+    const fObj = functions[funcKey];
+    const f = fObj.fn;
+    const a = parseFloat(document.getElementById('sliderA').value);
+    const b = parseFloat(document.getElementById('sliderB').value);
+    const showRays = document.getElementById('showRays').checked;
+
+    // 1. Faint full curve
+    ctx.strokeStyle = 'rgba(139, 92, 246, 0.22)';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    let penDown = false;
+    for (let px = 0; px <= canvas.width; px += 2) {
+      let x = xMin + (px / canvas.width) * (xMax - xMin);
+      if (fObj.asymptoteX !== null && Math.abs(x - fObj.asymptoteX) < 0.04) {
+        penDown = false;
+        continue;
+      }
+      let y = f(x);
+      if (y < yMin - 2 || y > yMax + 2) {
+        penDown = false;
+        continue;
+      }
+      if (!penDown) {
+        ctx.moveTo(px, toPxY(y));
+        penDown = true;
+      } else {
+        ctx.lineTo(px, toPxY(y));
+      }
+    }
+    ctx.stroke();
+
+    // Asymptotes for rational function
+    if (funcKey === 'rational') {
+      ctx.setLineDash([6, 6]);
+      ctx.strokeStyle = '#fb7185';
+      ctx.lineWidth = 1.8;
+      ctx.beginPath();
+      ctx.moveTo(toPxX(1), 0);
+      ctx.lineTo(toPxX(1), canvas.height);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(0, toPxY(2));
+      ctx.lineTo(canvas.width, toPxY(2));
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    // 2. Active curve segment on [a, b]
+    ctx.strokeStyle = '#7c3aed';
+    ctx.lineWidth = 3.8;
+    ctx.beginPath();
+    penDown = false;
+    const steps = 600;
+    for (let i = 0; i <= steps; i++) {
+      let x = a + (b - a) * (i / steps);
+      if (fObj.asymptoteX !== null && Math.abs(x - fObj.asymptoteX) < 0.03) {
+        penDown = false;
+        continue;
+      }
+      let y = f(x);
+      if (y < yMin - 2 || y > yMax + 2) {
+        penDown = false;
+        continue;
+      }
+      let px = toPxX(x);
+      let py = toPxY(y);
+      if (!penDown) {
+        ctx.moveTo(px, py);
+        penDown = true;
+      } else {
+        ctx.lineTo(px, py);
+      }
+    }
+    ctx.stroke();
+
+    // 3. Light projection rays
+    if (showRays) {
+      ctx.lineWidth = 1.2;
+      for (let i = 0; i <= 24; i++) {
+        let x = a + (b - a) * (i / 24);
+        if (fObj.asymptoteX !== null && Math.abs(x - fObj.asymptoteX) < 0.08) continue;
+        let y = f(x);
+        if (y < yMin || y > yMax) continue;
+
+        ctx.strokeStyle = 'rgba(2, 132, 199, 0.22)';
+        ctx.beginPath();
+        ctx.moveTo(toPxX(x), toPxY(y));
+        ctx.lineTo(toPxX(x), toPxY(0));
+        ctx.stroke();
+
+        ctx.strokeStyle = 'rgba(234, 88, 12, 0.22)';
+        ctx.beginPath();
+        ctx.moveTo(toPxX(x), toPxY(y));
+        ctx.lineTo(toPxX(0), toPxY(y));
+        ctx.stroke();
+      }
+    }
+
+    // 4. Domain shadow on x-axis
+    const yAxisZero = toPxY(0);
+    ctx.strokeStyle = '#0284c7';
+    ctx.lineWidth = 6;
+    ctx.beginPath();
+    ctx.moveTo(toPxX(a), yAxisZero);
+    ctx.lineTo(toPxX(b), yAxisZero);
+    ctx.stroke();
+
+    drawEndpointCircle(toPxX(a), yAxisZero, incA, '#0284c7');
+    drawEndpointCircle(toPxX(b), yAxisZero, incB, '#0284c7');
+    if (funcKey === 'rational' && a < 1 && b > 1) {
+      drawEndpointCircle(toPxX(1), yAxisZero, false, '#0284c7');
+    }
+
+    // 5. Range shadow on y-axis
+    const xAxisZero = toPxX(0);
+    const rangeRes = computeRange(funcKey, a, b, incA, incB);
+    ctx.strokeStyle = '#ea580c';
+    ctx.lineWidth = 6;
+    rangeRes.intervals.forEach(intv => {
+      let y1 = Math.max(yMin, intv.min);
+      let y2 = Math.min(yMax, intv.max);
+      ctx.beginPath();
+      ctx.moveTo(xAxisZero, toPxY(y1));
+      ctx.lineTo(xAxisZero, toPxY(y2));
+      ctx.stroke();
+
+      if (intv.min >= yMin) drawEndpointCircle(xAxisZero, toPxY(intv.min), intv.incMin, '#ea580c');
+      if (intv.max <= yMax) drawEndpointCircle(xAxisZero, toPxY(intv.max), intv.incMax, '#ea580c');
+    });
+
+    // 6. Endpoints on the curve itself
+    if (funcKey !== 'rational' || Math.abs(a - 1) > 0.02) {
+      let ya = f(a);
+      if (ya >= yMin && ya <= yMax) drawEndpointCircle(toPxX(a), toPxY(ya), incA, '#7c3aed');
+    }
+    if (funcKey !== 'rational' || Math.abs(b - 1) > 0.02) {
+      let yb = f(b);
+      if (yb >= yMin && yb <= yMax) drawEndpointCircle(toPxX(b), toPxY(yb), incB, '#7c3aed');
+    }
+  }
+
+  function drawVLT() {
+    const rel = document.getElementById('relSelect').value;
+    const k = parseFloat(document.getElementById('sliderLaser').value);
+    document.getElementById('valLaser').textContent = k.toFixed(1);
+
+    ctx.strokeStyle = '#7c3aed';
+    ctx.lineWidth = 3.2;
+
+    let intersections = [];
+
+    if (rel === 'circle') {
+      ctx.beginPath();
+      for (let t = 0; t <= Math.PI * 2 + 0.05; t += 0.03) {
+        let x = 3 * Math.cos(t);
+        let y = 3 * Math.sin(t);
+        if (t === 0) ctx.moveTo(toPxX(x), toPxY(y));
+        else ctx.lineTo(toPxX(x), toPxY(y));
+      }
+      ctx.stroke();
+      if (Math.abs(k) < 3) {
+        let y = Math.sqrt(9 - k * k);
+        intersections = [y, -y];
+      } else if (Math.abs(k) === 3) {
+        intersections = [0];
+      }
+    } else if (rel === 'sideparab') {
+      ctx.beginPath();
+      for (let y = -4; y <= 4.5; y += 0.05) {
+        let x = (y * y - 4) / 2;
+        if (y === -4) ctx.moveTo(toPxX(x), toPxY(y));
+        else ctx.lineTo(toPxX(x), toPxY(y));
+      }
+      ctx.stroke();
+      if (2 * k + 4 > 0) {
+        let y = Math.sqrt(2 * k + 4);
+        intersections = [y, -y];
+      } else if (Math.abs(2 * k + 4) < 1e-6) {
+        intersections = [0];
+      }
+    } else if (rel === 'quadfunc') {
+      ctx.beginPath();
+      for (let x = -4; x <= 4; x += 0.05) {
+        let y = x * x - 2;
+        if (x === -4) ctx.moveTo(toPxX(x), toPxY(y));
+        else ctx.lineTo(toPxX(x), toPxY(y));
+      }
+      ctx.stroke();
+      intersections = [k * k - 2];
+    } else if (rel === 'hyperbola') {
+      [-1, 1].forEach(branch => {
+        ctx.beginPath();
+        let first = true;
+        for (let y = -4.5; y <= 4.5; y += 0.05) {
+          let x = branch * Math.sqrt(4 + y * y);
+          if (first) { ctx.moveTo(toPxX(x), toPxY(y)); first = false; }
+          else ctx.lineTo(toPxX(x), toPxY(y));
+        }
+        ctx.stroke();
+      });
+      if (k * k - 4 > 0) {
+        let y = Math.sqrt(k * k - 4);
+        intersections = [y, -y];
+      } else if (Math.abs(k * k - 4) < 1e-6) {
+        intersections = [0];
+      }
+    }
+
+    const isFail = intersections.length > 1;
+    const laserColor = isFail ? '#e11d48' : '#0284c7';
+    ctx.strokeStyle = laserColor;
+    ctx.lineWidth = 2.5;
+    ctx.setLineDash([6, 4]);
+    ctx.beginPath();
+    ctx.moveTo(toPxX(k), 0);
+    ctx.lineTo(toPxX(k), canvas.height);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    intersections.forEach(y => {
+      if (y >= yMin && y <= yMax) {
+        ctx.beginPath();
+        ctx.arc(toPxX(k), toPxY(y), 7.5, 0, Math.PI * 2);
+        ctx.fillStyle = isFail ? '#e11d48' : '#059669';
+        ctx.fill();
+        ctx.strokeStyle = '#fff';
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+      }
+    });
+
+    const box = document.getElementById('vltStatusBox');
+    const verdict = document.getElementById('vltVerdict');
+    if (rel === 'quadfunc') {
+      box.style.background = 'var(--mint-bg)';
+      box.style.borderLeftColor = 'var(--mint-dark)';
+      verdict.innerHTML = `<span style="color:#065f46; font-weight:800;">✓ VALID FUNCTION</span><br><span style="color:#064e3b;">Every vertical line x = ${k.toFixed(1)} cuts the graph at <strong>1 point</strong> (${k.toFixed(1)}, ${(k*k-2).toFixed(2)}). Each input has a unique output.</span>`;
+    } else if (intersections.length > 1) {
+      box.style.background = 'var(--rose-bg)';
+      box.style.borderLeftColor = 'var(--rose-dark)';
+      verdict.innerHTML = `<span style="color:#9f1239; font-weight:800;">✗ NOT A FUNCTION (${intersections.length} outputs!)</span><br><span style="color:#881337;">At x = ${k.toFixed(1)}, there are <strong>two y-values</strong>: y = ${intersections[0].toFixed(2)} and y = ${intersections[1].toFixed(2)}.</span>`;
+    } else {
+      box.style.background = '#fef3c7';
+      box.style.borderLeftColor = '#d97706';
+      verdict.innerHTML = `<span style="color:#b45309; font-weight:800;">⚠ NOT A FUNCTION</span><br><span style="color:#78350f;">At x = ${k.toFixed(1)} there are ${intersections.length} intersections, but dragging the laser to another x-value gives <strong>2 intersections</strong>.</span>`;
+    }
+  }
+
+  // Dedicated canvas renderer for each Quiz Question
+  function drawQuizGraph() {
+    if (qIdx === 0) {
+      // Q1: Parabola f(x) = (x - 2)^2 + 1 for -1 < x <= 4
+      xMin = -3; xMax = 6;
+      yMin = -2; yMax = 12;
+      drawGrid();
+
+      const f = x => Math.pow(x - 2, 2) + 1;
+
+      // Full faint parabola
+      ctx.strokeStyle = 'rgba(139, 92, 246, 0.2)';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      for (let x = -2.5; x <= 5.5; x += 0.05) {
+        let y = f(x);
+        if (x === -2.5) ctx.moveTo(toPxX(x), toPxY(y));
+        else ctx.lineTo(toPxX(x), toPxY(y));
+      }
+      ctx.stroke();
+
+      // Active segment on (-1, 4]
+      ctx.strokeStyle = '#7c3aed';
+      ctx.lineWidth = 3.8;
+      ctx.beginPath();
+      for (let x = -1; x <= 4.001; x += 0.02) {
+        let y = f(x);
+        if (x === -1) ctx.moveTo(toPxX(x), toPxY(y));
+        else ctx.lineTo(toPxX(x), toPxY(y));
+      }
+      ctx.stroke();
+
+      // Domain shadow (-1, 4]
+      ctx.strokeStyle = '#0284c7';
+      ctx.lineWidth = 6;
+      ctx.beginPath();
+      ctx.moveTo(toPxX(-1), toPxY(0));
+      ctx.lineTo(toPxX(4), toPxY(0));
+      ctx.stroke();
+      drawEndpointCircle(toPxX(-1), toPxY(0), false, '#0284c7');
+      drawEndpointCircle(toPxX(4), toPxY(0), true, '#0284c7');
+
+      // Endpoints on curve: (-1, 10) open, (4, 5) closed
+      drawEndpointCircle(toPxX(-1), toPxY(10), false, '#7c3aed');
+      drawEndpointCircle(toPxX(4), toPxY(5), true, '#7c3aed');
+
+      // Labels for endpoints
+      ctx.fillStyle = '#475569';
+      ctx.font = 'bold 12px sans-serif';
+      ctx.fillText('(-1, 10)', toPxX(-1) + 10, toPxY(10) + 4);
+      ctx.fillText('(4, 5)', toPxX(4) + 10, toPxY(5) + 4);
+
+      // Reveal turning point & true range shadow once answered
+      if (quizAnswered) {
+        ctx.strokeStyle = '#ea580c';
+        ctx.lineWidth = 6;
+        ctx.beginPath();
+        ctx.moveTo(toPxX(0), toPxY(1));
+        ctx.lineTo(toPxX(0), toPxY(10));
+        ctx.stroke();
+        drawEndpointCircle(toPxX(0), toPxY(1), true, '#ea580c');
+        drawEndpointCircle(toPxX(0), toPxY(10), false, '#ea580c');
+
+        // Highlight vertex (2, 1)
+        drawEndpointCircle(toPxX(2), toPxY(1), true, '#059669');
+        ctx.fillStyle = '#059669';
+        ctx.fillText('Min Turning Point (2, 1)', toPxX(2) - 45, toPxY(1) + 20);
+      }
+
+    } else if (qIdx === 1) {
+      // Q2: Compare f(x)=x^2 (x in R) vs g(x)=x^2 (x in R+)
+      xMin = -4; xMax = 4;
+      yMin = -2; yMax = 10;
+      drawGrid();
+
+      // Left branch (only in f, not g)
+      ctx.strokeStyle = 'rgba(139, 92, 246, 0.35)';
+      ctx.setLineDash([6, 5]);
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      for (let x = -3.2; x <= 0; x += 0.05) {
+        let y = x * x;
+        if (x === -3.2) ctx.moveTo(toPxX(x), toPxY(y));
+        else ctx.lineTo(toPxX(x), toPxY(y));
+      }
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Right branch (x > 0)
+      ctx.strokeStyle = '#7c3aed';
+      ctx.lineWidth = 3.8;
+      ctx.beginPath();
+      for (let x = 0; x <= 3.2; x += 0.05) {
+        let y = x * x;
+        if (x === 0) ctx.moveTo(toPxX(x), toPxY(y));
+        else ctx.lineTo(toPxX(x), toPxY(y));
+      }
+      ctx.stroke();
+
+      drawEndpointCircle(toPxX(0), toPxY(0), false, '#7c3aed');
+      ctx.fillStyle = '#475569';
+      ctx.font = 'bold 12px sans-serif';
+      ctx.fillText('g(x) = x² only uses x > 0', toPxX(0.4), toPxY(3));
+      ctx.fillText('f(x) = x² uses all x ∈ ℝ', toPxX(-3.6), toPxY(5));
+
+    } else if (qIdx === 2) {
+      // Q3: Circle x^2 + y^2 = 25 with vertical line x = 3
+      xMin = -7; xMax = 7;
+      yMin = -6; yMax = 6;
+      drawGrid();
+
+      ctx.strokeStyle = '#7c3aed';
+      ctx.lineWidth = 3.5;
+      ctx.beginPath();
+      for (let t = 0; t <= Math.PI * 2 + 0.05; t += 0.03) {
+        let x = 5 * Math.cos(t);
+        let y = 5 * Math.sin(t);
+        if (t === 0) ctx.moveTo(toPxX(x), toPxY(y));
+        else ctx.lineTo(toPxX(x), toPxY(y));
+      }
+      ctx.stroke();
+
+      // Vertical line x = 3
+      ctx.strokeStyle = '#e11d48';
+      ctx.lineWidth = 2.5;
+      ctx.setLineDash([6, 4]);
+      ctx.beginPath();
+      ctx.moveTo(toPxX(3), 0);
+      ctx.lineTo(toPxX(3), canvas.height);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Intersection dots (3, 4) and (3, -4)
+      [4, -4].forEach(y => {
+        ctx.beginPath();
+        ctx.arc(toPxX(3), toPxY(y), 7, 0, Math.PI * 2);
+        ctx.fillStyle = '#e11d48';
+        ctx.fill();
+        ctx.strokeStyle = '#fff';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      });
+
+      ctx.fillStyle = '#9f1239';
+      ctx.font = 'bold 12px sans-serif';
+      ctx.fillText('(3, 4)', toPxX(3) + 10, toPxY(4));
+      ctx.fillText('(3, -4)', toPxX(3) + 10, toPxY(-4));
+    }
+  }
+
+  const quizData = [
+    {
+      prompt: "A function is defined by f(x) = (x - 2)² + 1 for -1 < x ≤ 4. A student substitutes the endpoints to get f(-1) = 10 and f(4) = 5, concluding R_f = [5, 10). What is the true range?",
+      options: [
+        "R_f = [1, 10)",
+        "R_f = (1, 10]",
+        "R_f = [1, 10]",
+        "R_f = (5, 10)"
+      ],
+      correct: 0,
+      explanation: "The minimum turning point (2, 1) lies inside the domain (-1, 4], so the minimum value is 1 (included). The upper bound approaches f(-1) = 10, which is excluded because x = -1 is excluded."
+    },
+    {
+      prompt: "Are f : x ↦ x² (x ∈ ℝ) and g : x ↦ x² (x ∈ ℝ⁺) the same function?",
+      options: [
+        "Yes, because they have the exact same algebraic rule x².",
+        "No, because a function is defined by BOTH its rule and its domain.",
+        "Yes, because their ranges are identical."
+      ],
+      correct: 1,
+      explanation: "In H2 Math (9758), a function consists of both a rule AND a specified domain. Changing the domain creates a distinct function (and also changes its range from [0, ∞) to (0, ∞))."
+    },
+    {
+      prompt: "Why does x² + y² = 25 fail to define y as a function of x?",
+      options: [
+        "Because the graph does not pass through the origin.",
+        "Because for x = 3, there are two outputs (y = 4 and y = -4), violating the unique-image rule.",
+        "Because its domain is restricted to [-5, 5]."
+      ],
+      correct: 1,
+      explanation: "By definition, every element in the domain must map to a unique image. The vertical line x = 3 intersects the circle twice."
+    }
+  ];
+
+  let qIdx = 0;
+
+  function loadQuestion() {
+    quizAnswered = false;
+    const q = quizData[qIdx];
+    document.getElementById('qNum').textContent = qIdx + 1;
+    document.getElementById('qPrompt').textContent = q.prompt;
+    const optDiv = document.getElementById('qOptions');
+    optDiv.innerHTML = '';
+    const fb = document.getElementById('qFeedback');
+    fb.classList.add('hidden');
+
+    q.options.forEach((opt, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'quiz-option';
+      btn.textContent = opt;
+      btn.onclick = () => {
+        quizAnswered = true;
+        document.querySelectorAll('.quiz-option').forEach((b, idx) => {
+          b.disabled = true;
+          if (idx === q.correct) b.classList.add('correct');
+          else if (idx === i) b.classList.add('wrong');
+        });
+        fb.innerHTML = `<strong>${i === q.correct ? '✓ Spot on!' : '✗ Careful!'}</strong> ${q.explanation}`;
+        fb.classList.remove('hidden');
+        draw(); // Redraw canvas to reveal answer highlights
+      };
+      optDiv.appendChild(btn);
+    });
+
+    draw();
+  }
+
+  function nextQuestion() {
+    qIdx = (qIdx + 1) % quizData.length;
+    loadQuestion();
+  }
+
+  function draw() {
+    if (mode === 'quiz') {
+      drawQuizGraph();
+    } else if (mode === 'vlt') {
+      drawGrid();
+      drawVLT();
+    } else {
+      drawGrid();
+      drawExplore();
+    }
+  }
+
+  updateAll();
+</script>
+</body>
+</html>
