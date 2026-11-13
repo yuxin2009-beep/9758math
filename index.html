@@ -904,19 +904,45 @@
             ],
             gcTip: "Store a test curve in Y1, then enter Y2 = 2*Y1(3X − 1) on your GC to confirm your transformed key points.",
             workedQuestion: `
-              The curve <em>y = f(x)</em> has a vertical asymptote <em>x = 2</em>, a horizontal asymptote <em>y = −1</em>, crosses the axes at <em>(0, −2)</em> and <em>(4, 0)</em>, and has a local minimum at <em>(6, −3)</em>.<br>
+              The diagram below shows the curve <em>y = f(x)</em> with a vertical asymptote <em>x = 2</em>, a horizontal asymptote <em>y = −1</em>, axial intercepts at <em>(0, −2)</em> and <em>(4, 0)</em>, and a local minimum at <em>(6, −3)</em>.
+              <div style="margin:10px 0; text-align:center;">
+                <svg width="350" height="215" viewBox="0 0 350 215" style="background:#ffffff; border:1px solid #cbd5e1; border-radius:10px;">
+                  <!-- Axes -->
+                  <line x1="20" y1="90" x2="330" y2="90" stroke="#64748b" stroke-width="1.3"/>
+                  <line x1="85" y1="15" x2="85" y2="200" stroke="#64748b" stroke-width="1.3"/>
+                  <text x="322" y="103" font-size="11" fill="#475569">x</text>
+                  <text x="91" y="24" font-size="11" fill="#475569">y</text>
+                  <text x="73" y="103" font-size="10" fill="#475569">O</text>
+                  <!-- Horizontal Asymptote y = -1 -> px 115 -->
+                  <line x1="20" y1="115" x2="330" y2="115" stroke="#0f766e" stroke-width="1.4" stroke-dasharray="5,4"/>
+                  <text x="278" y="110" font-size="10" font-weight="bold" fill="#0f766e">y = −1</text>
+                  <!-- Vertical Asymptote x = 2 -> px 145 -->
+                  <line x1="145" y1="15" x2="145" y2="200" stroke="#0284c7" stroke-width="1.4" stroke-dasharray="5,4"/>
+                  <text x="149" y="28" font-size="10" font-weight="bold" fill="#0284c7">x = 2</text>
+                  <!-- Left Branch: approaches y = -1 as x -> -inf, cuts y-axis at (0, -2) -> px (85, 140), goes to -inf as x -> 2- -->
+                  <path d="M 25 122 Q 65 128, 85 140 Q 118 160, 136 198" fill="none" stroke="#334155" stroke-width="2.3"/>
+                  <circle cx="85" cy="140" r="3" fill="#1e293b"/>
+                  <text x="42" y="152" font-size="9.5" font-weight="bold" fill="#1e293b">(0, −2)</text>
+                  <!-- Right Branch: comes from +inf at x -> 2+, cuts x-axis at (4, 0) -> px (205, 90), local min at (6, -3) -> px (265, 165), approaches y = -1 from below -->
+                  <path d="M 154 20 Q 178 72, 205 90 Q 238 165, 265 165 Q 295 165, 325 125" fill="none" stroke="#334155" stroke-width="2.3"/>
+                  <circle cx="205" cy="90" r="3" fill="#1e293b"/>
+                  <text x="210" y="84" font-size="9.5" font-weight="bold" fill="#1e293b">(4, 0)</text>
+                  <circle cx="265" cy="165" r="3.5" fill="#e11d48"/>
+                  <text x="248" y="181" font-size="9.5" font-weight="bold" fill="#881337">(6, −3)</text>
+                </svg>
+              </div>
               <strong>(i)</strong> Describe fully a sequence of three transformations that transforms the graph of <em>y = f(x)</em> onto the graph of <em>y = 2f(2x − 2) + 2</em>. [3]<br>
               <strong>(ii)</strong> Sketch the graph of <em>y = 2f(2x − 2) + 2</em>, stating clearly the equations of the asymptotes and the coordinates of the turning point and axial intercepts. [4]
             `,
             workedSolution: `
-              <strong>(i)</strong> Mapping <em>y = f(x) → y = f(x − 2) → y = f(2x − 2) → y = 2f(2x − 2) → y = 2f(2x − 2) + 2</em> (or combining vertical steps):<br>
+              <strong>(i)</strong> Mapping <em>y = f(x) → y = f(x − 2) → y = f(2x − 2) → y = 2f(2x − 2) → y = 2f(2x − 2) + 2</em>:<br>
               1. <strong>Translation of 2 units in the positive x-direction</strong>.<br>
               2. <strong>Scaling parallel to the x-axis by a scale factor of ½</strong>.<br>
               3. <strong>Scaling parallel to the y-axis by a scale factor of 2</strong>, followed by a <strong>translation of 2 units in the positive y-direction</strong>.<br><br>
               <strong>(ii)</strong> Coordinate mapping rule: <em>(x, y) ↦ ((x + 2)/2, 2y + 2)</em>:<br>
               • Vertical asymptote: <em>x = (2 + 2)/2</em> ⇒ <strong>x = 2</strong>; Horizontal asymptote: <em>y = 2(−1) + 2</em> ⇒ <strong>y = 0</strong>.<br>
               • Turning point: <em>(6, −3) ↦</em> <strong>(4, −4)</strong> (local min).<br>
-              • Intercepts: <em>(4, 0) ↦ (3, 2)</em>; when <em>x = 0</em>, <em>2f(−2) + 2</em> (or given <em>(−2, 0) ↦ (0, 2)</em>).
+              • Key points: <em>(0, −2) ↦</em> <strong>(1, −2)</strong>; <em>(4, 0) ↦</em> <strong>(3, 2)</strong> (which also determines where the right branch cuts the x-axis between <em>x = 3</em> and <em>x = 4</em>).
               <div style="margin-top:10px; text-align:center;">
                 <svg width="360" height="220" viewBox="0 0 360 220" style="background:#fdfbf7; border:1px solid #cbd5e1; border-radius:10px;">
                   <!-- Axes (y=0 is also horizontal asymptote) -->
@@ -927,14 +953,16 @@
                   <!-- Vertical Asymptote x = 2 -> px 160 -->
                   <line x1="160" y1="15" x2="160" y2="205" stroke="#0284c7" stroke-width="1.4" stroke-dasharray="5,4"/>
                   <text x="164" y="28" font-size="10" font-weight="bold" fill="#0284c7">x = 2</text>
-                  <!-- Left branch approaching y=0 and x=2 -->
-                  <path d="M 30 85 Q 135 78, 152 20" fill="none" stroke="#8b5cf6" stroke-width="2.4"/>
-                  <!-- Right branch: cuts y=0, local min at (4, -4) -> px (230, 165), then approaches y=0 from below -->
-                  <path d="M 168 20 Q 195 165, 230 165 Q 265 165, 330 105" fill="none" stroke="#8b5cf6" stroke-width="2.4"/>
+                  <!-- Left branch approaching y=0 as x->-inf, passing (1, -2), going to -inf as x->2- -->
+                  <path d="M 25 103 Q 95 112, 125 135 Q 145 158, 152 200" fill="none" stroke="#8b5cf6" stroke-width="2.4"/>
+                  <circle cx="125" cy="135" r="3" fill="#1e293b"/>
+                  <text x="86" y="146" font-size="9.5" font-weight="bold" fill="#1e293b">(1, −2)</text>
+                  <!-- Right branch: passes (3, 2) -> px (195, 55), cuts y=0, local min at (4, -4) -> px (230, 165), approaches y=0 from below -->
+                  <path d="M 168 20 Q 182 42, 195 55 Q 212 165, 230 165 Q 265 165, 330 105" fill="none" stroke="#8b5cf6" stroke-width="2.4"/>
+                  <circle cx="195" cy="55" r="3" fill="#1e293b"/>
+                  <text x="200" y="54" font-size="9.5" font-weight="bold" fill="#1e293b">(3, 2)</text>
                   <circle cx="230" cy="165" r="3.5" fill="#e11d48"/>
                   <text x="215" y="182" font-size="10" font-weight="bold" fill="#881337">(4, −4)</text>
-                  <circle cx="182" cy="95" r="3" fill="#1e293b"/>
-                  <text x="186" y="88" font-size="9.5" font-weight="bold" fill="#1e293b">(3, 0)</text>
                 </svg>
               </div>
             `,
@@ -962,7 +990,36 @@
             ],
             gcTip: "On the TI-84 Plus CE, press [MATH] > [NUM] > [1: abs(] to graph Y2 = abs(Y1) and Y3 = Y1(abs(X)) side by side.",
             workedQuestion: `
-              The diagram shows the curve <em>y = f(x)</em> with a local maximum at <em>(−1, 2)</em>, axial intercepts at <em>(−3, 0)</em>, <em>(0, 1)</em>, and <em>(2, 0)</em>, a vertical asymptote <em>x = 4</em>, and a horizontal asymptote <em>y = −1</em> as <em>x → −∞</em>.<br>
+              The diagram below shows the curve <em>y = f(x)</em> with a local maximum at <em>(−1, 2)</em>, axial intercepts at <em>(−3, 0)</em>, <em>(0, 1)</em>, and <em>(2, 0)</em>, a vertical asymptote <em>x = 4</em>, and a horizontal asymptote <em>y = −1</em> as <em>x → −∞</em>.
+              <div style="margin:10px 0; text-align:center;">
+                <svg width="350" height="215" viewBox="0 0 350 215" style="background:#ffffff; border:1px solid #cbd5e1; border-radius:10px;">
+                  <!-- Axes: O at (165, 110), scale 25px/unit -->
+                  <line x1="20" y1="110" x2="330" y2="110" stroke="#64748b" stroke-width="1.3"/>
+                  <line x1="165" y1="15" x2="165" y2="200" stroke="#64748b" stroke-width="1.3"/>
+                  <text x="322" y="123" font-size="11" fill="#475569">x</text>
+                  <text x="171" y="24" font-size="11" fill="#475569">y</text>
+                  <text x="153" y="123" font-size="10" fill="#475569">O</text>
+                  <!-- Horizontal Asymptote y = -1 -> px 135 -->
+                  <line x1="20" y1="135" x2="165" y2="135" stroke="#0f766e" stroke-width="1.4" stroke-dasharray="5,4"/>
+                  <text x="24" y="148" font-size="10" font-weight="bold" fill="#0f766e">y = −1</text>
+                  <!-- Vertical Asymptote x = 4 -> px 265 -->
+                  <line x1="265" y1="15" x2="265" y2="200" stroke="#0284c7" stroke-width="1.4" stroke-dasharray="5,4"/>
+                  <text x="269" y="28" font-size="10" font-weight="bold" fill="#0284c7">x = 4</text>
+                  <!-- Left Branch: approaches y=-1 from below as x->-inf, cuts (-3,0)->(90,110), local max (-1,2)->(140,60), cuts (0,1)->(165,85), cuts (2,0)->(215,110), goes to -inf as x->4- -->
+                  <path d="M 22 130 Q 65 125, 90 110 Q 118 60, 140 60 Q 154 60, 165 85 Q 190 98, 215 110 Q 242 145, 256 198" fill="none" stroke="#334155" stroke-width="2.3"/>
+                  <!-- Right Branch (x > 4): comes from +inf as x->4+ and decreases -->
+                  <path d="M 274 20 Q 290 85, 328 102" fill="none" stroke="#334155" stroke-width="2.3"/>
+                  <!-- Key Points -->
+                  <circle cx="90" cy="110" r="3" fill="#1e293b"/>
+                  <text x="64" y="103" font-size="9.5" font-weight="bold" fill="#1e293b">(−3, 0)</text>
+                  <circle cx="140" cy="60" r="3.5" fill="#e11d48"/>
+                  <text x="115" y="52" font-size="9.5" font-weight="bold" fill="#881337">(−1, 2)</text>
+                  <circle cx="165" cy="85" r="3" fill="#1e293b"/>
+                  <text x="170" y="83" font-size="9.5" font-weight="bold" fill="#1e293b">(0, 1)</text>
+                  <circle cx="215" cy="110" r="3" fill="#1e293b"/>
+                  <text x="218" y="103" font-size="9.5" font-weight="bold" fill="#1e293b">(2, 0)</text>
+                </svg>
+              </div>
               On separate diagrams, sketch the graphs of:<br>
               <strong>(i)</strong> <em>y = |f(x)|</em> [3]<br>
               <strong>(ii)</strong> <em>y = 1/f(x)</em> [4]<br>
@@ -973,18 +1030,19 @@
               • Sharp corners at <strong>(−3, 0)</strong> and <strong>(2, 0)</strong>; local max stays at <strong>(−1, 2)</strong>; y-intercept stays at <strong>(0, 1)</strong>.<br>
               • Vertical asymptote remains <strong>x = 4</strong>; horizontal asymptote <em>y = −1</em> reflects to <strong>y = 1</strong>.<br><br>
               <strong>(ii) For y = 1/f(x):</strong><br>
-              • Roots <em>(−3, 0)</em> and <em>(2, 0)</em> become vertical asymptotes <strong>x = −3</strong> and <strong>x = 2</strong>; VA <em>x = 4</em> becomes an x-intercept (open hole/touching) at <strong>(4, 0)</strong>.<br>
-              • Local max <em>(−1, 2)</em> becomes a <strong>local minimum at (−1, ½)</strong>; y-intercept becomes <strong>(0, 1)</strong>; HA becomes <strong>y = −1</strong>.
+              • Roots <em>(−3, 0)</em> and <em>(2, 0)</em> become vertical asymptotes <strong>x = −3</strong> and <strong>x = 2</strong>; VA <em>x = 4</em> becomes an x-axis approach (open hole) at <strong>(4, 0)</strong>.<br>
+              • Local max <em>(−1, 2)</em> becomes a <strong>local minimum at (−1, ½)</strong>; y-intercept stays at <strong>(0, 1)</strong>; HA remains <strong>y = −1</strong>.
               <div style="margin-top:10px; display:flex; gap:12px; flex-wrap:wrap; justify-content:center;">
                 <svg width="260" height="190" viewBox="0 0 260 190" style="background:#fdfbf7; border:1px solid #cbd5e1; border-radius:10px;">
                   <text x="10" y="16" font-size="10.5" font-weight="bold" fill="#7c3aed">(i) y = |f(x)|</text>
                   <line x1="15" y1="145" x2="245" y2="145" stroke="#64748b" stroke-width="1.2"/>
                   <line x1="125" y1="20" x2="125" y2="175" stroke="#64748b" stroke-width="1.2"/>
-                  <line x1="15" y1="115" x2="245" y2="115" stroke="#0f766e" stroke-width="1.2" stroke-dasharray="4,3"/>
+                  <line x1="15" y1="115" x2="125" y2="115" stroke="#0f766e" stroke-width="1.2" stroke-dasharray="4,3"/>
                   <text x="20" y="110" font-size="9" font-weight="bold" fill="#0f766e">y = 1</text>
                   <line x1="205" y1="20" x2="205" y2="175" stroke="#0284c7" stroke-width="1.2" stroke-dasharray="4,3"/>
                   <text x="208" y="30" font-size="9" font-weight="bold" fill="#0284c7">x = 4</text>
                   <path d="M 18 122 Q 55 128, 70 145 Q 105 75, 125 115 Q 145 135, 165 145 Q 188 100, 198 25" fill="none" stroke="#8b5cf6" stroke-width="2.2"/>
+                  <path d="M 212 25 Q 222 105, 245 135" fill="none" stroke="#8b5cf6" stroke-width="2.2"/>
                   <circle cx="105" cy="92" r="3" fill="#e11d48"/>
                   <text x="82" y="85" font-size="9" font-weight="bold" fill="#881337">(−1, 2)</text>
                   <text x="52" y="158" font-size="9" fill="#1e293b">(−3, 0)</text>
@@ -995,7 +1053,7 @@
                   <text x="10" y="16" font-size="10.5" font-weight="bold" fill="#7c3aed">(ii) y = 1/f(x)</text>
                   <line x1="15" y1="105" x2="245" y2="105" stroke="#64748b" stroke-width="1.2"/>
                   <line x1="125" y1="20" x2="125" y2="175" stroke="#64748b" stroke-width="1.2"/>
-                  <line x1="15" y1="135" x2="245" y2="135" stroke="#0f766e" stroke-width="1.2" stroke-dasharray="4,3"/>
+                  <line x1="15" y1="135" x2="125" y2="135" stroke="#0f766e" stroke-width="1.2" stroke-dasharray="4,3"/>
                   <text x="18" y="146" font-size="9" font-weight="bold" fill="#0f766e">y = −1</text>
                   <line x1="65" y1="20" x2="65" y2="175" stroke="#0284c7" stroke-width="1.2" stroke-dasharray="4,3"/>
                   <text x="34" y="30" font-size="9" font-weight="bold" fill="#0284c7">x = −3</text>
@@ -1004,6 +1062,8 @@
                   <path d="M 18 139 Q 52 145, 60 175" fill="none" stroke="#8b5cf6" stroke-width="2.2"/>
                   <path d="M 72 25 Q 92 88, 108 88 Q 135 88, 158 25" fill="none" stroke="#8b5cf6" stroke-width="2.2"/>
                   <path d="M 172 175 Q 185 112, 205 105 L 238 92" fill="none" stroke="#8b5cf6" stroke-width="2.2"/>
+                  <circle cx="205" cy="105" r="3.2" fill="#ffffff" stroke="#e11d48" stroke-width="1.8"/>
+                  <text x="196" y="118" font-size="8.5" font-weight="bold" fill="#881337">(4, 0)</text>
                   <circle cx="108" cy="88" r="3" fill="#e11d48"/>
                   <text x="88" y="79" font-size="9" font-weight="bold" fill="#881337">(−1, ½)</text>
                 </svg>
