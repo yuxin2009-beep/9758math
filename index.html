@@ -896,47 +896,52 @@
             exitAnswer: "Replacing x with x² gives −3 < x² < 7. Since x² ≥ 0 always, 0 ≤ x² < 7 ⇒ <strong>−√7 &lt; x &lt; √7</strong>."
           },
           {
+            {
             label: "Lesson 3: Systems of Linear Equations & Modelling",
             file: "interactives/1_3_lesson3.html",
             videoEmbedUrl: "",
             prereq: "Setting up variables with clear units and solving 2 × 2 simultaneous linear equations.",
             objectives: [
-              "Formulate a system of linear equations from real-world contexts (investment, mixtures, rates, polynomial fitting).",
-              "Solve 3 × 3 systems of linear equations accurately using a graphing calculator.",
-              "Interpret solutions in context and check for unique, infinitely many, or inconsistent cases."
+              "Formulate a system of linear equations from real-world contexts (investment, mixtures, pricing, polynomial fitting).",
+              "Solve 3 × 3 systems as well as underdetermined 2 × 3 systems using a graphing calculator.",
+              "Apply real-world domain restrictions (such as positive integers) to filter parametric GC output into discrete combinations."
             ],
             prompts: [
-              "Select a real-world scenario preset and map each constraint sentence into a linear equation ax + by + cz = d.",
-              "Inspect the augmented matrix and reduced row-echelon form (RREF) output alongside the TI-84 PlySmlt2 steps.",
-              "Adjust a parameter to see when two planes become parallel (no solution) or intersect in a line (infinitely many solutions)."
+              "Explore Preset 1 (2 Eqns, 3 Unknowns) to see how TI-84 PlySmlt2 expresses x and y in terms of a parameter k, and how integer/minimum constraints yield 5 discrete combinations.",
+              "Toggle 'Min Qty (≥ 1 vs ≥ 0)' to see how changing boundary conditions changes the number of valid combinations.",
+              "Inspect the 3 × 3 presets and verify how the GC solution satisfies every constraint in the verification table."
             ],
             pitfalls: [
-              "Defining variables vaguely (e.g., 'Let x be apples') instead of specifying quantity and units ('Let $x be the cost of 1 kg of apples').",
-              "Forgetting to state the final answer in full contextual sentences with units after reading off x, y, z from the GC."
+              "Defining variables vaguely (e.g., 'Let x be notebooks') instead of specifying quantity and units ('Let x be the number of notebooks purchased').",
+              "Leaving raw GC symbols (x₁, x₂, x₃) in the final answer or claiming 'infinitely many solutions' when real-world integer constraints restrict the answer to a finite list."
             ],
-            gcTip: "On the TI-84 Plus CE, press [APPS] > [PlySmlt2] > [2: Simultaneous Eqn Solver], set Equations = 3 and Unknowns = 3, enter coefficients, and press [GRAPH] (SOLVE).",
+            gcTip: "On the TI-84 Plus CE, press [APPS] > [PlySmlt2] > [2: Simultaneous Eqn Solver]. Set Equations = 3, Unknowns = 3 (or Equations = 2, Unknowns = 3 for underdetermined systems), key in the coefficients, and press [GRAPH].",
             workedQuestion: `
-              A florist prepares three types of bouquets: Classic, Deluxe, and Royal.<br>
-              • A Classic bouquet uses 5 roses, 3 lilies, and 2 tulips, and sells for $34.<br>
-              • A Deluxe bouquet uses 8 roses, 4 lilies, and 4 tulips, and sells for $54.<br>
-              • A Royal bouquet uses 12 roses, 6 lilies, and 5 tulips, and sells for $78.<br>
-              <strong>(i)</strong> By defining your variables clearly, write down a system of three linear equations to represent this information. [2]<br>
-              <strong>(ii)</strong> Use a graphing calculator to find the selling price of each rose, lily, and tulip. [2]<br>
-              <strong>(iii)</strong> A customer orders a custom bouquet with 6 roses, 5 lilies, and 3 tulips, and is given a 10% discount. Find the amount paid by the customer. [2]
+              A school committee is buying <strong>20 stationery gift sets</strong> consisting of notebooks, pens, and folders for a competition, spending a total budget of <strong>$95</strong>.<br>
+              • Each notebook costs <strong>$6</strong>, each pen costs <strong>$2</strong>, and each folder costs <strong>$5</strong>.<br>
+              • The committee buys <strong>at least 1 of each item</strong>.<br>
+              <strong>(i)</strong> By defining your variables clearly, write down a system of two linear equations to represent this information. [2]<br>
+              <strong>(ii)</strong> Use a graphing calculator to express the number of notebooks and pens in terms of the number of folders, and hence find all possible combinations of notebooks, pens, and folders that can be purchased. [5]
             `,
             workedSolution: `
-              <strong>(i)</strong> Let <em>$r, $l, $t</em> be the selling price of one rose, one lily, and one tulip respectively.<br>
-              <em>5r + 3l + 2t = 34</em><br>
-              <em>8r + 4l + 4t = 54</em><br>
-              <em>12r + 6l + 5t = 78</em><br><br>
-              <strong>(ii)</strong> Using a graphing calculator (Simultaneous Equation Solver):<br>
-              <em>r = 3.5, l = 3.5, t = 3</em>.<br>
-              Thus, each rose costs <strong>$3.50</strong>, each lily costs <strong>$3.50</strong>, and each tulip costs <strong>$3.00</strong>.<br><br>
-              <strong>(iii)</strong> Total before discount = <em>6(3.50) + 5(3.50) + 3(3.00) = 21 + 17.50 + 9 = $47.50</em>.<br>
-              Amount paid after 10% discount = <em>0.9 × $47.50 =</em> <strong>$42.75</strong>.
+              <strong>(i)</strong> Let <em>x, y, z</em> be the number of notebooks, pens, and folders purchased respectively (where <em>x, y, z ∈ ℤ⁺</em>).<br>
+              <em>x + y + z = 20</em><br>
+              <em>6x + 2y + 5z = 95</em><br><br>
+              <strong>(ii)</strong> Using a GC Simultaneous Equation Solver (Equations = 2, Unknowns = 3) with <em>z = k</em> (<em>k ∈ ℤ⁺</em>):<br>
+              <em>x = (55 − 3k)/4</em> &nbsp;and&nbsp; <em>y = (25 − k)/4</em>.<br>
+              Since <em>x ≥ 1, y ≥ 1, z ≥ 1</em>:<br>
+              • <em>(55 − 3k)/4 ≥ 1 ⇒ 3k ≤ 51 ⇒ k ≤ 17</em><br>
+              • <em>(25 − k)/4 ≥ 1 ⇒ k ≤ 21</em><br>
+              • <em>k ≥ 1</em><br>
+              Hence <em>1 ≤ k ≤ 17</em>. For <em>x, y</em> to be integers, <em>25 − k</em> must be divisible by 4, giving <strong>k = 1, 5, 9, 13, 17</strong>:<br>
+              • <em>k = 1</em>: <strong>13 notebooks, 6 pens, 1 folder</strong><br>
+              • <em>k = 5</em>: <strong>10 notebooks, 5 pens, 5 folders</strong><br>
+              • <em>k = 9</em>: <strong>7 notebooks, 4 pens, 9 folders</strong><br>
+              • <em>k = 13</em>: <strong>4 notebooks, 3 pens, 13 folders</strong><br>
+              • <em>k = 17</em>: <strong>1 notebook, 2 pens, 17 folders</strong>
             `,
-            exitQuestion: "A quadratic curve y = ax² + bx + c passes through (1, 4), (−1, 6), and (2, 9). Set up the system of linear equations in a, b, and c.",
-            exitAnswer: "a + b + c = 4, a − b + c = 6, and 4a + 2b + c = 9 (which solves to a = 2, b = −1, c = 3)."
+            exitQuestion: "If a GC solver gives x = (19 − 2k)/3 and y = (8 − k)/3 for positive integers x, y, k, find all valid values of k.",
+            exitAnswer: "We need (8 − k)/3 ≥ 1 ⇒ k ≤ 5 and 8 − k divisible by 3, giving <strong>k = 2</strong> (x = 5, y = 2) and <strong>k = 5</strong> (x = 3, y = 1)."
           }
         ]
       }
