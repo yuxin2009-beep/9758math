@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 1.2 Lesson 5: Parametric Equations & Synthesis</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .app-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 470px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 960px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.78rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .anim-panel {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 11px 13px;
+      margin-bottom: 12px;
+    }
+
+    .anim-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .play-btn {
+      background: var(--purple-dark);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 7px 14px;
+      font-weight: 700;
+      font-size: 0.8rem;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .play-btn:hover {
+      background: #6d28d9;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple-dark);
+      cursor: pointer;
+    }
+
+    .endpoint-controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .ep-toggle {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .ep-btn {
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid #94a3b8;
+      background: #ffffff;
+      font-size: 0.74rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .ep-btn.closed {
+      background: var(--rose-bg);
+      color: var(--rose);
+      border-color: #fda4af;
+    }
+
+    .cartesian-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 12px 14px;
+      color: #134e4a;
+      font-size: 0.82rem;
+      line-height: 1.55;
+      margin-bottom: 12px;
+    }
+
+    .box-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .grader-card {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 13px;
+    }
+
+    .grader-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .mcq-options {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 8px 11px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 8px;
+      font-size: 0.79rem;
+      line-height: 1.45;
+      padding: 8px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .canvas-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .legend {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    canvas {
+      width: 100%;
+      height: 495px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      background: #ffffff;
+      display: block;
+    }
+
+    .misconception-box {
+      margin-top: 12px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 0.82rem;
+      line-height: 1.5;
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-container">
+  <!-- LEFT CONTROL PANEL -->
+  <div class="card">
+    <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+      1.2 Lesson 5 &bull; Parametric Curves &amp; Exam Synthesis
+    </div>
+
+    <div class="preset-grid">
+      <button class="tab-btn active" id="pre_ellipse" onclick="selectPreset('ellipse')">
+        1. Half-Ellipse (Trig)
+      </button>
+      <button class="tab-btn" id="pre_parab" onclick="selectPreset('parab')">
+        2. Parabola Segment
+      </button>
+      <button class="tab-btn" id="pre_hyp" onclick="selectPreset('hyp')">
+        3. Hyperbola Branch
+      </button>
+      <button class="tab-btn" id="pre_loop" onclick="selectPreset('loop')">
+        4. Cubic Loop (t³ − 3t, t²)
+      </button>
+    </div>
+
+    <!-- Parameter Tracer & Animation -->
+    <div class="anim-panel">
+      <div style="display:flex; justify-content:space-between; font-size:0.78rem; font-weight:800; color:#4c1d95;">
+        <span>PARAMETER TRACER (t)</span>
+        <span id="tValLabel">t = 3.14 | P(−1.00, −2.00)</span>
+      </div>
+      <div class="anim-controls">
+        <button class="play-btn" onclick="playTrace()">&#9654; Trace t</button>
+        <input type="range" id="tSlider" min="0" max="1" step="0.005" value="1" oninput="onTScrub(this.value)" />
+      </div>
+    </div>
+
+    <!-- Endpoint Inclusion Toggles -->
+    <div class="endpoint-controls">
+      <div class="ep-toggle">
+        <span id="startEpText">Start (t<sub>min</sub>):</span>
+        <button class="ep-btn closed" id="btnStartClosed" onclick="toggleStartClosed()">Closed [•]</button>
+      </div>
+      <div class="ep-toggle">
+        <span id="endEpText">End (t<sub>max</sub>):</span>
+        <button class="ep-btn closed" id="btnEndClosed" onclick="toggleEndClosed()">Closed [•]</button>
+      </div>
+    </div>
+
+    <!-- Cartesian Elimination & Domain/Range -->
+    <div class="cartesian-box" id="cartesianInfo"></div>
+
+    <!-- Mini 9758 Synthesis Exam Grader -->
+    <div class="grader-card">
+      <div class="grader-header">
+        <strong style="font-size:0.82rem; color:#1e293b;">9758 Quick Exam Check (<span id="qNum">1</span>/4)</strong>
+        <button class="ep-btn" onclick="nextQuestion()">Next Question &rarr;</button>
+      </div>
+      <div id="graderPrompt" style="font-size:0.81rem; line-height:1.45; color:#334155;"></div>
+      <div class="mcq-options" id="graderOptions"></div>
+      <div class="grader-feedback" id="graderFeedback"></div>
+    </div>
+  </div>
+
+  <!-- RIGHT GRAPHING CANVAS -->
+  <div class="card">
+    <div class="canvas-header">
+      <strong style="font-size:1.02rem; color:#1e293b;" id="curveEqBanner">x = 2 cos t + 1,  y = 3 sin t − 2   (0 ≤ t ≤ π)</strong>
+      <div class="legend">
+        <span class="legend-item"><span class="dot" style="background:#cbd5e1;"></span> Full Cartesian Locus</span>
+        <span class="legend-item"><span class="dot" style="background:#8b5cf6;"></span> Active Parametric Arc</span>
+        <span class="legend-item"><span class="dot" style="background:#0f766e;"></span> Orientation Arrow</span>
+        <span class="legend-item"><span class="dot" style="background:#e11d48;"></span> Endpoints / Tracer P(t)</span>
+      </div>
+    </div>
+
+    <canvas id="paramCanvas" width="880" height="495"></canvas>
+
+    <div class="misconception-box">
+      <strong>9758 Misconception Alert (Parametric Sketching):</strong>
+      <ul style="margin:4px 0 0 0; padding-left:18px;">
+        <li><strong>Always trim to the parameter interval:</strong> Eliminating <em>t</em> gives the full Cartesian equation (e.g., an entire ellipse or hyperbola), but if <em>0 ≤ t ≤ π</em>, you must sketch <strong>only the upper half-ellipse</strong> and label both endpoints clearly.</li>
+        <li><strong>Open vs. Closed Endpoint Circles:</strong> Use a <strong>solid dot (•)</strong> when the inequality is <em>≤</em> or <em>≥</em>, and a clear <strong>open circle (○)</strong> when the inequality is strict (<em>&lt;</em> or <em>&gt;</em>).</li>
+        <li><strong>Orientation Arrows:</strong> Draw an arrowhead along the curve showing the direction of <strong>increasing <em>t</em></strong>, and verify on your GC under <span style="font-family:monospace; font-weight:700;">MODE → PAR</span>.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  let curPreset = "ellipse";
+  let tProgress = 1.0;
+  let startClosed = true;
+  let endClosed = true;
+  let traceAnimId = null;
+
+  const presets = {
+    ellipse: {
+      title: "x = 2 cos t + 1,  y = 3 sin t − 2",
+      tMin: 0,
+      tMax: Math.PI,
+      tMinStr: "0",
+      tMaxStr: "π",
+      xFn: t => 2 * Math.cos(t) + 1,
+      yFn: t => 3 * Math.sin(t) - 2,
+      fullCartesian: ctx => {
+        ctx.beginPath();
+        for (let th = 0; th <= Math.PI * 2 + 0.05; th += 0.04) {
+          const x = 2 * Math.cos(th) + 1;
+          const y = 3 * Math.sin(th) - 2;
+          if (th === 0) ctx.moveTo(toPxX(x), toPxY(y));
+          else ctx.lineTo(toPxX(x), toPxY(y));
+        }
+        ctx.stroke();
+      },
+      derivation: `
+        <strong>Cartesian Equation:</strong> cos t = (x − 1)/2, sin t = (y + 2)/3 ⇒ <strong>(x − 1)²/4 + (y + 2)²/9 = 1</strong>.<br>
+        <strong>Domain &amp; Range:</strong> Since 0 ≤ t ≤ π, <strong>−1 ≤ x ≤ 3</strong> and <strong>−2 ≤ y ≤ 1</strong> (upper semi-ellipse only).
+      `,
+      defaultStartClosed: true,
+      defaultEndClosed: true
+    },
+    parab: {
+      title: "x = t² − 2,  y = 2t + 1",
+      tMin: -2,
+      tMax: 1.5,
+      tMinStr: "−2",
+      tMaxStr: "1.5",
+      xFn: t => t * t - 2,
+      yFn: t => 2 * t + 1,
+      fullCartesian: ctx => {
+        ctx.beginPath();
+        let first = true;
+        for (let y = -6; y <= 6; y += 0.05) {
+          const x = Math.pow((y - 1) / 2, 2) - 2;
+          if (x > 8) continue;
+          if (first) { ctx.moveTo(toPxX(x), toPxY(y)); first = false; }
+          else ctx.lineTo(toPxX(x), toPxY(y));
+        }
+        ctx.stroke();
+      },
+      derivation: `
+        <strong>Cartesian Equation:</strong> t = (y − 1)/2 ⇒ <strong>(y − 1)² = 4(x + 2)</strong> (horizontal parabola, vertex (−2, 1)).<br>
+        <strong>Domain &amp; Range:</strong> For −2 ≤ t ≤ 1.5, <strong>−2 ≤ x ≤ 2</strong> and <strong>−3 ≤ y ≤ 4</strong>.
+      `,
+      defaultStartClosed: true,
+      defaultEndClosed: false
+    },
+    hyp: {
+      title: "x = 2 sec t,  y = 1.5 tan t",
+      tMin: -1.15,
+      tMax: 1.15,
+      tMinStr: "−1.15",
+      tMaxStr: "1.15",
+      xFn: t => 2 / Math.cos(t),
+      yFn: t => 1.5 * Math.tan(t),
+      fullCartesian: ctx => {
+        [-1, 1].forEach(sign => {
+          ctx.beginPath();
+          let first = true;
+          for (let u = -2; u <= 2; u += 0.04) {
+            const x = sign * 2 * Math.cosh(u);
+            const y = 1.5 * Math.sinh(u);
+            if (Math.abs(x) > 8 || Math.abs(y) > 6) continue;
+            if (first) { ctx.moveTo(toPxX(x), toPxY(y)); first = false; }
+            else ctx.lineTo(toPxX(x), toPxY(y));
+          }
+          ctx.stroke();
+        });
+      },
+      derivation: `
+        <strong>Cartesian Equation:</strong> sec²t − tan²t = 1 ⇒ <strong>x²/4 − y²/2.25 = 1</strong> (hyperbola).<br>
+        <strong>Branch Restriction:</strong> Since −π/2 &lt; t &lt; π/2, sec t ≥ 1, so only the <strong>right branch (x ≥ 2)</strong> is traced.
+      `,
+      defaultStartClosed: false,
+      defaultEndClosed: false
+    },
+    loop: {
+      title: "x = t³ − 3t,  y = t² − 2",
+      tMin: -2.1,
+      tMax: 2.1,
+      tMinStr: "−2.1",
+      tMaxStr: "2.1",
+      xFn: t => t * t * t - 3 * t,
+      yFn: t => t * t - 2,
+      fullCartesian: ctx => {
+        ctx.beginPath();
+        let first = true;
+        for (let t = -2.3; t <= 2.3; t += 0.02) {
+          const x = t * t * t - 3 * t;
+          const y = t * t - 2;
+          if (first) { ctx.moveTo(toPxX(x), toPxY(y)); first = false; }
+          else ctx.lineTo(toPxX(x), toPxY(y));
+        }
+        ctx.stroke();
+      },
+      derivation: `
+        <strong>Self-Intersection Analysis:</strong> At t = ±√3, x = 0 and y = 1, so the curve crosses itself at <strong>(0, 1)</strong>.<br>
+        <strong>Lowest Point:</strong> At t = 0, vertex is at <strong>(0, −2)</strong>. Best sketched directly in GC Parametric mode.
+      `,
+      defaultStartClosed: true,
+      defaultEndClosed: true
+    }
+  };
+
+  // Global coordinate mappers for canvas
+  const xMin = -6, xMax = 7;
+  const yMin = -5.5, yMax = 5.5;
+  let canvasW = 880, canvasH = 495;
+  const toPxX = x => ((x - xMin) / (xMax - xMin)) * canvasW;
+  const toPxY = y => canvasH - ((y - yMin) / (yMax - yMin)) * canvasH;
+
+  function selectPreset(key) {
+    curPreset = key;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("pre_" + key).classList.add("active");
+    startClosed = presets[key].defaultStartClosed;
+    endClosed = presets[key].defaultEndClosed;
+    syncEpButtons();
+    playTrace();
+  }
+
+  function toggleStartClosed() {
+    startClosed = !startClosed;
+    syncEpButtons();
+    draw();
+  }
+
+  function toggleEndClosed() {
+    endClosed = !endClosed;
+    syncEpButtons();
+    draw();
+  }
+
+  function syncEpButtons() {
+    const b1 = document.getElementById("btnStartClosed");
+    const b2 = document.getElementById("btnEndClosed");
+    b1.textContent = startClosed ? "Closed [•]" : "Open (○)";
+    b1.classList.toggle("closed", startClosed);
+    b2.textContent = endClosed ? "Closed [•]" : "Open (○)";
+    b2.classList.toggle("closed", endClosed);
+  }
+
+  function playTrace() {
+    if (traceAnimId) cancelAnimationFrame(traceAnimId);
+    tProgress = 0;
+    const duration = 2200;
+    const t0 = performance.now();
+
+    function step(now) {
+      const raw = Math.min((now - t0) / duration, 1);
+      tProgress = raw;
+      document.getElementById("tSlider").value = tProgress.toFixed(3);
+      draw();
+      if (raw < 1) {
+        traceAnimId = requestAnimationFrame(step);
+      } else {
+        traceAnimId = null;
+      }
+    }
+    traceAnimId = requestAnimationFrame(step);
+  }
+
+  function onTScrub(val) {
+    if (traceAnimId) {
+      cancelAnimationFrame(traceAnimId);
+      traceAnimId = null;
+    }
+    tProgress = parseFloat(val);
+    draw();
+  }
+
+  function fmt(n) {
+    return Number.isInteger(n) ? n.toString() : n.toFixed(2).replace(/\.00$/, "");
+  }
+
+  function draw() {
+    const canvas = document.getElementById("paramCanvas");
+    const ctx = canvas.getContext("2d");
+    canvasW = canvas.width;
+    canvasH = canvas.height;
+    ctx.clearRect(0, 0, canvasW, canvasH);
+
+    // Grid
+    ctx.strokeStyle = "#f1f5f9";
+    ctx.lineWidth = 1;
+    for (let gx = Math.ceil(xMin); gx <= Math.floor(xMax); gx++) {
+      ctx.beginPath(); ctx.moveTo(toPxX(gx), 0); ctx.lineTo(toPxX(gx), canvasH); ctx.stroke();
+    }
+    for (let gy = Math.ceil(yMin); gy <= Math.floor(yMax); gy++) {
+      ctx.beginPath(); ctx.moveTo(0, toPxY(gy)); ctx.lineTo(canvasW, toPxY(gy)); ctx.stroke();
+    }
+
+    // Axes
+    ctx.strokeStyle = "#94a3b8";
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    ctx.moveTo(0, toPxY(0)); ctx.lineTo(canvasW, toPxY(0));
+    ctx.moveTo(toPxX(0), 0); ctx.lineTo(toPxX(0), canvasH);
+    ctx.stroke();
+
+    ctx.fillStyle = "#64748b";
+    ctx.font = "11px Segoe UI, sans-serif";
+    for (let gx = -5; gx <= 6; gx++) {
+      if (gx !== 0) ctx.fillText(gx, toPxX(gx) - 5, toPxY(0) + 14);
+    }
+    for (let gy = -5; gy <= 5; gy++) {
+      if (gy !== 0) ctx.fillText(gy, toPxX(0) + 6, toPxY(gy) + 4);
+    }
+
+    const pr = presets[curPreset];
+    const ineq1 = startClosed ? "≤" : "<";
+    const ineq2 = endClosed ? "≤" : "<";
+    document.getElementById("curveEqBanner").textContent =
+      `${pr.title}   (${pr.tMinStr} ${ineq1} t ${ineq2} ${pr.tMaxStr})`;
+
+    document.getElementById("cartesianInfo").innerHTML = `
+      <span class="box-title">Cartesian Elimination &amp; Domain/Range</span>
+      ${pr.derivation}
+    `;
+
+    // 1. Faint dashed full Cartesian locus
+    ctx.save();
+    ctx.strokeStyle = "#cbd5e1";
+    ctx.lineWidth = 1.8;
+    ctx.setLineDash([5, 5]);
+    pr.fullCartesian(ctx);
+    ctx.restore();
+
+    // 2. Active traced parametric curve from tMin to tCur
+    const tCur = pr.tMin + tProgress * (pr.tMax - pr.tMin);
+    ctx.save();
+    ctx.strokeStyle = "#8b5cf6";
+    ctx.lineWidth = 3.2;
+    ctx.beginPath();
+    const steps = 320;
+    for (let i = 0; i <= steps; i++) {
+      const t = pr.tMin + (i / steps) * (tCur - pr.tMin);
+      const px = toPxX(pr.xFn(t));
+      const py = toPxY(pr.yFn(t));
+      if (i === 0) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    }
+    ctx.stroke();
+    ctx.restore();
+
+    // 3. Draw Orientation Arrow at midpoint of traced arc
+    if (tProgress > 0.15) {
+      const tMid = pr.tMin + 0.5 * (tCur - pr.tMin);
+      const dt = 0.01;
+      const p1x = toPxX(pr.xFn(tMid - dt)), p1y = toPxY(pr.yFn(tMid - dt));
+      const p2x = toPxX(pr.xFn(tMid + dt)), p2y = toPxY(pr.yFn(tMid + dt));
+      const angle = Math.atan2(p2y - p1y, p2x - p1x);
+      drawArrowHead(ctx, p2x, p2y, angle, "#0f766e");
+    }
+
+    // 4. Start endpoint (t = tMin)
+    const xStart = pr.xFn(pr.tMin), yStart = pr.yFn(pr.tMin);
+    drawEndpoint(ctx, toPxX(xStart), toPxY(yStart), startClosed, `Start (${fmt(xStart)}, ${fmt(yStart)})`);
+
+    // 5. End endpoint (if trace complete) or moving tracer P(t)
+    const xEnd = pr.xFn(pr.tMax), yEnd = pr.yFn(pr.tMax);
+    if (tProgress >= 0.995) {
+      drawEndpoint(ctx, toPxX(xEnd), toPxY(yEnd), endClosed, `End (${fmt(xEnd)}, ${fmt(yEnd)})`);
+    } else {
+      const xNow = pr.xFn(tCur), yNow = pr.yFn(tCur);
+      ctx.fillStyle = "#e11d48";
+      ctx.beginPath();
+      ctx.arc(toPxX(xNow), toPxY(yNow), 5.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.font = "bold 11px Segoe UI, sans-serif";
+      ctx.fillText(`P(t=${fmt(tCur)})`, toPxX(xNow) + 8, toPxY(yNow) - 7);
+    }
+
+    document.getElementById("tValLabel").textContent =
+      `t = ${fmt(tCur)} | P(${fmt(pr.xFn(tCur))}, ${fmt(pr.yFn(tCur))})`;
+  }
+
+  function drawEndpoint(ctx, px, py, isClosed, label) {
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(px, py, 5.5, 0, Math.PI * 2);
+    if (isClosed) {
+      ctx.fillStyle = "#e11d48";
+      ctx.fill();
+    } else {
+      ctx.fillStyle = "#ffffff";
+      ctx.fill();
+      ctx.strokeStyle = "#e11d48";
+      ctx.lineWidth = 2.4;
+      ctx.stroke();
+    }
+    ctx.fillStyle = "#881337";
+    ctx.font = "bold 11px Segoe UI, sans-serif";
+    ctx.fillText(label, px + 8, py + 14);
+    ctx.restore();
+  }
+
+  function drawArrowHead(ctx, x, y, angle, color) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(angle);
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.moveTo(6, 0);
+    ctx.lineTo(-6, -5);
+    ctx.lineTo(-4, 0);
+    ctx.lineTo(-6, 5);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  }
+
+  // --- 9758 SYNTHESIS EXAM GRADER ---
+  const examQuestions = [
+    {
+      q: "A curve has equation y = (3x² − 5x + 4)/(x − 2). What is the equation of its oblique asymptote?",
+      opts: [
+        "y = 3x + 1",
+        "y = 3x − 5",
+        "y = 3x + 6",
+        "y = 3x − 11"
+      ],
+      ans: 0,
+      exp: "Dividing 3x² − 5x + 4 by (x − 2) gives 3x + 1 + 6/(x − 2). Thus the oblique asymptote is y = 3x + 1."
+    },
+    {
+      q: "Which sequence maps y = f(x) onto y = f(3x − 6)?",
+      opts: [
+        "Scale parallel to x-axis by factor 1/3, then translate 6 units in +x-direction",
+        "Translate 6 units in +x-direction, then scale parallel to x-axis by factor 1/3",
+        "Translate 6 units in −x-direction, then scale parallel to x-axis by factor 3",
+        "Scale parallel to x-axis by factor 3, then translate 2 units in +x-direction"
+      ],
+      ans: 1,
+      exp: "Translating by +6 units gives y = f(x − 6); scaling parallel to the x-axis by factor 1/3 replaces x with 3x, yielding y = f(3x − 6)."
+    },
+    {
+      q: "The curve y = f(x) has a local minimum at (2, −4) and cuts the x-axis at (5, 0). On y = 1/f(x), what happens at x = 2 and x = 5?",
+      opts: [
+        "Local minimum at (2, −1/4) and x-intercept at (5, 0)",
+        "Local maximum at (2, −1/4) and vertical asymptote x = 5",
+        "Local maximum at (2, 1/4) and vertical asymptote x = 5",
+        "Vertical asymptote x = 2 and horizontal asymptote y = 5"
+      ],
+      ans: 1,
+      exp: "Taking 1/f(x) preserves sign, so (2, −4) inverts to a local maximum at (2, −1/4), while the root (5, 0) becomes a vertical asymptote x = 5."
+    },
+    {
+      q: "A curve is given by x = 4 cos θ, y = 3 sin θ for −π/2 ≤ θ ≤ π/2. Which part of the ellipse x²/16 + y²/9 = 1 is sketched?",
+      opts: [
+        "Upper half (y ≥ 0)",
+        "Lower half (y ≤ 0)",
+        "Right half (x ≥ 0)",
+        "Left half (x ≤ 0)"
+      ],
+      ans: 2,
+      exp: "On [−π/2, π/2], cos θ ≥ 0 (so 0 ≤ x ≤ 4) while sin θ spans [−1, 1] (so −3 ≤ y ≤ 3), tracing the right half-ellipse."
+    }
+  ];
+
+  let qIdx = 0;
+
+  function renderQuestion() {
+    const item = examQuestions[qIdx];
+    document.getElementById("qNum").textContent = qIdx + 1;
+    document.getElementById("graderPrompt").textContent = item.q;
+    const fb = document.getElementById("graderFeedback");
+    fb.style.display = "none";
+
+    const optsDiv = document.getElementById("graderOptions");
+    optsDiv.innerHTML = item.opts.map((opt, idx) => `
+      <button class="mcq-btn" onclick="checkAnswer(${idx}, this)">${String.fromCharCode(65 + idx)}. ${opt}</button>
+    `).join("");
+  }
+
+  function checkAnswer(chosen, btnEl) {
+    const item = examQuestions[qIdx];
+    const buttons = document.querySelectorAll(".mcq-btn");
+    buttons.forEach((b, idx) => {
+      b.disabled = true;
+      if (idx === item.ans) b.classList.add("correct");
+      else if (idx === chosen) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("graderFeedback");
+    fb.style.display = "block";
+    fb.style.background = chosen === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = chosen === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${chosen === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+  }
+
+  function nextQuestion() {
+    qIdx = (qIdx + 1) % examQuestions.length;
+    renderQuestion();
+  }
+
+  syncEpButtons();
+  renderQuestion();
+  playTrace();
+</script>
+
+</body>
+</html>
