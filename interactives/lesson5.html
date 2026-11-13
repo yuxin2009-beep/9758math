@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | Lesson 5: Synthesis, Self-Inverse & Full Topic Mind Map</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;            /* Warm Cream */
+      --panel: #ffffff;         /* Crisp White */
+      --border: #e2e8f0;        /* Soft Slate Border */
+      --text: #334155;          /* Deep Charcoal Slate */
+      --muted: #64748b;         /* Muted Slate */
+      
+      /* Pastel Accents */
+      --domain: #38bdf8;        /* Pastel Sky Blue */
+      --domain-bg: #e0f2fe;
+      --domain-dark: #0284c7;
+      
+      --range: #fb923c;         /* Pastel Peach/Apricot */
+      --range-bg: #ffedd5;
+      --range-dark: #ea580c;
+      
+      --curve: #a78bfa;         /* Pastel Lavender */
+      --curve-dark: #7c3aed;
+      
+      --comp: #14b8a6;          /* Pastel Teal */
+      --comp-bg: #ccfbf1;
+      --comp-dark: #0f766e;
+      
+      --mint: #34d399;          /* Pastel Mint */
+      --mint-bg: #d1fae5;
+      --mint-dark: #059669;
+      
+      --rose: #fb7185;          /* Pastel Rose */
+      --rose-bg: #ffe4e6;
+      --rose-dark: #e11d48;
+
+      --amber-bg: #fef3c7;
+      --amber-dark: #b45309;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(90deg, #ede9fe 0%, #e0f2fe 35%, #ccfbf1 70%, #ffedd5 100%);
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    header span.badge {
+      background: #8b5cf6;
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-weight: 700;
+      margin-right: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      background: rgba(255, 255, 255, 0.85);
+      color: var(--muted);
+      border: 1px solid #cbd5e1;
+      padding: 8px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.86rem;
+      transition: all 0.2s;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+
+    .tab-btn:hover {
+      background: #ffffff;
+      color: var(--text);
+    }
+
+    .tab-btn.active {
+      background: #8b5cf6;
+      color: white;
+      border-color: #7c3aed;
+      box-shadow: 0 2px 6px rgba(139, 92, 246, 0.25);
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: 1fr 440px;
+      gap: 20px;
+      padding: 20px 24px;
+      flex: 1;
+      max-width: 1440px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 980px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .canvas-card {
+      background: var(--panel);
+      border-radius: 16px;
+      padding: 18px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 16px rgba(148, 163, 184, 0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    canvas {
+      background: #fafaf9;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      width: 100%;
+      max-width: 720px;
+      height: auto;
+    }
+
+    .legend {
+      display: flex;
+      gap: 16px;
+      margin-top: 14px;
+      font-size: 0.84rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .controls-card {
+      background: var(--panel);
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 16px rgba(148, 163, 184, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .section-title {
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--muted);
+      margin-bottom: 5px;
+      font-weight: 700;
+    }
+
+    select, input[type="range"] {
+      width: 100%;
+      accent-color: #8b5cf6;
+    }
+
+    select {
+      background: #f8fafc;
+      color: var(--text);
+      border: 1px solid #cbd5e1;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 0.91rem;
+      font-weight: 600;
+    }
+
+    .slider-group {
+      background: #f8fafc;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+    }
+
+    .readout-box {
+      background: var(--domain-bg);
+      border-radius: 12px;
+      padding: 12px 14px;
+      border-left: 5px solid var(--domain);
+    }
+
+    .readout-box.comp-box {
+      background: var(--comp-bg);
+      border-left-color: var(--comp-dark);
+    }
+
+    .readout-box.amber-box {
+      background: var(--amber-bg);
+      border-left-color: var(--amber-dark);
+    }
+
+    .readout-box.rose-box {
+      background: var(--rose-bg);
+      border-left-color: var(--rose-dark);
+    }
+
+    .readout-box.mint-box {
+      background: var(--mint-bg);
+      border-left-color: var(--mint-dark);
+    }
+
+    .readout-box.purple-box {
+      background: #f3e8ff;
+      border-left-color: var(--curve-dark);
+    }
+
+    .math-display {
+      font-family: 'Cambria Math', 'Times New Roman', serif;
+      font-size: 1.04rem;
+      margin-top: 4px;
+      font-weight: 700;
+      color: #1e293b;
+    }
+
+    .step-card {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 11px 13px;
+      font-size: 0.85rem;
+      line-height: 1.48;
+      color: #1e293b;
+    }
+
+    /* Mind Map Node Buttons */
+    .node-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .node-btn {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 9px 10px;
+      text-align: left;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .node-btn:hover {
+      background: #ffffff;
+      border-color: #8b5cf6;
+    }
+
+    .node-btn.active-node {
+      background: #8b5cf6;
+      color: #ffffff;
+      border-color: #7c3aed;
+      box-shadow: 0 2px 6px rgba(139, 92, 246, 0.25);
+    }
+
+    /* Grader Script Box */
+    .script-box {
+      background: #fffbeb;
+      border: 1.5px dashed #f59e0b;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-family: 'Cambria Math', 'Times New Roman', serif;
+      font-size: 0.96rem;
+      line-height: 1.5;
+      color: #1e293b;
+    }
+
+    .choice-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .choice-btn {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 9px 11px;
+      text-align: left;
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .choice-btn:hover:not(:disabled) {
+      border-color: #8b5cf6;
+      background: #f3e8ff;
+    }
+
+    .choice-btn.picked-correct {
+      background: var(--mint-bg);
+      color: #065f46;
+      border-color: var(--mint-dark);
+    }
+
+    .choice-btn.picked-wrong {
+      background: var(--rose-bg);
+      color: #9f1239;
+      border-color: var(--rose-dark);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div>
+    <span class="badge">9758 H2 MATH</span>
+    <strong style="font-size:1.06rem; color:#1e293b;">Lesson 5: Synthesis, Self-Inverse Functions &amp; Full Topic Mind Map</strong>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="setMode('mindmap')">1. Interactive Topic Mind Map</button>
+    <button class="tab-btn" onclick="setMode('selfinv')">2. Self-Inverse &amp; f⁻¹f vs ff⁻¹</button>
+    <button class="tab-btn" onclick="setMode('grader')">3. Be the 9758 Exam Grader</button>
+  </div>
+</header>
+
+<main>
+  <!-- Left Canvas Area -->
+  <div class="canvas-card">
+    <canvas id="mainCanvas" width="720" height="520"></canvas>
+    <div class="legend" id="mindmapLegend">
+      <div class="legend-item"><span class="dot" style="background:#8b5cf6"></span> Core Topic Hub (Functions 9758)</div>
+      <div class="legend-item"><span class="dot" style="background:#0284c7"></span> Domain &amp; Range (L1)</div>
+      <div class="legend-item"><span class="dot" style="background:#ea580c"></span> 1-1 &amp; Inverse (L2–L3)</div>
+      <div class="legend-item"><span class="dot" style="background:#0f766e"></span> Composite &amp; Synthesis (L4–L5)</div>
+    </div>
+    <div class="legend hidden" id="selfinvLegend">
+      <div class="legend-item"><span class="dot" style="background:var(--curve-dark)"></span> Function <em>y</em> = f(<em>x</em>)</div>
+      <div class="legend-item"><span class="dot" style="background:#94a3b8"></span> Symmetry Mirror Line <em>y</em> = <em>x</em></div>
+      <div class="legend-item"><span class="dot" style="background:var(--range-dark)"></span> Sample Point (<em>a, b</em>) &harr; (<em>b, a</em>) on Same Curve</div>
+    </div>
+    <div class="legend hidden" id="graderLegend">
+      <div class="legend-item"><span class="dot" style="background:var(--rose-dark)"></span> Student's Flawed Claim</div>
+      <div class="legend-item"><span class="dot" style="background:var(--mint-dark)"></span> True Mathematical Reality</div>
+    </div>
+  </div>
+
+  <!-- Right Control Panel -->
+  <div class="controls-card">
+
+    <!-- MODE 1: INTERACTIVE TOPIC MIND MAP & SUMMARY -->
+    <div id="panel-mindmap">
+      <div class="section-title">Click Any Branch on Canvas or Below to Review</div>
+      <div class="node-grid">
+        <button class="node-btn active-node" id="btn-node-0" onclick="selectMindNode(0)">★ Big Picture Overview</button>
+        <button class="node-btn" id="btn-node-1" onclick="selectMindNode(1)">1. Domain &amp; Range (D_f, R_f)</button>
+        <button class="node-btn" id="btn-node-2" onclick="selectMindNode(2)">2. One-to-One &amp; HLT</button>
+        <button class="node-btn" id="btn-node-3" onclick="selectMindNode(3)">3. Inverse Functions (f⁻¹)</button>
+        <button class="node-btn" id="btn-node-4" onclick="selectMindNode(4)">4. Composite Functions (fg)</button>
+        <button class="node-btn" id="btn-node-5" onclick="selectMindNode(5)">5. Exam Golden Checklist</button>
+      </div>
+
+      <div class="readout-box purple-box" id="mmCardBox" style="margin-top:12px;">
+        <div style="font-size:0.76rem; font-weight:800; color:#6d28d9;" id="mmBadge">TOPIC SYNTHESIS</div>
+        <div class="math-display" id="mmTitle" style="font-size:1.05rem;">Functions in H2 Mathematics (Syllabus 9758)</div>
+        <div id="mmBullets" style="font-size:0.86rem; margin-top:8px; line-height:1.5; color:#1e293b;"></div>
+      </div>
+
+      <div class="step-card" id="mmPitfall" style="margin-top:10px;"></div>
+    </div>
+
+    <!-- MODE 2: SELF-INVERSE & f^-1 f vs f f^-1 -->
+    <div id="panel-selfinv" class="hidden">
+      <div>
+        <div class="section-title">Select Self-Inverse &amp; Identity Synthesis Case</div>
+        <select id="selfInvSelect" onchange="updateSelfInv()">
+          <option value="ratSelf">1. Rational Self-Inverse: f(x) = (2x + 3) / (x − 2),  x ≠ 2</option>
+          <option value="linSelf">2. Linear Self-Inverse: f(x) = 4 − x,  x ∈ ℝ</option>
+          <option value="domIdentity">3. Domain Trap: f⁻¹f(x) = x vs. ff⁻¹(x) = x</option>
+        </select>
+      </div>
+
+      <div class="slider-group" id="selfSliderBox" style="margin-top:10px;">
+        <div class="slider-header">
+          <span>Trace symmetric pair <strong>a</strong> = <span id="valSelfA">3.0</span></span>
+        </div>
+        <input type="range" id="sliderSelfA" min="-3" max="5.5" step="0.5" value="3" oninput="draw()" />
+        <div id="selfPairOut" style="font-size:0.83rem; color:var(--curve-dark); font-weight:700; margin-top:4px;"></div>
+      </div>
+
+      <div class="readout-box comp-box" style="margin-top:10px;">
+        <div style="font-size:0.76rem; color:var(--comp-dark); font-weight:800;" id="selfRuleTitle">ALGEBRAIC PROOF &amp; SYMMETRY</div>
+        <div class="math-display" id="selfRuleMath" style="font-size:1.0rem;"></div>
+        <div id="selfRuleDesc" style="font-size:0.85rem; margin-top:5px; line-height:1.45;"></div>
+      </div>
+
+      <div class="step-card" id="selfExamTip" style="margin-top:10px;"></div>
+    </div>
+
+    <!-- MODE 3: BE THE 9758 EXAM GRADER -->
+    <div id="panel-grader" class="hidden">
+      <div class="section-title">Spot the Fatal Mistake (<span id="gNum">1</span>/4)</div>
+      <div class="script-box" id="gStudentScript"></div>
+      <div style="font-size:0.86rem; font-weight:700; color:#1e293b; margin-top:8px;">
+        As a Cambridge 9758 Examiner, why does this lose marks?
+      </div>
+      <div class="choice-grid" id="gChoices"></div>
+      <div class="readout-box mint-box hidden" id="gVerdictBox" style="margin-top:10px;">
+        <div style="font-size:0.76rem; font-weight:800; color:#065f46;">EXAMINER MARK SCHEME FEEDBACK</div>
+        <div id="gExplanation" style="font-size:0.85rem; margin-top:4px; line-height:1.45; color:#064e3b;"></div>
+      </div>
+      <button class="tab-btn active" style="margin-top:10px; width:100%;" onclick="nextGraderCase()">Next Student Script &rarr;</button>
+    </div>
+
+  </div>
+</main>
+
+<script>
+  const canvas = document.getElementById('mainCanvas');
+  const ctx = canvas.getContext('2d');
+
+  let mode = 'mindmap';
+  let activeMindNode = 0;
+  let graderIdx = 0;
+  let graderAnswered = false;
+
+  // Graph coordinate helpers
+  let xMin = -4, xMax = 7;
+  let yMin = -4, yMax = 7;
+
+  function toPxX(x) {
+    return ((x - xMin) / (xMax - xMin)) * canvas.width;
+  }
+
+  function toPxY(y) {
+    return canvas.height - ((y - yMin) / (yMax - yMin)) * canvas.height;
+  }
+
+  function setMode(newMode) {
+    mode = newMode;
+    document.querySelectorAll('.tab-btn').forEach((btn, idx) => {
+      btn.classList.toggle('active',
+        (idx === 0 && mode === 'mindmap') ||
+        (idx === 1 && mode === 'selfinv') ||
+        (idx === 2 && mode === 'grader')
+      );
+    });
+    document.getElementById('panel-mindmap').classList.toggle('hidden', mode !== 'mindmap');
+    document.getElementById('panel-selfinv').classList.toggle('hidden', mode !== 'selfinv');
+    document.getElementById('panel-grader').classList.toggle('hidden', mode !== 'grader');
+
+    document.getElementById('mindmapLegend').classList.toggle('hidden', mode !== 'mindmap');
+    document.getElementById('selfinvLegend').classList.toggle('hidden', mode !== 'selfinv');
+    document.getElementById('graderLegend').classList.toggle('hidden', mode !== 'grader');
+
+    if (mode === 'mindmap') selectMindNode(activeMindNode);
+    else if (mode === 'selfinv') updateSelfInv();
+    else if (mode === 'grader') loadGraderCase();
+  }
+
+  // ==================== MODE 1: INTERACTIVE TOPIC MIND MAP ====================
+  const mindMapNodes = [
+    {
+      badge: "COMPLETE TOPIC SYNTHESIS",
+      boxClass: "readout-box purple-box",
+      badgeColor: "#6d28d9",
+      title: "H2 Math Functions: The 4 Pillars",
+      bullets: `
+        • <strong>Pillar 1 (Definitions):</strong> A function needs BOTH a rule and a domain <em>D</em><sub>f</sub>. Range <em>R</em><sub>f</sub> is the set of actual outputs.<br>
+        • <strong>Pillar 2 (1-1 Property):</strong> <em>f</em> is 1-1 iff every horizontal line <em>y = k</em> cuts <em>y = f(x)</em> at most once (HLT).<br>
+        • <strong>Pillar 3 (Inverse <em>f</em>⁻¹):</strong> Exists iff <em>f</em> is 1-1. Swap domain &amp; range (<em>D</em><sub>f⁻¹</sub> = <em>R</em><sub>f</sub>); reflect graph across <em>y = x</em>.<br>
+        • <strong>Pillar 4 (Composite <em>fg</em>):</strong> Exists iff <em>R</em><sub>g</sub> &sube; <em>D</em><sub>f</sub>. Domain is <em>D</em><sub>fg</sub> = <em>D</em><sub>g</sub>; map <em>D</em><sub>g</sub> &rarr; <em>R</em><sub>g</sub> &rarr; <em>R</em><sub>fg</sub>.
+      `,
+      pitfall: `<strong>Interactive Tip:</strong> Click any of the 5 nodes directly on the mind map diagram (or use the buttons above) to inspect formulas, graph rules, and exam traps!`
+    },
+    {
+      badge: "LESSON 1: FOUNDATIONS",
+      boxClass: "readout-box",
+      badgeColor: "#0284c7",
+      title: "Domain (D_f) & Range (R_f)",
+      bullets: `
+        • <strong>Notation:</strong> <em>f</em> : <em>x</em> &mapsto; rule, &nbsp; <em>x</em> &in; <em>D</em><sub>f</sub>.<br>
+        • <strong>Finding <em>R</em><sub>f</sub>:</strong> Always sketch <em>y = f(x)</em> on your GC over <em>D</em><sub>f</sub>. Never just plug in endpoints!<br>
+        • <strong>Watch Out For:</strong> Interior turning points (vertices), horizontal/vertical asymptotes, and open vs. closed endpoints.
+      `,
+      pitfall: `<strong>Exam Trap:</strong> Writing <em>f(x)</em> as the name of the function instead of <em>f</em>. Remember: <em>f</em> is the function; <em>f(x)</em> is the output value.`
+    },
+    {
+      badge: "LESSON 2: EXISTENCE OF INVERSE",
+      boxClass: "readout-box amber-box",
+      badgeColor: "#b45309",
+      title: "One-to-One Functions & Domain Restriction",
+      bullets: `
+        • <strong>Horizontal Line Test (HLT):</strong> If any horizontal line <em>y = k</em> (<em>k</em> &in; <em>R</em><sub>f</sub>) intersects <em>y = f(x)</em> at 2+ points, <em>f</em> is many-to-one (no inverse).<br>
+        • <strong>Algebraic Proof:</strong> Show <em>f(x₁) = f(x₂) &rArr; x₁ = x₂</em>, or show <em>f'(x) &gt; 0</em> (strictly increasing) or <em>f'(x) &lt; 0</em> (strictly decreasing) on <em>D</em><sub>f</sub>.<br>
+        • <strong>Domain Restriction:</strong> Cut the domain at the turning point (e.g. <em>x &ge; h</em> or <em>x &le; h</em>) to make <em>f</em> 1-1.
+      `,
+      pitfall: `<strong>Exam Phrasing:</strong> When proving <em>f</em> is NOT 1-1, give a concrete counterexample: e.g. "Since <em>f(0) = f(2) = 3</em>, <em>f</em> is not 1-1."`
+    },
+    {
+      badge: "LESSON 3: INVERSE FUNCTIONS (f⁻¹)",
+      boxClass: "readout-box amber-box",
+      badgeColor: "#ea580c",
+      title: "Finding Rule, Domain & Graph of f⁻¹",
+      bullets: `
+        • <strong>Domain &amp; Range Swap:</strong> <em>D</em><sub>f⁻¹</sub> = <em>R</em><sub>f</sub> &nbsp;and&nbsp; <em>R</em><sub>f⁻¹</sub> = <em>D</em><sub>f</sub>.<br>
+        • <strong>Algebraic Rule:</strong> Set <em>y = f(x)</em>, make <em>x</em> the subject, and select the <strong>+</strong> or <strong>&minus;</strong> root that satisfies <em>x</em> &in; <em>D</em><sub>f</sub>.<br>
+        • <strong>Graphical Symmetry:</strong> <em>y = f⁻¹(x)</em> is the reflection of <em>y = f(x)</em> in the line <em>y = x</em>. Asymptotes <em>x = a</em> and <em>y = b</em> swap!
+      `,
+      pitfall: `<strong>Intersection Trap:</strong> Solving <em>f(x) = f⁻¹(x)</em> via <em>f(x) = x</em> ONLY works if <em>f</em> is strictly increasing! Decreasing functions can intersect <strong>off</strong> <em>y = x</em>.`
+    },
+    {
+      badge: "LESSON 4: COMPOSITE FUNCTIONS (fg)",
+      boxClass: "readout-box comp-box",
+      badgeColor: "#0f766e",
+      title: "Existence, Domain & Range of fg",
+      bullets: `
+        • <strong>Order:</strong> <em>fg(x) = f(g(x))</em> applies <em>g</em> first, then <em>f</em>.<br>
+        • <strong>Existence Condition:</strong> <em>fg</em> exists &hArr; <em>R</em><sub>g</sub> &sube; <em>D</em><sub>f</sub>.<br>
+        • <strong>Domain:</strong> <em>D</em><sub>fg</sub> = <em>D</em><sub>g</sub> (always inherited from the inner function, even if the algebraic rule simplifies!).<br>
+        • <strong>Range <em>R</em><sub>fg</sub>:</strong> Two-step map: <em>D</em><sub>g</sub> &xrightarrow{g} <em>R</em><sub>g</sub> &xrightarrow{f} <em>R</em><sub>fg</sub>.
+      `,
+      pitfall: `<strong>Syllabus 9758 Exclusion:</strong> Restricting <em>D</em><sub>g</sub> to force <em>fg</em> to exist is excluded; instead, exams ask for the range of constants <em>k</em> for which <em>R</em><sub>g</sub> &sube; <em>D</em><sub>f</sub>.`
+    },
+    {
+      badge: "LESSON 5: FULL MARKS PROTOCOL",
+      boxClass: "readout-box mint-box",
+      badgeColor: "#059669",
+      title: "9758 Exam Golden Checklist",
+      bullets: `
+        • <strong>1. Never omit the domain:</strong> Whenever defining <em>f⁻¹</em> or <em>fg</em>, always write both rule and domain: <em>f⁻¹ : x &mapsto; ..., x &in; ...</em><br>
+        • <strong>2. Self-Inverse Check:</strong> <em>f</em> is self-inverse iff <em>f(f(x)) = x</em> (and <em>R</em><sub>f</sub> = <em>D</em><sub>f</sub>), meaning <em>y = f(x)</em> is symmetric about <em>y = x</em>.<br>
+        • <strong>3. Identity Domains:</strong> <em>f⁻¹f(x) = x</em> has domain <em>D</em><sub>f</sub>, whereas <em>ff⁻¹(x) = x</em> has domain <em>D</em><sub>f⁻¹</sub> = <em>R</em><sub>f</sub>!
+      `,
+      pitfall: `<strong>Notation Precision:</strong> <em>f²(x)</em> means <em>f(f(x))</em> (composite), NEVER <em>[f(x)]²</em>; and <em>f⁻¹(x)</em> is the inverse function, NEVER <em>1/f(x)</em>.`
+    }
+  ];
+
+  // Coordinates of mind map nodes on 720x520 canvas for click hit-testing
+  const nodeCoords = [
+    { x: 360, y: 260, r: 58, label: "FUNCTIONS\n(9758)", color: "#8b5cf6", fill: "#f3e8ff" },
+    { x: 160, y: 115, r: 48, label: "1. Domain &\nRange", color: "#0284c7", fill: "#e0f2fe" },
+    { x: 560, y: 115, r: 48, label: "2. 1-1 &\nHLT", color: "#d97706", fill: "#fef3c7" },
+    { x: 585, y: 315, r: 48, label: "3. Inverse\nf⁻¹", color: "#ea580c", fill: "#ffedd5" },
+    { x: 360, y: 430, r: 48, label: "4. Composite\nfg", color: "#0f766e", fill: "#ccfbf1" },
+    { x: 135, y: 315, r: 48, label: "5. Exam\nChecklist", color: "#059669", fill: "#d1fae5" }
+  ];
+
+  canvas.addEventListener('click', (e) => {
+    if (mode !== 'mindmap') return;
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    const mx = (e.clientX - rect.left) * scaleX;
+    const my = (e.clientY - rect.top) * scaleY;
+
+    nodeCoords.forEach((n, idx) => {
+      if (Math.hypot(mx - n.x, my - n.y) <= n.r + 6) {
+        selectMindNode(idx);
+      }
+    });
+  });
+
+  function selectMindNode(idx) {
+    activeMindNode = idx;
+    for (let i = 0; i < 6; i++) {
+      document.getElementById(`btn-node-${i}`).classList.toggle('active-node', i === idx);
+    }
+    const data = mindMapNodes[idx];
+    const box = document.getElementById('mmCardBox');
+    box.className = data.boxClass;
+    document.getElementById('mmBadge').style.color = data.badgeColor;
+    document.getElementById('mmBadge').textContent = data.badge;
+    document.getElementById('mmTitle').textContent = data.title;
+    document.getElementById('mmBullets').innerHTML = data.bullets;
+    document.getElementById('mmPitfall').innerHTML = data.pitfall;
+    draw();
+  }
+
+  function drawMindMap() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Subtle background formula watermarks
+    ctx.fillStyle = 'rgba(148, 163, 184, 0.14)';
+    ctx.font = 'italic bold 16px Georgia, serif';
+    ctx.fillText('R_g ⊆ D_f', 485, 445);
+    ctx.fillText('D_{f⁻¹} = R_f', 535, 220);
+    ctx.fillText('f(x₁) = f(x₂) ⇒ x₁ = x₂', 310, 55);
+    ctx.fillText('f(f(x)) = x', 75, 435);
+    ctx.fillText('D_{fg} = D_g', 175, 465);
+
+    const center = nodeCoords[0];
+
+    // Draw connecting spokes and relationship labels
+    const spokeLabels = [
+      "",
+      "Foundation",
+      "Existence Test",
+      "If 1-1 ⇒ f⁻¹ Exists",
+      "Chain Machines",
+      "Full Marks"
+    ];
+
+    for (let i = 1; i < nodeCoords.length; i++) {
+      const n = nodeCoords[i];
+      const isSelected = (activeMindNode === i || activeMindNode === 0);
+
+      ctx.strokeStyle = isSelected ? n.color : '#cbd5e1';
+      ctx.lineWidth = (activeMindNode === i) ? 4 : 2.2;
+      ctx.beginPath();
+      ctx.moveTo(center.x, center.y);
+      ctx.lineTo(n.x, n.y);
+      ctx.stroke();
+
+      // Midpoint pill label
+      const mx = (center.x + n.x) / 2;
+      const my = (center.y + n.y) / 2;
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(mx - 46, my - 10, 92, 20);
+      ctx.strokeStyle = '#e2e8f0';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(mx - 46, my - 10, 92, 20);
+
+      ctx.fillStyle = isSelected ? n.color : '#64748b';
+      ctx.font = 'bold 10px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(spokeLabels[i], mx, my + 3.5);
+    }
+
+    // Secondary cross-link between Node 2 (1-1) and Node 3 (Inverse)
+    ctx.save();
+    ctx.setLineDash([4, 4]);
+    ctx.strokeStyle = '#ea580c';
+    ctx.lineWidth = 1.8;
+    ctx.beginPath();
+    ctx.moveTo(nodeCoords[2].x + 10, nodeCoords[2].y + 48);
+    ctx.lineTo(nodeCoords[3].x - 5, nodeCoords[3].y - 48);
+    ctx.stroke();
+    ctx.restore();
+
+    // Draw Nodes
+    nodeCoords.forEach((n, idx) => {
+      const isSelected = (activeMindNode === idx);
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, isSelected ? n.r + 5 : n.r, 0, Math.PI * 2);
+      ctx.fillStyle = isSelected ? n.color : n.fill;
+      ctx.fill();
+      ctx.lineWidth = isSelected ? 4 : 2.5;
+      ctx.strokeStyle = n.color;
+      ctx.stroke();
+
+      // Multi-line text inside node
+      ctx.fillStyle = isSelected ? '#ffffff' : '#1e293b';
+      ctx.font = idx === 0 ? 'bold 13px sans-serif' : 'bold 12px sans-serif';
+      ctx.textAlign = 'center';
+      const lines = n.label.split('\n');
+      lines.forEach((line, lIdx) => {
+        const yOff = (lIdx - (lines.length - 1) / 2) * 16 + 4;
+        ctx.fillText(line, n.x, n.y + yOff);
+      });
+    });
+
+    ctx.textAlign = 'left';
+  }
+
+  // ==================== MODE 2: SELF-INVERSE & IDENTITY SYNTHESIS ====================
+  function updateSelfInv() {
+    const type = document.getElementById('selfInvSelect').value;
+    const sliderBox = document.getElementById('selfSliderBox');
+    const slider = document.getElementById('sliderSelfA');
+    const title = document.getElementById('selfRuleTitle');
+    const math = document.getElementById('selfRuleMath');
+    const desc = document.getElementById('selfRuleDesc');
+    const tip = document.getElementById('selfExamTip');
+
+    if (type === 'ratSelf') {
+      sliderBox.classList.remove('hidden');
+      slider.min = -3; slider.max = 5.5; slider.step = 0.5; slider.value = 3.5;
+      title.textContent = 'SELF-INVERSE RATIONAL FUNCTION: f⁻¹(x) = f(x)';
+      math.innerHTML = 'f²(x) = f(f(x)) = x, &nbsp; x ∈ ℝ \\ {2}';
+      desc.innerHTML = 'Notice that the vertical asymptote <strong>x = 2</strong> and horizontal asymptote <strong>y = 2</strong> are equal! Thus the graph is perfectly symmetric about <em>y = x</em>.';
+      tip.innerHTML = '<strong>Quick Recognition Trick:</strong> A rational function <em>f(x) = (ax + b)/(cx + d)</em> is self-inverse whenever <strong>a + d = 0</strong> (here 2 + (−2) = 0)!';
+    } else if (type === 'linSelf') {
+      sliderBox.classList.remove('hidden');
+      slider.min = -2; slider.max = 5; slider.step = 0.5; slider.value = 1;
+      title.textContent = 'SELF-INVERSE LINEAR FUNCTION: GRADIENT = −1';
+      math.innerHTML = 'f(x) = 4 − x &nbsp;&rArr;&nbsp; f(f(x)) = 4 − (4 − x) = x';
+      desc.innerHTML = 'Any line <em>y = c − x</em> has gradient <strong>−1</strong>, which is perpendicular to the mirror line <em>y = x</em>, making it self-inverse!';
+      tip.innerHTML = '<strong>Exam Insight:</strong> To show <em>f</em> is self-inverse in an exam, either find <em>f⁻¹(x)</em> and show it equals <em>f(x)</em> (with identical domains), or show <em>f²(x) = x</em> with <em>R</em><sub>f</sub> = <em>D</em><sub>f</sub>.';
+    } else if (type === 'domIdentity') {
+      sliderBox.classList.add('hidden');
+      title.textContent = 'CRITICAL DISTINCTION: f⁻¹f(x) vs. ff⁻¹(x)';
+      math.innerHTML = 'f⁻¹f(x) = x (x ∈ D<sub>f</sub>) &nbsp;&ne;&nbsp; ff⁻¹(x) = x (x ∈ D<sub>f⁻¹</sub>)';
+      desc.innerHTML = 'For <em>f(x) = eˣ</em> (<em>D</em><sub>f</sub> = ℝ) and <em>f⁻¹(x) = ln x</em> (<em>D</em><sub>f⁻¹</sub> = (0, ∞)):<br>• <strong>f⁻¹f(x) = ln(eˣ) = x</strong> is valid for all <strong>x ∈ ℝ</strong>.<br>• <strong>ff⁻¹(x) = e^(ln x) = x</strong> is ONLY valid for <strong>x ∈ (0, ∞)</strong>!';
+      tip.innerHTML = '<strong>Why They Are Not Equal Functions:</strong> Two functions are equal iff they have the same rule <strong>AND</strong> the same domain. Here <em>D</em><sub>f⁻¹f</sub> = ℝ &ne; (0, ∞) = <em>D</em><sub>ff⁻¹</sub>!';
+    }
+    draw();
+  }
+
+  function drawGridStandard() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.strokeStyle = '#e2e8f0';
+    ctx.lineWidth = 1;
+    for (let x = Math.ceil(xMin); x <= Math.floor(xMax); x++) {
+      ctx.beginPath(); ctx.moveTo(toPxX(x), 0); ctx.lineTo(toPxX(x), canvas.height); ctx.stroke();
+    }
+    for (let y = Math.ceil(yMin); y <= Math.floor(yMax); y++) {
+      ctx.beginPath(); ctx.moveTo(0, toPxY(y)); ctx.lineTo(canvas.width, toPxY(y)); ctx.stroke();
+    }
+
+    ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(0, toPxY(0)); ctx.lineTo(canvas.width, toPxY(0)); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(toPxX(0), 0); ctx.lineTo(toPxX(0), canvas.height); ctx.stroke();
+
+    // Mirror line y = x
+    ctx.save();
+    ctx.setLineDash([7, 6]);
+    ctx.strokeStyle = '#94a3b8';
+    ctx.lineWidth = 2;
+    const d1 = Math.max(xMin, yMin), d2 = Math.min(xMax, yMax);
+    ctx.beginPath(); ctx.moveTo(toPxX(d1), toPxY(d1)); ctx.lineTo(toPxX(d2), toPxY(d2)); ctx.stroke();
+    ctx.restore();
+
+    ctx.fillStyle = '#64748b'; ctx.font = 'italic 600 13px sans-serif';
+    ctx.fillText('y = x', toPxX(d2 - 1.1), toPxY(d2 - 0.5));
+
+    ctx.font = '600 12px sans-serif';
+    for (let x = Math.ceil(xMin); x <= Math.floor(xMax); x++) {
+      if (x !== 0) ctx.fillText(x, toPxX(x) - 4, toPxY(0) + 16);
+    }
+    for (let y = Math.ceil(yMin); y <= Math.floor(yMax); y++) {
+      if (y !== 0) ctx.fillText(y, toPxX(0) + 8, toPxY(y) + 4);
+    }
+    ctx.fillText('O', toPxX(0) - 14, toPxY(0) + 15);
+  }
+
+  function drawSelfInv() {
+    const type = document.getElementById('selfInvSelect').value;
+
+    if (type === 'ratSelf') {
+      xMin = -4; xMax = 8; yMin = -4; yMax = 8;
+      drawGridStandard();
+
+      let a = parseFloat(document.getElementById('sliderSelfA').value);
+      if (Math.abs(a - 2) < 0.2) a = 2.5;
+      document.getElementById('valSelfA').textContent = a.toFixed(1);
+
+      const f = x => (2 * x + 3) / (x - 2);
+      const b = f(a);
+      document.getElementById('selfPairOut').innerHTML =
+        `f(${a.toFixed(1)}) = ${b.toFixed(2)} &nbsp;and&nbsp; f(${b.toFixed(2)}) = ${a.toFixed(1)} &rArr; f(f(${a.toFixed(1)})) = ${a.toFixed(1)}`;
+
+      // Asymptotes x = 2 and y = 2
+      ctx.setLineDash([5, 5]); ctx.strokeStyle = '#fb7185'; ctx.lineWidth = 1.6;
+      ctx.beginPath(); ctx.moveTo(toPxX(2), 0); ctx.lineTo(toPxX(2), canvas.height); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0, toPxY(2)); ctx.lineTo(canvas.width, toPxY(2)); ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Plot curve
+      ctx.strokeStyle = '#7c3aed'; ctx.lineWidth = 3.5;
+      let pen = false; ctx.beginPath();
+      for (let px = 0; px <= canvas.width; px += 2) {
+        let x = xMin + (px / canvas.width) * (xMax - xMin);
+        if (Math.abs(x - 2) < 0.04) { pen = false; continue; }
+        let y = f(x);
+        if (y < yMin - 1 || y > yMax + 1) { pen = false; continue; }
+        if (!pen) { ctx.moveTo(px, toPxY(y)); pen = true; } else ctx.lineTo(px, toPxY(y));
+      }
+      ctx.stroke();
+
+      // Draw symmetric pair (a, b) and (b, a) both lying ON the same curve!
+      if (a >= xMin && a <= xMax && b >= yMin && b <= yMax) {
+        ctx.save(); ctx.setLineDash([4, 4]); ctx.strokeStyle = '#ea580c'; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(toPxX(a), toPxY(b)); ctx.lineTo(toPxX(b), toPxY(a)); ctx.stroke();
+        ctx.restore();
+
+        drawDot(a, b, '#ea580c');
+        drawDot(b, a, '#0f766e');
+      }
+
+    } else if (type === 'linSelf') {
+      xMin = -3; xMax = 7; yMin = -3; yMax = 7;
+      drawGridStandard();
+
+      let a = parseFloat(document.getElementById('sliderSelfA').value);
+      document.getElementById('valSelfA').textContent = a.toFixed(1);
+      const b = 4 - a;
+      document.getElementById('selfPairOut').innerHTML =
+        `(${a.toFixed(1)}, ${b.toFixed(1)}) &harr; (${b.toFixed(1)}, ${a.toFixed(1)}) both lie on y = 4 − x!`;
+
+      ctx.strokeStyle = '#7c3aed'; ctx.lineWidth = 3.5; ctx.beginPath();
+      ctx.moveTo(toPxX(-3), toPxY(7));
+      ctx.lineTo(toPxX(7), toPxY(-3));
+      ctx.stroke();
+
+      drawDot(a, b, '#ea580c');
+      drawDot(b, a, '#0f766e');
+      drawDot(2, 2, '#7c3aed');
+      ctx.fillStyle = '#5b21b6'; ctx.font = 'bold 12px sans-serif';
+      ctx.fillText('Fixed point (2, 2) on y = x', toPxX(2) + 10, toPxY(2) - 8);
+
+    } else if (type === 'domIdentity') {
+      xMin = -4; xMax = 6; yMin = -4; yMax = 6;
+      drawGridStandard();
+
+      // Left/Full line: f^-1 f(x) = x for x in R (dashed purple)
+      ctx.strokeStyle = '#7c3aed'; ctx.lineWidth = 5; ctx.beginPath();
+      ctx.moveTo(toPxX(-4), toPxY(-4));
+      ctx.lineTo(toPxX(0), toPxY(0));
+      ctx.stroke();
+
+      // Right ray: both f^-1 f(x) and f f^-1(x) exist for x > 0 (teal)
+      ctx.strokeStyle = '#0f766e'; ctx.lineWidth = 4; ctx.beginPath();
+      ctx.moveTo(toPxX(0), toPxY(0));
+      ctx.lineTo(toPxX(6), toPxY(6));
+      ctx.stroke();
+
+      // Open circle at (0, 0) for ff^-1
+      ctx.beginPath(); ctx.arc(toPxX(0), toPxY(0), 7, 0, Math.PI * 2);
+      ctx.fillStyle = '#ffffff'; ctx.fill(); ctx.lineWidth = 2.5; ctx.strokeStyle = '#0f766e'; ctx.stroke();
+
+      ctx.fillStyle = '#6d28d9'; ctx.font = 'bold 12px sans-serif';
+      ctx.fillText('f⁻¹f(x) = ln(eˣ) = x  (Valid for ALL x ∈ ℝ)', toPxX(-3.8), toPxY(-2.2));
+      ctx.fillStyle = '#0f766e';
+      ctx.fillText('ff⁻¹(x) = e^(ln x) = x  (Valid ONLY for x > 0!)', toPxX(0.4), toPxY(1.2));
+    }
+  }
+
+  function drawDot(x, y, color) {
+    if (x < xMin || x > xMax || y < yMin || y > yMax) return;
+    ctx.beginPath(); ctx.arc(toPxX(x), toPxY(y), 6.5, 0, Math.PI * 2);
+    ctx.fillStyle = color; ctx.fill();
+    ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 2; ctx.stroke();
+  }
+
+  // ==================== MODE 3: BE THE 9758 EXAM GRADER ====================
+  const graderCases = [
+    {
+      script: `<strong>Question:</strong> Find f⁻¹ in similar form, given f : x ↦ (x − 2)² + 3 for x ≤ 2.<br><br>
+               <strong>Student's Working:</strong><br>
+               Let y = (x − 2)² + 3 &rArr; x = 2 ± √(y − 3).<br>
+               &there4; f⁻¹(x) = 2 + √(x − 3), &nbsp; x ≥ 3.`,
+      choices: [
+        "Wrong domain: D_{f⁻¹} should be x ≥ 2 instead of x ≥ 3.",
+        "Wrong sign on the square root: since D_f = (−∞, 2], R_{f⁻¹} must be ≤ 2, so f⁻¹(x) = 2 − √(x − 3).",
+        "No mistake — the student gets full marks."
+      ],
+      correct: 1,
+      feedback: "<strong>−1 Mark (Accuracy):</strong> Because <em>R</em><sub>f⁻¹</sub> = <em>D</em><sub>f</sub> = (−∞, 2], the output of <em>f⁻¹(x)</em> must be &le; 2. Taking 2 + &radic;(x − 3) produces values &ge; 2 (the right branch!). It MUST be <strong>2 − &radic;(x − 3)</strong>."
+    },
+    {
+      script: `<strong>Question:</strong> Given f(x) = 1 / (x − 4) (x ≠ 4) and g(x) = eˣ (x ∈ ℝ), find fg in similar form.<br><br>
+               <strong>Student's Working:</strong><br>
+               R_g = (0, ∞) ⊆ ℝ \\ {4} = D_f, so fg exists.<br>
+               &there4; fg : x ↦ 1 / (eˣ − 4), &nbsp; x ≠ ln 4.`,
+      choices: [
+        "Wrong rule: fg(x) should be e^(1/(x − 4)).",
+        "False claim: fg does not exist because 4 ∈ R_g = (0, ∞)! You cannot restrict D_{fg} to x ≠ ln 4.",
+        "Wrong domain: D_{fg} should be x > 0."
+      ],
+      correct: 1,
+      feedback: "<strong>Fatal Conceptual Error:</strong> Since <em>R</em><sub>g</sub> = (0, &infin;) contains 4 (when <em>x</em> = ln 4), <em>R</em><sub>g</sub> &nsubseteq; <em>D</em><sub>f</sub>! Therefore <strong>fg does NOT exist</strong>. Under Syllabus 9758, students cannot arbitrarily restrict <em>D</em><sub>g</sub> to force a composite function to exist."
+    },
+    {
+      script: `<strong>Question:</strong> Given f(x) = −x² + 5 for x ∈ ℝ, solve f(x) = f⁻¹(x).<br><br>
+               <strong>Student's Working:</strong><br>
+               Since f is 1-1 on ℝ, f(x) = f⁻¹(x) &rArr; f(x) = x.<br>
+               −x² + 5 = x &rArr; x² + x − 5 = 0 &rArr; x = (−1 ± √21) / 2.`,
+      choices: [
+        "f(x) = −x² + 5 on ℝ is NOT one-to-one (e.g. f(1) = f(−1) = 4), so f⁻¹ does not even exist!",
+        "The quadratic formula was applied wrongly.",
+        "Only the positive root should be kept."
+      ],
+      correct: 0,
+      feedback: "<strong>0 Marks:</strong> Always check existence first! On <em>x</em> &in; &Ropf;, <em>f(x) = −x² + 5</em> fails the Horizontal Line Test, so <em>f⁻¹</em> does not exist at all."
+    },
+    {
+      script: `<strong>Question:</strong> Given f(x) = x² + 1 (x ≥ 0) and g(x) = √(x − 2) (x ≥ 2), find the composite function fg.<br><br>
+               <strong>Student's Working:</strong><br>
+               fg(x) = (√(x − 2))² + 1 = x − 1.<br>
+               &there4; fg : x ↦ x − 1, &nbsp; x ∈ ℝ.`,
+      choices: [
+        "Wrong algebraic simplification: (√(x − 2))² + 1 simplifies to x − 3.",
+        "Wrong domain: even though fg(x) simplifies to x − 1, D_{fg} = D_g = [2, ∞), NOT ℝ!",
+        "fg does not exist because R_g ⊈ D_f."
+      ],
+      correct: 1,
+      feedback: "<strong>−1 Mark (Domain Loss):</strong> Simplifying <em>(&radic;(x − 2))² + 1</em> to <em>x − 1</em> erases the square root visually, but the input <em>x</em> still enters machine <em>g</em> first! Thus <strong>D<sub>fg</sub> = D<sub>g</sub> = [2, &infin;)</strong>."
+    }
+  ];
+
+  function loadGraderCase() {
+    graderAnswered = false;
+    const c = graderCases[graderIdx];
+    document.getElementById('gNum').textContent = graderIdx + 1;
+    document.getElementById('gStudentScript').innerHTML = c.script;
+    document.getElementById('gVerdictBox').classList.add('hidden');
+
+    const chDiv = document.getElementById('gChoices');
+    chDiv.innerHTML = '';
+    c.choices.forEach((txt, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'choice-btn';
+      btn.textContent = txt;
+      btn.onclick = () => {
+        graderAnswered = true;
+        chDiv.querySelectorAll('button').forEach((b, idx) => {
+          b.disabled = true;
+          if (idx === c.correct) b.classList.add('picked-correct');
+          else if (idx === i) b.classList.add('picked-wrong');
+        });
+        document.getElementById('gExplanation').innerHTML = c.feedback;
+        document.getElementById('gVerdictBox').classList.remove('hidden');
+        draw();
+      };
+      chDiv.appendChild(btn);
+    });
+
+    draw();
+  }
+
+  function nextGraderCase() {
+    graderIdx = (graderIdx + 1) % graderCases.length;
+    loadGraderCase();
+  }
+
+  function drawGraderVisual() {
+    xMin = -3; xMax = 6; yMin = -2; yMax = 8;
+    drawGridStandard();
+
+    if (graderIdx === 0) {
+      // Plot f(x) = (x - 2)^2 + 3 for x <= 2 and true f^-1(x) = 2 - sqrt(x - 3)
+      ctx.strokeStyle = '#7c3aed'; ctx.lineWidth = 3.5; ctx.beginPath();
+      for (let x = -0.2; x <= 2.001; x += 0.02) {
+        let y = Math.pow(x - 2, 2) + 3;
+        if (x === -0.2) ctx.moveTo(toPxX(x), toPxY(y)); else ctx.lineTo(toPxX(x), toPxY(y));
+      }
+      ctx.stroke();
+
+      // True f^-1 (Mint)
+      ctx.strokeStyle = '#059669'; ctx.lineWidth = 3.5; ctx.beginPath();
+      for (let x = 3; x <= 6; x += 0.02) {
+        let y = 2 - Math.sqrt(x - 3);
+        if (x === 3) ctx.moveTo(toPxX(x), toPxY(y)); else ctx.lineTo(toPxX(x), toPxY(y));
+      }
+      ctx.stroke();
+
+      // Student's wrong f^-1 (Rose dashed)
+      ctx.setLineDash([5, 5]); ctx.strokeStyle = '#e11d48'; ctx.lineWidth = 3; ctx.beginPath();
+      for (let x = 3; x <= 6; x += 0.02) {
+        let y = 2 + Math.sqrt(x - 3);
+        if (x === 3) ctx.moveTo(toPxX(x), toPxY(y)); else ctx.lineTo(toPxX(x), toPxY(y));
+      }
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      ctx.fillStyle = '#059669'; ctx.font = 'bold 12px sans-serif';
+      ctx.fillText('✓ True f⁻¹(x) = 2 − √(x − 3)', toPxX(3.1), toPxY(0.4));
+      ctx.fillStyle = '#e11d48';
+      ctx.fillText('✗ Student: 2 + √(x − 3)', toPxX(3.1), toPxY(3.6));
+
+    } else if (graderIdx === 1) {
+      // g(x) = e^x hitting y = 4 at x = ln 4
+      ctx.strokeStyle = '#7c3aed'; ctx.lineWidth = 3.5; ctx.beginPath();
+      for (let x = -3; x <= 2.05; x += 0.02) {
+        let y = Math.exp(x);
+        if (x === -3) ctx.moveTo(toPxX(x), toPxY(y)); else ctx.lineTo(toPxX(x), toPxY(y));
+      }
+      ctx.stroke();
+
+      ctx.setLineDash([5, 5]); ctx.strokeStyle = '#e11d48'; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(0, toPxY(4)); ctx.lineTo(canvas.width, toPxY(4)); ctx.stroke();
+      ctx.setLineDash([]);
+
+      drawDot(Math.log(4), 4, '#e11d48');
+      ctx.fillStyle = '#9f1239'; ctx.font = 'bold 12px sans-serif';
+      ctx.fillText('Collision at (ln 4, 4): 4 ∈ R_g but 4 ∉ D_f!', toPxX(1.5), toPxY(4) - 10);
+
+    } else if (graderIdx === 2) {
+      // f(x) = -x^2 + 5 failing HLT
+      ctx.strokeStyle = '#7c3aed'; ctx.lineWidth = 3.5; ctx.beginPath();
+      for (let x = -2.6; x <= 2.6; x += 0.02) {
+        let y = -x * x + 5;
+        if (x === -2.6) ctx.moveTo(toPxX(x), toPxY(y)); else ctx.lineTo(toPxX(x), toPxY(y));
+      }
+      ctx.stroke();
+
+      ctx.setLineDash([5, 5]); ctx.strokeStyle = '#e11d48'; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(0, toPxY(4)); ctx.lineTo(canvas.width, toPxY(4)); ctx.stroke();
+      ctx.setLineDash([]);
+
+      drawDot(-1, 4, '#e11d48');
+      drawDot(1, 4, '#e11d48');
+      ctx.fillStyle = '#9f1239'; ctx.font = 'bold 12px sans-serif';
+      ctx.fillText('Fails HLT: f(−1) = f(1) = 4 ⇒ No f⁻¹!', toPxX(1.2), toPxY(4) + 16);
+
+    } else if (graderIdx === 3) {
+      // True ray x - 1 for x >= 2 (mint) vs student's full line (rose dashed)
+      ctx.setLineDash([5, 5]); ctx.strokeStyle = '#e11d48'; ctx.lineWidth = 2.5; ctx.beginPath();
+      ctx.moveTo(toPxX(-1), toPxY(-2));
+      ctx.lineTo(toPxX(2), toPxY(1));
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      ctx.strokeStyle = '#059669'; ctx.lineWidth = 4; ctx.beginPath();
+      ctx.moveTo(toPxX(2), toPxY(1));
+      ctx.lineTo(toPxX(6), toPxY(5));
+      ctx.stroke();
+
+      drawDot(2, 1, '#059669');
+      ctx.fillStyle = '#059669'; ctx.font = 'bold 12px sans-serif';
+      ctx.fillText('✓ True fg starts at (2, 1) since D_{fg} = D_g = [2, ∞)', toPxX(2.1), toPxY(1) + 18);
+      ctx.fillStyle = '#e11d48';
+      ctx.fillText('✗ Undefined for x < 2!', toPxX(-2.5), toPxY(-0.5));
+    }
+  }
+
+  function draw() {
+    if (mode === 'mindmap') drawMindMap();
+    else if (mode === 'selfinv') drawSelfInv();
+    else if (mode === 'grader') drawGraderVisual();
+  }
+
+  // Initialize on Interactive Topic Mind Map
+  selectMindNode(0);
+</script>
+</body>
+</html>
