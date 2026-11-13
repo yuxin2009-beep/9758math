@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 1.3 Lesson 1: Rational & Quadratic Inequalities Lab</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .app-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 465px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 960px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.78rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .ineq-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .ineq-btn {
+      padding: 7px;
+      border-radius: 8px;
+      border: 1px solid #94a3b8;
+      background: #ffffff;
+      font-weight: 800;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .ineq-btn.active {
+      background: var(--blue);
+      color: #ffffff;
+      border-color: #0369a1;
+    }
+
+    .slider-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .slider-group {
+      background: #f8fafc;
+      padding: 8px 11px;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .algebra-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 12px 14px;
+      color: #134e4a;
+      font-size: 0.82rem;
+      line-height: 1.55;
+      margin-bottom: 12px;
+    }
+
+    .box-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .solution-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 11px 14px;
+      color: #4c1d95;
+      font-size: 0.86rem;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    .canvas-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .legend {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    canvas {
+      width: 100%;
+      height: 500px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      background: #ffffff;
+      display: block;
+    }
+
+    .misconception-box {
+      margin-top: 12px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 0.82rem;
+      line-height: 1.5;
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-container">
+  <!-- LEFT CONTROL PANEL -->
+  <div class="card">
+    <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+      1.3 Lesson 1 &bull; Rational &amp; Quadratic Inequalities
+    </div>
+
+    <div class="preset-row">
+      <button class="tab-btn active" id="pre_ratLin" onclick="setPreset('ratLin')">
+        (ax + b)/(x − c) ⋛ k
+      </button>
+      <button class="tab-btn" id="pre_quadRat" onclick="setPreset('quadRat')">
+        (x − a)(x − b)/(x − c) ⋛ 0
+      </button>
+    </div>
+
+    <!-- Inequality Sign Selector -->
+    <div class="ineq-bar">
+      <button class="ineq-btn active" id="op_gt" onclick="setOp('>')"> &gt; </button>
+      <button class="ineq-btn" id="op_ge" onclick="setOp('>=')"> &ge; </button>
+      <button class="ineq-btn" id="op_lt" onclick="setOp('<')"> &lt; </button>
+      <button class="ineq-btn" id="op_le" onclick="setOp('<=')"> &le; </button>
+    </div>
+
+    <!-- Parameter Sliders -->
+    <div class="slider-grid" id="sliderArea"></div>
+
+    <!-- Step-by-Step Algebraic Derivation -->
+    <div class="algebra-box" id="algebraSteps"></div>
+
+    <!-- Final Solution Set -->
+    <div class="solution-banner" id="solutionBanner"></div>
+  </div>
+
+  <!-- RIGHT GRAPHING CANVAS -->
+  <div class="card">
+    <div class="canvas-header">
+      <strong style="font-size:1.05rem; color:#1e293b;" id="headerEq">Solve: (2x − 1)/(x − 2) &gt; 1</strong>
+      <div class="legend">
+        <span class="legend-item"><span class="dot" style="background:#8b5cf6;"></span> LHS Curve y = f(x)</span>
+        <span class="legend-item"><span class="dot" style="background:#0284c7;"></span> RHS Line y = g(x)</span>
+        <span class="legend-item"><span class="dot" style="background:#10b981;"></span> Valid Solution Region (x)</span>
+        <span class="legend-item"><span class="dot" style="background:#e11d48;"></span> Vertical Asymptote (Always Open)</span>
+      </div>
+    </div>
+
+    <canvas id="ineqCanvas" width="880" height="500"></canvas>
+
+    <div class="misconception-box">
+      <strong>9758 Misconception Alert (Rational Inequalities):</strong>
+      <ul style="margin:4px 0 0 0; padding-left:18px;">
+        <li><strong>Never cross-multiply by an expression containing <em>x</em>:</strong> Multiplying <em>(2x − 1)/(x − 2) &gt; 1</em> by <em>(x − 2)</em> reverses the inequality when <em>x &lt; 2</em>. Always bring all terms to the LHS over a single common denominator, or multiply by <em>(x − 2)² &gt; 0</em>.</li>
+        <li><strong>Vertical asymptotes are NEVER included:</strong> Even when solving <em>≥</em> or <em>≤</em>, the value of <em>x</em> that makes the denominator zero is undefined and must always be marked with an <strong>open circle (○)</strong> and strict inequality (<em>&lt;</em> or <em>&gt;</em>).</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  let mode = "ratLin";
+  let op = ">";
+
+  let params = {
+    ratLin: { a: 2, b: -1, c: 2, k: 1 },
+    quadRat: { r1: -2, r2: 3, c: 1 }
+  };
+
+  function setPreset(m) {
+    mode = m;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("pre_" + m).classList.add("active");
+    renderSliders();
+    draw();
+  }
+
+  function setOp(newOp) {
+    op = newOp;
+    document.querySelectorAll(".ineq-btn").forEach(b => b.classList.remove("active"));
+    const map = { ">": "op_gt", ">=": "op_ge", "<": "op_lt", "<=": "op_le" };
+    document.getElementById(map[newOp]).classList.add("active");
+    draw();
+  }
+
+  function renderSliders() {
+    const area = document.getElementById("sliderArea");
+    const p = params[mode];
+    let defs = [];
+    if (mode === "ratLin") {
+      defs = [
+        { k: "a", lbl: "a (numerator x)", min: 1, max: 4, step: 1, v: p.a },
+        { k: "b", lbl: "b (numerator const)", min: -5, max: 5, step: 1, v: p.b },
+        { k: "c", lbl: "c (asymptote x = c)", min: -3, max: 4, step: 1, v: p.c },
+        { k: "k", lbl: "k (RHS constant)", min: -2, max: 4, step: 1, v: p.k }
+      ];
+    } else {
+      defs = [
+        { k: "r1", lbl: "Root 1 (x = r₁)", min: -5, max: 0, step: 1, v: p.r1 },
+        { k: "r2", lbl: "Root 2 (x = r₂)", min: 1, max: 5, step: 1, v: p.r2 },
+        { k: "c", lbl: "Asymptote (x = c)", min: -3, max: 4, step: 1, v: p.c }
+      ];
+    }
+    area.innerHTML = defs.map(d => `
+      <div class="slider-group">
+        <div class="slider-header">
+          <span>${d.lbl}</span>
+          <span id="lbl_${d.k}" style="color:var(--purple-dark);">${d.v}</span>
+        </div>
+        <input type="range" min="${d.min}" max="${d.max}" step="${d.step}" value="${d.v}"
+               oninput="updateParam('${d.k}', this.value)" />
+      </div>
+    `).join("");
+  }
+
+  function updateParam(key, raw) {
+    let v = parseInt(raw, 10);
+    if (mode === "ratLin" && key === "a" && v === params.ratLin.k) {
+      v = v === 1 ? 2 : 1; // keep numerator non-constant after subtraction
+    }
+    params[mode][key] = v;
+    document.getElementById("lbl_" + key).textContent = v;
+    draw();
+  }
+
+  function fmtNum(n) {
+    return Number.isInteger(n) ? n.toString() : n.toFixed(2).replace(/\.00$/, "");
+  }
+
+  function opSymbol() {
+    return { ">": ">", ">=": "≥", "<": "<", "<=": "≤" }[op];
+  }
+
+  function checkCond(lhs, rhs) {
+    if (!isFinite(lhs) || !isFinite(rhs)) return false;
+    if (op === ">") return lhs > rhs;
+    if (op === ">=") return lhs >= rhs - 1e-6;
+    if (op === "<") return lhs < rhs;
+    if (op === "<=") return lhs <= rhs + 1e-6;
+    return false;
+  }
+
+  function draw() {
+    const canvas = document.getElementById("ineqCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const xMin = -7, xMax = 8;
+    const yMin = -6, yMax = 7;
+    const toPxX = x => ((x - xMin) / (xMax - xMin)) * W;
+    const toPxY = y => H - ((y - yMin) / (yMax - yMin)) * H;
+
+    // Grid
+    ctx.strokeStyle = "#f1f5f9";
+    ctx.lineWidth = 1;
+    for (let gx = xMin; gx <= xMax; gx++) {
+      ctx.beginPath(); ctx.moveTo(toPxX(gx), 0); ctx.lineTo(toPxX(gx), H); ctx.stroke();
+    }
+    for (let gy = yMin; gy <= yMax; gy++) {
+      ctx.beginPath(); ctx.moveTo(0, toPxY(gy)); ctx.lineTo(W, toPxY(gy)); ctx.stroke();
+    }
+
+    const p = params[mode];
+    let fFn, gFn, vaX, critPoints = [];
+
+    if (mode === "ratLin") {
+      const { a, b, c, k } = p;
+      fFn = x => (Math.abs(x - c) < 0.025 ? NaN : (a * x + b) / (x - c));
+      gFn = x => k;
+      vaX = c;
+
+      // (ax + b)/(x - c) - k = ((a - k)x + (b + kc))/(x - c)
+      const numSlope = a - k;
+      const numConst = b + k * c;
+      const rootX = numSlope !== 0 ? -numConst / numSlope : NaN;
+
+      const bStr = b >= 0 ? `+ ${b}` : `− ${Math.abs(b)}`;
+      const cStr = c >= 0 ? `− ${c}` : `+ ${Math.abs(c)}`;
+      document.getElementById("headerEq").textContent =
+        `Solve: (${a === 1 ? "" : a}x ${bStr}) / (x ${cStr}) ${opSymbol()} ${k}`;
+
+      if (isFinite(rootX) && Math.abs(rootX - c) > 1e-6) {
+        critPoints.push({ x: rootX, isVA: false });
+      }
+      critPoints.push({ x: c, isVA: true });
+
+      const ncStr = numConst >= 0 ? `+ ${numConst}` : `− ${Math.abs(numConst)}`;
+      document.getElementById("algebraSteps").innerHTML = `
+        <span class="box-title">Step-by-Step Sign-Chart Method</span>
+        <strong>1.</strong> Bring <em>${k}</em> to LHS: <em>[(${a}x ${bStr}) − ${k}(x ${cStr})] / (x ${cStr}) ${opSymbol()} 0</em><br>
+        <strong>2.</strong> Simplify numerator: <strong>(${numSlope}x ${ncStr}) / (x ${cStr}) ${opSymbol()} 0</strong><br>
+        <strong>3.</strong> Critical values: <strong>x = ${fmtNum(rootX)}</strong> (root) and <strong>x = ${c}</strong> (asymptote, excluded).
+      `;
+    } else {
+      const { r1, r2, c } = p;
+      fFn = x => (Math.abs(x - c) < 0.025 ? NaN : ((x - r1) * (x - r2)) / (x - c));
+      gFn = x => 0;
+      vaX = c;
+
+      const r1Str = r1 >= 0 ? `− ${r1}` : `+ ${Math.abs(r1)}`;
+      const r2Str = r2 >= 0 ? `− ${r2}` : `+ ${Math.abs(r2)}`;
+      const cStr = c >= 0 ? `− ${c}` : `+ ${Math.abs(c)}`;
+      document.getElementById("headerEq").textContent =
+        `Solve: (x ${r1Str})(x ${r2Str}) / (x ${cStr}) ${opSymbol()} 0`;
+
+      if (r1 !== c) critPoints.push({ x: r1, isVA: false });
+      if (r2 !== c) critPoints.push({ x: r2, isVA: false });
+      critPoints.push({ x: c, isVA: true });
+
+      document.getElementById("algebraSteps").innerHTML = `
+        <span class="box-title">Step-by-Step Sign-Chart Method</span>
+        <strong>1.</strong> Already factorised with 0 on RHS.<br>
+        <strong>2.</strong> Critical values: roots <strong>x = ${r1}, ${r2}</strong> and asymptote <strong>x = ${c}</strong> (always excluded).<br>
+        <strong>3.</strong> Test the sign of each linear factor across the sub-intervals on the x-axis.
+      `;
+    }
+
+    // Shade valid x-intervals lightly across canvas & highlight along x-axis
+    const samples = 900;
+    const dx = (xMax - xMin) / samples;
+    ctx.fillStyle = "rgba(16, 185, 129, 0.10)";
+    for (let i = 0; i < samples; i++) {
+      const xm = xMin + (i + 0.5) * dx;
+      if (Math.abs(xm - vaX) < 0.03) continue;
+      if (checkCond(fFn(xm), gFn(xm))) {
+        ctx.fillRect(toPxX(xMin + i * dx), 0, Math.ceil(W / samples), H);
+      }
+    }
+
+    // Axes
+    ctx.strokeStyle = "#94a3b8";
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    ctx.moveTo(0, toPxY(0)); ctx.lineTo(W, toPxY(0));
+    ctx.moveTo(toPxX(0), 0); ctx.lineTo(toPxX(0), H);
+    ctx.stroke();
+
+    ctx.fillStyle = "#64748b";
+    ctx.font = "11px Segoe UI, sans-serif";
+    for (let gx = -6; gx <= 7; gx++) {
+      if (gx !== 0) ctx.fillText(gx, toPxX(gx) - 5, toPxY(0) + 14);
+    }
+    for (let gy = -5; gy <= 6; gy++) {
+      if (gy !== 0) ctx.fillText(gy, toPxX(0) + 6, toPxY(gy) + 4);
+    }
+
+    // Vertical Asymptote
+    ctx.save();
+    ctx.setLineDash([6, 5]);
+    ctx.strokeStyle = "#e11d48";
+    ctx.lineWidth = 1.8;
+    ctx.beginPath();
+    ctx.moveTo(toPxX(vaX), 0); ctx.lineTo(toPxX(vaX), H);
+    ctx.stroke();
+    ctx.fillStyle = "#e11d48";
+    ctx.font = "bold 11px Segoe UI, sans-serif";
+    ctx.fillText(`VA: x = ${vaX}`, toPxX(vaX) + 5, 18);
+    ctx.restore();
+
+    // Plot RHS y = g(x)
+    plotCurve(ctx, gFn, "#0284c7", 2.2, [6, 4], xMin, xMax, yMin, yMax, toPxX, toPxY);
+
+    // Plot LHS y = f(x)
+    plotCurve(ctx, fFn, "#8b5cf6", 3, [], xMin, xMax, yMin, yMax, toPxX, toPxY);
+
+    // Highlight valid intervals directly along the x-axis (number line)
+    ctx.strokeStyle = "#059669";
+    ctx.lineWidth = 4.5;
+    for (let i = 0; i < samples; i++) {
+      const xm = xMin + (i + 0.5) * dx;
+      if (Math.abs(xm - vaX) < 0.03) continue;
+      if (checkCond(fFn(xm), gFn(xm))) {
+        ctx.beginPath();
+        ctx.moveTo(toPxX(xMin + i * dx), toPxY(0));
+        ctx.lineTo(toPxX(xMin + (i + 1) * dx), toPxY(0));
+        ctx.stroke();
+      }
+    }
+
+    // Draw Critical Point Circles on x-axis & Intersection Points
+    const isInclusive = op === ">=" || op === "<=";
+    critPoints.sort((a, b) => a.x - b.x);
+    critPoints.forEach(cp => {
+      const px = toPxX(cp.x);
+      const pyAxis = toPxY(0);
+      const closed = !cp.isVA && isInclusive;
+
+      // Intersection dot on curve
+      if (!cp.isVA) {
+        const pyCurve = toPxY(gFn(cp.x));
+        ctx.fillStyle = "#0284c7";
+        ctx.beginPath();
+        ctx.arc(px, pyCurve, 4.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Number-line circle on x-axis
+      ctx.beginPath();
+      ctx.arc(px, pyAxis, 5.5, 0, Math.PI * 2);
+      if (closed) {
+        ctx.fillStyle = "#059669";
+        ctx.fill();
+      } else {
+        ctx.fillStyle = "#ffffff";
+        ctx.fill();
+        ctx.strokeStyle = cp.isVA ? "#e11d48" : "#059669";
+        ctx.lineWidth = 2.4;
+        ctx.stroke();
+      }
+    });
+
+    // Build exact interval string
+    buildSolutionText(critPoints, fFn, gFn, isInclusive);
+  }
+
+  function buildSolutionText(critPoints, fFn, gFn, isInclusive) {
+    let bounds = [-Infinity, ...critPoints.map(c => c.x), Infinity];
+    let intervals = [];
+
+    for (let i = 0; i < bounds.length - 1; i++) {
+      const left = bounds[i];
+      const right = bounds[i + 1];
+      if (Math.abs(right - left) < 1e-6) continue;
+
+      const testX = !isFinite(left) ? right - 1 : !isFinite(right) ? left + 1 : 0.5 * (left + right);
+      if (checkCond(fFn(testX), gFn(testX))) {
+        const leftObj = critPoints.find(c => Math.abs(c.x - left) < 1e-6);
+        const rightObj = critPoints.find(c => Math.abs(c.x - right) < 1e-6);
+
+        if (!isFinite(left)) {
+          const sym = (!rightObj.isVA && isInclusive) ? "≤" : "<";
+          intervals.push(`x ${sym} ${fmtNum(right)}`);
+        } else if (!isFinite(right)) {
+          const sym = (!leftObj.isVA && isInclusive) ? "≥" : ">";
+          intervals.push(`x ${sym} ${fmtNum(left)}`);
+        } else {
+          const lSym = (!leftObj.isVA && isInclusive) ? "≤" : "<";
+          const rSym = (!rightObj.isVA && isInclusive) ? "≤" : "<";
+          intervals.push(`${fmtNum(left)} ${lSym} x ${rSym} ${fmtNum(right)}`);
+        }
+      }
+    }
+
+    document.getElementById("solutionBanner").innerHTML =
+      `Solution Set: ${intervals.length ? intervals.join(" &nbsp;or&nbsp; ") : "No real solutions (∅)"}`;
+  }
+
+  function plotCurve(ctx, fn, color, width, dash, xMin, xMax, yMin, yMax, toPxX, toPxY) {
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = width;
+    ctx.setLineDash(dash);
+    ctx.beginPath();
+    let penDown = false;
+    const step = (xMax - xMin) / 1000;
+    for (let x = xMin; x <= xMax; x += step) {
+      const y = fn(x);
+      if (!isFinite(y) || y < yMin - 5 || y > yMax + 5) {
+        penDown = false;
+        continue;
+      }
+      const px = toPxX(x), py = toPxY(y);
+      if (!penDown) { ctx.moveTo(px, py); penDown = true; }
+      else { ctx.lineTo(px, py); }
+    }
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  renderSliders();
+  draw();
+</script>
+
+</body>
+</html>
