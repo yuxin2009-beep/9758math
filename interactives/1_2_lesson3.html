@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 1.2 Lesson 3: Animated Sequences of Transformations</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .app-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 465px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 960px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .curve-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 8px;
+      border-radius: 9px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.78rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .preset-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .preset-btn {
+      background: var(--blue-bg);
+      color: var(--blue);
+      border: 1px solid #bae6fd;
+      border-radius: 8px;
+      padding: 5px 9px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .preset-btn:hover {
+      background: #bae6fd;
+    }
+
+    .anim-panel {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      margin-bottom: 12px;
+    }
+
+    .anim-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .play-btn {
+      background: var(--purple-dark);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 7px 14px;
+      font-weight: 700;
+      font-size: 0.8rem;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: 0.15s;
+    }
+
+    .play-btn:hover {
+      background: #6d28d9;
+    }
+
+    .slider-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .slider-group {
+      background: #f8fafc;
+      padding: 8px 11px;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .order-box {
+      margin-top: 12px;
+      background: var(--amber-bg);
+      border: 1px solid #fde68a;
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 0.82rem;
+      color: #78350f;
+    }
+
+    .order-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .order-btn {
+      padding: 7px 8px;
+      border-radius: 8px;
+      border: 1px solid #f59e0b;
+      background: #ffffff;
+      color: #78350f;
+      font-weight: 700;
+      font-size: 0.77rem;
+      cursor: pointer;
+    }
+
+    .order-btn.active {
+      background: #d97706;
+      color: #ffffff;
+    }
+
+    .phrasing-banner {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 14px;
+      margin-top: 12px;
+      color: #134e4a;
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+
+    .phrasing-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .tracker-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 0.79rem;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .tracker-table th, .tracker-table td {
+      border: 1px solid #e2e8f0;
+      padding: 6px 8px;
+      text-align: left;
+    }
+
+    .tracker-table th {
+      background: #f1f5f9;
+      font-weight: 700;
+      color: #1e293b;
+    }
+
+    .canvas-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .legend {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    canvas {
+      width: 100%;
+      height: 500px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      background: #ffffff;
+      display: block;
+    }
+
+    .misconception-box {
+      margin-top: 12px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 0.82rem;
+      line-height: 1.5;
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-container">
+  <!-- LEFT CONTROL PANEL -->
+  <div class="card">
+    <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:6px;">
+      1.2 Lesson 3 &bull; Animated Transformations Lab
+    </div>
+
+    <div class="curve-tabs">
+      <button class="tab-btn active" id="curve_quad" onclick="setCurve('quad')">
+        Base: Quadratic
+      </button>
+      <button class="tab-btn" id="curve_rat" onclick="setCurve('rat')">
+        Base: Rational
+      </button>
+      <button class="tab-btn" id="curve_trig" onclick="setCurve('trig')">
+        Base: Cubic/Wave
+      </button>
+    </div>
+
+    <!-- Exam Presets -->
+    <div class="preset-row">
+      <button class="preset-btn" onclick="applyPreset(2, 3, 1, 0)">y = f(2x + 3)</button>
+      <button class="preset-btn" onclick="applyPreset(0.5, -2, 2, 1)">y = 2f(½x − 2) + 1</button>
+      <button class="preset-btn" onclick="applyPreset(-1, 2, -1, 3)">y = −f(−x + 2) + 3</button>
+      <button class="preset-btn" onclick="applyPreset(1, 0, 1, 0)">Reset y = f(x)</button>
+    </div>
+
+    <!-- Two-Stage Sequence Animator -->
+    <div class="anim-panel">
+      <div style="display:flex; justify-content:space-between; font-size:0.77rem; font-weight:800; color:#4c1d95;">
+        <span>STEP-BY-STEP SEQUENCE ANIMATION</span>
+        <span id="stageStatus">100% (Final Curve)</span>
+      </div>
+      <div class="anim-controls">
+        <button class="play-btn" onclick="startSequenceAnimation()">&#9654; Animate Sequence</button>
+        <input type="range" id="seqSlider" min="0" max="1" step="0.01" value="1" oninput="onSeqScrub(this.value)" />
+      </div>
+    </div>
+
+    <!-- Sliders for y = a * f(b*x + c) + d -->
+    <div class="slider-grid">
+      <div class="slider-group">
+        <div class="slider-header">
+          <span>a (vertical scale)</span>
+          <span id="lbl_a" style="color:var(--purple-dark);">1</span>
+        </div>
+        <input type="range" id="sl_a" min="-3" max="3" step="0.5" value="1" oninput="updateSliders()" />
+      </div>
+      <div class="slider-group">
+        <div class="slider-header">
+          <span>d (vertical shift)</span>
+          <span id="lbl_d" style="color:var(--purple-dark);">0</span>
+        </div>
+        <input type="range" id="sl_d" min="-4" max="4" step="1" value="0" oninput="updateSliders()" />
+      </div>
+      <div class="slider-group">
+        <div class="slider-header">
+          <span>b (horiz scale)</span>
+          <span id="lbl_b" style="color:var(--blue);">2</span>
+        </div>
+        <input type="range" id="sl_b" min="-2" max="3" step="0.5" value="2" oninput="updateSliders()" />
+      </div>
+      <div class="slider-group">
+        <div class="slider-header">
+          <span>c (horiz shift)</span>
+          <span id="lbl_c" style="color:var(--blue);">3</span>
+        </div>
+        <input type="range" id="sl_c" min="-4" max="4" step="1" value="3" oninput="updateSliders()" />
+      </div>
+    </div>
+
+    <!-- Order of Horizontal Transformations Toggle -->
+    <div class="order-box">
+      <strong>Horizontal Order Explorer for f(bx + c):</strong>
+      <div class="order-toggle">
+        <button class="order-btn active" id="ord_TS" onclick="setOrder('TS')">
+          Option A: Translate c, then Scale 1/b
+        </button>
+        <button class="order-btn" id="ord_ST" onclick="setOrder('ST')">
+          Option B: Scale 1/b, then Translate c/b
+        </button>
+      </div>
+    </div>
+
+    <!-- Official 9758 Exam Phrasing -->
+    <div class="phrasing-banner" id="phrasingBox"></div>
+
+    <!-- Key Point & Asymptote Tracker -->
+    <table class="tracker-table" id="trackerTable"></table>
+  </div>
+
+  <!-- RIGHT GRAPHING CANVAS -->
+  <div class="card">
+    <div class="canvas-header">
+      <strong style="font-size:1.05rem; color:#1e293b;" id="targetBanner">Target: y = f(2x + 3)</strong>
+      <div class="legend">
+        <span class="legend-item"><span class="dot" style="background:#94a3b8;"></span> Original y = f(x)</span>
+        <span class="legend-item"><span class="dot" style="background:#0284c7;"></span> Horizontal Stage</span>
+        <span class="legend-item"><span class="dot" style="background:#8b5cf6;"></span> Active / Final Curve</span>
+        <span class="legend-item"><span class="dot" style="background:#e11d48;"></span> Tracked Key Point</span>
+      </div>
+    </div>
+
+    <canvas id="transCanvas" width="880" height="500"></canvas>
+
+    <div class="misconception-box">
+      <strong>9758 Misconception Alert (Order &amp; Exam Phrasing):</strong>
+      <ul style="margin:4px 0 0 0; padding-left:18px;">
+        <li><strong>Order matters when combining scaling and translation in the same axis:</strong> To reach <em>y = f(2x + 3)</em> from <em>y = f(x)</em>:
+          <br>&bull; <strong>Translate first (Option A):</strong> Translate by <strong>−3 units</strong> in the x-direction (<em>x ↦ x + 3</em>), then scale parallel to the x-axis by factor <strong>½</strong> (<em>x ↦ 2x</em>, giving <em>2x + 3</em>).
+          <br>&bull; <strong>Scale first (Option B):</strong> Factor out 2 as <em>f(2(x + 3/2))</em> — scale parallel to the x-axis by factor <strong>½</strong> first (<em>x ↦ 2x</em>), then translate by <strong>−3/2 units</strong> in the x-direction (<em>x ↦ x + 3/2</em>).</li>
+        <li><strong>Use exact 9758 terminology:</strong> Always write <em>"translation of k units in the positive/negative x-direction"</em>, <em>"scaling parallel to the x-axis (or y-axis) by a scale factor of k"</em>, and <em>"reflection in the x-axis (or y-axis)"</em>—never "shift" or "stretch".</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  let curveType = "quad";
+  let orderMode = "TS"; // 'TS' = Translate then Scale; 'ST' = Scale then Translate
+  let p = { a: 1, b: 2, c: 3, d: 0 };
+
+  let animProgress = 1.0; // [0, 0.5] = Horizontal stage; [0.5, 1.0] = Vertical stage
+  let animId = null;
+
+  function startSequenceAnimation() {
+    if (animId) cancelAnimationFrame(animId);
+    animProgress = 0;
+    const duration = 2400; // 2.4s across horizontal + vertical phases
+    const t0 = performance.now();
+
+    function tick(now) {
+      const raw = Math.min((now - t0) / duration, 1);
+      // Smooth ease-in-out
+      animProgress = raw < 0.5
+        ? 2 * raw * raw
+        : 1 - Math.pow(-2 * raw + 2, 2) / 2;
+
+      document.getElementById("seqSlider").value = animProgress.toFixed(2);
+      updateStageLabel();
+      draw();
+
+      if (raw < 1) {
+        animId = requestAnimationFrame(tick);
+      } else {
+        animId = null;
+      }
+    }
+    animId = requestAnimationFrame(tick);
+  }
+
+  function onSeqScrub(val) {
+    if (animId) {
+      cancelAnimationFrame(animId);
+      animId = null;
+    }
+    animProgress = parseFloat(val);
+    updateStageLabel();
+    draw();
+  }
+
+  function updateStageLabel() {
+    const lbl = document.getElementById("stageStatus");
+    if (animProgress === 0) {
+      lbl.textContent = "0% (Original y = f(x))";
+    } else if (animProgress < 0.25) {
+      lbl.textContent = orderMode === "TS" ? "Step 1: Translating x..." : "Step 1: Scaling/Reflecting x...";
+    } else if (animProgress < 0.5) {
+      lbl.textContent = orderMode === "TS" ? "Step 2: Scaling/Reflecting x..." : "Step 2: Translating x...";
+    } else if (animProgress < 1.0) {
+      lbl.textContent = "Step 3: Vertical Scale & Shift...";
+    } else {
+      lbl.textContent = "100% (Final Curve)";
+    }
+  }
+
+  function setCurve(type) {
+    curveType = type;
+    document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+    document.getElementById("curve_" + type).classList.add("active");
+    startSequenceAnimation();
+  }
+
+  function setOrder(ord) {
+    orderMode = ord;
+    document.getElementById("ord_TS").classList.toggle("active", ord === "TS");
+    document.getElementById("ord_ST").classList.toggle("active", ord === "ST");
+    startSequenceAnimation();
+  }
+
+  function applyPreset(b, c, a, d) {
+    p = { a, b, c, d };
+    document.getElementById("sl_a").value = a;
+    document.getElementById("sl_b").value = b;
+    document.getElementById("sl_c").value = c;
+    document.getElementById("sl_d").value = d;
+    document.getElementById("lbl_a").textContent = a;
+    document.getElementById("lbl_b").textContent = b;
+    document.getElementById("lbl_c").textContent = c;
+    document.getElementById("lbl_d").textContent = d;
+    startSequenceAnimation();
+  }
+
+  function updateSliders() {
+    let a = parseFloat(document.getElementById("sl_a").value);
+    let b = parseFloat(document.getElementById("sl_b").value);
+    let c = parseFloat(document.getElementById("sl_c").value);
+    let d = parseFloat(document.getElementById("sl_d").value);
+
+    if (a === 0) { a = 1; document.getElementById("sl_a").value = 1; }
+    if (b === 0) { b = 1; document.getElementById("sl_b").value = 1; }
+
+    p = { a, b, c, d };
+    document.getElementById("lbl_a").textContent = a;
+    document.getElementById("lbl_b").textContent = b;
+    document.getElementById("lbl_c").textContent = c;
+    document.getElementById("lbl_d").textContent = d;
+
+    animProgress = 1.0;
+    document.getElementById("seqSlider").value = 1;
+    updateStageLabel();
+    draw();
+  }
+
+  function fmtNum(n) {
+    return Number.isInteger(n) ? n.toString() : n.toFixed(2).replace(/\.00$/, "").replace(/(\.\d)0$/, "$1");
+  }
+
+  function baseFn(x) {
+    if (curveType === "quad") {
+      return 0.5 * (x - 2) * (x - 2) - 1;
+    } else if (curveType === "rat") {
+      if (Math.abs(x - 1) < 0.03) return NaN;
+      return 2 + 2 / (x - 1);
+    } else {
+      return 2 * Math.sin(x) + 1;
+    }
+  }
+
+  function getKeyFeature() {
+    if (curveType === "quad") {
+      return { name: "Minimum Vertex", x: 2, y: -1, hasVA: false, hasHA: false };
+    } else if (curveType === "rat") {
+      return { name: "Asymptote Intersection", x: 1, y: 2, hasVA: true, hasHA: true };
+    } else {
+      return { name: "Peak (π/2, 3)", x: Math.PI / 2, y: 3, hasVA: false, hasHA: false };
+    }
+  }
+
+  function getAnimatedParams() {
+    const { a, b, c, d } = p;
+    const t = animProgress;
+
+    let bEff = 1, cEff = 0, aEff = 1, dEff = 0;
+
+    if (t <= 0.5) {
+      const u = t / 0.5;
+      if (orderMode === "TS") {
+        if (u <= 0.5) {
+          const s1 = u / 0.5;
+          cEff = c * s1;
+          bEff = 1;
+        } else {
+          const s2 = (u - 0.5) / 0.5;
+          cEff = c;
+          bEff = 1 + (b - 1) * s2;
+        }
+      } else {
+        if (u <= 0.5) {
+          const s1 = u / 0.5;
+          bEff = 1 + (b - 1) * s1;
+          cEff = 0;
+        } else {
+          const s2 = (u - 0.5) / 0.5;
+          bEff = b;
+          cEff = c * s2;
+        }
+      }
+    } else {
+      bEff = b;
+      cEff = c;
+      const v = (t - 0.5) / 0.5;
+      aEff = 1 + (a - 1) * v;
+      dEff = d * v;
+    }
+
+    return { aEff, bEff, cEff, dEff };
+  }
+
+  function draw() {
+    const canvas = document.getElementById("transCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const xMin = -10, xMax = 10;
+    const yMin = -8, yMax = 8;
+    const toPxX = x => ((x - xMin) / (xMax - xMin)) * W;
+    const toPxY = y => H - ((y - yMin) / (yMax - yMin)) * H;
+
+    // Grid
+    ctx.strokeStyle = "#f1f5f9";
+    ctx.lineWidth = 1;
+    for (let gx = xMin; gx <= xMax; gx++) {
+      ctx.beginPath(); ctx.moveTo(toPxX(gx), 0); ctx.lineTo(toPxX(gx), H); ctx.stroke();
+    }
+    for (let gy = yMin; gy <= yMax; gy++) {
+      ctx.beginPath(); ctx.moveTo(0, toPxY(gy)); ctx.lineTo(W, toPxY(gy)); ctx.stroke();
+    }
+
+    // Axes
+    ctx.strokeStyle = "#94a3b8";
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    ctx.moveTo(0, toPxY(0)); ctx.lineTo(W, toPxY(0));
+    ctx.moveTo(toPxX(0), 0); ctx.lineTo(toPxX(0), H);
+    ctx.stroke();
+
+    ctx.fillStyle = "#64748b";
+    ctx.font = "11px Segoe UI, sans-serif";
+    for (let gx = -8; gx <= 8; gx += 2) {
+      if (gx !== 0) ctx.fillText(gx, toPxX(gx) - 6, toPxY(0) + 14);
+    }
+    for (let gy = -6; gy <= 6; gy += 2) {
+      if (gy !== 0) ctx.fillText(gy, toPxX(0) + 6, toPxY(gy) + 4);
+    }
+
+    const { a, b, c, d } = p;
+    const { aEff, bEff, cEff, dEff } = getAnimatedParams();
+
+    // Target Equation Banner
+    const aStr = a === 1 ? "" : a === -1 ? "−" : `${fmtNum(a)}`;
+    const bStr = b === 1 ? "x" : b === -1 ? "−x" : `${fmtNum(b)}x`;
+    const cStr = c === 0 ? "" : c > 0 ? ` + ${fmtNum(c)}` : ` − ${fmtNum(Math.abs(c))}`;
+    const dStr = d === 0 ? "" : d > 0 ? ` + ${fmtNum(d)}` : ` − ${fmtNum(Math.abs(d))}`;
+    document.getElementById("targetBanner").textContent = `Target: y = ${aStr}f(${bStr}${cStr})${dStr}`;
+
+    // 1. Original Curve y = f(x) in dashed grey
+    plotCurve(ctx, x => baseFn(x), "#94a3b8", 2, [5, 5], xMin, xMax, yMin, yMax, toPxX, toPxY);
+
+    // 2. Static Intermediate Horizontal Stage in faint dashed blue
+    const interFn = orderMode === "TS"
+      ? x => baseFn(x + c)
+      : x => baseFn(b * x);
+    plotCurve(ctx, interFn, "#0284c7", 1.7, [4, 4], xMin, xMax, yMin, yMax, toPxX, toPxY);
+
+    // 3. Active Animated Curve in solid purple
+    const activeFn = x => aEff * baseFn(bEff * x + cEff) + dEff;
+    plotCurve(ctx, activeFn, "#8b5cf6", 3, [], xMin, xMax, yMin, yMax, toPxX, toPxY);
+
+    // Draw Animated Asymptotes if Rational
+    const kf = getKeyFeature();
+    if (kf.hasVA && Math.abs(bEff) > 0.05) {
+      const xVA_cur = (kf.x - cEff) / bEff;
+      const yHA_cur = aEff * kf.y + dEff;
+      ctx.save();
+      ctx.setLineDash([6, 6]);
+      ctx.strokeStyle = "#0f766e";
+      ctx.lineWidth = 1.6;
+      ctx.beginPath();
+      ctx.moveTo(toPxX(xVA_cur), 0); ctx.lineTo(toPxX(xVA_cur), H);
+      ctx.moveTo(0, toPxY(yHA_cur)); ctx.lineTo(W, toPxY(yHA_cur));
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    // Track Key Point across animation
+    const x0 = kf.x, y0 = kf.y;
+    const xCur = Math.abs(bEff) > 0.05 ? (x0 - cEff) / bEff : x0;
+    const yCur = aEff * y0 + dEff;
+
+    const xFinal = (x0 - c) / b;
+    const yFinal = a * y0 + d;
+
+    drawPoint(ctx, toPxX(x0), toPxY(y0), "#64748b", `(${fmtNum(x0)}, ${fmtNum(y0)})`);
+    drawPoint(ctx, toPxX(xCur), toPxY(yCur), "#e11d48", `(${fmtNum(xCur)}, ${fmtNum(yCur)})`);
+
+    // Official 9758 Step-by-Step Phrasing
+    let steps = [];
+    if (orderMode === "TS") {
+      if (c !== 0) {
+        steps.push(`<strong>1.</strong> Translation of <strong>${fmtNum(Math.abs(c))}</strong> unit(s) in the <strong>${c > 0 ? "negative" : "positive"} x-direction</strong> → y = f(x${cStr})`);
+      }
+      if (b < 0) {
+        steps.push(`<strong>${steps.length + 1}.</strong> Reflection in the <strong>y-axis</strong>`);
+      }
+      if (Math.abs(b) !== 1) {
+        steps.push(`<strong>${steps.length + 1}.</strong> Scaling parallel to the <strong>x-axis</strong> by a scale factor of <strong>1/${fmtNum(Math.abs(b))}</strong> → y = f(${bStr}${cStr})`);
+      }
+    } else {
+      if (b < 0) {
+        steps.push(`<strong>1.</strong> Reflection in the <strong>y-axis</strong>`);
+      }
+      if (Math.abs(b) !== 1) {
+        steps.push(`<strong>${steps.length + 1}.</strong> Scaling parallel to the <strong>x-axis</strong> by a scale factor of <strong>1/${fmtNum(Math.abs(b))}</strong> → y = f(${bStr})`);
+      }
+      if (c !== 0) {
+        const shiftAmt = c / b;
+        steps.push(`<strong>${steps.length + 1}.</strong> Translation of <strong>${fmtNum(Math.abs(shiftAmt))}</strong> unit(s) in the <strong>${shiftAmt > 0 ? "negative" : "positive"} x-direction</strong> (since ${bStr}${cStr} = ${fmtNum(b)}(x ${shiftAmt >= 0 ? "+" : "−"} ${fmtNum(Math.abs(shiftAmt))}))`);
+      }
+    }
+
+    if (a < 0) {
+      steps.push(`<strong>${steps.length + 1}.</strong> Reflection in the <strong>x-axis</strong>`);
+    }
+    if (Math.abs(a) !== 1) {
+      steps.push(`<strong>${steps.length + 1}.</strong> Scaling parallel to the <strong>y-axis</strong> by a scale factor of <strong>${fmtNum(Math.abs(a))}</strong>`);
+    }
+    if (d !== 0) {
+      steps.push(`<strong>${steps.length + 1}.</strong> Translation of <strong>${fmtNum(Math.abs(d))}</strong> unit(s) in the <strong>${d > 0 ? "positive" : "negative"} y-direction</strong>`);
+    }
+
+    if (steps.length === 0) {
+      steps.push("Identity transformation: graph remains unchanged at <strong>y = f(x)</strong>.");
+    }
+
+    document.getElementById("phrasingBox").innerHTML = `
+      <span class="phrasing-title">Official 9758 Sequence Description</span>
+      ${steps.join("<br>")}
+    `;
+
+    // Coordinate Tracker Table
+    document.getElementById("trackerTable").innerHTML = `
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Original y = f(x)</th>
+          <th>Transformed Final</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>${kf.name}</strong></td>
+          <td>(${fmtNum(x0)}, ${fmtNum(y0)})</td>
+          <td style="color:var(--rose); font-weight:700;">(${fmtNum(xFinal)}, ${fmtNum(yFinal)})</td>
+        </tr>
+        <tr>
+          <td><strong>Mapping Rule</strong></td>
+          <td>(x, y)</td>
+          <td>((x − ${fmtNum(c)}) / ${fmtNum(b)}, ${fmtNum(a)}y + ${fmtNum(d)})</td>
+        </tr>
+        ${kf.hasVA ? `
+        <tr>
+          <td><strong>Asymptotes</strong></td>
+          <td>x = 1, y = 2</td>
+          <td style="color:var(--teal); font-weight:700;">x = ${fmtNum(xFinal)}, y = ${fmtNum(yFinal)}</td>
+        </tr>` : ""}
+      </tbody>
+    `;
+  }
+
+  function plotCurve(ctx, fn, color, width, dash, xMin, xMax, yMin, yMax, toPxX, toPxY) {
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = width;
+    ctx.setLineDash(dash);
+    ctx.beginPath();
+    let penDown = false;
+    const step = (xMax - xMin) / 900;
+    for (let x = xMin; x <= xMax; x += step) {
+      const y = fn(x);
+      if (!isFinite(y) || y < yMin - 4 || y > yMax + 4) {
+        penDown = false;
+        continue;
+      }
+      const px = toPxX(x), py = toPxY(y);
+      if (!penDown) { ctx.moveTo(px, py); penDown = true; }
+      else { ctx.lineTo(px, py); }
+    }
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawPoint(ctx, px, py, color, label) {
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(px, py, 5, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.font = "bold 11px Segoe UI, sans-serif";
+    ctx.fillText(label, px + 7, py - 6);
+  }
+
+  startSequenceAnimation();
+</script>
+
+</body>
+</html>
