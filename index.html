@@ -1137,15 +1137,149 @@
         section: "pure",
         code: "SECTION A • 1. FUNCTIONS AND GRAPHS",
         title: "1.3 Equations and Inequalities",
-        subtitle: "Formulating and solving equations, 3×3 linear systems, and algebraic/graphical inequalities.",
-        live: false,
-        outcomes: [
-          "Formulate equations, systems of linear equations, and inequalities from contextual problems.",
-          "Solve equations and systems of linear equations using a graphing calculator.",
-          "Solve rational inequalities f(x)/g(x) > 0 and modulus inequalities analytically and graphically."
-        ],
-        exclusions: "No additional exclusions listed in the syllabus for this sub-topic.",
-        lessons: []
+        syllabusNotes: "Formulating an equation, a system of linear equations, or an inequality from a problem situation; solving systems of linear equations using a graphing calculator; solving inequalities of the form f(x)/g(x) > 0, f(x) ≥ g(x), and modulus inequalities using algebraic or graphical methods.",
+        lessons: [
+          {
+            label: "Lesson 1: Rational & Quadratic Inequalities",
+            file: "interactives/1_3_lesson1.html",
+            videoEmbedUrl: "",
+            prereq: "Factorising quadratics, identifying vertical asymptotes, and interval notation.",
+            objectives: [
+              "Solve rational inequalities f(x)/g(x) > 0 (or ≥ 0) using critical values and sign charts without cross-multiplying by an unknown sign.",
+              "Solve f(x) ≥ g(x) both algebraically (bringing all terms to one side) and graphically using a GC.",
+              "Distinguish strict inequalities (<, >) from non-strict inequalities (≤, ≥) at vertical asymptotes."
+            ],
+            prompts: [
+              "Compare the graphical region where y = f(x) lies above y = g(x) against the sign chart of f(x) − g(x) > 0.",
+              "Observe why vertical asymptotes (denominator = 0) must always remain open circles even when solving ≥ or ≤.",
+              "Test why multiplying both sides of (x + 1)/(x − 2) ≥ 3 by (x − 2) fails when x < 2."
+            ],
+            pitfalls: [
+              "Cross-multiplying by (x − a) without knowing whether x − a is positive or negative (if multiplying, you must multiply by (x − a)² > 0).",
+              "Including the vertical asymptote x = a in the final solution set for ≥ or ≤ inequalities."
+            ],
+            gcTip: "Plot Y1 = f(x) and Y2 = g(x), then use [2nd] [CALC] > [5: intersect] to find exact boundary x-values, or inspect where Y1 − Y2 > 0.",
+            workedQuestion: `
+              <strong>(i)</strong> Without using a calculator, solve the inequality <em>(2x − 1)/(x + 2) ≤ (x + 1)/(x − 1)</em>. [4]<br>
+              <strong>(ii)</strong> Hence deduce the exact set of values of <em>x</em> for which <em>(2|x| − 1)/(|x| + 2) ≤ (|x| + 1)/(|x| − 1)</em>. [3]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> Bring all terms to one side (never cross-multiply):<br>
+              <em>(2x − 1)/(x + 2) − (x + 1)/(x − 1) ≤ 0</em><br>
+              <em>[(2x − 1)(x − 1) − (x + 1)(x + 2)] / [(x + 2)(x − 1)] ≤ 0</em><br>
+              <em>[(2x² − 3x + 1) − (x² + 3x + 2)] / [(x + 2)(x − 1)] ≤ 0</em><br>
+              <em>(x² − 6x − 1) / [(x + 2)(x − 1)] ≤ 0</em>.<br>
+              Numerator roots: <em>x = [6 ± √(36 + 4)]/2 = 3 ± √10</em> (note: <em>3 − √10 ≈ −0.16</em>, <em>3 + √10 ≈ 6.16</em>).<br>
+              Denominator critical values (excluded): <em>x = −2, x = 1</em>.<br>
+              Testing intervals along the number line (−∞, −2), (−2, 3 − √10], [3 − √10, 1), (1, 3 + √10], [3 + √10, ∞):<br>
+              Sign pattern: <strong>+ | − | + | − | +</strong>.<br>
+              Hence <strong>−2 &lt; x ≤ 3 − √10</strong> or <strong>1 &lt; x ≤ 3 + √10</strong>.<br><br>
+              <strong>(ii)</strong> Replace <em>x</em> with <em>|x|</em> in part (i):<br>
+              • <em>−2 &lt; |x| ≤ 3 − √10</em>: impossible since <em>|x| ≥ 0</em> and <em>3 − √10 &lt; 0</em>.<br>
+              • <em>1 &lt; |x| ≤ 3 + √10</em> ⇒ <strong>−(3 + √10) ≤ x &lt; −1</strong> or <strong>1 &lt; x ≤ 3 + √10</strong>.
+            `,
+            exitQuestion: "Solve (x − 3)/(x + 1) ≥ 0 algebraically.",
+            exitAnswer: "Critical values are x = −1 (excluded) and x = 3 (included). Sign chart gives <strong>x &lt; −1 or x ≥ 3</strong>."
+          },
+          {
+            label: "Lesson 2: Modulus Inequalities & Deductions",
+            file: "interactives/1_3_lesson2.html",
+            videoEmbedUrl: "",
+            prereq: "Properties of |x| (|a| < b ⇔ −b < a < b; |a| > b ⇔ a < −b or a > b) and sketching modulus graphs.",
+            objectives: [
+              "Solve modulus inequalities |f(x)| < |g(x)| by squaring both sides: (f(x))² − (g(x))² < 0.",
+              "Solve mixed modulus inequalities such as |f(x)| ≥ g(x) graphically or by piecewise cases.",
+              "Deduce solution sets of related inequalities via substitutions such as x ↦ |x|, x ↦ x², or x ↦ 1/x."
+            ],
+            prompts: [
+              "Toggle between the graphical view (y = |f(x)| vs. y = g(x)) and the squared-difference parabola (f(x))² − (g(x))² < 0.",
+              "Observe why squaring |2x − 1| < x + 2 requires checking x + 2 > 0 or verifying intersections on a graph.",
+              "Practice deducing solutions when x is replaced by |x| or e^x."
+            ],
+            pitfalls: [
+              "Squaring both sides of |f(x)| > g(x) when g(x) can be negative—if g(x) < 0, |f(x)| > g(x) is automatically true!",
+              "Forgetting that |x| ≥ 0 when deducing inequalities after replacing x with |x|."
+            ],
+            gcTip: "Enter Y1 = abs(2X − 1) and Y2 = X + 2, then use [2nd] [CALC] > [5: intersect] to verify which intersections actually occur.",
+            workedQuestion: `
+              <strong>(i)</strong> Solve algebraically the inequality <em>|2x − 3| &lt; |x + 4|</em>. [3]<br>
+              <strong>(ii)</strong> Sketch on the same diagram the graphs of <em>y = |2x − 3|</em> and <em>y = 2x + 1</em>, and hence solve <em>|2x − 3| ≥ 2x + 1</em>. [4]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> Since both sides are non-negative, square both sides:<br>
+              <em>(2x − 3)² &lt; (x + 4)²</em><br>
+              <em>[(2x − 3) − (x + 4)][(2x − 3) + (x + 4)] &lt; 0</em><br>
+              <em>(x − 7)(3x + 1) &lt; 0</em> ⇒ <strong>−1/3 &lt; x &lt; 7</strong>.<br><br>
+              <strong>(ii)</strong> The V-shaped graph <em>y = |2x − 3|</em> has vertex at <em>(3/2, 0)</em> and left branch <em>y = −2x + 3</em> (for <em>x &lt; 3/2</em>) and right branch <em>y = 2x − 3</em> (for <em>x ≥ 3/2</em>).<br>
+              The line <em>y = 2x + 1</em> is parallel to the right branch <em>y = 2x − 3</em> (both have gradient 2) and lies strictly above it for <em>x ≥ 3/2</em>.<br>
+              Intersection occurs only on the left branch: <em>−2x + 3 = 2x + 1 ⇒ 4x = 2 ⇒ x = 1/2</em>.<br>
+              From the graph, <em>y = |2x − 3|</em> lies on or above <em>y = 2x + 1</em> for <strong>x ≤ 1/2</strong>.
+              <div style="margin-top:10px; text-align:center;">
+                <svg width="340" height="200" viewBox="0 0 340 200" style="background:#fdfbf7; border:1px solid #cbd5e1; border-radius:10px;">
+                  <line x1="20" y1="155" x2="320" y2="155" stroke="#64748b" stroke-width="1.3"/>
+                  <line x1="130" y1="15" x2="130" y2="185" stroke="#64748b" stroke-width="1.3"/>
+                  <text x="312" y="168" font-size="11" fill="#475569">x</text>
+                  <text x="135" y="24" font-size="11" fill="#475569">y</text>
+                  <!-- y = |2x - 3|: vertex (1.5, 0) -> px (175, 155), y-int (0, 3) -> px (130, 95) -->
+                  <polyline points="75,22 175,155 255,48" fill="none" stroke="#8b5cf6" stroke-width="2.4"/>
+                  <text x="225" y="42" font-size="9.5" font-weight="bold" fill="#7c3aed">y = |2x − 3|</text>
+                  <!-- y = 2x + 1: y-int (0, 1) -> px (130, 135), passes (0.5, 2) -> px (145, 115) -->
+                  <line x1="100" y1="175" x2="215" y2="22" stroke="#0284c7" stroke-width="2" stroke-dasharray="5,4"/>
+                  <text x="165" y="28" font-size="9.5" font-weight="bold" fill="#0284c7">y = 2x + 1</text>
+                  <!-- Intersection (0.5, 2) -> px (145, 115) -->
+                  <circle cx="145" cy="115" r="3.5" fill="#e11d48"/>
+                  <text x="95" y="114" font-size="9.5" font-weight="bold" fill="#881337">(½, 2)</text>
+                  <text x="162" y="169" font-size="9.5" fill="#1e293b">(3/2, 0)</text>
+                </svg>
+              </div>
+            `,
+            exitQuestion: "Given that |x − 2| < 5 ⇔ −3 < x < 7, deduce the solution set of |x² − 2| < 5.",
+            exitAnswer: "Replacing x with x² gives −3 < x² < 7. Since x² ≥ 0 always, 0 ≤ x² < 7 ⇒ <strong>−√7 &lt; x &lt; √7</strong>."
+          },
+          {
+            label: "Lesson 3: Systems of Linear Equations & Modelling",
+            file: "interactives/1_3_lesson3.html",
+            videoEmbedUrl: "",
+            prereq: "Setting up variables with clear units and solving 2 × 2 simultaneous linear equations.",
+            objectives: [
+              "Formulate a system of linear equations from real-world contexts (investment, mixtures, rates, polynomial fitting).",
+              "Solve 3 × 3 systems of linear equations accurately using a graphing calculator.",
+              "Interpret solutions in context and check for unique, infinitely many, or inconsistent cases."
+            ],
+            prompts: [
+              "Select a real-world scenario preset and map each constraint sentence into a linear equation ax + by + cz = d.",
+              "Inspect the augmented matrix and reduced row-echelon form (RREF) output alongside the TI-84 PlySmlt2 steps.",
+              "Adjust a parameter to see when two planes become parallel (no solution) or intersect in a line (infinitely many solutions)."
+            ],
+            pitfalls: [
+              "Defining variables vaguely (e.g., 'Let x be apples') instead of specifying quantity and units ('Let $x be the cost of 1 kg of apples').",
+              "Forgetting to state the final answer in full contextual sentences with units after reading off x, y, z from the GC."
+            ],
+            gcTip: "On the TI-84 Plus CE, press [APPS] > [PlySmlt2] > [2: Simultaneous Eqn Solver], set Equations = 3 and Unknowns = 3, enter coefficients, and press [GRAPH] (SOLVE).",
+            workedQuestion: `
+              A florist prepares three types of bouquets: Classic, Deluxe, and Royal.<br>
+              • A Classic bouquet uses 5 roses, 3 lilies, and 2 tulips, and sells for $34.<br>
+              • A Deluxe bouquet uses 8 roses, 4 lilies, and 4 tulips, and sells for $54.<br>
+              • A Royal bouquet uses 12 roses, 6 lilies, and 5 tulips, and sells for $78.<br>
+              <strong>(i)</strong> By defining your variables clearly, write down a system of three linear equations to represent this information. [2]<br>
+              <strong>(ii)</strong> Use a graphing calculator to find the selling price of each rose, lily, and tulip. [2]<br>
+              <strong>(iii)</strong> A customer orders a custom bouquet with 6 roses, 5 lilies, and 3 tulips, and is given a 10% discount. Find the amount paid by the customer. [2]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> Let <em>$r, $l, $t</em> be the selling price of one rose, one lily, and one tulip respectively.<br>
+              <em>5r + 3l + 2t = 34</em><br>
+              <em>8r + 4l + 4t = 54</em><br>
+              <em>12r + 6l + 5t = 78</em><br><br>
+              <strong>(ii)</strong> Using a graphing calculator (Simultaneous Equation Solver):<br>
+              <em>r = 3.5, l = 3.5, t = 3</em>.<br>
+              Thus, each rose costs <strong>$3.50</strong>, each lily costs <strong>$3.50</strong>, and each tulip costs <strong>$3.00</strong>.<br><br>
+              <strong>(iii)</strong> Total before discount = <em>6(3.50) + 5(3.50) + 3(3.00) = 21 + 17.50 + 9 = $47.50</em>.<br>
+              Amount paid after 10% discount = <em>0.9 × $47.50 =</em> <strong>$42.75</strong>.
+            `,
+            exitQuestion: "A quadratic curve y = ax² + bx + c passes through (1, 4), (−1, 6), and (2, 9). Set up the system of linear equations in a, b, and c.",
+            exitAnswer: "a + b + c = 4, a − b + c = 6, and 4a + 2b + c = 9 (which solves to a = 2, b = −1, c = 3)."
+          }
+        ]
       },
       {
         id: "2.1",
