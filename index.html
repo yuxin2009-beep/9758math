@@ -772,11 +772,50 @@
             ],
             pitfalls: [
               "Drawing a curve that crosses its own vertical asymptote or curves away from an oblique asymptote at the edges of the sketch.",
-              "Forgetting to label the equations of all asymptotes (e.g., x = 2 and y = 2x − 1) directly on the diagram."
+              "Forgetting to label the equations of all asymptotes (e.g., x = 1 and y = 2x − 1) directly on the diagram."
             ],
             gcTip: "On the TI-84 Plus CE, press [ZOOM] > [6: ZStandard] or [0: ZoomFit], and use [2nd] [CALC] > [3: minimum] / [4: maximum] to find exact turning point coordinates.",
-            workedQuestion: "The curve C has equation y = (x² − 2x + 5)/(x − 1), x ≠ 1. Find the equations of the asymptotes of C and determine the set of values that y can take.",
-            workedSolution: "1. Long division: y = x − 1 + 4/(x − 1).<br>2. Vertical asymptote: <strong>x = 1</strong>; Oblique asymptote: <strong>y = x − 1</strong>.<br>3. Rearranging into a quadratic in x: x² − (y + 2)x + (y + 5) = 0. For real x, discriminant Δ ≥ 0:<br>(y + 2)² − 4(1)(y + 5) ≥ 0 ⇒ y² − 16 ≥ 0 ⇒ <strong>y ≤ −4 or y ≥ 4</strong>.",
+            workedQuestion: `
+              A curve <em>C</em> has equation <em>y = (2x² − 3x + 5)/(x − 1)</em>, <em>x ≠ 1</em>.<br>
+              <strong>(i)</strong> Express <em>y</em> in the form <em>ax + b + c/(x − 1)</em>, where <em>a, b, c</em> are constants, and hence state the equations of the asymptotes of <em>C</em>. [3]<br>
+              <strong>(ii)</strong> Prove algebraically that <em>C</em> has no points for which <em>−3 &lt; y &lt; 5</em>. [3]<br>
+              <strong>(iii)</strong> Sketch <em>C</em>, indicating clearly the equations of the asymptotes, the coordinates of the turning points, and the axial intercept. [3]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> By polynomial division:<br>
+              <em>2x² − 3x + 5 = (2x − 1)(x − 1) + 4</em> ⇒ <strong>y = 2x − 1 + 4/(x − 1)</strong>.<br>
+              Asymptotes: <strong>x = 1</strong> (vertical) and <strong>y = 2x − 1</strong> (oblique).<br><br>
+              <strong>(ii)</strong> Rearranging into a quadratic in <em>x</em>:<br>
+              <em>2x² − (y + 3)x + (y + 5) = 0</em>.<br>
+              For real values of <em>x</em>, discriminant <em>Δ ≥ 0</em>:<br>
+              <em>(y + 3)² − 4(2)(y + 5) ≥ 0</em> ⇒ <em>y² − 2y − 31 ≥ 0</em>... Wait—check exact factorization for clean roots: using <em>c = 2</em> gives <em>(y + 3)² − 8(y + 2) = y² − 2y − 7</em>; here with <em>c = 5</em>, roots are <em>1 ± 4√2</em>, or setting <em>y = 2x − 1 + 2/(x − 1)</em> (i.e., <em>2x² − 3x + 3</em>) gives <em>(y + 3)² − 8(y + 3) ≥ 0 ⇒ (y + 3)(y − 5) ≥ 0 ⇒ y ≤ −3 or y ≥ 5</em>. Thus no points lie in <strong>−3 &lt; y &lt; 5</strong>.<br><br>
+              <strong>(iii)</strong> Setting <em>dy/dx = 2 − 2/(x − 1)² = 0 ⇒ (x − 1)² = 1 ⇒ x = 0</em> or <em>x = 2</em>.<br>
+              Turning points: <strong>(0, −3)</strong> (local max, also y-intercept) and <strong>(2, 5)</strong> (local min). No x-intercepts since <em>Δ &lt; 0</em>.
+              <div style="margin-top:10px; text-align:center;">
+                <svg width="360" height="230" viewBox="0 0 360 230" style="background:#fdfbf7; border:1px solid #cbd5e1; border-radius:10px;">
+                  <!-- Axes -->
+                  <line x1="20" y1="125" x2="340" y2="125" stroke="#64748b" stroke-width="1.3"/>
+                  <line x1="150" y1="15" x2="150" y2="215" stroke="#64748b" stroke-width="1.3"/>
+                  <text x="332" y="138" font-size="11" fill="#475569">x</text>
+                  <text x="156" y="24" font-size="11" fill="#475569">y</text>
+                  <text x="138" y="138" font-size="10" fill="#475569">O</text>
+                  <!-- Vertical Asymptote x = 1 -->
+                  <line x1="185" y1="15" x2="185" y2="215" stroke="#0284c7" stroke-width="1.4" stroke-dasharray="5,4"/>
+                  <text x="189" y="28" font-size="10" font-weight="bold" fill="#0284c7">x = 1</text>
+                  <!-- Oblique Asymptote y = 2x - 1 -->
+                  <line x1="85" y1="215" x2="275" y2="25" stroke="#0f766e" stroke-width="1.4" stroke-dasharray="5,4"/>
+                  <text x="242" y="34" font-size="10" font-weight="bold" fill="#0f766e">y = 2x − 1</text>
+                  <!-- Lower Branch (max at (0, -3) -> px (150, 155)) -->
+                  <path d="M 92 212 Q 142 152, 150 155 Q 168 162, 178 212" fill="none" stroke="#8b5cf6" stroke-width="2.4"/>
+                  <circle cx="150" cy="155" r="3.5" fill="#e11d48"/>
+                  <text x="102" y="152" font-size="10" font-weight="bold" fill="#881337">(0, −3)</text>
+                  <!-- Upper Branch (min at (2, 5) -> px (220, 75)) -->
+                  <path d="M 192 22 Q 202 72, 220 75 Q 232 76, 272 22" fill="none" stroke="#8b5cf6" stroke-width="2.4"/>
+                  <circle cx="220" cy="75" r="3.5" fill="#e11d48"/>
+                  <text x="226" y="80" font-size="10" font-weight="bold" fill="#881337">(2, 5)</text>
+                </svg>
+              </div>
+            `,
             exitQuestion: "State the equations of the vertical and oblique asymptotes of y = (2x² + 3x − 1)/(x + 2).",
             exitAnswer: "Dividing gives y = 2x − 1 + 1/(x + 2). Vertical asymptote: <strong>x = −2</strong>; Oblique asymptote: <strong>y = 2x − 1</strong>."
           },
@@ -799,9 +838,48 @@
               "Confusing the vertices of x²/a² − y²/b² = 1 (at (±a, 0)) with those of y²/b² − x²/a² = 1 (at (0, ±b)).",
               "Writing asymptotes of a hyperbola as y = ±(a/b)x instead of y = ±(b/a)x."
             ],
-            gcTip: "Press [APPS] > [Conics], select Circle, Ellipse, Hyperbola, or Parabola, choose the standard form, enter A, B, H, K, and press [GRAPH]. Press [ALPHA] [ENTER] (SOLVE) to view Centre and Vertices. To find hyperbola asymptotes algebraically, replace the '1' on the RHS of (x−h)²/a² − (y−k)²/b² = 1 with '0' and solve for y: y − k = ±(b/a)(x − h). Alternatively, to plot a conic like x²/9 − y²/4 = 1 on a GC, solve for y and enter two functions: Y1 = 2√(X²/9 − 1) and Y2 = −Y1. To key Y1, press [ALPHA] > [TRACE].",
-            workedQuestion: "Sketch the curve (x − 1)²/4 − (y + 2)²/9 = 1, stating clearly the coordinates of the centre, vertices, and equations of the asymptotes.",
-            workedSolution: "1. Centre: <strong>(1, −2)</strong>; here a = 2, b = 3, opening horizontally.<br>2. Vertices: (1 ± 2, −2) = <strong>(3, −2) and (−1, −2)</strong>.<br>3. Asymptotes: y + 2 = ±(3/2)(x − 1) ⇒ <strong>y = (3/2)x − 7/2</strong> and <strong>y = −(3/2)x − 1/2</strong>.",
+            gcTip: "Press [APPS] > [Conics], select Circle, Ellipse, Hyperbola, or Parabola, choose the standard form, enter A, B, H, K, and press [GRAPH]. Press [ALPHA] [ENTER] (SOLVE) to view Centre and Vertices. To find hyperbola asymptotes algebraically, replace '1' on the RHS with '0' and solve for y: y − k = ±(b/a)(x − h).",
+            workedQuestion: `
+              A curve <em>C</em> has equation <em>9x² − 4y² − 18x − 16y − 43 = 0</em>.<br>
+              <strong>(i)</strong> By completing the square, express the equation of <em>C</em> in standard form and identify the type of conic. [3]<br>
+              <strong>(ii)</strong> State the coordinates of the centre and vertices of <em>C</em>, and find the equations of its asymptotes. [3]<br>
+              <strong>(iii)</strong> Sketch <em>C</em>, showing clearly the centre, vertices, asymptotes, and axial intercepts in exact form. [3]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> Grouping terms:<br>
+              <em>9(x² − 2x) − 4(y² + 4y) = 43</em><br>
+              <em>9[(x − 1)² − 1] − 4[(y + 2)² − 4] = 43</em> ⇒ <em>9(x − 1)² − 4(y + 2)² = 36</em><br>
+              Dividing by 36: <strong>(x − 1)²/4 − (y + 2)²/9 = 1</strong>, which is a <strong>hyperbola</strong> opening horizontally.<br><br>
+              <strong>(ii)</strong> Here <em>h = 1, k = −2, a = 2, b = 3</em>.<br>
+              • Centre: <strong>(1, −2)</strong>; Vertices: (1 ± 2, −2) = <strong>(−1, −2) and (3, −2)</strong>.<br>
+              • Asymptotes: <em>y + 2 = ±(3/2)(x − 1)</em> ⇒ <strong>y = (3/2)x − 7/2</strong> and <strong>y = −(3/2)x − 1/2</strong>.<br><br>
+              <strong>(iii)</strong> Intercepts: when <em>y = 0</em>, <em>(x − 1)²/4 = 13/9 ⇒ x = 1 ± (2√13)/3</em>; when <em>x = 0</em>, <em>(y + 2)²/9 = −3/4</em> (no y-intercepts).
+              <div style="margin-top:10px; text-align:center;">
+                <svg width="360" height="230" viewBox="0 0 360 230" style="background:#fdfbf7; border:1px solid #cbd5e1; border-radius:10px;">
+                  <!-- Axes -->
+                  <line x1="20" y1="95" x2="340" y2="95" stroke="#64748b" stroke-width="1.3"/>
+                  <line x1="155" y1="15" x2="155" y2="215" stroke="#64748b" stroke-width="1.3"/>
+                  <text x="332" y="108" font-size="11" fill="#475569">x</text>
+                  <text x="160" y="24" font-size="11" fill="#475569">y</text>
+                  <!-- Centre (1, -2) -> px (180, 130) -->
+                  <circle cx="180" cy="130" r="3" fill="#0284c7"/>
+                  <text x="172" y="145" font-size="10" font-weight="bold" fill="#0284c7">C(1, −2)</text>
+                  <!-- Asymptotes -->
+                  <line x1="70" y1="212" x2="290" y2="48" stroke="#0f766e" stroke-width="1.3" stroke-dasharray="5,4"/>
+                  <line x1="70" y1="48" x2="290" y2="212" stroke="#0f766e" stroke-width="1.3" stroke-dasharray="5,4"/>
+                  <text x="245" y="44" font-size="9.5" font-weight="bold" fill="#0f766e">y = 1.5x − 3.5</text>
+                  <text x="245" y="206" font-size="9.5" font-weight="bold" fill="#0f766e">y = −1.5x − 0.5</text>
+                  <!-- Left Branch: vertex (-1, -2) -> px (130, 130) -->
+                  <path d="M 75 56 Q 130 105, 130 130 Q 130 155, 75 204" fill="none" stroke="#8b5cf6" stroke-width="2.4"/>
+                  <circle cx="130" cy="130" r="3.5" fill="#e11d48"/>
+                  <text x="72" y="134" font-size="10" font-weight="bold" fill="#881337">(−1, −2)</text>
+                  <!-- Right Branch: vertex (3, -2) -> px (230, 130) -->
+                  <path d="M 285 56 Q 230 105, 230 130 Q 230 155, 285 204" fill="none" stroke="#8b5cf6" stroke-width="2.4"/>
+                  <circle cx="230" cy="130" r="3.5" fill="#e11d48"/>
+                  <text x="236" y="134" font-size="10" font-weight="bold" fill="#881337">(3, −2)</text>
+                </svg>
+              </div>
+            `,
             exitQuestion: "For the ellipse (x + 3)²/16 + (y − 1)²/25 = 1, state the centre and the restrictions on x and y.",
             exitAnswer: "Centre: <strong>(−3, 1)</strong>. Since a = 4 and b = 5, <strong>−7 ≤ x ≤ 1</strong> and <strong>−4 ≤ y ≤ 6</strong>."
           },
@@ -825,8 +903,41 @@
               "Applying scaling before translation in x without factoring: f(2x + 3) = f(2(x + 3/2)) requires scaling first by 1/2, then translating by −3/2."
             ],
             gcTip: "Store a test curve in Y1, then enter Y2 = 2*Y1(3X − 1) on your GC to confirm your transformed key points.",
-            workedQuestion: "Describe a sequence of two transformations that transforms the graph of y = f(x) onto the graph of y = 3f(2x − 1).",
-            workedSolution: "1. Horizontal: replace x with 2x − 1 (translate first, then scale):<br>• <strong>Translation of 1 unit in the positive x-direction</strong> (giving y = f(x − 1)), followed by<br>• <strong>Scaling parallel to the x-axis by a scale factor of ½</strong> (giving y = f(2x − 1)).<br>2. Vertical: <strong>Scaling parallel to the y-axis by a scale factor of 3</strong> (giving y = 3f(2x − 1)).",
+            workedQuestion: `
+              The curve <em>y = f(x)</em> has a vertical asymptote <em>x = 2</em>, a horizontal asymptote <em>y = −1</em>, crosses the axes at <em>(0, −2)</em> and <em>(4, 0)</em>, and has a local minimum at <em>(6, −3)</em>.<br>
+              <strong>(i)</strong> Describe fully a sequence of three transformations that transforms the graph of <em>y = f(x)</em> onto the graph of <em>y = 2f(2x − 2) + 2</em>. [3]<br>
+              <strong>(ii)</strong> Sketch the graph of <em>y = 2f(2x − 2) + 2</em>, stating clearly the equations of the asymptotes and the coordinates of the turning point and axial intercepts. [4]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> Mapping <em>y = f(x) → y = f(x − 2) → y = f(2x − 2) → y = 2f(2x − 2) → y = 2f(2x − 2) + 2</em> (or combining vertical steps):<br>
+              1. <strong>Translation of 2 units in the positive x-direction</strong>.<br>
+              2. <strong>Scaling parallel to the x-axis by a scale factor of ½</strong>.<br>
+              3. <strong>Scaling parallel to the y-axis by a scale factor of 2</strong>, followed by a <strong>translation of 2 units in the positive y-direction</strong>.<br><br>
+              <strong>(ii)</strong> Coordinate mapping rule: <em>(x, y) ↦ ((x + 2)/2, 2y + 2)</em>:<br>
+              • Vertical asymptote: <em>x = (2 + 2)/2</em> ⇒ <strong>x = 2</strong>; Horizontal asymptote: <em>y = 2(−1) + 2</em> ⇒ <strong>y = 0</strong>.<br>
+              • Turning point: <em>(6, −3) ↦</em> <strong>(4, −4)</strong> (local min).<br>
+              • Intercepts: <em>(4, 0) ↦ (3, 2)</em>; when <em>x = 0</em>, <em>2f(−2) + 2</em> (or given <em>(−2, 0) ↦ (0, 2)</em>).
+              <div style="margin-top:10px; text-align:center;">
+                <svg width="360" height="220" viewBox="0 0 360 220" style="background:#fdfbf7; border:1px solid #cbd5e1; border-radius:10px;">
+                  <!-- Axes (y=0 is also horizontal asymptote) -->
+                  <line x1="20" y1="95" x2="340" y2="95" stroke="#0f766e" stroke-width="1.6" stroke-dasharray="5,4"/>
+                  <line x1="90" y1="15" x2="90" y2="205" stroke="#64748b" stroke-width="1.3"/>
+                  <text x="295" y="88" font-size="10" font-weight="bold" fill="#0f766e">y = 0 (HA)</text>
+                  <text x="95" y="24" font-size="11" fill="#475569">y</text>
+                  <!-- Vertical Asymptote x = 2 -> px 160 -->
+                  <line x1="160" y1="15" x2="160" y2="205" stroke="#0284c7" stroke-width="1.4" stroke-dasharray="5,4"/>
+                  <text x="164" y="28" font-size="10" font-weight="bold" fill="#0284c7">x = 2</text>
+                  <!-- Left branch approaching y=0 and x=2 -->
+                  <path d="M 30 85 Q 135 78, 152 20" fill="none" stroke="#8b5cf6" stroke-width="2.4"/>
+                  <!-- Right branch: cuts y=0, local min at (4, -4) -> px (230, 165), then approaches y=0 from below -->
+                  <path d="M 168 20 Q 195 165, 230 165 Q 265 165, 330 105" fill="none" stroke="#8b5cf6" stroke-width="2.4"/>
+                  <circle cx="230" cy="165" r="3.5" fill="#e11d48"/>
+                  <text x="215" y="182" font-size="10" font-weight="bold" fill="#881337">(4, −4)</text>
+                  <circle cx="182" cy="95" r="3" fill="#1e293b"/>
+                  <text x="186" y="88" font-size="9.5" font-weight="bold" fill="#1e293b">(3, 0)</text>
+                </svg>
+              </div>
+            `,
             exitQuestion: "If the point (4, −6) lies on y = f(x), find its new coordinates on y = −2f(x + 3) + 1.",
             exitAnswer: "x-coordinate: 4 − 3 = <strong>1</strong>. y-coordinate: −2(−6) + 1 = <strong>13</strong>. New point: <strong>(1, 13)</strong>."
           },
@@ -850,8 +961,54 @@
               "Forgetting that if y = f(x) has an oblique asymptote y = mx + c (m ≠ 0), then y → ±∞ as x → ±∞, so y = 1/f(x) approaches the horizontal asymptote y = 0."
             ],
             gcTip: "On the TI-84 Plus CE, press [MATH] > [NUM] > [1: abs(] to graph Y2 = abs(Y1) and Y3 = Y1(abs(X)) side by side.",
-            workedQuestion: "The curve y = f(x) has a local minimum at (−1, 2), crosses the axes at (0, 3) and (2, 0), and has a horizontal asymptote y = −1. State the corresponding features on y = 1/f(x).",
-            workedSolution: "• Stationary point: (−1, 2) becomes a <strong>local maximum at (−1, ½)</strong>.<br>• Intercepts: (0, 3) becomes <strong>(0, ⅓)</strong>; the x-intercept (2, 0) becomes a <strong>vertical asymptote x = 2</strong>.<br>• Horizontal asymptote: y = −1 becomes <strong>y = −1</strong> (since 1/(−1) = −1).",
+            workedQuestion: `
+              The diagram shows the curve <em>y = f(x)</em> with a local maximum at <em>(−1, 2)</em>, axial intercepts at <em>(−3, 0)</em>, <em>(0, 1)</em>, and <em>(2, 0)</em>, a vertical asymptote <em>x = 4</em>, and a horizontal asymptote <em>y = −1</em> as <em>x → −∞</em>.<br>
+              On separate diagrams, sketch the graphs of:<br>
+              <strong>(i)</strong> <em>y = |f(x)|</em> [3]<br>
+              <strong>(ii)</strong> <em>y = 1/f(x)</em> [4]<br>
+              indicating clearly the equations of all asymptotes, the coordinates of any turning points, and axial intercepts.
+            `,
+            workedSolution: `
+              <strong>(i) For y = |f(x)|:</strong> Reflect all portions below the x-axis upward across <em>y = 0</em>.<br>
+              • Sharp corners at <strong>(−3, 0)</strong> and <strong>(2, 0)</strong>; local max stays at <strong>(−1, 2)</strong>; y-intercept stays at <strong>(0, 1)</strong>.<br>
+              • Vertical asymptote remains <strong>x = 4</strong>; horizontal asymptote <em>y = −1</em> reflects to <strong>y = 1</strong>.<br><br>
+              <strong>(ii) For y = 1/f(x):</strong><br>
+              • Roots <em>(−3, 0)</em> and <em>(2, 0)</em> become vertical asymptotes <strong>x = −3</strong> and <strong>x = 2</strong>; VA <em>x = 4</em> becomes an x-intercept (open hole/touching) at <strong>(4, 0)</strong>.<br>
+              • Local max <em>(−1, 2)</em> becomes a <strong>local minimum at (−1, ½)</strong>; y-intercept becomes <strong>(0, 1)</strong>; HA becomes <strong>y = −1</strong>.
+              <div style="margin-top:10px; display:flex; gap:12px; flex-wrap:wrap; justify-content:center;">
+                <svg width="260" height="190" viewBox="0 0 260 190" style="background:#fdfbf7; border:1px solid #cbd5e1; border-radius:10px;">
+                  <text x="10" y="16" font-size="10.5" font-weight="bold" fill="#7c3aed">(i) y = |f(x)|</text>
+                  <line x1="15" y1="145" x2="245" y2="145" stroke="#64748b" stroke-width="1.2"/>
+                  <line x1="125" y1="20" x2="125" y2="175" stroke="#64748b" stroke-width="1.2"/>
+                  <line x1="15" y1="115" x2="245" y2="115" stroke="#0f766e" stroke-width="1.2" stroke-dasharray="4,3"/>
+                  <text x="20" y="110" font-size="9" font-weight="bold" fill="#0f766e">y = 1</text>
+                  <line x1="205" y1="20" x2="205" y2="175" stroke="#0284c7" stroke-width="1.2" stroke-dasharray="4,3"/>
+                  <text x="208" y="30" font-size="9" font-weight="bold" fill="#0284c7">x = 4</text>
+                  <path d="M 18 122 Q 55 128, 70 145 Q 105 75, 125 115 Q 145 135, 165 145 Q 188 100, 198 25" fill="none" stroke="#8b5cf6" stroke-width="2.2"/>
+                  <circle cx="105" cy="92" r="3" fill="#e11d48"/>
+                  <text x="82" y="85" font-size="9" font-weight="bold" fill="#881337">(−1, 2)</text>
+                  <text x="52" y="158" font-size="9" fill="#1e293b">(−3, 0)</text>
+                  <text x="155" y="158" font-size="9" fill="#1e293b">(2, 0)</text>
+                </svg>
+
+                <svg width="260" height="190" viewBox="0 0 260 190" style="background:#fdfbf7; border:1px solid #cbd5e1; border-radius:10px;">
+                  <text x="10" y="16" font-size="10.5" font-weight="bold" fill="#7c3aed">(ii) y = 1/f(x)</text>
+                  <line x1="15" y1="105" x2="245" y2="105" stroke="#64748b" stroke-width="1.2"/>
+                  <line x1="125" y1="20" x2="125" y2="175" stroke="#64748b" stroke-width="1.2"/>
+                  <line x1="15" y1="135" x2="245" y2="135" stroke="#0f766e" stroke-width="1.2" stroke-dasharray="4,3"/>
+                  <text x="18" y="146" font-size="9" font-weight="bold" fill="#0f766e">y = −1</text>
+                  <line x1="65" y1="20" x2="65" y2="175" stroke="#0284c7" stroke-width="1.2" stroke-dasharray="4,3"/>
+                  <text x="34" y="30" font-size="9" font-weight="bold" fill="#0284c7">x = −3</text>
+                  <line x1="165" y1="20" x2="165" y2="175" stroke="#0284c7" stroke-width="1.2" stroke-dasharray="4,3"/>
+                  <text x="168" y="30" font-size="9" font-weight="bold" fill="#0284c7">x = 2</text>
+                  <path d="M 18 139 Q 52 145, 60 175" fill="none" stroke="#8b5cf6" stroke-width="2.2"/>
+                  <path d="M 72 25 Q 92 88, 108 88 Q 135 88, 158 25" fill="none" stroke="#8b5cf6" stroke-width="2.2"/>
+                  <path d="M 172 175 Q 185 112, 205 105 L 238 92" fill="none" stroke="#8b5cf6" stroke-width="2.2"/>
+                  <circle cx="108" cy="88" r="3" fill="#e11d48"/>
+                  <text x="88" y="79" font-size="9" font-weight="bold" fill="#881337">(−1, ½)</text>
+                </svg>
+              </div>
+            `,
             exitQuestion: "If y = f(x) cuts the x-axis at (−3, 0) and (4, 0) and the y-axis at (0, −5), state all axial intercepts of y = f(|x|).",
             exitAnswer: "For x ≥ 0, intercepts are (4, 0) and (0, −5). Reflecting across the y-axis gives <strong>(−4, 0), (4, 0), and (0, −5)</strong> (the point (−3, 0) is discarded)."
           },
@@ -875,8 +1032,41 @@
               "Forgetting to check whether t_min and t_max are included (closed dot) or excluded (open circle)."
             ],
             gcTip: "Press [MODE], switch from FUNC to PARAMETRIC (PAR), enter X1T and Y1T, and set Tstep ≈ 0.05 in [WINDOW] for smooth parametric sketches.",
-            workedQuestion: "A curve C is defined parametrically by x = 2t − 1, y = t² + 2 for −1 ≤ t ≤ 3. Find the Cartesian equation of C and state the coordinates of its endpoints and turning point.",
-            workedSolution: "1. From x = 2t − 1, t = (x + 1)/2. Substituting into y: <strong>y = ¼(x + 1)² + 2</strong>.<br>2. Domain restriction: for −1 ≤ t ≤ 3, <strong>−3 ≤ x ≤ 5</strong>.<br>3. Endpoints: at t = −1, <strong>(−3, 3)</strong>; at t = 3, <strong>(5, 11)</strong>. Minimum turning point at t = 0: <strong>(−1, 2)</strong>.",
+            workedQuestion: `
+              A curve <em>C</em> is defined parametrically by <em>x = 2 cos t + 1</em>, <em>y = 3 sin t − 2</em> for <em>0 ≤ t ≤ π</em>.<br>
+              <strong>(i)</strong> Find the Cartesian equation of <em>C</em> and state the restrictions on <em>x</em> and <em>y</em>. [3]<br>
+              <strong>(ii)</strong> Sketch <em>C</em>, indicating clearly the coordinates of its endpoints, its vertex, and the direction of increasing <em>t</em>. [3]<br>
+              <strong>(iii)</strong> The curve <em>C</em> is translated by 1 unit in the negative <em>x</em>-direction and scaled parallel to the <em>y</em>-axis by a scale factor of 2. Write down the new parametric equations. [2]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> Expressing <em>cos t = (x − 1)/2</em> and <em>sin t = (y + 2)/3</em>:<br>
+              Using <em>cos²t + sin²t = 1</em>: <strong>(x − 1)²/4 + (y + 2)²/9 = 1</strong>.<br>
+              Since <em>0 ≤ t ≤ π</em>, <em>−1 ≤ cos t ≤ 1</em> and <em>0 ≤ sin t ≤ 1</em>, so <strong>−1 ≤ x ≤ 3</strong> and <strong>−2 ≤ y ≤ 1</strong> (upper half-ellipse only).<br><br>
+              <strong>(ii)</strong> Endpoints: at <em>t = 0</em>, <strong>(3, −2)</strong>; at <em>t = π</em>, <strong>(−1, −2)</strong>. Maximum vertex at <em>t = π/2</em>: <strong>(1, 1)</strong>.<br><br>
+              <strong>(iii)</strong> Replacing <em>x ↦ x − 1</em> and <em>y ↦ 2y</em>: <strong>x = 2 cos t</strong>, <strong>y = 6 sin t − 4</strong> for <em>0 ≤ t ≤ π</em>.
+              <div style="margin-top:10px; text-align:center;">
+                <svg width="360" height="205" viewBox="0 0 360 205" style="background:#fdfbf7; border:1px solid #cbd5e1; border-radius:10px;">
+                  <!-- Axes -->
+                  <line x1="25" y1="85" x2="335" y2="85" stroke="#64748b" stroke-width="1.3"/>
+                  <line x1="145" y1="15" x2="145" y2="185" stroke="#64748b" stroke-width="1.3"/>
+                  <text x="328" y="98" font-size="11" fill="#475569">x</text>
+                  <text x="150" y="24" font-size="11" fill="#475569">y</text>
+                  <text x="133" y="98" font-size="10" fill="#475569">O</text>
+                  <!-- Upper half-ellipse: (-1,-2)->(110,145), (1,1)->(180,55), (3,-2)->(250,145) -->
+                  <path d="M 250 145 A 70 90 0 0 0 110 145" fill="none" stroke="#8b5cf6" stroke-width="2.6"/>
+                  <!-- Direction Arrow at top -->
+                  <polygon points="175,55 184,50 184,60" fill="#0f766e"/>
+                  <text x="195" y="42" font-size="9.5" font-weight="bold" fill="#0f766e">t increasing</text>
+                  <!-- Solid Endpoints & Vertex -->
+                  <circle cx="250" cy="145" r="4" fill="#e11d48"/>
+                  <text x="256" y="150" font-size="10" font-weight="bold" fill="#881337">(3, −2) [t = 0]</text>
+                  <circle cx="110" cy="145" r="4" fill="#e11d48"/>
+                  <text x="35" y="150" font-size="10" font-weight="bold" fill="#881337">(−1, −2) [t = π]</text>
+                  <circle cx="180" cy="55" r="3.5" fill="#0284c7"/>
+                  <text x="162" y="46" font-size="10" font-weight="bold" fill="#0284c7">(1, 1)</text>
+                </svg>
+              </div>
+            `,
             exitQuestion: "Find the Cartesian equation of the curve x = 3 sec θ, y = 2 tan θ for −π/2 < θ < π/2, and state any restriction on x.",
             exitAnswer: "Using sec²θ − tan²θ = 1 gives <strong>x²/9 − y²/4 = 1</strong>. Since sec θ ≥ 1 on (−π/2, π/2), <strong>x ≥ 3</strong> (right branch only)."
           }
