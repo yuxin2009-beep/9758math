@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 1.2 Lesson 4: Animated Modulus & Reciprocal Lab</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .app-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 465px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 960px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--muted);
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .tab-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .tab-btn {
+      padding: 9px 8px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.8rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .base-btn.active {
+      background: var(--blue);
+      color: #ffffff;
+      border-color: #0369a1;
+    }
+
+    .anim-panel {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 11px 13px;
+      margin-bottom: 12px;
+    }
+
+    .anim-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .play-btn {
+      background: var(--purple-dark);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 7px 14px;
+      font-weight: 700;
+      font-size: 0.8rem;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: 0.15s;
+    }
+
+    .play-btn:hover {
+      background: #6d28d9;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple-dark);
+      cursor: pointer;
+    }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      border-radius: 10px;
+      background: var(--amber-bg);
+      border: 1px solid #fde68a;
+      margin-bottom: 12px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #78350f;
+    }
+
+    .rule-banner {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 14px;
+      color: #134e4a;
+      font-size: 0.82rem;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .rule-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .map-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.79rem;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .map-table th, .map-table td {
+      border: 1px solid #e2e8f0;
+      padding: 6px 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .map-table th {
+      background: #f1f5f9;
+      font-weight: 700;
+      color: #1e293b;
+    }
+
+    .canvas-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .legend {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    canvas {
+      width: 100%;
+      height: 500px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      background: #ffffff;
+      display: block;
+    }
+
+    .misconception-box {
+      margin-top: 12px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 0.82rem;
+      line-height: 1.5;
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-container">
+  <!-- LEFT CONTROL PANEL -->
+  <div class="card">
+    <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:10px;">
+      1.2 Lesson 4 &bull; Animated Modulus &amp; Reciprocal Lab
+    </div>
+
+    <span class="section-label">1. Select Transformation Type</span>
+    <div class="tab-row">
+      <button class="tab-btn active" id="trans_modY" onclick="setTrans('modY')">
+        y = |f(x)|
+      </button>
+      <button class="tab-btn" id="trans_modX" onclick="setTrans('modX')">
+        y = f(|x|)
+      </button>
+      <button class="tab-btn" id="trans_recip" onclick="setTrans('recip')">
+        y = 1 / f(x)
+      </button>
+    </div>
+
+    <span class="section-label">2. Select Base Curve y = f(x)</span>
+    <div class="tab-row">
+      <button class="tab-btn base-btn active" id="base_quad" onclick="setBase('quad')">
+        Asymmetric Quadratic
+      </button>
+      <button class="tab-btn base-btn" id="base_rat" onclick="setBase('rat')">
+        Rational (VA &amp; HA)
+      </button>
+      <button class="tab-btn base-btn" id="base_oblique" onclick="setBase('oblique')">
+        Oblique Asymptote
+      </button>
+    </div>
+
+    <!-- Animation Controller -->
+    <div class="anim-panel">
+      <div style="display:flex; justify-content:space-between; font-size:0.78rem; font-weight:800; color:#4c1d95;">
+        <span>GEOMETRIC MORPH ANIMATION</span>
+        <span id="progressLabel">100% (Final)</span>
+      </div>
+      <div class="anim-controls">
+        <button class="play-btn" id="btnPlay" onclick="startAnimation()">&#9654; Animate</button>
+        <input type="range" id="morphSlider" min="0" max="1" step="0.01" value="1" oninput="onScrub(this.value)" />
+      </div>
+    </div>
+
+    <div class="toggle-row">
+      <span>Show Original y = f(x) Reference Curve</span>
+      <input type="checkbox" id="chkOrig" checked onchange="draw()" style="width:18px; height:18px; cursor:pointer;" />
+    </div>
+
+    <!-- Geometric Construction Rules -->
+    <div class="rule-banner" id="ruleBox"></div>
+
+    <!-- Feature-by-Feature Mapping Table -->
+    <table class="map-table" id="mappingTable"></table>
+  </div>
+
+  <!-- RIGHT GRAPHING CANVAS -->
+  <div class="card">
+    <div class="canvas-header">
+      <strong style="font-size:1.05rem; color:#1e293b;" id="titleBanner">Transformation: y = |f(x)|</strong>
+      <div class="legend" id="legendBar"></div>
+    </div>
+
+    <canvas id="modRecipCanvas" width="880" height="500"></canvas>
+
+    <div class="misconception-box" id="misconceptionBox"></div>
+  </div>
+</div>
+
+<script>
+  let transMode = "modY";  // 'modY' | 'modX' | 'recip'
+  let baseMode = "quad";   // 'quad' | 'rat' | 'oblique'
+  let animAlpha = 1.0;     // 0 = original f(x), 1 = fully transformed
+  let animFrameId = null;
+
+  function startAnimation() {
+    if (animFrameId) cancelAnimationFrame(animFrameId);
+    animAlpha = 0;
+    const duration = 1600; // 1.6 seconds smooth transition
+    const startTime = performance.now();
+
+    function step(now) {
+      const rawT = Math.min((now - startTime) / duration, 1);
+      // Smooth ease-in-out cubic
+      animAlpha = rawT < 0.5
+        ? 4 * rawT * rawT * rawT
+        : 1 - Math.pow(-2 * rawT + 2, 3) / 2;
+
+      document.getElementById("morphSlider").value = animAlpha.toFixed(2);
+      updateProgressText();
+      draw();
+
+      if (rawT < 1) {
+        animFrameId = requestAnimationFrame(step);
+      } else {
+        animFrameId = null;
+      }
+    }
+    animFrameId = requestAnimationFrame(step);
+  }
+
+  function onScrub(val) {
+    if (animFrameId) {
+      cancelAnimationFrame(animFrameId);
+      animFrameId = null;
+    }
+    animAlpha = parseFloat(val);
+    updateProgressText();
+    draw();
+  }
+
+  function updateProgressText() {
+    const pct = Math.round(animAlpha * 100);
+    const lbl = document.getElementById("progressLabel");
+    if (pct === 0) lbl.textContent = "0% (Original y = f(x))";
+    else if (pct === 100) lbl.textContent = "100% (Final Transformed)";
+    else lbl.textContent = `${pct}% (Transforming...)`;
+  }
+
+  function setTrans(m) {
+    transMode = m;
+    document.querySelectorAll("#trans_modY, #trans_modX, #trans_recip").forEach(b => b.classList.remove("active"));
+    document.getElementById("trans_" + m).classList.add("active");
+    startAnimation();
+  }
+
+  function setBase(b) {
+    baseMode = b;
+    document.querySelectorAll(".base-btn").forEach(btn => btn.classList.remove("active"));
+    document.getElementById("base_" + b).classList.add("active");
+    startAnimation();
+  }
+
+  const curves = {
+    quad: {
+      name: "f(x) = ½(x − 1)² − 2",
+      fn: x => 0.5 * (x - 1) * (x - 1) - 2,
+      va: [],
+      ha: null,
+      oblique: null,
+      xInts: [-1, 3],
+      yInt: -1.5,
+      tps: [{ x: 1, y: -2, type: "Local Min" }]
+    },
+    rat: {
+      name: "f(x) = −1 + 3/(x − 1)",
+      fn: x => (Math.abs(x - 1) < 0.025 ? NaN : -1 + 3 / (x - 1)),
+      va: [1],
+      ha: -1,
+      oblique: null,
+      xInts: [4],
+      yInt: -4,
+      tps: []
+    },
+    oblique: {
+      name: "f(x) = x − 1 + 1/(x − 1)",
+      fn: x => (Math.abs(x - 1) < 0.025 ? NaN : x - 1 + 1 / (x - 1)),
+      va: [1],
+      ha: null,
+      oblique: { m: 1, c: -1, label: "y = x − 1" },
+      xInts: [],
+      yInt: -2,
+      tps: [
+        { x: 0, y: -2, type: "Local Max" },
+        { x: 2, y: 2, type: "Local Min" }
+      ]
+    }
+  };
+
+  function fmtNum(n) {
+    if (!isFinite(n)) return "∞";
+    if (Math.abs(n) < 1e-9) return "0";
+    return Number.isInteger(n) ? n.toString() : n.toFixed(2).replace(/\.00$/, "").replace(/(\.\d)0$/, "$1");
+  }
+
+  function draw() {
+    const canvas = document.getElementById("modRecipCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const xMin = -7, xMax = 8;
+    const yMin = -6, yMax = 7;
+    const toPxX = x => ((x - xMin) / (xMax - xMin)) * W;
+    const toPxY = y => H - ((y - yMin) / (yMax - yMin)) * H;
+
+    // Grid
+    ctx.strokeStyle = "#f1f5f9";
+    ctx.lineWidth = 1;
+    for (let gx = Math.ceil(xMin); gx <= Math.floor(xMax); gx++) {
+      ctx.beginPath(); ctx.moveTo(toPxX(gx), 0); ctx.lineTo(toPxX(gx), H); ctx.stroke();
+    }
+    for (let gy = Math.ceil(yMin); gy <= Math.floor(yMax); gy++) {
+      ctx.beginPath(); ctx.moveTo(0, toPxY(gy)); ctx.lineTo(W, toPxY(gy)); ctx.stroke();
+    }
+
+    // Axes
+    ctx.strokeStyle = "#94a3b8";
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    ctx.moveTo(0, toPxY(0)); ctx.lineTo(W, toPxY(0));
+    ctx.moveTo(toPxX(0), 0); ctx.lineTo(toPxX(0), H);
+    ctx.stroke();
+
+    ctx.fillStyle = "#64748b";
+    ctx.font = "11px Segoe UI, sans-serif";
+    for (let gx = -6; gx <= 7; gx++) {
+      if (gx !== 0) ctx.fillText(gx, toPxX(gx) - 5, toPxY(0) + 14);
+    }
+    for (let gy = -5; gy <= 6; gy++) {
+      if (gy !== 0) ctx.fillText(gy, toPxX(0) + 6, toPxY(gy) + 4);
+    }
+
+    const cData = curves[baseMode];
+    const showOrig = document.getElementById("chkOrig").checked;
+    const t = animAlpha;
+
+    const titles = {
+      modY: `y = |f(x)|  for  ${cData.name}`,
+      modX: `y = f(|x|)  for  ${cData.name}`,
+      recip: `y = 1 / f(x)  for  ${cData.name}`
+    };
+    document.getElementById("titleBanner").textContent = titles[transMode];
+
+    document.getElementById("legendBar").innerHTML = `
+      <span class="legend-item"><span class="dot" style="background:#94a3b8;"></span> Original y = f(x)</span>
+      <span class="legend-item"><span class="dot" style="background:#8b5cf6;"></span> Active / Transformed Curve</span>
+      <span class="legend-item"><span class="dot" style="background:#0284c7;"></span> Vertical Asymptote</span>
+      <span class="legend-item"><span class="dot" style="background:#0f766e;"></span> Horiz. / Oblique Asymptote</span>
+      <span class="legend-item"><span class="dot" style="background:#e11d48;"></span> Key Points / Cusps</span>
+    `;
+
+    // 1. Original Reference Curve
+    if (showOrig) {
+      plotCurve(ctx, cData.fn, "#94a3b8", 1.8, [5, 5], xMin, xMax, yMin, yMax, toPxX, toPxY);
+    }
+
+    // 2. Animated Transformation Modes
+    if (transMode === "modY") {
+      // Lower portion (y < 0) folds vertically across y = 0: y_morph = (1 - 2t) * y
+      const fnMorph = x => {
+        const y = cData.fn(x);
+        if (!isFinite(y)) return NaN;
+        return y >= 0 ? y : y * (1 - 2 * t);
+      };
+
+      // Asymptotes
+      cData.va.forEach(vx => drawVLine(ctx, toPxX(vx), H, "#0284c7", `x = ${vx}`));
+      if (cData.ha !== null) {
+        const animHA = cData.ha >= 0 ? cData.ha : cData.ha * (1 - 2 * t);
+        drawHLine(ctx, toPxY(animHA), W, "#0f766e", `y = ${fmtNum(animHA)}`);
+      }
+      if (cData.oblique) {
+        const { m, c } = cData.oblique;
+        const xCorner = -c / m;
+        const yLeft = (m * xMin + c) * (1 - 2 * t);
+        const yRight = m * xMax + c;
+        ctx.save();
+        ctx.setLineDash([6, 5]);
+        ctx.strokeStyle = "#0f766e";
+        ctx.lineWidth = 1.6;
+        ctx.beginPath();
+        ctx.moveTo(toPxX(xMin), toPxY(yLeft));
+        ctx.lineTo(toPxX(xCorner), toPxY(0));
+        ctx.lineTo(toPxX(xMax), toPxY(yRight));
+        ctx.stroke();
+        if (t > 0.85) {
+          ctx.fillStyle = "#0f766e";
+          ctx.font = "bold 11px Segoe UI, sans-serif";
+          ctx.fillText("y = |x − 1|", toPxX(5.2), toPxY(4.7));
+        }
+        ctx.restore();
+      }
+
+      plotCurve(ctx, fnMorph, "#8b5cf6", 3, [], xMin, xMax, yMin, yMax, toPxX, toPxY);
+
+      // Animated Key Points
+      cData.xInts.forEach(xi => drawPoint(ctx, toPxX(xi), toPxY(0), "#e11d48", t > 0.8 ? `Cusp (${xi}, 0)` : `(${xi}, 0)`));
+      if (cData.yInt !== null) {
+        const ay = cData.yInt >= 0 ? cData.yInt : cData.yInt * (1 - 2 * t);
+        drawPoint(ctx, toPxX(0), toPxY(ay), "#e11d48", `(0, ${fmtNum(ay)})`);
+      }
+      cData.tps.forEach(tp => {
+        const ay = tp.y >= 0 ? tp.y : tp.y * (1 - 2 * t);
+        drawPoint(ctx, toPxX(tp.x), toPxY(ay), "#e11d48", `(${tp.x}, ${fmtNum(ay)})`);
+      });
+
+      updateTextPanelsModY(cData);
+
+    } else if (transMode === "modX") {
+      // Phase 1 (t: 0 -> 0.35): fade out left half (x < 0)
+      // Phase 2 (t: 0.35 -> 1.0): unfold right half (x >= 0) across y-axis via x -> -u*x
+      const fadeAlpha = t < 0.35 ? 1 - (t / 0.35) : 0;
+      const foldProgress = t <= 0.35 ? 0 : (t - 0.35) / 0.65;
+
+      // Asymptotes
+      cData.va.forEach(vx => {
+        if (vx > 0) {
+          drawVLine(ctx, toPxX(vx), H, "#0284c7", `x = ${vx}`);
+          if (foldProgress > 0) {
+            const animVA = -vx * foldProgress;
+            drawVLine(ctx, toPxX(animVA), H, "#0284c7", foldProgress > 0.9 ? `x = −${vx}` : "");
+          }
+        } else if (vx < 0 && fadeAlpha > 0.05) {
+          ctx.save();
+          ctx.globalAlpha = fadeAlpha;
+          drawVLine(ctx, toPxX(vx), H, "#0284c7", `x = ${vx}`);
+          ctx.restore();
+        }
+      });
+
+      if (cData.ha !== null) {
+        drawHLine(ctx, toPxY(cData.ha), W, "#0f766e", `y = ${cData.ha}`);
+      }
+      if (cData.oblique) {
+        ctx.save();
+        ctx.setLineDash([6, 5]);
+        ctx.strokeStyle = "#0f766e";
+        ctx.lineWidth = 1.6;
+        ctx.beginPath();
+        ctx.moveTo(toPxX(0), toPxY(-1));
+        ctx.lineTo(toPxX(xMax), toPxY(xMax - 1));
+        if (foldProgress > 0) {
+          ctx.moveTo(toPxX(0), toPxY(-1));
+          ctx.lineTo(toPxX(xMin * foldProgress), toPxY(Math.abs(xMin) - 1));
+        }
+        ctx.stroke();
+        if (foldProgress > 0.85) {
+          ctx.fillStyle = "#0f766e";
+          ctx.font = "bold 11px Segoe UI, sans-serif";
+          ctx.fillText("y = |x| − 1", toPxX(4.8), toPxY(4.3));
+        }
+        ctx.restore();
+      }
+
+      // Draw fading left branch (x < 0)
+      if (fadeAlpha > 0.02) {
+        ctx.save();
+        ctx.globalAlpha = fadeAlpha;
+        plotCurve(ctx, cData.fn, "#e11d48", 2.5, [3, 3], xMin, 0, yMin, yMax, toPxX, toPxY);
+        ctx.restore();
+      }
+
+      // Draw retained right branch (x >= 0)
+      plotCurve(ctx, cData.fn, "#8b5cf6", 3, [], 0, xMax, yMin, yMax, toPxX, toPxY);
+
+      // Draw unfolding reflected branch onto x <= 0
+      if (foldProgress > 0.01) {
+        ctx.save();
+        ctx.strokeStyle = "#8b5cf6";
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        let penDown = false;
+        const step = xMax / 600;
+        for (let xr = 0; xr <= xMax; xr += step) {
+          const y = cData.fn(xr);
+          if (!isFinite(y) || y < yMin - 4 || y > yMax + 4) {
+            penDown = false;
+            continue;
+          }
+          const xMapped = -xr * foldProgress;
+          if (xMapped < xMin) continue;
+          const px = toPxX(xMapped), py = toPxY(y);
+          if (!penDown) { ctx.moveTo(px, py); penDown = true; }
+          else { ctx.lineTo(px, py); }
+        }
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      // Key points
+      cData.xInts.filter(v => v >= 0).forEach(xi => {
+        drawPoint(ctx, toPxX(xi), toPxY(0), "#e11d48", `(${xi}, 0)`);
+        if (xi > 0 && foldProgress > 0.05) {
+          const mx = -xi * foldProgress;
+          drawPoint(ctx, toPxX(mx), toPxY(0), "#e11d48", foldProgress > 0.9 ? `(−${xi}, 0)` : "");
+        }
+      });
+      if (cData.yInt !== null) {
+        drawPoint(ctx, toPxX(0), toPxY(cData.yInt), "#e11d48", foldProgress > 0.8 ? `Cusp (0, ${fmtNum(cData.yInt)})` : `(0, ${fmtNum(cData.yInt)})`);
+      }
+      cData.tps.filter(tp => tp.x > 0).forEach(tp => {
+        drawPoint(ctx, toPxX(tp.x), toPxY(tp.y), "#e11d48", `(${tp.x}, ${tp.y})`);
+        if (foldProgress > 0.05) {
+          const mx = -tp.x * foldProgress;
+          drawPoint(ctx, toPxX(mx), toPxY(tp.y), "#e11d48", foldProgress > 0.9 ? `(−${tp.x}, ${tp.y})` : "");
+        }
+      });
+
+      updateTextPanelsModX(cData);
+
+    } else {
+      // y = 1 / f(x) smooth blend: y_morph = (1 - t)*f(x) + t*(1 / f(x))
+      const fnMorph = x => {
+        const y = cData.fn(x);
+        if (!isFinite(y)) return NaN;
+        if (t > 0.02 && Math.abs(y) < 0.025) return NaN;
+        return (1 - t) * y + t * (1 / y);
+      };
+
+      // Asymptotes appear as t -> 1
+      if (t > 0.5) {
+        ctx.save();
+        ctx.globalAlpha = (t - 0.5) * 2;
+        cData.xInts.forEach(xi => drawVLine(ctx, toPxX(xi), H, "#0284c7", `x = ${xi}`));
+        if (cData.oblique) {
+          drawHLine(ctx, toPxY(0), W, "#0f766e", "y = 0 (HA)");
+        } else if (cData.ha !== null && cData.ha !== 0) {
+          const invHA = 1 / cData.ha;
+          drawHLine(ctx, toPxY(invHA), W, "#0f766e", `y = ${fmtNum(invHA)}`);
+        }
+        ctx.restore();
+      }
+
+      plotCurve(ctx, fnMorph, "#8b5cf6", 3, [], xMin, xMax, yMin, yMax, toPxX, toPxY);
+
+      // Animated Turning Points
+      cData.tps.forEach(tp => {
+        if (tp.y !== 0) {
+          const curY = (1 - t) * tp.y + t * (1 / tp.y);
+          const lbl = t > 0.85
+            ? `${tp.type === "Local Min" ? "Max" : "Min"} (${tp.x}, ${fmtNum(1 / tp.y)})`
+            : `(${tp.x}, ${fmtNum(curY)})`;
+          drawPoint(ctx, toPxX(tp.x), toPxY(curY), "#e11d48", lbl);
+        }
+      });
+
+      // Animated y-intercept
+      if (cData.yInt !== null && cData.yInt !== 0) {
+        const curY = (1 - t) * cData.yInt + t * (1 / cData.yInt);
+        drawPoint(ctx, toPxX(0), toPxY(curY), "#e11d48", `(0, ${fmtNum(curY)})`);
+      }
+
+      // Open hole at original VA once t > 0.85
+      if (t > 0.85) {
+        cData.va.forEach(vx => {
+          ctx.save();
+          ctx.fillStyle = "#ffffff";
+          ctx.strokeStyle = "#e11d48";
+          ctx.lineWidth = 2.2;
+          ctx.beginPath();
+          ctx.arc(toPxX(vx), toPxY(0), 5, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.stroke();
+          ctx.fillStyle = "#881337";
+          ctx.font = "bold 10.5px Segoe UI, sans-serif";
+          ctx.fillText(`(${vx}, 0) [hole]`, toPxX(vx) + 7, toPxY(0) - 7);
+          ctx.restore();
+        });
+      }
+
+      updateTextPanelsRecip(cData);
+    }
+  }
+
+  function updateTextPanelsModY(cData) {
+    document.getElementById("ruleBox").innerHTML = `
+      <span class="rule-title">Geometric Method for y = |f(x)|</span>
+      1. Retain all parts of <em>y = f(x)</em> on or above the <em>x</em>-axis (<em>y ≥ 0</em>).<br>
+      2. Fold all parts strictly below the <em>x</em>-axis (<em>y &lt; 0</em>) upward across <em>y = 0</em>.<br>
+      3. Draw <strong>sharp corners (cusps)</strong> at every <em>x</em>-intercept where the graph crosses <em>y = 0</em>.
+    `;
+    document.getElementById("mappingTable").innerHTML = `
+      <thead><tr><th>Feature</th><th>Original y = f(x)</th><th>Transformed y = |f(x)|</th></tr></thead>
+      <tbody>
+        <tr><td><strong>x-intercepts</strong></td><td>${cData.xInts.length ? cData.xInts.map(v => `(${v}, 0)`).join(", ") : "None"}</td><td style="color:var(--rose); font-weight:700;">${cData.xInts.length ? cData.xInts.map(v => `Sharp cusp at (${v}, 0)`).join(", ") : "None"}</td></tr>
+        <tr><td><strong>y-intercept</strong></td><td>(0, ${fmtNum(cData.yInt)})</td><td>(0, ${fmtNum(Math.abs(cData.yInt))})</td></tr>
+        <tr><td><strong>Turning Points</strong></td><td>${cData.tps.length ? cData.tps.map(t => `(${t.x}, ${t.y})`).join(", ") : "None"}</td><td>${cData.tps.length ? cData.tps.map(t => `(${t.x}, ${Math.abs(t.y)})`).join(", ") : "None"}</td></tr>
+        <tr><td><strong>Asymptotes</strong></td><td>${fmtAsympSummary(cData)}</td><td>${cData.va.length ? `x = ${cData.va[0]}` : "No VA"}${cData.ha !== null ? `, y = ${Math.abs(cData.ha)}` : cData.oblique ? `, y = |x − 1|` : ""}</td></tr>
+      </tbody>
+    `;
+    document.getElementById("misconceptionBox").innerHTML = `
+      <strong>9758 Misconception Alert for y = |f(x)|:</strong>
+      <ul style="margin:4px 0 0 0; padding-left:18px;">
+        <li><strong>Sharp corners vs. smooth curves:</strong> At an <em>x</em>-intercept where <em>f'(a) ≠ 0</em>, <em>y = |f(x)|</em> has a distinct <strong>sharp V-shaped cusp</strong>—examiners penalize rounded U-turns at the <em>x</em>-axis.</li>
+        <li><strong>Horizontal &amp; oblique asymptotes reflect too:</strong> If <em>y = −1</em> is an asymptote of <em>f(x)</em>, it reflects to <em>y = 1</em> on <em>y = |f(x)|</em>.</li>
+      </ul>
+    `;
+  }
+
+  function updateTextPanelsModX(cData) {
+    const posXInts = cData.xInts.filter(v => v >= 0);
+    document.getElementById("ruleBox").innerHTML = `
+      <span class="rule-title">Geometric Method for y = f(|x|)</span>
+      1. <strong>Discard</strong> the entire left portion of <em>y = f(x)</em> where <em>x &lt; 0</em>.<br>
+      2. <strong>Retain</strong> the right portion where <em>x ≥ 0</em>.<br>
+      3. <strong>Unfold / reflect</strong> that <em>x ≥ 0</em> portion across the <em>y</em>-axis onto <em>x &lt; 0</em>.
+    `;
+    document.getElementById("mappingTable").innerHTML = `
+      <thead><tr><th>Feature</th><th>Original y = f(x)</th><th>Transformed y = f(|x|)</th></tr></thead>
+      <tbody>
+        <tr><td><strong>x-intercepts</strong></td><td>${cData.xInts.length ? cData.xInts.map(v => `(${v}, 0)`).join(", ") : "None"}</td><td style="color:var(--rose); font-weight:700;">${posXInts.length ? posXInts.map(v => `(±${v}, 0)`).join(", ") : "None"}</td></tr>
+        <tr><td><strong>y-intercept</strong></td><td>(0, ${fmtNum(cData.yInt)})</td><td>(0, ${fmtNum(cData.yInt)}) (cusp if f'(0) ≠ 0)</td></tr>
+        <tr><td><strong>Turning Points</strong></td><td>${cData.tps.length ? cData.tps.map(t => `(${t.x}, ${t.y})`).join(", ") : "None"}</td><td>${cData.tps.filter(t => t.x > 0).length ? cData.tps.filter(t => t.x > 0).map(t => `(±${t.x}, ${t.y})`).join(", ") : "None"}</td></tr>
+        <tr><td><strong>Asymptotes</strong></td><td>${fmtAsympSummary(cData)}</td><td>${cData.va.filter(v => v > 0).length ? `x = ±1` : "No VA"}${cData.ha !== null ? `, y = ${cData.ha}` : cData.oblique ? `, y = |x| − 1` : ""}</td></tr>
+      </tbody>
+    `;
+    document.getElementById("misconceptionBox").innerHTML = `
+      <strong>9758 Misconception Alert for y = f(|x|):</strong>
+      <ul style="margin:4px 0 0 0; padding-left:18px;">
+        <li><strong>Left-half features vanish:</strong> Any <em>x</em>-intercepts, turning points, or vertical asymptotes of <em>y = f(x)</em> lying strictly in <em>x &lt; 0</em> are completely discarded before reflecting <em>x ≥ 0</em>.</li>
+        <li><strong>Cusp on the y-axis:</strong> If <em>f(x)</em> is defined at <em>x = 0</em> with <em>f'(0) ≠ 0</em>, reflecting across the <em>y</em>-axis creates a sharp corner at <em>(0, f(0))</em>.</li>
+      </ul>
+    `;
+  }
+
+  function updateTextPanelsRecip(cData) {
+    let newHAStr = "None";
+    if (cData.oblique) newHAStr = "y = 0";
+    else if (cData.ha !== null && cData.ha !== 0) newHAStr = `y = ${fmtNum(1 / cData.ha)}`;
+
+    document.getElementById("ruleBox").innerHTML = `
+      <span class="rule-title">Geometric Method for y = 1 / f(x)</span>
+      1. <strong>Sign preservation:</strong> <em>1/f(x)</em> keeps the exact same positive/negative sign as <em>f(x)</em>.<br>
+      2. <strong>Asymptotes &amp; Roots swap:</strong> <em>x</em>-intercepts <em>(a, 0)</em> become vertical asymptotes <em>x = a</em>; vertical asymptotes <em>x = c</em> become x-axis approaches <em>(c, 0)</em>.<br>
+      3. <strong>Stationary points invert:</strong> Local max <em>(a, b)</em> becomes local min <em>(a, 1/b)</em> (for <em>b ≠ 0</em>).
+    `;
+    document.getElementById("mappingTable").innerHTML = `
+      <thead><tr><th>Feature</th><th>Original y = f(x)</th><th>Transformed y = 1 / f(x)</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Vertical Asymptotes</strong></td><td>${cData.va.length ? `x = ${cData.va[0]}` : "None"}</td><td style="color:var(--blue); font-weight:700;">${cData.xInts.length ? cData.xInts.map(v => `x = ${v}`).join(", ") : "None"}</td></tr>
+        <tr><td><strong>Horiz. Asymptote</strong></td><td>${cData.ha !== null ? `y = ${cData.ha}` : cData.oblique ? `Oblique ${cData.oblique.label}` : "None"}</td><td style="color:var(--teal); font-weight:700;">${newHAStr}</td></tr>
+        <tr><td><strong>y-intercept</strong></td><td>(0, ${fmtNum(cData.yInt)})</td><td>(0, ${fmtNum(1 / cData.yInt)})</td></tr>
+        <tr><td><strong>Turning Points</strong></td><td>${cData.tps.length ? cData.tps.map(t => `${t.type} (${t.x}, ${t.y})`).join("<br>") : "None"}</td><td>${cData.tps.length ? cData.tps.map(t => `${t.type === "Local Min" ? "Local Max" : "Local Min"} (${t.x}, ${fmtNum(1 / t.y)})`).join("<br>") : "None"}</td></tr>
+      </tbody>
+    `;
+    document.getElementById("misconceptionBox").innerHTML = `
+      <strong>9758 Misconception Alert for y = 1 / f(x):</strong>
+      <ul style="margin:4px 0 0 0; padding-left:18px;">
+        <li><strong>Oblique asymptotes become y = 0:</strong> Because <em>f(x) → ±∞</em> along an oblique asymptote (or parabola), <em>1/f(x) → 0</em>, so the <em>x</em>-axis (<em>y = 0</em>) becomes a horizontal asymptote.</li>
+        <li><strong>Sign never flips:</strong> Taking a reciprocal does <em>not</em> negate values—where <em>f(x) &lt; 0</em>, <em>1/f(x)</em> stays strictly below the <em>x</em>-axis.</li>
+      </ul>
+    `;
+  }
+
+  function fmtAsympSummary(cData) {
+    let parts = [];
+    if (cData.va.length) parts.push(`x = ${cData.va[0]}`);
+    if (cData.ha !== null) parts.push(`y = ${cData.ha}`);
+    if (cData.oblique) parts.push(cData.oblique.label);
+    return parts.length ? parts.join(", ") : "None";
+  }
+
+  function drawVLine(ctx, px, H, color, label) {
+    ctx.save();
+    ctx.setLineDash([6, 5]);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 1.8;
+    ctx.beginPath();
+    ctx.moveTo(px, 0); ctx.lineTo(px, H);
+    ctx.stroke();
+    if (label) {
+      ctx.fillStyle = color;
+      ctx.font = "bold 11px Segoe UI, sans-serif";
+      ctx.fillText(label, px + 5, 18);
+    }
+    ctx.restore();
+  }
+
+  function drawHLine(ctx, py, W, color, label) {
+    ctx.save();
+    ctx.setLineDash([6, 5]);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 1.8;
+    ctx.beginPath();
+    ctx.moveTo(0, py); ctx.lineTo(W, py);
+    ctx.stroke();
+    if (label) {
+      ctx.fillStyle = color;
+      ctx.font = "bold 11px Segoe UI, sans-serif";
+      ctx.fillText(label, 12, py - 6);
+    }
+    ctx.restore();
+  }
+
+  function plotCurve(ctx, fn, color, width, dash, xMin, xMax, yMin, yMax, toPxX, toPxY) {
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = width;
+    ctx.setLineDash(dash);
+    ctx.beginPath();
+    let penDown = false;
+    const step = (xMax - xMin) / 1100;
+    for (let x = xMin; x <= xMax; x += step) {
+      const y = fn(x);
+      if (!isFinite(y) || y < yMin - 4 || y > yMax + 4) {
+        penDown = false;
+        continue;
+      }
+      const px = toPxX(x), py = toPxY(y);
+      if (!penDown) { ctx.moveTo(px, py); penDown = true; }
+      else { ctx.lineTo(px, py); }
+    }
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawPoint(ctx, px, py, color, label) {
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(px, py, 5, 0, Math.PI * 2);
+    ctx.fill();
+    if (label) {
+      ctx.font = "bold 11px Segoe UI, sans-serif";
+      ctx.fillText(label, px + 7, py - 6);
+    }
+  }
+
+  startAnimation();
+</script>
+
+</body>
+</html>
