@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 6.4 Lesson 2: Sample Mean from a Normal Population</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px 22px;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    h1 {
+      margin: 4px 0 0 0;
+      font-size: 1.25rem;
+      color: #1e293b;
+    }
+
+    .tab-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      padding: 9px 15px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .tab-btn:hover {
+      border-color: var(--purple);
+      color: var(--purple-dark);
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.22);
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    @media (max-width: 960px) {
+      .tab-panel.active {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 18px;
+      box-shadow: 0 3px 10px rgba(148, 163, 184, 0.06);
+    }
+
+    .card-title {
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--purple-dark);
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .preset-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .preset-btn {
+      padding: 6px 10px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #334155;
+      cursor: pointer;
+    }
+
+    .preset-btn:hover, .preset-btn.active {
+      background: var(--purple-bg);
+      border-color: var(--purple);
+      color: var(--purple-dark);
+    }
+
+    .control-group {
+      margin-bottom: 13px;
+    }
+
+    .control-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: #1e293b;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    select, input[type="number"] {
+      width: 100%;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      font-size: 0.84rem;
+      color: #1e293b;
+      background: #ffffff;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .stat-box {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+
+    .stat-box .kicker {
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .stat-box .val {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-top: 2px;
+    }
+
+    .callout {
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 0.81rem;
+      line-height: 1.48;
+    }
+
+    .callout.teal {
+      background: var(--teal-bg);
+      border-left: 4px solid var(--teal);
+      color: #115e59;
+    }
+
+    .callout.amber {
+      background: var(--amber-bg);
+      border-left: 4px solid var(--amber);
+      color: #78350f;
+    }
+
+    .callout.rose {
+      background: var(--rose-bg);
+      border-left: 4px solid var(--rose);
+      color: #881337;
+    }
+
+    .callout.blue {
+      background: var(--blue-bg);
+      border-left: 4px solid var(--blue);
+      color: #0c4a6e;
+    }
+
+    canvas {
+      width: 100%;
+      height: auto;
+      display: block;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .legend-bar {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 0.79rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      align-items: center;
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      display: inline-block;
+      margin-right: 5px;
+      vertical-align: middle;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      margin-top: 10px;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 8px 10px;
+      text-align: center;
+    }
+
+    th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    tr.highlight-row {
+      background: var(--teal-bg);
+      font-weight: 800;
+      color: #115e59;
+    }
+
+    .gc-screen {
+      background: #0f172a;
+      color: #e2e8f0;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 0.8rem;
+      padding: 12px 14px;
+      border-radius: 10px;
+      margin-top: 12px;
+      line-height: 1.55;
+    }
+
+    .gc-screen .gc-hdr {
+      color: #38bdf8;
+      font-weight: 700;
+      border-bottom: 1px solid #334155;
+      padding-bottom: 4px;
+      margin-bottom: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header-bar">
+    <div>
+      <span class="badge">Topic 6.4 Sampling &bull; Lesson 2</span>
+      <h1>Sample Mean from a Normal Population: Exact X̄ ~ N(μ, σ²/n) vs. nX</h1>
+    </div>
+    <div class="tab-row">
+      <button class="tab-btn active" onclick="switchTab(0)">Tab 1: Exact X̄ ~ N(μ, σ²/n) (NEWater Filling)</button>
+      <button class="tab-btn" onclick="switchTab(1)">Tab 2: Sum ΣXᵢ vs. Scaled nX (Changi Baggage)</button>
+      <button class="tab-btn" onclick="switchTab(2)">Tab 3: Minimum Sample Size n Finder</button>
+    </div>
+  </div>
+
+  <!-- TAB 1: EXACT DISTRIBUTION OF SAMPLE MEAN FROM NORMAL POPULATION -->
+  <div class="tab-panel active" id="tab0">
+    <div class="card">
+      <span class="card-title">Singapore Context &amp; Parameters</span>
+      <div class="preset-row">
+        <button class="preset-btn active" id="p1_newater" onclick="applyPreset1('newater')">PUB NEWater (500 ml)</button>
+        <button class="preset-btn" id="p1_bag" onclick="applyPreset1('bag')">Changi Luggage (23 kg)</button>
+        <button class="preset-btn" id="p1_kaya" onclick="applyPreset1('kaya')">Kaya Toast Bun (65 g)</button>
+      </div>
+
+      <div class="control-group">
+        <div class="control-label">
+          <span>Population Mean μ</span>
+          <span id="lbl_mu1">500 ml</span>
+        </div>
+        <input type="range" id="sl_mu1" min="20" max="600" step="1" value="500" oninput="updateTab1()" />
+      </div>
+
+      <div class="control-group">
+        <div class="control-label">
+          <span>Population Std Dev σ</span>
+          <span id="lbl_sig1">6.0 ml</span>
+        </div>
+        <input type="range" id="sl_sig1" min="1" max="20" step="0.5" value="6" oninput="updateTab1()" />
+      </div>
+
+      <div class="control-group">
+        <div class="control-label">
+          <span>Sample Size n (Exact for ANY n ≥ 1!)</span>
+          <span id="lbl_n1">n = 9</span>
+        </div>
+        <input type="range" id="sl_n1" min="1" max="36" step="1" value="9" oninput="updateTab1()" />
+      </div>
+
+      <div class="control-group">
+        <div class="control-label">
+          <span>Threshold Cutoff c</span>
+          <span id="lbl_c1">504.0 ml</span>
+        </div>
+        <input type="range" id="sl_c1" min="480" max="520" step="0.5" value="504" oninput="updateTab1()" />
+      </div>
+
+      <div class="control-group">
+        <div class="control-label"><span>Tail Direction</span></div>
+        <select id="sel_tail1" onchange="updateTab1()">
+          <option value="gt">P(X̄ &gt; c) &nbsp;[Upper Tail]</option>
+          <option value="lt">P(X̄ &lt; c) &nbsp;[Lower Tail]</option>
+        </select>
+      </div>
+
+      <div class="callout teal">
+        <strong>No CLT Needed!</strong> Because individual bottle volumes <em>X</em> already follow a Normal distribution, <strong>X̄ ~ N(μ, σ²/n) holds EXACTLY</strong> even for small samples like <em>n = 2</em> or <em>n = 9</em>. Do <strong>not</strong> cite the Central Limit Theorem here!
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="legend-bar">
+        <span><span class="legend-dot" style="background:#94a3b8;"></span>Individual X ~ N(μ, σ²)</span>
+        <span><span class="legend-dot" style="background:#8b5cf6;"></span>Sample Mean X̄ ~ N(μ, σ²/n)</span>
+        <span><span class="legend-dot" style="background:rgba(139,92,246,0.28); border:1px solid #7c3aed;"></span>Shaded Probability Area</span>
+      </div>
+
+      <canvas id="canvas1" width="840" height="370"></canvas>
+
+      <div class="stat-grid">
+        <div class="stat-box">
+          <div class="kicker">Exact Distribution of X̄</div>
+          <div class="val" id="out_dist1">X̄ ~ N(500, 4.00)</div>
+        </div>
+        <div class="stat-box">
+          <div class="kicker">Standard Error σ / √n</div>
+          <div class="val" id="out_se1">2.000 ml</div>
+        </div>
+        <div class="stat-box">
+          <div class="kicker">Single Item Prob: P(X &gt; c)</div>
+          <div class="val" id="out_px1">0.2525</div>
+        </div>
+        <div class="stat-box" style="background:var(--purple-bg); border-color:#d8b4fe;">
+          <div class="kicker" style="color:var(--purple-dark);">Sample Mean Prob: P(X̄ &gt; c)</div>
+          <div class="val" style="color:var(--purple-dark);" id="out_pxbar1">0.0228</div>
+        </div>
+      </div>
+
+      <div class="gc-screen" id="gc1">
+        <div class="gc-hdr">TI-84 Plus CE Verification</div>
+        <div id="gc1_text">normalcdf(504, 1E99, 500, 6/√(9)) = 0.02275013 → 0.0228 (3 s.f.)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 2: SUM OF N INDEPENDENT ITEMS (ΣXᵢ) VS SCALED SINGLE ITEM (nX) -->
+  <div class="tab-panel" id="tab1">
+    <div class="card">
+      <span class="card-title">Changi Airport Check-In Baggage Lab</span>
+      <p style="font-size:0.81rem; color:var(--muted); margin-top:0; line-height:1.45;">
+        Individual check-in bags have mass <strong>X ~ N(μ, σ²)</strong>. Compare the total mass of <strong>n independent bags (T = X₁ + … + Xₙ)</strong> against <strong>n times a single bag (W = nX)</strong>!
+      </p>
+
+      <div class="control-group">
+        <div class="control-label">
+          <span>Single Bag Mean μ (kg)</span>
+          <span id="lbl_mu2">23.0 kg</span>
+        </div>
+        <input type="range" id="sl_mu2" min="15" max="30" step="0.5" value="23" oninput="updateTab2()" />
+      </div>
+
+      <div class="control-group">
+        <div class="control-label">
+          <span>Single Bag Std Dev σ (kg)</span>
+          <span id="lbl_sig2">3.0 kg</span>
+        </div>
+        <input type="range" id="sl_sig2" min="1" max="6" step="0.5" value="3" oninput="updateTab2()" />
+      </div>
+
+      <div class="control-group">
+        <div class="control-label">
+          <span>Number of Bags n</span>
+          <span id="lbl_n2">n = 4 bags</span>
+        </div>
+        <input type="range" id="sl_n2" min="2" max="10" step="1" value="4" oninput="updateTab2()" />
+      </div>
+
+      <div class="control-group">
+        <div class="control-label">
+          <span>Allowance Limit L (kg)</span>
+          <span id="lbl_L2">100 kg</span>
+        </div>
+        <input type="range" id="sl_L2" min="40" max="280" step="1" value="100" oninput="updateTab2()" />
+      </div>
+
+      <div class="callout rose">
+        <strong>Classic 9758 Exam Trap:</strong><br>
+        • Sum of <em>n</em> independent bags: <strong>Var(X₁ + … + Xₙ) = nσ²</strong> (averaging cancels extremes!).<br>
+        • Scaling 1 bag by <em>n</em>: <strong>Var(nX) = n²σ²</strong> (a heavy bag gets multiplied <em>n</em> times!).
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="legend-bar">
+        <span><span class="legend-dot" style="background:#0f766e;"></span>Sum of n Independent Bags: T = ΣXᵢ ~ N(nμ, nσ²)</span>
+        <span><span class="legend-dot" style="background:#e11d48;"></span>Scaled Single Bag: W = nX ~ N(nμ, n²σ²)</span>
+      </div>
+
+      <canvas id="canvas2" width="840" height="350"></canvas>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Random Variable</th>
+            <th>Mean</th>
+            <th>Variance</th>
+            <th>Std Dev</th>
+            <th id="th_prob2">P(Mass &gt; 100 kg)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align:left; font-weight:700; color:#0f766e;">T = X₁ + … + Xₙ (n independent bags)</td>
+            <td id="t2_meanT">92.0 kg</td>
+            <td id="t2_varT">36.00 (nσ²)</td>
+            <td id="t2_sdT">6.00 kg</td>
+            <td style="font-weight:800; color:#0f766e;" id="t2_probT">0.0912</td>
+          </tr>
+          <tr>
+            <td style="text-align:left; font-weight:700; color:#e11d48;">W = nX (n times 1 single bag)</td>
+            <td id="t2_meanW">92.0 kg</td>
+            <td id="t2_varW">144.00 (n²σ²)</td>
+            <td id="t2_sdW">12.00 kg</td>
+            <td style="font-weight:800; color:#e11d48;" id="t2_probW">0.2525</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout blue" id="explain2">
+        Notice both <em>T</em> and <em>W</em> share the exact same mean <strong>92.0 kg</strong>, but <em>W = 4X</em> has <strong>4 times the variance</strong> (144 vs. 36) and twice the standard deviation (12 kg vs. 6 kg), making extreme overweights far more likely!
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 3: MINIMUM SAMPLE SIZE N SOLVER -->
+  <div class="tab-panel" id="tab2">
+    <div class="card">
+      <span class="card-title">Minimum Sample Size n Solver</span>
+      <p style="font-size:0.81rem; color:var(--muted); margin-top:0; line-height:1.45;">
+        Find the least integer sample size <strong>n</strong> such that <strong>P(X̄ &gt; c) &lt; α</strong> (or <strong>P(|X̄ − μ| &lt; d) &gt; 1 − α</strong>) when <strong>X ~ N(μ, σ²)</strong>.
+      </p>
+
+      <div class="control-group">
+        <div class="control-label"><span>Condition Type</span></div>
+        <select id="sel_mode3" onchange="updateTab3()">
+          <option value="upper">Upper Tail: P(X̄ &gt; c) &lt; α</option>
+          <option value="within">Precision Band: P(|X̄ − μ| &lt; d) &gt; 1 − α</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <div class="control-label">
+          <span>Population Mean μ</span>
+          <span id="lbl_mu3">500</span>
+        </div>
+        <input type="number" id="in_mu3" value="500" step="1" oninput="updateTab3()" />
+      </div>
+
+      <div class="control-group">
+        <div class="control-label">
+          <span>Population Std Dev σ</span>
+          <span id="lbl_sig3">6</span>
+        </div>
+        <input type="number" id="in_sig3" value="6" min="0.1" step="0.5" oninput="updateTab3()" />
+      </div>
+
+      <div class="control-group" id="grp_c3">
+        <div class="control-label">
+          <span>Cutoff Value c (must be &gt; μ)</span>
+        </div>
+        <input type="number" id="in_c3" value="503" step="0.5" oninput="updateTab3()" />
+      </div>
+
+      <div class="control-group" id="grp_d3" style="display:none;">
+        <div class="control-label">
+          <span>Margin of Error d</span>
+        </div>
+        <input type="number" id="in_d3" value="2" min="0.1" step="0.5" oninput="updateTab3()" />
+      </div>
+
+      <div class="control-group">
+        <div class="control-label">
+          <span>Tail Probability Bound α</span>
+        </div>
+        <select id="sel_alpha3" onchange="updateTab3()">
+          <option value="0.05" selected>α = 0.05 (5%)</option>
+          <option value="0.025">α = 0.025 (2.5%)</option>
+          <option value="0.01">α = 0.01 (1%)</option>
+          <option value="0.10">α = 0.10 (10%)</option>
+        </select>
+      </div>
+
+      <div class="callout amber">
+        <strong>Always Round n UP!</strong> Even if algebra gives <em>n &gt; 10.82</em>, <em>n = 10</em> fails the probability requirement—so the least integer is <strong>n = 11</strong>.
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="card-title">Algebraic Standardisation &amp; TI-84 [TABLE] Verification</span>
+      <div id="steps3" style="font-size:0.84rem; line-height:1.6; background:#f8fafc; padding:12px 14px; border-radius:10px; border:1px solid var(--border);"></div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Sample Size n</th>
+            <th>Std Error σ / √n</th>
+            <th id="th_prob3">P(X̄ &gt; 503)</th>
+            <th>Condition Satisfied?</th>
+          </tr>
+        </thead>
+        <tbody id="tbody3"></tbody>
+      </table>
+
+      <div class="gc-screen" id="gc3">
+        <div class="gc-hdr">TI-84 Plus CE [TABLE] Method</div>
+        <div id="gc3_text"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Normal PDF & CDF (Abramowitz & Stegun 7.1.26)
+    function normPDF(x, mu, sig) {
+      const z = (x - mu) / sig;
+      return Math.exp(-0.5 * z * z) / (sig * Math.sqrt(2 * Math.PI));
+    }
+
+    function erf(x) {
+      const sign = x >= 0 ? 1 : -1;
+      x = Math.abs(x);
+      const a1 = 0.254829592, a2 = -0.284496736, a3 = 1.421413741;
+      const a4 = -1.453152027, a5 = 1.061405429, p = 0.3275911;
+      const t = 1 / (1 + p * x);
+      const y = 1 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-x * x);
+      return sign * y;
+    }
+
+    function normCDF(x, mu, sig) {
+      return 0.5 * (1 + erf((x - mu) / (sig * Math.SQRT2)));
+    }
+
+    // Acklam inverse normal approximation
+    function invNorm(p) {
+      const a = [-3.969683028665376e+01, 2.209460984245205e+02, -2.759285104469687e+02, 1.383577518672690e+02, -3.066479806614716e+01, 2.506628277459239e+00];
+      const b = [-5.447609879822406e+01, 1.615858368580409e+02, -1.556989798598866e+02, 6.680131188771972e+01, -1.328068155288572e+01];
+      const c = [-7.784894002430293e-03, -3.223964580411365e-01, -2.400758277161838e+00, -2.549732539343734e+00, 4.374664141464968e+00, 2.938163982698783e+00];
+      const d = [7.784695709041462e-03, 3.224671290700398e-01, 2.445134137142996e+00, 3.754408661907416e+00];
+      const pLow = 0.02425, pHigh = 1 - pLow;
+      let q, r;
+      if (p < pLow) {
+        q = Math.sqrt(-2 * Math.log(p));
+        return (((((c[0]*q + c[1])*q + c[2])*q + c[3])*q + c[4])*q + c[5]) / ((((d[0]*q + d[1])*q + d[2])*q + d[3])*q + 1);
+      } else if (p <= pHigh) {
+        q = p - 0.5;
+        r = q * q;
+        return (((((a[0]*r + a[1])*r + a[2])*r + a[3])*r + a[4])*r + a[5])*q / (((((b[0]*r + b[1])*r + b[2])*r + b[3])*r + b[4])*r + 1);
+      } else {
+        q = Math.sqrt(-2 * Math.log(1 - p));
+        return -(((((c[0]*q + c[1])*q + c[2])*q + c[3])*q + c[4])*q + c[5]) / ((((d[0]*q + d[1])*q + d[2])*q + d[3])*q + 1);
+      }
+    }
+
+    function switchTab(idx) {
+      document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
+      document.querySelectorAll('.tab-panel').forEach((p, i) => p.classList.toggle('active', i === idx));
+      if (idx === 0) updateTab1();
+      if (idx === 1) updateTab2();
+      if (idx === 2) updateTab3();
+    }
+
+    let unit1 = "ml";
+    function applyPreset1(type) {
+      document.querySelectorAll('#tab0 .preset-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('p1_' + type).classList.add('active');
+      const slMu = document.getElementById('sl_mu1');
+      const slSig = document.getElementById('sl_sig1');
+      const slN = document.getElementById('sl_n1');
+      const slC = document.getElementById('sl_c1');
+
+      if (type === 'newater') {
+        unit1 = "ml";
+        slMu.min = 450; slMu.max = 550; slMu.value = 500;
+        slSig.value = 6;
+        slN.value = 9;
+        slC.min = 480; slC.max = 520; slC.value = 504;
+      } else if (type === 'bag') {
+        unit1 = "kg";
+        slMu.min = 15; slMu.max = 35; slMu.value = 23;
+        slSig.value = 3;
+        slN.value = 4;
+        slC.min = 12; slC.max = 34; slC.value = 25;
+      } else {
+        unit1 = "g";
+        slMu.min = 50; slMu.max = 80; slMu.value = 65;
+        slSig.value = 4;
+        slN.value = 16;
+        slC.min = 50; slC.max = 80; slC.value = 63;
+      }
+      updateTab1();
+    }
+
+    function updateTab1() {
+      const mu = parseFloat(document.getElementById('sl_mu1').value);
+      const sig = parseFloat(document.getElementById('sl_sig1').value);
+      const n = parseInt(document.getElementById('sl_n1').value, 10);
+      const slC = document.getElementById('sl_c1');
+      slC.min = (mu - 3.5 * sig).toFixed(1);
+      slC.max = (mu + 3.5 * sig).toFixed(1);
+      let c = parseFloat(slC.value);
+      if (c < parseFloat(slC.min)) c = parseFloat(slC.min);
+      if (c > parseFloat(slC.max)) c = parseFloat(slC.max);
+      slC.value = c;
+
+      const tail = document.getElementById('sel_tail1').value;
+      const se = sig / Math.sqrt(n);
+      const varXbar = (sig * sig) / n;
+
+      document.getElementById('lbl_mu1').textContent = `${mu} ${unit1}`;
+      document.getElementById('lbl_sig1').textContent = `${sig.toFixed(1)} ${unit1}`;
+      document.getElementById('lbl_n1').textContent = `n = ${n}`;
+      document.getElementById('lbl_c1').textContent = `${c.toFixed(1)} ${unit1}`;
+
+      const pSingle = tail === 'gt' ? (1 - normCDF(c, mu, sig)) : normCDF(c, mu, sig);
+      const pMean = tail === 'gt' ? (1 - normCDF(c, mu, se)) : normCDF(c, mu, se);
+
+      document.getElementById('out_dist1').textContent = `X̄ ~ N(${mu}, ${varXbar.toFixed(2)})`;
+      document.getElementById('out_se1').textContent = `${se.toFixed(3)} ${unit1}`;
+      document.getElementById('out_px1').textContent = pSingle.toFixed(4);
+      document.getElementById('out_pxbar1').textContent = pMean.toFixed(4);
+
+      const gcCmd = tail === 'gt'
+        ? `normalcdf(${c}, 1E99, ${mu}, ${sig}/√(${n})) = ${pMean.toFixed(6)} → ${pMean.toPrecision(3)} (3 s.f.)`
+        : `normalcdf(-1E99, ${c}, ${mu}, ${sig}/√(${n})) = ${pMean.toFixed(6)} → ${pMean.toPrecision(3)} (3 s.f.)`;
+      document.getElementById('gc1_text').textContent = gcCmd;
+
+      // Draw Canvas 1
+      const canvas = document.getElementById('canvas1');
+      const ctx = canvas.getContext('2d');
+      const W = canvas.width, H = canvas.height;
+      ctx.clearRect(0, 0, W, H);
+
+      const padL = 55, padR = 30, padT = 28, padB = 46;
+      const plotW = W - padL - padR;
+      const plotH = H - padT - padB;
+
+      const xMin = mu - 3.6 * sig;
+      const xMax = mu + 3.6 * sig;
+      const yMax = normPDF(mu, mu, sig / Math.sqrt(36)) * 1.12;
+
+      const toX = x => padL + ((x - xMin) / (xMax - xMin)) * plotW;
+      const toY = y => padT + plotH - (y / yMax) * plotH;
+
+      // Grid lines
+      ctx.strokeStyle = '#f1f5f9';
+      ctx.lineWidth = 1;
+      for (let i = -3; i <= 3; i++) {
+        const gx = toX(mu + i * sig);
+        ctx.beginPath(); ctx.moveTo(gx, padT); ctx.lineTo(gx, padT + plotH); ctx.stroke();
+      }
+
+      // Shaded area under X_bar curve
+      ctx.fillStyle = 'rgba(139, 92, 246, 0.28)';
+      ctx.beginPath();
+      const startX = tail === 'gt' ? Math.max(xMin, c) : xMin;
+      const endX = tail === 'gt' ? xMax : Math.min(xMax, c);
+      if (endX > startX) {
+        ctx.moveTo(toX(startX), toY(0));
+        for (let px = 0; px <= 240; px++) {
+          const x = startX + (px / 240) * (endX - startX);
+          ctx.lineTo(toX(x), toY(normPDF(x, mu, se)));
+        }
+        ctx.lineTo(toX(endX), toY(0));
+        ctx.closePath();
+        ctx.fill();
+      }
+
+      // Parent X curve (dashed slate)
+      ctx.strokeStyle = '#94a3b8';
+      ctx.lineWidth = 2.2;
+      ctx.setLineDash([6, 5]);
+      ctx.beginPath();
+      for (let px = 0; px <= 300; px++) {
+        const x = xMin + (px / 300) * (xMax - xMin);
+        const y = normPDF(x, mu, sig);
+        if (px === 0) ctx.moveTo(toX(x), toY(y));
+        else ctx.lineTo(toX(x), toY(y));
+      }
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Sample Mean X_bar curve (solid purple)
+      ctx.strokeStyle = '#7c3aed';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      for (let px = 0; px <= 300; px++) {
+        const x = xMin + (px / 300) * (xMax - xMin);
+        const y = normPDF(x, mu, se);
+        if (px === 0) ctx.moveTo(toX(x), toY(y));
+        else ctx.lineTo(toX(x), toY(y));
+      }
+      ctx.stroke();
+
+      // Mean axis line
+      ctx.strokeStyle = '#0f766e';
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      ctx.moveTo(toX(mu), padT);
+      ctx.lineTo(toX(mu), padT + plotH);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Cutoff vertical line
+      ctx.strokeStyle = '#e11d48';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(toX(c), padT + 10);
+      ctx.lineTo(toX(c), padT + plotH);
+      ctx.stroke();
+
+      // X-axis
+      ctx.strokeStyle = '#475569';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(padL, padT + plotH);
+      ctx.lineTo(W - padR, padT + plotH);
+      ctx.stroke();
+
+      // Labels
+      ctx.fillStyle = '#1e293b';
+      ctx.font = 'bold 12px Segoe UI, sans-serif';
+      ctx.textAlign = 'center';
+      for (let i = -3; i <= 3; i++) {
+        const val = mu + i * sig;
+        ctx.fillText(val.toFixed(1), toX(val), padT + plotH + 18);
+      }
+      ctx.fillStyle = '#e11d48';
+      ctx.fillText(`c = ${c.toFixed(1)}`, toX(c), padT + 8);
+      ctx.fillStyle = '#0f766e';
+      ctx.fillText(`μ = ${mu}`, toX(mu), padT + plotH + 34);
+    }
+
+    function updateTab2() {
+      const mu = parseFloat(document.getElementById('sl_mu2').value);
+      const sig = parseFloat(document.getElementById('sl_sig2').value);
+      const n = parseInt(document.getElementById('sl_n2').value, 10);
+      const slL = document.getElementById('sl_L2');
+
+      const meanAll = n * mu;
+      const sdW = n * sig;
+      const sdT = Math.sqrt(n) * sig;
+
+      slL.min = Math.round(meanAll - 2.5 * sdW);
+      slL.max = Math.round(meanAll + 2.5 * sdW);
+      let L = parseFloat(slL.value);
+      if (L < parseFloat(slL.min)) L = parseFloat(slL.min);
+      if (L > parseFloat(slL.max)) L = parseFloat(slL.max);
+      slL.value = L;
+
+      document.getElementById('lbl_mu2').textContent = `${mu.toFixed(1)} kg`;
+      document.getElementById('lbl_sig2').textContent = `${sig.toFixed(1)} kg`;
+      document.getElementById('lbl_n2').textContent = `n = ${n} bags`;
+      document.getElementById('lbl_L2').textContent = `${L} kg`;
+      document.getElementById('th_prob2').textContent = `P(Mass > ${L} kg)`;
+
+      const probT = 1 - normCDF(L, meanAll, sdT);
+      const probW = 1 - normCDF(L, meanAll, sdW);
+
+      document.getElementById('t2_meanT').textContent = `${meanAll.toFixed(1)} kg`;
+      document.getElementById('t2_varT').textContent = `${(n * sig * sig).toFixed(2)} (nσ²)`;
+      document.getElementById('t2_sdT').textContent = `${sdT.toFixed(2)} kg`;
+      document.getElementById('t2_probT').textContent = probT.toFixed(4);
+
+      document.getElementById('t2_meanW').textContent = `${meanAll.toFixed(1)} kg`;
+      document.getElementById('t2_varW').textContent = `${(n * n * sig * sig).toFixed(2)} (n²σ²)`;
+      document.getElementById('t2_sdW').textContent = `${sdW.toFixed(2)} kg`;
+      document.getElementById('t2_probW').textContent = probW.toFixed(4);
+
+      document.getElementById('explain2').innerHTML = `Both <em>T = X₁ + … + X_${n}</em> and <em>W = ${n}X</em> have the exact same mean <strong>${meanAll.toFixed(1)} kg</strong>, but <em>W = ${n}X</em> has <strong>${n} times the variance</strong> (${(n*n*sig*sig).toFixed(1)} vs. ${(n*sig*sig).toFixed(1)}) because multiplying one bag by ${n} amplifies any fluctuation rather than averaging across ${n} independent bags.`;
+
+      // Draw Canvas 2
+      const canvas = document.getElementById('canvas2');
+      const ctx = canvas.getContext('2d');
+      const W = canvas.width, H = canvas.height;
+      ctx.clearRect(0, 0, W, H);
+
+      const padL = 50, padR = 30, padT = 26, padB = 42;
+      const plotW = W - padL - padR;
+      const plotH = H - padT - padB;
+
+      const xMin = meanAll - 3.2 * sdW;
+      const xMax = meanAll + 3.2 * sdW;
+      const yMax = normPDF(meanAll, meanAll, sdT) * 1.15;
+
+      const toX = x => padL + ((x - xMin) / (xMax - xMin)) * plotW;
+      const toY = y => padT + plotH - (y / yMax) * plotH;
+
+      // Shade W > L (rose)
+      if (L < xMax) {
+        ctx.fillStyle = 'rgba(225, 29, 72, 0.16)';
+        ctx.beginPath();
+        const sX = Math.max(xMin, L);
+        ctx.moveTo(toX(sX), toY(0));
+        for (let i = 0; i <= 200; i++) {
+          const x = sX + (i / 200) * (xMax - sX);
+          ctx.lineTo(toX(x), toY(normPDF(x, meanAll, sdW)));
+        }
+        ctx.lineTo(toX(xMax), toY(0));
+        ctx.closePath();
+        ctx.fill();
+
+        // Shade T > L (teal)
+        ctx.fillStyle = 'rgba(15, 118, 110, 0.25)';
+        ctx.beginPath();
+        ctx.moveTo(toX(sX), toY(0));
+        for (let i = 0; i <= 200; i++) {
+          const x = sX + (i / 200) * (xMax - sX);
+          ctx.lineTo(toX(x), toY(normPDF(x, meanAll, sdT)));
+        }
+        ctx.lineTo(toX(xMax), toY(0));
+        ctx.closePath();
+        ctx.fill();
+      }
+
+      // Curve W = nX (rose)
+      ctx.strokeStyle = '#e11d48';
+      ctx.lineWidth = 2.6;
+      ctx.beginPath();
+      for (let i = 0; i <= 300; i++) {
+        const x = xMin + (i / 300) * (xMax - xMin);
+        const y = normPDF(x, meanAll, sdW);
+        if (i === 0) ctx.moveTo(toX(x), toY(y));
+        else ctx.lineTo(toX(x), toY(y));
+      }
+      ctx.stroke();
+
+      // Curve T = sum Xi (teal)
+      ctx.strokeStyle = '#0f766e';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      for (let i = 0; i <= 300; i++) {
+        const x = xMin + (i / 300) * (xMax - xMin);
+        const y = normPDF(x, meanAll, sdT);
+        if (i === 0) ctx.moveTo(toX(x), toY(y));
+        else ctx.lineTo(toX(x), toY(y));
+      }
+      ctx.stroke();
+
+      // Limit line L
+      ctx.strokeStyle = '#1e293b';
+      ctx.lineWidth = 1.8;
+      ctx.setLineDash([5, 4]);
+      ctx.beginPath();
+      ctx.moveTo(toX(L), padT + 12);
+      ctx.lineTo(toX(L), padT + plotH);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // X-axis
+      ctx.strokeStyle = '#475569';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(padL, padT + plotH);
+      ctx.lineTo(W - padR, padT + plotH);
+      ctx.stroke();
+
+      ctx.fillStyle = '#1e293b';
+      ctx.font = 'bold 12px Segoe UI, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(`Limit L = ${L} kg`, toX(L), padT + 10);
+      for (let i = -3; i <= 3; i++) {
+        const val = meanAll + i * sdW;
+        ctx.fillText(val.toFixed(0), toX(val), padT + plotH + 18);
+      }
+    }
+
+    function updateTab3() {
+      const mode = document.getElementById('sel_mode3').value;
+      document.getElementById('grp_c3').style.display = mode === 'upper' ? 'block' : 'none';
+      document.getElementById('grp_d3').style.display = mode === 'within' ? 'block' : 'none';
+
+      const mu = parseFloat(document.getElementById('in_mu3').value) || 500;
+      const sig = Math.max(0.1, parseFloat(document.getElementById('in_sig3').value) || 6);
+      const alpha = parseFloat(document.getElementById('sel_alpha3').value);
+      document.getElementById('lbl_mu3').textContent = mu;
+      document.getElementById('lbl_sig3').textContent = sig;
+
+      let diff, zCrit, nExact, nMin, stepsHtml, gcCmd, thLabel;
+
+      if (mode === 'upper') {
+        let c = parseFloat(document.getElementById('in_c3').value) || (mu + 3);
+        if (c <= mu) c = mu + 1;
+        diff = c - mu;
+        zCrit = invNorm(1 - alpha);
+        nExact = Math.pow((zCrit * sig) / diff, 2);
+        nMin = Math.floor(nExact) + 1;
+        thLabel = `P(X̄ > ${c})`;
+
+        stepsHtml = `
+          <strong>Step 1:</strong> Since <em>X ~ N(${mu}, ${sig}²)</em>, <strong>X̄ ~ N(${mu}, ${sig}² / n)</strong>.<br>
+          <strong>Step 2:</strong> Standardise <em>P(X̄ &gt; ${c}) &lt; ${alpha}</em>:<br>
+          &nbsp;&nbsp;<em>P(Z &gt; (${c} − ${mu}) / (${sig}/√n)) &lt; ${alpha} ⇔ (${diff}√n) / ${sig} &gt; invNorm(${(1 - alpha).toFixed(3)}, 0, 1) = ${zCrit.toFixed(4)}</em><br>
+          <strong>Step 3:</strong> Solve for <em>n</em>: <em>√n &gt; ${(zCrit * sig / diff).toFixed(4)} ⇒ n &gt; ${nExact.toFixed(2)}</em>.<br>
+          <strong>Conclusion:</strong> Since <em>n ∈ ℤ⁺</em>, the least integer sample size is <strong>n = ${nMin}</strong>.
+        `;
+        gcCmd = `Y1 = normalcdf(${c}, 1E99, ${mu}, ${sig}/√(X))\nCheck [TABLE]: at X = ${nMin - 1}, Y1 = ${(1 - normCDF(c, mu, sig / Math.sqrt(Math.max(1, nMin - 1)))).toFixed(4)} (≥ ${alpha}); at X = ${nMin}, Y1 = ${(1 - normCDF(c, mu, sig / Math.sqrt(nMin))).toFixed(4)} (< ${alpha}).`;
+      } else {
+        const d = Math.max(0.1, parseFloat(document.getElementById('in_d3').value) || 2);
+        diff = d;
+        zCrit = invNorm(1 - alpha / 2);
+        nExact = Math.pow((zCrit * sig) / diff, 2);
+        nMin = Math.floor(nExact) + 1;
+        thLabel = `P(|X̄ − ${mu}| < ${d})`;
+
+        stepsHtml = `
+          <strong>Step 1:</strong> Since <em>X ~ N(${mu}, ${sig}²)</em>, <strong>X̄ ~ N(${mu}, ${sig}² / n)</strong>.<br>
+          <strong>Step 2:</strong> By symmetry, <em>P(|X̄ − ${mu}| &lt; ${d}) &gt; ${(1 - alpha).toFixed(3)} ⇔ P(Z &gt; (${d}√n)/${sig}) &lt; ${(alpha / 2).toFixed(4)}</em>:<br>
+          &nbsp;&nbsp;<em>(${d}√n) / ${sig} &gt; invNorm(${(1 - alpha / 2).toFixed(4)}, 0, 1) = ${zCrit.toFixed(4)}</em><br>
+          <strong>Step 3:</strong> Solve for <em>n</em>: <em>√n &gt; ${(zCrit * sig / diff).toFixed(4)} ⇒ n &gt; ${nExact.toFixed(2)}</em>.<br>
+          <strong>Conclusion:</strong> The least integer sample size is <strong>n = ${nMin}</strong>.
+        `;
+        gcCmd = `Y1 = normalcdf(${mu - d}, ${mu + d}, ${mu}, ${sig}/√(X))\nCheck [TABLE]: at X = ${nMin - 1}, Y1 = ${(2 * normCDF(mu + d, mu, sig / Math.sqrt(Math.max(1, nMin - 1))) - 1).toFixed(4)} (≤ ${(1 - alpha).toFixed(3)}); at X = ${nMin}, Y1 = ${(2 * normCDF(mu + d, mu, sig / Math.sqrt(nMin)) - 1).toFixed(4)} (> ${(1 - alpha).toFixed(3)}).`;
+      }
+
+      document.getElementById('steps3').innerHTML = stepsHtml;
+      document.getElementById('th_prob3').textContent = thLabel;
+      document.getElementById('gc3_text').innerText = gcCmd;
+
+      // Populate straddling table rows
+      const tbody = document.getElementById('tbody3');
+      tbody.innerHTML = '';
+      const startN = Math.max(1, nMin - 2);
+      for (let k = startN; k <= nMin + 2; k++) {
+        const se = sig / Math.sqrt(k);
+        let probVal, ok;
+        if (mode === 'upper') {
+          const c = parseFloat(document.getElementById('in_c3').value) || (mu + 3);
+          probVal = 1 - normCDF(c, mu, se);
+          ok = probVal < alpha;
+        } else {
+          const d = Math.max(0.1, parseFloat(document.getElementById('in_d3').value) || 2);
+          probVal = 2 * normCDF(mu + d, mu, se) - 1;
+          ok = probVal > (1 - alpha);
+        }
+        const tr = document.createElement('tr');
+        if (k === nMin) tr.className = 'highlight-row';
+        tr.innerHTML = `
+          <td>n = ${k}${k === nMin ? ' (Least n)' : ''}</td>
+          <td>${se.toFixed(4)}</td>
+          <td>${probVal.toFixed(5)}</td>
+          <td>${ok ? '✔ Yes' : '✘ No'}</td>
+        `;
+        tbody.appendChild(tr);
+      }
+    }
+
+    // Initialize all tabs
+    updateTab1();
+    updateTab2();
+    updateTab3();
+  </script>
+</body>
+</html>

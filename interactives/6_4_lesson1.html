@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 6.4 Lesson 1: Populations, Simple Random Sampling & Sample Mean X̄</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 535px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1000px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.76rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.48;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .control-panel {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 13px;
+      margin-bottom: 11px;
+    }
+
+    .control-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .sub-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 9px;
+    }
+
+    .sub-btn {
+      flex: 1;
+      min-width: 110px;
+      padding: 6px 8px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 0.74rem;
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .sub-btn.active {
+      background: var(--blue);
+      color: #ffffff;
+      border-color: var(--blue);
+    }
+
+    .sub-btn.rose.active {
+      background: var(--rose);
+      color: #ffffff;
+      border-color: var(--rose);
+    }
+
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .act-btn {
+      flex: 1;
+      min-width: 105px;
+      padding: 7px 9px;
+      border-radius: 8px;
+      border: 1px solid var(--purple-dark);
+      background: var(--purple);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .act-btn:hover {
+      background: var(--purple-dark);
+    }
+
+    .act-btn.ghost {
+      background: #f8fafc;
+      color: var(--text);
+      border-color: #cbd5e1;
+    }
+
+    .slider-row {
+      margin-bottom: 8px;
+    }
+
+    .slider-label-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 2px;
+    }
+
+    .slider-row input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .gc-screen-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin-bottom: 11px;
+    }
+
+    .box-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .gc-readout {
+      background: #f1f5f9;
+      border: 2px solid #64748b;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 5px;
+      line-height: 1.48;
+    }
+
+    .solution-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.81rem;
+      font-weight: 700;
+      line-height: 1.48;
+    }
+
+    .canvas-box {
+      background: #fdfbf7;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 8px;
+      margin-bottom: 10px;
+    }
+
+    canvas {
+      width: 100%;
+      height: 305px;
+      display: block;
+    }
+
+    .check-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+      margin-top: 6px;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .check-table th, .check-table td {
+      border: 1px solid #e2e8f0;
+      padding: 6px 9px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .check-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    .grader-card {
+      margin-top: 11px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 13px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 7px;
+    }
+
+    @media (max-width: 700px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.77rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .misconception-box {
+      margin-top: 10px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-size: 0.78rem;
+      line-height: 1.46;
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Test SG General Election Sample Counts (Tab 1)</strong>
+        Compare drawing a <strong>Simple Random Sample (SRS)</strong> across all constituency precincts against <strong>Single-Precinct Biased Sampling</strong> to see why SRS guarantees <em>E(X&#772;) = &mu;</em>.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Watch E(X&#772;) = &mu; &amp; Var(X&#772;) = &sigma;&sup2;/n Emerge (Tab 2)</strong>
+        Click <em>Draw 1 Sample</em> or <em>Simulate 400 Samples</em> and vary sample size <em>n</em> to see how every sample produces a different <em>x&#772;</em>, yet their variance shrinks as <em>&sigma;&sup2;/n</em>.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. HDB Electricity Survey &amp; TI-84 SRS (Tabs 3 &amp; 4)</strong>
+        Explore a continuous population (HDB monthly electricity bills) and generate random ballot/household IDs using TI-84 <code>randIntNoRep</code>.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        6.4 Lesson 1 &bull; Populations, Simple Random Sampling &amp; Sample Mean X&#772;
+      </div>
+
+      <!-- Mode / Preset Buttons -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="mode_geSample" onclick="setMode('geSample')">
+          1. SG General Election Sample Count
+        </button>
+        <button class="tab-btn" id="mode_xbarVar" onclick="setMode('xbarVar')">
+          2. Repeated Sampling: E(X&#772;) &amp; Var(X&#772;)
+        </button>
+        <button class="tab-btn" id="mode_hdbElec" onclick="setMode('hdbElec')">
+          3. Preset: HDB Electricity Survey
+        </button>
+        <button class="tab-btn" id="mode_gcSrs" onclick="setMode('gcSrs')">
+          4. TI-84 Plus CE SRS Generator
+        </button>
+      </div>
+
+      <!-- Contextual Description -->
+      <div class="context-box" id="contextBox"></div>
+
+      <!-- Dynamic Controls & Simulation Buttons -->
+      <div class="control-panel">
+        <div class="control-header">
+          <span id="controlTitle">SG Election Counting Centre Controls</span>
+          <span id="notationBadge" style="color:var(--purple-dark);">E(X̄) = μ, Var(X̄) = σ²/n</span>
+        </div>
+        <div class="sub-pill-row" id="subTypeRow"></div>
+        <div id="sliderControls"></div>
+        <div class="action-row" id="actionRow"></div>
+      </div>
+
+      <!-- Simulated TI-84 Plus CE / Empirical Summary Readout -->
+      <div class="gc-screen-box" id="gcOutputBox"></div>
+
+      <!-- Key Mathematical Takeaway -->
+      <div class="solution-banner" id="solutionBanner"></div>
+    </div>
+
+    <!-- RIGHT VISUAL CANVAS, COMPARISON TABLE & EXAM CHECK -->
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <span style="font-size:1.0rem; font-weight:800; color:#1e293b;" id="canvasHeading">
+          SG General Election: Constituency Ballot Box vs. Sample Mean X&#772;
+        </span>
+        <span style="font-size:0.74rem; font-weight:700; color:var(--teal); background:var(--teal-bg); padding:3px 9px; border-radius:999px;" id="areaPill">
+          True Constituency μ = 0.560
+        </span>
+      </div>
+
+      <div class="canvas-box">
+        <canvas id="sampCanvas" width="760" height="305"></canvas>
+      </div>
+
+      <!-- Population vs Sample Reference Table -->
+      <table class="check-table" id="refTable"></table>
+
+      <div class="misconception-box" id="misconceptionBox"></div>
+
+      <!-- Quick 9758 Exam Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 Sampling Concepts &amp; X&#772; Check (<span id="qIdxLbl">1</span>/3)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.79rem; line-height:1.45; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  // Constituency with 5 precincts (different local vote shares, overall true mean mu = 0.56)
+  // Precinct shares: 0.44, 0.50, 0.56, 0.62, 0.68 -> mean = 0.56, var(X) = 0.56 * 0.44 = 0.2464
+  const precincts = [
+    { name: "Precinct A (Older HDB)", share: 0.44 },
+    { name: "Precinct B (Central)", share: 0.50 },
+    { name: "Precinct C (Mixed)", share: 0.56 },
+    { name: "Precinct D (New BTO)", share: 0.62 },
+    { name: "Precinct E (Private)", share: 0.68 }
+  ];
+  const GE_MU = 0.56;
+  const GE_VAR = +(GE_MU * (1 - GE_MU)).toFixed(4); // 0.2464
+
+  let state = {
+    mode: "geSample",        // geSample | xbarVar | hdbElec | gcSrs
+    samplingMethod: "srs",   // srs | biasedA | biasedE
+    sampleSize: 100,
+    geHistory: [],
+    // Mode 2: Repeated Sampling Xbar
+    popMu: 50,
+    popSigma: 12,
+    nSize: 16,
+    xbarHistory: [],
+    // Mode 3: HDB Electricity
+    hdbN: 25,
+    hdbHistory: [],
+    // Mode 4: TI-84 randIntNoRep
+    popTotalN: 500,
+    srsPickN: 12,
+    drawnIds: []
+  };
+
+  function drawOneGeSample() {
+    const n = state.sampleSize;
+    let pTrue = GE_MU;
+    if (state.samplingMethod === "biasedA") pTrue = precincts[0].share; // 0.44
+    if (state.samplingMethod === "biasedE") pTrue = precincts[4].share; // 0.68
+
+    let votes = 0;
+    for (let i = 0; i < n; i++) {
+      if (Math.random() < pTrue) votes++;
+    }
+    const xbar = votes / n;
+    state.geHistory.push(xbar);
+    if (state.geHistory.length > 500) state.geHistory.shift();
+  }
+
+  function runGeBatch(count) {
+    for (let k = 0; k < count; k++) drawOneGeSample();
+    updateAll();
+  }
+
+  function resetGeHistory() {
+    state.geHistory = [];
+    for (let k = 0; k < 40; k++) drawOneGeSample();
+    updateAll();
+  }
+
+  // Box-Muller / general sample generator for Mode 2 & 3
+  function randStdNorm() {
+    let u = 0, v = 0;
+    while (u === 0) u = Math.random();
+    while (v === 0) v = Math.random();
+    return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+  }
+
+  function drawOneXbarSample(mu, sigma, n) {
+    // Use non-normal skewed draw so lesson stays general without assuming Normal parent
+    let sum = 0;
+    for (let i = 0; i < n; i++) {
+      // Shifted exponential-like draw with exact mean mu and std dev sigma
+      const u = Math.max(1e-7, 1 - Math.random());
+      const zSkew = -Math.log(u) - 1; // mean 0, var 1
+      sum += mu + sigma * zSkew;
+    }
+    return sum / n;
+  }
+
+  function runXbarBatch(count) {
+    for (let k = 0; k < count; k++) {
+      state.xbarHistory.push(drawOneXbarSample(state.popMu, state.popSigma, state.nSize));
+      if (state.xbarHistory.length > 600) state.xbarHistory.shift();
+    }
+    updateAll();
+  }
+
+  function resetXbarHistory() {
+    state.xbarHistory = [];
+    for (let k = 0; k < 40; k++) {
+      state.xbarHistory.push(drawOneXbarSample(state.popMu, state.popSigma, state.nSize));
+    }
+    updateAll();
+  }
+
+  function runHdbBatch(count) {
+    for (let k = 0; k < count; k++) {
+      state.hdbHistory.push(drawOneXbarSample(360, 45, state.hdbN));
+      if (state.hdbHistory.length > 600) state.hdbHistory.shift();
+    }
+    updateAll();
+  }
+
+  function resetHdbHistory() {
+    state.hdbHistory = [];
+    for (let k = 0; k < 40; k++) {
+      state.hdbHistory.push(drawOneXbarSample(360, 45, state.hdbN));
+    }
+    updateAll();
+  }
+
+  function generateSrsIds() {
+    const N = state.popTotalN;
+    const n = Math.min(state.srsPickN, N);
+    const pool = [];
+    for (let i = 1; i <= N; i++) pool.push(i);
+    for (let i = 0; i < n; i++) {
+      const j = i + Math.floor(Math.random() * (N - i));
+      const tmp = pool[i];
+      pool[i] = pool[j];
+      pool[j] = tmp;
+    }
+    state.drawnIds = pool.slice(0, n);
+    updateAll();
+  }
+
+  function setMode(m) {
+    state.mode = m;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("mode_" + m).classList.add("active");
+
+    if (m === "geSample" && state.geHistory.length === 0) {
+      for (let k = 0; k < 40; k++) drawOneGeSample();
+    } else if (m === "xbarVar" && state.xbarHistory.length === 0) {
+      for (let k = 0; k < 40; k++) state.xbarHistory.push(drawOneXbarSample(state.popMu, state.popSigma, state.nSize));
+    } else if (m === "hdbElec" && state.hdbHistory.length === 0) {
+      for (let k = 0; k < 40; k++) state.hdbHistory.push(drawOneXbarSample(360, 45, state.hdbN));
+    } else if (m === "gcSrs" && state.drawnIds.length === 0) {
+      generateSrsIds();
+      return;
+    }
+
+    renderControls();
+    updateAll();
+  }
+
+  function setSamplingMethod(sm) {
+    state.samplingMethod = sm;
+    state.geHistory = [];
+    for (let k = 0; k < 40; k++) drawOneGeSample();
+    renderControls();
+    updateAll();
+  }
+
+  function renderControls() {
+    const ctxBox = document.getElementById("contextBox");
+    const subRow = document.getElementById("subTypeRow");
+    const sliderDiv = document.getElementById("sliderControls");
+    const actionRow = document.getElementById("actionRow");
+    const ctrlTitle = document.getElementById("controlTitle");
+
+    if (state.mode === "geSample") {
+      ctrlTitle.textContent = "SG General Election Sample Count Controls";
+      ctxBox.innerHTML = `
+        <div><strong>Singapore General Election (GE) Sample Count:</strong> In a constituency with true vote share <strong>&mu; = 0.56 (56.0%)</strong> and population variance <strong>&sigma;&sup2; = 0.2464</strong>, Elections Department (ELD) clerks draw a random sample of <em>n = 100</em> ballot papers per counting centre. Compare a true <strong>Simple Random Sample (SRS)</strong> against sampling only one HDB precinct!</div>
+        <div class="var-pill">SRS gives E(X&#772;) = &mu; = 0.560 &nbsp;|&nbsp; Convenience sampling creates selection bias!</div>
+      `;
+
+      subRow.innerHTML = `
+        <button class="sub-btn ${state.samplingMethod === "srs" ? "active" : ""}" onclick="setSamplingMethod('srs')">True SRS (All Precincts)</button>
+        <button class="sub-btn rose ${state.samplingMethod === "biasedA" ? "active" : ""}" onclick="setSamplingMethod('biasedA')">Biased: Only Precinct A</button>
+        <button class="sub-btn rose ${state.samplingMethod === "biasedE" ? "active" : ""}" onclick="setSamplingMethod('biasedE')">Biased: Only Precinct E</button>
+      `;
+
+      sliderDiv.innerHTML = `
+        <div class="slider-row" style="margin-bottom:2px;">
+          <div class="slider-label-row">
+            <span>Sample Count Size n (ballot papers drawn):</span>
+            <span id="lbl_gen" style="color:var(--purple-dark);">n = ${state.sampleSize} ballots</span>
+          </div>
+          <input type="range" min="20" max="200" step="10" value="${state.sampleSize}" oninput="updateGeN(this.value)" />
+        </div>
+      `;
+
+      actionRow.innerHTML = `
+        <button class="act-btn" onclick="runGeBatch(1)">Draw 1 Sample Count</button>
+        <button class="act-btn" onclick="runGeBatch(100)">Simulate +100 Counts</button>
+        <button class="act-btn ghost" onclick="resetGeHistory()">Reset</button>
+      `;
+      return;
+    }
+
+    if (state.mode === "xbarVar") {
+      ctrlTitle.textContent = "Theoretical vs. Empirical E(X̄) & Var(X̄)";
+      ctxBox.innerHTML = `
+        <div><strong>Why X&#772; is a Random Variable:</strong> Before a sample is drawn, <em>X&#772; = (X&#8321; + X&#8322; + &hellip; + X<sub>n</sub>)/n</em> takes different values across different random samples. Regardless of the parent population's shape, <strong>E(X&#772;) = &mu;</strong> and <strong>Var(X&#772;) = &sigma;&sup2;/n</strong>!</div>
+        <div class="var-pill">Standard Error (SD of X&#772;) = &sigma;/&radic;n &rArr; quadrupling n halves SD(X&#772;)</div>
+      `;
+      subRow.innerHTML = "";
+      sliderDiv.innerHTML = `
+        <div class="slider-row">
+          <div class="slider-label-row">
+            <span>Sample Size n:</span>
+            <span id="lbl_xn" style="color:var(--purple-dark);">n = ${state.nSize}</span>
+          </div>
+          <input type="range" min="2" max="64" step="1" value="${state.nSize}" oninput="updateXbarParam('nSize', this.value)" />
+        </div>
+        <div class="slider-row" style="margin-bottom:2px;">
+          <div class="slider-label-row">
+            <span>Population Mean &mu; &amp; Population Std Dev &sigma;:</span>
+            <span style="color:var(--teal);">&mu; = ${state.popMu}, &sigma; = ${state.popSigma} (&sigma;&sup2; = ${state.popSigma * state.popSigma})</span>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+            <input type="range" min="30" max="70" step="5" value="${state.popMu}" oninput="updateXbarParam('popMu', this.value)" />
+            <input type="range" min="4" max="20" step="2" value="${state.popSigma}" oninput="updateXbarParam('popSigma', this.value)" />
+          </div>
+        </div>
+      `;
+      actionRow.innerHTML = `
+        <button class="act-btn" onclick="runXbarBatch(1)">Draw 1 Sample (n=${state.nSize})</button>
+        <button class="act-btn" onclick="runXbarBatch(150)">Simulate +150 Samples</button>
+        <button class="act-btn ghost" onclick="resetXbarHistory()">Reset</button>
+      `;
+      return;
+    }
+
+    if (state.mode === "hdbElec") {
+      ctrlTitle.textContent = "Preset: HDB 4-Room Monthly Electricity Usage";
+      ctxBox.innerHTML = `
+        <div><strong>SP Group HDB Electricity Survey:</strong> Across all 4-room HDB flats in Tampines, monthly electricity consumption <em>X</em> kWh has population mean <strong>&mu; = 360 kWh</strong> and standard deviation <strong>&sigma; = 45 kWh</strong> (<em>&sigma;&sup2; = 2025</em>). EMA draws an SRS of <em>n</em> flats to compute the sample mean <em>X&#772;</em>.</div>
+        <div class="var-pill">E(X&#772;) = 360 kWh &nbsp;|&nbsp; Var(X&#772;) = 2025 / n &nbsp;|&nbsp; SD(X&#772;) = 45 / &radic;n</div>
+      `;
+      subRow.innerHTML = "";
+      sliderDiv.innerHTML = `
+        <div class="slider-row" style="margin-bottom:2px;">
+          <div class="slider-label-row">
+            <span>Number of Surveyed HDB Flats n:</span>
+            <span style="color:var(--purple-dark);">n = ${state.hdbN} flats</span>
+          </div>
+          <input type="range" min="5" max="100" step="5" value="${state.hdbN}" oninput="updateHdbN(this.value)" />
+        </div>
+      `;
+      actionRow.innerHTML = `
+        <button class="act-btn" onclick="runHdbBatch(1)">Survey 1 Sample</button>
+        <button class="act-btn" onclick="runHdbBatch(150)">Simulate +150 Surveys</button>
+        <button class="act-btn ghost" onclick="resetHdbHistory()">Reset</button>
+      `;
+      return;
+    }
+
+    // Mode 4: TI-84 Plus CE SRS Generator
+    ctrlTitle.textContent = "TI-84 Plus CE Simple Random Sample (SRS) Generator";
+    ctxBox.innerHTML = `
+      <div><strong>How to Obtain a Simple Random Sample on TI-84 Plus CE:</strong> Assign every ballot paper or household in the population a unique integer label from <strong>1 to N</strong>, then use <code>randIntNoRep(1, N, n)</code> so that every subset of size <em>n</em> has an equal chance of selection without replacement.</div>
+      <div class="var-pill">Keystrokes: [MATH] &rarr; PRB &rarr; 8: randIntNoRep(1, N, n)</div>
+    `;
+    subRow.innerHTML = "";
+    sliderDiv.innerHTML = `
+      <div class="slider-row">
+        <div class="slider-label-row">
+          <span>Population Size N (total numbered ballots / units):</span>
+          <span style="color:var(--purple-dark);">N = ${state.popTotalN}</span>
+        </div>
+        <input type="range" min="50" max="2000" step="50" value="${state.popTotalN}" oninput="updateSrsParam('popTotalN', this.value)" />
+      </div>
+      <div class="slider-row" style="margin-bottom:2px;">
+        <div class="slider-label-row">
+          <span>Sample Size n (distinct units selected):</span>
+          <span style="color:var(--teal);">n = ${state.srsPickN}</span>
+        </div>
+        <input type="range" min="5" max="24" step="1" value="${state.srsPickN}" oninput="updateSrsParam('srsPickN', this.value)" />
+      </div>
+    `;
+    actionRow.innerHTML = `
+      <button class="act-btn" onclick="generateSrsIds()">Run randIntNoRep(1, ${state.popTotalN}, ${state.srsPickN})</button>
+    `;
+  }
+
+  function updateGeN(val) {
+    state.sampleSize = parseInt(val, 10);
+    state.geHistory = [];
+    for (let k = 0; k < 40; k++) drawOneGeSample();
+    renderControls();
+    updateAll();
+  }
+
+  function updateXbarParam(key, val) {
+    state[key] = parseInt(val, 10);
+    state.xbarHistory = [];
+    for (let k = 0; k < 40; k++) state.xbarHistory.push(drawOneXbarSample(state.popMu, state.popSigma, state.nSize));
+    renderControls();
+    updateAll();
+  }
+
+  function updateHdbN(val) {
+    state.hdbN = parseInt(val, 10);
+    state.hdbHistory = [];
+    for (let k = 0; k < 40; k++) state.hdbHistory.push(drawOneXbarSample(360, 45, state.hdbN));
+    renderControls();
+    updateAll();
+  }
+
+  function updateSrsParam(key, val) {
+    state[key] = parseInt(val, 10);
+    generateSrsIds();
+    renderControls();
+  }
+
+  function calcStats(arr) {
+    if (!arr.length) return { mean: 0, variance: 0, last: 0 };
+    const mean = arr.reduce((a, b) => a + b, 0) / arr.length;
+    const variance = arr.reduce((a, b) => a + (b - mean) * (b - mean), 0) / arr.length;
+    return { mean, variance, last: arr[arr.length - 1] };
+  }
+
+  function updateAll() {
+    const gcBox = document.getElementById("gcOutputBox");
+    const banner = document.getElementById("solutionBanner");
+    const refTable = document.getElementById("refTable");
+    const miscBox = document.getElementById("misconceptionBox");
+
+    if (state.mode === "geSample") {
+      const n = state.sampleSize;
+      const theoVar = +(GE_VAR / n).toFixed(6);
+      const theoSd = Math.sqrt(theoVar);
+      const emp = calcStats(state.geHistory);
+      const isSrs = state.samplingMethod === "srs";
+      const targetMean = isSrs ? GE_MU : (state.samplingMethod === "biasedA" ? 0.44 : 0.68);
+
+      document.getElementById("notationBadge").textContent = `n = ${n} | E(X̄) = ${targetMean.toFixed(2)}`;
+      document.getElementById("canvasHeading").textContent = isSrs
+        ? `SG GE Sample Count (SRS, n = ${n}): Unbiased around μ = 0.560`
+        : `SG GE Biased Sampling (${state.samplingMethod === "biasedA" ? "Precinct A" : "Precinct E"}): Systematic Bias!`;
+      document.getElementById("areaPill").textContent = `Latest x̄ = ${(emp.last * 100).toFixed(1)}% (${state.geHistory.length} runs)`;
+
+      gcBox.innerHTML = `
+        <span class="box-title">SG GE Sample Count Readout (${state.geHistory.length} Simulated Counting Centres)</span>
+        <div class="gc-readout">
+          Latest Sample Count x̄ = ${emp.last.toFixed(3)} (${(emp.last * 100).toFixed(1)}%)   |   True Constituency μ = ${GE_MU.toFixed(3)} (56.0%)<br>
+          Theoretical (SRS): E(X̄) = 0.5600,   Var(X̄) = 0.2464 / ${n} = ${theoVar.toFixed(5)} (SD = ${theoSd.toFixed(4)})<br>
+          Empirical (${state.geHistory.length} runs): Mean of x̄ = ${emp.mean.toFixed(4)},   Variance of x̄ = ${emp.variance.toFixed(5)}
+        </div>
+      `;
+
+      banner.innerHTML = isSrs
+        ? `Unbiased Estimator: Because every ballot in the constituency had an equal chance of selection, <strong>E(X&#772;) = &mu; = 0.560</strong> and spread shrinks as <strong>Var(X&#772;) = &sigma;&sup2;/n = ${theoVar.toFixed(5)}</strong>.`
+        : `Selection Bias Alert: Sampling only ${state.samplingMethod === "biasedA" ? "Precinct A (44%)" : "Precinct E (68%)"} violates Simple Random Sampling, causing <strong>E(X&#772;) = ${targetMean.toFixed(2)} &ne; 0.56</strong>—no increase in sample size <em>n</em> can fix a biased sample!`;
+
+      refTable.innerHTML = `
+        <thead>
+          <tr>
+            <th>Concept</th>
+            <th>Population (All Constituency Ballots)</th>
+            <th>Sample Mean <em>X&#772;</em> (SRS of <em>n = ${n}</em> Ballots)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Nature</strong></td>
+            <td>Fixed collection of all <em>N</em> ballots cast</td>
+            <td><strong>Random variable</strong> (varies from sample to sample)</td>
+          </tr>
+          <tr>
+            <td><strong>Mean</strong></td>
+            <td>Population parameter <em>&mu; = 0.560</em> (fixed constant)</td>
+            <td><em>E(X&#772;) = &mu; = 0.560</em> (unbiased under SRS)</td>
+          </tr>
+          <tr>
+            <td><strong>Variance &amp; SD</strong></td>
+            <td><em>&sigma;&sup2; = 0.2464</em>, <em>&sigma; = 0.4964</em></td>
+            <td><em>Var(X&#772;) = &sigma;&sup2;/n = ${theoVar.toFixed(5)}</em>, <em>SD(X&#772;) = &sigma;/&radic;n = ${theoSd.toFixed(4)}</em></td>
+          </tr>
+        </tbody>
+      `;
+
+      miscBox.innerHTML = `
+        <strong>9758 Exam Definition Check — What Makes a Simple Random Sample (SRS)?</strong>
+        <ul style="margin:3px 0 0 0; padding-left:18px;">
+          <li><strong>Two essential conditions (write both in structured questions!):</strong> (1) Every member of the population has an <strong>equal probability</strong> of being selected, and (2) selections are <strong>independent</strong> of one another (equivalently, every possible subset of size <em>n</em> is equally likely to be chosen).</li>
+          <li><strong>Why ELD mixes or samples across all ballot boxes:</strong> Drawing ballots from only one polling station violates condition (1) because voters from other precincts have zero chance of selection.</li>
+        </ul>
+      `;
+
+      drawDotplotCanvas(state.geHistory, 0.25, 0.85, GE_MU, targetMean, theoSd, true);
+      return;
+    }
+
+    if (state.mode === "xbarVar" || state.mode === "hdbElec") {
+      const isHdb = state.mode === "hdbElec";
+      const mu = isHdb ? 360 : state.popMu;
+      const sig = isHdb ? 45 : state.popSigma;
+      const n = isHdb ? state.hdbN : state.nSize;
+      const hist = isHdb ? state.hdbHistory : state.xbarHistory;
+
+      const popVar = sig * sig;
+      const xbarVar = +(popVar / n).toFixed(4);
+      const xbarSd = +(sig / Math.sqrt(n)).toFixed(4);
+      const emp = calcStats(hist);
+
+      document.getElementById("notationBadge").textContent = `E(X̄) = ${mu}, Var(X̄) = ${xbarVar}`;
+      document.getElementById("canvasHeading").textContent = isHdb
+        ? `HDB Monthly Electricity Survey (n = ${n} flats): X̄ Concentrates Around μ = 360 kWh`
+        : `Sampling Distribution of X̄ (n = ${n}): E(X̄) = ${mu}, Var(X̄) = ${popVar}/${n} = ${xbarVar}`;
+      document.getElementById("areaPill").textContent = `Latest x̄ = ${emp.last.toFixed(2)} (${hist.length} samples)`;
+
+      gcBox.innerHTML = `
+        <span class="box-title">Theoretical Formula vs. Simulation (${hist.length} Random Samples)</span>
+        <div class="gc-readout">
+          Population: μ = ${mu},   σ² = ${popVar},   σ = ${sig}<br>
+          Theoretical X̄ (n = ${n}): E(X̄) = ${mu},   Var(X̄) = ${popVar} / ${n} = ${xbarVar},   SD(X̄) = ${sig} / √${n} = ${xbarSd}<br>
+          Empirical (${hist.length} runs): Mean of x̄ = ${emp.mean.toFixed(3)},   Variance of x̄ = ${emp.variance.toFixed(3)}
+        </div>
+      `;
+
+      banner.innerHTML = `Key Scaling Law: Increasing sample size <em>n</em> keeps the centre fixed at <strong>E(X&#772;) = ${mu}</strong> while shrinking variance to <strong>Var(X&#772;) = &sigma;&sup2;/n = ${xbarVar}</strong> (standard deviation <strong>${xbarSd}</strong>).`;
+
+      refTable.innerHTML = `
+        <thead>
+          <tr>
+            <th>Quantity</th>
+            <th>Single Observation <em>X</em></th>
+            <th>Sample Mean <em>X&#772;</em> of Size <em>n = ${n}</em></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Expectation (Mean)</strong></td>
+            <td><em>E(X) = &mu; = ${mu}</em></td>
+            <td><em>E(X&#772;) = &mu; = <strong>${mu}</strong></em> (unchanged!)</td>
+          </tr>
+          <tr>
+            <td><strong>Variance</strong></td>
+            <td><em>Var(X) = &sigma;&sup2; = ${popVar}</em></td>
+            <td><em>Var(X&#772;) = &sigma;&sup2;/n = ${popVar}/${n} = <strong>${xbarVar}</strong></em></td>
+          </tr>
+          <tr>
+            <td><strong>Standard Deviation</strong></td>
+            <td><em>SD(X) = &sigma; = ${sig}</em></td>
+            <td><em>SD(X&#772;) = &sigma;/&radic;n = ${sig}/&radic;${n} = <strong>${xbarSd}</strong></em></td>
+          </tr>
+        </tbody>
+      `;
+
+      miscBox.innerHTML = `
+        <strong>Two Classic 9758 Algebraic Traps on Var(X&#772;):</strong>
+        <ul style="margin:3px 0 0 0; padding-left:18px;">
+          <li><strong>Divide SD by &radic;n, NOT by n:</strong> A common error is writing <em>SD(X&#772;) = &sigma;/n</em>. Remember <em>Var(X&#772;) = &sigma;&sup2;/n</em>, so taking the square root gives <strong>SD(X&#772;) = &sigma;/&radic;n</strong>!</li>
+          <li><strong>Why this holds even without knowing parent shape:</strong> By linearity of expectation and independence of SRS observations, <em>E(X&#772;) = &mu;</em> and <em>Var(X&#772;) = &sigma;&sup2;/n</em> hold for <strong>every</strong> distribution (Normal, Binomial, or any non-normal distribution).</li>
+        </ul>
+      `;
+
+      const xMin = mu - 2.6 * sig;
+      const xMax = mu + 2.6 * sig;
+      drawDotplotCanvas(hist, xMin, xMax, mu, mu, xbarSd, false);
+      return;
+    }
+
+    // Mode 4: TI-84 Plus CE SRS Generator
+    const N = state.popTotalN, n = state.srsPickN;
+    document.getElementById("notationBadge").textContent = `N = ${N}, n = ${n}`;
+    document.getElementById("canvasHeading").textContent = `TI-84 Plus CE Simple Random Sample: randIntNoRep(1, ${N}, ${n})`;
+    document.getElementById("areaPill").textContent = `${n} Distinct Labels Selected`;
+
+    gcBox.innerHTML = `
+      <span class="box-title">TI-84 Plus CE Home Screen Output ([MATH] &gt; PRB &gt; 8: randIntNoRep)</span>
+      <div class="gc-readout">
+        randIntNoRep(1, ${N}, ${n})<br>
+        {${state.drawnIds.join(", ")}}
+      </div>
+    `;
+
+    banner.innerHTML = `SRS Procedure: Number all <strong>${N}</strong> items from <em>1</em> to <em>${N}</em>, then generate <strong>${n}</strong> distinct random integers without replacement. Each item has selection probability <strong>${n}/${N} = ${(n / N).toFixed(4)}</strong>.`;
+
+    refTable.innerHTML = `
+      <thead>
+        <tr>
+          <th>Step</th>
+          <th>Exam Description (How to Obtain an SRS)</th>
+          <th>TI-84 Plus CE Command</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1. Number Frame</strong></td>
+          <td>Assign each of the <em>N = ${N}</em> units a unique integer from <em>1</em> to <em>${N}</em>.</td>
+          <td>Define population list <em>1, 2, …, ${N}</em></td>
+        </tr>
+        <tr>
+          <td><strong>2. Random Draw</strong></td>
+          <td>Generate <em>n = ${n}</em> distinct random integers between <em>1</em> and <em>${N}</em> without replacement.</td>
+          <td><code>randIntNoRep(1, ${N}, ${n})</code></td>
+        </tr>
+        <tr>
+          <td><strong>3. Collect Sample</strong></td>
+          <td>Select the <em>${n}</em> units corresponding to those generated numbers.</td>
+          <td>Every subset of size <em>${n}</em> is equally likely</td>
+        </tr>
+      </tbody>
+    `;
+
+    miscBox.innerHTML = `
+      <strong>Why <code>randIntNoRep</code> Instead of <code>randInt</code>?</strong>
+      <ul style="margin:3px 0 0 0; padding-left:18px;">
+        <li><strong>Avoid duplicate selections:</strong> Plain <code>randInt(1, ${N}, ${n})</code> samples <em>with replacement</em> and can pick the same ballot paper or household twice; <code>randIntNoRep</code> guarantees <em>${n}</em> distinct individuals.</li>
+      </ul>
+    `;
+
+    drawSrsGridCanvas(N, state.drawnIds);
+  }
+
+  function drawDotplotCanvas(hist, xMin, xMax, trueMu, actualCenter, theoSd, isPct) {
+    const canvas = document.getElementById("sampCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const padL = 48, padR = 26, padT = 30, padB = 42;
+    const plotW = W - padL - padR;
+    const plotH = H - padT - padB;
+    const baseY = H - padB;
+
+    const toX = v => padL + ((v - xMin) / (xMax - xMin)) * plotW;
+
+    // Shade ±1 SD(Xbar) theoretical band around actualCenter
+    const bandL = Math.max(xMin, actualCenter - theoSd);
+    const bandR = Math.min(xMax, actualCenter + theoSd);
+    ctx.fillStyle = "rgba(139, 92, 246, 0.12)";
+    ctx.fillRect(toX(bandL), padT, toX(bandR) - toX(bandL), plotH);
+
+    // Histogram bins of simulated xbar values
+    const numBins = 28;
+    const binW = (xMax - xMin) / numBins;
+    const counts = new Array(numBins).fill(0);
+    hist.forEach(v => {
+      const idx = Math.floor((v - xMin) / binW);
+      if (idx >= 0 && idx < numBins) counts[idx]++;
+    });
+    const maxCount = Math.max(6, ...counts);
+
+    for (let i = 0; i < numBins; i++) {
+      if (counts[i] === 0) continue;
+      const bx = padL + i * (plotW / numBins);
+      const bw = plotW / numBins - 1.5;
+      const bh = (counts[i] / maxCount) * (plotH * 0.85);
+      ctx.fillStyle = actualCenter === trueMu ? "rgba(2, 132, 199, 0.55)" : "rgba(225, 29, 72, 0.55)";
+      ctx.fillRect(bx, baseY - bh, bw, bh);
+    }
+
+    // True Population Mean line (mu)
+    const muX = toX(trueMu);
+    ctx.strokeStyle = "#0f766e";
+    ctx.lineWidth = 2.4;
+    ctx.setLineDash([5, 4]);
+    ctx.beginPath();
+    ctx.moveTo(muX, padT);
+    ctx.lineTo(muX, baseY);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    ctx.fillStyle = "#0f766e";
+    ctx.font = "bold 11px Segoe UI, sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(`True μ = ${isPct ? (trueMu * 100).toFixed(0) + "%" : trueMu}`, muX, padT - 8);
+
+    // If biased, also show biased E(Xbar) line
+    if (Math.abs(actualCenter - trueMu) > 1e-4) {
+      const bX = toX(actualCenter);
+      ctx.strokeStyle = "#e11d48";
+      ctx.lineWidth = 2.2;
+      ctx.beginPath();
+      ctx.moveTo(bX, padT + 14);
+      ctx.lineTo(bX, baseY);
+      ctx.stroke();
+
+      ctx.fillStyle = "#e11d48";
+      ctx.fillText(`Biased E(X̄) = ${(actualCenter * 100).toFixed(0)}%`, bX, padT + 10);
+    }
+
+    // Latest sample marker dot
+    if (hist.length > 0) {
+      const latest = hist[hist.length - 1];
+      const lx = Math.min(W - padR, Math.max(padL, toX(latest)));
+      ctx.fillStyle = "#7c3aed";
+      ctx.beginPath();
+      ctx.arc(lx, baseY - 7, 5.5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Horizontal Axis
+    ctx.strokeStyle = "#475569";
+    ctx.lineWidth = 1.4;
+    ctx.beginPath();
+    ctx.moveTo(padL, baseY);
+    ctx.lineTo(W - padR, baseY);
+    ctx.stroke();
+
+    ctx.fillStyle = "#334155";
+    ctx.font = "bold 10.5px Segoe UI, sans-serif";
+    ctx.textAlign = "center";
+    for (let k = 0; k <= 6; k++) {
+      const val = xMin + (k / 6) * (xMax - xMin);
+      const tx = toX(val);
+      ctx.fillText(isPct ? (val * 100).toFixed(0) + "%" : val.toFixed(0), tx, baseY + 17);
+    }
+    ctx.fillText("Simulated Sample Means x̄ (Purple dot = latest sample; shaded band = ±1 SD(X̄))", padL + plotW / 2, baseY + 33);
+  }
+
+  function drawSrsGridCanvas(N, drawnIds) {
+    const canvas = document.getElementById("sampCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    // Visualise first 100 population slots (or scaled representation)
+    const displayCount = Math.min(N, 100);
+    const cols = 20, rows = 5;
+    const padX = 36, padY = 38;
+    const cellW = (W - 2 * padX) / cols;
+    const cellH = (H - 2 * padY - 24) / rows;
+
+    const selectedSet = new Set(drawnIds);
+
+    ctx.font = "bold 11.5px Segoe UI, sans-serif";
+    ctx.fillStyle = "#1e293b";
+    ctx.textAlign = "left";
+    ctx.fillText(`Population Frame Preview (Units 1 to ${displayCount}${N > 100 ? " of " + N : ""}) — Highlighted = Selected in SRS`, padX, 22);
+
+    for (let i = 1; i <= displayCount; i++) {
+      const r = Math.floor((i - 1) / cols);
+      const c = (i - 1) % cols;
+      const x = padX + c * cellW + 2;
+      const y = padY + r * cellH + 2;
+      const w = cellW - 4;
+      const h = cellH - 4;
+
+      const isPicked = selectedSet.has(i);
+      ctx.fillStyle = isPicked ? "#8b5cf6" : "#f1f5f9";
+      ctx.strokeStyle = isPicked ? "#6d28d9" : "#cbd5e1";
+      ctx.lineWidth = isPicked ? 1.6 : 1;
+      ctx.fillRect(x, y, w, h);
+      ctx.strokeRect(x, y, w, h);
+
+      ctx.fillStyle = isPicked ? "#ffffff" : "#475569";
+      ctx.font = "bold 10px Segoe UI, sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText(i.toString(), x + w / 2, y + h / 2 + 3.5);
+    }
+
+    ctx.fillStyle = "#0f766e";
+    ctx.font = "bold 11px Segoe UI, sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(`Selected IDs: {${drawnIds.join(", ")}}`, W / 2, H - 12);
+  }
+
+  const examQs = [
+    {
+      q: "To estimate the mean daily spending of all students at a Junior College, a student surveys the first 50 students arriving at the canteen at 12:30 PM. Why is this NOT a Simple Random Sample?",
+      opts: [
+        "Students eating outside the canteen or at other times have zero probability of selection",
+        "A sample size of 50 is too small to ever be a Simple Random Sample",
+        "Simple Random Sampling requires surveying every student in the college",
+        "Daily spending does not follow a Normal distribution"
+      ],
+      ans: 0,
+      exp: "In a Simple Random Sample, every member of the population must have an equal, non-zero probability of selection and selections must be independent."
+    },
+    {
+      q: "A population has mean μ = 80 and variance σ² = 144. A Simple Random Sample of size n = 36 is drawn. What are E(X̄) and the standard deviation of X̄?",
+      opts: [
+        "E(X̄) = 80, Standard Deviation of X̄ = 2",
+        "E(X̄) = 80, Standard Deviation of X̄ = 4",
+        "E(X̄) = 80, Standard Deviation of X̄ = 0.333",
+        "E(X̄) = 2.22, Standard Deviation of X̄ = 2"
+      ],
+      ans: 0,
+      exp: "E(X̄) = μ = 80. Var(X̄) = σ² / n = 144 / 36 = 4, so the standard deviation of X̄ is √4 = 2 (or σ / √n = 12 / 6 = 2)."
+    },
+    {
+      q: "If the sample size n of a Simple Random Sample is increased from n = 25 to n = 100, how does the standard deviation of the sample mean X̄ change?",
+      opts: [
+        "It is halved (multiplied by 1/2)",
+        "It is divided by 4 (multiplied by 1/4)",
+        "It remains unchanged",
+        "It doubles"
+      ],
+      ans: 0,
+      exp: "Since SD(X̄) = σ / √n, multiplying n by 4 multiplies √n by 2, which halves the standard deviation of X̄."
+    }
+  ];
+
+  let curQ = 0;
+
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").textContent = item.q;
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i}, this)">${String.fromCharCode(65 + i)}. ${o}</button>
+    `).join("");
+  }
+
+  function gradeExamQ(idx, btn) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  setMode("geSample");
+  renderExamQ();
+</script>
+
+</body>
+</html>
