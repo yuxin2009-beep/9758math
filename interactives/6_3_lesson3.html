@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 6.3 Lesson 3: Standard Normal Z ~ N(0, 1), Standardisation & Finding Unknown Parameters</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 535px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1000px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.76rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.48;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .control-panel {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 13px;
+      margin-bottom: 11px;
+    }
+
+    .control-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .sub-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 9px;
+    }
+
+    .sub-btn {
+      flex: 1;
+      min-width: 110px;
+      padding: 6px 8px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 0.74rem;
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .sub-btn.active {
+      background: var(--blue);
+      color: #ffffff;
+      border-color: var(--blue);
+    }
+
+    .sub-btn.alt.active {
+      background: var(--teal);
+      color: #ffffff;
+      border-color: var(--teal);
+    }
+
+    .slider-row {
+      margin-bottom: 9px;
+    }
+
+    .slider-label-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.79rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 3px;
+    }
+
+    .slider-row input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .param-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding-top: 6px;
+      border-top: 1px dashed #e2e8f0;
+      margin-top: 4px;
+    }
+
+    .gc-screen-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin-bottom: 11px;
+    }
+
+    .box-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .gc-readout {
+      background: #f1f5f9;
+      border: 2px solid #64748b;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 5px;
+      line-height: 1.48;
+    }
+
+    .solution-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.81rem;
+      font-weight: 700;
+      line-height: 1.48;
+    }
+
+    .canvas-box {
+      background: #fdfbf7;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 8px;
+      margin-bottom: 10px;
+    }
+
+    canvas {
+      width: 100%;
+      height: 305px;
+      display: block;
+    }
+
+    .check-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+      margin-top: 6px;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .check-table th, .check-table td {
+      border: 1px solid #e2e8f0;
+      padding: 6px 9px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .check-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    .grader-card {
+      margin-top: 11px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 13px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 7px;
+    }
+
+    @media (max-width: 700px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.77rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .misconception-box {
+      margin-top: 10px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-size: 0.78rem;
+      line-height: 1.46;
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Standardise X &rarr; Z (Tab 1)</strong>
+        See how any <em>X ~ N(&mu;, &sigma;&sup2;)</em> maps onto <em>Z = (X &minus; &mu;)/&sigma; ~ N(0, 1)</em> with identical shaded probability area and signed <em>z</em>-scores.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Compare Two Methods for Unknown &mu; or &sigma; (Tab 2)</strong>
+        Toggle between <strong>Method 1 (Standardisation + invNorm)</strong> and <strong>Method 2 (GC Y = normalcdf Intersect)</strong>—and switch the visual plot between the <em>Z-curve</em> and the <em>GC Y&#8321; vs Y&#8322; Intersection Graph</em>!
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Solve Two Unknowns &amp; Bolt Tolerance (Tabs 3 &amp; 4)</strong>
+        Practice solving simultaneous equations for <em>(&mu;, &sigma;)</em> from two tail probabilities, and verify a 9758 tolerance preset with both methods.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        6.3 Lesson 3 &bull; Standard Normal Z ~ N(0, 1), Standardisation &amp; Unknown Parameters
+      </div>
+
+      <!-- Mode / Preset Buttons -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="mode_standardise" onclick="setMode('standardise')">
+          1. Standardisation Z = (X &minus; &mu;)/&sigma;
+        </button>
+        <button class="tab-btn" id="mode_singleUnknown" onclick="setMode('singleUnknown')">
+          2. Find Unknown &mu; or &sigma; (2 Methods)
+        </button>
+        <button class="tab-btn" id="mode_twoUnknowns" onclick="setMode('twoUnknowns')">
+          3. Simultaneous Unknowns (&mu;, &sigma;)
+        </button>
+        <button class="tab-btn" id="mode_bolts" onclick="setMode('bolts')">
+          4. Preset: Bolt Diameters N(12.0, &sigma;&sup2;)
+        </button>
+      </div>
+
+      <!-- Contextual Description -->
+      <div class="context-box" id="contextBox"></div>
+
+      <!-- Dynamic Sub-controls & Sliders -->
+      <div class="control-panel">
+        <div class="control-header">
+          <span id="controlTitle">Standardisation Mapping Controls</span>
+          <span id="notationBadge" style="color:var(--purple-dark);">Z = (X − μ)/σ ~ N(0, 1)</span>
+        </div>
+        <div class="sub-pill-row" id="subTypeRow"></div>
+        <div id="sliderControls"></div>
+        <div class="param-strip" id="paramStrip"></div>
+      </div>
+
+      <!-- Simulated TI-84 Plus CE Readout -->
+      <div class="gc-screen-box" id="gcOutputBox"></div>
+
+      <!-- Step-by-Step Working Banner -->
+      <div class="solution-banner" id="solutionBanner"></div>
+    </div>
+
+    <!-- RIGHT VISUAL CANVAS, DUAL-METHOD TABLE & EXAM CHECK -->
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <span style="font-size:1.0rem; font-weight:800; color:#1e293b;" id="canvasHeading">
+          Dual-Axis Mapping: X ~ N(μ, σ²) → Z ~ N(0, 1)
+        </span>
+        <span style="font-size:0.74rem; font-weight:700; color:var(--teal); background:var(--teal-bg); padding:3px 9px; border-radius:999px;" id="areaPill">
+          Area = 0.6827
+        </span>
+      </div>
+
+      <div class="canvas-box">
+        <canvas id="stdCanvas" width="760" height="305"></canvas>
+      </div>
+
+      <!-- Method Comparison / Formula Reference Table -->
+      <table class="check-table" id="refTable"></table>
+
+      <div class="misconception-box" id="misconceptionBox"></div>
+
+      <!-- Quick 9758 Exam Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 Standardisation &amp; Unknown Parameters Check (<span id="qIdxLbl">1</span>/3)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.79rem; line-height:1.45; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  function stdNormPdf(z) {
+    return Math.exp(-0.5 * z * z) / Math.sqrt(2 * Math.PI);
+  }
+
+  function normPdf(x, mu, sigma) {
+    return stdNormPdf((x - mu) / sigma) / sigma;
+  }
+
+  function stdNormCdf(z) {
+    if (z < -8) return 0;
+    if (z > 8) return 1;
+    const sign = z < 0 ? -1 : 1;
+    const x = Math.abs(z) / Math.sqrt(2);
+    const t = 1 / (1 + 0.3275911 * x);
+    const a1 = 0.254829592, a2 = -0.284496736, a3 = 1.421413741, a4 = -1.453152027, a5 = 1.061405429;
+    const erf = 1 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-x * x);
+    return 0.5 * (1 + sign * erf);
+  }
+
+  function normCdf(x, mu, sigma) {
+    return stdNormCdf((x - mu) / sigma);
+  }
+
+  function invStdNorm(p) {
+    if (p <= 0) return -8;
+    if (p >= 1) return 8;
+    if (p === 0.5) return 0;
+    const a = [-3.969683028665376e1, 2.209460984245205e2, -2.759285104469687e2, 1.383577518672690e2, -3.066479806614716e1, 2.506628277459239e0];
+    const b = [-5.447609879822406e1, 1.615858368580409e2, -1.556989798598866e2, 6.680131188771972e1, -1.328068155288572e1];
+    const c = [-7.784894002430293e-3, -3.223964580411365e-1, -2.400758277161838e0, -2.549732539343734e0, 4.374664141464968e0, 2.938163982698783e0];
+    const d = [7.784695709041462e-3, 3.224671290700398e-1, 2.445134137142996e0, 3.754408661907416e0];
+    const pLow = 0.02425, pHigh = 1 - pLow;
+    let q, r;
+    if (p < pLow) {
+      q = Math.sqrt(-2 * Math.log(p));
+      return (((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) /
+             ((((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1);
+    } else if (p <= pHigh) {
+      q = p - 0.5;
+      r = q * q;
+      return (((((a[0] * r + a[1]) * r + a[2]) * r + a[3]) * r + a[4]) * r + a[5]) * q /
+             (((((b[0] * r + b[1]) * r + b[2]) * r + b[3]) * r + b[4]) * r + 1);
+    } else {
+      q = Math.sqrt(-2 * Math.log(1 - p));
+      return -(((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) /
+              ((((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1);
+    }
+  }
+
+  let state = {
+    mode: "standardise",    // standardise | singleUnknown | twoUnknowns | bolts
+    // Mode 1: Standardisation
+    mu: 60,
+    sigma: 8,
+    a: 52,
+    b: 72,
+    // Mode 2: Single Unknown (mu or sigma) + Method View (zCurve vs gcGraph)
+    unknownTarget: "sigma", // mu | sigma
+    visualView: "gcGraph",  // zCurve | gcGraph
+    knownMu: 50,
+    knownSigma: 6,
+    cutX: 60,
+    tailDir: "right",       // left | right
+    givenProb: 0.08,
+    // Mode 3: Two Unknowns (mu, sigma)
+    xLow: 42,
+    pLow: 0.15,
+    xHigh: 68,
+    pHigh: 0.10,            // P(X > xHigh) = pHigh
+    // Mode 4: Bolts Preset
+    boltTol: 0.15,
+    boltOutProb: 0.0455
+  };
+
+  function setMode(m) {
+    state.mode = m;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("mode_" + m).classList.add("active");
+
+    if (m === "standardise") {
+      state.mu = 60;
+      state.sigma = 8;
+      state.a = 52;
+      state.b = 72;
+    } else if (m === "singleUnknown") {
+      state.unknownTarget = "sigma";
+      state.visualView = "gcGraph";
+      state.knownMu = 50;
+      state.knownSigma = 6;
+      state.cutX = 60;
+      state.tailDir = "right";
+      state.givenProb = 0.08;
+    } else if (m === "twoUnknowns") {
+      state.xLow = 42;
+      state.pLow = 0.15;
+      state.xHigh = 68;
+      state.pHigh = 0.10;
+    } else if (m === "bolts") {
+      state.visualView = "gcGraph";
+      state.boltTol = 0.15;
+      state.boltOutProb = 0.0455;
+    }
+
+    renderControls();
+    updateAll();
+  }
+
+  function setUnknownTarget(t) {
+    state.unknownTarget = t;
+    if (t === "mu") {
+      state.knownSigma = 6;
+      state.cutX = 60;
+      state.tailDir = "right";
+      state.givenProb = 0.08;
+    } else {
+      state.knownMu = 50;
+      state.cutX = 60;
+      state.tailDir = "right";
+      state.givenProb = 0.08;
+    }
+    renderControls();
+    updateAll();
+  }
+
+  function setVisualView(v) {
+    state.visualView = v;
+    renderControls();
+    updateAll();
+  }
+
+  function setTailDir(d) {
+    state.tailDir = d;
+    if (state.unknownTarget === "sigma") {
+      if (d === "right" && state.cutX <= state.knownMu) state.cutX = state.knownMu + 10;
+      if (d === "left" && state.cutX >= state.knownMu) state.cutX = state.knownMu - 10;
+    }
+    renderControls();
+    updateAll();
+  }
+
+  function renderControls() {
+    const ctxBox = document.getElementById("contextBox");
+    const subRow = document.getElementById("subTypeRow");
+    const sliderDiv = document.getElementById("sliderControls");
+    const paramStrip = document.getElementById("paramStrip");
+    const ctrlTitle = document.getElementById("controlTitle");
+
+    if (state.mode === "standardise") {
+      ctrlTitle.textContent = "Linear Transformation X → Z = (X − μ)/σ";
+      ctxBox.innerHTML = `
+        <div><strong>Why Standardise?</strong> Every Normal random variable <em>X ~ N(&mu;, &sigma;&sup2;)</em> can be converted to the <strong>Standard Normal</strong> variable <strong>Z = (X &minus; &mu;)/&sigma; ~ N(0, 1)</strong>. Values below <em>&mu;</em> give <em>z &lt; 0</em>; values above <em>&mu;</em> give <em>z &gt; 0</em>.</div>
+        <div class="var-pill">P(a &lt; X &lt; b) = P((a &minus; &mu;)/&sigma; &lt; Z &lt; (b &minus; &mu;)/&sigma;)</div>
+      `;
+      subRow.innerHTML = "";
+      const minX = state.mu - 3.5 * state.sigma;
+      const maxX = state.mu + 3.5 * state.sigma;
+      sliderDiv.innerHTML = `
+        <div class="slider-row" style="margin-bottom:4px;">
+          <div class="slider-label-row">
+            <span>Interval Bounds [a, b] on X ~ N(${state.mu}, ${state.sigma}&sup2;):</span>
+            <span id="lbl_ab" style="color:var(--purple-dark);">[${state.a}, ${state.b}]</span>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+            <input type="range" min="${minX}" max="${state.mu + state.sigma}" step="1" value="${state.a}" oninput="updateVal('a', this.value)" />
+            <input type="range" min="${state.mu - state.sigma}" max="${maxX}" step="1" value="${state.b}" oninput="updateVal('b', this.value)" />
+          </div>
+        </div>
+      `;
+      paramStrip.innerHTML = `
+        <div>
+          <div class="slider-label-row" style="font-size:0.74rem;"><span>Mean &mu;:</span><span>${state.mu}</span></div>
+          <input type="range" min="40" max="80" step="1" value="${state.mu}" oninput="updateStdParam('mu', this.value)" />
+        </div>
+        <div>
+          <div class="slider-label-row" style="font-size:0.74rem;"><span>Std Dev &sigma;:</span><span>${state.sigma}</span></div>
+          <input type="range" min="4" max="15" step="1" value="${state.sigma}" oninput="updateStdParam('sigma', this.value)" />
+        </div>
+      `;
+      return;
+    }
+
+    if (state.mode === "singleUnknown") {
+      ctrlTitle.textContent = "Solve for Unknown μ or σ (Standardisation vs. GC Y=ncdf)";
+      ctxBox.innerHTML = `
+        <div><strong>Two Exam-Valid Methods:</strong> When either <em>&mu;</em> or <em>&sigma;</em> is unknown, you cannot enter <code>invNorm(area, &mu;, &sigma;)</code> directly. Instead, either: <strong>(1) Standardise</strong> to <em>Z ~ N(0, 1)</em> and use <code>invNorm(area, 0, 1)</code>, OR <strong>(2) Graph <em>Y&#8321; = normalcdf(...)</em> and <em>Y&#8322; = p</em></strong> on your GC and find their intersection!</div>
+        <div class="var-pill">GC Alternative: Plot Y&#8321; = normalcdf(..., X, ...) and Y&#8322; = p &rArr; [2nd] [TRACE] &gt; 5: intersect</div>
+      `;
+
+      subRow.innerHTML = `
+        <button class="sub-btn ${state.unknownTarget === "sigma" ? "active" : ""}" onclick="setUnknownTarget('sigma')">Find Unknown &sigma; (&mu; = ${state.knownMu})</button>
+        <button class="sub-btn ${state.unknownTarget === "mu" ? "active" : ""}" onclick="setUnknownTarget('mu')">Find Unknown &mu; (&sigma; = ${state.knownSigma})</button>
+        <button class="sub-btn alt ${state.visualView === "gcGraph" ? "active" : ""}" onclick="setVisualView('gcGraph')">Plot: GC Y&#8321;=Y&#8322; Graph</button>
+        <button class="sub-btn alt ${state.visualView === "zCurve" ? "active" : ""}" onclick="setVisualView('zCurve')">Plot: Z ~ N(0, 1) Curve</button>
+      `;
+
+      const isSigma = state.unknownTarget === "sigma";
+      const minCut = isSigma ? (state.tailDir === "right" ? state.knownMu + 2 : state.knownMu - 25) : 35;
+      const maxCut = isSigma ? (state.tailDir === "right" ? state.knownMu + 25 : state.knownMu - 2) : 75;
+
+      sliderDiv.innerHTML = `
+        <div class="slider-row">
+          <div class="slider-label-row">
+            <span>Given Tail Direction &amp; Boundary x&#8321;:</span>
+            <span id="lbl_cut" style="color:var(--purple-dark);">P(X ${state.tailDir === "right" ? "&gt;" : "&lt;"} ${state.cutX}) = ${state.givenProb.toFixed(2)}</span>
+          </div>
+          <div style="display:grid; grid-template-columns:135px 1fr; gap:8px; align-items:center;">
+            <select style="padding:5px 7px; border-radius:7px; border:1px solid #cbd5e1; font-weight:700; font-size:0.76rem;" onchange="setTailDir(this.value)">
+              <option value="right" ${state.tailDir === "right" ? "selected" : ""}>Right Tail: P(X &gt; x&#8321;)</option>
+              <option value="left" ${state.tailDir === "left" ? "selected" : ""}>Left Tail: P(X &lt; x&#8321;)</option>
+            </select>
+            <input type="range" min="${minCut}" max="${maxCut}" step="1" value="${state.cutX}" oninput="updateVal('cutX', this.value)" />
+          </div>
+        </div>
+        <div class="slider-row" style="margin-bottom:2px;">
+          <div class="slider-label-row">
+            <span>Given Tail Probability p:</span>
+            <span id="lbl_gp" style="color:var(--rose);">p = ${state.givenProb.toFixed(2)}</span>
+          </div>
+          <input type="range" min="0.02" max="0.45" step="0.01" value="${state.givenProb}" oninput="updateVal('givenProb', this.value)" />
+        </div>
+      `;
+
+      paramStrip.innerHTML = isSigma
+        ? `<div style="grid-column:1 / -1;">
+             <div class="slider-label-row" style="font-size:0.74rem;"><span>Known Mean &mu;:</span><span>&mu; = ${state.knownMu} (solving for &sigma; &gt; 0)</span></div>
+             <input type="range" min="35" max="65" step="1" value="${state.knownMu}" oninput="updateKnownMu(this.value)" />
+           </div>`
+        : `<div style="grid-column:1 / -1;">
+             <div class="slider-label-row" style="font-size:0.74rem;"><span>Known Standard Deviation &sigma;:</span><span>&sigma; = ${state.knownSigma} (solving for &mu;)</span></div>
+             <input type="range" min="2" max="12" step="1" value="${state.knownSigma}" oninput="updateVal('knownSigma', this.value)" />
+           </div>`;
+      return;
+    }
+
+    if (state.mode === "twoUnknowns") {
+      ctrlTitle.textContent = "Two Probability Clues → 2×2 System in (μ, σ)";
+      ctxBox.innerHTML = `
+        <div><strong>Simultaneous Unknowns (&mu; and &sigma;):</strong> Given two probabilities <em>P(X &lt; x&#8321;) = p&#8321;</em> and <em>P(X &gt; x&#8322;) = p&#8322;</em>, find <em>z&#8321; = invNorm(p&#8321;, 0, 1)</em> and <em>z&#8322; = invNorm(1 &minus; p&#8322;, 0, 1)</em>, then solve <strong>x&#8321; &minus; &mu; = z&#8321;&sigma;</strong> and <strong>x&#8322; &minus; &mu; = z&#8322;&sigma;</strong> simultaneously!</div>
+        <div class="var-pill">Subtracting equations eliminates &mu; immediately: &sigma; = (x&#8322; &minus; x&#8321;) / (z&#8322; &minus; z&#8321;)</div>
+      `;
+      subRow.innerHTML = "";
+      sliderDiv.innerHTML = `
+        <div class="slider-row">
+          <div class="slider-label-row">
+            <span>Clue 1 (Left Tail): P(X &lt; ${state.xLow}) = ${state.pLow.toFixed(2)}</span>
+            <span style="color:var(--rose);">x&#8321; = ${state.xLow}, p&#8321; = ${state.pLow.toFixed(2)}</span>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+            <input type="range" min="25" max="52" step="1" value="${state.xLow}" oninput="updateVal('xLow', this.value)" />
+            <input type="range" min="0.03" max="0.40" step="0.01" value="${state.pLow}" oninput="updateVal('pLow', this.value)" />
+          </div>
+        </div>
+        <div class="slider-row" style="margin-bottom:2px;">
+          <div class="slider-label-row">
+            <span>Clue 2 (Right Tail): P(X &gt; ${state.xHigh}) = ${state.pHigh.toFixed(2)}</span>
+            <span style="color:var(--blue);">x&#8322; = ${state.xHigh}, p&#8322; = ${state.pHigh.toFixed(2)}</span>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+            <input type="range" min="55" max="85" step="1" value="${state.xHigh}" oninput="updateVal('xHigh', this.value)" />
+            <input type="range" min="0.03" max="0.40" step="0.01" value="${state.pHigh}" oninput="updateVal('pHigh', this.value)" />
+          </div>
+        </div>
+      `;
+      paramStrip.innerHTML = "";
+      return;
+    }
+
+    // Mode 4: Bolts Preset X ~ N(12.0, sigma^2)
+    ctrlTitle.textContent = "Machine Tolerance Preset: X ~ N(12.0, σ²)";
+    ctxBox.innerHTML = `
+      <div><strong>Engineering Tolerance Problem:</strong> Bolt diameters follow <strong>X ~ N(12.0, &sigma;&sup2;)</strong>. A bolt is rejected if its diameter differs from <em>12.0 mm</em> by more than <em>d</em> mm: <strong>P(|X &minus; 12.0| &gt; d) = p</strong>. Compare Standardisation vs. GC <code>Y = normalcdf</code>!</div>
+      <div class="var-pill">P(|X &minus; 12.0| &gt; d) = p &hArr; P(X &gt; 12.0 + d) = p/2</div>
+    `;
+    subRow.innerHTML = `
+      <button class="sub-btn alt ${state.visualView === "gcGraph" ? "active" : ""}" onclick="setVisualView('gcGraph')">Plot: GC Y&#8321;=Y&#8322; Intersect</button>
+      <button class="sub-btn alt ${state.visualView === "zCurve" ? "active" : ""}" onclick="setVisualView('zCurve')">Plot: Z ~ N(0, 1) Symmetry</button>
+    `;
+    sliderDiv.innerHTML = `
+      <div class="slider-row">
+        <div class="slider-label-row">
+          <span>Tolerance Radius d (|X &minus; 12.0| &gt; d):</span>
+          <span style="color:var(--purple-dark);">d = ${state.boltTol.toFixed(2)} mm</span>
+        </div>
+        <input type="range" min="0.05" max="0.40" step="0.01" value="${state.boltTol}" oninput="updateVal('boltTol', this.value)" />
+      </div>
+      <div class="slider-row" style="margin-bottom:2px;">
+        <div class="slider-label-row">
+          <span>Rejection Rate p = P(|X &minus; 12.0| &gt; d):</span>
+          <span style="color:var(--rose);">p = ${state.boltOutProb.toFixed(4)} (${(state.boltOutProb * 100).toFixed(2)}%)</span>
+        </div>
+        <input type="range" min="0.01" max="0.25" step="0.005" value="${state.boltOutProb}" oninput="updateVal('boltOutProb', this.value)" />
+      </div>
+    `;
+    paramStrip.innerHTML = "";
+  }
+
+  function updateVal(key, val) {
+    state[key] = parseFloat(val);
+    if (key === "a" && state.a >= state.b) state.a = state.b - 1;
+    if (key === "b" && state.b <= state.a) state.b = state.a + 1;
+    if (state.mode === "singleUnknown" || state.mode === "twoUnknowns" || state.mode === "bolts") {
+      renderControls();
+    }
+    updateAll();
+  }
+
+  function updateStdParam(key, val) {
+    state[key] = parseFloat(val);
+    state.a = state.mu - state.sigma;
+    state.b = state.mu + state.sigma;
+    renderControls();
+    updateAll();
+  }
+
+  function updateKnownMu(val) {
+    const oldDiff = state.cutX - state.knownMu;
+    state.knownMu = parseFloat(val);
+    state.cutX = state.knownMu + oldDiff;
+    renderControls();
+    updateAll();
+  }
+
+  function updateAll() {
+    const gcBox = document.getElementById("gcOutputBox");
+    const banner = document.getElementById("solutionBanner");
+    const refTable = document.getElementById("refTable");
+    const miscBox = document.getElementById("misconceptionBox");
+
+    if (state.mode === "standardise") {
+      const mu = state.mu, sig = state.sigma;
+      const z1 = (state.a - mu) / sig;
+      const z2 = (state.b - mu) / sig;
+      const prob = stdNormCdf(z2) - stdNormCdf(z1);
+
+      document.getElementById("notationBadge").textContent = `X ~ N(${mu}, ${sig}²) → Z ~ N(0, 1)`;
+      if (document.getElementById("lbl_ab")) document.getElementById("lbl_ab").textContent = `[${state.a}, ${state.b}]`;
+      document.getElementById("canvasHeading").textContent = `Standardising X ~ N(${mu}, ${sig}²) to Z ~ N(0, 1)`;
+      document.getElementById("areaPill").textContent = `Area = ${prob.toFixed(4)}`;
+
+      gcBox.innerHTML = `
+        <span class="box-title">Standardisation Formula &amp; TI-84 Equivalence Check</span>
+        <div class="gc-readout">
+          z₁ = (${state.a} − ${mu}) / ${sig} = ${z1.toFixed(3)}   |   z₂ = (${state.b} − ${mu}) / ${sig} = ${z2.toFixed(3)}<br>
+          Original X-scale: normalcdf(${state.a}, ${state.b}, ${mu}, ${sig}) = ${prob.toFixed(5)}<br>
+          Standard Z-scale: normalcdf(${z1.toFixed(3)}, ${z2.toFixed(3)}, 0, 1) = ${prob.toFixed(5)}
+        </div>
+      `;
+
+      banner.innerHTML = `Standardised Interval: <strong>P(${state.a} &lt; X &lt; ${state.b}) = P(${z1.toFixed(2)} &lt; Z &lt; ${z2.toFixed(2)}) = ${prob.toFixed(4)}</strong>. Notice how <em>x &lt; ${mu}</em> maps to <em>z &lt; 0</em> and <em>x &gt; ${mu}</em> maps to <em>z &gt; 0</em>.`;
+
+      refTable.innerHTML = `
+        <thead>
+          <tr>
+            <th>Distribution</th>
+            <th>Mean &amp; Variance</th>
+            <th>Boundary Values &amp; TI-84 Syntax</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Original Variable <em>X</em></strong></td>
+            <td><em>X ~ N(${mu}, ${sig * sig})</em></td>
+            <td><em>x &isin; [${state.a}, ${state.b}]</em> &rarr; <code>normalcdf(${state.a}, ${state.b}, ${mu}, ${sig})</code></td>
+          </tr>
+          <tr>
+            <td><strong>Standardised <em>Z = (X &minus; ${mu})/${sig}</em></strong></td>
+            <td><em>Z ~ N(0, 1)</em></td>
+            <td><em>z &isin; [${z1.toFixed(2)}, ${z2.toFixed(2)}]</em> &rarr; <code>normalcdf(${z1.toFixed(2)}, ${z2.toFixed(2)}, 0, 1)</code></td>
+          </tr>
+        </tbody>
+      `;
+
+      miscBox.innerHTML = `
+        <strong>Sign Check When Standardising Z = (X &minus; &mu;)/&sigma;:</strong>
+        <ul style="margin:3px 0 0 0; padding-left:18px;">
+          <li><strong>Check the sign of <em>z</em> against &mu;:</strong> Because <em>&sigma; &gt; 0</em> always, <em>x &lt; &mu;</em> must produce a <strong>negative</strong> <em>z</em>-value, and <em>x &gt; &mu;</em> must produce a <strong>positive</strong> <em>z</em>-value.</li>
+          <li><strong>Denominator is &sigma;, NOT &sigma;&sup2;:</strong> If <em>X ~ N(60, 64)</em>, divide by <em>&sigma; = &radic;64 = 8</em>, never by 64.</li>
+        </ul>
+      `;
+
+      drawStandardiseCanvas();
+      return;
+    }
+
+    if (state.mode === "singleUnknown") {
+      const isSigma = state.unknownTarget === "sigma";
+      const isRight = state.tailDir === "right";
+      const leftArea = isRight ? +(1 - state.givenProb).toFixed(4) : +state.givenProb.toFixed(4);
+      const zStar = invStdNorm(leftArea);
+
+      let solvedVal = 0, m1Text = "", m2Text = "", y1Expr = "";
+      if (isSigma) {
+        solvedVal = (state.cutX - state.knownMu) / zStar;
+        document.getElementById("notationBadge").textContent = `X ~ N(${state.knownMu}, σ²) → σ = ${solvedVal.toFixed(3)}`;
+        y1Expr = isRight
+          ? `normalcdf(${state.cutX}, 1E99, ${state.knownMu}, X)`
+          : `normalcdf(-1E99, ${state.cutX}, ${state.knownMu}, X)`;
+        m1Text = `1. Standardise: P(Z ${isRight ? ">" : "<"} (${state.cutX} − ${state.knownMu})/σ) = ${state.givenProb.toFixed(2)}\n2. invNorm(${leftArea}, 0, 1) = ${zStar.toFixed(4)}  ⇒  (${state.cutX} − ${state.knownMu})/σ = ${zStar.toFixed(4)}\n3. Solve: σ = ${(state.cutX - state.knownMu).toFixed(1)} / ${zStar.toFixed(4)} = ${solvedVal.toFixed(4)}`;
+        m2Text = `Press [Y=]:  Y₁ = ${y1Expr}\n              Y₂ = ${state.givenProb.toFixed(2)}\nWindow: Xmin = 0.5, Xmax = 25, Ymin = 0, Ymax = 0.5\n[2nd] [TRACE] > 5: intersect  ⇒  X = ${solvedVal.toFixed(4)} (so σ = ${Number(solvedVal.toPrecision(3))})`;
+      } else {
+        solvedVal = state.cutX - zStar * state.knownSigma;
+        document.getElementById("notationBadge").textContent = `X ~ N(μ, ${state.knownSigma}²) → μ = ${solvedVal.toFixed(3)}`;
+        y1Expr = isRight
+          ? `normalcdf(${state.cutX}, 1E99, X, ${state.knownSigma})`
+          : `normalcdf(-1E99, ${state.cutX}, X, ${state.knownSigma})`;
+        m1Text = `1. Standardise: P(Z ${isRight ? ">" : "<"} (${state.cutX} − μ)/${state.knownSigma}) = ${state.givenProb.toFixed(2)}\n2. invNorm(${leftArea}, 0, 1) = ${zStar.toFixed(4)}  ⇒  (${state.cutX} − μ)/${state.knownSigma} = ${zStar.toFixed(4)}\n3. Solve: μ = ${state.cutX} − (${zStar.toFixed(4)})(${state.knownSigma}) = ${solvedVal.toFixed(4)}`;
+        m2Text = `Press [Y=]:  Y₁ = ${y1Expr}\n              Y₂ = ${state.givenProb.toFixed(2)}\nWindow: Xmin = ${Math.floor(solvedVal - 25)}, Xmax = ${Math.ceil(solvedVal + 25)}, Ymin = 0, Ymax = 0.5\n[2nd] [TRACE] > 5: intersect  ⇒  X = ${solvedVal.toFixed(4)} (so μ = ${Number(solvedVal.toPrecision(3))})`;
+      }
+
+      document.getElementById("canvasHeading").textContent = state.visualView === "gcGraph"
+        ? `GC Graph-Intersect View: Y₁ = normalcdf(...) vs. Y₂ = ${state.givenProb.toFixed(2)}`
+        : `Standard Normal Z-Score View: z = ${zStar.toFixed(4)}`;
+      document.getElementById("areaPill").textContent = `${isSigma ? "σ" : "μ"} = ${solvedVal.toFixed(3)} (3 s.f.: ${Number(solvedVal.toPrecision(3))})`;
+
+      gcBox.innerHTML = `
+        <span class="box-title">Alternative GC Method ([Y=] &rarr; normalcdf &amp; intersect)</span>
+        <div class="gc-readout">${m2Text.replace(/\n/g, "<br>")}</div>
+      `;
+
+      banner.innerHTML = `Both Methods Agree: <strong>${isSigma ? "σ" : "μ"} = ${Number(solvedVal.toPrecision(3))}</strong> (to 3 s.f.). In 9758 exams, clearly state your equation <em>P(X ${isRight ? "&gt;" : "&lt;"} ${state.cutX}) = ${state.givenProb.toFixed(2)}</em> before writing down the GC intersection or <em>z</em>-score step!`;
+
+      refTable.innerHTML = `
+        <thead>
+          <tr>
+            <th style="width:50%;">Method 1: Algebraic Standardisation + <code>invNorm</code></th>
+            <th style="width:50%;">Method 2: GC <code>Y = normalcdf</code> + <code>intersect</code></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Step 1:</strong> Convert to <em>Z = (X &minus; &mu;)/&sigma;</em> and rewrite tail as left area <em>${leftArea}</em>.</td>
+            <td><strong>Step 1:</strong> Enter <code>Y₁ = ${y1Expr}</code> (using variable <code>X</code> for unknown ${isSigma ? "&sigma;" : "&mu;"}) and <code>Y₂ = ${state.givenProb.toFixed(2)}</code>.</td>
+          </tr>
+          <tr>
+            <td><strong>Step 2:</strong> Compute <code>z = invNorm(${leftArea}, 0, 1) = ${zStar.toFixed(4)}</code> (keep &ge; 5 s.f.!).</td>
+            <td><strong>Step 2:</strong> Set <code>Ymin = 0, Ymax = 0.5</code> (since probability &isin; [0, 1]) and choose sensible <code>Xmin, Xmax</code> (${isSigma ? "X > 0" : "around " + state.cutX}).</td>
+          </tr>
+          <tr>
+            <td><strong>Step 3:</strong> Solve linear equation &rArr; <strong>${isSigma ? "σ" : "μ"} = ${solvedVal.toFixed(4)}</strong>.</td>
+            <td><strong>Step 3:</strong> Press <code>[2nd] [TRACE] &gt; 5: intersect</code> &rArr; <strong>X = ${solvedVal.toFixed(4)}</strong>.</td>
+          </tr>
+        </tbody>
+      `;
+
+      miscBox.innerHTML = `
+        <strong>When to Prefer GC <code>Y = normalcdf</code> vs. Standardisation:</strong>
+        <ul style="margin:3px 0 0 0; padding-left:18px;">
+          <li><strong>Why GC <code>Y = normalcdf</code> shines on tricky regions:</strong> For asymmetric intervals like <em>P(45 &lt; X &lt; 62) = 0.70</em> with unknown <em>&sigma;</em>, standardisation gives two unknown <em>z</em>-scores that <code>invNorm</code> cannot directly isolate—whereas <code>Y₁ = normalcdf(45, 62, μ, X)</code> intersecting <code>Y₂ = 0.70</code> solves it in seconds!</li>
+          <li><strong>Always check &sigma; &gt; 0:</strong> When graphing <code>Y₁</code> with unknown <em>&sigma;</em> as <code>X</code>, set <code>Xmin = 0.01</code> because TI-84 <code>normalcdf</code> throws <code>ERR: DOMAIN</code> if <em>X &le; 0</em>.</li>
+        </ul>
+      `;
+
+      if (state.visualView === "gcGraph") {
+        drawGcIntersectCanvas(isSigma, isRight, state.cutX, state.knownMu, state.knownSigma, state.givenProb, solvedVal);
+      } else {
+        drawZCurveCanvas(zStar, leftArea, isRight, `${isSigma ? "σ" : "μ"} = ${solvedVal.toFixed(3)}`);
+      }
+      return;
+    }
+
+    if (state.mode === "twoUnknowns") {
+      const z1 = invStdNorm(state.pLow);
+      const leftHigh = +(1 - state.pHigh).toFixed(4);
+      const z2 = invStdNorm(leftHigh);
+      const sigSolved = (state.xHigh - state.xLow) / (z2 - z1);
+      const muSolved = state.xLow - z1 * sigSolved;
+
+      document.getElementById("notationBadge").textContent = `μ = ${muSolved.toFixed(2)}, σ = ${sigSolved.toFixed(2)}`;
+      document.getElementById("canvasHeading").textContent = `Simultaneous Equations on Z ~ N(0, 1) → X ~ N(${muSolved.toFixed(1)}, ${sigSolved.toFixed(1)}²)`;
+      document.getElementById("areaPill").textContent = `μ = ${Number(muSolved.toPrecision(3))}, σ = ${Number(sigSolved.toPrecision(3))}`;
+
+      gcBox.innerHTML = `
+        <span class="box-title">Simultaneous Standardisation &amp; TI-84 PlySmlt2 / Linear Solve</span>
+        <div class="gc-readout">
+          Clue 1: P(X &lt; ${state.xLow}) = ${state.pLow.toFixed(2)}  ⇒  z₁ = invNorm(${state.pLow.toFixed(2)}, 0, 1) = ${z1.toFixed(4)}  ⇒  μ + (${z1.toFixed(4)})σ = ${state.xLow}<br>
+          Clue 2: P(X &gt; ${state.xHigh}) = ${state.pHigh.toFixed(2)}  ⇒  z₂ = invNorm(${leftHigh}, 0, 1) = ${z2.toFixed(4)}  ⇒  μ + (${z2.toFixed(4)})σ = ${state.xHigh}<br>
+          Subtract: (${(z2 - z1).toFixed(4)})σ = ${state.xHigh - state.xLow}  ⇒  σ = ${sigSolved.toFixed(4)},  μ = ${muSolved.toFixed(4)}
+        </div>
+      `;
+
+      banner.innerHTML = `Solved Parameters (3 s.f.): <strong>&mu; = ${Number(muSolved.toPrecision(3))}</strong> and <strong>&sigma; = ${Number(sigSolved.toPrecision(3))}</strong> (so variance <em>&sigma;&sup2; = ${Number((sigSolved * sigSolved).toPrecision(3))}</em>).`;
+
+      refTable.innerHTML = `
+        <thead>
+          <tr>
+            <th>Clue</th>
+            <th>Standardised Z-Equation</th>
+            <th>Linear Form in (&mu;, &sigma;)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Clue 1:</strong> <em>P(X &lt; ${state.xLow}) = ${state.pLow.toFixed(2)}</em></td>
+            <td><em>(${state.xLow} &minus; &mu;)/&sigma; = ${z1.toFixed(4)}</em></td>
+            <td><em>&mu; + (${z1.toFixed(4)})&sigma; = ${state.xLow}</em></td>
+          </tr>
+          <tr>
+            <td><strong>Clue 2:</strong> <em>P(X &gt; ${state.xHigh}) = ${state.pHigh.toFixed(2)}</em></td>
+            <td><em>(${state.xHigh} &minus; &mu;)/&sigma; = ${z2.toFixed(4)}</em></td>
+            <td><em>&mu; + (${z2.toFixed(4)})&sigma; = ${state.xHigh}</em></td>
+          </tr>
+        </tbody>
+      `;
+
+      miscBox.innerHTML = `
+        <strong>Why Two Unknowns Require Standardisation (Not Single-Curve GC Intersect):</strong>
+        <ul style="margin:3px 0 0 0; padding-left:18px;">
+          <li><strong>Retain full calculator precision for <em>z&#8321;</em> and <em>z&#8322;</em>:</strong> Store <code>invNorm(${state.pLow.toFixed(2)}, 0, 1)&rarr;A</code> and <code>invNorm(${leftHigh}, 0, 1)&rarr;B</code> on your TI-84 so <em>&sigma; = (${state.xHigh} &minus; ${state.xLow})/(B &minus; A)</em> has zero premature rounding error.</li>
+          <li><strong>Verify your final answer:</strong> Plug <code>normalcdf(-1E99, ${state.xLow}, ${muSolved.toFixed(3)}, ${sigSolved.toFixed(3)})</code> back into the home screen to confirm it returns <em>${state.pLow.toFixed(2)}</em>!</li>
+        </ul>
+      `;
+
+      drawTwoUnknownsCanvas(muSolved, sigSolved, state.xLow, state.xHigh, z1, z2);
+      return;
+    }
+
+    // Mode 4: Bolts Preset X ~ N(12.0, sigma^2)
+    const d = state.boltTol;
+    const pOut = state.boltOutProb;
+    const singleTail = +(pOut / 2).toFixed(5);
+    const leftArea = +(1 - singleTail).toFixed(5);
+    const zBolt = invStdNorm(leftArea);
+    const sigBolt = d / zBolt;
+    const hiBound = +(12.0 + d).toFixed(2);
+
+    document.getElementById("notationBadge").textContent = `X ~ N(12.0, σ²) → σ = ${sigBolt.toFixed(4)}`;
+    document.getElementById("canvasHeading").textContent = state.visualView === "gcGraph"
+      ? `Bolt Tolerance GC Intersect: Y₁ = 2·normalcdf(${hiBound}, 1E99, 12, X) vs. Y₂ = ${pOut}`
+      : `Bolt Tolerance Standardisation: P(|Z| > ${d}/σ) = ${pOut}`;
+    document.getElementById("areaPill").textContent = `σ = ${Number(sigBolt.toPrecision(3))} mm`;
+
+    gcBox.innerHTML = `
+      <span class="box-title">Method 2 (GC Y = normalcdf) vs. Method 1 (Standardisation)</span>
+      <div class="gc-readout">
+        Method 2 (GC [Y=]): Y₁ = 2*normalcdf(${hiBound}, 1E99, 12, X)  &amp;  Y₂ = ${pOut}  ⇒  X = ${sigBolt.toFixed(5)}<br>
+        Method 1 (Z-score): P(X &gt; ${hiBound}) = ${pOut}/2 = ${singleTail}  ⇒  z = invNorm(${leftArea}, 0, 1) = ${zBolt.toFixed(4)}<br>
+        Solve: ${d.toFixed(2)} / σ = ${zBolt.toFixed(4)}  ⇒  σ = ${d.toFixed(2)} / ${zBolt.toFixed(4)} = ${sigBolt.toFixed(5)} mm
+      </div>
+    `;
+
+    banner.innerHTML = `Required Standard Deviation: <strong>&sigma; = ${Number(sigBolt.toPrecision(3))} mm</strong> (variance <em>&sigma;&sup2; = ${Number((sigBolt * sigBolt).toPrecision(3))} mm&sup2;</em>).`;
+
+    refTable.innerHTML = `
+      <thead>
+        <tr>
+          <th>Method 1: Standardisation + Symmetry</th>
+          <th>Method 2: GC <code>Y = normalcdf</code> Graph Intersect</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Split <em>|X &minus; 12.0| &gt; ${d.toFixed(2)}</em> into two equal tails of area <em>${pOut}/2 = ${singleTail}</em>, find <em>z = ${zBolt.toFixed(4)}</em>, and compute <em>&sigma; = ${d.toFixed(2)}/${zBolt.toFixed(4)}</em>.</td>
+          <td>Enter <code>Y₁ = 2*normalcdf(${hiBound}, 1E99, 12, X)</code> (or <code>1 - normalcdf(${(12 - d).toFixed(2)}, ${hiBound}, 12, X)</code>) and <code>Y₂ = ${pOut}</code>, then find <code>intersect</code>.</td>
+        </tr>
+      </tbody>
+    `;
+
+    miscBox.innerHTML = `
+      <strong>Exam Presentation Tip for GC <code>Y = normalcdf</code>:</strong>
+      <ul style="margin:3px 0 0 0; padding-left:18px;">
+        <li><strong>Write the probability equation clearly in your script:</strong> State <em>P(|X &minus; 12.0| &gt; ${d.toFixed(2)}) = ${pOut} &rArr; 2 P(X &gt; ${hiBound}) = ${pOut}</em>, then write <em>"From GC, &sigma; = ${Number(sigBolt.toPrecision(3))}"</em>—this earns full method and accuracy marks in 9758 H2 Math!</li>
+      </ul>
+    `;
+
+    if (state.visualView === "gcGraph") {
+      drawGcIntersectCanvas(true, true, hiBound, 12.0, 1, pOut, sigBolt, true);
+    } else {
+      drawZCurveCanvas(zBolt, leftArea, true, `σ = ${sigBolt.toFixed(4)} mm`);
+    }
+  }
+
+  // Canvas 1: Dual-axis X and Z curve for Mode 1
+  function drawStandardiseCanvas() {
+    const canvas = document.getElementById("stdCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const padL = 48, padR = 26, padT = 26, padB = 62;
+    const plotW = W - padL - padR;
+    const plotH = H - padT - padB;
+    const baseY = H - padB;
+
+    const zMin = -3.8, zMax = 3.8;
+    const yMax = stdNormPdf(0) * 1.18;
+    const toX = z => padL + ((z - zMin) / (zMax - zMin)) * plotW;
+    const toY = y => baseY - (y / yMax) * plotH;
+
+    const z1 = (state.a - state.mu) / state.sigma;
+    const z2 = (state.b - state.mu) / state.sigma;
+
+    // Shaded region
+    ctx.beginPath();
+    ctx.moveTo(toX(z1), baseY);
+    for (let z = z1; z <= z2; z += (z2 - z1) / 100) {
+      ctx.lineTo(toX(z), toY(stdNormPdf(z)));
+    }
+    ctx.lineTo(toX(z2), baseY);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(139, 92, 246, 0.28)";
+    ctx.fill();
+
+    // Curve
+    ctx.beginPath();
+    for (let z = zMin; z <= zMax; z += 0.04) {
+      const px = toX(z), py = toY(stdNormPdf(z));
+      if (z === zMin) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    }
+    ctx.strokeStyle = "#7c3aed";
+    ctx.lineWidth = 2.6;
+    ctx.stroke();
+
+    // Boundary markers
+    [
+      { z: z1, xVal: state.a },
+      { z: z2, xVal: state.b }
+    ].forEach(pt => {
+      if (pt.z >= zMin && pt.z <= zMax) {
+        const px = toX(pt.z), py = toY(stdNormPdf(pt.z));
+        ctx.strokeStyle = "#0f766e";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(px, baseY);
+        ctx.lineTo(px, py);
+        ctx.stroke();
+
+        ctx.fillStyle = "#0f766e";
+        ctx.font = "bold 11px Segoe UI, sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText(`x=${pt.xVal} (z=${pt.z.toFixed(2)})`, px, Math.max(15, py - 7));
+      }
+    });
+
+    // Dual Axis: Top row = X scale, Bottom row = Z scale
+    ctx.strokeStyle = "#475569";
+    ctx.lineWidth = 1.4;
+    ctx.beginPath();
+    ctx.moveTo(padL, baseY);
+    ctx.lineTo(W - padR, baseY);
+    ctx.moveTo(padL, baseY + 26);
+    ctx.lineTo(W - padR, baseY + 26);
+    ctx.stroke();
+
+    ctx.font = "bold 10.5px Segoe UI, sans-serif";
+    ctx.textAlign = "left";
+    ctx.fillStyle = "#7c3aed";
+    ctx.fillText("X:", 16, baseY + 16);
+    ctx.fillStyle = "#0f766e";
+    ctx.fillText("Z:", 16, baseY + 42);
+
+    ctx.textAlign = "center";
+    for (let k = -3; k <= 3; k++) {
+      const tx = toX(k);
+      const xTick = state.mu + k * state.sigma;
+      ctx.fillStyle = "#334155";
+      ctx.fillText(xTick.toString(), tx, baseY + 16);
+      ctx.fillStyle = "#0f766e";
+      ctx.fillText(k.toString(), tx, baseY + 42);
+    }
+  }
+
+  // Canvas 2: GC Y1 = normalcdf(...) vs Y2 = p Intersect Graph
+  function drawGcIntersectCanvas(isSigma, isRight, cutX, knownMu, knownSig, targetP, solvedVal, isTwoTail = false) {
+    const canvas = document.getElementById("stdCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const padL = 54, padR = 28, padT = 28, padB = 42;
+    const plotW = W - padL - padR;
+    const plotH = H - padT - padB;
+    const baseY = H - padB;
+
+    let xMin, xMax;
+    if (isSigma) {
+      xMin = 0.02;
+      xMax = Math.max(solvedVal * 2.1, isTwoTail ? 0.35 : 18);
+    } else {
+      xMin = Math.min(solvedVal, cutX) - 18;
+      xMax = Math.max(solvedVal, cutX) + 18;
+    }
+    const yMin = 0, yMax = 0.55;
+
+    const toX = x => padL + ((x - xMin) / (xMax - xMin)) * plotW;
+    const toY = y => baseY - ((Math.min(yMax, Math.max(yMin, y)) - yMin) / (yMax - yMin)) * plotH;
+
+    // Horizontal line Y2 = targetP
+    ctx.strokeStyle = "#e11d48";
+    ctx.lineWidth = 2.2;
+    ctx.setLineDash([6, 4]);
+    ctx.beginPath();
+    ctx.moveTo(padL, toY(targetP));
+    ctx.lineTo(W - padR, toY(targetP));
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    ctx.fillStyle = "#e11d48";
+    ctx.font = "bold 11px Segoe UI, sans-serif";
+    ctx.textAlign = "left";
+    ctx.fillText(`Y₂ = ${targetP}`, padL + 8, toY(targetP) - 6);
+
+    // Curve Y1 = normalcdf(...)
+    ctx.beginPath();
+    const steps = 180;
+    for (let i = 0; i <= steps; i++) {
+      const xv = xMin + (i / steps) * (xMax - xMin);
+      let yv;
+      if (isTwoTail) {
+        yv = 2 * (1 - normCdf(cutX, knownMu, xv));
+      } else if (isSigma) {
+        yv = isRight ? (1 - normCdf(cutX, knownMu, xv)) : normCdf(cutX, knownMu, xv);
+      } else {
+        yv = isRight ? (1 - normCdf(cutX, xv, knownSig)) : normCdf(cutX, xv, knownSig);
+      }
+      const px = toX(xv), py = toY(yv);
+      if (i === 0) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    }
+    ctx.strokeStyle = "#0284c7";
+    ctx.lineWidth = 2.7;
+    ctx.stroke();
+
+    ctx.fillStyle = "#0284c7";
+    ctx.textAlign = "right";
+    ctx.fillText("Y₁ = normalcdf(..., X, ...)", W - padR - 6, padT + 12);
+
+    // Intersection Dot & Drop Line
+    const ix = toX(solvedVal);
+    const iy = toY(targetP);
+    ctx.strokeStyle = "#0f766e";
+    ctx.lineWidth = 1.6;
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath();
+    ctx.moveTo(ix, baseY);
+    ctx.lineTo(ix, iy);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    ctx.fillStyle = "#0f766e";
+    ctx.beginPath();
+    ctx.arc(ix, iy, 5.5, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.font = "bold 11.5px Segoe UI, sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(`Intersect: X = ${solvedVal.toFixed(3)}`, ix, Math.max(16, iy - 11));
+
+    // Axes
+    ctx.strokeStyle = "#475569";
+    ctx.lineWidth = 1.4;
+    ctx.beginPath();
+    ctx.moveTo(padL, baseY);
+    ctx.lineTo(W - padR, baseY);
+    ctx.moveTo(padL, padT);
+    ctx.lineTo(padL, baseY);
+    ctx.stroke();
+
+    ctx.fillStyle = "#334155";
+    ctx.font = "bold 10.5px Segoe UI, sans-serif";
+    ctx.textAlign = "center";
+    for (let k = 0; k <= 5; k++) {
+      const xv = xMin + (k / 5) * (xMax - xMin);
+      const tx = toX(xv);
+      ctx.fillText(xv.toFixed(isTwoTail ? 2 : 1), tx, baseY + 17);
+    }
+    ctx.fillText(isSigma ? "Unknown σ (entered as X on GC)" : "Unknown μ (entered as X on GC)", padL + plotW / 2, baseY + 33);
+  }
+
+  // Canvas 3: Z ~ N(0, 1) Curve for Single Unknown
+  function drawZCurveCanvas(zStar, leftArea, isRight, solvedLabel) {
+    const canvas = document.getElementById("stdCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const padL = 48, padR = 26, padT = 28, padB = 42;
+    const plotW = W - padL - padR;
+    const plotH = H - padT - padB;
+    const baseY = H - padB;
+
+    const zMin = -3.8, zMax = 3.8;
+    const yMax = stdNormPdf(0) * 1.18;
+    const toX = z => padL + ((z - zMin) / (zMax - zMin)) * plotW;
+    const toY = y => baseY - (y / yMax) * plotH;
+
+    const a = isRight ? zStar : zMin;
+    const b = isRight ? zMax : zStar;
+    ctx.beginPath();
+    ctx.moveTo(toX(a), baseY);
+    for (let z = a; z <= b; z += (b - a) / 100) {
+      ctx.lineTo(toX(z), toY(stdNormPdf(z)));
+    }
+    ctx.lineTo(toX(b), baseY);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(139, 92, 246, 0.28)";
+    ctx.fill();
+
+    ctx.beginPath();
+    for (let z = zMin; z <= zMax; z += 0.04) {
+      const px = toX(z), py = toY(stdNormPdf(z));
+      if (z === zMin) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    }
+    ctx.strokeStyle = "#1e293b";
+    ctx.lineWidth = 2.5;
+    ctx.stroke();
+
+    const zx = toX(zStar), zy = toY(stdNormPdf(zStar));
+    ctx.strokeStyle = "#7c3aed";
+    ctx.lineWidth = 2.2;
+    ctx.beginPath();
+    ctx.moveTo(zx, baseY);
+    ctx.lineTo(zx, zy);
+    ctx.stroke();
+
+    ctx.fillStyle = "#7c3aed";
+    ctx.font = "bold 11px Segoe UI, sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(`z = ${zStar.toFixed(3)} ⇒ ${solvedLabel}`, zx, Math.max(15, zy - 8));
+
+    ctx.strokeStyle = "#475569";
+    ctx.lineWidth = 1.4;
+    ctx.beginPath();
+    ctx.moveTo(padL, baseY);
+    ctx.lineTo(W - padR, baseY);
+    ctx.stroke();
+
+    ctx.fillStyle = "#334155";
+    for (let k = -3; k <= 3; k++) {
+      ctx.fillText(k.toString(), toX(k), baseY + 18);
+    }
+  }
+
+  // Canvas 4: Two Unknowns Z1 & Z2
+  function drawTwoUnknownsCanvas(mu, sig, xLow, xHigh, z1, z2) {
+    const canvas = document.getElementById("stdCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const padL = 48, padR = 26, padT = 28, padB = 42;
+    const plotW = W - padL - padR;
+    const plotH = H - padT - padB;
+    const baseY = H - padB;
+
+    const zMin = -3.8, zMax = 3.8;
+    const yMax = stdNormPdf(0) * 1.18;
+    const toX = z => padL + ((z - zMin) / (zMax - zMin)) * plotW;
+    const toY = y => baseY - (y / yMax) * plotH;
+
+    // Left tail z1
+    ctx.beginPath();
+    ctx.moveTo(toX(zMin), baseY);
+    for (let z = zMin; z <= z1; z += (z1 - zMin) / 80) {
+      ctx.lineTo(toX(z), toY(stdNormPdf(z)));
+    }
+    ctx.lineTo(toX(z1), baseY);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(225, 29, 72, 0.28)";
+    ctx.fill();
+
+    // Right tail z2
+    ctx.beginPath();
+    ctx.moveTo(toX(z2), baseY);
+    for (let z = z2; z <= zMax; z += (zMax - z2) / 80) {
+      ctx.lineTo(toX(z), toY(stdNormPdf(z)));
+    }
+    ctx.lineTo(toX(zMax), baseY);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(2, 132, 199, 0.28)";
+    ctx.fill();
+
+    ctx.beginPath();
+    for (let z = zMin; z <= zMax; z += 0.04) {
+      const px = toX(z), py = toY(stdNormPdf(z));
+      if (z === zMin) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    }
+    ctx.strokeStyle = "#1e293b";
+    ctx.lineWidth = 2.5;
+    ctx.stroke();
+
+    ctx.font = "bold 11px Segoe UI, sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#e11d48";
+    ctx.fillText(`x₁=${xLow} (z₁=${z1.toFixed(2)})`, toX(z1), Math.max(15, toY(stdNormPdf(z1)) - 8));
+    ctx.fillStyle = "#0284c7";
+    ctx.fillText(`x₂=${xHigh} (z₂=${z2.toFixed(2)})`, toX(z2), Math.max(15, toY(stdNormPdf(z2)) - 8));
+
+    ctx.strokeStyle = "#475569";
+    ctx.lineWidth = 1.4;
+    ctx.beginPath();
+    ctx.moveTo(padL, baseY);
+    ctx.lineTo(W - padR, baseY);
+    ctx.stroke();
+
+    ctx.fillStyle = "#334155";
+    for (let k = -3; k <= 3; k++) {
+      ctx.fillText(`z=${k}`, toX(k), baseY + 18);
+    }
+  }
+
+  const examQs = [
+    {
+      q: "A random variable X ~ N(50, σ²) satisfies P(X > 62) = 0.0668. Which pair of equations on the TI-84 [Y=] screen finds σ via [2nd] [TRACE] > 5: intersect?",
+      opts: [
+        "Y₁ = normalcdf(62, 1E99, 50, X) and Y₂ = 0.0668",
+        "Y₁ = normalcdf(-1E99, 62, 50, X) and Y₂ = 0.0668",
+        "Y₁ = invNorm(0.0668, 50, X) and Y₂ = 62",
+        "Y₁ = normalcdf(62, 1E99, X, 50) and Y₂ = 0.0668"
+      ],
+      ans: 0,
+      exp: "P(X > 62) corresponds to lower = 62, upper = 1E99, mean = 50, and unknown σ = X. Setting Y₁ = normalcdf(62, 1E99, 50, X) equal to Y₂ = 0.0668 intersects at X = σ."
+    },
+    {
+      q: "Given X ~ N(40, σ²) and P(X < 34) = 0.1587, what is the sign of the standardised value z = (34 − 40)/σ?",
+      opts: [
+        "Negative (z ≈ −1.00), because 34 < μ = 40 and σ > 0",
+        "Positive (z ≈ +1.00), because probability is positive",
+        "Zero, because P(X < 34) < 0.5",
+        "Cannot be determined without knowing σ"
+      ],
+      ans: 0,
+      exp: "Since 34 lies below the mean μ = 40 and σ > 0 always, z = (34 − 40)/σ must be negative (invNorm(0.1587, 0, 1) ≈ −1.00)."
+    },
+    {
+      q: "For Y ~ N(μ, σ²), it is given that P(Y < 20) = 0.10 and P(Y > 35) = 0.10. By symmetry, what is the value of μ?",
+      opts: [
+        "27.5",
+        "15.0",
+        "25.0",
+        "30.0"
+      ],
+      ans: 0,
+      exp: "Because the left tail below 20 and the right tail above 35 have equal probability 0.10, 20 and 35 are equidistant from μ: μ = (20 + 35)/2 = 27.5."
+    }
+  ];
+
+  let curQ = 0;
+
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").textContent = item.q;
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i}, this)">${String.fromCharCode(65 + i)}. ${o}</button>
+    `).join("");
+  }
+
+  function gradeExamQ(idx, btn) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  setMode("standardise");
+  renderExamQ();
+</script>
+
+</body>
+</html>

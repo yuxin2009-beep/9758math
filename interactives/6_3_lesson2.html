@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 6.3 Lesson 2: Forward (normalcdf) & Inverse (invNorm) with Known Parameters</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 525px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1000px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.76rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.48;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .control-panel {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 13px;
+      margin-bottom: 11px;
+    }
+
+    .control-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .sub-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 10px;
+    }
+
+    .sub-btn {
+      flex: 1;
+      min-width: 85px;
+      padding: 6px 7px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 0.73rem;
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .sub-btn.active {
+      background: var(--blue);
+      color: #ffffff;
+      border-color: var(--blue);
+    }
+
+    .slider-row {
+      margin-bottom: 9px;
+    }
+
+    .slider-label-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.79rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 3px;
+    }
+
+    .slider-row input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .param-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding-top: 6px;
+      border-top: 1px dashed #e2e8f0;
+      margin-top: 4px;
+    }
+
+    .gc-screen-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin-bottom: 11px;
+    }
+
+    .box-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .gc-readout {
+      background: #f1f5f9;
+      border: 2px solid #64748b;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.79rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 5px;
+      line-height: 1.48;
+    }
+
+    .solution-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.81rem;
+      font-weight: 700;
+      line-height: 1.48;
+    }
+
+    .canvas-box {
+      background: #fdfbf7;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 8px;
+      margin-bottom: 10px;
+    }
+
+    canvas {
+      width: 100%;
+      height: 305px;
+      display: block;
+    }
+
+    .check-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+      margin-top: 6px;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .check-table th, .check-table td {
+      border: 1px solid #e2e8f0;
+      padding: 6px 9px;
+      text-align: left;
+    }
+
+    .check-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    .grader-card {
+      margin-top: 11px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 13px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 7px;
+    }
+
+    @media (max-width: 700px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.77rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .misconception-box {
+      margin-top: 10px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-size: 0.78rem;
+      line-height: 1.46;
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Choose Forward or Inverse Mode</strong>
+        Use <em>1. Forward normalcdf &amp; Modulus</em> to shade left-tail, right-tail, between, or modulus regions, or switch to <em>2. Inverse invNorm Cut-Offs</em> to find exact boundary values from percentages.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Convert "Top %" &amp; "Middle %" into Areas</strong>
+        In Inverse mode, toggle between <em>Bottom k% (LEFT)</em>, <em>Top k% (RIGHT)</em>, and <em>Middle k% (CENTER)</em> to see how both direct tail modes and left-tail area formulas yield identical cut-offs.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Practice 9758 Exam Scenarios</strong>
+        Explore <em>3. Battery Life Modulus</em> and <em>4. Normal &rarr; Binomial Link</em> to see how Normal probabilities feed into <em>Y ~ B(n, p)</em> without intermediate rounding errors.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        6.3 Lesson 2 &bull; Forward (normalcdf) &amp; Inverse (invNorm) with Known Parameters
+      </div>
+
+      <!-- Mode / Preset Buttons -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="mode_forward" onclick="setMode('forward')">
+          1. Forward normalcdf &amp; Modulus
+        </button>
+        <button class="tab-btn" id="mode_inverse" onclick="setMode('inverse')">
+          2. Inverse invNorm Cut-Offs
+        </button>
+        <button class="tab-btn" id="mode_battery" onclick="setMode('battery')">
+          3. Preset: Battery Life N(18, 2.5&sup2;)
+        </button>
+        <button class="tab-btn" id="mode_binomLink" onclick="setMode('binomLink')">
+          4. Preset: Normal &rarr; Binomial Link
+        </button>
+      </div>
+
+      <!-- Contextual Description -->
+      <div class="context-box" id="contextBox"></div>
+
+      <!-- Dynamic Region Selectors & Sliders -->
+      <div class="control-panel">
+        <div class="control-header">
+          <span id="controlTitle">Region Type &amp; Boundary Controls</span>
+          <span id="notationBadge" style="color:var(--purple-dark);">X ~ N(50, 8²)</span>
+        </div>
+        <div class="sub-pill-row" id="subTypeRow"></div>
+        <div id="sliderControls"></div>
+        <div class="param-strip" id="paramStrip"></div>
+      </div>
+
+      <!-- Simulated TI-84 Plus CE Readout -->
+      <div class="gc-screen-box" id="gcOutputBox"></div>
+
+      <!-- Step-by-Step Algebraic / Symmetry Translation -->
+      <div class="solution-banner" id="solutionBanner"></div>
+    </div>
+
+    <!-- RIGHT VISUAL CANVAS, TRANSLATION TABLE & EXAM CHECK -->
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <span style="font-size:1.0rem; font-weight:800; color:#1e293b;" id="canvasHeading">
+          Normal Probability Region &amp; TI-84 Syntax
+        </span>
+        <span style="font-size:0.74rem; font-weight:700; color:var(--teal); background:var(--teal-bg); padding:3px 9px; border-radius:999px;" id="areaPill">
+          Probability = 0.5000
+        </span>
+      </div>
+
+      <div class="canvas-box">
+        <canvas id="normCanvas" width="760" height="305"></canvas>
+      </div>
+
+      <!-- Dynamic TI-84 Translation & Symmetry Reference Table -->
+      <table class="check-table" id="refTable"></table>
+
+      <div class="misconception-box" id="misconceptionBox"></div>
+
+      <!-- Quick 9758 Exam Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 normalcdf &amp; invNorm Exam Check (<span id="qIdxLbl">1</span>/3)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.79rem; line-height:1.45; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  function stdNormPdf(z) {
+    return Math.exp(-0.5 * z * z) / Math.sqrt(2 * Math.PI);
+  }
+
+  function normPdf(x, mu, sigma) {
+    const z = (x - mu) / sigma;
+    return stdNormPdf(z) / sigma;
+  }
+
+  function stdNormCdf(z) {
+    if (z < -8) return 0;
+    if (z > 8) return 1;
+    const sign = z < 0 ? -1 : 1;
+    const x = Math.abs(z) / Math.sqrt(2);
+    const t = 1 / (1 + 0.3275911 * x);
+    const a1 = 0.254829592, a2 = -0.284496736, a3 = 1.421413741, a4 = -1.453152027, a5 = 1.061405429;
+    const erf = 1 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-x * x);
+    return 0.5 * (1 + sign * erf);
+  }
+
+  function normCdf(x, mu, sigma) {
+    return stdNormCdf((x - mu) / sigma);
+  }
+
+  // Beasley-Springer-Moro / Acklam inverse standard normal CDF approximation
+  function invStdNorm(p) {
+    if (p <= 0) return -8;
+    if (p >= 1) return 8;
+    if (p === 0.5) return 0;
+    const a = [-3.969683028665376e1, 2.209460984245205e2, -2.759285104469687e2, 1.383577518672690e2, -3.066479806614716e1, 2.506628277459239e0];
+    const b = [-5.447609879822406e1, 1.615858368580409e2, -1.556989798598866e2, 6.680131188771972e1, -1.328068155288572e1];
+    const c = [-7.784894002430293e-3, -3.223964580411365e-1, -2.400758277161838e0, -2.549732539343734e0, 4.374664141464968e0, 2.938163982698783e0];
+    const d = [7.784695709041462e-3, 3.224671290700398e-1, 2.445134137142996e0, 3.754408661907416e0];
+    const pLow = 0.02425, pHigh = 1 - pLow;
+    let q, r;
+    if (p < pLow) {
+      q = Math.sqrt(-2 * Math.log(p));
+      return (((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) /
+             ((((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1);
+    } else if (p <= pHigh) {
+      q = p - 0.5;
+      r = q * q;
+      return (((((a[0] * r + a[1]) * r + a[2]) * r + a[3]) * r + a[4]) * r + a[5]) * q /
+             (((((b[0] * r + b[1]) * r + b[2]) * r + b[3]) * r + b[4]) * r + 1);
+    } else {
+      q = Math.sqrt(-2 * Math.log(1 - p));
+      return -(((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) /
+              ((((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1);
+    }
+  }
+
+  function invNorm(p, mu, sigma) {
+    return mu + sigma * invStdNorm(p);
+  }
+
+  // Binomial helper for Preset 4
+  function binomCdf(n, p, k) {
+    let sum = 0;
+    for (let x = 0; x <= k; x++) {
+      let logC = 0;
+      for (let i = 1; i <= x; i++) {
+        logC += Math.log(n - i + 1) - Math.log(i);
+      }
+      sum += Math.exp(logC + x * Math.log(p) + (n - x) * Math.log(1 - p));
+    }
+    return Math.min(1, Math.max(0, sum));
+  }
+
+  let state = {
+    mode: "forward",       // forward | inverse | battery | binomLink
+    regionType: "left",    // left | right | between | modInside | modOutside
+    invType: "bottom",     // bottom | top | middle
+    mu: 50,
+    sigma: 8,
+    x1: 44,
+    x2: 60,
+    kRadius: 10,
+    pct: 90,
+    binomN: 12,
+    binomK: 4
+  };
+
+  function setMode(m) {
+    state.mode = m;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("mode_" + m).classList.add("active");
+
+    if (m === "forward") {
+      state.mu = 50;
+      state.sigma = 8;
+      state.regionType = "left";
+      state.x1 = 44;
+      state.x2 = 60;
+      state.kRadius = 10;
+    } else if (m === "inverse") {
+      state.mu = 50;
+      state.sigma = 8;
+      state.invType = "top";
+      state.pct = 15;
+    } else if (m === "battery") {
+      state.mu = 18;
+      state.sigma = 2.5;
+      state.regionType = "modOutside";
+      state.kRadius = 3.0;
+    } else if (m === "binomLink") {
+      state.mu = 100;
+      state.sigma = 15;
+      state.x1 = 112;
+      state.binomN = 12;
+      state.binomK = 4;
+    }
+
+    renderControls();
+    updateAll();
+  }
+
+  function setRegionType(rt) {
+    state.regionType = rt;
+    if (rt === "left" && state.x1 > state.mu + 2 * state.sigma) state.x1 = state.mu - 0.5 * state.sigma;
+    if (rt === "right" && state.x1 < state.mu - 2 * state.sigma) state.x1 = state.mu + 0.5 * state.sigma;
+    if (rt === "between" && state.x1 >= state.x2) {
+      state.x1 = state.mu - state.sigma;
+      state.x2 = state.mu + state.sigma;
+    }
+    renderControls();
+    updateAll();
+  }
+
+  function setInvType(it) {
+    state.invType = it;
+    if (it === "middle" && state.pct < 20) state.pct = 80;
+    if ((it === "bottom" || it === "top") && state.pct > 50) state.pct = 10;
+    renderControls();
+    updateAll();
+  }
+
+  function renderControls() {
+    const ctxBox = document.getElementById("contextBox");
+    const subRow = document.getElementById("subTypeRow");
+    const sliderDiv = document.getElementById("sliderControls");
+    const paramStrip = document.getElementById("paramStrip");
+    const ctrlTitle = document.getElementById("controlTitle");
+
+    const mu = state.mu, sig = state.sigma;
+    const minX = +(mu - 3.6 * sig).toFixed(1);
+    const maxX = +(mu + 3.6 * sig).toFixed(1);
+    const stepX = sig <= 3 ? 0.1 : 0.5;
+
+    if (state.mode === "forward" || state.mode === "battery") {
+      ctrlTitle.textContent = state.mode === "battery" ? "Battery Life X ~ N(18, 2.5²) Regions" : "Select Probability Region Type";
+      ctxBox.innerHTML = state.mode === "battery"
+        ? `<div><strong>Smartphone Battery Life:</strong> Battery duration <em>X</em> hours follows <strong>X ~ N(18, 2.5&sup2;)</strong>. Switch between <em>|X &minus; 18| &gt; k</em>, <em>|X &minus; 18| &lt; k</em>, and single-tail bounds to see how modulus inequalities split into intervals.</div><div class="var-pill">|X &minus; &mu;| &gt; k &hArr; X &lt; &mu; &minus; k or X &gt; &mu; + k &nbsp;|&nbsp; |X &minus; &mu;| &lt; k &hArr; &mu; &minus; k &lt; X &lt; &mu; + k</div>`
+        : `<div><strong>Forward Probability Evaluation:</strong> When <em>&mu;</em> and <em>&sigma;</em> are known, shade the required interval on the Normal curve and enter the lower and upper bounds into TI-84 <code>normalcdf(lower, upper, &mu;, &sigma;)</code>.</div><div class="var-pill">Use &minus;1E99 for &minus;&infin; (left tail) and 1E99 for +&infin; (right tail)</div>`;
+
+      const types = [
+        { id: "left", lbl: "Left P(X < x₁)" },
+        { id: "right", lbl: "Right P(X > x₁)" },
+        { id: "between", lbl: "P(x₁ < X < x₂)" },
+        { id: "modInside", lbl: "P(|X − μ| < k)" },
+        { id: "modOutside", lbl: "P(|X − μ| > k)" }
+      ];
+      subRow.innerHTML = types.map(t => `
+        <button class="sub-btn ${state.regionType === t.id ? "active" : ""}" onclick="setRegionType('${t.id}')">${t.lbl}</button>
+      `).join("");
+
+      if (state.regionType === "left" || state.regionType === "right") {
+        sliderDiv.innerHTML = `
+          <div class="slider-row" style="margin-bottom:4px;">
+            <div class="slider-label-row">
+              <span>Boundary Cut-Off x&#8321;:</span>
+              <span id="lbl_x1" style="color:var(--purple-dark);">x&#8321; = ${state.x1}</span>
+            </div>
+            <input type="range" min="${minX}" max="${maxX}" step="${stepX}" value="${state.x1}" oninput="updateVal('x1', this.value)" />
+          </div>
+        `;
+      } else if (state.regionType === "between") {
+        sliderDiv.innerHTML = `
+          <div class="slider-row" style="margin-bottom:4px;">
+            <div class="slider-label-row">
+              <span>Lower &amp; Upper Bounds [x&#8321;, x&#8322;]:</span>
+              <span id="lbl_x12" style="color:var(--purple-dark);">[${state.x1}, ${state.x2}]</span>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+              <input type="range" min="${minX}" max="${+(mu + 1.5 * sig).toFixed(1)}" step="${stepX}" value="${state.x1}" oninput="updateVal('x1', this.value)" />
+              <input type="range" min="${+(mu - 1.5 * sig).toFixed(1)}" max="${maxX}" step="${stepX}" value="${state.x2}" oninput="updateVal('x2', this.value)" />
+            </div>
+          </div>
+        `;
+      } else {
+        const maxR = +(3.2 * sig).toFixed(1);
+        sliderDiv.innerHTML = `
+          <div class="slider-row" style="margin-bottom:4px;">
+            <div class="slider-label-row">
+              <span>Modulus Radius k (Distance from &mu; = ${mu}):</span>
+              <span id="lbl_kr" style="color:var(--purple-dark);">k = ${state.kRadius}</span>
+            </div>
+            <input type="range" min="${stepX}" max="${maxR}" step="${stepX}" value="${state.kRadius}" oninput="updateVal('kRadius', this.value)" />
+          </div>
+        `;
+      }
+
+      if (state.mode === "forward") {
+        paramStrip.innerHTML = `
+          <div>
+            <div class="slider-label-row" style="font-size:0.74rem;"><span>Mean &mu;:</span><span>${state.mu}</span></div>
+            <input type="range" min="30" max="70" step="1" value="${state.mu}" oninput="updateParam('mu', this.value)" />
+          </div>
+          <div>
+            <div class="slider-label-row" style="font-size:0.74rem;"><span>Std Dev &sigma;:</span><span>${state.sigma}</span></div>
+            <input type="range" min="3" max="15" step="1" value="${state.sigma}" oninput="updateParam('sigma', this.value)" />
+          </div>
+        `;
+      } else {
+        paramStrip.innerHTML = `<div style="grid-column:1 / -1; font-size:0.74rem; color:var(--muted);">Fixed Preset Parameters: <strong>&mu; = 18 hours</strong>, <strong>&sigma; = 2.5 hours</strong> (Variance &sigma;&sup2; = 6.25)</div>`;
+      }
+      return;
+    }
+
+    if (state.mode === "inverse") {
+      ctrlTitle.textContent = "Target Percentage & Tail Mode (invNorm)";
+      ctxBox.innerHTML = `
+        <div><strong>Finding Cut-Off Values via invNorm:</strong> Given a percentage or probability, convert phrasing like <em>"top k%"</em> or <em>"middle k%"</em> into exact cumulative area before calling TI-84 <code>invNorm(area, &mu;, &sigma;, tail)</code>.</div>
+        <div class="var-pill">Top k% &rArr; Left Area = 1 &minus; k/100 &nbsp;|&nbsp; Middle k% &rArr; Left Area = (1 &minus; k/100)/2</div>
+      `;
+
+      const invTypes = [
+        { id: "bottom", lbl: "Bottom k% (LEFT)" },
+        { id: "top", lbl: "Top k% (RIGHT)" },
+        { id: "middle", lbl: "Middle k% (CENTER)" }
+      ];
+      subRow.innerHTML = invTypes.map(t => `
+        <button class="sub-btn ${state.invType === t.id ? "active" : ""}" onclick="setInvType('${t.id}')">${t.lbl}</button>
+      `).join("");
+
+      sliderDiv.innerHTML = `
+        <div class="slider-row" style="margin-bottom:4px;">
+          <div class="slider-label-row">
+            <span>Target Percentage k%:</span>
+            <span id="lbl_pct" style="color:var(--rose);">k = ${state.pct}% (p = ${(state.pct / 100).toFixed(2)})</span>
+          </div>
+          <input type="range" min="1" max="98" step="1" value="${state.pct}" oninput="updateVal('pct', this.value)" />
+        </div>
+      `;
+
+      paramStrip.innerHTML = `
+        <div>
+          <div class="slider-label-row" style="font-size:0.74rem;"><span>Mean &mu;:</span><span>${state.mu}</span></div>
+          <input type="range" min="30" max="70" step="1" value="${state.mu}" oninput="updateParam('mu', this.value)" />
+        </div>
+        <div>
+          <div class="slider-label-row" style="font-size:0.74rem;"><span>Std Dev &sigma;:</span><span>${state.sigma}</span></div>
+          <input type="range" min="3" max="15" step="1" value="${state.sigma}" oninput="updateParam('sigma', this.value)" />
+        </div>
+      `;
+      return;
+    }
+
+    // Preset 4: Normal -> Binomial Two-Stage Link
+    ctrlTitle.textContent = "Two-Stage Normal → Binomial Explorer";
+    ctxBox.innerHTML = `
+      <div><strong>Two-Stage Exam Problem (Normal &rarr; Binomial):</strong> Individual IQ / aptitude scores follow <strong>X ~ N(100, 15&sup2;)</strong>. A candidate passes if <em>X &gt; x&#8321;</em> (with probability <em>p</em>). In a random sample of <em>n</em> candidates, let <strong>Y ~ B(n, p)</strong> be the number who pass.</div>
+      <div class="var-pill">Store p to &ge; 5 s.f. (or GC STO&rarr;P) before evaluating Y ~ B(n, p)!</div>
+    `;
+    subRow.innerHTML = "";
+    sliderDiv.innerHTML = `
+      <div class="slider-row">
+        <div class="slider-label-row">
+          <span>Stage 1 Pass Threshold x&#8321; on X ~ N(100, 15&sup2;):</span>
+          <span id="lbl_bx1" style="color:var(--purple-dark);">x&#8321; = ${state.x1}</span>
+        </div>
+        <input type="range" min="75" max="130" step="1" value="${state.x1}" oninput="updateVal('x1', this.value)" />
+      </div>
+      <div class="slider-row" style="margin-bottom:2px;">
+        <div class="slider-label-row">
+          <span>Stage 2 Sample Size n &amp; Target Y &ge; k:</span>
+          <span id="lbl_bnk" style="color:var(--teal);">n = ${state.binomN}, Y &ge; ${state.binomK}</span>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+          <input type="range" min="5" max="25" step="1" value="${state.binomN}" oninput="updateVal('binomN', this.value)" />
+          <input type="range" min="1" max="${state.binomN}" step="1" value="${state.binomK}" oninput="updateVal('binomK', this.value)" />
+        </div>
+      </div>
+    `;
+    paramStrip.innerHTML = `<div style="grid-column:1 / -1; font-size:0.74rem; color:var(--muted);">Stage 1: <strong>X ~ N(100, 225)</strong> &rArr; <em>p = P(X &gt; x&#8321;)</em> &nbsp;|&nbsp; Stage 2: <strong>Y ~ B(n, p)</strong></div>`;
+  }
+
+  function updateVal(key, val) {
+    state[key] = parseFloat(val);
+    if (key === "x1" && state.regionType === "between" && state.x1 >= state.x2) {
+      state.x1 = +(state.x2 - 0.5).toFixed(1);
+    }
+    if (key === "x2" && state.regionType === "between" && state.x2 <= state.x1) {
+      state.x2 = +(state.x1 + 0.5).toFixed(1);
+    }
+    if (key === "binomN" && state.binomK > state.binomN) {
+      state.binomK = state.binomN;
+    }
+    if (key === "binomN") renderControls();
+    updateAll();
+  }
+
+  function updateParam(key, val) {
+    state[key] = parseFloat(val);
+    state.x1 = +(state.mu - 0.75 * state.sigma).toFixed(1);
+    state.x2 = +(state.mu + 1.25 * state.sigma).toFixed(1);
+    state.kRadius = +(1.2 * state.sigma).toFixed(1);
+    renderControls();
+    updateAll();
+  }
+
+  function updateAll() {
+    const mu = state.mu, sig = state.sigma, varSq = +(sig * sig).toFixed(2);
+    document.getElementById("notationBadge").textContent = `X ~ N(${mu}, ${varSq})`;
+
+    const gcBox = document.getElementById("gcOutputBox");
+    const banner = document.getElementById("solutionBanner");
+    const refTable = document.getElementById("refTable");
+    const miscBox = document.getElementById("misconceptionBox");
+
+    if (state.mode === "forward" || state.mode === "battery") {
+      let prob = 0, gcSyntax = "", symNote = "";
+
+      if (state.regionType === "left") {
+        if (document.getElementById("lbl_x1")) document.getElementById("lbl_x1").textContent = `x₁ = ${state.x1}`;
+        prob = normCdf(state.x1, mu, sig);
+        gcSyntax = `normalcdf(-1E99, ${state.x1}, ${mu}, ${sig}) = ${prob.toFixed(5)}`;
+        symNote = `Left-Tail Probability: <strong>P(X &lt; ${state.x1}) = ${prob.toFixed(4)}</strong> (3 s.f.: ${Number(prob.toPrecision(3))}). By symmetry, <em>P(X &gt; ${(2 * mu - state.x1).toFixed(1)}) = ${prob.toFixed(4)}</em>.`;
+      } else if (state.regionType === "right") {
+        if (document.getElementById("lbl_x1")) document.getElementById("lbl_x1").textContent = `x₁ = ${state.x1}`;
+        prob = 1 - normCdf(state.x1, mu, sig);
+        gcSyntax = `normalcdf(${state.x1}, 1E99, ${mu}, ${sig}) = ${prob.toFixed(5)}`;
+        symNote = `Right-Tail Probability: <strong>P(X &gt; ${state.x1}) = ${prob.toFixed(4)}</strong>. Complement check: <em>1 &minus; P(X &lt; ${state.x1}) = 1 &minus; ${(1 - prob).toFixed(4)} = ${prob.toFixed(4)}</em>.`;
+      } else if (state.regionType === "between") {
+        if (document.getElementById("lbl_x12")) document.getElementById("lbl_x12").textContent = `[${state.x1}, ${state.x2}]`;
+        prob = normCdf(state.x2, mu, sig) - normCdf(state.x1, mu, sig);
+        gcSyntax = `normalcdf(${state.x1}, ${state.x2}, ${mu}, ${sig}) = ${prob.toFixed(5)}`;
+        symNote = `Interval Probability: <strong>P(${state.x1} &lt; X &lt; ${state.x2}) = ${prob.toFixed(4)}</strong> = <em>P(X &lt; ${state.x2}) &minus; P(X &lt; ${state.x1})</em>.`;
+      } else if (state.regionType === "modInside") {
+        if (document.getElementById("lbl_kr")) document.getElementById("lbl_kr").textContent = `k = ${state.kRadius}`;
+        const lo = +(mu - state.kRadius).toFixed(2);
+        const hi = +(mu + state.kRadius).toFixed(2);
+        prob = normCdf(hi, mu, sig) - normCdf(lo, mu, sig);
+        gcSyntax = `|X − ${mu}| < ${state.kRadius}  ⇔  ${lo} < X < ${hi}\nnormalcdf(${lo}, ${hi}, ${mu}, ${sig}) = ${prob.toFixed(5)}`;
+        symNote = `Central Modulus Interval: <strong>P(|X &minus; ${mu}| &lt; ${state.kRadius}) = P(${lo} &lt; X &lt; ${hi}) = ${prob.toFixed(4)}</strong>.`;
+      } else {
+        if (document.getElementById("lbl_kr")) document.getElementById("lbl_kr").textContent = `k = ${state.kRadius}`;
+        const lo = +(mu - state.kRadius).toFixed(2);
+        const hi = +(mu + state.kRadius).toFixed(2);
+        const singleTail = 1 - normCdf(hi, mu, sig);
+        prob = 2 * singleTail;
+        gcSyntax = `|X − ${mu}| > ${state.kRadius}  ⇔  X < ${lo} or X > ${hi}\n2 × normalcdf(${hi}, 1E99, ${mu}, ${sig}) = 2(${singleTail.toFixed(5)}) = ${prob.toFixed(5)}`;
+        symNote = `Two-Tail Modulus Union: <strong>P(|X &minus; ${mu}| &gt; ${state.kRadius}) = P(X &lt; ${lo}) + P(X &gt; ${hi}) = ${prob.toFixed(4)}</strong> (or <em>1 &minus; P(${lo} &lt; X &lt; ${hi})</em>).`;
+      }
+
+      document.getElementById("canvasHeading").textContent = `Forward Evaluation on X ~ N(${mu}, ${varSq})`;
+      document.getElementById("areaPill").textContent = `Probability = ${prob.toFixed(4)}`;
+
+      gcBox.innerHTML = `
+        <span class="box-title">TI-84 Plus CE Readout ([2nd] [VARS] &gt; 2: normalcdf)</span>
+        <div class="gc-readout">${gcSyntax.replace(/\n/g, "<br>")}</div>
+      `;
+      banner.innerHTML = symNote;
+
+      refTable.innerHTML = `
+        <thead>
+          <tr>
+            <th>Probability Event</th>
+            <th>Interval Decomposition</th>
+            <th>TI-84 Plus CE Command</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Left Tail:</strong> <em>P(X &lt; a)</em></td>
+            <td><em>(&minus;&infin;, a)</em></td>
+            <td><code>normalcdf(-1E99, a, &mu;, &sigma;)</code></td>
+          </tr>
+          <tr>
+            <td><strong>Right Tail:</strong> <em>P(X &gt; b)</em></td>
+            <td><em>(b, &infin;)</em></td>
+            <td><code>normalcdf(b, 1E99, &mu;, &sigma;)</code></td>
+          </tr>
+          <tr>
+            <td><strong>Modulus Inside:</strong> <em>P(|X &minus; &mu;| &lt; k)</em></td>
+            <td><em>(&mu; &minus; k, &mu; + k)</em></td>
+            <td><code>normalcdf(&mu; &minus; k, &mu; + k, &mu;, &sigma;)</code></td>
+          </tr>
+          <tr>
+            <td><strong>Modulus Outside:</strong> <em>P(|X &minus; &mu;| &gt; k)</em></td>
+            <td><em>(&minus;&infin;, &mu; &minus; k) &cup; (&mu; + k, &infin;)</em></td>
+            <td><code>2 * normalcdf(&mu; + k, 1E99, &mu;, &sigma;)</code></td>
+          </tr>
+        </tbody>
+      `;
+
+      miscBox.innerHTML = `
+        <strong>9758 Exam Tip — General Modulus Inequalities P(|aX + b| &lt; c):</strong>
+        <ul style="margin:3px 0 0 0; padding-left:18px;">
+          <li><strong>Isolate <em>X</em> first before calling <code>normalcdf</code>:</strong> For example, <em>|2X &minus; 10| &lt; 6 &hArr; &minus;6 &lt; 2X &minus; 10 &lt; 6 &hArr; 4 &lt; 2X &lt; 16 &hArr; 2 &lt; X &lt; 8</em>, which gives <code>normalcdf(2, 8, μ, σ)</code>.</li>
+          <li><strong>Never enter variance &sigma;&sup2; as the 4th argument:</strong> For <em>X ~ N(18, 2.5&sup2;)</em>, enter <strong>2.5</strong>; for <em>X ~ N(18, 6.25)</em>, still enter <strong>&radic;6.25 = 2.5</strong>!</li>
+        </ul>
+      `;
+
+      drawCanvas();
+      return;
+    }
+
+    if (state.mode === "inverse") {
+      if (document.getElementById("lbl_pct")) {
+        document.getElementById("lbl_pct").textContent = `k = ${state.pct}% (p = ${(state.pct / 100).toFixed(2)})`;
+      }
+      const p = state.pct / 100;
+      let gcSyntax = "", symNote = "";
+
+      if (state.invType === "bottom") {
+        const cut = invNorm(p, mu, sig);
+        gcSyntax = `Event: P(X < x₁) = ${p.toFixed(2)}  [Bottom ${state.pct}%]\nTI-84 (with TAIL): invNorm(${p.toFixed(2)}, ${mu}, ${sig}, LEFT) = ${cut.toFixed(4)}\nTI-84 (Left-Area): invNorm(${p.toFixed(2)}, ${mu}, ${sig}) = ${cut.toFixed(4)}`;
+        symNote = `Bottom ${state.pct}% Cut-Off: <strong>x&#8321; = ${cut.toFixed(2)}</strong> (so ${state.pct}% of values lie below ${cut.toFixed(2)}).`;
+        document.getElementById("areaPill").textContent = `Cut-off x₁ = ${cut.toFixed(2)}`;
+      } else if (state.invType === "top") {
+        const leftArea = +(1 - p).toFixed(4);
+        const cut = invNorm(leftArea, mu, sig);
+        gcSyntax = `Event: P(X > x₁) = ${p.toFixed(2)}  ⇔  P(X < x₁) = 1 − ${p.toFixed(2)} = ${leftArea}\nTI-84 (with TAIL): invNorm(${p.toFixed(2)}, ${mu}, ${sig}, RIGHT) = ${cut.toFixed(4)}\nTI-84 (Left-Area): invNorm(${leftArea}, ${mu}, ${sig}) = ${cut.toFixed(4)}`;
+        symNote = `Top ${state.pct}% Cut-Off: Convert <em>P(X &gt; x&#8321;) = ${p.toFixed(2)}</em> to left-tail area <strong>${leftArea}</strong> &rArr; <strong>x&#8321; = ${cut.toFixed(2)}</strong>.`;
+        document.getElementById("areaPill").textContent = `Cut-off x₁ = ${cut.toFixed(2)}`;
+      } else {
+        const tailEach = +((1 - p) / 2).toFixed(4);
+        const rightCum = +(1 - tailEach).toFixed(4);
+        const loCut = invNorm(tailEach, mu, sig);
+        const hiCut = invNorm(rightCum, mu, sig);
+        gcSyntax = `Event: P(x₁ < X < x₂) = ${p.toFixed(2)} symmetric about μ = ${mu}\nEach outer tail = (1 − ${p.toFixed(2)}) / 2 = ${tailEach}\nTI-84 (CENTER): invNorm(${p.toFixed(2)}, ${mu}, ${sig}, CENTER) = {${loCut.toFixed(3)}, ${hiCut.toFixed(3)}}\nTI-84 (Left-Area): x₁ = invNorm(${tailEach}, ${mu}, ${sig}) = ${loCut.toFixed(3)}, x₂ = invNorm(${rightCum}, ${mu}, ${sig}) = ${hiCut.toFixed(3)}`;
+        symNote = `Middle ${state.pct}% Interval: Symmetric bounds are <strong>[${loCut.toFixed(2)}, ${hiCut.toFixed(2)}]</strong> (equidistant <em>&plusmn;${(hiCut - mu).toFixed(2)}</em> from <em>&mu; = ${mu}</em>).`;
+        document.getElementById("areaPill").textContent = `[${loCut.toFixed(2)}, ${hiCut.toFixed(2)}]`;
+      }
+
+      document.getElementById("canvasHeading").textContent = `Inverse Cut-Off Finder on X ~ N(${mu}, ${varSq})`;
+      gcBox.innerHTML = `
+        <span class="box-title">TI-84 Plus CE Readout ([2nd] [VARS] &gt; 3: invNorm)</span>
+        <div class="gc-readout">${gcSyntax.replace(/\n/g, "<br>")}</div>
+      `;
+      banner.innerHTML = symNote;
+
+      refTable.innerHTML = `
+        <thead>
+          <tr>
+            <th>Exam Phrasing</th>
+            <th>Probability Equation</th>
+            <th>Equivalent Left-Tail Area for <code>invNorm(area, μ, σ)</code></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>"Bottom k%" / "At most x&#8321;"</strong></td>
+            <td><em>P(X &lt; x&#8321;) = k/100</em></td>
+            <td><code>area = k/100</code> (direct left tail)</td>
+          </tr>
+          <tr>
+            <td><strong>"Top k%" / "Exceeded by k%"</strong></td>
+            <td><em>P(X &gt; x&#8321;) = k/100</em></td>
+            <td><code>area = 1 &minus; k/100</code> (complement left tail)</td>
+          </tr>
+          <tr>
+            <td><strong>"Middle k%" (Symmetric)</strong></td>
+            <td><em>P(&mu; &minus; d &lt; X &lt; &mu; + d) = k/100</em></td>
+            <td>Lower: <code>(1 &minus; k/100)/2</code> &nbsp;|&nbsp; Upper: <code>(1 + k/100)/2</code></td>
+          </tr>
+        </tbody>
+      `;
+
+      miscBox.innerHTML = `
+        <strong>9758 Exam Misconception Alert — "Exceeded by k%" vs. "At most k%":</strong>
+        <ul style="margin:3px 0 0 0; padding-left:18px;">
+          <li><strong>Read direction keywords carefully:</strong> <em>"Minimum battery life h exceeded by 90% of phones"</em> means <strong>P(X &gt; h) = 0.90</strong> (a <em>right</em> tail of 0.90, so left-tail area = <strong>0.10</strong>, giving <em>h &lt; &mu;</em>!).</li>
+          <li><strong>Why invNorm only works directly here:</strong> You can call <code>invNorm(area, μ, σ)</code> directly in Lesson 2 because <em>&mu;</em> and <em>&sigma;</em> are known. In Lesson 3, when <em>&mu;</em> or <em>&sigma;</em> is unknown, you must standardise to <em>Z ~ N(0, 1)</em> first!</li>
+        </ul>
+      `;
+
+      drawCanvas();
+      return;
+    }
+
+    // Mode 4: Normal -> Binomial Two-Stage Link
+    if (document.getElementById("lbl_bx1")) document.getElementById("lbl_bx1").textContent = `x₁ = ${state.x1}`;
+    if (document.getElementById("lbl_bnk")) document.getElementById("lbl_bnk").textContent = `n = ${state.binomN}, Y ≥ ${state.binomK}`;
+
+    const pExact = 1 - normCdf(state.x1, 100, 15);
+    const pRounded3 = Number(pExact.toPrecision(3));
+    const binomExact = 1 - binomCdf(state.binomN, pExact, state.binomK - 1);
+    const binomPremature = 1 - binomCdf(state.binomN, pRounded3, state.binomK - 1);
+
+    document.getElementById("canvasHeading").textContent = `Stage 1: X ~ N(100, 15²) → Stage 2: Y ~ B(${state.binomN}, p)`;
+    document.getElementById("areaPill").textContent = `Stage 1 p = ${pExact.toFixed(5)}`;
+
+    gcBox.innerHTML = `
+      <span class="box-title">Two-Stage TI-84 Plus CE Workflow (Unrounded vs. Rounded p)</span>
+      <div class="gc-readout">
+        Stage 1: p = P(X &gt; ${state.x1}) = normalcdf(${state.x1}, 1E99, 100, 15) = ${pExact.toFixed(6)}<br>
+        Stage 2 (Exact p): P(Y &ge; ${state.binomK}) = 1 − binomcdf(${state.binomN}, ${pExact.toFixed(6)}, ${state.binomK - 1}) = ${binomExact.toFixed(4)}<br>
+        Stage 2 (If p rounded to 3 s.f. = ${pRounded3}): 1 − binomcdf(${state.binomN}, ${pRounded3}, ${state.binomK - 1}) = ${binomPremature.toFixed(4)}
+      </div>
+    `;
+
+    banner.innerHTML = `Two-Stage Result: With unrounded <em>p = ${pExact.toFixed(5)}</em>, <strong>P(Y &ge; ${state.binomK}) = ${binomExact.toFixed(3)}</strong> (to 3 s.f.). Notice how premature 3 s.f. rounding of <em>p</em> shifts the final answer to ${binomPremature.toFixed(4)}!`;
+
+    refTable.innerHTML = `
+      <thead>
+        <tr>
+          <th>Stage</th>
+          <th>Distribution &amp; Notation</th>
+          <th>Inequality Rule (Continuous vs. Discrete!)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Stage 1 (Individual)</strong></td>
+          <td><em>X ~ N(100, 15&sup2;)</em> (Continuous)</td>
+          <td><em>P(X &ge; ${state.x1}) = P(X &gt; ${state.x1}) = ${pExact.toFixed(5)}</em></td>
+        </tr>
+        <tr>
+          <td><strong>Stage 2 (Sample of ${state.binomN})</strong></td>
+          <td><em>Y ~ B(${state.binomN}, ${pExact.toFixed(5)})</em> (Discrete)</td>
+          <td><em>P(Y &ge; ${state.binomK}) = 1 &minus; P(Y &le; ${state.binomK - 1}) = ${binomExact.toFixed(4)}</em></td>
+        </tr>
+      </tbody>
+    `;
+
+    miscBox.innerHTML = `
+      <strong>Two Critical Habits in Normal &rarr; Binomial Exam Questions:</strong>
+      <ul style="margin:3px 0 0 0; padding-left:18px;">
+        <li><strong>Retain at least 5 significant figures for intermediate <em>p</em>:</strong> Use <code>STO&rarr; P</code> on your TI-84 Plus CE after computing <code>normalcdf(...)</code> so your Stage 2 <code>binomcdf</code> calculation stays accurate to 3 significant figures.</li>
+        <li><strong>Switch inequality rules at Stage 2:</strong> Stage 1 is continuous (<em>&ge;</em> equals <em>&gt;</em>), whereas Stage 2 <em>Y ~ B(n, p)</em> is discrete, so <em>P(Y &ge; k) = 1 &minus; P(Y &le; k &minus; 1)</em>!</li>
+      </ul>
+    `;
+
+    drawCanvas();
+  }
+
+  function drawCanvas() {
+    const canvas = document.getElementById("normCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const padL = 48, padR = 26, padT = 28, padB = 42;
+    const plotW = W - padL - padR;
+    const plotH = H - padT - padB;
+    const baseY = H - padB;
+
+    const mu = state.mu, sig = state.sigma;
+    const xMin = mu - 3.8 * sig;
+    const xMax = mu + 3.8 * sig;
+    const yMax = normPdf(mu, mu, sig) * 1.18;
+
+    const toX = x => padL + ((x - xMin) / (xMax - xMin)) * plotW;
+    const toY = y => baseY - (y / yMax) * plotH;
+
+    function shadeInterval(a, b, fillStyle) {
+      const left = Math.max(xMin, a);
+      const right = Math.min(xMax, b);
+      if (right <= left) return;
+      ctx.beginPath();
+      ctx.moveTo(toX(left), baseY);
+      for (let x = left; x <= right; x += (right - left) / 100) {
+        ctx.lineTo(toX(x), toY(normPdf(x, mu, sig)));
+      }
+      ctx.lineTo(toX(right), baseY);
+      ctx.closePath();
+      ctx.fillStyle = fillStyle;
+      ctx.fill();
+    }
+
+    function drawBoundLine(bx, label, color) {
+      if (bx < xMin || bx > xMax) return;
+      const px = toX(bx);
+      const py = toY(normPdf(bx, mu, sig));
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(px, baseY);
+      ctx.lineTo(px, py);
+      ctx.stroke();
+
+      ctx.fillStyle = color;
+      ctx.font = "bold 11px Segoe UI, sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText(label, px, Math.max(15, py - 7));
+    }
+
+    if (state.mode === "forward" || state.mode === "battery") {
+      if (state.regionType === "left") {
+        shadeInterval(xMin, state.x1, "rgba(139, 92, 246, 0.28)");
+        drawBoundLine(state.x1, `x₁ = ${state.x1}`, "#7c3aed");
+      } else if (state.regionType === "right") {
+        shadeInterval(state.x1, xMax, "rgba(2, 132, 199, 0.28)");
+        drawBoundLine(state.x1, `x₁ = ${state.x1}`, "#0284c7");
+      } else if (state.regionType === "between") {
+        shadeInterval(state.x1, state.x2, "rgba(15, 118, 110, 0.28)");
+        drawBoundLine(state.x1, `x₁ = ${state.x1}`, "#0f766e");
+        drawBoundLine(state.x2, `x₂ = ${state.x2}`, "#0f766e");
+      } else if (state.regionType === "modInside") {
+        const lo = +(mu - state.kRadius).toFixed(2);
+        const hi = +(mu + state.kRadius).toFixed(2);
+        shadeInterval(lo, hi, "rgba(139, 92, 246, 0.28)");
+        drawBoundLine(lo, `${lo}`, "#7c3aed");
+        drawBoundLine(hi, `${hi}`, "#7c3aed");
+      } else {
+        const lo = +(mu - state.kRadius).toFixed(2);
+        const hi = +(mu + state.kRadius).toFixed(2);
+        shadeInterval(xMin, lo, "rgba(225, 29, 72, 0.26)");
+        shadeInterval(hi, xMax, "rgba(225, 29, 72, 0.26)");
+        drawBoundLine(lo, `${lo}`, "#e11d48");
+        drawBoundLine(hi, `${hi}`, "#e11d48");
+      }
+    } else if (state.mode === "inverse") {
+      const p = state.pct / 100;
+      if (state.invType === "bottom") {
+        const cut = invNorm(p, mu, sig);
+        shadeInterval(xMin, cut, "rgba(139, 92, 246, 0.28)");
+        drawBoundLine(cut, `x₁ = ${cut.toFixed(2)}`, "#7c3aed");
+      } else if (state.invType === "top") {
+        const cut = invNorm(1 - p, mu, sig);
+        shadeInterval(cut, xMax, "rgba(2, 132, 199, 0.28)");
+        drawBoundLine(cut, `x₁ = ${cut.toFixed(2)}`, "#0284c7");
+      } else {
+        const tailEach = (1 - p) / 2;
+        const loCut = invNorm(tailEach, mu, sig);
+        const hiCut = invNorm(1 - tailEach, mu, sig);
+        shadeInterval(loCut, hiCut, "rgba(15, 118, 110, 0.28)");
+        drawBoundLine(loCut, `${loCut.toFixed(2)}`, "#0f766e");
+        drawBoundLine(hiCut, `${hiCut.toFixed(2)}`, "#0f766e");
+      }
+    } else {
+      // binomLink Stage 1 right tail
+      shadeInterval(state.x1, xMax, "rgba(2, 132, 199, 0.28)");
+      drawBoundLine(state.x1, `x₁ = ${state.x1}`, "#0284c7");
+    }
+
+    // Normal Curve Outline
+    ctx.beginPath();
+    for (let x = xMin; x <= xMax; x += (xMax - xMin) / 220) {
+      const px = toX(x);
+      const py = toY(normPdf(x, mu, sig));
+      if (x === xMin) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    }
+    ctx.strokeStyle = "#1e293b";
+    ctx.lineWidth = 2.6;
+    ctx.stroke();
+
+    // Dashed Axis of Symmetry at mu
+    ctx.setLineDash([5, 4]);
+    ctx.strokeStyle = "#94a3b8";
+    ctx.lineWidth = 1.4;
+    ctx.beginPath();
+    ctx.moveTo(toX(mu), baseY);
+    ctx.lineTo(toX(mu), toY(normPdf(mu, mu, sig)));
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Horizontal Axis & Ticks
+    ctx.strokeStyle = "#475569";
+    ctx.lineWidth = 1.4;
+    ctx.beginPath();
+    ctx.moveTo(padL, baseY);
+    ctx.lineTo(W - padR, baseY);
+    ctx.stroke();
+
+    ctx.fillStyle = "#334155";
+    ctx.font = "bold 11px Segoe UI, sans-serif";
+    ctx.textAlign = "center";
+    for (let k = -3; k <= 3; k++) {
+      const val = +(mu + k * sig).toFixed(1);
+      const tx = toX(val);
+      if (tx >= padL && tx <= W - padR) {
+        ctx.beginPath();
+        ctx.moveTo(tx, baseY);
+        ctx.lineTo(tx, baseY + 5);
+        ctx.stroke();
+        ctx.fillText(k === 0 ? `μ=${val}` : val.toString(), tx, baseY + 18);
+      }
+    }
+  }
+
+  const examQs = [
+    {
+      q: "The masses X grams of oranges follow X ~ N(150, 10²). Which expression gives P(|X − 150| > 15)?",
+      opts: [
+        "2 × normalcdf(165, 1E99, 150, 10)",
+        "normalcdf(135, 165, 150, 10)",
+        "normalcdf(165, 1E99, 150, 10)",
+        "2 × normalcdf(165, 1E99, 150, 100)"
+      ],
+      ans: 0,
+      exp: "|X − 150| > 15 splits into X < 135 or X > 165. By symmetry about μ = 150, P(|X − 150| > 15) = 2 × P(X > 165) = 2 × normalcdf(165, 1E99, 150, 10)."
+    },
+    {
+      q: "Scores on a test follow X ~ N(65, 64). Only the top 12% of candidates receive a Distinction. Which command finds the minimum score needed for a Distinction?",
+      opts: [
+        "invNorm(0.88, 65, 8)",
+        "invNorm(0.12, 65, 8)",
+        "invNorm(0.88, 65, 64)",
+        "invNorm(0.94, 65, 8)"
+      ],
+      ans: 0,
+      exp: "Variance is 64 so σ = √64 = 8. 'Top 12%' means P(X > x₁) = 0.12, so the left-tail area is 1 − 0.12 = 0.88, giving invNorm(0.88, 65, 8)."
+    },
+    {
+      q: "Given Y ~ N(40, 25) and P(Y > 47) = 0.0808, use curve symmetry to find P(33 < Y < 47).",
+      opts: [
+        "0.8384",
+        "0.9192",
+        "0.4192",
+        "0.1616"
+      ],
+      ans: 0,
+      exp: "Since 33 and 47 are both 7 units away from μ = 40, P(Y < 33) = P(Y > 47) = 0.0808. Thus P(33 < Y < 47) = 1 − 2(0.0808) = 0.8384."
+    }
+  ];
+
+  let curQ = 0;
+
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").textContent = item.q;
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i}, this)">${String.fromCharCode(65 + i)}. ${o}</button>
+    `).join("");
+  }
+
+  function gradeExamQ(idx, btn) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  setMode("forward");
+  renderExamQ();
+</script>
+
+</body>
+</html>

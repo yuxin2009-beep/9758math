@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 6.3 Lesson 4: Linear Transformations (aX + b) & Linear Combinations (aX + bY)</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 535px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1000px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.76rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.48;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .control-panel {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 13px;
+      margin-bottom: 11px;
+    }
+
+    .control-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .sub-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 9px;
+    }
+
+    .sub-btn {
+      flex: 1;
+      min-width: 100px;
+      padding: 6px 8px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 0.74rem;
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .sub-btn.active {
+      background: var(--blue);
+      color: #ffffff;
+      border-color: var(--blue);
+    }
+
+    .slider-row {
+      margin-bottom: 8px;
+    }
+
+    .slider-label-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 2px;
+    }
+
+    .slider-row input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .param-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding-top: 6px;
+      border-top: 1px dashed #e2e8f0;
+      margin-top: 4px;
+    }
+
+    .gc-screen-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin-bottom: 11px;
+    }
+
+    .box-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .gc-readout {
+      background: #f1f5f9;
+      border: 2px solid #64748b;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 5px;
+      line-height: 1.48;
+    }
+
+    .solution-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.81rem;
+      font-weight: 700;
+      line-height: 1.48;
+    }
+
+    .canvas-box {
+      background: #fdfbf7;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 8px;
+      margin-bottom: 10px;
+    }
+
+    canvas {
+      width: 100%;
+      height: 305px;
+      display: block;
+    }
+
+    .check-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+      margin-top: 6px;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .check-table th, .check-table td {
+      border: 1px solid #e2e8f0;
+      padding: 6px 9px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .check-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    .grader-card {
+      margin-top: 11px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 13px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 7px;
+    }
+
+    @media (max-width: 700px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.77rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .misconception-box {
+      margin-top: 10px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-size: 0.78rem;
+      line-height: 1.46;
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Single Transformation W = aX + b (Tab 1)</strong>
+        Adjust <em>a</em> (including negative <em>a</em>!) and <em>b</em> to see how <em>E(aX + b) = a&mu; + b</em> shifts the centre while <em>Var(aX + b) = a&sup2;&sigma;&sup2;</em> scales the spread by <em>|a|</em>.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Linear Combinations aX + bY + c (Tab 2)</strong>
+        Test positive and negative coefficients <em>b</em> (e.g. <em>2X &minus; 3Y</em>) and confirm that <strong>variances always add</strong>: <em>Var(aX + bY + c) = a&sup2;&sigma;<sub>X</sub>&sup2; + b&sup2;&sigma;<sub>Y</sub>&sup2;</em>.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Variable Comparisons &amp; Parcel Preset (Tabs 3 &amp; 4)</strong>
+        Convert <em>P(X &gt; kY)</em> into <em>P(X &minus; kY &gt; 0)</em>, and practice a multi-component mass problem with constant packaging weight <em>c</em>.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        6.3 Lesson 4 &bull; Linear Transformations (aX + b) &amp; Linear Combinations (aX + bY)
+      </div>
+
+      <!-- Mode / Preset Buttons -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="mode_singleTrans" onclick="setMode('singleTrans')">
+          1. Linear Transformation W = aX + b
+        </button>
+        <button class="tab-btn" id="mode_linearComb" onclick="setMode('linearComb')">
+          2. Combination W = aX + bY + c
+        </button>
+        <button class="tab-btn" id="mode_compareXY" onclick="setMode('compareXY')">
+          3. Comparison P(X &gt; kY) &amp; P(|X &minus; Y| &lt; d)
+        </button>
+        <button class="tab-btn" id="mode_parcel" onclick="setMode('parcel')">
+          4. Preset: Parcel Mass T = aX + bY + c
+        </button>
+      </div>
+
+      <!-- Contextual Description -->
+      <div class="context-box" id="contextBox"></div>
+
+      <!-- Dynamic Sliders & Sub-Selectors -->
+      <div class="control-panel">
+        <div class="control-header">
+          <span id="controlTitle">Transformation Coefficients &amp; Parameters</span>
+          <span id="notationBadge" style="color:var(--purple-dark);">W = 2X + 10</span>
+        </div>
+        <div class="sub-pill-row" id="subTypeRow"></div>
+        <div id="sliderControls"></div>
+        <div class="param-strip" id="paramStrip"></div>
+      </div>
+
+      <!-- Simulated TI-84 Plus CE Readout -->
+      <div class="gc-screen-box" id="gcOutputBox"></div>
+
+      <!-- Key Mathematical Takeaway -->
+      <div class="solution-banner" id="solutionBanner"></div>
+    </div>
+
+    <!-- RIGHT VISUAL CANVAS, FORMULA TABLE & EXAM CHECK -->
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <span style="font-size:1.0rem; font-weight:800; color:#1e293b;" id="canvasHeading">
+          Transformed Normal Distribution &amp; Shaded Probability
+        </span>
+        <span style="font-size:0.74rem; font-weight:700; color:var(--teal); background:var(--teal-bg); padding:3px 9px; border-radius:999px;" id="areaPill">
+          W ~ N(110, 144)
+        </span>
+      </div>
+
+      <div class="canvas-box">
+        <canvas id="linCanvas" width="760" height="305"></canvas>
+      </div>
+
+      <!-- Expectation & Variance Rules Table -->
+      <table class="check-table" id="refTable"></table>
+
+      <div class="misconception-box" id="misconceptionBox"></div>
+
+      <!-- Quick 9758 Exam Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 Linear Transformations &amp; Combinations Check (<span id="qIdxLbl">1</span>/3)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.79rem; line-height:1.45; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  function stdNormPdf(z) {
+    return Math.exp(-0.5 * z * z) / Math.sqrt(2 * Math.PI);
+  }
+
+  function normPdf(x, mu, sigma) {
+    return stdNormPdf((x - mu) / sigma) / sigma;
+  }
+
+  function stdNormCdf(z) {
+    if (z < -8) return 0;
+    if (z > 8) return 1;
+    const sign = z < 0 ? -1 : 1;
+    const x = Math.abs(z) / Math.sqrt(2);
+    const t = 1 / (1 + 0.3275911 * x);
+    const a1 = 0.254829592, a2 = -0.284496736, a3 = 1.421413741, a4 = -1.453152027, a5 = 1.061405429;
+    const erf = 1 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-x * x);
+    return 0.5 * (1 + sign * erf);
+  }
+
+  function normCdf(x, mu, sigma) {
+    return stdNormCdf((x - mu) / sigma);
+  }
+
+  let state = {
+    mode: "singleTrans",   // singleTrans | linearComb | compareXY | parcel
+    // Base distributions X ~ N(muX, sigX^2), Y ~ N(muY, sigY^2)
+    muX: 50,
+    sigX: 6,
+    muY: 30,
+    sigY: 4,
+    // Coefficients
+    coeffA: 2,
+    coeffB: -1,
+    constC: 10,
+    // Query cut-off / radius
+    tailDir: "right",      // right | left
+    cutW: 115,
+    compMode: "xGtKy",     // xGtKy | modDiff
+    kMult: 1.5,
+    diffTol: 8,
+    showOriginalX: true
+  };
+
+  function setMode(m) {
+    state.mode = m;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("mode_" + m).classList.add("active");
+
+    if (m === "singleTrans") {
+      state.muX = 50;
+      state.sigX = 6;
+      state.coeffA = 2;
+      state.constC = 10;
+      state.tailDir = "right";
+      state.cutW = 115;
+      state.showOriginalX = true;
+    } else if (m === "linearComb") {
+      state.muX = 50;
+      state.sigX = 6;
+      state.muY = 30;
+      state.sigY = 4;
+      state.coeffA = 2;
+      state.coeffB = -3;
+      state.constC = 5;
+      state.tailDir = "right";
+      state.cutW = 25;
+    } else if (m === "compareXY") {
+      state.muX = 50;
+      state.sigX = 6;
+      state.muY = 32;
+      state.sigY = 4;
+      state.compMode = "xGtKy";
+      state.kMult = 1.5;
+      state.diffTol = 12;
+    } else if (m === "parcel") {
+      // X = item mass ~ N(450, 12^2), Y = box mass ~ N(180, 8^2), constant label = 25g
+      state.muX = 450;
+      state.sigX = 12;
+      state.muY = 180;
+      state.sigY = 8;
+      state.coeffA = 2;
+      state.coeffB = 1;
+      state.constC = 25;
+      state.tailDir = "right";
+      state.cutW = 1135;
+    }
+
+    renderControls();
+    updateAll();
+  }
+
+  function setCompMode(cm) {
+    state.compMode = cm;
+    renderControls();
+    updateAll();
+  }
+
+  function setTailDir(td) {
+    state.tailDir = td;
+    renderControls();
+    updateAll();
+  }
+
+  function formatLinExpr(a, b, c, useY) {
+    let parts = [];
+    if (a !== 0) parts.push(`${a === 1 ? "" : (a === -1 ? "−" : a)}X`);
+    if (useY && b !== 0) {
+      const sign = b > 0 ? (parts.length ? " + " : "") : (parts.length ? " − " : "−");
+      const absB = Math.abs(b);
+      parts.push(`${sign}${absB === 1 ? "" : absB}Y`);
+    }
+    if (c !== 0) {
+      const sign = c > 0 ? (parts.length ? " + " : "") : (parts.length ? " − " : "−");
+      parts.push(`${sign}${Math.abs(c)}`);
+    }
+    return parts.length ? parts.join("") : "0";
+  }
+
+  function renderControls() {
+    const ctxBox = document.getElementById("contextBox");
+    const subRow = document.getElementById("subTypeRow");
+    const sliderDiv = document.getElementById("sliderControls");
+    const paramStrip = document.getElementById("paramStrip");
+    const ctrlTitle = document.getElementById("controlTitle");
+
+    if (state.mode === "singleTrans") {
+      ctrlTitle.textContent = "Linear Transformation W = aX + b";
+      ctxBox.innerHTML = `
+        <div><strong>Scaling &amp; Shifting a Single Normal Variable:</strong> If <em>X ~ N(&mu;, &sigma;&sup2;)</em> and <em>W = aX + b</em> (with <em>a &ne; 0</em>), then <em>W</em> is also Normal with mean <strong>a&mu; + b</strong> and variance <strong>a&sup2;&sigma;&sup2;</strong> (so standard deviation is <strong>|a|&sigma;</strong>).</div>
+        <div class="var-pill">Even when a &lt; 0, variance a&sup2;&sigma;&sup2; &gt; 0 and standard deviation = |a|&sigma; &gt; 0!</div>
+      `;
+      subRow.innerHTML = `
+        <button class="sub-btn ${state.tailDir === "right" ? "active" : ""}" onclick="setTailDir('right')">Right Tail: P(W &gt; w&#8321;)</button>
+        <button class="sub-btn ${state.tailDir === "left" ? "active" : ""}" onclick="setTailDir('left')">Left Tail: P(W &lt; w&#8321;)</button>
+        <button class="sub-btn ${state.showOriginalX ? "active" : ""}" onclick="toggleOrigX()">Overlay Original X</button>
+      `;
+
+      const muW = state.coeffA * state.muX + state.constC;
+      const sigW = Math.abs(state.coeffA) * state.sigX;
+      const wMin = Math.round(muW - 3.2 * sigW);
+      const wMax = Math.round(muW + 3.2 * sigW);
+      if (state.cutW < wMin || state.cutW > wMax) state.cutW = Math.round(muW + 0.8 * sigW);
+
+      sliderDiv.innerHTML = `
+        <div class="slider-row">
+          <div class="slider-label-row">
+            <span>Scale Multiplier a (non-zero) &amp; Shift Constant b:</span>
+            <span style="color:var(--purple-dark);">a = ${state.coeffA}, b = ${state.constC}</span>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+            <input type="range" min="-3" max="4" step="1" value="${state.coeffA}" oninput="updateCoeff('coeffA', this.value)" />
+            <input type="range" min="-30" max="30" step="5" value="${state.constC}" oninput="updateCoeff('constC', this.value)" />
+          </div>
+        </div>
+        <div class="slider-row" style="margin-bottom:2px;">
+          <div class="slider-label-row">
+            <span>Query Cut-Off w&#8321; on W:</span>
+            <span style="color:var(--rose);">w&#8321; = ${state.cutW}</span>
+          </div>
+          <input type="range" min="${wMin}" max="${wMax}" step="1" value="${state.cutW}" oninput="updateVal('cutW', this.value)" />
+        </div>
+      `;
+
+      paramStrip.innerHTML = `
+        <div>
+          <div class="slider-label-row" style="font-size:0.74rem;"><span>Base Mean &mu;<sub>X</sub>:</span><span>${state.muX}</span></div>
+          <input type="range" min="30" max="70" step="5" value="${state.muX}" oninput="updateBaseParam('muX', this.value)" />
+        </div>
+        <div>
+          <div class="slider-label-row" style="font-size:0.74rem;"><span>Base Std Dev &sigma;<sub>X</sub>:</span><span>${state.sigX}</span></div>
+          <input type="range" min="2" max="10" step="1" value="${state.sigX}" oninput="updateBaseParam('sigX', this.value)" />
+        </div>
+      `;
+      return;
+    }
+
+    if (state.mode === "linearComb") {
+      ctrlTitle.textContent = "Independent Combination W = aX + bY + c";
+      ctxBox.innerHTML = `
+        <div><strong>Combining Two Independent Normal Variables:</strong> Given independent <em>X ~ N(&mu;<sub>X</sub>, &sigma;<sub>X</sub>&sup2;)</em> and <em>Y ~ N(&mu;<sub>Y</sub>, &sigma;<sub>Y</sub>&sup2;)</em>, any linear combination <em>W = aX + bY + c</em> is Normal with <strong>E(W) = a&mu;<sub>X</sub> + b&mu;<sub>Y</sub> + c</strong> and <strong>Var(W) = a&sup2;&sigma;<sub>X</sub>&sup2; + b&sup2;&sigma;<sub>Y</sub>&sup2;</strong>.</div>
+        <div class="var-pill">Variances ALWAYS ADD even when b &lt; 0: Var(aX &minus; bY) = a&sup2;&sigma;<sub>X</sub>&sup2; + b&sup2;&sigma;<sub>Y</sub>&sup2;</div>
+      `;
+
+      subRow.innerHTML = `
+        <button class="sub-btn ${state.tailDir === "right" ? "active" : ""}" onclick="setTailDir('right')">Right Tail: P(W &gt; w&#8321;)</button>
+        <button class="sub-btn ${state.tailDir === "left" ? "active" : ""}" onclick="setTailDir('left')">Left Tail: P(W &lt; w&#8321;)</button>
+      `;
+
+      const muW = state.coeffA * state.muX + state.coeffB * state.muY + state.constC;
+      const varW = state.coeffA * state.coeffA * state.sigX * state.sigX + state.coeffB * state.coeffB * state.sigY * state.sigY;
+      const sigW = Math.sqrt(varW);
+      const wMin = Math.round(muW - 3.2 * sigW);
+      const wMax = Math.round(muW + 3.2 * sigW);
+      if (state.cutW < wMin || state.cutW > wMax) state.cutW = Math.round(muW + 0.7 * sigW);
+
+      sliderDiv.innerHTML = `
+        <div class="slider-row">
+          <div class="slider-label-row">
+            <span>Coefficients a (on X) &amp; b (on Y):</span>
+            <span style="color:var(--purple-dark);">a = ${state.coeffA}, b = ${state.coeffB}, c = ${state.constC}</span>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px;">
+            <input type="range" min="1" max="4" step="1" value="${state.coeffA}" oninput="updateCoeff('coeffA', this.value)" />
+            <input type="range" min="-4" max="4" step="1" value="${state.coeffB}" oninput="updateCoeff('coeffB', this.value)" />
+            <input type="range" min="-20" max="20" step="5" value="${state.constC}" oninput="updateCoeff('constC', this.value)" />
+          </div>
+        </div>
+        <div class="slider-row" style="margin-bottom:2px;">
+          <div class="slider-label-row">
+            <span>Query Cut-Off w&#8321; on W:</span>
+            <span style="color:var(--rose);">w&#8321; = ${state.cutW}</span>
+          </div>
+          <input type="range" min="${wMin}" max="${wMax}" step="1" value="${state.cutW}" oninput="updateVal('cutW', this.value)" />
+        </div>
+      `;
+
+      paramStrip.innerHTML = `
+        <div style="font-size:0.74rem; color:var(--muted);">
+          <strong>X ~ N(${state.muX}, ${state.sigX}&sup2;)</strong><br>
+          &mu;<sub>X</sub> = ${state.muX}, &sigma;<sub>X</sub>&sup2; = ${state.sigX * state.sigX}
+        </div>
+        <div style="font-size:0.74rem; color:var(--muted);">
+          <strong>Y ~ N(${state.muY}, ${state.sigY}&sup2;)</strong> (Indep.)<br>
+          &mu;<sub>Y</sub> = ${state.muY}, &sigma;<sub>Y</sub>&sup2; = ${state.sigY * state.sigY}
+        </div>
+      `;
+      return;
+    }
+
+    if (state.mode === "compareXY") {
+      ctrlTitle.textContent = "Comparing Two Independent Variables X and Y";
+      ctxBox.innerHTML = `
+        <div><strong>Comparing Independent Normal Variables:</strong> To find <em>P(X &gt; kY)</em>, rearrange all random variables onto one side: <strong>D = X &minus; kY &gt; 0</strong>, where <em>D ~ N(&mu;<sub>X</sub> &minus; k&mu;<sub>Y</sub>, &sigma;<sub>X</sub>&sup2; + k&sup2;&sigma;<sub>Y</sub>&sup2;)</em>.</div>
+        <div class="var-pill">P(X &gt; kY) = P(X &minus; kY &gt; 0) &nbsp;|&nbsp; P(|X &minus; Y| &lt; d) = P(&minus;d &lt; X &minus; Y &lt; d)</div>
+      `;
+
+      subRow.innerHTML = `
+        <button class="sub-btn ${state.compMode === "xGtKy" ? "active" : ""}" onclick="setCompMode('xGtKy')">Ratio Event: P(X &gt; kY)</button>
+        <button class="sub-btn ${state.compMode === "modDiff" ? "active" : ""}" onclick="setCompMode('modDiff')">Difference: P(|X &minus; Y| &lt; d)</button>
+      `;
+
+      if (state.compMode === "xGtKy") {
+        sliderDiv.innerHTML = `
+          <div class="slider-row" style="margin-bottom:2px;">
+            <div class="slider-label-row">
+              <span>Multiplier k in P(X &gt; kY) &hArr; P(X &minus; kY &gt; 0):</span>
+              <span style="color:var(--purple-dark);">k = ${state.kMult.toFixed(1)}</span>
+            </div>
+            <input type="range" min="0.5" max="2.5" step="0.1" value="${state.kMult}" oninput="updateVal('kMult', this.value)" />
+          </div>
+        `;
+      } else {
+        sliderDiv.innerHTML = `
+          <div class="slider-row" style="margin-bottom:2px;">
+            <div class="slider-label-row">
+              <span>Max Difference Tolerance d in P(|X &minus; Y| &lt; d):</span>
+              <span style="color:var(--purple-dark);">d = ${state.diffTol}</span>
+            </div>
+            <input type="range" min="2" max="25" step="1" value="${state.diffTol}" oninput="updateVal('diffTol', this.value)" />
+          </div>
+        `;
+      }
+
+      paramStrip.innerHTML = `
+        <div>
+          <div class="slider-label-row" style="font-size:0.74rem;"><span>Mean &mu;<sub>X</sub> (&sigma;<sub>X</sub> = ${state.sigX}):</span><span>${state.muX}</span></div>
+          <input type="range" min="35" max="65" step="1" value="${state.muX}" oninput="updateVal('muX', this.value)" />
+        </div>
+        <div>
+          <div class="slider-label-row" style="font-size:0.74rem;"><span>Mean &mu;<sub>Y</sub> (&sigma;<sub>Y</sub> = ${state.sigY}):</span><span>${state.muY}</span></div>
+          <input type="range" min="20" max="50" step="1" value="${state.muY}" oninput="updateVal('muY', this.value)" />
+        </div>
+      `;
+      return;
+    }
+
+    // Mode 4: Preset Parcel Packaging T = aX + bY + c
+    ctrlTitle.textContent = "Parcel Packaging Preset: T = aX + bY + c";
+    ctxBox.innerHTML = `
+      <div><strong>Parcel Mass Combination:</strong> Each ceramic mug has mass <em>X ~ N(450, 12&sup2;)</em> g, each protective foam insert has mass <em>Y ~ N(180, 8&sup2;)</em> g, and the outer shipping box has a <strong>fixed constant mass c = 25 g</strong> (zero variance!).</div>
+      <div class="var-pill">Constant c = 25 g shifts E(T) by +25 g, but adds 0 to Var(T)!</div>
+    `;
+    subRow.innerHTML = "";
+
+    const muT = state.coeffA * 450 + state.coeffB * 180 + 25;
+    const varT = state.coeffA * state.coeffA * 144 + state.coeffB * state.coeffB * 64;
+    const sigT = Math.sqrt(varT);
+    const tMin = Math.round(muT - 3.2 * sigT);
+    const tMax = Math.round(muT + 3.2 * sigT);
+    if (state.cutW < tMin || state.cutW > tMax) state.cutW = Math.round(muT + 0.8 * sigT);
+
+    sliderDiv.innerHTML = `
+      <div class="slider-row">
+        <div class="slider-label-row">
+          <span>Number of Mugs (a) &amp; Foam Inserts (b):</span>
+          <span style="color:var(--purple-dark);">T = ${state.coeffA}X + ${state.coeffB}Y + 25</span>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+          <input type="range" min="1" max="4" step="1" value="${state.coeffA}" oninput="updateCoeff('coeffA', this.value)" />
+          <input type="range" min="1" max="4" step="1" value="${state.coeffB}" oninput="updateCoeff('coeffB', this.value)" />
+        </div>
+      </div>
+      <div class="slider-row" style="margin-bottom:2px;">
+        <div class="slider-label-row">
+          <span>Maximum Allowed Parcel Mass Limit w&#8321; (g):</span>
+          <span style="color:var(--rose);">P(T &gt; ${state.cutW})</span>
+        </div>
+        <input type="range" min="${tMin}" max="${tMax}" step="1" value="${state.cutW}" oninput="updateVal('cutW', this.value)" />
+      </div>
+    `;
+    paramStrip.innerHTML = `<div style="grid-column:1 / -1; font-size:0.74rem; color:var(--muted);"><em>X ~ N(450, 144)</em>, <em>Y ~ N(180, 64)</em>, constant <em>c = 25 g</em> (independent)</div>`;
+  }
+
+  function updateCoeff(key, val) {
+    let v = parseFloat(val);
+    if (key === "coeffA" && v === 0) v = 1;
+    if (key === "coeffB" && v === 0 && state.mode === "linearComb") v = -1;
+    state[key] = v;
+    renderControls();
+    updateAll();
+  }
+
+  function updateBaseParam(key, val) {
+    state[key] = parseFloat(val);
+    const muW = state.coeffA * state.muX + state.constC;
+    const sigW = Math.abs(state.coeffA) * state.sigX;
+    state.cutW = Math.round(muW + 0.8 * sigW);
+    renderControls();
+    updateAll();
+  }
+
+  function updateVal(key, val) {
+    state[key] = parseFloat(val);
+    if (state.mode === "compareXY") renderControls();
+    updateAll();
+  }
+
+  function toggleOrigX() {
+    state.showOriginalX = !state.showOriginalX;
+    renderControls();
+    updateAll();
+  }
+
+  function updateAll() {
+    const gcBox = document.getElementById("gcOutputBox");
+    const banner = document.getElementById("solutionBanner");
+    const refTable = document.getElementById("refTable");
+    const miscBox = document.getElementById("misconceptionBox");
+
+    if (state.mode === "singleTrans") {
+      const a = state.coeffA, b = state.constC;
+      const muX = state.muX, sigX = state.sigX, varX = sigX * sigX;
+      const muW = a * muX + b;
+      const varW = a * a * varX;
+      const sigW = Math.abs(a) * sigX;
+      const expr = formatLinExpr(a, 0, b, false);
+
+      const isRight = state.tailDir === "right";
+      const prob = isRight ? (1 - normCdf(state.cutW, muW, sigW)) : normCdf(state.cutW, muW, sigW);
+
+      document.getElementById("notationBadge").textContent = `W = ${expr} ~ N(${muW}, ${varW})`;
+      document.getElementById("canvasHeading").textContent = `Linear Transformation: W = ${expr} ~ N(${muW}, ${sigW}²)`;
+      document.getElementById("areaPill").textContent = `P(W ${isRight ? ">" : "<"} ${state.cutW}) = ${prob.toFixed(4)}`;
+
+      gcBox.innerHTML = `
+        <span class="box-title">Distribution Parameters &amp; TI-84 Plus CE Readout</span>
+        <div class="gc-readout">
+          E(W) = (${a})(${muX}) + (${b}) = ${muW}   |   Var(W) = (${a})²(${varX}) = ${varW}   ⇒   σ_W = |${a}|(${sigX}) = ${sigW}<br>
+          W ~ N(${muW}, ${varW})  [Enter σ_W = ${sigW} into TI-84!]<br>
+          ${isRight
+            ? `P(W > ${state.cutW}) = normalcdf(${state.cutW}, 1E99, ${muW}, ${sigW}) = ${prob.toFixed(5)}`
+            : `P(W < ${state.cutW}) = normalcdf(-1E99, ${state.cutW}, ${muW}, ${sigW}) = ${prob.toFixed(5)}`}
+        </div>
+      `;
+
+      banner.innerHTML = `Result: <strong>W ~ N(${muW}, ${varW})</strong> and <strong>P(W ${isRight ? "&gt;" : "&lt;"} ${state.cutW}) = ${prob.toFixed(4)}</strong> (3 s.f.: ${Number(prob.toPrecision(3))}).`;
+
+      refTable.innerHTML = `
+        <thead>
+          <tr>
+            <th>Parameter</th>
+            <th>Original <em>X ~ N(${muX}, ${varX})</em></th>
+            <th>Transformed <em>W = ${expr}</em></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Mean E(&middot;)</strong></td>
+            <td><em>&mu;<sub>X</sub> = ${muX}</em></td>
+            <td><em>E(aX + b) = (${a})(${muX}) + (${b}) = <strong>${muW}</strong></em></td>
+          </tr>
+          <tr>
+            <td><strong>Variance Var(&middot;)</strong></td>
+            <td><em>&sigma;<sub>X</sub>&sup2; = ${varX}</em></td>
+            <td><em>Var(aX + b) = (${a})&sup2;(${varX}) = <strong>${varW}</strong></em></td>
+          </tr>
+          <tr>
+            <td><strong>Standard Deviation</strong></td>
+            <td><em>&sigma;<sub>X</sub> = ${sigX}</em></td>
+            <td><em>&sigma;<sub>W</sub> = |${a}| &times; ${sigX} = <strong>${sigW}</strong></em></td>
+          </tr>
+        </tbody>
+      `;
+
+      miscBox.innerHTML = `
+        <strong>9758 Exam Misconception Alert — Variance Scaling a&sup2;&sigma;&sup2;:</strong>
+        <ul style="margin:3px 0 0 0; padding-left:18px;">
+          <li><strong>Never multiply variance by <em>a</em> instead of <em>a&sup2;</em>:</strong> For <em>W = 2X + 10</em>, <em>Var(W) = 2&sup2;Var(X) = 4&sigma;<sub>X</sub>&sup2;</em>, NOT <em>2&sigma;<sub>X</sub>&sup2;</em>.</li>
+          <li><strong>Negative multiplier <em>a &lt; 0</em> still gives positive variance:</strong> For <em>W = &minus;2X + 10</em>, <em>Var(W) = (&minus;2)&sup2;&sigma;<sub>X</sub>&sup2; = +4&sigma;<sub>X</sub>&sup2;</em> and <em>&sigma;<sub>W</sub> = |&minus;2|&sigma;<sub>X</sub> = 2&sigma;<sub>X</sub></em>.</li>
+        </ul>
+      `;
+
+      drawSingleTransCanvas(muX, sigX, muW, sigW, isRight, state.cutW);
+      return;
+    }
+
+    if (state.mode === "linearComb" || state.mode === "parcel") {
+      const a = state.coeffA, b = state.coeffB, c = state.constC;
+      const muX = state.muX, sigX = state.sigX, varX = sigX * sigX;
+      const muY = state.muY, sigY = state.sigY, varY = sigY * sigY;
+      const labelVar = state.mode === "parcel" ? "T" : "W";
+      const expr = formatLinExpr(a, b, c, true);
+
+      const muW = a * muX + b * muY + c;
+      const varW = a * a * varX + b * b * varY;
+      const sigW = Math.sqrt(varW);
+
+      const isRight = state.mode === "parcel" ? true : (state.tailDir === "right");
+      const prob = isRight ? (1 - normCdf(state.cutW, muW, sigW)) : normCdf(state.cutW, muW, sigW);
+
+      document.getElementById("notationBadge").textContent = `${labelVar} ~ N(${muW}, ${varW})`;
+      document.getElementById("canvasHeading").textContent = `Linear Combination: ${labelVar} = ${expr} ~ N(${muW}, ${varW})`;
+      document.getElementById("areaPill").textContent = `P(${labelVar} ${isRight ? ">" : "<"} ${state.cutW}) = ${prob.toFixed(4)}`;
+
+      gcBox.innerHTML = `
+        <span class="box-title">Combination Mean, Variance &amp; TI-84 Plus CE Readout</span>
+        <div class="gc-readout">
+          E(${labelVar}) = (${a})(${muX}) + (${b})(${muY}) + (${c}) = ${muW}<br>
+          Var(${labelVar}) = (${a})²(${varX}) + (${b})²(${varY}) + 0 = ${a * a * varX} + ${b * b * varY} = ${varW}   ⇒   σ = √${varW} = ${sigW.toFixed(4)}<br>
+          ${isRight
+            ? `P(${labelVar} > ${state.cutW}) = normalcdf(${state.cutW}, 1E99, ${muW}, √(${varW})) = ${prob.toFixed(5)}`
+            : `P(${labelVar} < ${state.cutW}) = normalcdf(-1E99, ${state.cutW}, ${muW}, √(${varW})) = ${prob.toFixed(5)}`}
+        </div>
+      `;
+
+      banner.innerHTML = `Result: <strong>${labelVar} ~ N(${muW}, ${varW})</strong> (standard deviation <em>&sigma; = &radic;${varW} &approx; ${sigW.toFixed(3)}</em>), giving <strong>P(${labelVar} ${isRight ? "&gt;" : "&lt;"} ${state.cutW}) = ${Number(prob.toPrecision(3))}</strong> (to 3 s.f.).`;
+
+      refTable.innerHTML = `
+        <thead>
+          <tr>
+            <th>Component</th>
+            <th>Contribution to <em>E(${labelVar})</em></th>
+            <th>Contribution to <em>Var(${labelVar})</em> (Independence Required!)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Term 1: <em>${a}X</em></strong></td>
+            <td><em>(${a})(${muX}) = ${a * muX}</em></td>
+            <td><em>(${a})&sup2;(${varX}) = <strong>+${a * a * varX}</strong></em></td>
+          </tr>
+          <tr>
+            <td><strong>Term 2: <em>${b >= 0 ? "+" + b : b}Y</em></strong></td>
+            <td><em>(${b})(${muY}) = ${b * muY}</em></td>
+            <td><em>(${b})&sup2;(${varY}) = <strong>+${b * b * varY}</strong></em> (always positive!)</td>
+          </tr>
+          <tr>
+            <td><strong>Constant: <em>${c >= 0 ? "+" + c : c}</em></strong></td>
+            <td><em>${c}</em></td>
+            <td><em>Var(${c}) = <strong>0</strong></em></td>
+          </tr>
+        </tbody>
+      `;
+
+      miscBox.innerHTML = `
+        <strong>Two Non-Negotiable Exam Rules for Linear Combinations:</strong>
+        <ul style="margin:3px 0 0 0; padding-left:18px;">
+          <li><strong>Always state "Since X and Y are independent":</strong> The variance addition rule <em>Var(aX + bY) = a&sup2;Var(X) + b&sup2;Var(Y)</em> holds only because <em>X</em> and <em>Y</em> are independent—explicitly state this in your working to secure the method mark!</li>
+          <li><strong>Key &radic;(${varW}) directly into TI-84:</strong> Enter <code>√(${varW})</code> as the 4th parameter in <code>normalcdf</code> so you never introduce rounding error from an approximate decimal standard deviation.</li>
+        </ul>
+      `;
+
+      drawSingleTransCanvas(muX, sigX, muW, sigW, isRight, state.cutW, false);
+      return;
+    }
+
+    // Mode 3: Comparing X and Y -> D = X - kY
+    const muX = state.muX, sigX = state.sigX, varX = sigX * sigX;
+    const muY = state.muY, sigY = state.sigY, varY = sigY * sigY;
+
+    if (state.compMode === "xGtKy") {
+      const k = state.kMult;
+      const muD = +(muX - k * muY).toFixed(3);
+      const varD = +(varX + k * k * varY).toFixed(4);
+      const sigD = Math.sqrt(varD);
+      const prob = 1 - normCdf(0, muD, sigD);
+
+      document.getElementById("notationBadge").textContent = `D = X − ${k.toFixed(1)}Y ~ N(${muD}, ${varD})`;
+      document.getElementById("canvasHeading").textContent = `Comparison Event: P(X > ${k.toFixed(1)}Y) ⇔ P(D > 0)`;
+      document.getElementById("areaPill").textContent = `P(X > ${k.toFixed(1)}Y) = ${prob.toFixed(4)}`;
+
+      gcBox.innerHTML = `
+        <span class="box-title">Rearranging Inequality &amp; TI-84 Plus CE Readout</span>
+        <div class="gc-readout">
+          Let D = X − ${k.toFixed(1)}Y. Since X and Y are independent:<br>
+          E(D) = ${muX} − (${k.toFixed(1)})(${muY}) = ${muD}   |   Var(D) = ${varX} + (${k.toFixed(1)})²(${varY}) = ${varD}<br>
+          P(X > ${k.toFixed(1)}Y) = P(D > 0) = normalcdf(0, 1E99, ${muD}, √(${varD})) = ${prob.toFixed(5)}
+        </div>
+      `;
+
+      banner.innerHTML = `Comparison Result: Defining <em>D = X &minus; ${k.toFixed(1)}Y ~ N(${muD}, ${varD})</em>, we obtain <strong>P(X &gt; ${k.toFixed(1)}Y) = P(D &gt; 0) = ${Number(prob.toPrecision(3))}</strong> (to 3 s.f.).`;
+
+      refTable.innerHTML = `
+        <thead>
+          <tr>
+            <th>Step</th>
+            <th>Algebraic Manipulation</th>
+            <th>Distribution / TI-84 Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1. Define Difference</strong></td>
+            <td><em>X &gt; ${k.toFixed(1)}Y &hArr; X &minus; ${k.toFixed(1)}Y &gt; 0</em></td>
+            <td>Let <em>D = X &minus; ${k.toFixed(1)}Y</em></td>
+          </tr>
+          <tr>
+            <td><strong>2. Mean &amp; Variance</strong></td>
+            <td><em>E(D) = ${muD}</em>, <em>Var(D) = ${varX} + ${(k * k).toFixed(2)}(${varY}) = ${varD}</em></td>
+            <td><em>D ~ N(${muD}, ${varD})</em> (variances ADD!)</td>
+          </tr>
+          <tr>
+            <td><strong>3. Evaluate at 0</strong></td>
+            <td><em>P(D &gt; 0)</em></td>
+            <td><code>normalcdf(0, 1E99, ${muD}, √(${varD}))</code></td>
+          </tr>
+        </tbody>
+      `;
+
+      miscBox.innerHTML = `
+        <strong>Common Trap in P(X &gt; kY):</strong>
+        <ul style="margin:3px 0 0 0; padding-left:18px;">
+          <li><strong>Do NOT treat Y as a fixed number:</strong> You cannot compute <code>normalcdf(k*μ_Y, 1E99, μ_X, σ_X)</code> because <em>Y</em> itself varies randomly with variance <em>&sigma;<sub>Y</sub>&sup2;</em>; combining into <em>D = X &minus; kY</em> accounts for the variability of both <em>X</em> and <em>Y</em>!</li>
+        </ul>
+      `;
+
+      drawSingleTransCanvas(muX, sigX, muD, sigD, true, 0, false);
+    } else {
+      // P(|X - Y| < d)
+      const d = state.diffTol;
+      const muD = muX - muY;
+      const varD = varX + varY;
+      const sigD = Math.sqrt(varD);
+      const prob = normCdf(d, muD, sigD) - normCdf(-d, muD, sigD);
+
+      document.getElementById("notationBadge").textContent = `D = X − Y ~ N(${muD}, ${varD})`;
+      document.getElementById("canvasHeading").textContent = `Difference Event: P(|X − Y| < ${d}) ⇔ P(−${d} < D < ${d})`;
+      document.getElementById("areaPill").textContent = `P(|X − Y| < ${d}) = ${prob.toFixed(4)}`;
+
+      gcBox.innerHTML = `
+        <span class="box-title">Modulus Difference &amp; TI-84 Plus CE Readout</span>
+        <div class="gc-readout">
+          Let D = X − Y. Since X and Y are independent:<br>
+          E(D) = ${muX} − ${muY} = ${muD}   |   Var(D) = ${varX} + ${varY} = ${varD}   ⇒   σ_D = √${varD} = ${sigD.toFixed(4)}<br>
+          P(|D| < ${d}) = P(−${d} < D < ${d}) = normalcdf(-${d}, ${d}, ${muD}, √(${varD})) = ${prob.toFixed(5)}
+        </div>
+      `;
+
+      banner.innerHTML = `Modulus Difference Result: With <em>D = X &minus; Y ~ N(${muD}, ${varD})</em>, <strong>P(|X &minus; Y| &lt; ${d}) = P(&minus;${d} &lt; D &lt; ${d}) = ${Number(prob.toPrecision(3))}</strong> (to 3 s.f.).`;
+
+      refTable.innerHTML = `
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>Equivalent Interval on <em>D = X &minus; Y</em></th>
+            <th>Distribution &amp; TI-84 Syntax</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong><em>P(|X &minus; Y| &lt; ${d})</em></strong></td>
+            <td><em>P(&minus;${d} &lt; D &lt; ${d})</em></td>
+            <td><em>D ~ N(${muD}, ${varD})</em> &rarr; <code>normalcdf(-${d}, ${d}, ${muD}, √(${varD}))</code></td>
+          </tr>
+        </tbody>
+      `;
+
+      miscBox.innerHTML = `
+        <strong>Sign Check on D = X &minus; Y:</strong>
+        <ul style="margin:3px 0 0 0; padding-left:18px;">
+          <li><strong>Mean subtracts, variance adds:</strong> <em>E(X &minus; Y) = &mu;<sub>X</sub> &minus; &mu;<sub>Y</sub> = ${muD}</em>, whereas <em>Var(X &minus; Y) = &sigma;<sub>X</sub>&sup2; + &sigma;<sub>Y</sub>&sup2; = ${varD}</em> (never <em>&sigma;<sub>X</sub>&sup2; &minus; &sigma;<sub>Y</sub>&sup2;</em>!).</li>
+        </ul>
+      `;
+
+      drawIntervalCanvas(muD, sigD, -d, d);
+    }
+  }
+
+  function drawSingleTransCanvas(muX, sigX, muW, sigW, isRight, cutW, allowOverlay = true) {
+    const canvas = document.getElementById("linCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const padL = 48, padR = 26, padT = 28, padB = 42;
+    const plotW = W - padL - padR;
+    const plotH = H - padT - padB;
+    const baseY = H - padB;
+
+    const overlayX = allowOverlay && state.mode === "singleTrans" && state.showOriginalX;
+
+    let xMin = Math.min(muW - 3.6 * sigW, cutW - 0.8 * sigW);
+    let xMax = Math.max(muW + 3.6 * sigW, cutW + 0.8 * sigW);
+    let yMax = normPdf(muW, muW, sigW) * 1.18;
+
+    if (overlayX) {
+      xMin = Math.min(xMin, muX - 3.6 * sigX);
+      xMax = Math.max(xMax, muX + 3.6 * sigX);
+      yMax = Math.max(yMax, normPdf(muX, muX, sigX) * 1.18);
+    }
+
+    const toX = x => padL + ((x - xMin) / (xMax - xMin)) * plotW;
+    const toY = y => baseY - (y / yMax) * plotH;
+
+    // Optional original X curve in faint slate
+    if (overlayX) {
+      ctx.beginPath();
+      for (let x = xMin; x <= xMax; x += (xMax - xMin) / 200) {
+        const px = toX(x), py = toY(normPdf(x, muX, sigX));
+        if (x === xMin) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+      ctx.strokeStyle = "#94a3b8";
+      ctx.lineWidth = 1.8;
+      ctx.setLineDash([4, 4]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      ctx.fillStyle = "#64748b";
+      ctx.font = "bold 10.5px Segoe UI, sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText(`Original X ~ N(${muX}, ${sigX}²)`, toX(muX), Math.max(14, toY(normPdf(muX, muX, sigX)) - 6));
+    }
+
+    // Shaded tail on W
+    const a = isRight ? Math.max(xMin, cutW) : xMin;
+    const b = isRight ? xMax : Math.min(xMax, cutW);
+    if (b > a) {
+      ctx.beginPath();
+      ctx.moveTo(toX(a), baseY);
+      for (let x = a; x <= b; x += (b - a) / 100) {
+        ctx.lineTo(toX(x), toY(normPdf(x, muW, sigW)));
+      }
+      ctx.lineTo(toX(b), baseY);
+      ctx.closePath();
+      ctx.fillStyle = isRight ? "rgba(2, 132, 199, 0.28)" : "rgba(139, 92, 246, 0.28)";
+      ctx.fill();
+    }
+
+    // Transformed / Combined Curve W
+    ctx.beginPath();
+    for (let x = xMin; x <= xMax; x += (xMax - xMin) / 220) {
+      const px = toX(x), py = toY(normPdf(x, muW, sigW));
+      if (x === xMin) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    }
+    ctx.strokeStyle = "#7c3aed";
+    ctx.lineWidth = 2.7;
+    ctx.stroke();
+
+    // Mean line at muW
+    ctx.setLineDash([5, 4]);
+    ctx.strokeStyle = "#7c3aed";
+    ctx.lineWidth = 1.4;
+    ctx.beginPath();
+    ctx.moveTo(toX(muW), baseY);
+    ctx.lineTo(toX(muW), toY(normPdf(muW, muW, sigW)));
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Cut-off line
+    if (cutW >= xMin && cutW <= xMax) {
+      const cx = toX(cutW), cy = toY(normPdf(cutW, muW, sigW));
+      ctx.strokeStyle = "#e11d48";
+      ctx.lineWidth = 2.2;
+      ctx.beginPath();
+      ctx.moveTo(cx, baseY);
+      ctx.lineTo(cx, cy);
+      ctx.stroke();
+
+      ctx.fillStyle = "#e11d48";
+      ctx.font = "bold 11px Segoe UI, sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText(`Cut-off = ${cutW}`, cx, Math.max(15, cy - 8));
+    }
+
+    // Horizontal Axis
+    ctx.strokeStyle = "#475569";
+    ctx.lineWidth = 1.4;
+    ctx.beginPath();
+    ctx.moveTo(padL, baseY);
+    ctx.lineTo(W - padR, baseY);
+    ctx.stroke();
+
+    ctx.fillStyle = "#334155";
+    ctx.font = "bold 11px Segoe UI, sans-serif";
+    ctx.textAlign = "center";
+    for (let k = -3; k <= 3; k++) {
+      const val = +(muW + k * sigW).toFixed(1);
+      const tx = toX(val);
+      if (tx >= padL && tx <= W - padR) {
+        ctx.beginPath();
+        ctx.moveTo(tx, baseY);
+        ctx.lineTo(tx, baseY + 5);
+        ctx.stroke();
+        ctx.fillText(k === 0 ? `μ=${val}` : val.toString(), tx, baseY + 18);
+      }
+    }
+  }
+
+  function drawIntervalCanvas(muD, sigD, lo, hi) {
+    const canvas = document.getElementById("linCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const padL = 48, padR = 26, padT = 28, padB = 42;
+    const plotW = W - padL - padR;
+    const plotH = H - padT - padB;
+    const baseY = H - padB;
+
+    const xMin = Math.min(muD - 3.6 * sigD, lo - sigD);
+    const xMax = Math.max(muD + 3.6 * sigD, hi + sigD);
+    const yMax = normPdf(muD, muD, sigD) * 1.18;
+
+    const toX = x => padL + ((x - xMin) / (xMax - xMin)) * plotW;
+    const toY = y => baseY - (y / yMax) * plotH;
+
+    // Shaded interval [lo, hi]
+    ctx.beginPath();
+    ctx.moveTo(toX(lo), baseY);
+    for (let x = lo; x <= hi; x += (hi - lo) / 100) {
+      ctx.lineTo(toX(x), toY(normPdf(x, muD, sigD)));
+    }
+    ctx.lineTo(toX(hi), baseY);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(15, 118, 110, 0.28)";
+    ctx.fill();
+
+    ctx.beginPath();
+    for (let x = xMin; x <= xMax; x += (xMax - xMin) / 220) {
+      const px = toX(x), py = toY(normPdf(x, muD, sigD));
+      if (x === xMin) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    }
+    ctx.strokeStyle = "#7c3aed";
+    ctx.lineWidth = 2.7;
+    ctx.stroke();
+
+    [lo, hi].forEach(bv => {
+      const px = toX(bv), py = toY(normPdf(bv, muD, sigD));
+      ctx.strokeStyle = "#0f766e";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(px, baseY);
+      ctx.lineTo(px, py);
+      ctx.stroke();
+      ctx.fillStyle = "#0f766e";
+      ctx.font = "bold 11px Segoe UI, sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText(bv.toString(), px, Math.max(15, py - 8));
+    });
+
+    ctx.strokeStyle = "#475569";
+    ctx.lineWidth = 1.4;
+    ctx.beginPath();
+    ctx.moveTo(padL, baseY);
+    ctx.lineTo(W - padR, baseY);
+    ctx.stroke();
+
+    ctx.fillStyle = "#334155";
+    ctx.font = "bold 11px Segoe UI, sans-serif";
+    ctx.textAlign = "center";
+    for (let k = -3; k <= 3; k++) {
+      const val = +(muD + k * sigD).toFixed(1);
+      const tx = toX(val);
+      if (tx >= padL && tx <= W - padR) {
+        ctx.fillText(k === 0 ? `μ=${val}` : val.toString(), tx, baseY + 18);
+      }
+    }
+  }
+
+  const examQs = [
+    {
+      q: "Independent random variables X and Y have distributions X ~ N(20, 9) and Y ~ N(12, 4). What is the distribution of W = 2X − 3Y + 5?",
+      opts: [
+        "N(9, 72)",
+        "N(9, 0)",
+        "N(9, 6)",
+        "N(4, 72)"
+      ],
+      ans: 0,
+      exp: "E(W) = 2(20) − 3(12) + 5 = 9. Since X and Y are independent, Var(W) = 2²(9) + (−3)²(4) + 0 = 36 + 36 = 72. Thus W ~ N(9, 72)."
+    },
+    {
+      q: "If X ~ N(50, 16), what are the mean and standard deviation of U = 100 − 3X?",
+      opts: [
+        "Mean = −50, Standard Deviation = 12",
+        "Mean = −50, Standard Deviation = −12",
+        "Mean = −50, Standard Deviation = 144",
+        "Mean = −50, Standard Deviation = 48"
+      ],
+      ans: 0,
+      exp: "E(100 − 3X) = 100 − 3(50) = −50. Var(100 − 3X) = (−3)²(16) = 144, so standard deviation is √144 = |−3| × 4 = 12."
+    },
+    {
+      q: "The masses of apples A ~ N(180, 25) and pears P ~ N(210, 36) are independent. Which distribution correctly models D = A − P to evaluate P(A > P)?",
+      opts: [
+        "D ~ N(−30, 61) and evaluate P(D > 0)",
+        "D ~ N(−30, −11) and evaluate P(D > 0)",
+        "D ~ N(30, 11) and evaluate P(D > 0)",
+        "D ~ N(−30, 61) and evaluate P(D < 0)"
+      ],
+      ans: 0,
+      exp: "A > P ⇔ A − P > 0. E(A − P) = 180 − 210 = −30, and by independence Var(A − P) = 25 + 36 = 61 (variances add!)."
+    }
+  ];
+
+  let curQ = 0;
+
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").textContent = item.q;
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i}, this)">${String.fromCharCode(65 + i)}. ${o}</button>
+    `).join("");
+  }
+
+  function gradeExamQ(idx, btn) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  setMode("singleTrans");
+  renderExamQ();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 6.3 Lesson 1: Continuous Random Variables & The Normal Curve N(μ, σ²)</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 525px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1000px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.76rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.48;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .control-panel {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 13px;
+      margin-bottom: 11px;
+    }
+
+    .control-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .slider-row {
+      margin-bottom: 9px;
+    }
+
+    .slider-label-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.79rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 3px;
+    }
+
+    .slider-row input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .toggle-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .action-btn {
+      flex: 1;
+      min-width: 140px;
+      padding: 7px 9px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 0.76rem;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .action-btn.active {
+      background: var(--purple-dark);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .action-btn.secondary.active {
+      background: var(--blue);
+      color: #ffffff;
+      border-color: var(--blue);
+    }
+
+    .gc-screen-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin-bottom: 11px;
+    }
+
+    .box-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .gc-readout {
+      background: #f1f5f9;
+      border: 2px solid #64748b;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 5px;
+      line-height: 1.48;
+    }
+
+    .solution-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.81rem;
+      font-weight: 700;
+      line-height: 1.48;
+    }
+
+    .canvas-box {
+      background: #fdfbf7;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 8px;
+      margin-bottom: 10px;
+    }
+
+    canvas {
+      width: 100%;
+      height: 305px;
+      display: block;
+    }
+
+    .check-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+      margin-top: 6px;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .check-table th, .check-table td {
+      border: 1px solid #e2e8f0;
+      padding: 6px 9px;
+      text-align: left;
+    }
+
+    .check-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    .grader-card {
+      margin-top: 11px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 13px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 7px;
+    }
+
+    @media (max-width: 700px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.77rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .misconception-box {
+      margin-top: 10px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-size: 0.78rem;
+      line-height: 1.46;
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Choose a Mode (Top-Left)</strong>
+        Start with <em>1. Discrete &rarr; Continuous Zoom</em> to see why <em>P(X = c) = 0</em>, or switch to <em>2. N(&mu;, &sigma;&sup2;) Shape &amp; Notation Lab</em> to compare two normal curves side-by-side.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Adjust &mu;, &sigma;, or Bin Width &Delta;x</strong>
+        Drag the sliders to shift the axis of symmetry <em>x = &mu;</em>, change the spread with <em>&sigma;</em>, and toggle the <em>68&ndash;95&ndash;99.7% Rule</em> bands.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Check TI-84 Notation &amp; Exam Quiz</strong>
+        Verify that <em>N(&mu;, &sigma;&sup2;)</em> writes <strong>variance</strong> in the second slot whereas TI-84 <code>normalcdf</code> expects <strong>standard deviation &sigma;</strong>, then test yourself on the 3-question check.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        6.3 Lesson 1 &bull; Continuous Random Variables &amp; The Normal Curve N(&mu;, &sigma;&sup2;)
+      </div>
+
+      <!-- Mode / Preset Buttons -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="mode_continuous" onclick="setMode('continuous')">
+          1. Discrete &rarr; Continuous Zoom
+        </button>
+        <button class="tab-btn" id="mode_compare" onclick="setMode('compare')">
+          2. N(&mu;, &sigma;&sup2;) Shape &amp; Notation Lab
+        </button>
+        <button class="tab-btn" id="mode_apples" onclick="setMode('apples')">
+          3. Preset: Apple Masses N(180, 144)
+        </button>
+        <button class="tab-btn" id="mode_mrt" onclick="setMode('mrt')">
+          4. Preset: MRT Commute N(32, 25)
+        </button>
+      </div>
+
+      <!-- Contextual Description -->
+      <div class="context-box" id="contextBox"></div>
+
+      <!-- Dynamic Sliders & Overlays -->
+      <div class="control-panel">
+        <div class="control-header">
+          <span id="controlTitle">Continuous Density &amp; Interval Controls</span>
+          <span id="notationBadge" style="color:var(--purple-dark);">X ~ N(50, 100)</span>
+        </div>
+        <div id="sliderControls"></div>
+        <div class="toggle-bar" id="overlayToggles"></div>
+      </div>
+
+      <!-- Simulated TI-84 Plus CE Readout -->
+      <div class="gc-screen-box" id="gcOutputBox"></div>
+
+      <!-- Key Mathematical Takeaway -->
+      <div class="solution-banner" id="solutionBanner"></div>
+    </div>
+
+    <!-- RIGHT VISUAL CANVAS, PROPERTIES TABLE & EXAM CHECK -->
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <span style="font-size:1.0rem; font-weight:800; color:#1e293b;" id="canvasHeading">
+          Probability Density Curve &amp; Area = Probability
+        </span>
+        <span style="font-size:0.74rem; font-weight:700; color:var(--teal); background:var(--teal-bg); padding:3px 9px; border-radius:999px;" id="areaPill">
+          Total Area = 1.0000
+        </span>
+      </div>
+
+      <div class="canvas-box">
+        <canvas id="normCanvas" width="760" height="305"></canvas>
+      </div>
+
+      <!-- Key Bell-Curve Properties Comparison Table -->
+      <table class="check-table" id="propsTable"></table>
+
+      <div class="misconception-box" id="misconceptionBox"></div>
+
+      <!-- Quick 9758 Exam Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 Normal Concepts &amp; Notation Check (<span id="qIdxLbl">1</span>/3)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.79rem; line-height:1.45; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  function stdNormPdf(z) {
+    return Math.exp(-0.5 * z * z) / Math.sqrt(2 * Math.PI);
+  }
+
+  function normPdf(x, mu, sigma) {
+    const z = (x - mu) / sigma;
+    return stdNormPdf(z) / sigma;
+  }
+
+  function stdNormCdf(z) {
+    if (z < -8) return 0;
+    if (z > 8) return 1;
+    const sign = z < 0 ? -1 : 1;
+    const x = Math.abs(z) / Math.sqrt(2);
+    const t = 1 / (1 + 0.3275911 * x);
+    const a1 = 0.254829592, a2 = -0.284496736, a3 = 1.421413741, a4 = -1.453152027, a5 = 1.061405429;
+    const erf = 1 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-x * x);
+    return 0.5 * (1 + sign * erf);
+  }
+
+  function normCdf(x, mu, sigma) {
+    return stdNormCdf((x - mu) / sigma);
+  }
+
+  let state = {
+    mode: "continuous",
+    binWidth: 2.0,
+    pointC: 50,
+    intA: 42,
+    intB: 60,
+    mu1: 50,
+    sigma1: 10,
+    mu2: 56,
+    sigma2: 5,
+    showCurve2: true,
+    showEmpirical: false
+  };
+
+  function setMode(m) {
+    state.mode = m;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("mode_" + m).classList.add("active");
+
+    if (m === "continuous") {
+      state.mu1 = 50;
+      state.sigma1 = 10;
+      state.binWidth = 2.0;
+      state.pointC = 50;
+      state.intA = 42;
+      state.intB = 60;
+    } else if (m === "compare") {
+      state.mu1 = 50;
+      state.sigma1 = 10;
+      state.mu2 = 56;
+      state.sigma2 = 5;
+      state.showCurve2 = true;
+      state.showEmpirical = false;
+    } else if (m === "apples") {
+      state.mu1 = 180;
+      state.sigma1 = 12;
+      state.showCurve2 = false;
+      state.showEmpirical = true;
+    } else if (m === "mrt") {
+      state.mu1 = 32;
+      state.sigma1 = 5;
+      state.showCurve2 = false;
+      state.showEmpirical = true;
+    }
+
+    renderControls();
+    updateAll();
+  }
+
+  function renderControls() {
+    const ctxBox = document.getElementById("contextBox");
+    const sliderDiv = document.getElementById("sliderControls");
+    const toggleDiv = document.getElementById("overlayToggles");
+    const ctrlTitle = document.getElementById("controlTitle");
+
+    if (state.mode === "continuous") {
+      ctrlTitle.textContent = "Histogram Bin Width & Point vs. Interval Controls";
+      ctxBox.innerHTML = `
+        <div><strong>Why P(X = c) = 0 for Continuous Random Variables:</strong> Unlike discrete variables (where bars have height = probability), a continuous density curve <em>y = f(x)</em> models probability as <strong>area</strong>. As bin width <em>&Delta;x &rarr; 0</em>, the probability around a single point <em>x = c</em> collapses to <strong>0</strong>.</div>
+        <div class="var-pill">Key Identity: P(a &lt; X &lt; b) = P(a &le; X &lt; b) = P(a &lt; X &le; b) = P(a &le; X &le; b)</div>
+      `;
+
+      sliderDiv.innerHTML = `
+        <div class="slider-row">
+          <div class="slider-label-row">
+            <span>Histogram Bin Width &Delta;x (Shrinking to 0):</span>
+            <span id="lbl_bin" style="color:var(--rose);">&Delta;x = ${state.binWidth.toFixed(2)}</span>
+          </div>
+          <input type="range" min="0.1" max="5.0" step="0.1" value="${state.binWidth}" oninput="updateVal('binWidth', this.value)" />
+        </div>
+        <div class="slider-row">
+          <div class="slider-label-row">
+            <span>Single Point Target x = c:</span>
+            <span id="lbl_c" style="color:var(--rose);">c = ${state.pointC}</span>
+          </div>
+          <input type="range" min="25" max="75" step="1" value="${state.pointC}" oninput="updateVal('pointC', this.value)" />
+        </div>
+        <div class="slider-row" style="margin-bottom:2px;">
+          <div class="slider-label-row">
+            <span>Shaded Interval [a, b]:</span>
+            <span id="lbl_ab" style="color:var(--purple-dark);">[${state.intA}, ${state.intB}]</span>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+            <input type="range" min="20" max="55" step="1" value="${state.intA}" oninput="updateVal('intA', this.value)" />
+            <input type="range" min="45" max="80" step="1" value="${state.intB}" oninput="updateVal('intB', this.value)" />
+          </div>
+        </div>
+      `;
+
+      toggleDiv.innerHTML = `
+        <button class="action-btn secondary" onclick="animateBinShrink()">Animate &Delta;x &rarr; 0.10</button>
+        <button class="action-btn" onclick="resetBinWidth()">Reset &Delta;x = 2.00</button>
+      `;
+      return;
+    }
+
+    const isPreset = state.mode === "apples" || state.mode === "mrt";
+    const muMin = state.mode === "apples" ? 150 : (state.mode === "mrt" ? 20 : 35);
+    const muMax = state.mode === "apples" ? 210 : (state.mode === "mrt" ? 45 : 65);
+    const sigMin = state.mode === "apples" ? 5 : (state.mode === "mrt" ? 2 : 4);
+    const sigMax = state.mode === "apples" ? 22 : (state.mode === "mrt" ? 10 : 16);
+
+    ctrlTitle.textContent = isPreset ? "Contextual Model Parameters" : "Compare Two Normal Distributions";
+
+    if (state.mode === "apples") {
+      ctxBox.innerHTML = `
+        <div><strong>Orchard Apple Masses:</strong> The mass <em>X</em> g of apples is modelled by <strong>X ~ N(180, 144)</strong>. Notice that <em>144 = 12&sup2;</em> is the <strong>variance &sigma;&sup2;</strong>, so the standard deviation is <strong>&sigma; = 12 g</strong>.</div>
+        <div class="var-pill">Axis of Symmetry: x = 180 | 68.3% within &plusmn;1&sigma; &rArr; [168, 192]</div>
+      `;
+    } else if (state.mode === "mrt") {
+      ctxBox.innerHTML = `
+        <div><strong>MRT Commute Duration:</strong> Morning travel time <em>T</em> min follows <strong>T ~ N(32, 25)</strong>. Here variance is <em>&sigma;&sup2; = 25</em> and standard deviation is <strong>&sigma; = 5 min</strong>.</div>
+        <div class="var-pill">Axis of Symmetry: t = 32 | 68.3% within &plusmn;1&sigma; &rArr; [27, 37]</div>
+      `;
+    } else {
+      ctxBox.innerHTML = `
+        <div><strong>Interpreting X ~ N(&mu;, &sigma;&sup2;):</strong> Changing <strong>&mu;</strong> translates the axis of symmetry horizontally without altering shape. Increasing <strong>&sigma;</strong> widens the spread while keeping the total area under the curve fixed at <strong>1</strong>.</div>
+        <div class="var-pill">Always write &sigma; = &radic;(Variance) before entering into TI-84!</div>
+      `;
+    }
+
+    sliderDiv.innerHTML = `
+      <div class="slider-row">
+        <div class="slider-label-row">
+          <span style="color:var(--purple-dark);">Curve 1 Mean &mu;&#8321; (Axis of Symmetry):</span>
+          <span id="lbl_mu1" style="color:var(--purple-dark);">&mu;&#8321; = ${state.mu1}</span>
+        </div>
+        <input type="range" min="${muMin}" max="${muMax}" step="1" value="${state.mu1}" oninput="updateVal('mu1', this.value)" />
+      </div>
+      <div class="slider-row">
+        <div class="slider-label-row">
+          <span style="color:var(--purple-dark);">Curve 1 Std Dev &sigma;&#8321; (Variance &sigma;&#8321;&sup2; = ${state.sigma1 * state.sigma1}):</span>
+          <span id="lbl_sig1" style="color:var(--purple-dark);">&sigma;&#8321; = ${state.sigma1}</span>
+        </div>
+        <input type="range" min="${sigMin}" max="${sigMax}" step="1" value="${state.sigma1}" oninput="updateVal('sigma1', this.value)" />
+      </div>
+      ${!isPreset ? `
+        <div class="slider-row">
+          <div class="slider-label-row">
+            <span style="color:var(--teal);">Curve 2 Mean &mu;&#8322; &amp; Std Dev &sigma;&#8322; (&sigma;&#8322;&sup2; = ${state.sigma2 * state.sigma2}):</span>
+            <span id="lbl_c2" style="color:var(--teal);">&mu;&#8322; = ${state.mu2}, &sigma;&#8322; = ${state.sigma2}</span>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+            <input type="range" min="35" max="65" step="1" value="${state.mu2}" oninput="updateVal('mu2', this.value)" />
+            <input type="range" min="4" max="16" step="1" value="${state.sigma2}" oninput="updateVal('sigma2', this.value)" />
+          </div>
+        </div>
+      ` : ""}
+    `;
+
+    toggleDiv.innerHTML = `
+      ${!isPreset ? `<button class="action-btn secondary ${state.showCurve2 ? "active" : ""}" onclick="toggleFlag('showCurve2')">Overlay Curve 2</button>` : ""}
+      <button class="action-btn ${state.showEmpirical ? "active" : ""}" onclick="toggleFlag('showEmpirical')">68&ndash;95&ndash;99.7% Bands</button>
+    `;
+  }
+
+  function updateVal(key, val) {
+    state[key] = parseFloat(val);
+    if (key === "intA" && state.intA >= state.intB) state.intA = state.intB - 1;
+    if (key === "intB" && state.intB <= state.intA) state.intB = state.intA + 1;
+    if (state.mode !== "continuous" && (key === "sigma1" || key === "mu2" || key === "sigma2")) {
+      renderControls();
+    }
+    updateAll();
+  }
+
+  function toggleFlag(flag) {
+    state[flag] = !state[flag];
+    renderControls();
+    updateAll();
+  }
+
+  let shrinkTimer = null;
+  function animateBinShrink() {
+    if (shrinkTimer) clearInterval(shrinkTimer);
+    shrinkTimer = setInterval(() => {
+      if (state.binWidth <= 0.15) {
+        state.binWidth = 0.1;
+        clearInterval(shrinkTimer);
+      } else {
+        state.binWidth = Math.max(0.1, +(state.binWidth - 0.15).toFixed(2));
+      }
+      renderControls();
+      updateAll();
+    }, 65);
+  }
+
+  function resetBinWidth() {
+    if (shrinkTimer) clearInterval(shrinkTimer);
+    state.binWidth = 2.0;
+    renderControls();
+    updateAll();
+  }
+
+  function updateAll() {
+    const gcBox = document.getElementById("gcOutputBox");
+    const banner = document.getElementById("solutionBanner");
+    const propsTable = document.getElementById("propsTable");
+    const miscBox = document.getElementById("misconceptionBox");
+
+    if (state.mode === "continuous") {
+      document.getElementById("notationBadge").textContent = "X ~ N(50, 10²)";
+      if (document.getElementById("lbl_bin")) document.getElementById("lbl_bin").textContent = `Δx = ${state.binWidth.toFixed(2)}`;
+      if (document.getElementById("lbl_c")) document.getElementById("lbl_c").textContent = `c = ${state.pointC}`;
+      if (document.getElementById("lbl_ab")) document.getElementById("lbl_ab").textContent = `[${state.intA}, ${state.intB}]`;
+
+      const halfW = state.binWidth / 2;
+      const pBin = normCdf(state.pointC + halfW, 50, 10) - normCdf(state.pointC - halfW, 50, 10);
+      const pInt = normCdf(state.intB, 50, 10) - normCdf(state.intA, 50, 10);
+
+      document.getElementById("canvasHeading").textContent = "Discrete Histogram Bars vs. Continuous Density Area";
+      document.getElementById("areaPill").textContent = `P(${state.intA} < X < ${state.intB}) = ${pInt.toFixed(4)}`;
+
+      gcBox.innerHTML = `
+        <span class="box-title">Continuous Probability Readout (Point vs. Interval)</span>
+        <div class="gc-readout">
+          Thin strip P(${(state.pointC - halfW).toFixed(2)} &lt; X &lt; ${(state.pointC + halfW).toFixed(2)}) = ${pBin.toFixed(5)} &rarr; 0 as &Delta;x &rarr; 0<br>
+          Exact point P(X = ${state.pointC}) = normalcdf(${state.pointC}, ${state.pointC}, 50, 10) = 0<br>
+          Interval P(${state.intA} &lt; X &lt; ${state.intB}) = normalcdf(${state.intA}, ${state.intB}, 50, 10) = ${pInt.toFixed(4)}
+        </div>
+      `;
+
+      banner.innerHTML = `Key Takeaway: Because <em>P(X = c) = 0</em> for every single point <em>c</em>, strict and non-strict inequalities are identical: <strong>P(${state.intA} &lt; X &lt; ${state.intB}) = P(${state.intA} &le; X &le; ${state.intB}) = ${pInt.toFixed(4)}</strong>.`;
+
+      propsTable.innerHTML = `
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Discrete Random Variable (e.g. Binomial)</th>
+            <th>Continuous Random Variable (e.g. Normal)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Possible Values</strong></td>
+            <td>Countable integers: <em>0, 1, 2, …, n</em></td>
+            <td>Uncountable real interval: <em>x &isin; &Ropf;</em></td>
+          </tr>
+          <tr>
+            <td><strong>Point Probability <em>P(X = c)</em></strong></td>
+            <td>Can be positive (bar height = probability)</td>
+            <td><strong>Always 0</strong> (line segment has zero area)</td>
+          </tr>
+          <tr>
+            <td><strong>Strict vs. Inclusive</strong></td>
+            <td><em>P(X &le; 4) &ne; P(X &lt; 4)</em> (differ by <em>P(X = 4)</em>)</td>
+            <td><strong><em>P(X &le; c) = P(X &lt; c)</em></strong> (always equal!)</td>
+          </tr>
+        </tbody>
+      `;
+
+      miscBox.innerHTML = `
+        <strong>9758 Exam Misconception Alert (Discrete vs. Continuous):</strong>
+        <ul style="margin:3px 0 0 0; padding-left:18px;">
+          <li><strong>Never subtract 1 when converting &gt; to &ge; for a Normal variable:</strong> In Topic 6.2 (Binomial), <em>P(X &ge; 4) = 1 &minus; P(X &le; 3)</em> because <em>X</em> jumps by integers. For a Normal variable, <strong>P(X &ge; 4) = 1 &minus; P(X &lt; 4)</strong> directly!</li>
+          <li><strong>Area represents probability:</strong> Only the shaded <strong>area</strong> under the density curve gives probability; the curve height at a single point does not represent <em>P(X = c)</em>.</li>
+        </ul>
+      `;
+
+      drawCanvas();
+      return;
+    }
+
+    const mu1 = state.mu1, s1 = state.sigma1, var1 = s1 * s1;
+    const mu2 = state.mu2, s2 = state.sigma2, var2 = s2 * s2;
+    const show2 = state.mode === "compare" && state.showCurve2;
+
+    document.getElementById("notationBadge").textContent = `X₁ ~ N(${mu1}, ${var1})`;
+    if (document.getElementById("lbl_mu1")) document.getElementById("lbl_mu1").textContent = `μ₁ = ${mu1}`;
+    if (document.getElementById("lbl_sig1")) document.getElementById("lbl_sig1").textContent = `σ₁ = ${s1}`;
+
+    document.getElementById("canvasHeading").textContent = show2
+      ? `Comparing X₁ ~ N(${mu1}, ${var1}) vs. X₂ ~ N(${mu2}, ${var2})`
+      : `Normal Curve X ~ N(${mu1}, ${var1}) — Symmetry & Spread`;
+    document.getElementById("areaPill").textContent = `Axis: x = ${mu1} | σ = ${s1}`;
+
+    gcBox.innerHTML = `
+      <span class="box-title">9758 Notation vs. TI-84 Plus CE Input Translator</span>
+      <div class="gc-readout">
+        Written Notation: X₁ ~ N(μ = ${mu1}, σ² = ${var1})  &rArr;  Standard Deviation σ = √${var1} = ${s1}<br>
+        TI-84 Input Syntax: normalcdf(lower, upper, ${mu1}, ${s1})  [Enter σ = ${s1}, NOT ${var1}!]<br>
+        Symmetry Check: P(X₁ &lt; ${mu1}) = P(X₁ &gt; ${mu1}) = 0.5000 | Total Area = 1.0000
+      </div>
+    `;
+
+    banner.innerHTML = show2
+      ? `Comparison: Curve 2 (<em>&sigma;&#8322; = ${s2}</em>) has ${s2 < s1 ? "smaller" : (s2 > s1 ? "larger" : "equal")} spread than Curve 1 (<em>&sigma;&#8321; = ${s1}</em>), so it is ${s2 < s1 ? "more tightly concentrated around &mu;&#8322; = " + mu2 : (s2 > s1 ? "more spread out around &mu;&#8322; = " + mu2 : "identical in spread")}, while both enclose an exact total area of <strong>1</strong>.`
+      : `Empirical Rule on <em>N(${mu1}, ${var1})</em>: <strong>68.3%</strong> lies in [${mu1 - s1}, ${mu1 + s1}], <strong>95.4%</strong> lies in [${mu1 - 2 * s1}, ${mu1 + 2 * s1}], and <strong>99.7%</strong> lies in [${mu1 - 3 * s1}, ${mu1 + 3 * s1}].`;
+
+    propsTable.innerHTML = `
+      <thead>
+        <tr>
+          <th>Bell-Curve Property</th>
+          <th>Curve 1: X₁ ~ N(${mu1}, ${var1})</th>
+          ${show2 ? `<th>Curve 2: X₂ ~ N(${mu2}, ${var2})</th>` : `<th>General Rule for N(&mu;, &sigma;&sup2;)</th>`}
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Mean &amp; Axis of Symmetry</strong></td>
+          <td><em>x = ${mu1}</em> (50% left, 50% right)</td>
+          ${show2 ? `<td><em>x = ${mu2}</em></td>` : `<td><em>x = &mu;</em> (<em>P(X &lt; &mu;) = P(X &gt; &mu;) = 0.5</em>)</td>`}
+        </tr>
+        <tr>
+          <td><strong>Variance vs. Std Dev</strong></td>
+          <td>Variance <em>&sigma;&#8321;&sup2; = ${var1}</em>; Std Dev <strong>&sigma;&#8321; = ${s1}</strong></td>
+          ${show2 ? `<td>Variance <em>&sigma;&#8322;&sup2; = ${var2}</em>; Std Dev <strong>&sigma;&#8322; = ${s2}</strong></td>` : `<td>Second parameter in <em>N(&mu;, &sigma;&sup2;)</em> is always <strong>variance</strong></td>`}
+        </tr>
+        <tr>
+          <td><strong>Spread &amp; Total Area</strong></td>
+          <td>68.3% within <em>[${mu1 - s1}, ${mu1 + s1}]</em>; Area = 1</td>
+          ${show2 ? `<td>68.3% within <em>[${mu2 - s2}, ${mu2 + s2}]</em>; Area = 1</td>` : `<td>Larger <em>&sigma;</em> increases spread; total area is always <strong>1</strong></td>`}
+        </tr>
+      </tbody>
+    `;
+
+    miscBox.innerHTML = `
+      <strong>Critical 9758 Notation Warning — N(&mu;, &sigma;&sup2;) vs. TI-84 Plus CE:</strong>
+      <ul style="margin:3px 0 0 0; padding-left:18px;">
+        <li><strong>Variance vs. Standard Deviation Trap:</strong> In Singapore-Cambridge 9758 H2 Math, <em>X ~ N(180, 144)</em> means <strong>variance = 144</strong> and <strong>standard deviation = 12</strong> (whereas some textbooks write <em>N(180, 12&sup2;)</em>). Always check whether the second number is squared!</li>
+        <li><strong>Asymptotic Tails:</strong> As <em>x &rarr; &plusmn;&infin;</em>, the normal curve approaches the horizontal axis <em>y = 0</em> asymptotically without ever touching it, so <em>X</em> theoretically takes all real values <em>(&minus;&infin;, &infin;)</em>.</li>
+      </ul>
+    `;
+
+    drawCanvas();
+  }
+
+  function drawCanvas() {
+    const canvas = document.getElementById("normCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const padL = 48, padR = 26, padT = 28, padB = 42;
+    const plotW = W - padL - padR;
+    const plotH = H - padT - padB;
+    const baseY = H - padB;
+
+    if (state.mode === "continuous") {
+      const mu = 50, sigma = 10;
+      const xMin = 15, xMax = 85;
+      const yMax = 0.048;
+
+      const toX = x => padL + ((x - xMin) / (xMax - xMin)) * plotW;
+      const toY = y => baseY - (y / yMax) * plotH;
+
+      const bw = state.binWidth;
+      const startBin = mu - Math.ceil((mu - xMin) / bw) * bw - bw / 2;
+      ctx.fillStyle = "rgba(148, 163, 184, 0.14)";
+      ctx.strokeStyle = "#cbd5e1";
+      ctx.lineWidth = 1;
+      for (let bx = startBin; bx < xMax; bx += bw) {
+        const mid = bx + bw / 2;
+        const hVal = normPdf(mid, mu, sigma);
+        const x1 = Math.max(padL, toX(bx));
+        const x2 = Math.min(W - padR, toX(bx + bw));
+        if (x2 > x1) {
+          ctx.fillRect(x1, toY(hVal), x2 - x1, baseY - toY(hVal));
+          ctx.strokeRect(x1, toY(hVal), x2 - x1, baseY - toY(hVal));
+        }
+      }
+
+      ctx.beginPath();
+      ctx.moveTo(toX(state.intA), baseY);
+      for (let x = state.intA; x <= state.intB; x += 0.25) {
+        ctx.lineTo(toX(x), toY(normPdf(x, mu, sigma)));
+      }
+      ctx.lineTo(toX(state.intB), baseY);
+      ctx.closePath();
+      ctx.fillStyle = "rgba(139, 92, 246, 0.28)";
+      ctx.fill();
+
+      const cLeft = state.pointC - bw / 2;
+      const cRight = state.pointC + bw / 2;
+      const cH = normPdf(state.pointC, mu, sigma);
+      ctx.fillStyle = "rgba(225, 29, 72, 0.45)";
+      ctx.fillRect(toX(cLeft), toY(cH), Math.max(2, toX(cRight) - toX(cLeft)), baseY - toY(cH));
+      ctx.strokeStyle = "#e11d48";
+      ctx.lineWidth = 1.6;
+      ctx.strokeRect(toX(cLeft), toY(cH), Math.max(2, toX(cRight) - toX(cLeft)), baseY - toY(cH));
+
+      ctx.beginPath();
+      for (let x = xMin; x <= xMax; x += 0.3) {
+        const px = toX(x);
+        const py = toY(normPdf(x, mu, sigma));
+        if (x === xMin) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+      ctx.strokeStyle = "#7c3aed";
+      ctx.lineWidth = 2.6;
+      ctx.stroke();
+
+      ctx.strokeStyle = "#475569";
+      ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      ctx.moveTo(padL, baseY);
+      ctx.lineTo(W - padR, baseY);
+      ctx.moveTo(padL, padT);
+      ctx.lineTo(padL, baseY);
+      ctx.stroke();
+
+      ctx.fillStyle = "#334155";
+      ctx.font = "bold 11px Segoe UI, sans-serif";
+      ctx.textAlign = "center";
+      for (let tick = 20; tick <= 80; tick += 10) {
+        const tx = toX(tick);
+        ctx.beginPath();
+        ctx.moveTo(tx, baseY);
+        ctx.lineTo(tx, baseY + 5);
+        ctx.stroke();
+        ctx.fillText(tick.toString(), tx, baseY + 18);
+      }
+
+      ctx.fillStyle = "#7c3aed";
+      ctx.fillText(`Area [${state.intA}, ${state.intB}]`, toX((state.intA + state.intB) / 2), toY(normPdf((state.intA + state.intB) / 2, mu, sigma) * 0.45));
+      ctx.fillStyle = "#be123c";
+      ctx.fillText(`c = ${state.pointC} (Δx=${bw.toFixed(1)})`, toX(state.pointC), Math.max(16, toY(cH) - 8));
+      return;
+    }
+
+    const mu1 = state.mu1, s1 = state.sigma1;
+    const mu2 = state.mu2, s2 = state.sigma2;
+    const show2 = state.mode === "compare" && state.showCurve2;
+
+    let xMin = mu1 - 4 * s1;
+    let xMax = mu1 + 4 * s1;
+    let yMax = normPdf(mu1, mu1, s1) * 1.18;
+
+    if (show2) {
+      xMin = Math.min(xMin, mu2 - 4 * s2);
+      xMax = Math.max(xMax, mu2 + 4 * s2);
+      yMax = Math.max(yMax, normPdf(mu2, mu2, s2) * 1.18);
+    }
+
+    const toX = x => padL + ((x - xMin) / (xMax - xMin)) * plotW;
+    const toY = y => baseY - (y / yMax) * plotH;
+
+    if (state.showEmpirical) {
+      const bands = [
+        { k: 3, color: "rgba(139, 92, 246, 0.08)" },
+        { k: 2, color: "rgba(139, 92, 246, 0.14)" },
+        { k: 1, color: "rgba(139, 92, 246, 0.22)" }
+      ];
+      bands.forEach(b => {
+        const left = mu1 - b.k * s1;
+        const right = mu1 + b.k * s1;
+        ctx.beginPath();
+        ctx.moveTo(toX(left), baseY);
+        for (let x = left; x <= right; x += (right - left) / 80) {
+          ctx.lineTo(toX(x), toY(normPdf(x, mu1, s1)));
+        }
+        ctx.lineTo(toX(right), baseY);
+        ctx.closePath();
+        ctx.fillStyle = b.color;
+        ctx.fill();
+      });
+    } else {
+      ctx.beginPath();
+      ctx.moveTo(toX(xMin), baseY);
+      for (let x = xMin; x <= xMax; x += (xMax - xMin) / 160) {
+        ctx.lineTo(toX(x), toY(normPdf(x, mu1, s1)));
+      }
+      ctx.lineTo(toX(xMax), baseY);
+      ctx.closePath();
+      ctx.fillStyle = "rgba(139, 92, 246, 0.13)";
+      ctx.fill();
+    }
+
+    if (show2) {
+      ctx.beginPath();
+      for (let x = xMin; x <= xMax; x += (xMax - xMin) / 200) {
+        const px = toX(x);
+        const py = toY(normPdf(x, mu2, s2));
+        if (x === xMin) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+      ctx.strokeStyle = "#0f766e";
+      ctx.lineWidth = 2.4;
+      ctx.stroke();
+
+      ctx.setLineDash([5, 4]);
+      ctx.strokeStyle = "#0f766e";
+      ctx.beginPath();
+      ctx.moveTo(toX(mu2), baseY);
+      ctx.lineTo(toX(mu2), toY(normPdf(mu2, mu2, s2)));
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      ctx.fillStyle = "#0f766e";
+      ctx.font = "bold 11px Segoe UI, sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText(`N(${mu2}, ${s2 * s2})`, toX(mu2), Math.max(15, toY(normPdf(mu2, mu2, s2)) - 8));
+    }
+
+    ctx.beginPath();
+    for (let x = xMin; x <= xMax; x += (xMax - xMin) / 200) {
+      const px = toX(x);
+      const py = toY(normPdf(x, mu1, s1));
+      if (x === xMin) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    }
+    ctx.strokeStyle = "#7c3aed";
+    ctx.lineWidth = 2.8;
+    ctx.stroke();
+
+    ctx.setLineDash([5, 4]);
+    ctx.strokeStyle = "#7c3aed";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(toX(mu1), baseY);
+    ctx.lineTo(toX(mu1), toY(normPdf(mu1, mu1, s1)));
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    ctx.fillStyle = "#7c3aed";
+    ctx.font = "bold 11px Segoe UI, sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(`N(${mu1}, ${s1 * s1})`, toX(mu1), Math.max(15, toY(normPdf(mu1, mu1, s1)) - 8));
+
+    ctx.strokeStyle = "#475569";
+    ctx.lineWidth = 1.4;
+    ctx.beginPath();
+    ctx.moveTo(padL, baseY);
+    ctx.lineTo(W - padR, baseY);
+    ctx.stroke();
+
+    ctx.fillStyle = "#334155";
+    ctx.font = "bold 11px Segoe UI, sans-serif";
+    ctx.textAlign = "center";
+    for (let k = -3; k <= 3; k++) {
+      const val = mu1 + k * s1;
+      const tx = toX(val);
+      if (tx >= padL && tx <= W - padR) {
+        ctx.beginPath();
+        ctx.moveTo(tx, baseY);
+        ctx.lineTo(tx, baseY + 5);
+        ctx.stroke();
+        ctx.fillText(val.toString(), tx, baseY + 18);
+      }
+    }
+
+    if (state.showEmpirical) {
+      ctx.fillStyle = "#4c1d95";
+      ctx.font = "bold 10.5px Segoe UI, sans-serif";
+      ctx.fillText("68.3% within ±1σ", toX(mu1), baseY - 12);
+    }
+  }
+
+  const examQs = [
+    {
+      q: "A continuous random variable is modelled by X ~ N(60, 25). What values of mean and standard deviation should be entered into TI-84 normalcdf?",
+      opts: [
+        "Mean = 60, Standard Deviation = 5",
+        "Mean = 60, Standard Deviation = 25",
+        "Mean = 60, Standard Deviation = 625",
+        "Mean = 25, Standard Deviation = 60"
+      ],
+      ans: 0,
+      exp: "In 9758 notation N(μ, σ²), the second parameter 25 is the variance σ², so the standard deviation is σ = √25 = 5."
+    },
+    {
+      q: "If Y ~ N(40, 9), which of the following statements is FALSE?",
+      opts: [
+        "P(Y = 40) = 0",
+        "P(Y < 40) = P(Y ≤ 40) = 0.5",
+        "P(Y > 46) = P(Y < 31)",
+        "P(37 < Y < 43) ≈ 0.683"
+      ],
+      ans: 2,
+      exp: "Since σ = √9 = 3, 46 is 2 standard deviations above μ = 40; by symmetry about y = 40, P(Y > 46) = P(Y < 34), not P(Y < 31)."
+    },
+    {
+      q: "Curve A represents N(50, 16) and Curve B represents N(50, 4). How does Curve B compare with Curve A?",
+      opts: [
+        "Curve B has a narrower spread about x = 50 and the same total area of 1",
+        "Curve B has a wider spread about x = 50 and the same total area of 1",
+        "Curve B has a smaller total area than Curve A",
+        "Curve B is shifted 12 units to the left of Curve A"
+      ],
+      ans: 0,
+      exp: "Both curves share μ = 50, but Curve B has a smaller standard deviation (σ = 2 vs. σ = 4), so it is more tightly concentrated around x = 50 while total area remains 1."
+    }
+  ];
+
+  let curQ = 0;
+
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").textContent = item.q;
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i}, this)">${String.fromCharCode(65 + i)}. ${o}</button>
+    `).join("");
+  }
+
+  function gradeExamQ(idx, btn) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  setMode("continuous");
+  renderExamQ();
+</script>
+
+</body>
+</html>
