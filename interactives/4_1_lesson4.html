@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 4.1 Lesson 4: Geometrical Effects on the Argand Diagram</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    sup {
+      font-size: 0.72em;
+      line-height: 0;
+      position: relative;
+      vertical-align: baseline;
+      top: -0.45em;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.48;
+    }
+
+    .guide-step-card strong.step-heading {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 525px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    @media (max-width: 1000px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.76rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.48;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .control-panel {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 13px;
+      margin-bottom: 11px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .slider-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 7px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .slider-row label {
+      min-width: 115px;
+      color: #1e293b;
+    }
+
+    .slider-row input[type="range"] {
+      flex: 1;
+      accent-color: var(--purple-dark);
+      cursor: pointer;
+    }
+
+    .val-badge {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 2px 7px;
+      min-width: 44px;
+      text-align: center;
+      font-weight: 800;
+      font-size: 0.79rem;
+      color: #1e293b;
+    }
+
+    .sub-pill-bar {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .sub-pill {
+      flex: 1;
+      min-width: 82px;
+      padding: 6px 8px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .sub-pill.active {
+      background: var(--blue-bg);
+      border-color: var(--blue);
+      color: #0c4a6e;
+    }
+
+    .gc-screen-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin-bottom: 11px;
+    }
+
+    .box-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .gc-readout {
+      background: #f1f5f9;
+      border: 2px solid #64748b;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.81rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 5px;
+      line-height: 1.48;
+    }
+
+    .solution-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.82rem;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    /* RIGHT PANEL */
+    .visual-stage {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .step-derivation {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 13px;
+      font-size: 0.81rem;
+      line-height: 1.55;
+      margin-bottom: 10px;
+    }
+
+    .re-hl {
+      background: var(--teal-bg);
+      color: var(--teal);
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-weight: 800;
+    }
+
+    .im-hl {
+      background: var(--rose-bg);
+      color: var(--rose);
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-weight: 800;
+    }
+
+    .gc-guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .gc-guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .step-pill {
+      background: var(--blue-bg);
+      border: 1px solid #bae6fd;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.77rem;
+      line-height: 1.45;
+      color: #0c4a6e;
+    }
+
+    .misconception-box {
+      margin-top: 10px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 10px 13px;
+      font-size: 0.79rem;
+      line-height: 1.48;
+      color: #78350f;
+    }
+
+    .grader-card {
+      margin-top: 10px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 700px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong class="step-heading">1. Pick a Geometrical Transformation (Top-Left)</strong>
+        Compare <em>1. Translation (z + w)</em>, <em>2. Rotation &amp; Scaling (w &middot; z)</em>, <em>3. Multiplication by i<sup>n</sup> (&plusmn;90&deg;, 180&deg;)</em>, and <em>4. Conjugate Reflection (z*)</em>.
+      </div>
+      <div class="guide-step-card">
+        <strong class="step-heading">2. Adjust Parameters &amp; Watch Vector Motion</strong>
+        Move <em>z = x + yi</em> and see how multiplying by <em>w = r(cos &phi; + i sin &phi;)</em> scales length by <strong>r = |w|</strong> and rotates anticlockwise by <strong>&phi; = arg(w)</strong>.
+      </div>
+      <div class="guide-step-card">
+        <strong class="step-heading">3. Check TI-84 Output &amp; 9758 Exam Questions</strong>
+        Verify the transformed coordinates, modulus, and principal argument on the simulated <strong>TI-84 Plus CE</strong> readout, then test yourself with the 3-question check.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        4.1 Lesson 4 &bull; Geometrical Effects on the Argand Diagram
+      </div>
+
+      <!-- 4 Mode Presets -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="mode_translation" onclick="setMode('translation')">
+          1. Translation: z + w
+        </button>
+        <button class="tab-btn" id="mode_rotscale" onclick="setMode('rotscale')">
+          2. Rotation &amp; Scaling: w &middot; z
+        </button>
+        <button class="tab-btn" id="mode_powersi" onclick="setMode('powersi')">
+          3. Powers of i: i<sup>n</sup> &middot; z
+        </button>
+        <button class="tab-btn" id="mode_conjugate" onclick="setMode('conjugate')">
+          4. Reflection: Conjugate z*
+        </button>
+      </div>
+
+      <!-- Concept Context Box -->
+      <div class="context-box" id="contextBox"></div>
+
+      <!-- Interactive Sliders & Sub-Controls -->
+      <div class="control-panel" id="controlPanel"></div>
+
+      <!-- Simulated TI-84 Plus CE Output -->
+      <div class="gc-screen-box" id="gcOutputBox"></div>
+
+      <!-- Final Answer Banner -->
+      <div class="solution-banner" id="solutionBanner"></div>
+    </div>
+
+    <!-- RIGHT VISUALIZATION, DERIVATION & EXAM CHECK -->
+    <div class="card">
+      <div style="font-size:1.02rem; font-weight:800; color:#1e293b; margin-bottom:8px;" id="rightHeading">
+        Geometrical Effect on Point P(x, y) &amp; Position Vector OP
+      </div>
+
+      <!-- Visual Diagram Stage -->
+      <div class="visual-stage" id="visualStage"></div>
+
+      <!-- Algebraic & Geometric Explanation -->
+      <div class="step-derivation" id="derivationBox"></div>
+
+      <!-- 3-Step TI-84 Plus CE Guide -->
+      <div class="gc-guide-grid" id="gcGuideGrid"></div>
+
+      <!-- 9758 Misconception Alert -->
+      <div class="misconception-box" id="misconceptionBox"></div>
+
+      <!-- Quick 9758 Exam Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 Geometrical Effects Check (<span id="qIdxLbl">1</span>/3)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.8rem; line-height:1.45; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  /* -------------------- MATH HELPERS -------------------- */
+  function fmtSigned(n) {
+    return n < 0 ? `−${Math.abs(n)}` : `${n}`;
+  }
+
+  function fmtComplex(re, im) {
+    const r = Math.abs(re) < 1e-8 ? 0 : re;
+    const i = Math.abs(im) < 1e-8 ? 0 : im;
+    if (r === 0 && i === 0) return "0";
+    const rStr = Number.isInteger(r) ? fmtSigned(r) : r.toFixed(2).replace(/\.00$/, "");
+    const absI = Math.abs(i);
+    const iNum = Number.isInteger(absI) ? (absI === 1 ? "" : `${absI}`) : absI.toFixed(2).replace(/\.00$/, "");
+    if (r === 0) return i < 0 ? `−${iNum}i` : `${iNum}i`;
+    if (i === 0) return rStr;
+    return i < 0 ? `${rStr} − ${iNum}i` : `${rStr} + ${iNum}i`;
+  }
+
+  function exactModulus(x, y) {
+    const sq = Math.round(x * x + y * y);
+    if (Math.abs(x * x + y * y - sq) > 1e-6) return Math.hypot(x, y).toFixed(2);
+    const root = Math.sqrt(sq);
+    if (Number.isInteger(root)) return `${root}`;
+    let outside = 1, inside = sq;
+    for (let f = 2; f * f <= inside; f++) {
+      while (inside % (f * f) === 0) {
+        outside *= f;
+        inside /= f * f;
+      }
+    }
+    return outside === 1 ? `√${inside}` : `${outside}√${inside}`;
+  }
+
+  function exactArgStr(x, y) {
+    if (Math.abs(x) < 1e-8 && Math.abs(y) < 1e-8) return "Undefined";
+    const rad = Math.atan2(y, x);
+    const multiples = [
+      { val: 0, str: "0" },
+      { val: Math.PI / 6, str: "π/6" },
+      { val: Math.PI / 4, str: "π/4" },
+      { val: Math.PI / 3, str: "π/3" },
+      { val: Math.PI / 2, str: "π/2" },
+      { val: (2 * Math.PI) / 3, str: "2π/3" },
+      { val: (3 * Math.PI) / 4, str: "3π/4" },
+      { val: (5 * Math.PI) / 6, str: "5π/6" },
+      { val: Math.PI, str: "π" },
+      { val: -Math.PI / 6, str: "−π/6" },
+      { val: -Math.PI / 4, str: "−π/4" },
+      { val: -Math.PI / 3, str: "−π/3" },
+      { val: -Math.PI / 2, str: "−π/2" },
+      { val: (-2 * Math.PI) / 3, str: "−2π/3" },
+      { val: (-3 * Math.PI) / 4, str: "−3π/4" },
+      { val: (-5 * Math.PI) / 6, str: "−5π/6" }
+    ];
+    for (const m of multiples) {
+      if (Math.abs(rad - m.val) < 1e-5) return m.str;
+    }
+    return `${rad.toFixed(3)} rad`;
+  }
+
+  /* -------------------- STATE -------------------- */
+  let currentMode = "translation";
+  const state = {
+    // Mode 1: Translation z + w
+    zx: 2,
+    zy: 1,
+    wx: -3,
+    wy: 2,
+    // Mode 2: Rotation & Scaling w * z
+    rsIdx: 0, // preset index for clean exact angles
+    z2x: 2,
+    z2y: 1,
+    // Mode 3: Powers of i (i^n * z)
+    powN: 1,
+    z3x: 3,
+    z3y: 1,
+    // Mode 4: Conjugate Reflection z*
+    z4x: 3,
+    z4y: 2,
+    conjOp: "zstar" // zstar, minus_z, minus_zstar
+  };
+
+  function setMode(mode) {
+    currentMode = mode;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("mode_" + mode).classList.add("active");
+    renderAll();
+  }
+
+  function renderAll() {
+    if (currentMode === "translation") renderTranslationMode();
+    else if (currentMode === "rotscale") renderRotScaleMode();
+    else if (currentMode === "powersi") renderPowersIMode();
+    else if (currentMode === "conjugate") renderConjugateMode();
+  }
+
+  /* =====================================================================
+     MODE 1: TRANSLATION (z + w)
+     ===================================================================== */
+  function renderTranslationMode() {
+    document.getElementById("contextBox").innerHTML = `
+      <div><strong>Translation Effect of Addition (z &rarr; z + w):</strong> Adding a fixed complex number <em>w = a + bi</em> shifts point <em>P(x, y)</em> by the translation vector <strong>(a, b)</strong> &mdash; i.e., <strong>a units parallel to the Real axis</strong> and <strong>b units parallel to the Imaginary axis</strong>.</div>
+      <div class="var-pill">z' = z + w = (x + a) + (y + b)i &nbsp;|&nbsp; Pure shift, NO rotation or scaling!</div>
+    `;
+
+    document.getElementById("controlPanel").innerHTML = `
+      <div class="panel-header">
+        <span>Configure Initial Point z &amp; Shift Vector w</span>
+        <span style="color:var(--purple-dark);">z' = z + w</span>
+      </div>
+      <div class="slider-row">
+        <label>Initial z = x + yi:</label>
+        <input type="range" min="-3" max="3" step="1" value="${state.zx}" oninput="state.zx=parseInt(this.value); renderTranslationMode()" />
+        <span class="val-badge">x=${state.zx}</span>
+        <input type="range" min="-3" max="3" step="1" value="${state.zy}" oninput="state.zy=parseInt(this.value); renderTranslationMode()" />
+        <span class="val-badge">y=${state.zy}</span>
+      </div>
+      <div class="slider-row" style="margin-bottom:4px;">
+        <label>Shift w = a + bi:</label>
+        <input type="range" min="-4" max="4" step="1" value="${state.wx}" oninput="state.wx=parseInt(this.value); renderTranslationMode()" />
+        <span class="val-badge">a=${state.wx}</span>
+        <input type="range" min="-4" max="4" step="1" value="${state.wy}" oninput="state.wy=parseInt(this.value); renderTranslationMode()" />
+        <span class="val-badge">b=${state.wy}</span>
+      </div>
+      <div class="sub-pill-bar">
+        <button class="sub-pill" onclick="state.wx=3; state.wy=0; renderTranslationMode()">Right 3 (+3)</button>
+        <button class="sub-pill" onclick="state.wx=0; state.wy=3; renderTranslationMode()">Up 3 (+3i)</button>
+        <button class="sub-pill" onclick="state.wx=-3; state.wy=2; renderTranslationMode()">Shift (&minus;3, 2)</button>
+        <button class="sub-pill" onclick="state.wx=-2; state.wy=-3; renderTranslationMode()">Shift (&minus;2, &minus;3)</button>
+      </div>
+    `;
+
+    const nx = state.zx + state.wx, ny = state.zy + state.wy;
+    const zStr = fmtComplex(state.zx, state.zy);
+    const wStr = fmtComplex(state.wx, state.wy);
+    const nStr = fmtComplex(nx, ny);
+
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">TI-84 Plus CE Coordinates &amp; Modulus</span>
+      <div class="gc-readout">
+        (${zStr}) + (${wStr}) = ${nStr}<br>
+        |z| = ${exactModulus(state.zx, state.zy)} &rarr; |z + w| = ${exactModulus(nx, ny)} &nbsp;|&nbsp; Distance PP' = |w| = ${exactModulus(state.wx, state.wy)}
+      </div>
+    `;
+
+    document.getElementById("solutionBanner").innerHTML = `
+      Geometrical Effect: Point <strong>P(${state.zx}, ${state.zy})</strong> is translated by vector <strong>(${state.wx}, ${state.wy})</strong> to <strong>P'(${nx}, ${ny})</strong> (a distance of <strong>|w| = ${exactModulus(state.wx, state.wy)}</strong> units).
+    `;
+
+    document.getElementById("rightHeading").textContent = "Translation of Point P(x, y) by Vector w = a + bi";
+
+    const cx = 250, cy = 115, sc = 15;
+    const px = cx + state.zx * sc, py = cy - state.zy * sc;
+    const qx = cx + nx * sc, qy = cy - ny * sc;
+
+    document.getElementById("visualStage").innerHTML = `
+      <svg width="500" height="225" viewBox="0 0 500 225">
+        <defs>
+          <marker id="arrowRose" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L7,3 z" fill="#e11d48" />
+          </marker>
+        </defs>
+        <line x1="75" y1="${cy}" x2="425" y2="${cy}" stroke="#64748b" stroke-width="1.3"/>
+        <line x1="${cx}" y1="12" x2="${cx}" y2="218" stroke="#64748b" stroke-width="1.3"/>
+        <text x="414" y="${cy - 6}" font-size="10.5" font-weight="bold" fill="#475569">Re</text>
+        <text x="${cx + 7}" y="22" font-size="10.5" font-weight="bold" fill="#475569">Im</text>
+
+        <!-- Original vector OP -->
+        <line x1="${cx}" y1="${cy}" x2="${px}" y2="${py}" stroke="#7c3aed" stroke-width="2.2"/>
+        <circle cx="${px}" cy="${py}" r="5" fill="#7c3aed"/>
+        <text x="${px - 7}" y="${py + 15}" text-anchor="end" font-size="10.5" font-weight="bold" fill="#6d28d9">P: z = ${zStr}</text>
+
+        <!-- Translation arrow PP' -->
+        <line x1="${px}" y1="${py}" x2="${qx}" y2="${qy}" stroke="#e11d48" stroke-width="2.2" stroke-dasharray="5,3" marker-end="url(#arrowRose)"/>
+        <text x="${(px + qx) / 2}" y="${(py + qy) / 2 - 8}" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#e11d48">+ w (${state.wx}, ${state.wy})</text>
+
+        <!-- Image vector OP' -->
+        <line x1="${cx}" y1="${cy}" x2="${qx}" y2="${qy}" stroke="#0f766e" stroke-width="2.4"/>
+        <circle cx="${qx}" cy="${qy}" r="5.5" fill="#0f766e"/>
+        <text x="${qx + 8}" y="${qy - 6}" font-size="10.5" font-weight="bold" fill="#0f766e">P': z + w = ${nStr}</text>
+      </svg>
+    `;
+
+    document.getElementById("derivationBox").innerHTML = `
+      <strong>Horizontal Shift (Real Part):</strong> x' = ${state.zx} + (${state.wx}) = <span class="re-hl">${nx}</span> (${state.wx >= 0 ? state.wx + " units right" : Math.abs(state.wx) + " units left"}).<br>
+      <strong>Vertical Shift (Imaginary Part):</strong> y' = ${state.zy} + (${state.wy}) = <span class="im-hl">${ny}</span> (${state.wy >= 0 ? state.wy + " units up" : Math.abs(state.wy) + " units down"}).<br>
+      <strong>9758 Exam Phrasing:</strong> <em>"A translation of ${Math.abs(state.wx)} units in the ${state.wx >= 0 ? "positive" : "negative"} real direction and ${Math.abs(state.wy)} units in the ${state.wy >= 0 ? "positive" : "negative"} imaginary direction"</em> (or <em>"translation by vector (${state.wx}, ${state.wy})"</em>).
+    `;
+
+    renderSharedFooter();
+  }
+
+  /* =====================================================================
+     MODE 2: ROTATION & SCALING (w * z)
+     ===================================================================== */
+  const rotScalePresets = [
+    {
+      label: "w = 2i (Scale ×2, Rot +π/2)",
+      wx: 0, wy: 2, r: 2, rStr: "2", phi: Math.PI / 2, phiStr: "+π/2 (90° anticlockwise)"
+    },
+    {
+      label: "w = 1 + i (Scale ×√2, Rot +π/4)",
+      wx: 1, wy: 1, r: Math.SQRT2, rStr: "√2", phi: Math.PI / 4, phiStr: "+π/4 (45° anticlockwise)"
+    },
+    {
+      label: "w = 1 − i (Scale ×√2, Rot −π/4)",
+      wx: 1, wy: -1, r: Math.SQRT2, rStr: "√2", phi: -Math.PI / 4, phiStr: "−π/4 (45° clockwise)"
+    },
+    {
+      label: "w = −1 + √3i (Scale ×2, Rot +2π/3)",
+      wx: -1, wy: Math.sqrt(3), r: 2, rStr: "2", phi: (2 * Math.PI) / 3, phiStr: "+2π/3 (120° anticlockwise)"
+    }
+  ];
+
+  function renderRotScaleMode() {
+    const p = rotScalePresets[state.rsIdx];
+    document.getElementById("contextBox").innerHTML = `
+      <div><strong>Multiplication Effect (z &rarr; w &middot; z):</strong> Since <strong>|wz| = |w|&middot;|z|</strong> and <strong>arg(wz) = arg(w) + arg(z)</strong>, multiplying <em>z</em> by <em>w</em> applies a <strong>centre-origin enlargement (scaling) by factor r = |w|</strong> combined with a <strong>rotation about the origin through angle &phi; = arg(w)</strong>!</div>
+      <div class="var-pill">|wz| = |w|&middot;|z| &nbsp;&amp;&nbsp; arg(wz) = arg(z) + arg(w) &nbsp;(anticlockwise if arg(w) &gt; 0)</div>
+    `;
+
+    document.getElementById("controlPanel").innerHTML = `
+      <div class="panel-header">
+        <span>Choose Multiplier w &amp; Adjust Point z</span>
+        <span style="color:var(--purple-dark);">z' = w &middot; z</span>
+      </div>
+      <div class="sub-pill-bar" style="margin-top:0; margin-bottom:8px;">
+        ${rotScalePresets.map((item, idx) => `
+          <button class="sub-pill ${state.rsIdx === idx ? "active" : ""}" onclick="state.rsIdx=${idx}; renderRotScaleMode()">
+            ${item.label}
+          </button>
+        `).join("")}
+      </div>
+      <div class="slider-row">
+        <label>Initial z = x + yi:</label>
+        <input type="range" min="-2" max="2" step="1" value="${state.z2x}" oninput="state.z2x=parseInt(this.value); renderRotScaleMode()" />
+        <span class="val-badge">x=${state.z2x}</span>
+        <input type="range" min="-2" max="2" step="1" value="${state.z2y}" oninput="state.z2y=parseInt(this.value); renderRotScaleMode()" />
+        <span class="val-badge">y=${state.z2y}</span>
+      </div>
+    `;
+
+    // w * z = (wx*x - wy*y) + (wx*y + wy*x)i
+    const nx = p.wx * state.z2x - p.wy * state.z2y;
+    const ny = p.wx * state.z2y + p.wy * state.z2x;
+    const zStr = fmtComplex(state.z2x, state.z2y);
+    const wStr = fmtComplex(p.wx, p.wy);
+    const nStr = fmtComplex(nx, ny);
+
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">Modulus Scaling &amp; Argument Rotation</span>
+      <div class="gc-readout">
+        w = ${wStr} &rArr; |w| = ${p.rStr}, arg(w) = ${p.phiStr.split(" ")[0]}<br>
+        wz = ${nStr} &nbsp;|&nbsp; |wz| = ${p.rStr} &times; |z| = ${(p.r * Math.hypot(state.z2x, state.z2y)).toFixed(2)}
+      </div>
+    `;
+
+    document.getElementById("solutionBanner").innerHTML = `
+      Geometrical Effect of Multiplying by <strong>w = ${wStr}</strong>: <strong>Enlargement (scaling) centre O with scale factor ${p.rStr}</strong>, followed by a <strong>rotation about O through ${p.phiStr}</strong>.
+    `;
+
+    document.getElementById("rightHeading").textContent = "Enlargement (Scale Factor |w|) & Rotation (Angle arg(w)) About Origin";
+
+    const cx = 250, cy = 115, sc = 22;
+    const px = cx + state.z2x * sc, py = cy - state.z2y * sc;
+    const qx = cx + nx * sc, qy = cy - ny * sc;
+
+    // Draw rotation arc from OP to OP'
+    let rotArc = "";
+    if (!(state.z2x === 0 && state.z2y === 0)) {
+      const a1 = Math.atan2(state.z2y, state.z2x);
+      const a2 = a1 + p.phi;
+      const arcR = 30;
+      const sx = cx + arcR * Math.cos(a1), sy = cy - arcR * Math.sin(a1);
+      const ex = cx + arcR * Math.cos(a2), ey = cy - arcR * Math.sin(a2);
+      const sweep = p.phi >= 0 ? 0 : 1;
+      rotArc = `<path d="M ${sx} ${sy} A ${arcR} ${arcR} 0 0 ${sweep} ${ex} ${ey}" fill="none" stroke="#e11d48" stroke-width="2.2"/>`;
+    }
+
+    document.getElementById("visualStage").innerHTML = `
+      <svg width="500" height="225" viewBox="0 0 500 225">
+        <line x1="75" y1="${cy}" x2="425" y2="${cy}" stroke="#64748b" stroke-width="1.3"/>
+        <line x1="${cx}" y1="12" x2="${cx}" y2="218" stroke="#64748b" stroke-width="1.3"/>
+        <text x="414" y="${cy - 6}" font-size="10.5" font-weight="bold" fill="#475569">Re</text>
+        <text x="${cx + 7}" y="22" font-size="10.5" font-weight="bold" fill="#475569">Im</text>
+
+        ${rotArc}
+
+        <line x1="${cx}" y1="${cy}" x2="${px}" y2="${py}" stroke="#7c3aed" stroke-width="2.3"/>
+        <circle cx="${px}" cy="${py}" r="5" fill="#7c3aed"/>
+        <text x="${px + 7}" y="${py + 14}" font-size="10.5" font-weight="bold" fill="#6d28d9">z = ${zStr}</text>
+
+        <line x1="${cx}" y1="${cy}" x2="${qx}" y2="${qy}" stroke="#0f766e" stroke-width="2.5"/>
+        <circle cx="${qx}" cy="${qy}" r="5.5" fill="#0f766e"/>
+        <text x="${qx + 8}" y="${qy - 6}" font-size="10.5" font-weight="bold" fill="#0f766e">wz = ${nStr}</text>
+      </svg>
+    `;
+
+    document.getElementById("derivationBox").innerHTML = `
+      <strong>1. Scaling Effect (Modulus):</strong> |wz| = |w|&middot;|z| = <span class="re-hl">${p.rStr}</span> &times; ${exactModulus(state.z2x, state.z2y)} (stretches OP by factor ${p.rStr}).<br>
+      <strong>2. Rotation Effect (Argument):</strong> arg(wz) = arg(z) + arg(w) = arg(z) + <span class="im-hl">${p.phiStr.split(" ")[0]}</span>.<br>
+      <strong>Division Corollary (z / w):</strong> Dividing by <em>w</em> scales length by <strong>1 / |w|</strong> and rotates by <strong>&minus;arg(w)</strong>!
+    `;
+
+    renderSharedFooter();
+  }
+
+  /* =====================================================================
+     MODE 3: POWERS OF i (i^n * z)
+     ===================================================================== */
+  const powersInfo = [
+    { n: 0, val: "1", angle: "0", effect: "Identity (0° rotation): (x, y) → (x, y)", rx: (x, y) => x, ry: (x, y) => y },
+    { n: 1, val: "i", angle: "+π/2", effect: "90° anticlockwise rotation about O: (x, y) → (−y, x)", rx: (x, y) => -y, ry: (x, y) => x },
+    { n: 2, val: "−1", angle: "π", effect: "180° rotation (half-turn) about O: (x, y) → (−x, −y)", rx: (x, y) => -x, ry: (x, y) => -y },
+    { n: 3, val: "−i", angle: "−π/2", effect: "90° clockwise (−π/2) rotation about O: (x, y) → (y, −x)", rx: (x, y) => y, ry: (x, y) => -x }
+  ];
+
+  function renderPowersIMode() {
+    const info = powersInfo[state.powN];
+    document.getElementById("contextBox").innerHTML = `
+      <div><strong>Pure Rotations via i<sup>n</sup> (|i<sup>n</sup>| = 1):</strong> Because <strong>|i| = 1</strong> and <strong>arg(i) = &pi;/2</strong>, multiplying any complex number <em>z</em> by <strong>i</strong> preserves its distance from the origin and rotates <em>OP</em> by <strong>90&deg; (&pi;/2 rad) anticlockwise</strong>!</div>
+      <div class="var-pill">i&sup1; = i (+&pi;/2), &nbsp;i&sup2; = &minus;1 (&pi;), &nbsp;i&sup3; = &minus;i (&minus;&pi;/2), &nbsp;i&#8308; = 1 (0)</div>
+    `;
+
+    document.getElementById("controlPanel").innerHTML = `
+      <div class="panel-header">
+        <span>Select Power i<sup>n</sup> &amp; Point z = x + yi</span>
+        <span style="color:var(--purple-dark);">Pure Rotation (r = 1)</span>
+      </div>
+      <div class="sub-pill-bar" style="margin-top:0; margin-bottom:8px;">
+        ${powersInfo.map((p, idx) => `
+          <button class="sub-pill ${state.powN === idx ? "active" : ""}" onclick="state.powN=${idx}; renderPowersIMode()">
+            i<sup>${p.n}</sup> = ${p.val} (${p.angle})
+          </button>
+        `).join("")}
+      </div>
+      <div class="slider-row">
+        <label>Initial z = x + yi:</label>
+        <input type="range" min="-3" max="3" step="1" value="${state.z3x}" oninput="state.z3x=parseInt(this.value); renderPowersIMode()" />
+        <span class="val-badge">x=${state.z3x}</span>
+        <input type="range" min="-3" max="3" step="1" value="${state.z3y}" oninput="state.z3y=parseInt(this.value); renderPowersIMode()" />
+        <span class="val-badge">y=${state.z3y}</span>
+      </div>
+    `;
+
+    const nx = info.rx(state.z3x, state.z3y);
+    const ny = info.ry(state.z3x, state.z3y);
+    const zStr = fmtComplex(state.z3x, state.z3y);
+    const nStr = fmtComplex(nx, ny);
+    const modStr = exactModulus(state.z3x, state.z3y);
+
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">Orthogonal Rotation Verification</span>
+      <div class="gc-readout">
+        i^${info.n} &times; (${zStr}) = (${info.val})(${zStr}) = ${nStr}<br>
+        |z| = |i^${info.n}z| = ${modStr} &nbsp;(Distance from O is unchanged!)
+      </div>
+    `;
+
+    document.getElementById("solutionBanner").innerHTML = `
+      Multiplying by <strong>i<sup>${info.n}</sup> = ${info.val}</strong>: <strong>${info.effect}</strong>.
+    `;
+
+    document.getElementById("rightHeading").textContent = "Quarter-Turn & Half-Turn Rotations Around Circle |z| = r";
+
+    const cx = 250, cy = 115, sc = 22;
+    const px = cx + state.z3x * sc, py = cy - state.z3y * sc;
+    const qx = cx + nx * sc, qy = cy - ny * sc;
+    const circR = Math.hypot(state.z3x, state.z3y) * sc;
+
+    document.getElementById("visualStage").innerHTML = `
+      <svg width="500" height="225" viewBox="0 0 500 225">
+        <line x1="75" y1="${cy}" x2="425" y2="${cy}" stroke="#64748b" stroke-width="1.3"/>
+        <line x1="${cx}" y1="12" x2="${cx}" y2="218" stroke="#64748b" stroke-width="1.3"/>
+        <circle cx="${cx}" cy="${cy}" r="${circR}" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+        <line x1="${cx}" y1="${cy}" x2="${px}" y2="${py}" stroke="#7c3aed" stroke-width="2.3"/>
+        <circle cx="${px}" cy="${py}" r="5" fill="#7c3aed"/>
+        <text x="${px + 7}" y="${py - 6}" font-size="10.5" font-weight="bold" fill="#6d28d9">z = ${zStr}</text>
+
+        <line x1="${cx}" y1="${cy}" x2="${qx}" y2="${qy}" stroke="#0f766e" stroke-width="2.5"/>
+        <circle cx="${qx}" cy="${qy}" r="5.5" fill="#0f766e"/>
+        <text x="${qx + 8}" y="${qy + 14}" font-size="10.5" font-weight="bold" fill="#0f766e">i^${info.n}z = ${nStr}</text>
+      </svg>
+    `;
+
+    document.getElementById("derivationBox").innerHTML = `
+      <strong>Algebraic Proof for i &middot; z:</strong> i(x + yi) = xi + y i&sup2; = <span class="re-hl">&minus;y</span> + <span class="im-hl">x</span>i.<br>
+      <strong>Perpendicularity Check:</strong> Dot product of vectors (x, y) and (&minus;y, x) is x(&minus;y) + y(x) = <strong>0</strong>, confirming a <strong>90&deg;</strong> angle!<br>
+      <strong>Geometry Application:</strong> In a square <em>OABC</em> labelled anticlockwise with vertex <em>A</em> at <em>z</em>, vertex <em>C</em> is at <strong>iz</strong> and vertex <em>B</em> is at <strong>z + iz = (1 + i)z</strong>!
+    `;
+
+    renderSharedFooter();
+  }
+
+  /* =====================================================================
+     MODE 4: REFLECTION & CONJUGATE (z*, -z, -z*)
+     ===================================================================== */
+  function renderConjugateMode() {
+    document.getElementById("contextBox").innerHTML = `
+      <div><strong>Reflection Symmetries on the Argand Diagram:</strong> Replacing <em>z = x + yi</em> with its complex conjugate <strong>z* = x &minus; yi</strong> reflects point <em>P(x, y)</em> across the <strong>Real axis</strong> to <em>P'(x, &minus;y)</em>, keeping <strong>|z*| = |z|</strong> and negating the argument: <strong>arg(z*) = &minus;arg(z)</strong> (for z &notin; ℝ&#8315;).</div>
+      <div class="var-pill">z* = x &minus; yi (Reflect in Re-axis) &nbsp;|&nbsp; &minus;z* = &minus;x + yi (Reflect in Im-axis)</div>
+    `;
+
+    document.getElementById("controlPanel").innerHTML = `
+      <div class="panel-header">
+        <span>Compare Reflection Operations on z = x + yi</span>
+        <span style="color:var(--purple-dark);">Symmetry</span>
+      </div>
+      <div class="slider-row">
+        <label>Point z = x + yi:</label>
+        <input type="range" min="-4" max="4" step="1" value="${state.z4x}" oninput="state.z4x=parseInt(this.value); renderConjugateMode()" />
+        <span class="val-badge">x=${state.z4x}</span>
+        <input type="range" min="-4" max="4" step="1" value="${state.z4y}" oninput="state.z4y=parseInt(this.value); renderConjugateMode()" />
+        <span class="val-badge">y=${state.z4y}</span>
+      </div>
+      <div class="sub-pill-bar">
+        <button class="sub-pill ${state.conjOp === "zstar" ? "active" : ""}" onclick="state.conjOp='zstar'; renderConjugateMode()">z* = x &minus; yi (Reflect in Re)</button>
+        <button class="sub-pill ${state.conjOp === "minus_zstar" ? "active" : ""}" onclick="state.conjOp='minus_zstar'; renderConjugateMode()">&minus;z* = &minus;x + yi (Reflect in Im)</button>
+        <button class="sub-pill ${state.conjOp === "minus_z" ? "active" : ""}" onclick="state.conjOp='minus_z'; renderConjugateMode()">&minus;z = &minus;x &minus; yi (180&deg; Rot / Origin)</button>
+      </div>
+    `;
+
+    let nx = state.z4x, ny = -state.z4y, opLabel = "z*", desc = "Reflection of P(x, y) across the Real axis";
+    if (state.conjOp === "minus_zstar") {
+      nx = -state.z4x; ny = state.z4y; opLabel = "−z*"; desc = "Reflection of P(x, y) across the Imaginary axis";
+    } else if (state.conjOp === "minus_z") {
+      nx = -state.z4x; ny = -state.z4y; opLabel = "−z"; desc = "Reflection in the origin O (180° rotation about O)";
+    }
+
+    const zStr = fmtComplex(state.z4x, state.z4y);
+    const nStr = fmtComplex(nx, ny);
+
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">Modulus &amp; Principal Argument Comparison</span>
+      <div class="gc-readout">
+        z = ${zStr} &rArr; |z| = ${exactModulus(state.z4x, state.z4y)}, arg(z) = ${exactArgStr(state.z4x, state.z4y)}<br>
+        ${opLabel} = ${nStr} &rArr; |${opLabel}| = ${exactModulus(nx, ny)}, arg(${opLabel}) = ${exactArgStr(nx, ny)}
+      </div>
+    `;
+
+    document.getElementById("solutionBanner").innerHTML = `
+      Geometrical Effect of <strong>z &rarr; ${opLabel}</strong>: <strong>${desc}</strong>. Modulus remains invariant: <strong>|${opLabel}| = |z| = ${exactModulus(state.z4x, state.z4y)}</strong>.
+    `;
+
+    document.getElementById("rightHeading").textContent = "Argand Reflection Symmetry: z* Across Real Axis vs −z* Across Imaginary Axis";
+
+    const cx = 250, cy = 115, sc = 18;
+    const px = cx + state.z4x * sc, py = cy - state.z4y * sc;
+    const qx = cx + nx * sc, qy = cy - ny * sc;
+
+    document.getElementById("visualStage").innerHTML = `
+      <svg width="500" height="225" viewBox="0 0 500 225">
+        <line x1="75" y1="${cy}" x2="425" y2="${cy}" stroke="#475569" stroke-width="1.4"/>
+        <line x1="${cx}" y1="12" x2="${cx}" y2="218" stroke="#475569" stroke-width="1.4"/>
+        <text x="414" y="${cy - 6}" font-size="10.5" font-weight="bold" fill="#334155">Re</text>
+        <text x="${cx + 7}" y="22" font-size="10.5" font-weight="bold" fill="#334155">Im</text>
+
+        <!-- Dashed symmetry connector -->
+        <line x1="${px}" y1="${py}" x2="${qx}" y2="${qy}" stroke="#e11d48" stroke-width="1.6" stroke-dasharray="4,3"/>
+
+        <line x1="${cx}" y1="${cy}" x2="${px}" y2="${py}" stroke="#7c3aed" stroke-width="2.3"/>
+        <circle cx="${px}" cy="${py}" r="5.2" fill="#7c3aed"/>
+        <text x="${px + 7}" y="${py - 6}" font-size="10.5" font-weight="bold" fill="#6d28d9">P: z = ${zStr}</text>
+
+        <line x1="${cx}" y1="${cy}" x2="${qx}" y2="${qy}" stroke="#0f766e" stroke-width="2.4"/>
+        <circle cx="${qx}" cy="${qy}" r="5.5" fill="#0f766e"/>
+        <text x="${qx + 7}" y="${qy + 15}" font-size="10.5" font-weight="bold" fill="#0f766e">P': ${opLabel} = ${nStr}</text>
+      </svg>
+    `;
+
+    document.getElementById("derivationBox").innerHTML = `
+      &bull; <strong>Complex Conjugate z* = x &minus; yi:</strong> Reflection across the <strong>Real axis</strong>; |z*| = |z| and arg(z*) = &minus;arg(z) (for z &notin; ℝ&#8315;).<br>
+      &bull; <strong>Negative Conjugate &minus;z* = &minus;x + yi:</strong> Reflection across the <strong>Imaginary axis</strong>.<br>
+      &bull; <strong>Additive Inverse &minus;z = &minus;x &minus; yi:</strong> Rotation of <strong>180&deg; (&pi; rad)</strong> about the origin O.
+    `;
+
+    renderSharedFooter();
+  }
+
+  /* =====================================================================
+     SHARED TI-84 GUIDE & MISCONCEPTION ALERT
+     ===================================================================== */
+  function renderSharedFooter() {
+    document.getElementById("gcGuideGrid").innerHTML = `
+      <div class="step-pill">
+        <strong>1. Conjugate Key conj(</strong><br>
+        Press <strong>[MATH] &rarr; [CPX] &rarr; 1:conj(</strong> to compute <em>z*</em> instantly on your TI-84 Plus CE.
+      </div>
+      <div class="step-pill">
+        <strong>2. Check Scale Factor |w|</strong><br>
+        Use <strong>[MATH] &rarr; [CPX] &rarr; 5:abs(w)</strong> to confirm the enlargement factor <em>r = |w|</em>.
+      </div>
+      <div class="step-pill">
+        <strong>3. Check Rotation Angle arg(w)</strong><br>
+        Use <strong>[MATH] &rarr; [CPX] &rarr; 4:angle(w)</strong> in <strong>RADIAN</strong> mode to find the rotation angle <em>&phi;</em>.
+      </div>
+    `;
+
+    document.getElementById("misconceptionBox").innerHTML = `
+      <strong>9758 Exam Misconception Alert:</strong>
+      <ul style="margin:3px 0 0 0; padding-left:18px;">
+        <li><strong>Always state BOTH geometric transformations for z &rarr; wz:</strong> Unless <em>|w| = 1</em> (pure rotation) or <em>arg(w) = 0</em> (pure enlargement), multiplying by <em>w</em> is <strong>both</strong> an enlargement centre O with scale factor <em>|w|</em> <strong>and</strong> a rotation about O through angle <em>arg(w)</em>.</li>
+        <li><strong>Direction of rotation matters:</strong> <em>arg(w) &gt; 0</em> means <strong>anticlockwise</strong>; <em>arg(w) &lt; 0</em> means <strong>clockwise</strong>. Always specify the centre (origin O)!</li>
+      </ul>
+    `;
+  }
+
+  /* =====================================================================
+     3-QUESTION 9758 EXAM CHECK
+     ===================================================================== */
+  const examQs = [
+    {
+      q: "Describe the single geometrical transformation that maps the point representing z onto the point representing (1 − √3 i)z on an Argand diagram.",
+      opts: [
+        "Enlargement centre O, scale factor 2, followed by rotation of π/3 clockwise about O",
+        "Enlargement centre O, scale factor 2, followed by rotation of π/3 anticlockwise about O",
+        "Enlargement centre O, scale factor 4, followed by rotation of −π/3 about O",
+        "Translation by vector (1, −√3)"
+      ],
+      ans: 0,
+      exp: "Let w = 1 − √3 i. Then |w| = √(1² + (−√3)²) = 2 and arg(w) = −π/3 (Quadrant IV). Hence z → wz is an enlargement centre O with scale factor 2, combined with a rotation of π/3 radians clockwise about O."
+    },
+    {
+      q: "On an Argand diagram, points A and B represent z and iz respectively (z ≠ 0). What type of triangle is △OAB?",
+      opts: [
+        "An isosceles right-angled triangle with ∠AOB = 90° and OA = OB",
+        "An equilateral triangle",
+        "A straight line segment since O, A, B are collinear",
+        "A right-angled triangle with OB = 2·OA"
+      ],
+      ans: 0,
+      exp: "Multiplying z by i rotates OA by 90° (π/2) anticlockwise without changing length (|iz| = |i|·|z| = |z|). Thus OA = OB and ∠AOB = 90°."
+    },
+    {
+      q: "Which expression represents the reflection of the point z = x + yi in the Imaginary axis on an Argand diagram?",
+      opts: [
+        "−z*",
+        "z*",
+        "−z",
+        "iz"
+      ],
+      ans: 0,
+      exp: "Reflecting (x, y) in the Imaginary axis maps it to (−x, y). Since z* = x − yi, −z* = −x + yi, which represents (−x, y)."
+    }
+  ];
+
+  let curQ = 0;
+
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").textContent = item.q;
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i}, this)">${String.fromCharCode(65 + i)}. ${o}</button>
+    `).join("");
+  }
+
+  function gradeExamQ(idx, btn) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  renderAll();
+  renderExamQ();
+</script>
+
+</body>
+</html>
