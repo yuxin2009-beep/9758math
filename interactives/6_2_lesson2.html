@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>6.2 Lesson 2 | Expectation E(X), Variance Var(X) & Standard Deviation</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 16px 20px 28px 20px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    /* HEADER & TABS */
+    .lab-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .lab-title-group h1 {
+      margin: 0;
+      font-size: 1.22rem;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge-9758 {
+      background: var(--purple);
+      color: #ffffff;
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .lab-title-group p {
+      margin: 3px 0 0 0;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .mode-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mode-btn {
+      padding: 8px 13px;
+      border-radius: 10px;
+      border: 1.5px solid #cbd5e1;
+      background: #ffffff;
+      color: var(--text);
+      font-size: 0.81rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mode-btn:hover {
+      border-color: var(--purple);
+      color: var(--purple-dark);
+    }
+
+    .mode-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.22);
+    }
+
+    /* WORKSPACE LAYOUT */
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: 375px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    @media (max-width: 980px) {
+      .workspace-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 18px;
+      box-shadow: 0 3px 10px rgba(148, 163, 184, 0.06);
+      margin-bottom: 14px;
+    }
+
+    .card-kicker {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    /* PRESETS */
+    .preset-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+      margin-bottom: 12px;
+    }
+
+    .preset-btn {
+      text-align: left;
+      padding: 8px 10px;
+      border-radius: 9px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #1e293b;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+      line-height: 1.3;
+    }
+
+    .preset-btn span {
+      display: block;
+      font-size: 0.71rem;
+      font-weight: 500;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .preset-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .preset-btn.active {
+      background: var(--purple-bg);
+      border-color: var(--purple-dark);
+      color: var(--purple-dark);
+    }
+
+    /* PROBABILITY SLIDERS */
+    .prob-slider-row {
+      display: grid;
+      grid-template-columns: 52px 1fr 56px;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 7px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple-dark);
+      cursor: pointer;
+    }
+
+    .val-pill {
+      background: #f1f5f9;
+      color: #1e293b;
+      padding: 2px 6px;
+      border-radius: 6px;
+      text-align: right;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 0.78rem;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .btn-primary {
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: none;
+      background: var(--teal);
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background: #115e59;
+    }
+
+    .btn-amber {
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: none;
+      background: var(--amber);
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-amber:hover {
+      background: #92400e;
+    }
+
+    /* SUMMARY METRIC TILES */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    @media (max-width: 720px) {
+      .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .metric-tile {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      text-align: center;
+    }
+
+    .metric-tile .m-label {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .metric-tile .m-val {
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: #1e293b;
+      font-family: 'Consolas', 'Courier New', monospace;
+    }
+
+    .metric-tile.purple { background: var(--purple-bg); border-color: #d8b4fe; }
+    .metric-tile.purple .m-val { color: var(--purple-dark); }
+
+    .metric-tile.teal { background: var(--teal-bg); border-color: #5eead4; }
+    .metric-tile.teal .m-val { color: var(--teal); }
+
+    .metric-tile.blue { background: var(--blue-bg); border-color: #7dd3fc; }
+    .metric-tile.blue .m-val { color: var(--blue); }
+
+    .metric-tile.amber { background: var(--amber-bg); border-color: #fcd34d; }
+    .metric-tile.amber .m-val { color: var(--amber); }
+
+    /* SVG & TABLES */
+    .svg-wrap {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 6px;
+      margin-bottom: 12px;
+    }
+
+    table.calc-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.81rem;
+      text-align: center;
+    }
+
+    table.calc-table th,
+    table.calc-table td {
+      border: 1px solid #cbd5e1;
+      padding: 6px 8px;
+    }
+
+    table.calc-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    table.calc-table tr.sum-row {
+      background: #f3e8ff;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    /* COMPARISON SPLIT BOX */
+    .formula-compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    @media (max-width: 780px) {
+      .formula-compare-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .formula-box {
+      border-radius: 11px;
+      padding: 12px 14px;
+      font-size: 0.81rem;
+      line-height: 1.5;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+    }
+
+    .trap-banner {
+      margin-top: 10px;
+      background: var(--rose-bg);
+      border-left: 4px solid var(--rose);
+      padding: 9px 12px;
+      border-radius: 8px;
+      font-size: 0.81rem;
+      color: #881337;
+      line-height: 1.45;
+    }
+
+    .sim-banner {
+      margin-top: 10px;
+      background: var(--teal-bg);
+      border: 1px solid #5eead4;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 0.81rem;
+      color: #134e4a;
+      line-height: 1.45;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="lab-header">
+    <div class="lab-title-group">
+      <h1>
+        <span class="badge-9758">6.2 Lesson 2</span>
+        Expectation E(X), Variance Var(X) &amp; Standard Deviation
+      </h1>
+      <p>Visualize E(X) as the mean, compare Var(X) formulas, and evaluate E(g(X)).</p>
+    </div>
+    <div class="mode-tabs">
+      <button class="mode-btn active" id="tab_balance" onclick="switchView('balance')">
+        1. Mean &amp; Spread
+      </button>
+      <button class="mode-btn" id="tab_formulas" onclick="switchView('formulas')">
+        2. Var(X) Formulas &amp; E(X²) Trap
+      </button>
+      <button class="mode-btn" id="tab_egx" onclick="switchView('egx')">
+        3. E(g(X)) &amp; Simulation
+      </button>
+    </div>
+  </header>
+
+  <div class="workspace-grid">
+    <!-- LEFT COLUMN: DISTRIBUTION PRESETS & PROBABILITY TUNER -->
+    <div>
+      <div class="card">
+        <span class="card-kicker" style="color:var(--purple-dark);">1. Choose or Customize Distribution</span>
+        <div class="preset-grid">
+          <button class="preset-btn active" id="pre_examY" onclick="loadPreset('examY')">
+            9758 Worked Example
+            <span>Y ∈ {−1, 0, 2, 4}</span>
+          </button>
+          <button class="preset-btn" id="pre_fairDie" onclick="loadPreset('fairDie')">
+            Uniform Fair Die
+            <span>X ∈ {1, 2, 3, 4, 5, 6}</span>
+          </button>
+          <button class="preset-btn" id="pre_skewed" onclick="loadPreset('skewed')">
+            Right-Skewed Payout
+            <span>X ∈ {0, 1, 2, 10}</span>
+          </button>
+          <button class="preset-btn" id="pre_bimodal" onclick="loadPreset('bimodal')">
+            Polarized / High Spread
+            <span>X ∈ {0, 2, 4, 6}</span>
+          </button>
+        </div>
+
+        <span class="card-kicker" style="color:var(--blue); margin-top:6px;">2. Adjust Outcome Weights / Probabilities</span>
+        <div id="probSlidersContainer"></div>
+
+        <div style="display:flex; justify-content:space-between; font-size:0.78rem; font-weight:700; margin-top:6px;" id="sumIndicatorRow"></div>
+
+        <div class="btn-row">
+          <button class="btn-primary" onclick="normalizeProbs()">
+            Auto-Normalize ∑ P = 1
+          </button>
+          <button class="btn-amber" onclick="runMonteCarlo(2000)">
+            Simulate 2,000 Trials
+          </button>
+        </div>
+
+        <div class="sim-banner" id="simResultBanner" style="display:none;"></div>
+      </div>
+
+      <div class="card">
+        <span class="card-kicker" style="color:var(--teal);">TI-84 Plus CE Verification Steps</span>
+        <ol style="margin:0; padding-left:18px; font-size:0.8rem; line-height:1.5; color:#334155;">
+          <li>Press <strong>[STAT] &gt; [1: Edit]</strong>; enter outcomes <em>x</em> in <code>L1</code> and <em>P(X = x)</em> in <code>L2</code>.</li>
+          <li>Press <strong>[STAT] &gt; [CALC] &gt; [1: 1-Var Stats]</strong>.</li>
+          <li>Set <code>List: L1</code> and <code>FreqList: L2</code>, then select <strong>Calculate</strong>.</li>
+          <li>Read <strong>x̄ = E(X)</strong>, <strong>σx = √Var(X)</strong>, and <strong>Σx² = E(X²)</strong> (since ΣFreq = 1).</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN: METRICS, MEAN VISUALIZATION & TABBED ANALYSIS -->
+    <div>
+      <!-- TOP METRICS -->
+      <div class="metrics-grid">
+        <div class="metric-tile purple">
+          <span class="m-label">Mean E(X) = μ</span>
+          <span class="m-val" id="statMean">1.0000</span>
+        </div>
+        <div class="metric-tile blue">
+          <span class="m-label">Second Moment E(X²)</span>
+          <span class="m-val" id="statEX2">3.4000</span>
+        </div>
+        <div class="metric-tile teal">
+          <span class="m-label">Variance Var(X)</span>
+          <span class="m-val" id="statVar">2.4000</span>
+        </div>
+        <div class="metric-tile amber">
+          <span class="m-label">Std Dev σ = √Var(X)</span>
+          <span class="m-val" id="statSD">1.5492</span>
+        </div>
+      </div>
+
+      <!-- VIEW 1: MEAN & SPREAD -->
+      <div id="view_balance" class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
+          <div>
+            <span class="card-kicker" style="color:var(--purple-dark); margin-bottom:2px;">Distribution Mean &amp; μ ± σ Spread</span>
+            <strong style="font-size:0.9rem; color:#1e293b;">Sum of Deviations Around Mean: ∑ (x − μ) P(X = x) = 0</strong>
+          </div>
+          <label style="font-size:0.79rem; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:5px;">
+            <input type="checkbox" id="toggleSpreadBand" checked onchange="renderAll()" />
+            Show [μ − σ, μ + σ] Band
+          </label>
+        </div>
+
+        <div class="svg-wrap">
+          <svg id="meanSvg" viewBox="0 0 680 295" width="100%" height="auto"></svg>
+        </div>
+
+        <div style="overflow-x:auto;" id="mainCalcTableWrap"></div>
+      </div>
+
+      <!-- VIEW 2: TWO VARIANCE FORMULAS & E(X^2) TRAP -->
+      <div id="view_formulas" class="card" style="display:none;">
+        <span class="card-kicker" style="color:var(--teal);">Proof by Numbers: Definition vs. Computational Formula</span>
+        <div class="formula-compare-grid" id="formulaCompareGrid"></div>
+        <div class="trap-banner" id="ex2TrapBanner"></div>
+      </div>
+
+      <!-- VIEW 3: E(g(X)) EVALUATOR -->
+      <div id="view_egx" class="card" style="display:none;">
+        <span class="card-kicker" style="color:var(--amber);">Expectation of a Function E(g(X)) = ∑ g(x) P(X = x)</span>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;">
+          <button class="mode-btn active" id="gx_recip" onclick="selectGx('recip')">g(X) = 1 / (X + 2)</button>
+          <button class="mode-btn" id="gx_sq" onclick="selectGx('sq')">g(X) = X²</button>
+          <button class="mode-btn" id="gx_abs" onclick="selectGx('abs')">g(X) = |X − μ|</button>
+          <button class="mode-btn" id="gx_exp" onclick="selectGx('exp')">g(X) = 2ˣ</button>
+        </div>
+        <div id="egxDetailBox"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentView = "balance";
+    let currentPreset = "examY";
+    let currentGx = "recip";
+    let items = []; // [{ x, p }]
+
+    const presets = {
+      examY: [
+        { x: -1, p: 0.20 },
+        { x: 0,  p: 0.30 },
+        { x: 2,  p: 0.40 },
+        { x: 4,  p: 0.10 }
+      ],
+      fairDie: [
+        { x: 1, p: 1/6 },
+        { x: 2, p: 1/6 },
+        { x: 3, p: 1/6 },
+        { x: 4, p: 1/6 },
+        { x: 5, p: 1/6 },
+        { x: 6, p: 1/6 }
+      ],
+      skewed: [
+        { x: 0,  p: 0.50 },
+        { x: 1,  p: 0.30 },
+        { x: 2,  p: 0.15 },
+        { x: 10, p: 0.05 }
+      ],
+      bimodal: [
+        { x: 0, p: 0.45 },
+        { x: 2, p: 0.05 },
+        { x: 4, p: 0.05 },
+        { x: 6, p: 0.45 }
+      ]
+    };
+
+    function switchView(view) {
+      currentView = view;
+      ["balance", "formulas", "egx"].forEach(v => {
+        document.getElementById("tab_" + v).classList.toggle("active", v === view);
+        document.getElementById("view_" + v).style.display = v === view ? "block" : "none";
+      });
+      renderAll();
+    }
+
+    function loadPreset(key) {
+      currentPreset = key;
+      document.querySelectorAll(".preset-btn").forEach(b => b.classList.remove("active"));
+      document.getElementById("pre_" + key).classList.add("active");
+      items = presets[key].map(it => ({ x: it.x, p: it.p }));
+      document.getElementById("simResultBanner").style.display = "none";
+      buildProbabilitySliders();
+      renderAll();
+    }
+
+    function buildProbabilitySliders() {
+      const container = document.getElementById("probSlidersContainer");
+      container.innerHTML = items.map((it, idx) => `
+        <div class="prob-slider-row">
+          <span>x = ${it.x}:</span>
+          <input type="range" min="0" max="1" step="0.01" value="${it.p.toFixed(4)}" oninput="updateProb(${idx}, this.value)" />
+          <span class="val-pill" id="pLabel_${idx}">${it.p.toFixed(3)}</span>
+        </div>
+      `).join("");
+    }
+
+    function updateProb(idx, val) {
+      items[idx].p = parseFloat(val);
+      document.getElementById("pLabel_" + idx).textContent = items[idx].p.toFixed(3);
+      renderAll();
+    }
+
+    function normalizeProbs() {
+      const sum = items.reduce((a, b) => a + b.p, 0);
+      if (sum <= 0) {
+        items.forEach(it => it.p = 1 / items.length);
+      } else {
+        items.forEach(it => it.p = it.p / sum);
+      }
+      buildProbabilitySliders();
+      renderAll();
+    }
+
+    function getStats() {
+      const sumP = items.reduce((a, b) => a + b.p, 0);
+      const norm = sumP > 0 ? items.map(it => ({ x: it.x, p: it.p / sumP })) : items;
+      const mean = norm.reduce((acc, it) => acc + it.x * it.p, 0);
+      const ex2 = norm.reduce((acc, it) => acc + (it.x * it.x) * it.p, 0);
+      const variance = Math.max(0, ex2 - mean * mean);
+      const sd = Math.sqrt(variance);
+      return { sumP, norm, mean, ex2, variance, sd };
+    }
+
+    function renderAll() {
+      const stats = getStats();
+      const sumOk = Math.abs(stats.sumP - 1) < 1e-3;
+
+      const sumRow = document.getElementById("sumIndicatorRow");
+      sumRow.innerHTML = sumOk
+        ? `<span style="color:#0f766e;">∑ P(X = x) = ${stats.sumP.toFixed(4)} ✓</span><span>Valid PMF</span>`
+        : `<span style="color:#e11d48;">∑ P(X = x) = ${stats.sumP.toFixed(4)} (≠ 1)</span><span style="color:#e11d48;">Click Auto-Normalize</span>`;
+
+      document.getElementById("statMean").textContent = stats.mean.toFixed(4);
+      document.getElementById("statEX2").textContent = stats.ex2.toFixed(4);
+      document.getElementById("statVar").textContent = stats.variance.toFixed(4);
+      document.getElementById("statSD").textContent = stats.sd.toFixed(4);
+
+      renderMeanSvg(stats);
+      renderMainTable(stats);
+      renderFormulaComparison(stats);
+      renderEgxBox(stats);
+    }
+
+    function renderMeanSvg(stats) {
+      const svg = document.getElementById("meanSvg");
+      const W = 680, H = 295;
+      const padL = 54, padR = 30, padT = 28, axisY = 215;
+      const plotW = W - padL - padR;
+      const maxBarH = 155;
+
+      const minX = Math.min(...stats.norm.map(it => it.x)) - 0.8;
+      const maxX = Math.max(...stats.norm.map(it => it.x)) + 0.8;
+      const spanX = Math.max(1, maxX - minX);
+      const toSvgX = x => padL + ((x - minX) / spanX) * plotW;
+
+      const maxP = Math.max(0.5, ...stats.norm.map(it => it.p * 1.18));
+
+      let html = "";
+
+      // Horizontal gridlines
+      for (let p = 0; p <= maxP + 1e-6; p += 0.1) {
+        const y = axisY - (p / maxP) * maxBarH;
+        html += `<line x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}" stroke="#f1f5f9" stroke-width="1"/>`;
+        html += `<text x="${padL - 8}" y="${y + 4}" text-anchor="end" font-size="10" fill="#64748b">${p.toFixed(1)}</text>`;
+      }
+
+      // Shaded [mu - sigma, mu + sigma] band
+      if (document.getElementById("toggleSpreadBand").checked) {
+        const x1 = Math.max(padL, toSvgX(stats.mean - stats.sd));
+        const x2 = Math.min(W - padR, toSvgX(stats.mean + stats.sd));
+        if (x2 > x1) {
+          html += `<rect x="${x1}" y="${padT}" width="${x2 - x1}" height="${axisY - padT}" fill="#fef3c7" fill-opacity="0.55" stroke="#f59e0b" stroke-dasharray="4,3" stroke-width="1.2"/>`;
+          html += `<text x="${(x1 + x2) / 2}" y="${padT + 14}" text-anchor="middle" font-size="10" font-weight="bold" fill="#b45309">μ ± σ = [${(stats.mean - stats.sd).toFixed(2)}, ${(stats.mean + stats.sd).toFixed(2)}]</text>`;
+        }
+      }
+
+      // Bars standing on the horizontal axis
+      const barW = Math.min(44, (plotW / (stats.norm.length + 1)) * 0.55);
+      stats.norm.forEach(it => {
+        const cx = toSvgX(it.x);
+        const bh = (it.p / maxP) * maxBarH;
+        const by = axisY - bh;
+        html += `
+          <rect x="${cx - barW / 2}" y="${by}" width="${barW}" height="${bh}" rx="4" fill="#8b5cf6" fill-opacity="0.86" stroke="#7c3aed" stroke-width="1.6"/>
+          <text x="${cx}" y="${by - 6}" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#1e293b">${it.p.toFixed(3)}</text>
+          <text x="${cx}" y="${axisY + 18}" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#1e293b">${it.x}</text>
+        `;
+      });
+
+      // Number-line horizontal axis
+      html += `<line x1="${padL - 8}" y1="${axisY}" x2="${W - padR + 8}" y2="${axisY}" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>`;
+
+      // Mean marker at E(X) = mu
+      const mx = toSvgX(stats.mean);
+      html += `
+        <line x1="${mx}" y1="${padT + 20}" x2="${mx}" y2="${axisY}" stroke="#0f766e" stroke-width="1.8" stroke-dasharray="4,3"/>
+        <polygon points="${mx},${axisY + 2} ${mx - 14},${axisY + 26} ${mx + 14},${axisY + 26}" fill="#0f766e" stroke="#115e59" stroke-width="1.5"/>
+        <rect x="${mx - 58}" y="${axisY + 30}" width="116" height="22" rx="6" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.2"/>
+        <text x="${mx}" y="${axisY + 45}" text-anchor="middle" font-size="11" font-weight="bold" fill="#134e4a">Mean E(X) = ${stats.mean.toFixed(3)}</text>
+      `;
+
+      svg.innerHTML = html;
+    }
+
+    function renderMainTable(stats) {
+      const wrap = document.getElementById("mainCalcTableWrap");
+      const rows = stats.norm.map(it => {
+        const xp = it.x * it.p;
+        const x2p = it.x * it.x * it.p;
+        const dev2p = Math.pow(it.x - stats.mean, 2) * it.p;
+        return `
+          <tr>
+            <td><strong>${it.x}</strong></td>
+            <td>${it.p.toFixed(4)}</td>
+            <td>${xp.toFixed(4)}</td>
+            <td>${x2p.toFixed(4)}</td>
+            <td>${dev2p.toFixed(4)}</td>
+          </tr>
+        `;
+      }).join("");
+
+      wrap.innerHTML = `
+        <table class="calc-table">
+          <thead>
+            <tr>
+              <th>x</th>
+              <th>P(X = x)</th>
+              <th>x · P(X = x)</th>
+              <th>x² · P(X = x)</th>
+              <th>(x − μ)² · P(X = x)</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows}
+            <tr class="sum-row">
+              <td>Total ∑</td>
+              <td>1.0000</td>
+              <td>E(X) = ${stats.mean.toFixed(4)}</td>
+              <td>E(X²) = ${stats.ex2.toFixed(4)}</td>
+              <td>Var(X) = ${stats.variance.toFixed(4)}</td>
+            </tr>
+          </tbody>
+        </table>
+      `;
+    }
+
+    function renderFormulaComparison(stats) {
+      const grid = document.getElementById("formulaCompareGrid");
+      const defTerms = stats.norm.map(it => `(${it.x} − ${stats.mean.toFixed(2)})²(${it.p.toFixed(2)})`).join(" + ");
+      const compTerms = stats.norm.map(it => `(${it.x})²(${it.p.toFixed(2)})`).join(" + ");
+
+      grid.innerHTML = `
+        <div class="formula-box" style="background:#f0f9ff; border-color:#7dd3fc;">
+          <strong style="color:#0369a1; font-size:0.86rem;">Method A: Definition Formula</strong><br>
+          <code>Var(X) = E[(X − μ)²] = ∑ (x − μ)² P(X = x)</code><br><br>
+          <strong>Substitution (μ = ${stats.mean.toFixed(4)}):</strong><br>
+          ${defTerms}<br>
+          = <strong>${stats.variance.toFixed(4)}</strong><br>
+          <span style="font-size:0.75rem; color:#475569;">(Messy by hand when μ is a fraction!)</span>
+        </div>
+
+        <div class="formula-box" style="background:#f3e8ff; border-color:#d8b4fe;">
+          <strong style="color:#6b21a8; font-size:0.86rem;">Method B: Computational Formula (9758 Preferred)</strong><br>
+          <code>Var(X) = E(X²) − [E(X)]²</code><br><br>
+          <strong>Step 1:</strong> E(X²) = ${compTerms} = <strong>${stats.ex2.toFixed(4)}</strong><br>
+          <strong>Step 2:</strong> Var(X) = ${stats.ex2.toFixed(4)} − (${stats.mean.toFixed(4)})²<br>
+          = ${stats.ex2.toFixed(4)} − ${(stats.mean * stats.mean).toFixed(4)} = <strong>${stats.variance.toFixed(4)}</strong>
+        </div>
+      `;
+
+      document.getElementById("ex2TrapBanner").innerHTML = `
+        <strong>Common Misconception Alert — E(X²) ≠ [E(X)]²:</strong><br>
+        Here <strong>E(X²) = ${stats.ex2.toFixed(4)}</strong>, whereas <strong>[E(X)]² = ${(stats.mean * stats.mean).toFixed(4)}</strong>.<br>
+        Their difference <em>E(X²) − [E(X)]² = ${stats.variance.toFixed(4)}</em> IS the variance! E(X²) equals [E(X)]² if and only if Var(X) = 0 (a constant variable with zero spread).
+      `;
+    }
+
+    function selectGx(key) {
+      currentGx = key;
+      ["recip", "sq", "abs", "exp"].forEach(k => {
+        document.getElementById("gx_" + k).classList.toggle("active", k === key);
+      });
+      renderAll();
+    }
+
+    function renderEgxBox(stats) {
+      const box = document.getElementById("egxDetailBox");
+      const defs = {
+        recip: { label: "1 / (x + 2)", fn: x => 1 / (x + 2), note: "Notice E(1/(X + 2)) ≠ 1 / (E(X) + 2)!" },
+        sq:    { label: "x²",          fn: x => x * x,       note: "Used directly in Var(X) = E(X²) − [E(X)]²." },
+        abs:   { label: "|x − μ|",     fn: x => Math.abs(x - stats.mean), note: "Mean Absolute Deviation around E(X)." },
+        exp:   { label: "2ˣ",          fn: x => Math.pow(2, x), note: "Exponential transformation of X." }
+      };
+      const d = defs[currentGx];
+      let total = 0;
+
+      const rows = stats.norm.map(it => {
+        const gx = d.fn(it.x);
+        const prod = gx * it.p;
+        total += prod;
+        return `
+          <tr>
+            <td>${it.x}</td>
+            <td>${gx.toFixed(4)}</td>
+            <td>${it.p.toFixed(4)}</td>
+            <td>${prod.toFixed(4)}</td>
+          </tr>
+        `;
+      }).join("");
+
+      box.innerHTML = `
+        <table class="calc-table">
+          <thead>
+            <tr>
+              <th>x</th>
+              <th>g(x) = ${d.label}</th>
+              <th>P(X = x)</th>
+              <th>g(x) · P(X = x)</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows}
+            <tr class="sum-row">
+              <td colspan="3">E(g(X)) = ∑ g(x) P(X = x)</td>
+              <td>${total.toFixed(4)}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top:8px; font-size:0.8rem; color:#475569;"><strong>Insight:</strong> ${d.note}</div>
+      `;
+    }
+
+    function runMonteCarlo(nTrials) {
+      const stats = getStats();
+      const cdf = [];
+      let acc = 0;
+      for (const it of stats.norm) {
+        acc += it.p;
+        cdf.push({ x: it.x, cum: acc });
+      }
+
+      let sum = 0, sumSq = 0;
+      for (let i = 0; i < nTrials; i++) {
+        const r = Math.random();
+        const found = cdf.find(c => r <= c.cum) || cdf[cdf.length - 1];
+        sum += found.x;
+        sumSq += found.x * found.x;
+      }
+
+      const empMean = sum / nTrials;
+      const empVar = (sumSq / nTrials) - empMean * empMean;
+      const banner = document.getElementById("simResultBanner");
+      banner.style.display = "block";
+      banner.innerHTML = `
+        <strong>Monte Carlo Simulation (${nTrials.toLocaleString()} Trials):</strong><br>
+        Sample Mean <strong>x̄ = ${empMean.toFixed(4)}</strong> (Theoretical E(X) = ${stats.mean.toFixed(4)})<br>
+        Sample Variance <strong>s² = ${empVar.toFixed(4)}</strong> (Theoretical Var(X) = ${stats.variance.toFixed(4)})
+      `;
+    }
+
+    // Initialize Lesson 2
+    loadPreset("examY");
+  </script>
+</body>
+</html>
