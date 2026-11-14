@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 4.1 Lesson 2: Complex Roots of Quadratic &amp; Polynomial Equations</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 525px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    @media (max-width: 1000px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.76rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.48;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .control-panel {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 13px;
+      margin-bottom: 11px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .slider-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 7px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .slider-row label {
+      min-width: 115px;
+      color: #1e293b;
+    }
+
+    .slider-row input[type="range"] {
+      flex: 1;
+      accent-color: var(--purple-dark);
+      cursor: pointer;
+    }
+
+    .val-badge {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 2px 7px;
+      min-width: 38px;
+      text-align: center;
+      font-weight: 800;
+      font-size: 0.79rem;
+      color: #1e293b;
+    }
+
+    .sub-pill-bar {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .sub-pill {
+      flex: 1;
+      min-width: 85px;
+      padding: 6px 8px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .sub-pill.active {
+      background: var(--blue-bg);
+      border-color: var(--blue);
+      color: #0c4a6e;
+    }
+
+    .gc-screen-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin-bottom: 11px;
+    }
+
+    .box-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .gc-readout {
+      background: #f1f5f9;
+      border: 2px solid #64748b;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.81rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 5px;
+      line-height: 1.48;
+    }
+
+    .solution-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.82rem;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    /* RIGHT PANEL */
+    .visual-stage {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .step-derivation {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 13px;
+      font-size: 0.81rem;
+      line-height: 1.55;
+      margin-bottom: 10px;
+    }
+
+    .re-hl {
+      background: var(--teal-bg);
+      color: var(--teal);
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-weight: 800;
+    }
+
+    .im-hl {
+      background: var(--rose-bg);
+      color: var(--rose);
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-weight: 800;
+    }
+
+    .gc-guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .gc-guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .step-pill {
+      background: var(--blue-bg);
+      border: 1px solid #bae6fd;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.77rem;
+      line-height: 1.45;
+      color: #0c4a6e;
+    }
+
+    .misconception-box {
+      margin-top: 10px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 10px 13px;
+      font-size: 0.79rem;
+      line-height: 1.48;
+      color: #78350f;
+    }
+
+    .grader-card {
+      margin-top: 10px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 700px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Select a Polynomial Root Mode (Top-Left)</strong>
+        Explore <em>1. Real-Coeff Quadratics</em>, <em>2. Non-Real Coeff Quadratics</em> (why conjugate symmetry fails!), <em>3. Cubic Factorisation via Conjugate Pair</em>, and <em>4. Quartic Factorisation</em>.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Adjust Coefficients or Known Root w = a + bi</strong>
+        Use the sliders or preset buttons to watch how <em>(z &minus; w)(z &minus; w*)</em> always expands into a real quadratic factor <em>z&sup2; &minus; 2az + (a&sup2; + b&sup2;)</em>.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Inspect Argand Root Symmetry &amp; Exam Check</strong>
+        Compare symmetric conjugate root pairs on the Argand diagram against asymmetric roots when coefficients are non-real, then complete the 3-question <em>9758 Polynomial Check</em>.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        4.1 Lesson 2 &bull; Complex Roots of Quadratic &amp; Polynomial Equations
+      </div>
+
+      <!-- 4 Mode Presets -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="mode_realquad" onclick="setMode('realquad')">
+          1. Real-Coeff Quadratics
+        </button>
+        <button class="tab-btn" id="mode_complexquad" onclick="setMode('complexquad')">
+          2. Non-Real Coeff Quadratics
+        </button>
+        <button class="tab-btn" id="mode_cubic" onclick="setMode('cubic')">
+          3. Cubic Factoriser (w &amp; w*)
+        </button>
+        <button class="tab-btn" id="mode_quartic" onclick="setMode('quartic')">
+          4. Quartic Polynomial Solver
+        </button>
+      </div>
+
+      <!-- Concept Context Box -->
+      <div class="context-box" id="contextBox"></div>
+
+      <!-- Interactive Sliders & Sub-Controls -->
+      <div class="control-panel" id="controlPanel"></div>
+
+      <!-- Simulated TI-84 Plus CE Output -->
+      <div class="gc-screen-box" id="gcOutputBox"></div>
+
+      <!-- Final Answer Banner -->
+      <div class="solution-banner" id="solutionBanner"></div>
+    </div>
+
+    <!-- RIGHT VISUALIZATION, DERIVATION & EXAM CHECK -->
+    <div class="card">
+      <div style="font-size:1.02rem; font-weight:800; color:#1e293b; margin-bottom:8px;" id="rightHeading">
+        Argand Root Symmetry &amp; Step-by-Step Factorisation
+      </div>
+
+      <!-- Visual Diagram Stage -->
+      <div class="visual-stage" id="visualStage"></div>
+
+      <!-- Algebraic Derivation Steps -->
+      <div class="step-derivation" id="derivationBox"></div>
+
+      <!-- 3-Step TI-84 Plus CE Guide -->
+      <div class="gc-guide-grid" id="gcGuideGrid"></div>
+
+      <!-- 9758 Misconception Alert -->
+      <div class="misconception-box" id="misconceptionBox"></div>
+
+      <!-- Quick 9758 Exam Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 Polynomial &amp; Conjugate Root Check (<span id="qIdxLbl">1</span>/3)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.8rem; line-height:1.45; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  /* -------------------- MATH HELPERS -------------------- */
+  function fmtSigned(n) {
+    return n < 0 ? `−${Math.abs(n)}` : `${n}`;
+  }
+
+  function fmtTerm(coeff, varPart, isFirst = false) {
+    if (coeff === 0) return "";
+    const absC = Math.abs(coeff);
+    const numStr = (absC === 1 && varPart !== "") ? "" : `${absC}`;
+    if (isFirst) {
+      return `${coeff < 0 ? "−" : ""}${numStr}${varPart}`;
+    }
+    return `${coeff < 0 ? " − " : " + "}${numStr}${varPart}`;
+  }
+
+  function fmtComplex(re, im) {
+    const r = Math.abs(re) < 1e-8 ? 0 : re;
+    const i = Math.abs(im) < 1e-8 ? 0 : im;
+    if (r === 0 && i === 0) return "0";
+    const rStr = Number.isInteger(r) ? fmtSigned(r) : r.toFixed(2).replace(/\.00$/, "");
+    const absI = Math.abs(i);
+    const iNum = Number.isInteger(absI) ? (absI === 1 ? "" : `${absI}`) : absI.toFixed(2).replace(/\.00$/, "");
+    if (r === 0) return i < 0 ? `−${iNum}i` : `${iNum}i`;
+    if (i === 0) return rStr;
+    return i < 0 ? `${rStr} − ${iNum}i` : `${rStr} + ${iNum}i`;
+  }
+
+  function buildPolyString(coeffs) {
+    // coeffs from highest degree to constant
+    const deg = coeffs.length - 1;
+    let out = "";
+    let first = true;
+    coeffs.forEach((c, idx) => {
+      if (Math.abs(c) < 1e-9) return;
+      const p = deg - idx;
+      const v = p === 0 ? "" : p === 1 ? "z" : `z<sup>${p}</sup>`;
+      out += fmtTerm(c, v, first);
+      first = false;
+    });
+    return out || "0";
+  }
+
+  function drawArgandRoots(roots, caption) {
+    const cx = 250, cy = 105;
+    let maxCoord = 4;
+    roots.forEach(rt => {
+      maxCoord = Math.max(maxCoord, Math.abs(rt.re) + 1.5, Math.abs(rt.im) + 1.5);
+    });
+    const sc = Math.min(24, 82 / maxCoord);
+
+    let grid = "";
+    const step = maxCoord > 7 ? 2 : 1;
+    for (let g = -Math.floor(maxCoord); g <= Math.floor(maxCoord); g += step) {
+      if (g === 0) continue;
+      const gx = cx + g * sc;
+      const gy = cy - g * sc;
+      grid += `<line x1="${gx}" y1="12" x2="${gx}" y2="198" stroke="#f1f5f9" stroke-width="1"/>`;
+      grid += `<line x1="65" y1="${gy}" x2="435" y2="${gy}" stroke="#f1f5f9" stroke-width="1"/>`;
+    }
+
+    let ptsHtml = "";
+    roots.forEach((rt, idx) => {
+      const px = cx + rt.re * sc;
+      const py = cy - rt.im * sc;
+      const col = rt.color || (idx % 2 === 0 ? "#7c3aed" : "#0284c7");
+      const dy = rt.im >= 0 ? -8 : 14;
+      ptsHtml += `
+        <line x1="${cx}" y1="${cy}" x2="${px}" y2="${py}" stroke="${col}" stroke-width="1.6" stroke-dasharray="4,3"/>
+        <circle cx="${px}" cy="${py}" r="5.2" fill="${col}"/>
+        <text x="${px + 8}" y="${py + dy}" font-size="10.5" font-weight="bold" fill="${col}">${rt.label}</text>
+      `;
+    });
+
+    // Draw dashed vertical connector between conjugate pairs if present
+    let conjLine = "";
+    for (let i = 0; i < roots.length; i++) {
+      for (let j = i + 1; j < roots.length; j++) {
+        if (Math.abs(roots[i].re - roots[j].re) < 1e-6 && Math.abs(roots[i].im + roots[j].im) < 1e-6 && Math.abs(roots[i].im) > 1e-6) {
+          const px = cx + roots[i].re * sc;
+          const y1 = cy - roots[i].im * sc;
+          const y2 = cy - roots[j].im * sc;
+          conjLine += `<line x1="${px}" y1="${y1}" x2="${px}" y2="${y2}" stroke="#94a3b8" stroke-width="1.3" stroke-dasharray="3,3"/>`;
+        }
+      }
+    }
+
+    return `
+      <svg width="500" height="210" viewBox="0 0 500 210">
+        ${grid}
+        <line x1="65" y1="${cy}" x2="435" y2="${cy}" stroke="#64748b" stroke-width="1.3"/>
+        <line x1="${cx}" y1="10" x2="${cx}" y2="200" stroke="#64748b" stroke-width="1.3"/>
+        <text x="424" y="${cy - 6}" font-size="10.5" font-weight="bold" fill="#475569">Re</text>
+        <text x="${cx + 7}" y="20" font-size="10.5" font-weight="bold" fill="#475569">Im</text>
+        <text x="${cx - 12}" y="${cy + 13}" font-size="9.5" fill="#475569">O</text>
+        ${conjLine}
+        ${ptsHtml}
+      </svg>
+      <div style="font-size:0.77rem; font-weight:700; color:var(--muted); margin-top:2px;">${caption}</div>
+    `;
+  }
+
+  /* -------------------- STATE -------------------- */
+  let currentMode = "realquad";
+  const state = {
+    // Mode 1: Real-coeff quadratic az^2 + bz + c = 0
+    qa: 1,
+    qb: -4,
+    qc: 13,
+    // Mode 2: Non-real coeff quadratic presets
+    cqPreset: 0,
+    // Mode 3: Cubic with root w = a + bi and real root r
+    cuA: 2,
+    cuB: 3,
+    cuR: 1,
+    // Mode 4: Quartic presets
+    qtPreset: 0
+  };
+
+  function setMode(mode) {
+    currentMode = mode;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("mode_" + mode).classList.add("active");
+    renderAll();
+  }
+
+  function renderAll() {
+    if (currentMode === "realquad") renderRealQuadMode();
+    else if (currentMode === "complexquad") renderComplexQuadMode();
+    else if (currentMode === "cubic") renderCubicMode();
+    else if (currentMode === "quartic") renderQuarticMode();
+  }
+
+  /* =====================================================================
+     MODE 1: REAL-COEFFICIENT QUADRATICS
+     ===================================================================== */
+  function renderRealQuadMode() {
+    document.getElementById("contextBox").innerHTML = `
+      <div><strong>Quadratic Equations with Real Coefficients:</strong> For <em>az&sup2; + bz + c = 0</em> (<em>a, b, c &isin; ℝ, a &ne; 0</em>), when discriminant <strong>&Delta; = b&sup2; &minus; 4ac &lt; 0</strong>, the roots form a <strong>conjugate pair</strong>: <em>z = [&minus;b &plusmn; i&radic;(4ac &minus; b&sup2;)] / (2a)</em>.</div>
+      <div class="var-pill">Conjugate Symmetry: z&#8322; = z&#8321;* (Mirror images across the Real axis)</div>
+    `;
+
+    document.getElementById("controlPanel").innerHTML = `
+      <div class="panel-header">
+        <span>Configure az&sup2; + bz + c = 0 (a, b, c &isin; ℝ)</span>
+        <span style="color:var(--purple-dark);">Discriminant &Delta; = b&sup2; &minus; 4ac</span>
+      </div>
+      <div class="slider-row">
+        <label>Coeff a (a &ne; 0):</label>
+        <input type="range" min="1" max="4" step="1" value="${state.qa}" oninput="state.qa=parseInt(this.value); renderRealQuadMode()" />
+        <span class="val-badge">${state.qa}</span>
+      </div>
+      <div class="slider-row">
+        <label>Coeff b:</label>
+        <input type="range" min="-10" max="10" step="1" value="${state.qb}" oninput="state.qb=parseInt(this.value); renderRealQuadMode()" />
+        <span class="val-badge">${fmtSigned(state.qb)}</span>
+      </div>
+      <div class="slider-row" style="margin-bottom:4px;">
+        <label>Coeff c:</label>
+        <input type="range" min="-5" max="20" step="1" value="${state.qc}" oninput="state.qc=parseInt(this.value); renderRealQuadMode()" />
+        <span class="val-badge">${fmtSigned(state.qc)}</span>
+      </div>
+      <div class="sub-pill-bar">
+        <button class="sub-pill" onclick="state.qa=1; state.qb=-4; state.qc=13; renderRealQuadMode()">z&sup2; &minus; 4z + 13 = 0</button>
+        <button class="sub-pill" onclick="state.qa=1; state.qb=2; state.qc=5; renderRealQuadMode()">z&sup2; + 2z + 5 = 0</button>
+        <button class="sub-pill" onclick="state.qa=2; state.qb=-2; state.qc=5; renderRealQuadMode()">2z&sup2; &minus; 2z + 5 = 0</button>
+        <button class="sub-pill" onclick="state.qa=1; state.qb=-5; state.qc=6; renderRealQuadMode()">Real Roots (&Delta; &gt; 0)</button>
+      </div>
+    `;
+
+    const a = state.qa, b = state.qb, c = state.qc;
+    const eqnStr = buildPolyString([a, b, c]) + " = 0";
+    const disc = b * b - 4 * a * c;
+
+    document.getElementById("rightHeading").textContent = "Argand Root Positions & Completing-the-Square / Formula Derivation";
+
+    if (disc < 0) {
+      const re = -b / (2 * a);
+      const im = Math.sqrt(-disc) / (2 * a);
+      const r1Str = fmtComplex(re, im);
+      const r2Str = fmtComplex(re, -im);
+
+      document.getElementById("gcOutputBox").innerHTML = `
+        <span class="box-title">TI-84 Plus CE PlySmlt2 Readout (MODE: a+bi)</span>
+        <div class="gc-readout">x&#8321; = ${r1Str} &nbsp;|&nbsp; x&#8322; = ${r2Str}</div>
+      `;
+      document.getElementById("solutionBanner").innerHTML = `
+        Since <strong>&Delta; = ${disc} &lt; 0</strong> and coefficients are real, roots form a conjugate pair: <strong>z = ${r1Str}</strong> and <strong>z = ${r2Str}</strong>.
+      `;
+
+      document.getElementById("visualStage").innerHTML = drawArgandRoots(
+        [
+          { re, im, label: `z₁ = ${r1Str}`, color: "#7c3aed" },
+          { re, im: -im, label: `z₂ = ${r2Str}`, color: "#0284c7" }
+        ],
+        "Symmetric conjugate pair reflected across the Real axis (Im = 0)."
+      );
+
+      const exactSurd = Number.isInteger(Math.sqrt(-disc)) ? `${Math.sqrt(-disc)}` : `&radic;${-disc}`;
+      document.getElementById("derivationBox").innerHTML = `
+        <strong>Equation:</strong> ${eqnStr}<br>
+        <strong>Step 1 (Discriminant):</strong> &Delta; = (${b})&sup2; &minus; 4(${a})(${c}) = <span class="im-hl">${disc} &lt; 0</span> (two non-real conjugate roots).<br>
+        <strong>Step 2 (Quadratic Formula):</strong> z = [${-b} &plusmn; &radic;(${disc})] / ${2 * a} = [${-b} &plusmn; ${exactSurd}i] / ${2 * a} = <strong>${r1Str}</strong> or <strong>${r2Str}</strong>.
+      `;
+    } else if (disc === 0) {
+      const re = -b / (2 * a);
+      const rStr = Number.isInteger(re) ? `${re}` : re.toFixed(2);
+      document.getElementById("gcOutputBox").innerHTML = `
+        <span class="box-title">TI-84 Plus CE PlySmlt2 Readout</span>
+        <div class="gc-readout">x&#8321; = x&#8322; = ${rStr} (Repeated Real Root)</div>
+      `;
+      document.getElementById("solutionBanner").innerHTML = `Since <strong>&Delta; = 0</strong>, there is one repeated real root: <strong>z = ${rStr}</strong>.`;
+      document.getElementById("visualStage").innerHTML = drawArgandRoots(
+        [{ re, im: 0, label: `z = ${rStr}`, color: "#0f766e" }],
+        "Repeated real root lying directly on the Real axis."
+      );
+      document.getElementById("derivationBox").innerHTML = `
+        <strong>Equation:</strong> ${eqnStr}<br>
+        <strong>Step 1:</strong> &Delta; = (${b})&sup2; &minus; 4(${a})(${c}) = <strong>0</strong>.<br>
+        <strong>Step 2:</strong> Repeated real root z = ${-b} / ${2 * a} = <strong>${rStr}</strong>.
+      `;
+    } else {
+      const r1 = (-b + Math.sqrt(disc)) / (2 * a);
+      const r2 = (-b - Math.sqrt(disc)) / (2 * a);
+      const r1s = Number.isInteger(r1) ? `${r1}` : r1.toFixed(2);
+      const r2s = Number.isInteger(r2) ? `${r2}` : r2.toFixed(2);
+      document.getElementById("gcOutputBox").innerHTML = `
+        <span class="box-title">TI-84 Plus CE PlySmlt2 Readout</span>
+        <div class="gc-readout">x&#8321; = ${r1s} &nbsp;|&nbsp; x&#8322; = ${r2s} (Distinct Real Roots)</div>
+      `;
+      document.getElementById("solutionBanner").innerHTML = `Since <strong>&Delta; = ${disc} &gt; 0</strong>, both roots are real: <strong>z = ${r1s}</strong> and <strong>z = ${r2s}</strong>.`;
+      document.getElementById("visualStage").innerHTML = drawArgandRoots(
+        [
+          { re: r1, im: 0, label: `z₁ = ${r1s}`, color: "#0f766e" },
+          { re: r2, im: 0, label: `z₂ = ${r2s}`, color: "#0284c7" }
+        ],
+        "Distinct real roots lying on the Real axis (not non-real conjugates)."
+      );
+      document.getElementById("derivationBox").innerHTML = `
+        <strong>Equation:</strong> ${eqnStr}<br>
+        <strong>Step 1:</strong> &Delta; = (${b})&sup2; &minus; 4(${a})(${c}) = <span class="re-hl">${disc} &gt; 0</span>.<br>
+        <strong>Step 2:</strong> Real roots z = [${-b} &plusmn; &radic;${disc}] / ${2 * a} &rArr; <strong>z = ${r1s}</strong> or <strong>z = ${r2s}</strong>.
+      `;
+    }
+
+    renderSharedFooter();
+  }
+
+  /* =====================================================================
+     MODE 2: NON-REAL COEFFICIENT QUADRATICS (COUNTEREXAMPLE LAB)
+     ===================================================================== */
+  const complexQuads = [
+    {
+      title: "z² + iz + 2 = 0",
+      eqn: "z<sup>2</sup> + iz + 2 = 0",
+      bStr: "i",
+      cStr: "2",
+      discExpr: "i<sup>2</sup> &minus; 4(1)(2) = &minus;1 &minus; 8 = &minus;9",
+      sqrtDisc: "3i",
+      r1: { re: 0, im: 1, label: "z₁ = i" },
+      r2: { re: 0, im: -2, label: "z₂ = −2i" },
+      note: "Notice z₁ = i and z₂ = −2i are NOT conjugates! Because the coefficient of z is i (non-real), the Conjugate Root Theorem does NOT apply."
+    },
+    {
+      title: "z² − (2 + 2i)z + (−1 + 2i) = 0",
+      eqn: "z<sup>2</sup> &minus; (2 + 2i)z + (&minus;1 + 2i) = 0",
+      bStr: "&minus;(2 + 2i)",
+      cStr: "&minus;1 + 2i",
+      discExpr: "[&minus;(2 + 2i)]<sup>2</sup> &minus; 4(1)(&minus;1 + 2i) = 8i + 4 &minus; 8i = 4",
+      sqrtDisc: "2",
+      r1: { re: 1, im: 2, label: "z₁ = 1 + 2i" },
+      r2: { re: 1, im: 0, label: "z₂ = 1" },
+      note: "One root is 1 + 2i and the other is real (1)! If a student wrongly assumed 1 − 2i was a root, they would get the wrong equation."
+    },
+    {
+      title: "z² − (3 + i)z + (2 + 2i) = 0",
+      eqn: "z<sup>2</sup> &minus; (3 + i)z + (2 + 2i) = 0",
+      bStr: "&minus;(3 + i)",
+      cStr: "2 + 2i",
+      discExpr: "(3 + i)<sup>2</sup> &minus; 4(2 + 2i) = (8 + 6i) &minus; (8 + 8i) = &minus;2i = (1 &minus; i)<sup>2</sup>",
+      sqrtDisc: "1 &minus; i",
+      r1: { re: 2, im: 0, label: "z₁ = 2" },
+      r2: { re: 1, im: 1, label: "z₂ = 1 + i" },
+      note: "Factorises directly as (z − 2)(z − (1 + i)) = 0. Roots are 2 and 1 + i — completely asymmetric across the Real axis."
+    }
+  ];
+
+  function renderComplexQuadMode() {
+    const item = complexQuads[state.cqPreset];
+    document.getElementById("contextBox").innerHTML = `
+      <div><strong>Crucial 9758 Condition — Real Coefficients Only!</strong> The Conjugate Root Theorem applies <strong>ONLY</strong> when all polynomial coefficients are <strong>real</strong>. When coefficients contain <em>i</em>, solve via the quadratic formula or factorisation — never assume roots come in conjugate pairs.</div>
+      <div class="var-pill">Warning: Non-real coefficients break mirror symmetry across Re-axis</div>
+    `;
+
+    document.getElementById("controlPanel").innerHTML = `
+      <div class="panel-header">
+        <span>Select Non-Real Coefficient Quadratic</span>
+        <span style="color:var(--rose);">CRT Does NOT Apply</span>
+      </div>
+      <div class="sub-pill-bar" style="margin-top:0;">
+        ${complexQuads.map((q, idx) => `
+          <button class="sub-pill ${state.cqPreset === idx ? "active" : ""}" onclick="state.cqPreset=${idx}; renderComplexQuadMode()">
+            ${idx + 1}. ${q.title}
+          </button>
+        `).join("")}
+      </div>
+    `;
+
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">Exact Quadratic Formula Roots</span>
+      <div class="gc-readout">${item.r1.label} &nbsp;|&nbsp; ${item.r2.label} &nbsp;(NOT conjugates!)</div>
+    `;
+
+    document.getElementById("solutionBanner").innerHTML = `Roots of <strong>${item.title}</strong> are <strong>${item.r1.label}</strong> and <strong>${item.r2.label}</strong>.`;
+    document.getElementById("rightHeading").textContent = "Asymmetric Root Plot & Quadratic Formula with Complex Discriminant";
+
+    document.getElementById("visualStage").innerHTML = drawArgandRoots(
+      [
+        { ...item.r1, color: "#7c3aed" },
+        { ...item.r2, color: "#e11d48" }
+      ],
+      "Notice the absence of mirror symmetry across the Real axis!"
+    );
+
+    document.getElementById("derivationBox").innerHTML = `
+      <strong>Equation:</strong> ${item.eqn}<br>
+      <strong>Step 1 (Discriminant):</strong> &Delta; = b&sup2; &minus; 4ac = ${item.discExpr}, so &radic;&Delta; = &plusmn;(${item.sqrtDisc}).<br>
+      <strong>Step 2 (Quadratic Formula):</strong> z = [&minus;(${item.bStr}) &plusmn; (${item.sqrtDisc})] / 2 &rArr; <strong>${item.r1.label}</strong> or <strong>${item.r2.label}</strong>.<br>
+      <span style="color:var(--rose); font-weight:700;">Why no conjugate pair?</span> ${item.note}
+    `;
+
+    renderSharedFooter();
+  }
+
+  /* =====================================================================
+     MODE 3: CUBIC FACTORISER VIA CONJUGATE ROOT PAIR
+     ===================================================================== */
+  function renderCubicMode() {
+    document.getElementById("contextBox").innerHTML = `
+      <div><strong>Conjugate Root Theorem for Cubics:</strong> If a cubic <em>P(z) = 0</em> with <strong>real coefficients</strong> has a non-real root <em>w = a + bi</em>, then <strong>w* = a &minus; bi</strong> is also a root, and <strong>(z &minus; w)(z &minus; w*) = z&sup2; &minus; 2az + (a&sup2; + b&sup2;)</strong> is a real quadratic factor of <em>P(z)</em>.</div>
+      <div class="var-pill">Fast Factor Identity: [z &minus; (a + bi)][z &minus; (a &minus; bi)] = (z &minus; a)&sup2; + b&sup2;</div>
+    `;
+
+    document.getElementById("controlPanel").innerHTML = `
+      <div class="panel-header">
+        <span>Build Cubic from Root w = a + bi &amp; Real Root r</span>
+        <span style="color:var(--purple-dark);">P(z) &isin; ℝ[z]</span>
+      </div>
+      <div class="slider-row">
+        <label>Re(w) = a:</label>
+        <input type="range" min="-4" max="4" step="1" value="${state.cuA}" oninput="state.cuA=parseInt(this.value); renderCubicMode()" />
+        <span class="val-badge">${fmtSigned(state.cuA)}</span>
+      </div>
+      <div class="slider-row">
+        <label>Im(w) = b (b &gt; 0):</label>
+        <input type="range" min="1" max="5" step="1" value="${state.cuB}" oninput="state.cuB=parseInt(this.value); renderCubicMode()" />
+        <span class="val-badge">${state.cuB}</span>
+      </div>
+      <div class="slider-row" style="margin-bottom:4px;">
+        <label>3rd Real Root r:</label>
+        <input type="range" min="-5" max="5" step="1" value="${state.cuR}" oninput="state.cuR=parseInt(this.value); renderCubicMode()" />
+        <span class="val-badge">${fmtSigned(state.cuR)}</span>
+      </div>
+      <div class="sub-pill-bar">
+        <button class="sub-pill" onclick="state.cuA=2; state.cuB=3; state.cuR=1; renderCubicMode()">Preset 1: w=2+3i, r=1</button>
+        <button class="sub-pill" onclick="state.cuA=-1; state.cuB=2; state.cuR=3; renderCubicMode()">Preset 2: w=&minus;1+2i, r=3</button>
+        <button class="sub-pill" onclick="state.cuA=1; state.cuB=1; state.cuR=-2; renderCubicMode()">Preset 3: w=1+i, r=&minus;2</button>
+      </div>
+    `;
+
+    const a = state.cuA, b = state.cuB, r = state.cuR;
+    // Quadratic factor: z^2 + q1 z + q0 where q1 = -2a, q0 = a^2 + b^2
+    const q1 = -2 * a;
+    const q0 = a * a + b * b;
+    const quadStr = buildPolyString([1, q1, q0]);
+
+    // Cubic: (z^2 + q1 z + q0)(z - r) = z^3 + (q1 - r)z^2 + (q0 - r*q1)z - r*q0
+    const c2 = q1 - r;
+    const c1 = q0 - r * q1;
+    const c0 = -r * q0;
+    const cubicStr = buildPolyString([1, c2, c1, c0]);
+
+    const wStr = fmtComplex(a, b);
+    const wConjStr = fmtComplex(a, -b);
+    const linFactor = r === 0 ? "z" : `(z ${r > 0 ? "− " + r : "+ " + Math.abs(r)})`;
+
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">TI-84 Plus CE Poly Root Finder (Degree 3)</span>
+      <div class="gc-readout">x&#8321; = ${wStr} &nbsp;|&nbsp; x&#8322; = ${wConjStr} &nbsp;|&nbsp; x&#8323; = ${r}</div>
+    `;
+
+    document.getElementById("solutionBanner").innerHTML = `
+      Factorisation: <strong>${cubicStr} = (${quadStr})${linFactor} = 0</strong> &rArr; Roots: <strong>${r}, ${wStr}, ${wConjStr}</strong>.
+    `;
+
+    document.getElementById("rightHeading").textContent = "Cubic Roots on Argand Diagram & Real Quadratic Factor Construction";
+
+    document.getElementById("visualStage").innerHTML = drawArgandRoots(
+      [
+        { re: a, im: b, label: `w = ${wStr}`, color: "#7c3aed" },
+        { re: a, im: -b, label: `w* = ${wConjStr}`, color: "#0284c7" },
+        { re: r, im: 0, label: `r = ${r}`, color: "#0f766e" }
+      ],
+      "Every real-coefficient cubic has at least 1 real root plus either 2 real roots or 1 conjugate pair."
+    );
+
+    document.getElementById("derivationBox").innerHTML = `
+      <strong>Given Polynomial Equation:</strong> ${cubicStr} = 0, with known root <em>w = ${wStr}</em>.<br>
+      <strong>Step 1 (Conjugate Root):</strong> Since all coefficients are real, <strong>w* = ${wConjStr}</strong> is also a root.<br>
+      <strong>Step 2 (Form Real Quadratic Factor):</strong> [z &minus; (${wStr})][z &minus; (${wConjStr})] = (z ${a >= 0 ? "− " + a : "+ " + Math.abs(a)})&sup2; + ${b}&sup2; = <span class="re-hl">${quadStr}</span>.<br>
+      <strong>Step 3 (Compare Coefficients / Long Division):</strong> ${cubicStr} = (${quadStr})${linFactor} = 0 &rArr; third root is <strong>z = ${r}</strong>.
+    `;
+
+    renderSharedFooter();
+  }
+
+  /* =====================================================================
+     MODE 4: QUARTIC POLYNOMIAL SOLVER (TWO CONJUGATE PAIRS OR MIXED)
+     ===================================================================== */
+  const quarticPresets = [
+    {
+      label: "1. Two Conjugate Pairs (2±i, −1±2i)",
+      w1: { a: 2, b: 1 },
+      w2: { a: -1, b: 2 },
+      story: "A real-coefficient quartic has two non-real roots <strong>2 + i</strong> and <strong>−1 + 2i</strong>. Each generates its own real quadratic factor!"
+    },
+    {
+      label: "2. Pure Imaginary Pairs (±2i, ±3i)",
+      w1: { a: 0, b: 2 },
+      w2: { a: 0, b: 3 },
+      story: "Biquadratic equation <em>z⁴ + 13z² + 36 = 0</em> factors into <em>(z² + 4)(z² + 9) = 0</em>, giving four purely imaginary roots."
+    },
+    {
+      label: "3. Roots of z⁴ + 4 = 0 (Sophie Germain)",
+      w1: { a: 1, b: 1 },
+      w2: { a: -1, b: 1 },
+      story: "Since <em>z⁴ + 4 = (z² + 2)² − 4z² = (z² − 2z + 2)(z² + 2z + 2)</em>, the four roots are <strong>1 ± i</strong> and <strong>−1 ± i</strong>."
+    }
+  ];
+
+  function renderQuarticMode() {
+    const qp = quarticPresets[state.qtPreset];
+    const { a: a1, b: b1 } = qp.w1;
+    const { a: a2, b: b2 } = qp.w2;
+
+    // Q1 = z^2 - 2a1 z + (a1^2 + b1^2)
+    const p1 = -2 * a1, q1 = a1 * a1 + b1 * b1;
+    // Q2 = z^2 - 2a2 z + (a2^2 + b2^2)
+    const p2 = -2 * a2, q2 = a2 * a2 + b2 * b2;
+
+    // Quartic coefficients: (z^2 + p1 z + q1)(z^2 + p2 z + q2)
+    const c4 = 1;
+    const c3 = p1 + p2;
+    const c2 = q1 + p1 * p2 + q2;
+    const c1 = p1 * q2 + q1 * p2;
+    const c0 = q1 * q2;
+
+    const q1Str = buildPolyString([1, p1, q1]);
+    const q2Str = buildPolyString([1, p2, q2]);
+    const quarticStr = buildPolyString([c4, c3, c2, c1, c0]);
+
+    const r1 = fmtComplex(a1, b1), r1c = fmtComplex(a1, -b1);
+    const r2 = fmtComplex(a2, b2), r2c = fmtComplex(a2, -b2);
+
+    document.getElementById("contextBox").innerHTML = `
+      <div><strong>Quartic Equations with Real Coefficients:</strong> By the Fundamental Theorem of Algebra, a degree-4 real polynomial has 4 roots in ℂ (counted with multiplicity), pairing into real quadratic factors.</div>
+      <div class="var-pill">${qp.story}</div>
+    `;
+
+    document.getElementById("controlPanel").innerHTML = `
+      <div class="panel-header">
+        <span>Select Quartic Factorization Case</span>
+        <span style="color:var(--purple-dark);">Degree 4 &rarr; Two Quadratics</span>
+      </div>
+      <div class="sub-pill-bar" style="margin-top:0;">
+        ${quarticPresets.map((item, idx) => `
+          <button class="sub-pill ${state.qtPreset === idx ? "active" : ""}" onclick="state.qtPreset=${idx}; renderQuarticMode()">
+            ${item.label}
+          </button>
+        `).join("")}
+      </div>
+    `;
+
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">TI-84 Plus CE Poly Root Finder (Degree 4)</span>
+      <div class="gc-readout">${r1}, &nbsp;${r1c}, &nbsp;${r2}, &nbsp;${r2c}</div>
+    `;
+
+    document.getElementById("solutionBanner").innerHTML = `
+      <strong>${quarticStr} = (${q1Str})(${q2Str}) = 0</strong> &rArr; Roots: <strong>${r1}, ${r1c}, ${r2}, ${r2c}</strong>.
+    `;
+
+    document.getElementById("rightHeading").textContent = "Four Quartic Roots on Argand Diagram & Quadratic Decomposition";
+
+    document.getElementById("visualStage").innerHTML = drawArgandRoots(
+      [
+        { re: a1, im: b1, label: r1, color: "#7c3aed" },
+        { re: a1, im: -b1, label: r1c, color: "#7c3aed" },
+        { re: a2, im: b2, label: r2, color: "#0284c7" },
+        { re: a2, im: -b2, label: r2c, color: "#0284c7" }
+      ],
+      "Two symmetric conjugate root pairs across the Real axis."
+    );
+
+    document.getElementById("derivationBox").innerHTML = `
+      <strong>Quartic Equation:</strong> ${quarticStr} = 0<br>
+      <strong>Step 1 (First Conjugate Pair ${r1}, ${r1c}):</strong> Forms real factor <span class="re-hl">${q1Str}</span>.<br>
+      <strong>Step 2 (Divide Polynomial):</strong> (${quarticStr}) &divide; (${q1Str}) = <span class="im-hl">${q2Str}</span>.<br>
+      <strong>Step 3 (Solve Second Quadratic):</strong> ${q2Str} = 0 &rArr; <strong>z = ${r2}</strong> and <strong>z = ${r2c}</strong>.
+    `;
+
+    renderSharedFooter();
+  }
+
+  /* =====================================================================
+     SHARED TI-84 GUIDE & MISCONCEPTION ALERT
+     ===================================================================== */
+  function renderSharedFooter() {
+    document.getElementById("gcGuideGrid").innerHTML = `
+      <div class="step-pill">
+        <strong>1. Open Poly Root Finder</strong><br>
+        Ensure <strong>[MODE]</strong> is set to <strong>a+bi</strong>, then press <strong>[APPS] &rarr; PlySmlt2 &rarr; 1: Poly Root Finder</strong>.
+      </div>
+      <div class="step-pill">
+        <strong>2. Set Polynomial Order</strong><br>
+        Select <strong>Order = 2, 3, or 4</strong> (up to 10), press <strong>[GRAPH] (NEXT)</strong>, and enter coefficients from highest power to constant.
+      </div>
+      <div class="step-pill">
+        <strong>3. Solve &amp; Show Working</strong><br>
+        Press <strong>[GRAPH] (SOLVE)</strong> to verify all real &amp; complex roots. In exams, still write the real quadratic factor explicitly!
+      </div>
+    `;
+
+    document.getElementById("misconceptionBox").innerHTML = `
+      <strong>9758 Exam Misconception Alert:</strong>
+      <ul style="margin:3px 0 0 0; padding-left:18px;">
+        <li><strong>State "since the polynomial has real coefficients" explicitly:</strong> Always write this justification before deducing that <em>w*</em> is also a root (it is worth 1 method mark!).</li>
+        <li><strong>Use (z &minus; a)&sup2; + b&sup2; to avoid sign errors:</strong> Expanding <em>[z &minus; (2 + 3i)][z &minus; (2 &minus; 3i)]</em> as <em>(z &minus; 2)&sup2; &minus; (3i)&sup2; = z&sup2; &minus; 4z + 13</em> is much faster and safer than multiplying 9 terms.</li>
+      </ul>
+    `;
+  }
+
+  /* =====================================================================
+     3-QUESTION 9758 EXAM CHECK
+     ===================================================================== */
+  const examQs = [
+    {
+      q: "The cubic equation z³ − 5z² + 17z − 13 = 0 has a root z = 2 + 3i. What is the real quadratic factor formed by this root and its conjugate?",
+      opts: [
+        "z² − 4z + 13",
+        "z² + 4z + 13",
+        "z² − 4z − 5",
+        "z² − 6z + 13"
+      ],
+      ans: 0,
+      exp: "[z − (2 + 3i)][z − (2 − 3i)] = (z − 2)² − (3i)² = z² − 4z + 4 + 9 = z² − 4z + 13."
+    },
+    {
+      q: "Given that z = 1 − 2i is a root of z² − (2 + 2i)z + (−1 + 2i) = 0, why is z = 1 + 2i NOT a root of this equation?",
+      opts: [
+        "Because the equation does not have real coefficients",
+        "Because 1 − 2i has a negative imaginary part",
+        "Because quadratic equations cannot have two complex roots",
+        "Because the discriminant is negative"
+      ],
+      ans: 0,
+      exp: "The Conjugate Root Theorem only holds for polynomials with real coefficients. Here the coefficients −(2 + 2i) and (−1 + 2i) are non-real."
+    },
+    {
+      q: "A polynomial P(z) of degree 4 has real coefficients. Which combination of roots is IMPOSSIBLE for P(z) = 0?",
+      opts: [
+        "Three real roots and one non-real complex root",
+        "Four non-real complex roots (two conjugate pairs)",
+        "Two distinct real roots and one conjugate pair",
+        "Four real roots"
+      ],
+      ans: 0,
+      exp: "Since P(z) has real coefficients, non-real roots must occur in conjugate pairs (an even number of non-real roots: 0, 2, or 4)."
+    }
+  ];
+
+  let curQ = 0;
+
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").textContent = item.q;
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i}, this)">${String.fromCharCode(65 + i)}. ${o}</button>
+    `).join("");
+  }
+
+  function gradeExamQ(idx, btn) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  renderAll();
+  renderExamQ();
+</script>
+
+</body>
+</html>
