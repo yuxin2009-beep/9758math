@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 6.1 Lesson 3: Probability Laws, Venn Diagrams &amp; Independence</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 530px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1000px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.76rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.48;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.74rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .control-panel {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 13px;
+      margin-bottom: 11px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .slider-row {
+      display: grid;
+      grid-template-columns: 155px 1fr 56px;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-size: 0.79rem;
+      font-weight: 700;
+    }
+
+    .slider-row input[type="range"] {
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .val-badge {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      text-align: center;
+      padding: 2px 4px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .toggle-row {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: none;
+      background: var(--purple-dark);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.76rem;
+      cursor: pointer;
+    }
+
+    .action-btn.secondary {
+      background: var(--blue-bg);
+      color: var(--blue);
+      border: 1px solid #bae6fd;
+    }
+
+    .action-btn.amber {
+      background: var(--amber-bg);
+      color: var(--amber);
+      border: 1px solid #fde68a;
+    }
+
+    .status-badges {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 11px;
+    }
+
+    .status-card {
+      border-radius: 10px;
+      padding: 8px 11px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      border: 1.5px solid #cbd5e1;
+      background: #f8fafc;
+    }
+
+    .status-card.yes {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .status-card.no {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .gc-screen-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin-bottom: 11px;
+    }
+
+    .box-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .gc-readout {
+      background: #f1f5f9;
+      border: 2px solid #64748b;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 5px;
+      line-height: 1.48;
+    }
+
+    .solution-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.81rem;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    /* RIGHT VISUAL STAGE */
+    .visual-stage {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+    }
+
+    .region-chip-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 8px;
+    }
+
+    .reg-btn {
+      padding: 4px 9px;
+      border-radius: 7px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .reg-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .canvas-box {
+      background: #ffffff;
+      border: 1px dashed #94a3b8;
+      border-radius: 10px;
+      padding: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .check-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+      margin-top: 8px;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .check-table th, .check-table td {
+      border: 1px solid #e2e8f0;
+      padding: 6px 9px;
+      text-align: left;
+    }
+
+    .check-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    .gc-guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .gc-guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .step-pill {
+      background: var(--blue-bg);
+      border: 1px solid #bae6fd;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.77rem;
+      line-height: 1.45;
+      color: #0c4a6e;
+    }
+
+    .grader-card {
+      margin-top: 12px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 700px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .misconception-box {
+      margin-top: 12px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 10px 13px;
+      font-size: 0.79rem;
+      line-height: 1.48;
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Compare 2-Set Laws &amp; 3-Set Range Bounds</strong>
+        Explore <em>Independent Events (Rain &amp; MRT Delay)</em>, <em>Mutually Exclusive (NSL vs. EWL)</em>, <em>Overlapping CCAs</em>, and <em>3-Set Range Bounds (JC Lifestyle Survey)</em>.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Drag Sliders to Test Region Non-Negativity</strong>
+        In 2-set mode, shade any set region (<em>A &cup; B</em>, <em>A&prime; &cap; B&prime;</em>, <em>A&prime; &cup; B&prime;</em>). In 3-set mode, vary <em>b = P(B)</em> to see which disjoint regions turn negative outside <em>1/6 &le; b &le; 4/5</em>!
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Check Step-by-Step Inequalities &amp; Exam Quiz</strong>
+        Inspect the inequality table on the right to see how every disjoint Venn region satisfying <em>0 &le; P(region) &le; 1</em> locks in the exact min/max bounds.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        6.1 Lesson 3 &bull; Probability Laws, Venn Diagrams &amp; Independence
+      </div>
+
+      <!-- Presets including Original 3-Set Range Bounds -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="sc_indep" onclick="loadScenario('indep')">
+          1. Independent: Rain &amp; MRT Delay
+        </button>
+        <button class="tab-btn" id="sc_mutex" onclick="loadScenario('mutex')">
+          2. Mutually Exclusive: NSL vs. EWL
+        </button>
+        <button class="tab-btn" id="sc_overlap" onclick="loadScenario('overlap')">
+          3. Overlapping: JC CCA Membership
+        </button>
+        <button class="tab-btn" id="sc_three_set" onclick="loadScenario('three_set')">
+          4. 3-Set Range Bounds (JC Survey)
+        </button>
+      </div>
+
+      <!-- Contextual Story -->
+      <div class="context-box" id="contextBox"></div>
+
+      <!-- Interactive Probability Sliders (2-Set Mode) -->
+      <div class="control-panel" id="twoSetControls">
+        <div class="panel-header">
+          <span>Probability Parameters (0 to 1)</span>
+          <span id="validBadge" style="color:var(--teal);">Valid Sample Space</span>
+        </div>
+
+        <div class="slider-row">
+          <span id="lblA">P(A) [Rain]:</span>
+          <input type="range" id="sliderA" min="0.05" max="0.85" step="0.01" value="0.35" oninput="onSliderChange()" />
+          <span class="val-badge" id="valA">0.35</span>
+        </div>
+
+        <div class="slider-row">
+          <span id="lblB">P(B) [MRT Delay]:</span>
+          <input type="range" id="sliderB" min="0.05" max="0.85" step="0.01" value="0.20" oninput="onSliderChange()" />
+          <span class="val-badge" id="valB">0.20</span>
+        </div>
+
+        <div class="slider-row">
+          <span id="lblI">P(A ∩ B) [Both]:</span>
+          <input type="range" id="sliderI" min="0.00" max="0.85" step="0.01" value="0.07" oninput="onSliderChange()" />
+          <span class="val-badge" id="valI">0.07</span>
+        </div>
+
+        <div class="toggle-row">
+          <button class="action-btn" onclick="snapIndependent()">Snap to Independent: P(A∩B) = P(A)P(B)</button>
+          <button class="action-btn amber" onclick="snapMutEx()">Snap to Mutually Exclusive: P(A∩B) = 0</button>
+        </div>
+      </div>
+
+      <!-- Interactive Controls (3-Set Range Bounds Mode) -->
+      <div class="control-panel" id="threeSetControls" style="display:none;">
+        <div class="panel-header">
+          <span>Vary Unknown Parameter b = P(B)</span>
+          <span id="threeValidBadge" style="color:var(--teal);">Valid Region Bounds</span>
+        </div>
+
+        <div class="slider-row">
+          <span>b = P(B):</span>
+          <input type="range" id="sliderThreeB" min="0.10" max="0.90" step="0.01" value="0.48" oninput="onThreeSliderChange()" />
+          <span class="val-badge" id="valThreeB">0.48</span>
+        </div>
+
+        <div class="toggle-row">
+          <button class="action-btn secondary" onclick="snapThreeB(1/6)">Min Valid: b = 1/6 (&rArr; P(A&cap;B) = 1/24)</button>
+          <button class="action-btn" onclick="snapThreeB(4/5)">Max Valid: b = 4/5 (&rArr; P(A&cap;B) = 1/5)</button>
+        </div>
+      </div>
+
+      <!-- Live Independence & Mutually Exclusive Badges -->
+      <div class="status-badges" id="statusBadgesRow">
+        <div class="status-card" id="indepStatusCard"></div>
+        <div class="status-card" id="mutexStatusCard"></div>
+      </div>
+
+      <!-- Simulated TI-84 Plus CE Readout -->
+      <div class="gc-screen-box" id="gcOutputBox"></div>
+
+      <!-- Pedagogical Conclusion Banner -->
+      <div class="solution-banner" id="solutionBanner"></div>
+    </div>
+
+    <!-- RIGHT VISUAL VENN STAGE, IDENTITIES TABLE & EXAM CHECK -->
+    <div class="card">
+      <div style="font-size:1.02rem; font-weight:800; color:#1e293b; margin-bottom:8px;" id="rightHeading">
+        Interactive Venn Diagram &amp; Set Identities Explorer
+      </div>
+
+      <div class="visual-stage">
+        <div style="font-size:0.75rem; font-weight:800; color:#475569; margin-bottom:6px;" id="stageInstruction">
+          Click a set notation chip below to shade its region in the sample space <em>S</em>:
+        </div>
+        <div class="region-chip-bar" id="regionChips">
+          <button class="reg-btn active" id="reg_all" onclick="setHighlight('all')">All 4 Disjoint Regions</button>
+          <button class="reg-btn" id="reg_union" onclick="setHighlight('union')">A &cup; B</button>
+          <button class="reg-btn" id="reg_inter" onclick="setHighlight('inter')">A &cap; B</button>
+          <button class="reg-btn" id="reg_aonly" onclick="setHighlight('aonly')">A &cap; B&prime;</button>
+          <button class="reg-btn" id="reg_bonly" onclick="setHighlight('bonly')">A&prime; &cap; B</button>
+          <button class="reg-btn" id="reg_neither" onclick="setHighlight('neither')">A&prime; &cap; B&prime; = (A &cup; B)&prime;</button>
+          <button class="reg-btn" id="reg_notboth" onclick="setHighlight('notboth')">A&prime; &cup; B&prime; = (A &cap; B)&prime;</button>
+        </div>
+
+        <div class="canvas-box" id="vennCanvas"></div>
+        <div id="vennCaption" style="margin-top:8px; font-size:0.78rem; color:#334155; line-height:1.45;"></div>
+      </div>
+
+      <!-- Identity / Inequality Breakdown Table -->
+      <table class="check-table" id="identityTable"></table>
+
+      <!-- 3-Step Method Guide -->
+      <div class="gc-guide-grid">
+        <div class="step-pill">
+          <strong>1. Addition Law &amp; Complements</strong><br>
+          • <em>P(A &cup; B) = P(A) + P(B) − P(A &cap; B)</em>.<br>
+          • <em>P(A&prime; &cap; B&prime;) = 1 − P(A &cup; B)</em> (neither occurs).<br>
+          • <em>P(A&prime; &cup; B&prime;) = 1 − P(A &cap; B)</em> (not both occur).
+        </div>
+        <div class="step-pill">
+          <strong>2. Independence vs. Mutually Exclusive</strong><br>
+          • <strong>Independent:</strong> <em>P(A &cap; B) = P(A) &times; P(B)</em>.<br>
+          • <strong>Mutually Exclusive:</strong> <em>P(A &cap; B) = 0</em> (disjoint circles).
+        </div>
+        <div class="step-pill">
+          <strong>3. Finding Range Bounds in 3-Set Problems</strong><br>
+          Fill every disjoint Venn region in terms of 1 variable (e.g. <em>b</em>), set total = 1, and enforce <strong>0 &le; P(region) &le; 1</strong> on every region!
+        </div>
+      </div>
+
+      <div class="misconception-box">
+        <strong>9758 Exam Misconception Alert — Two Key Traps:</strong>
+        <ul style="margin:3px 0 0 0; padding-left:18px;">
+          <li><strong>"Mutually Exclusive" &ne; "Independent":</strong> If <em>P(A) &gt; 0</em> and <em>P(B) &gt; 0</em> and <em>P(A &cap; B) = 0</em>, they can <strong>NEVER</strong> be independent because <em>P(A)P(B) &gt; 0 &ne; 0</em>.</li>
+          <li><strong>Finding Max/Min Bounds of a Probability:</strong> Never rely on <em>0 &le; P(B) &le; 1</em> alone! Every individual disjoint region inside the Venn diagram (such as <em>B only = 3b/4 − 1/8</em> and <em>C only = 3/5 − 3b/4</em>) must satisfy <strong>0 &le; P(region) &le; 1</strong>.</li>
+        </ul>
+      </div>
+
+      <!-- Quick 9758 Exam Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 Probability Laws &amp; Range Bounds Check (<span id="qIdxLbl">1</span>/3)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.8rem; line-height:1.45; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  let curKey = "indep";
+  let pA = 0.35;
+  let pB = 0.20;
+  let pI = 0.07;
+  let bThree = 0.48;
+  let highlightMode = "all";
+  let nameA = "Rain (R)";
+  let nameB = "MRT Delay (D)";
+
+  function round4(x) {
+    return Math.round(x * 10000) / 10000;
+  }
+
+  function loadScenario(key) {
+    curKey = key;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("sc_" + key).classList.add("active");
+
+    const ctx = document.getElementById("contextBox");
+    const twoCtrl = document.getElementById("twoSetControls");
+    const threeCtrl = document.getElementById("threeSetControls");
+    const badgesRow = document.getElementById("statusBadgesRow");
+    const regionChips = document.getElementById("regionChips");
+
+    if (key === "three_set") {
+      twoCtrl.style.display = "none";
+      threeCtrl.style.display = "block";
+      badgesRow.style.display = "none";
+      regionChips.style.display = "none";
+
+      ctx.innerHTML = `
+        <div><strong>4. 3-Set Range Bounds (JC Student Lifestyle Survey):</strong> Let <em>A</em> (cycling to school), <em>B</em> (drinking bubble tea), and <em>C</em> (taking the MRT) satisfy <em>P(A) = 1/4</em>, <em>P(B) = b</em>, <em>P(C) = c</em>. Given <strong>A and B are independent</strong> (<em>P(A &cap; B) = b/4</em>), <strong>A and C are mutually exclusive</strong> (<em>P(A &cap; C) = 0</em>), <em>P(B &cap; C) = 1/8</em>, and <em>P(A&prime; &cap; B&prime; &cap; C&prime;) = 3/20</em>, find the exact minimum and maximum possible values of <em>P(A &cap; B)</em>.</div>
+        <div class="var-pill">Method: Express all 6 disjoint Venn regions in terms of b, then solve 0 &le; P(region) &le; 1</div>
+      `;
+      bThree = 0.48;
+      document.getElementById("sliderThreeB").value = bThree;
+      renderThreeSet();
+      return;
+    }
+
+    twoCtrl.style.display = "block";
+    threeCtrl.style.display = "none";
+    badgesRow.style.display = "grid";
+    regionChips.style.display = "flex";
+    document.getElementById("rightHeading").textContent = "Interactive Venn Diagram & Set Identities Explorer";
+    document.getElementById("stageInstruction").innerHTML = "Click a set notation chip below to shade its region in the sample space <em>S</em>:";
+
+    if (key === "indep") {
+      nameA = "Rain (R)";
+      nameB = "MRT Delay (D)";
+      pA = 0.35; pB = 0.20; pI = 0.07;
+      ctx.innerHTML = `
+        <div><strong>1. Jurong East Commuter Survey (Independent Events):</strong> Let <em>R</em> be rainy weather (<em>P(R) = 0.35</em>) and <em>D</em> be an MRT delay (<em>P(D) = 0.20</em>). Since underground signalling is unaffected by rain, <em>P(R &cap; D) = 0.35 &times; 0.20 = 0.07</em>.</div>
+        <div class="var-pill">Independence Test: P(A &cap; B) = P(A) &times; P(B) = 0.07</div>
+      `;
+    } else if (key === "mutex") {
+      nameA = "Board NSL (N)";
+      nameB = "Board EWL (E)";
+      pA = 0.45; pB = 0.35; pI = 0.00;
+      ctx.innerHTML = `
+        <div><strong>2. Jurong East Platform Tap-In (Mutually Exclusive Events):</strong> A commuter tapping into the platform boards either the North-South Line (<em>P(N) = 0.45</em>) or the East-West Line (<em>P(E) = 0.35</em>), or exits without boarding (<em>0.20</em>). You cannot board both simultaneously &rArr; <em>P(N &cap; E) = 0</em>.</div>
+        <div class="var-pill">Mutually Exclusive: P(A &cap; B) = 0 &rArr; P(A &cup; B) = P(A) + P(B)</div>
+      `;
+    } else if (key === "overlap") {
+      nameA = "Choir (C)";
+      nameB = "Robotics (B)";
+      pA = 0.40; pB = 0.30; pI = 0.15;
+      ctx.innerHTML = `
+        <div><strong>3. JC Student CCA Membership (Dependent Overlap):</strong> Among JC1 students, 40% join Choir (<em>C</em>), 30% join Robotics (<em>B</em>), and 15% join both CCAs (<em>P(C &cap; B) = 0.15 &ne; 0.40 &times; 0.30 = 0.12</em>). Here <em>C</em> and <em>B</em> are neither mutually exclusive nor independent.</div>
+        <div class="var-pill">General Overlap: P(A &cup; B) = P(A) + P(B) − P(A &cap; B) = 0.55</div>
+      `;
+    }
+
+    document.getElementById("lblA").textContent = `P(A) [${nameA}]:`;
+    document.getElementById("lblB").textContent = `P(B) [${nameB}]:`;
+    document.getElementById("sliderA").value = pA;
+    document.getElementById("sliderB").value = pB;
+    clampAndSync();
+    renderAll();
+  }
+
+  function clampAndSync() {
+    const minI = round4(Math.max(0, pA + pB - 1));
+    const maxI = round4(Math.min(pA, pB));
+    const sliderI = document.getElementById("sliderI");
+    sliderI.min = minI.toFixed(2);
+    sliderI.max = maxI.toFixed(2);
+
+    if (pI < minI) pI = minI;
+    if (pI > maxI) pI = maxI;
+    pI = round4(pI);
+    sliderI.value = pI.toFixed(2);
+  }
+
+  function onSliderChange() {
+    pA = parseFloat(document.getElementById("sliderA").value);
+    pB = parseFloat(document.getElementById("sliderB").value);
+    pI = parseFloat(document.getElementById("sliderI").value);
+    clampAndSync();
+    renderAll();
+  }
+
+  function snapIndependent() {
+    pI = round4(pA * pB);
+    clampAndSync();
+    renderAll();
+  }
+
+  function snapMutEx() {
+    if (pA + pB > 1) {
+      pB = round4(1 - pA);
+      document.getElementById("sliderB").value = pB.toFixed(2);
+    }
+    pI = 0;
+    clampAndSync();
+    renderAll();
+  }
+
+  function setHighlight(mode) {
+    highlightMode = mode;
+    ["all", "union", "inter", "aonly", "bonly", "neither", "notboth"].forEach(m => {
+      const btn = document.getElementById("reg_" + m);
+      if (btn) btn.className = "reg-btn" + (highlightMode === m ? " active" : "");
+    });
+    renderAll();
+  }
+
+  /* ORIGINAL 3-SET RANGE BOUNDS LOGIC:
+     P(A) = 1/4, P(B) = b, P(C) = c
+     A, B independent => P(A ∩ B) = b/4
+     A, C mutually exclusive => P(A ∩ C) = 0
+     P(B ∩ C) = 1/8, P(A' ∩ B' ∩ C') = 3/20
+     Sum = 1 => 1/4 + (3/4)b + c - 1/8 + 3/20 = 1 => c = 29/40 - (3/4)b
+     Regions:
+       A only = 1/4 - b/4
+       A ∩ B  = b/4
+       B only = (3/4)b - 1/8   (>= 0 => b >= 1/6)
+       B ∩ C  = 1/8
+       C only = 3/5 - (3/4)b   (>= 0 => b <= 4/5)
+       Outside = 3/20
+     Bounds: 1/6 <= b <= 4/5  =>  1/24 <= P(A ∩ B) <= 1/5
+  */
+  function onThreeSliderChange() {
+    bThree = parseFloat(document.getElementById("sliderThreeB").value);
+    renderThreeSet();
+  }
+
+  function snapThreeB(val) {
+    bThree = val;
+    document.getElementById("sliderThreeB").value = val.toFixed(2);
+    renderThreeSet();
+  }
+
+  function renderThreeSet() {
+    const b = bThree;
+    const rAOnly = round4(0.25 - 0.25 * b);     // 1/4 - b/4
+    const rAB = round4(0.25 * b);               // b/4
+    const rBOnly = round4(0.75 * b - 0.125);    // 3b/4 - 1/8
+    const rBC = 0.125;                          // 1/8
+    const rCOnly = round4(0.60 - 0.75 * b);     // 3/5 - 3b/4
+    const rOut = 0.15;                          // 3/20
+
+    const isValid = (b >= 1/6 - 1e-4) && (b <= 4/5 + 1e-4);
+
+    document.getElementById("valThreeB").textContent = Math.abs(b - 1/6) < 1e-3 ? "1/6"
+      : Math.abs(b - 4/5) < 1e-3 ? "4/5" : b.toFixed(3);
+
+    const badge = document.getElementById("threeValidBadge");
+    badge.textContent = isValid ? "✓ All Regions ≥ 0 (Valid!)" : "✗ Negative Region (Invalid b)";
+    badge.style.color = isValid ? "var(--teal)" : "var(--rose)";
+
+    document.getElementById("rightHeading").textContent = "3-Set Venn Diagram & Region Inequality Solver";
+    document.getElementById("stageInstruction").innerHTML = "Notice that <strong>A and C do not overlap</strong> (<em>P(A &cap; C) = 0</em>). Watch which region turns red if <em>b</em> leaves <strong>[1/6, 4/5]</strong>:";
+
+    const badBOnly = rBOnly < -1e-5;
+    const badCOnly = rCOnly < -1e-5;
+    const badAOnly = rAOnly < -1e-5;
+
+    let svg = `<svg width="480" height="252" viewBox="0 0 480 252">`;
+    svg += `<rect x="14" y="12" width="452" height="228" rx="14" fill="#f8fafc" stroke="#475569" stroke-width="2"/>`;
+    svg += `<text x="28" y="33" font-size="11.5" font-weight="900" fill="#1e293b">Sample Space S (Sum of all 6 regions = 1)</text>`;
+
+    const cy = 128, R = 68;
+    const cxA = 140, cxB = 240, cxC = 340;
+
+    svg += `
+      <defs>
+        <clipPath id="c3A"><circle cx="${cxA}" cy="${cy}" r="${R}"/></clipPath>
+        <clipPath id="c3B"><circle cx="${cxB}" cy="${cy}" r="${R}"/></clipPath>
+      </defs>
+    `;
+
+    svg += `<circle cx="${cxA}" cy="${cy}" r="${R}" fill="${badAOnly ? "#ffe4e6" : "#ffffff"}" stroke="#1e293b" stroke-width="2.2"/>`;
+    svg += `<circle cx="${cxB}" cy="${cy}" r="${R}" fill="${badBOnly ? "#ffe4e6" : "#ffffff"}" stroke="#1e293b" stroke-width="2.2"/>`;
+    svg += `<circle cx="${cxC}" cy="${cy}" r="${R}" fill="${badCOnly ? "#ffe4e6" : "#ffffff"}" stroke="#1e293b" stroke-width="2.2"/>`;
+
+    // Shade A ∩ B in teal-green
+    svg += `<g clip-path="url(#c3A)"><circle cx="${cxB}" cy="${cy}" r="${R}" fill="#ccfbf1"/></g>`;
+
+    // Redraw outlines cleanly
+    svg += `<circle cx="${cxA}" cy="${cy}" r="${R}" fill="none" stroke="#1e293b" stroke-width="2.2"/>`;
+    svg += `<circle cx="${cxB}" cy="${cy}" r="${R}" fill="none" stroke="#1e293b" stroke-width="2.2"/>`;
+    svg += `<circle cx="${cxC}" cy="${cy}" r="${R}" fill="none" stroke="#1e293b" stroke-width="2.2"/>`;
+
+    // Set Labels A, B, C
+    svg += `<text x="${cxA - 18}" y="52" font-size="12" font-weight="900" fill="#0284c7">A (1/4)</text>`;
+    svg += `<text x="${cxB - 14}" y="52" font-size="12" font-weight="900" fill="#0f766e">B (b)</text>`;
+    svg += `<text x="${cxC + 6}" y="52" font-size="12" font-weight="900" fill="#7c3aed">C (c)</text>`;
+
+    // Region Values
+    svg += `<text x="115" y="122" text-anchor="middle" font-size="10.5" font-weight="800" fill="${badAOnly ? "#e11d48" : "#1e293b"}">1/4 − b/4</text>`;
+    svg += `<text x="115" y="138" text-anchor="middle" font-size="10.5" font-weight="900" fill="${badAOnly ? "#e11d48" : "#0284c7"}">= ${rAOnly.toFixed(4)}</text>`;
+
+    svg += `<text x="190" y="122" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0f766e">b / 4</text>`;
+    svg += `<text x="190" y="138" text-anchor="middle" font-size="10.5" font-weight="900" fill="#0f766e">= ${rAB.toFixed(4)}</text>`;
+
+    svg += `<text x="240" y="84" text-anchor="middle" font-size="10" font-weight="800" fill="${badBOnly ? "#e11d48" : "#1e293b"}">3b/4 − 1/8</text>`;
+    svg += `<text x="240" y="98" text-anchor="middle" font-size="10" font-weight="900" fill="${badBOnly ? "#e11d48" : "#0f766e"}">= ${rBOnly.toFixed(4)}</text>`;
+
+    svg += `<text x="290" y="122" text-anchor="middle" font-size="10.5" font-weight="800" fill="#1e293b">1/8</text>`;
+    svg += `<text x="290" y="138" text-anchor="middle" font-size="10.5" font-weight="900" fill="#475569">= 0.1250</text>`;
+
+    svg += `<text x="366" y="122" text-anchor="middle" font-size="10.5" font-weight="800" fill="${badCOnly ? "#e11d48" : "#1e293b"}">3/5 − 3b/4</text>`;
+    svg += `<text x="366" y="138" text-anchor="middle" font-size="10.5" font-weight="900" fill="${badCOnly ? "#e11d48" : "#7c3aed"}">= ${rCOnly.toFixed(4)}</text>`;
+
+    svg += `<rect x="26" y="198" width="130" height="32" rx="7" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>`;
+    svg += `<text x="91" y="213" text-anchor="middle" font-size="10" font-weight="900" fill="#1e293b">Outside = 3/20 (0.150)</text>`;
+    svg += `<text x="91" y="224" text-anchor="middle" font-size="8.5" font-weight="700" fill="#64748b">P(A&prime; &cap; B&prime; &cap; C&prime;)</text>`;
+
+    svg += `</svg>`;
+    document.getElementById("vennCanvas").innerHTML = svg;
+
+    document.getElementById("vennCaption").innerHTML = `
+      <strong>Total Probability = 1:</strong> <em>(1/4 − b/4) + (b/4) + (3b/4 − 1/8) + 1/8 + (c − 1/8) + 3/20 = 1 &rArr; (3/4)b + c = 29/40 &rArr;</em> <strong>c = 29/40 − (3/4)b</strong>. Thus <em>C only = c − 1/8 =</em> <strong>3/5 − (3/4)b</strong>.
+    `;
+
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">TI-84 Plus CE Exact Fraction Check ([MATH] &rarr; 1: Frac)</span>
+      <div class="gc-readout">
+        Min: b = 1/6 &rArr; P(A∩B) = (1/4)*(1/6) = 1/24 (≈ 0.0417)<br>
+        Max: b = 4/5 &rArr; P(A∩B) = (1/4)*(4/5) = 1/5  (≈ 0.2000)
+      </div>
+    `;
+
+    document.getElementById("solutionBanner").innerHTML = `
+      <strong>Exact Bounds of P(A &cap; B):</strong> Combining <em>1/6 &le; b &le; 4/5</em> with <em>P(A &cap; B) = b/4</em> gives <strong>1/24 &le; P(A &cap; B) &le; 1/5</strong> (Minimum = <strong>1/24</strong>, Maximum = <strong>1/5</strong>).
+    `;
+
+    document.getElementById("identityTable").innerHTML = `
+      <thead><tr><th>Disjoint Venn Region</th><th>Expression in b</th><th>Current Value</th><th>Inequality 0 &le; P(region) &le; 1</th></tr></thead>
+      <tbody>
+        <tr><td><strong>A only (A &cap; B&prime; &cap; C&prime;)</strong></td><td>1/4 − b/4</td><td style="color:${badAOnly ? "#e11d48" : "#0f172a"}; font-weight:800;">${rAOnly.toFixed(4)}</td><td>0 &le; b &le; 1</td></tr>
+        <tr><td><strong>A &cap; B</strong> (Independent)</td><td>b / 4</td><td style="font-weight:800; color:#0f766e;">${rAB.toFixed(4)}</td><td>0 &le; b &le; 4</td></tr>
+        <tr><td><strong>B only (A&prime; &cap; B &cap; C&prime;)</strong></td><td>3b/4 − 1/8</td><td style="color:${badBOnly ? "#e11d48" : "#0f172a"}; font-weight:800;">${rBOnly.toFixed(4)}</td><td><strong>b &ge; 1/6</strong> (sets Min!)</td></tr>
+        <tr><td><strong>C only (A&prime; &cap; B&prime; &cap; C)</strong></td><td>3/5 − 3b/4</td><td style="color:${badCOnly ? "#e11d48" : "#0f172a"}; font-weight:800;">${rCOnly.toFixed(4)}</td><td><strong>b &le; 4/5</strong> (sets Max!)</td></tr>
+        <tr style="background:#f3e8ff;"><td colspan="3"><strong>Intersect all region inequalities &amp; multiply by 1/4:</strong></td><td style="font-weight:800; color:#4c1d95;">1/6 &le; b &le; 4/5 &rArr; 1/24 &le; P(A&cap;B) &le; 1/5</td></tr>
+      </tbody>
+    `;
+  }
+
+  /* 2-SET RENDERING */
+  function renderVennSVG(aOnly, inter, bOnly, neither) {
+    const isMutEx = inter < 1e-6;
+    const cxA = isMutEx ? 155 : 185;
+    const cxB = isMutEx ? 315 : 285;
+    const cy = 128;
+    const R = 76;
+
+    const bgFill = (highlightMode === "neither" || highlightMode === "notboth") ? "#fef3c7" : "#f8fafc";
+    const fillAOnly = (highlightMode === "all") ? "#e0f2fe"
+      : (["union", "aonly", "notboth"].includes(highlightMode) ? "#ddd6fe" : "#ffffff");
+    const fillBOnly = (highlightMode === "all") ? "#ccfbf1"
+      : (["union", "bonly", "notboth"].includes(highlightMode) ? "#ddd6fe" : "#ffffff");
+    const fillInter = (highlightMode === "all") ? "#f3e8ff"
+      : (["union", "inter"].includes(highlightMode) ? "#c084fc" : "#ffffff");
+
+    let svg = `<svg width="470" height="252" viewBox="0 0 470 252">`;
+    svg += `<rect x="14" y="12" width="442" height="228" rx="14" fill="${bgFill}" stroke="#475569" stroke-width="2"/>`;
+    svg += `<text x="28" y="33" font-size="12" font-weight="900" fill="#1e293b">Sample Space S  (Total = 1.0000)</text>`;
+
+    svg += `
+      <defs>
+        <clipPath id="clipA"><circle cx="${cxA}" cy="${cy}" r="${R}"/></clipPath>
+        <clipPath id="clipB"><circle cx="${cxB}" cy="${cy}" r="${R}"/></clipPath>
+      </defs>
+    `;
+
+    svg += `<circle cx="${cxA}" cy="${cy}" r="${R}" fill="${fillAOnly}" stroke="#0284c7" stroke-width="2.4"/>`;
+    svg += `<circle cx="${cxB}" cy="${cy}" r="${R}" fill="${fillBOnly}" stroke="#0f766e" stroke-width="2.4"/>`;
+
+    if (!isMutEx) {
+      svg += `<g clip-path="url(#clipA)"><circle cx="${cxB}" cy="${cy}" r="${R}" fill="${fillInter}"/></g>`;
+      svg += `<circle cx="${cxA}" cy="${cy}" r="${R}" fill="none" stroke="#0284c7" stroke-width="2.4"/>`;
+      svg += `<circle cx="${cxB}" cy="${cy}" r="${R}" fill="none" stroke="#0f766e" stroke-width="2.4"/>`;
+    }
+
+    svg += `<text x="${cxA - 28}" y="46" text-anchor="middle" font-size="11" font-weight="800" fill="#0c4a6e">A: ${nameA}</text>`;
+    svg += `<text x="${cxB + 28}" y="46" text-anchor="middle" font-size="11" font-weight="800" fill="#134e4a">B: ${nameB}</text>`;
+
+    const posAOnly = isMutEx ? cxA : cxA - 32;
+    const posBOnly = isMutEx ? cxB : cxB + 32;
+
+    svg += `<text x="${posAOnly}" y="${cy - 4}" text-anchor="middle" font-size="12.5" font-weight="900" fill="#0f172a">${aOnly.toFixed(4)}</text>`;
+    svg += `<text x="${posAOnly}" y="${cy + 12}" text-anchor="middle" font-size="9" font-weight="700" fill="#475569">P(A &cap; B&prime;)</text>`;
+
+    svg += `<text x="${posBOnly}" y="${cy - 4}" text-anchor="middle" font-size="12.5" font-weight="900" fill="#0f172a">${bOnly.toFixed(4)}</text>`;
+    svg += `<text x="${posBOnly}" y="${cy + 12}" text-anchor="middle" font-size="9" font-weight="700" fill="#475569">P(A&prime; &cap; B)</text>`;
+
+    if (!isMutEx) {
+      const midX = (cxA + cxB) / 2;
+      svg += `<text x="${midX}" y="${cy - 4}" text-anchor="middle" font-size="12" font-weight="900" fill="#4c1d95">${inter.toFixed(4)}</text>`;
+      svg += `<text x="${midX}" y="${cy + 12}" text-anchor="middle" font-size="8.5" font-weight="800" fill="#4c1d95">P(A &cap; B)</text>`;
+    } else {
+      svg += `<text x="235" y="${cy + 4}" text-anchor="middle" font-size="9.5" font-weight="800" fill="#e11d48">Disjoint (0)</text>`;
+    }
+
+    svg += `<rect x="330" y="198" width="114" height="32" rx="7" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>`;
+    svg += `<text x="387" y="212" text-anchor="middle" font-size="10.5" font-weight="900" fill="#1e293b">P(A&prime; &cap; B&prime;) = ${neither.toFixed(4)}</text>`;
+    svg += `<text x="387" y="224" text-anchor="middle" font-size="8.5" font-weight="700" fill="#64748b">Outside A &cup; B</text>`;
+
+    svg += `</svg>`;
+    return svg;
+  }
+
+  function renderAll() {
+    document.getElementById("valA").textContent = pA.toFixed(2);
+    document.getElementById("valB").textContent = pB.toFixed(2);
+    document.getElementById("valI").textContent = pI.toFixed(2);
+
+    const aOnly = round4(pA - pI);
+    const bOnly = round4(pB - pI);
+    const union = round4(pA + pB - pI);
+    const neither = round4(1 - union);
+    const notBoth = round4(1 - pI);
+    const prodAB = round4(pA * pB);
+
+    const isIndep = Math.abs(pI - prodAB) < 1e-4;
+    const isMutEx = Math.abs(pI) < 1e-6;
+
+    const indepCard = document.getElementById("indepStatusCard");
+    indepCard.className = "status-card " + (isIndep ? "yes" : "no");
+    indepCard.innerHTML = `
+      <div>${isIndep ? "✓ INDEPENDENT" : "✗ NOT INDEPENDENT"}</div>
+      <div style="font-size:0.72rem; font-weight:600; margin-top:2px;">
+        P(A&cap;B) = ${pI.toFixed(4)} ${isIndep ? "=" : "≠"} P(A)P(B) = ${prodAB.toFixed(4)}
+      </div>
+    `;
+
+    const mutexCard = document.getElementById("mutexStatusCard");
+    mutexCard.className = "status-card " + (isMutEx ? "yes" : "no");
+    mutexCard.innerHTML = `
+      <div>${isMutEx ? "✓ MUTUALLY EXCLUSIVE" : "✗ NOT MUTUALLY EXCLUSIVE"}</div>
+      <div style="font-size:0.72rem; font-weight:600; margin-top:2px;">
+        P(A&cap;B) = ${pI.toFixed(4)} ${isMutEx ? "= 0 (Disjoint)" : "≠ 0 (Overlap)"}
+      </div>
+    `;
+
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">TI-84 Plus CE Verification Readout</span>
+      <div class="gc-readout">
+        P(A∪B) = ${pA.toFixed(2)} + ${pB.toFixed(2)} − ${pI.toFixed(2)} = ${union.toFixed(4)}<br>
+        P(A') = ${(1 - pA).toFixed(4)} &nbsp;|&nbsp; P(B') = ${(1 - pB).toFixed(4)} &nbsp;|&nbsp; P(A)P(B) = ${prodAB.toFixed(4)}
+      </div>
+    `;
+
+    document.getElementById("solutionBanner").innerHTML = isIndep && isMutEx
+      ? `<strong>Degenerate Edge Case:</strong> Both independent and mutually exclusive hold only because at least one event has probability 0.`
+      : isIndep
+      ? `<strong>Independent Events Confirmed:</strong> Since <em>P(A &cap; B) = P(A) &times; P(B) = ${prodAB.toFixed(4)}</em>, knowing whether <em>A</em> occurred does not change the probability of <em>B</em>.`
+      : isMutEx
+      ? `<strong>Mutually Exclusive Confirmed:</strong> Since <em>P(A &cap; B) = 0</em>, events <em>A</em> and <em>B</em> cannot occur simultaneously (and are therefore <strong>NOT independent</strong>).`
+      : `<strong>General Overlapping Events:</strong> <em>P(A &cap; B) = ${pI.toFixed(4)}</em> differs from both <em>0</em> and <em>P(A)P(B) = ${prodAB.toFixed(4)}</em>, so <em>A</em> and <em>B</em> are neither mutually exclusive nor independent.`;
+
+    document.getElementById("vennCanvas").innerHTML = renderVennSVG(aOnly, pI, bOnly, neither);
+
+    const captions = {
+      all: `<strong>4 Disjoint Regions Partition Sample Space S:</strong> ${aOnly.toFixed(4)} + ${pI.toFixed(4)} + ${bOnly.toFixed(4)} + ${neither.toFixed(4)} = <strong>1.0000</strong>.`,
+      union: `<strong>Union (A &cup; B):</strong> At least one of A or B occurs &rArr; <em>P(A &cup; B) = P(A) + P(B) − P(A &cap; B) =</em> <strong>${union.toFixed(4)}</strong>.`,
+      inter: `<strong>Intersection (A &cap; B):</strong> Both A and B occur simultaneously &rArr; <em>P(A &cap; B) =</em> <strong>${pI.toFixed(4)}</strong>.`,
+      aonly: `<strong>A Only (A &cap; B&prime;):</strong> A occurs without B &rArr; <em>P(A) − P(A &cap; B) = ${pA.toFixed(2)} − ${pI.toFixed(2)} =</em> <strong>${aOnly.toFixed(4)}</strong>.`,
+      bonly: `<strong>B Only (A&prime; &cap; B):</strong> B occurs without A &rArr; <em>P(B) − P(A &cap; B) = ${pB.toFixed(2)} − ${pI.toFixed(2)} =</em> <strong>${bOnly.toFixed(4)}</strong>.`,
+      neither: `<strong>Neither Occurs:</strong> The region outside <em>A &cup; B</em> is <em>(A &cup; B)&prime; = A&prime; &cap; B&prime;</em> &rArr; <em>1 − P(A &cup; B) = 1 − ${union.toFixed(4)} =</em> <strong>${neither.toFixed(4)}</strong>.`,
+      notboth: `<strong>Not Both Occur:</strong> Everything except <em>A &cap; B</em> is <em>(A &cap; B)&prime; = A&prime; &cup; B&prime;</em> &rArr; <em>1 − P(A &cap; B) = 1 − ${pI.toFixed(4)} =</em> <strong>${notBoth.toFixed(4)}</strong>.`
+    };
+    document.getElementById("vennCaption").innerHTML = captions[highlightMode];
+
+    document.getElementById("identityTable").innerHTML = `
+      <thead><tr><th>Set / Event</th><th>9758 Venn Identity Formula</th><th>Evaluated Value</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Union: P(A &cup; B)</strong></td><td>P(A) + P(B) − P(A &cap; B)</td><td><strong>${union.toFixed(4)}</strong></td></tr>
+        <tr><td><strong>A Only: P(A &cap; B&prime;)</strong></td><td>P(A) − P(A &cap; B)</td><td>${aOnly.toFixed(4)}</td></tr>
+        <tr><td><strong>B Only: P(A&prime; &cap; B)</strong></td><td>P(B) − P(A &cap; B)</td><td>${bOnly.toFixed(4)}</td></tr>
+        <tr><td><strong>Neither: P(A&prime; &cap; B&prime;)</strong></td><td>1 − P(A &cup; B)</td><td>${neither.toFixed(4)}</td></tr>
+        <tr><td><strong>Not Both: P(A&prime; &cup; B&prime;)</strong></td><td>1 − P(A &cap; B)</td><td>${notBoth.toFixed(4)}</td></tr>
+      </tbody>
+    `;
+  }
+
+  const examQs = [
+    {
+      q: "In a 3-set Venn diagram where A and C are mutually exclusive, P(A) = 1/4, P(B) = b, P(A ∩ B) = b/4, P(B ∩ C) = 1/8, and P(A' ∩ B' ∩ C') = 3/20, what gives the exact lower and upper bounds of b?",
+      opts: [
+        "Enforcing P(B only) = 3b/4 − 1/8 ≥ 0 and P(C only) = 3/5 − 3b/4 ≥ 0 ⇒ 1/6 ≤ b ≤ 4/5",
+        "Enforcing 0 ≤ b ≤ 1 directly ⇒ 0 ≤ b ≤ 1",
+        "Enforcing P(A ∩ B) ≤ 1/4 ⇒ 0 ≤ b ≤ 1",
+        "Enforcing P(A only) = 1/4 − b/4 ≥ 0 ⇒ 0 ≤ b ≤ 1"
+      ],
+      ans: 0,
+      exp: "Every disjoint Venn region must satisfy 0 ≤ P(region) ≤ 1: B only = 3b/4 − 1/8 ≥ 0 gives b ≥ 1/6, while C only = 3/5 − 3b/4 ≥ 0 gives b ≤ 4/5. Multiplying 1/6 ≤ b ≤ 4/5 by 1/4 yields 1/24 ≤ P(A ∩ B) ≤ 1/5."
+    },
+    {
+      q: "Events A and B are such that P(A) = 0.5, P(B) = 0.4, and P(A' ∩ B') = 0.3. Determine whether A and B are independent.",
+      opts: [
+        "Independent, because P(A ∩ B) = 0.2 = 0.5 × 0.4",
+        "Not independent, because P(A ∩ B) = 0.3 ≠ 0.2",
+        "Mutually exclusive, because P(A' ∩ B') = 0.3",
+        "Not independent, because P(A ∪ B) = 0.9"
+      ],
+      ans: 0,
+      exp: "From the Venn diagram, P(A ∪ B) = 1 − P(A' ∩ B') = 1 − 0.3 = 0.7. Using the Addition Law, P(A ∩ B) = P(A) + P(B) − P(A ∪ B) = 0.5 + 0.4 − 0.7 = 0.2. Since P(A) × P(B) = 0.5 × 0.4 = 0.2 = P(A ∩ B), A and B are independent."
+    },
+    {
+      q: "Events C and D are mutually exclusive with P(C) = 0.35 and P(D) = 0.45. What is P(C' ∩ D')?",
+      opts: [
+        "0.20",
+        "0.80",
+        "0.3575",
+        "0"
+      ],
+      ans: 0,
+      exp: "Since C and D are mutually exclusive, P(C ∩ D) = 0, so P(C ∪ D) = 0.35 + 0.45 = 0.80. Hence P(C' ∩ D') = 1 − P(C ∪ D) = 1 − 0.80 = 0.20."
+    }
+  ];
+
+  let curQ = 0;
+
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").textContent = item.q;
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i}, this)">${String.fromCharCode(65 + i)}. ${o}</button>
+    `).join("");
+  }
+
+  function gradeExamQ(idx, btn) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  loadScenario("indep");
+  renderExamQ();
+</script>
+
+</body>
+</html>
