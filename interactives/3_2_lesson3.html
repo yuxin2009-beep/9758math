@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 3.2 Lesson 3: Relationship &amp; Angle Between Two Lines in 3D</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed #e2e8f0;
+      align-items: stretch;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 0.8rem;
+      line-height: 1.55;
+      color: #475569;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      font-size: 0.83rem;
+      margin-bottom: 5px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 510px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 980px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .mode-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 6px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.74rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .slider-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 11px;
+    }
+
+    .slider-group {
+      background: #f8fafc;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.77rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .formula-box {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #3b0764;
+      font-size: 0.79rem;
+      line-height: 1.52;
+      margin-bottom: 9px;
+    }
+
+    .derivation-box {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-left: 4px solid var(--purple);
+      border-radius: 10px;
+      padding: 10px 13px;
+      color: #1e293b;
+      font-size: 0.78rem;
+      line-height: 1.54;
+      margin-bottom: 9px;
+    }
+
+    .working-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #134e4a;
+      font-size: 0.79rem;
+      line-height: 1.52;
+      margin-bottom: 9px;
+    }
+
+    .status-banner {
+      background: var(--blue-bg);
+      border: 1.5px solid #7dd3fc;
+      border-radius: 12px;
+      padding: 9px 13px;
+      color: #0c4a6e;
+      font-size: 0.79rem;
+      font-weight: 700;
+      line-height: 1.48;
+    }
+
+    .status-banner.skew {
+      background: var(--rose-bg);
+      border-color: #fda4af;
+      color: #881337;
+    }
+
+    .status-banner.intersect {
+      background: var(--teal-bg);
+      border-color: #5eead4;
+      color: #134e4a;
+    }
+
+    .status-banner.parallel {
+      background: var(--amber-bg);
+      border-color: #fcd34d;
+      color: #78350f;
+    }
+
+    .canvas-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .cam-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 7px 12px;
+      margin-bottom: 10px;
+    }
+
+    .cam-btn {
+      padding: 5px 10px;
+      border-radius: 7px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .cam-btn.active {
+      background: var(--teal);
+      color: #ffffff;
+      border-color: var(--teal);
+    }
+
+    .legend {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 0.76rem;
+      font-weight: 600;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    canvas {
+      width: 100%;
+      height: 455px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      background: #ffffff;
+      display: block;
+      cursor: grab;
+    }
+
+    canvas:active {
+      cursor: grabbing;
+    }
+
+    .misconception-box {
+      margin-top: 12px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 0.8rem;
+      line-height: 1.52;
+      color: #78350f;
+    }
+
+    .vec-inline {
+      font-family: 'Segoe UI', monospace;
+      font-weight: 700;
+    }
+
+    .preset-row {
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+    }
+
+    .mini-btn {
+      padding: 6px 8px;
+      border-radius: 7px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.73rem;
+      font-weight: 700;
+      color: #334155;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .mini-btn.active {
+      background: var(--teal-bg);
+      border-color: var(--teal);
+      color: #134e4a;
+    }
+
+    .mini-btn:hover {
+      background: #f1f5f9;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" id="guideHeader">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive 3D Visual Lab</span>
+      </div>
+      <button type="button" class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Select a Two-Line Topic Mode</strong>
+        Switch between <em>1. 4-Case Classification</em>, <em>2. Skew vs. Intersecting Check</em>, and <em>3. Acute Angle Between Lines</em> at the top-left.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Drag or Auto-Rotate the 3D Space</strong>
+        Click and drag on the 3D canvas (or toggle Top View and Front View) to see how skew lines cross in a 2D projection yet have a vertical <em>z</em>-gap in 3D.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Test Line Presets &amp; Direction Vectors</strong>
+        Compare the 4 relationship cases in Modes 1–2, or adjust direction vector <strong>d₂</strong> in Mode 3 to compute the acute angle <em>θ</em> via <em>|d₁ · d₂|</em>.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROLS & ALGEBRAIC BREAKDOWN -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        3.2 Lesson 3 &bull; Relationship &amp; Angle Between Two Lines in 3D
+      </div>
+
+      <div class="mode-tabs">
+        <button type="button" class="tab-btn active" id="tab_class">1. 4-Case Classifier</button>
+        <button type="button" class="tab-btn" id="tab_skew">2. Skew vs Intersect</button>
+        <button type="button" class="tab-btn" id="tab_angle">3. Acute Angle θ</button>
+      </div>
+
+      <div class="slider-grid" id="slidersWrap"></div>
+
+      <div class="formula-box" id="formulaBox"></div>
+      <div class="derivation-box" id="derivationBox"></div>
+      <div class="working-box" id="workingBox"></div>
+      <div class="status-banner" id="statusBanner"></div>
+    </div>
+
+    <!-- RIGHT 3D VISUALIZATION CANVAS -->
+    <div class="card">
+      <div class="canvas-header">
+        <strong style="font-size:1.02rem; color:#1e293b;" id="canvasTitle">Four Possible Relationships Between Two Lines L₁ &amp; L₂ in 3D</strong>
+      </div>
+
+      <div class="cam-toolbar">
+        <div style="display:flex; gap:6px; flex-wrap:wrap;">
+          <button type="button" class="cam-btn active" id="btn_orbit">Auto-Rotate 3D: ON</button>
+          <button type="button" class="cam-btn" id="btn_iso">3D Isometric</button>
+          <button type="button" class="cam-btn" id="btn_xy">Top View (x-y)</button>
+          <button type="button" class="cam-btn" id="btn_xz">Front View (x-z)</button>
+        </div>
+        <div class="legend" id="legendWrap"></div>
+      </div>
+
+      <canvas id="twoLines3dCanvas" width="880" height="455"></canvas>
+
+      <div class="misconception-box">
+        <strong>9758 Misconception Alert (Two Lines: Relationships &amp; Acute Angle):</strong>
+        <ul style="margin:4px 0 0 0; padding-left:18px;">
+          <li><strong>Acute Angle Between Two Lines Always Requires Modulus:</strong> Because a line has two opposite direction vectors (<strong>d</strong> and <strong>−d</strong>), the dot product <em>d₁ · d₂</em> can be negative. The <em>angle between two lines</em> is defined as the <strong>acute</strong> angle <em>0° ≤ θ ≤ 90°</em>, so you <strong>must</strong> write <strong>cos θ = |d₁ · d₂| / (|d₁||d₂|)</strong>!</li>
+          <li><strong>Never equate the same parameter λ for both lines:</strong> Always assign <em>λ</em> to <em>L₁</em> and <em>μ</em> to <em>L₂</em>. Solving the <em>x</em> and <em>y</em> equations finds where their 2D top-down shadows cross; substituting <em>(λ, μ)</em> into the <strong>z-equation</strong> tests whether they actually meet at the same height in 3D.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    let guideOpen = true;
+    let mode = "class";
+    let relPreset = "intersect";
+
+    let yaw = 0.62;
+    let pitch = 0.42;
+    let autoOrbit = true;
+    let isDragging = false;
+    let lastMouseX = 0;
+    let lastMouseY = 0;
+
+    // Reference Line L1: r = (1, -1, 2) + lam * (1, 2, -1)
+    const L1_A = [1, -1, 2];
+    const L1_D = [1, 2, -1];
+
+    // Interactive direction d2 for Mode 3 (Acute Angle between L1 and L2 passing through intersection (2,1,1))
+    let angD2 = { dx: 2, dy: -1, dz: 2 };
+
+    const relPresets = {
+      intersect: {
+        label: "1. Intersecting Lines",
+        a2: [4, 0, 3],
+        d2: [2, -1, 2],
+        type: "intersect",
+        summary: "INTERSECTING LINES: d₂ is not parallel to d₁, and solving x & y gives (λ = 1, μ = −1), which satisfies the z-equation (1 = 1). Unique intersection at (2, 1, 1)!"
+      },
+      skew: {
+        label: "2. Skew Lines (Non-Coplanar)",
+        a2: [4, 0, 1],
+        d2: [2, -1, 2],
+        type: "skew",
+        summary: "SKEW LINES: d₂ is not parallel to d₁, and x & y yield (λ = 1, μ = −1), but substituting into z gives 1 ≠ −1 (inconsistent!). Notice in Top View (x-y) they appear to cross, yet they have a vertical gap in 3D!"
+      },
+      parallel: {
+        label: "3. Distinct Parallel Lines",
+        a2: [-1, 1, 1],
+        d2: [2, 4, -2],
+        type: "parallel",
+        summary: "DISTINCT PARALLEL LINES: d₂ = 2d₁ (parallel directions), and point A₂(−1, 1, 1) does not satisfy L₁’s equation (no common points)."
+      },
+      coincident: {
+        label: "4. Coincident (Identical) Lines",
+        a2: [2, 1, 1],
+        d2: [-1, -2, 1],
+        type: "intersect",
+        summary: "COINCIDENT LINES: d₂ = −d₁ (parallel directions) AND point A₂(2, 1, 1) lies on L₁ (at λ = 1). Infinitely many common points!"
+      }
+    };
+
+    function fmtVec3(x, y, z) {
+      return "(" + Number(x.toFixed(2)) + ", " + Number(y.toFixed(2)) + ", " + Number(z.toFixed(2)) + ")";
+    }
+
+    function project3D(x, y, z, W, H) {
+      var cosY = Math.cos(yaw), sinY = Math.sin(yaw);
+      var cosP = Math.cos(pitch), sinP = Math.sin(pitch);
+
+      var rx = x * cosY - y * sinY;
+      var ry = x * sinY + y * cosY;
+
+      var sx = rx;
+      var sy = z * cosP - ry * sinP;
+
+      var scale = 34;
+      return {
+        px: W * 0.5 + sx * scale,
+        py: H * 0.54 - sy * scale
+      };
+    }
+
+    function setMode(m) {
+      mode = m;
+      ["class", "skew", "angle"].forEach(function (id) {
+        var btn = document.getElementById("tab_" + id);
+        if (btn) {
+          if (id === m) btn.classList.add("active");
+          else btn.classList.remove("active");
+        }
+      });
+      if (m === "skew" && relPreset !== "skew" && relPreset !== "intersect") {
+        relPreset = "skew";
+      }
+      renderSliders();
+      updatePanels();
+    }
+
+    function renderSliders() {
+      var wrap = document.getElementById("slidersWrap");
+
+      if (mode === "class" || mode === "skew") {
+        wrap.innerHTML =
+          '<div class="preset-row">' +
+            '<button type="button" class="mini-btn ' + (relPreset === "intersect" ? "active" : "") + '" id="rp_intersect">1. Intersecting Lines</button>' +
+            '<button type="button" class="mini-btn ' + (relPreset === "skew" ? "active" : "") + '" id="rp_skew">2. Skew Lines</button>' +
+            '<button type="button" class="mini-btn ' + (relPreset === "parallel" ? "active" : "") + '" id="rp_parallel">3. Distinct Parallel</button>' +
+            '<button type="button" class="mini-btn ' + (relPreset === "coincident" ? "active" : "") + '" id="rp_coincident">4. Coincident Lines</button>' +
+          '</div>';
+
+        ["intersect", "skew", "parallel", "coincident"].forEach(function (pid) {
+          document.getElementById("rp_" + pid).addEventListener("click", function () {
+            relPreset = pid;
+            renderSliders();
+            updatePanels();
+          });
+        });
+
+      } else {
+        // Mode 3: Adjust direction vector d2 of Line L2
+        wrap.innerHTML =
+          '<div class="slider-group" style="grid-column:span 2;">' +
+            '<div class="slider-header"><span>Line L₂ Direction d₂ = (d₂x, d₂y, d₂z)</span><span id="lbl_d2" style="color:var(--purple-dark);">' + fmtVec3(angD2.dx, angD2.dy, angD2.dz) + '</span></div>' +
+            '<input type="range" id="sl_dx" min="-3" max="3" step="1" value="' + angD2.dx + '" />' +
+            '<input type="range" id="sl_dy" min="-3" max="3" step="1" value="' + angD2.dy + '" style="margin-top:3px;" />' +
+            '<input type="range" id="sl_dz" min="-2" max="3" step="1" value="' + angD2.dz + '" style="margin-top:3px;" />' +
+          '</div>' +
+          '<div class="preset-row">' +
+            '<button type="button" class="mini-btn" id="ap_obtuse">Obtuse d₁·d₂ &lt; 0 Test</button>' +
+            '<button type="button" class="mini-btn" id="ap_perp">Perpendicular (θ = 90°)</button>' +
+          '</div>';
+
+        ["dx", "dy", "dz"].forEach(function (k) {
+          document.getElementById("sl_" + k).addEventListener("input", function () {
+            angD2[k] = parseInt(this.value, 10);
+            if (angD2.dx === 0 && angD2.dy === 0 && angD2.dz === 0) angD2.dx = 1;
+            updatePanels();
+          });
+        });
+
+        document.getElementById("ap_obtuse").addEventListener("click", function () {
+          // d1 = (1, 2, -1); choose d2 = (-2, -1, 1) => d1.d2 = -2 - 2 - 1 = -5 < 0
+          angD2 = { dx: -2, dy: -1, dz: 1 };
+          syncAngleSliders(); updatePanels();
+        });
+        document.getElementById("ap_perp").addEventListener("click", function () {
+          // d1 = (1, 2, -1); choose d2 = (1, 0, 1) => d1.d2 = 1 + 0 - 1 = 0
+          angD2 = { dx: 1, dy: 0, dz: 1 };
+          syncAngleSliders(); updatePanels();
+        });
+      }
+    }
+
+    function syncAngleSliders() {
+      ["dx", "dy", "dz"].forEach(function (k) {
+        var el = document.getElementById("sl_" + k);
+        if (el) el.value = angD2[k];
+      });
+    }
+
+    function updatePanels() {
+      var formulaBox = document.getElementById("formulaBox");
+      var derivBox = document.getElementById("derivationBox");
+      var workingBox = document.getElementById("workingBox");
+      var statusBanner = document.getElementById("statusBanner");
+      var titleEl = document.getElementById("canvasTitle");
+      var legendEl = document.getElementById("legendWrap");
+
+      statusBanner.classList.remove("skew", "intersect", "parallel");
+
+      if (mode === "class" || mode === "skew") {
+        var rp = relPresets[relPreset];
+        titleEl.textContent = mode === "class"
+          ? "Four Possible Relationships Between Two Lines L₁ & L₂ in 3D"
+          : "Algebraic Consistency Check: Intersecting vs. Skew Lines";
+
+        legendEl.innerHTML =
+          '<span class="legend-item"><span class="dot" style="background:#0284c7;"></span> Line L₁ (λ)</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#8b5cf6;"></span> Line L₂ (μ)</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#e11d48;"></span> Intersection / z-Gap</span>';
+
+        formulaBox.innerHTML =
+          '<strong>Line L₁:</strong> <span class="vec-inline">r = (1, −1, 2) + λ(1, 2, −1), &nbsp;λ ∈ ℝ</span><br>' +
+          '<strong>Line L₂:</strong> <span class="vec-inline">r = ' + fmtVec3(rp.a2[0], rp.a2[1], rp.a2[2]) + ' + μ' + fmtVec3(rp.d2[0], rp.d2[1], rp.d2[2]) + ', &nbsp;μ ∈ ℝ</span>';
+
+        derivBox.innerHTML =
+          '<strong>9758 Two-Step Classification Decision Tree:</strong><br>' +
+          '<strong>Step 1 (Compare Directions d₁ &amp; d₂):</strong> Is <span class="vec-inline">d₂ = k d₁</span>? If YES &rArr; <strong>Parallel</strong> (if <span class="vec-inline">A₂ ∉ L₁</span>) or <strong>Coincident</strong> (if <span class="vec-inline">A₂ ∈ L₁</span>).<br>' +
+          '<strong>Step 2 (Solve Parametric System):</strong> If NO, solve <span class="vec-inline">x, y</span> for <span class="vec-inline">(λ, μ)</span>, then substitute into <strong>z</strong>: consistent &rArr; <strong>Intersecting</strong>; inconsistent &rArr; <strong>Skew</strong>.';
+
+        if (relPreset === "intersect") {
+          workingBox.innerHTML =
+            '<strong>Solve x &amp; y:</strong> <span class="vec-inline">1 + λ = 4 + 2μ</span> and <span class="vec-inline">−1 + 2λ = −μ</span> &rArr; <strong>λ = 1, μ = −1</strong>.<br>' +
+            '<strong>Verify z-equation:</strong> <span class="vec-inline">LHS = 2 − (1) = 1</span>, <span class="vec-inline">RHS = 3 + 2(−1) = 1</span> (Consistent &rArr; Point <span class="vec-inline">(2, 1, 1)</span>).';
+          statusBanner.classList.add("intersect");
+        } else if (relPreset === "skew") {
+          workingBox.innerHTML =
+            '<strong>Solve x &amp; y:</strong> <span class="vec-inline">1 + λ = 4 + 2μ</span> and <span class="vec-inline">−1 + 2λ = −μ</span> &rArr; <strong>λ = 1, μ = −1</strong>.<br>' +
+            '<strong>Verify z-equation:</strong> <span class="vec-inline">LHS = 2 − (1) = 1</span>, <span class="vec-inline">RHS = 1 + 2(−1) = −1</span> (<strong>1 ≠ −1</strong>, Inconsistent!).';
+          statusBanner.classList.add("skew");
+        } else if (relPreset === "parallel") {
+          workingBox.innerHTML =
+            '<strong>Direction Ratio:</strong> <span class="vec-inline">d₂ = (2, 4, −2) = 2(1, 2, −1) = 2d₁</span> (Parallel directions!).<br>' +
+            '<strong>Point Membership:</strong> <span class="vec-inline">(−1, 1, 1) = (1, −1, 2) + λ(1, 2, −1)</span> gives <span class="vec-inline">λ = −2</span> (x) vs. <span class="vec-inline">λ = 1</span> (y, z) &rArr; No intersection.';
+          statusBanner.classList.add("parallel");
+        } else {
+          workingBox.innerHTML =
+            '<strong>Direction Ratio:</strong> <span class="vec-inline">d₂ = (−1, −2, 1) = −d₁</span> (Parallel directions!).<br>' +
+            '<strong>Point Membership:</strong> <span class="vec-inline">(2, 1, 1) = (1, −1, 2) + λ(1, 2, −1)</span> holds at <strong>λ = 1</strong> across all 3 coordinates!';
+          statusBanner.classList.add("intersect");
+        }
+
+        statusBanner.innerHTML = '<strong>' + rp.summary + '</strong>';
+
+      } else {
+        // Mode 3: Acute Angle Between Two Lines L1 and L2
+        document.getElementById("lbl_d2").textContent = fmtVec3(angD2.dx, angD2.dy, angD2.dz);
+
+        var dot = L1_D[0] * angD2.dx + L1_D[1] * angD2.dy + L1_D[2] * angD2.dz;
+        var mag1Sq = L1_D[0] ** 2 + L1_D[1] ** 2 + L1_D[2] ** 2; // 6
+        var mag2Sq = angD2.dx ** 2 + angD2.dy ** 2 + angD2.dz ** 2;
+
+        var rawCos = dot / Math.sqrt(mag1Sq * mag2Sq);
+        var absCos = Math.min(1, Math.abs(rawCos));
+        var acuteDeg = Math.acos(absCos) * (180 / Math.PI);
+        var rawDeg = Math.acos(Math.max(-1, Math.min(1, rawCos))) * (180 / Math.PI);
+
+        titleEl.textContent = "Acute Angle θ Between Two Lines L₁ & L₂ in 3D (Even for Skew Lines!)";
+        legendEl.innerHTML =
+          '<span class="legend-item"><span class="dot" style="background:#0284c7;"></span> Line L₁ (d₁)</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#8b5cf6;"></span> Line L₂ (d₂)</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#0f766e;"></span> Acute Angle θ</span>';
+
+        formulaBox.innerHTML =
+          '<strong>Acute Angle Formula Between Two Lines:</strong><br>' +
+          '<span class="vec-inline">cos θ = |d₁ · d₂| / (|d₁||d₂|)</span> &nbsp;(where <span class="vec-inline">0° &le; θ &le; 90°</span>)';
+
+        derivBox.innerHTML =
+          '<strong>Why the Modulus |d₁ · d₂| is Essential:</strong><br>' +
+          'Since <span class="vec-inline">d₁ = (1, 2, −1)</span> and <span class="vec-inline">d₂ = ' + fmtVec3(angD2.dx, angD2.dy, angD2.dz) + '</span>, their raw dot product is <span class="vec-inline">d₁ · d₂ = ' + dot + '</span>.<br>' +
+          (dot < 0
+            ? 'Because <span class="vec-inline">d₁ · d₂ &lt; 0</span>, the angle between the chosen arrows is obtuse (<span class="vec-inline">' + rawDeg.toFixed(1) + '°</span>); taking <span class="vec-inline">|d₁ · d₂| = ' + Math.abs(dot) + '</span> automatically gives the supplementary acute angle <span class="vec-inline">180° − ' + rawDeg.toFixed(1) + '° = ' + acuteDeg.toFixed(1) + '°</span>!'
+            : 'Here <span class="vec-inline">d₁ · d₂ &ge; 0</span>, so the angle between the arrows is already acute (<span class="vec-inline">' + acuteDeg.toFixed(1) + '°</span>).');
+
+        workingBox.innerHTML =
+          '<strong>Calculation:</strong> <span class="vec-inline">cos θ = |' + dot + '| / (√' + mag1Sq + ' · √' + mag2Sq + ') = ' + absCos.toFixed(4) + '</span><br>' +
+          '<strong>Acute Angle Between L₁ and L₂:</strong> <strong>θ = ' + acuteDeg.toFixed(1) + '°</strong>';
+
+        if (dot === 0) {
+          statusBanner.classList.add("intersect");
+          statusBanner.innerHTML = '<strong>PERPENDICULAR LINES (d₁ · d₂ = 0):</strong> θ = 90°! Note that two lines in 3D can have perpendicular directions even if they are skew and never intersect.';
+        } else {
+          statusBanner.innerHTML = '<strong>SKEW LINE ANGLE DEFINITION:</strong> Even if <em>L₁</em> and <em>L₂</em> are skew, the angle between them is defined as the acute angle between two intersecting lines parallel to <span class="vec-inline">d₁</span> and <span class="vec-inline">d₂</span>!';
+        }
+      }
+    }
+
+    function drawInfiniteLine3D(ctx, ax, ay, az, dx, dy, dz, W, H, color, label) {
+      var tMin = -2.3, tMax = 2.5;
+      var pStart = project3D(ax + tMin * dx, ay + tMin * dy, az + tMin * dz, W, H);
+      var pEnd = project3D(ax + tMax * dx, ay + tMax * dy, az + tMax * dz, W, H);
+
+      ctx.save();
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2.6;
+      ctx.beginPath();
+      ctx.moveTo(pStart.px, pStart.py);
+      ctx.lineTo(pEnd.px, pEnd.py);
+      ctx.stroke();
+
+      ctx.fillStyle = color;
+      ctx.font = "bold 12px Segoe UI, sans-serif";
+      ctx.fillText(label, pEnd.px + 6, pEnd.py - 4);
+      ctx.restore();
+    }
+
+    function drawArrow3D(ctx, p1, p2, color, width) {
+      var dx = p2.px - p1.px;
+      var dy = p2.py - p1.py;
+      var len = Math.hypot(dx, dy);
+      if (len < 2) return;
+      var angle = Math.atan2(dy, dx);
+      var headLen = 9;
+
+      ctx.save();
+      ctx.strokeStyle = color;
+      ctx.fillStyle = color;
+      ctx.lineWidth = width;
+      ctx.beginPath();
+      ctx.moveTo(p1.px, p1.py);
+      ctx.lineTo(p2.px, p2.py);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(p2.px, p2.py);
+      ctx.lineTo(p2.px - headLen * Math.cos(angle - Math.PI / 6), p2.py - headLen * Math.sin(angle - Math.PI / 6));
+      ctx.lineTo(p2.px - headLen * Math.cos(angle + Math.PI / 6), p2.py - headLen * Math.sin(angle + Math.PI / 6));
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function drawDropLine(ctx, x, y, z, W, H, color) {
+      var pTop = project3D(x, y, z, W, H);
+      var pFloor = project3D(x, y, 0, W, H);
+      ctx.save();
+      ctx.strokeStyle = color;
+      ctx.globalAlpha = 0.28;
+      ctx.lineWidth = 1.2;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      ctx.moveTo(pTop.px, pTop.py);
+      ctx.lineTo(pFloor.px, pFloor.py);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    function renderFrame() {
+      if (autoOrbit && !isDragging) {
+        yaw += 0.0045;
+      }
+
+      var canvas = document.getElementById("twoLines3dCanvas");
+      if (!canvas) return;
+      var ctx = canvas.getContext("2d");
+      var W = canvas.width, H = canvas.height;
+      ctx.clearRect(0, 0, W, H);
+
+      // 3D Floor Grid
+      ctx.strokeStyle = "#f1f5f9";
+      ctx.lineWidth = 1;
+      for (var g = -4; g <= 4; g++) {
+        var a1 = project3D(g, -4, 0, W, H), a2 = project3D(g, 4, 0, W, H);
+        ctx.beginPath(); ctx.moveTo(a1.px, a1.py); ctx.lineTo(a2.px, a2.py); ctx.stroke();
+        var b1 = project3D(-4, g, 0, W, H), b2 = project3D(4, g, 0, W, H);
+        ctx.beginPath(); ctx.moveTo(b1.px, b1.py); ctx.lineTo(b2.px, b2.py); ctx.stroke();
+      }
+
+      // 3D Axes
+      var oPt = project3D(0, 0, 0, W, H);
+      var xN = project3D(-4.8, 0, 0, W, H), xP = project3D(5.0, 0, 0, W, H);
+      var yN = project3D(0, -4.8, 0, W, H), yP = project3D(0, 5.0, 0, W, H);
+      var zN = project3D(0, 0, -4.0, W, H), zP = project3D(0, 0, 4.8, W, H);
+
+      ctx.strokeStyle = "#cbd5e1";
+      ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      ctx.moveTo(xN.px, xN.py); ctx.lineTo(xP.px, xP.py);
+      ctx.moveTo(yN.px, yN.py); ctx.lineTo(yP.px, yP.py);
+      ctx.moveTo(zN.px, zN.py); ctx.lineTo(zP.px, zP.py);
+      ctx.stroke();
+
+      ctx.fillStyle = "#64748b";
+      ctx.font = "bold 12px Segoe UI, sans-serif";
+      ctx.fillText("+x", xP.px + 5, xP.py + 4);
+      ctx.fillText("+y", yP.px + 5, yP.py + 4);
+      ctx.fillText("+z", zP.px - 6, zP.py - 7);
+      ctx.fillText("O", oPt.px - 14, oPt.py + 15);
+
+      // Draw Line L1
+      drawInfiniteLine3D(ctx, L1_A[0], L1_A[1], L1_A[2], L1_D[0], L1_D[1], L1_D[2], W, H, "#0284c7", "L₁");
+
+      if (mode === "class" || mode === "skew") {
+        var rp = relPresets[relPreset];
+        drawInfiniteLine3D(ctx, rp.a2[0], rp.a2[1], rp.a2[2], rp.d2[0], rp.d2[1], rp.d2[2], W, H, "#8b5cf6", "L₂");
+
+        if (relPreset === "intersect" || relPreset === "coincident") {
+          var pInt = project3D(2, 1, 1, W, H);
+          drawDropLine(ctx, 2, 1, 1, W, H, "#e11d48");
+          ctx.beginPath(); ctx.arc(pInt.px, pInt.py, 6.5, 0, Math.PI * 2); ctx.fillStyle = "#e11d48"; ctx.fill();
+          ctx.fillStyle = "#be123c"; ctx.font = "bold 12px Segoe UI, sans-serif";
+          ctx.fillText(relPreset === "intersect" ? "Intersection (2, 1, 1)" : "Common Point (2, 1, 1)", pInt.px + 9, pInt.py - 8);
+        } else if (relPreset === "skew") {
+          var pS1 = project3D(2, 1, 1, W, H);
+          var pS2 = project3D(2, 1, -1, W, H);
+          ctx.save();
+          ctx.strokeStyle = "#e11d48";
+          ctx.lineWidth = 2.5;
+          ctx.setLineDash([5, 4]);
+          ctx.beginPath();
+          ctx.moveTo(pS1.px, pS1.py);
+          ctx.lineTo(pS2.px, pS2.py);
+          ctx.stroke();
+          ctx.restore();
+
+          ctx.beginPath(); ctx.arc(pS1.px, pS1.py, 5.5, 0, Math.PI * 2); ctx.fillStyle = "#0284c7"; ctx.fill();
+          ctx.beginPath(); ctx.arc(pS2.px, pS2.py, 5.5, 0, Math.PI * 2); ctx.fillStyle = "#8b5cf6"; ctx.fill();
+          ctx.fillStyle = "#be123c"; ctx.font = "bold 11.5px Segoe UI, sans-serif";
+          ctx.fillText("z-gap: (2,1,1) vs (2,1,−1)", pS1.px + 8, (pS1.py + pS2.py) * 0.5);
+        }
+
+      } else {
+        // Mode 3: Draw L2 passing through P0=(2, 1, 1) with direction angD2, and draw direction arrows d1, d2
+        var p0 = [2, 1, 1];
+        drawInfiniteLine3D(ctx, p0[0], p0[1], p0[2], angD2.dx, angD2.dy, angD2.dz, W, H, "#8b5cf6", "L₂");
+
+        var pMeet = project3D(p0[0], p0[1], p0[2], W, H);
+        var pTip1 = project3D(p0[0] + L1_D[0], p0[1] + L1_D[1], p0[2] + L1_D[2], W, H);
+        var pTip2 = project3D(p0[0] + angD2.dx, p0[1] + angD2.dy, p0[2] + angD2.dz, W, H);
+
+        drawArrow3D(ctx, pMeet, pTip1, "#0284c7", 3.2);
+        drawArrow3D(ctx, pMeet, pTip2, "#8b5cf6", 3.2);
+
+        ctx.fillStyle = "#0284c7"; ctx.font = "bold 12px Segoe UI, sans-serif";
+        ctx.fillText("d₁", pTip1.px + 6, pTip1.py - 6);
+        ctx.fillStyle = "#7c3aed";
+        ctx.fillText("d₂", pTip2.px + 6, pTip2.py - 6);
+
+        ctx.beginPath(); ctx.arc(pMeet.px, pMeet.py, 5.5, 0, Math.PI * 2); ctx.fillStyle = "#0f766e"; ctx.fill();
+      }
+
+      requestAnimationFrame(renderFrame);
+    }
+
+    function init() {
+      document.getElementById("guideHeader").addEventListener("click", function () {
+        guideOpen = !guideOpen;
+        document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+        document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+      });
+
+      document.getElementById("tab_class").addEventListener("click", function () { setMode("class"); });
+      document.getElementById("tab_skew").addEventListener("click", function () { setMode("skew"); });
+      document.getElementById("tab_angle").addEventListener("click", function () { setMode("angle"); });
+
+      var btnOrbit = document.getElementById("btn_orbit");
+      btnOrbit.addEventListener("click", function () {
+        autoOrbit = !autoOrbit;
+        btnOrbit.classList.toggle("active", autoOrbit);
+        btnOrbit.textContent = autoOrbit ? "Auto-Rotate 3D: ON" : "Auto-Rotate 3D: OFF";
+      });
+
+      document.getElementById("btn_iso").addEventListener("click", function () {
+        autoOrbit = false; btnOrbit.classList.remove("active"); btnOrbit.textContent = "Auto-Rotate 3D: OFF";
+        yaw = 0.62; pitch = 0.42;
+      });
+      document.getElementById("btn_xy").addEventListener("click", function () {
+        autoOrbit = false; btnOrbit.classList.remove("active"); btnOrbit.textContent = "Auto-Rotate 3D: OFF";
+        yaw = 0.0; pitch = 1.54;
+      });
+      document.getElementById("btn_xz").addEventListener("click", function () {
+        autoOrbit = false; btnOrbit.classList.remove("active"); btnOrbit.textContent = "Auto-Rotate 3D: OFF";
+        yaw = 0.0; pitch = 0.04;
+      });
+
+      var canvas = document.getElementById("twoLines3dCanvas");
+      canvas.addEventListener("mousedown", function (e) {
+        isDragging = true;
+        lastMouseX = e.clientX;
+        lastMouseY = e.clientY;
+      });
+      window.addEventListener("mousemove", function (e) {
+        if (!isDragging) return;
+        yaw += (e.clientX - lastMouseX) * 0.01;
+        pitch = Math.max(-1.4, Math.min(1.55, pitch + (e.clientY - lastMouseY) * 0.01));
+        lastMouseX = e.clientX;
+        lastMouseY = e.clientY;
+      });
+      window.addEventListener("mouseup", function () {
+        isDragging = false;
+      });
+
+      renderSliders();
+      updatePanels();
+      requestAnimationFrame(renderFrame);
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else {
+      init();
+    }
+  })();
+</script>
+
+</body>
+</html>

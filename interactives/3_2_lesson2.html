@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 3.2 Lesson 2: Foot of Perpendicular &amp; Distance from Point to Line</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed #e2e8f0;
+      align-items: stretch;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 0.8rem;
+      line-height: 1.55;
+      color: #475569;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      font-size: 0.83rem;
+      margin-bottom: 5px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 510px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 980px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .mode-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 6px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.74rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .slider-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 11px;
+    }
+
+    .slider-group {
+      background: #f8fafc;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.77rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .formula-box {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #3b0764;
+      font-size: 0.79rem;
+      line-height: 1.52;
+      margin-bottom: 9px;
+    }
+
+    .derivation-box {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-left: 4px solid var(--purple);
+      border-radius: 10px;
+      padding: 10px 13px;
+      color: #1e293b;
+      font-size: 0.78rem;
+      line-height: 1.54;
+      margin-bottom: 9px;
+    }
+
+    .working-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #134e4a;
+      font-size: 0.79rem;
+      line-height: 1.52;
+      margin-bottom: 9px;
+    }
+
+    .status-banner {
+      background: var(--blue-bg);
+      border: 1.5px solid #7dd3fc;
+      border-radius: 12px;
+      padding: 9px 13px;
+      color: #0c4a6e;
+      font-size: 0.79rem;
+      font-weight: 700;
+      line-height: 1.48;
+    }
+
+    .status-banner.online {
+      background: var(--teal-bg);
+      border-color: #5eead4;
+      color: #134e4a;
+    }
+
+    .canvas-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .cam-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 7px 12px;
+      margin-bottom: 10px;
+    }
+
+    .cam-btn {
+      padding: 5px 10px;
+      border-radius: 7px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .cam-btn.active {
+      background: var(--teal);
+      color: #ffffff;
+      border-color: var(--teal);
+    }
+
+    .legend {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 0.76rem;
+      font-weight: 600;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    canvas {
+      width: 100%;
+      height: 455px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      background: #ffffff;
+      display: block;
+      cursor: grab;
+    }
+
+    canvas:active {
+      cursor: grabbing;
+    }
+
+    .misconception-box {
+      margin-top: 12px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 0.8rem;
+      line-height: 1.52;
+      color: #78350f;
+    }
+
+    .vec-inline {
+      font-family: 'Segoe UI', monospace;
+      font-weight: 700;
+    }
+
+    .preset-row {
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+
+    .mini-btn {
+      padding: 6px 8px;
+      border-radius: 7px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.73rem;
+      font-weight: 700;
+      color: #334155;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .mini-btn:hover {
+      background: #f1f5f9;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" id="guideHeader">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive 3D Visual Lab</span>
+      </div>
+      <button type="button" class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Select a Solution Method</strong>
+        Switch between <em>1. Foot N (Dot Product)</em>, <em>2. Distance (Cross Product)</em>, and <em>3. Reflection Across Line</em> at the top-left.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Drag or Auto-Rotate the 3D Space</strong>
+        Click and drag on the 3D canvas (or use Isometric, Top, and Front camera views) to inspect the right angle between segment <strong>PN</strong> and line <em>L</em>.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Move Point P &amp; Line Direction d</strong>
+        Adjust the coordinates of external point <em>P</em> and direction vector <strong>d</strong> to see how parameter <em>λ</em>, Foot <em>N</em>, and distance <em>|PN|</em> update in real time.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROLS & ALGEBRAIC BREAKDOWN -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        3.2 Lesson 2 &bull; Foot of Perpendicular &amp; Distance from Point to Line
+      </div>
+
+      <div class="mode-tabs">
+        <button type="button" class="tab-btn active" id="tab_dot">1. Foot N (Dot Method)</button>
+        <button type="button" class="tab-btn" id="tab_cross">2. Distance (Cross)</button>
+        <button type="button" class="tab-btn" id="tab_reflect">3. Reflection P′</button>
+      </div>
+
+      <div class="slider-grid" id="slidersWrap"></div>
+
+      <div class="formula-box" id="formulaBox"></div>
+      <div class="derivation-box" id="derivationBox"></div>
+      <div class="working-box" id="workingBox"></div>
+      <div class="status-banner" id="statusBanner"></div>
+    </div>
+
+    <!-- RIGHT 3D VISUALIZATION CANVAS -->
+    <div class="card">
+      <div class="canvas-header">
+        <strong style="font-size:1.02rem; color:#1e293b;" id="canvasTitle">Foot of Perpendicular N from Point P to Line L in 3D</strong>
+      </div>
+
+      <div class="cam-toolbar">
+        <div style="display:flex; gap:6px; flex-wrap:wrap;">
+          <button type="button" class="cam-btn active" id="btn_orbit">Auto-Rotate 3D: ON</button>
+          <button type="button" class="cam-btn" id="btn_iso">3D Isometric</button>
+          <button type="button" class="cam-btn" id="btn_xy">Top View (x-y)</button>
+          <button type="button" class="cam-btn" id="btn_xz">Front View (x-z)</button>
+        </div>
+        <div class="legend" id="legendWrap"></div>
+      </div>
+
+      <canvas id="footLine3dCanvas" width="880" height="455"></canvas>
+
+      <div class="misconception-box">
+        <strong>9758 Misconception Alert (Point-to-Line Foot &amp; Perpendicular Distance):</strong>
+        <ul style="margin:4px 0 0 0; padding-left:18px;">
+          <li><strong>Always check whether the question asks for Foot N or Distance d:</strong> If you only need the <em>perpendicular distance</em> from <em>P</em> to <em>L</em>, the cross-product formula <strong>d = |AP × d̂| = |AP × d| / |d|</strong> finds it in one step without solving for <em>λ</em>. However, if you need the coordinates of <strong>Foot N</strong> or <strong>Reflection P′</strong>, you <strong>must</strong> use the dot product condition <strong>PN · d = 0</strong> (or projection <strong>AN = (AP · d̂)d̂</strong>).</li>
+          <li><strong>Use PN · d = 0, NOT ON · d = 0:</strong> The vector perpendicular to the line is <strong>PN = ON − OP</strong> (joining <em>P</em> to <em>N</em>), <strong>not</strong> the position vector <em>ON</em> from the origin!</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    let guideOpen = true;
+    let mode = "dot";
+
+    let yaw = 0.62;
+    let pitch = 0.42;
+    let autoOrbit = true;
+    let isDragging = false;
+    let lastMouseX = 0;
+    let lastMouseY = 0;
+
+    // Line L: r = a + lam * d
+    let lineL = {
+      ax: 1, ay: -1, az: 1,
+      dx: 1, dy: 2, dz: -1
+    };
+
+    // External Point P
+    let ptP = { px: 4, py: 1, pz: 3 };
+
+    function fmtVec3(x, y, z) {
+      return "(" + Number(x.toFixed(2)) + ", " + Number(y.toFixed(2)) + ", " + Number(z.toFixed(2)) + ")";
+    }
+
+    function project3D(x, y, z, W, H) {
+      var cosY = Math.cos(yaw), sinY = Math.sin(yaw);
+      var cosP = Math.cos(pitch), sinP = Math.sin(pitch);
+
+      var rx = x * cosY - y * sinY;
+      var ry = x * sinY + y * cosY;
+
+      var sx = rx;
+      var sy = z * cosP - ry * sinP;
+
+      var scale = 34;
+      return {
+        px: W * 0.5 + sx * scale,
+        py: H * 0.54 - sy * scale
+      };
+    }
+
+    function setMode(m) {
+      mode = m;
+      ["dot", "cross", "reflect"].forEach(function (id) {
+        var btn = document.getElementById("tab_" + id);
+        if (btn) {
+          if (id === m) btn.classList.add("active");
+          else btn.classList.remove("active");
+        }
+      });
+      updatePanels();
+    }
+
+    function renderSliders() {
+      var wrap = document.getElementById("slidersWrap");
+      wrap.innerHTML =
+        '<div class="slider-group">' +
+          '<div class="slider-header"><span>External Point P(x, y, z)</span><span id="lbl_P" style="color:var(--rose);">' + fmtVec3(ptP.px, ptP.py, ptP.pz) + '</span></div>' +
+          '<input type="range" id="sl_px" min="-3" max="4" step="1" value="' + ptP.px + '" />' +
+          '<input type="range" id="sl_py" min="-3" max="4" step="1" value="' + ptP.py + '" style="margin-top:3px;" />' +
+          '<input type="range" id="sl_pz" min="-2" max="4" step="1" value="' + ptP.pz + '" style="margin-top:3px;" />' +
+        '</div>' +
+        '<div class="slider-group">' +
+          '<div class="slider-header"><span>Line Direction d = (d₁, d₂, d₃)</span><span id="lbl_d" style="color:var(--blue);">' + fmtVec3(lineL.dx, lineL.dy, lineL.dz) + '</span></div>' +
+          '<input type="range" id="sl_dx" min="-2" max="3" step="1" value="' + lineL.dx + '" />' +
+          '<input type="range" id="sl_dy" min="-2" max="3" step="1" value="' + lineL.dy + '" style="margin-top:3px;" />' +
+          '<input type="range" id="sl_dz" min="-2" max="2" step="1" value="' + lineL.dz + '" style="margin-top:3px;" />' +
+        '</div>' +
+        '<div class="preset-row">' +
+          '<button type="button" class="mini-btn" id="pre_std">Standard 3D Case</button>' +
+          '<button type="button" class="mini-btn" id="pre_int">Integer Foot N</button>' +
+          '<button type="button" class="mini-btn" id="pre_on">Point P Lies on Line</button>' +
+        '</div>';
+
+      ["px", "py", "pz"].forEach(function (k) {
+        document.getElementById("sl_" + k).addEventListener("input", function () {
+          ptP[k] = parseInt(this.value, 10);
+          updatePanels();
+        });
+      });
+
+      ["dx", "dy", "dz"].forEach(function (k) {
+        document.getElementById("sl_" + k).addEventListener("input", function () {
+          lineL[k] = parseInt(this.value, 10);
+          if (lineL.dx === 0 && lineL.dy === 0 && lineL.dz === 0) lineL.dx = 1;
+          updatePanels();
+        });
+      });
+
+      document.getElementById("pre_std").addEventListener("click", function () {
+        lineL = { ax: 1, ay: -1, az: 1, dx: 1, dy: 2, dz: -1 };
+        ptP = { px: 4, py: 1, pz: 3 };
+        syncSliders(); updatePanels();
+      });
+      document.getElementById("pre_int").addEventListener("click", function () {
+        // A=(1,-1,1), d=(1,2,-1), lam=1 => N=(2,1,0). Choose P so (P-N).d = 0 => P=(4,0,0): (2,-1,0).(1,2,-1)=0!
+        lineL = { ax: 1, ay: -1, az: 1, dx: 1, dy: 2, dz: -1 };
+        ptP = { px: 4, py: 0, pz: 0 };
+        syncSliders(); updatePanels();
+      });
+      document.getElementById("pre_on").addEventListener("click", function () {
+        // lam = 1 => (2, 1, 0) lies directly on L
+        lineL = { ax: 1, ay: -1, az: 1, dx: 1, dy: 2, dz: -1 };
+        ptP = { px: 2, py: 1, pz: 0 };
+        syncSliders(); updatePanels();
+      });
+    }
+
+    function syncSliders() {
+      ["px", "py", "pz"].forEach(function (k) {
+        var el = document.getElementById("sl_" + k);
+        if (el) el.value = ptP[k];
+      });
+      ["dx", "dy", "dz"].forEach(function (k) {
+        var el = document.getElementById("sl_" + k);
+        if (el) el.value = lineL[k];
+      });
+    }
+
+    function computeFootData() {
+      var apx = ptP.px - lineL.ax;
+      var apy = ptP.py - lineL.ay;
+      var apz = ptP.pz - lineL.az;
+
+      var dotAPd = apx * lineL.dx + apy * lineL.dy + apz * lineL.dz;
+      var magDSq = lineL.dx * lineL.dx + lineL.dy * lineL.dy + lineL.dz * lineL.dz;
+      var magD = Math.sqrt(magDSq);
+      var lam = dotAPd / magDSq;
+
+      var nx = lineL.ax + lam * lineL.dx;
+      var ny = lineL.ay + lam * lineL.dy;
+      var nz = lineL.az + lam * lineL.dz;
+
+      var pnx = nx - ptP.px, pny = ny - ptP.py, pnz = nz - ptP.pz;
+      var dist = Math.hypot(pnx, pny, pnz);
+
+      // Cross product AP x d
+      var cx = apy * lineL.dz - apz * lineL.dy;
+      var cy = -(apx * lineL.dz - apz * lineL.dx);
+      var cz = apx * lineL.dy - apy * lineL.dx;
+      var magCrossSq = cx * cx + cy * cy + cz * cz;
+
+      return {
+        apx: apx, apy: apy, apz: apz,
+        dotAPd: dotAPd, magDSq: magDSq, magD: magD, lam: lam,
+        nx: nx, ny: ny, nz: nz,
+        pnx: pnx, pny: pny, pnz: pnz,
+        dist: dist,
+        cx: cx, cy: cy, cz: cz, magCrossSq: magCrossSq
+      };
+    }
+
+    function updatePanels() {
+      document.getElementById("lbl_P").textContent = fmtVec3(ptP.px, ptP.py, ptP.pz);
+      document.getElementById("lbl_d").textContent = fmtVec3(lineL.dx, lineL.dy, lineL.dz);
+
+      var f = computeFootData();
+      var formulaBox = document.getElementById("formulaBox");
+      var derivBox = document.getElementById("derivationBox");
+      var workingBox = document.getElementById("workingBox");
+      var statusBanner = document.getElementById("statusBanner");
+      var titleEl = document.getElementById("canvasTitle");
+      var legendEl = document.getElementById("legendWrap");
+
+      statusBanner.classList.remove("online");
+
+      if (mode === "dot") {
+        titleEl.textContent = "Method 1: Finding Foot of Perpendicular N via PN · d = 0";
+        legendEl.innerHTML =
+          '<span class="legend-item"><span class="dot" style="background:#0284c7;"></span> Line L</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#e11d48;"></span> Point P</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#0f766e;"></span> Foot N (PN ⊥ d)</span>';
+
+        formulaBox.innerHTML =
+          '<strong>Line L:</strong> <span class="vec-inline">r = ' + fmtVec3(lineL.ax, lineL.ay, lineL.az) + ' + λ' + fmtVec3(lineL.dx, lineL.dy, lineL.dz) + '</span><br>' +
+          '<strong>Perpendicularity Condition:</strong> Since <em>N</em> lies on <em>L</em>, <span class="vec-inline">ON = a + λd</span> and <span class="vec-inline">PN · d = 0</span>.';
+
+        derivBox.innerHTML =
+          '<strong>Step-by-Step Algebraic Solution for λ:</strong><br>' +
+          '1. <span class="vec-inline">PN = ON − OP = (a − p) + λd = −AP + λd</span>.<br>' +
+          '2. Set <span class="vec-inline">PN · d = 0 &rArr; (−AP + λd) · d = 0 &rArr; λ = (AP · d) / |d|²</span>.<br>' +
+          '3. Here <span class="vec-inline">AP = ' + fmtVec3(f.apx, f.apy, f.apz) + '</span> &rArr; <span class="vec-inline">λ = ' + f.dotAPd + ' / ' + f.magDSq + ' = ' + f.lam.toFixed(3) + '</span>.';
+
+        workingBox.innerHTML =
+          '<strong>Coordinates of Foot N:</strong> <span class="vec-inline">ON = ' + fmtVec3(f.nx, f.ny, f.nz) + '</span><br>' +
+          '<strong>Shortest Distance |PN|:</strong> <span class="vec-inline">|' + fmtVec3(f.pnx, f.pny, f.pnz) + '| = <strong>' + f.dist.toFixed(3) + ' units</strong></span>';
+
+      } else if (mode === "cross") {
+        titleEl.textContent = "Method 2: Shortest Distance from P to Line L via Cross Product";
+        legendEl.innerHTML =
+          '<span class="legend-item"><span class="dot" style="background:#0284c7;"></span> Anchor A &amp; Line L</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#8b5cf6;"></span> Vector AP</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#e11d48;"></span> Altitude d_⊥</span>';
+
+        formulaBox.innerHTML =
+          '<strong>Direct Cross-Product Distance Formula:</strong><br>' +
+          '<span class="vec-inline">d_⊥ = |AP × d̂| = |AP × d| / |d|</span>, where <em>A</em> is any known point on line <em>L</em>.';
+
+        derivBox.innerHTML =
+          '<strong>Geometric Derivation via Parallelogram Area:</strong><br>' +
+          'In the parallelogram spanned by <span class="vec-inline">AP</span> and direction vector <span class="vec-inline">d</span>:<br>' +
+          '<span class="vec-inline">Area = Base × Height = |d| × d_⊥ = |AP × d|</span> &rArr; <strong>d_⊥ = |AP × d| / |d|</strong>.';
+
+        workingBox.innerHTML =
+          '<strong>Cross Product AP × d:</strong> <span class="vec-inline">' + fmtVec3(f.apx, f.apy, f.apz) + ' × ' + fmtVec3(lineL.dx, lineL.dy, lineL.dz) + ' = ' + fmtVec3(f.cx, f.cy, f.cz) + '</span><br>' +
+          '<strong>Perpendicular Distance:</strong> <span class="vec-inline">d_⊥ = √' + f.magCrossSq + ' / √' + f.magDSq + ' = <strong>' + f.dist.toFixed(3) + ' units</strong></span>';
+
+      } else {
+        // Mode 3: Reflection P' across Line L
+        var rfx = 2 * f.nx - ptP.px;
+        var rfy = 2 * f.ny - ptP.py;
+        var rfz = 2 * f.nz - ptP.pz;
+
+        titleEl.textContent = "Application: Finding Reflection Point P′ of P Across Line L";
+        legendEl.innerHTML =
+          '<span class="legend-item"><span class="dot" style="background:#e11d48;"></span> Original Point P</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#0f766e;"></span> Midpoint Foot N</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#8b5cf6;"></span> Reflection P′</span>';
+
+        formulaBox.innerHTML =
+          '<strong>Midpoint Theorem for Reflection Across a Line:</strong><br>' +
+          'Foot <em>N</em> is the exact midpoint of segment <em>PP′</em>: <span class="vec-inline">ON = ½(OP + OP′) &rArr; OP′ = 2ON − OP</span>.';
+
+        derivBox.innerHTML =
+          '<strong>Two-Stage Exam Procedure:</strong><br>' +
+          '1. Find Foot <em>N</em> on line <em>L</em> using <span class="vec-inline">PN · d = 0</span> &rArr; <span class="vec-inline">ON = ' + fmtVec3(f.nx, f.ny, f.nz) + '</span>.<br>' +
+          '2. Apply <span class="vec-inline">OP′ = 2ON − OP = 2' + fmtVec3(f.nx, f.ny, f.nz) + ' − ' + fmtVec3(ptP.px, ptP.py, ptP.pz) + '</span>.';
+
+        workingBox.innerHTML =
+          '<strong>Reflected Point P′:</strong> <span class="vec-inline">OP′ = ' + fmtVec3(rfx, rfy, rfz) + '</span><br>' +
+          '<strong>Distance Check:</strong> <span class="vec-inline">|PN| = |NP′| = ' + f.dist.toFixed(3) + ' units</span>';
+      }
+
+      if (f.dist < 1e-6) {
+        statusBanner.classList.add("online");
+        statusBanner.innerHTML = '<strong>POINT P LIES ON LINE L:</strong> Since <span class="vec-inline">AP × d = 0</span>, point <em>P</em> is already on the line (<span class="vec-inline">N = P = P′</span> and perpendicular distance = 0).';
+      } else {
+        statusBanner.innerHTML = '<strong>PYTHAGORAS CHECK:</strong> Notice in right triangle <em>△ANP</em> that <span class="vec-inline">|AN|² + |PN|² = ' + ((f.lam * f.magD) ** 2).toFixed(2) + ' + ' + (f.dist ** 2).toFixed(2) + ' = ' + (f.apx ** 2 + f.apy ** 2 + f.apz ** 2).toFixed(2) + ' = |AP|²</span>!';
+      }
+    }
+
+    function drawArrow3D(ctx, p1, p2, color, width, dashed) {
+      var dx = p2.px - p1.px;
+      var dy = p2.py - p1.py;
+      var len = Math.hypot(dx, dy);
+      if (len < 2) return;
+      var angle = Math.atan2(dy, dx);
+      var headLen = 9;
+
+      ctx.save();
+      ctx.strokeStyle = color;
+      ctx.fillStyle = color;
+      ctx.lineWidth = width;
+      if (dashed) ctx.setLineDash([5, 4]);
+
+      ctx.beginPath();
+      ctx.moveTo(p1.px, p1.py);
+      ctx.lineTo(p2.px, p2.py);
+      ctx.stroke();
+
+      ctx.setLineDash([]);
+      ctx.beginPath();
+      ctx.moveTo(p2.px, p2.py);
+      ctx.lineTo(p2.px - headLen * Math.cos(angle - Math.PI / 6), p2.py - headLen * Math.sin(angle - Math.PI / 6));
+      ctx.lineTo(p2.px - headLen * Math.cos(angle + Math.PI / 6), p2.py - headLen * Math.sin(angle + Math.PI / 6));
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function drawDropLine(ctx, x, y, z, W, H, color) {
+      var pTop = project3D(x, y, z, W, H);
+      var pFloor = project3D(x, y, 0, W, H);
+      ctx.save();
+      ctx.strokeStyle = color;
+      ctx.globalAlpha = 0.28;
+      ctx.lineWidth = 1.2;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      ctx.moveTo(pTop.px, pTop.py);
+      ctx.lineTo(pFloor.px, pFloor.py);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    function renderFrame() {
+      if (autoOrbit && !isDragging) {
+        yaw += 0.0045;
+      }
+
+      var canvas = document.getElementById("footLine3dCanvas");
+      if (!canvas) return;
+      var ctx = canvas.getContext("2d");
+      var W = canvas.width, H = canvas.height;
+      ctx.clearRect(0, 0, W, H);
+
+      // 3D Floor Grid
+      ctx.strokeStyle = "#f1f5f9";
+      ctx.lineWidth = 1;
+      for (var g = -4; g <= 4; g++) {
+        var a1 = project3D(g, -4, 0, W, H), a2 = project3D(g, 4, 0, W, H);
+        ctx.beginPath(); ctx.moveTo(a1.px, a1.py); ctx.lineTo(a2.px, a2.py); ctx.stroke();
+        var b1 = project3D(-4, g, 0, W, H), b2 = project3D(4, g, 0, W, H);
+        ctx.beginPath(); ctx.moveTo(b1.px, b1.py); ctx.lineTo(b2.px, b2.py); ctx.stroke();
+      }
+
+      // 3D Axes
+      var oPt = project3D(0, 0, 0, W, H);
+      var xN = project3D(-4.8, 0, 0, W, H), xP = project3D(5.0, 0, 0, W, H);
+      var yN = project3D(0, -4.8, 0, W, H), yP = project3D(0, 5.0, 0, W, H);
+      var zN = project3D(0, 0, -4.0, W, H), zP = project3D(0, 0, 4.8, W, H);
+
+      ctx.strokeStyle = "#cbd5e1";
+      ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      ctx.moveTo(xN.px, xN.py); ctx.lineTo(xP.px, xP.py);
+      ctx.moveTo(yN.px, yN.py); ctx.lineTo(yP.px, yP.py);
+      ctx.moveTo(zN.px, zN.py); ctx.lineTo(zP.px, zP.py);
+      ctx.stroke();
+
+      ctx.fillStyle = "#64748b";
+      ctx.font = "bold 12px Segoe UI, sans-serif";
+      ctx.fillText("+x", xP.px + 5, xP.py + 4);
+      ctx.fillText("+y", yP.px + 5, yP.py + 4);
+      ctx.fillText("+z", zP.px - 6, zP.py - 7);
+      ctx.fillText("O", oPt.px - 14, oPt.py + 15);
+
+      // Draw Infinite Line L
+      var tMin = -2.2, tMax = 2.6;
+      var pL1 = project3D(lineL.ax + tMin * lineL.dx, lineL.ay + tMin * lineL.dy, lineL.az + tMin * lineL.dz, W, H);
+      var pL2 = project3D(lineL.ax + tMax * lineL.dx, lineL.ay + tMax * lineL.dy, lineL.az + tMax * lineL.dz, W, H);
+      ctx.save();
+      ctx.strokeStyle = "#0284c7";
+      ctx.lineWidth = 2.6;
+      ctx.beginPath();
+      ctx.moveTo(pL1.px, pL1.py);
+      ctx.lineTo(pL2.px, pL2.py);
+      ctx.stroke();
+      ctx.fillStyle = "#0284c7";
+      ctx.font = "bold 12px Segoe UI, sans-serif";
+      ctx.fillText("Line L", pL2.px + 6, pL2.py - 4);
+      ctx.restore();
+
+      var f = computeFootData();
+      var pA = project3D(lineL.ax, lineL.ay, lineL.az, W, H);
+      var pP = project3D(ptP.px, ptP.py, ptP.pz, W, H);
+      var pN = project3D(f.nx, f.ny, f.nz, W, H);
+
+      drawDropLine(ctx, ptP.px, ptP.py, ptP.pz, W, H, "#e11d48");
+      drawDropLine(ctx, f.nx, f.ny, f.nz, W, H, "#0f766e");
+
+      // Anchor point A on Line L
+      ctx.beginPath(); ctx.arc(pA.px, pA.py, 4.5, 0, Math.PI * 2); ctx.fillStyle = "#0284c7"; ctx.fill();
+      ctx.fillStyle = "#0369a1"; ctx.font = "bold 11px Segoe UI, sans-serif";
+      ctx.fillText("A" + fmtVec3(lineL.ax, lineL.ay, lineL.az), pA.px + 6, pA.py - 6);
+
+      if (mode === "cross") {
+        // Show vector AP and direction vector d for parallelogram area intuition
+        drawArrow3D(ctx, pA, pP, "#8b5cf6", 2.4, false);
+        var pAd = project3D(lineL.ax + lineL.dx, lineL.ay + lineL.dy, lineL.az + lineL.dz, W, H);
+        drawArrow3D(ctx, pA, pAd, "#0284c7", 3.0, false);
+      }
+
+      // Perpendicular segment PN
+      ctx.save();
+      ctx.strokeStyle = "#e11d48";
+      ctx.lineWidth = 2.5;
+      ctx.setLineDash([5, 4]);
+      ctx.beginPath();
+      ctx.moveTo(pP.px, pP.py);
+      ctx.lineTo(pN.px, pN.py);
+      ctx.stroke();
+      ctx.restore();
+
+      if (mode === "reflect") {
+        var rfx = 2 * f.nx - ptP.px;
+        var rfy = 2 * f.ny - ptP.py;
+        var rfz = 2 * f.nz - ptP.pz;
+        var pRef = project3D(rfx, rfy, rfz, W, H);
+
+        ctx.save();
+        ctx.strokeStyle = "#8b5cf6";
+        ctx.lineWidth = 2.2;
+        ctx.setLineDash([5, 4]);
+        ctx.beginPath();
+        ctx.moveTo(pN.px, pN.py);
+        ctx.lineTo(pRef.px, pRef.py);
+        ctx.stroke();
+        ctx.restore();
+
+        ctx.beginPath(); ctx.arc(pRef.px, pRef.py, 5.5, 0, Math.PI * 2); ctx.fillStyle = "#8b5cf6"; ctx.fill();
+        ctx.fillStyle = "#7c3aed"; ctx.font = "bold 12px Segoe UI, sans-serif";
+        ctx.fillText("P′" + fmtVec3(rfx, rfy, rfz), pRef.px + 8, pRef.py + 14);
+      }
+
+      // Points P and N
+      ctx.beginPath(); ctx.arc(pP.px, pP.py, 6, 0, Math.PI * 2); ctx.fillStyle = "#e11d48"; ctx.fill();
+      ctx.fillStyle = "#be123c"; ctx.font = "bold 12px Segoe UI, sans-serif";
+      ctx.fillText("P" + fmtVec3(ptP.px, ptP.py, ptP.pz), pP.px + 8, pP.py - 8);
+
+      ctx.beginPath(); ctx.arc(pN.px, pN.py, 6, 0, Math.PI * 2); ctx.fillStyle = "#0f766e"; ctx.fill();
+      ctx.fillStyle = "#0f766e";
+      ctx.fillText("Foot N" + fmtVec3(f.nx, f.ny, f.nz), pN.px + 8, pN.py + 14);
+
+      requestAnimationFrame(renderFrame);
+    }
+
+    function init() {
+      document.getElementById("guideHeader").addEventListener("click", function () {
+        guideOpen = !guideOpen;
+        document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+        document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+      });
+
+      document.getElementById("tab_dot").addEventListener("click", function () { setMode("dot"); });
+      document.getElementById("tab_cross").addEventListener("click", function () { setMode("cross"); });
+      document.getElementById("tab_reflect").addEventListener("click", function () { setMode("reflect"); });
+
+      var btnOrbit = document.getElementById("btn_orbit");
+      btnOrbit.addEventListener("click", function () {
+        autoOrbit = !autoOrbit;
+        btnOrbit.classList.toggle("active", autoOrbit);
+        btnOrbit.textContent = autoOrbit ? "Auto-Rotate 3D: ON" : "Auto-Rotate 3D: OFF";
+      });
+
+      document.getElementById("btn_iso").addEventListener("click", function () {
+        autoOrbit = false; btnOrbit.classList.remove("active"); btnOrbit.textContent = "Auto-Rotate 3D: OFF";
+        yaw = 0.62; pitch = 0.42;
+      });
+      document.getElementById("btn_xy").addEventListener("click", function () {
+        autoOrbit = false; btnOrbit.classList.remove("active"); btnOrbit.textContent = "Auto-Rotate 3D: OFF";
+        yaw = 0.0; pitch = 1.54;
+      });
+      document.getElementById("btn_xz").addEventListener("click", function () {
+        autoOrbit = false; btnOrbit.classList.remove("active"); btnOrbit.textContent = "Auto-Rotate 3D: OFF";
+        yaw = 0.0; pitch = 0.04;
+      });
+
+      var canvas = document.getElementById("footLine3dCanvas");
+      canvas.addEventListener("mousedown", function (e) {
+        isDragging = true;
+        lastMouseX = e.clientX;
+        lastMouseY = e.clientY;
+      });
+      window.addEventListener("mousemove", function (e) {
+        if (!isDragging) return;
+        yaw += (e.clientX - lastMouseX) * 0.01;
+        pitch = Math.max(-1.4, Math.min(1.55, pitch + (e.clientY - lastMouseY) * 0.01));
+        lastMouseX = e.clientX;
+        lastMouseY = e.clientY;
+      });
+      window.addEventListener("mouseup", function () {
+        isDragging = false;
+      });
+
+      renderSliders();
+      updatePanels();
+      requestAnimationFrame(renderFrame);
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else {
+      init();
+    }
+  })();
+</script>
+
+</body>
+</html>

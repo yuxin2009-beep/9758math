@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 3.1 Lesson 3: Vector (Cross) Product &amp; Geometric Applications</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed #e2e8f0;
+      align-items: stretch;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 0.8rem;
+      line-height: 1.55;
+      color: #475569;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      font-size: 0.83rem;
+      margin-bottom: 5px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 505px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 980px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .mode-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 6px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.75rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .slider-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 11px;
+    }
+
+    .slider-group {
+      background: #f8fafc;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.77rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .formula-box {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #3b0764;
+      font-size: 0.79rem;
+      line-height: 1.52;
+      margin-bottom: 9px;
+    }
+
+    .derivation-box {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-left: 4px solid var(--purple);
+      border-radius: 10px;
+      padding: 10px 13px;
+      color: #1e293b;
+      font-size: 0.78rem;
+      line-height: 1.54;
+      margin-bottom: 9px;
+    }
+
+    .working-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #134e4a;
+      font-size: 0.79rem;
+      line-height: 1.52;
+      margin-bottom: 9px;
+    }
+
+    .status-banner {
+      background: var(--blue-bg);
+      border: 1.5px solid #7dd3fc;
+      border-radius: 12px;
+      padding: 9px 13px;
+      color: #0c4a6e;
+      font-size: 0.79rem;
+      font-weight: 700;
+      line-height: 1.48;
+    }
+
+    .status-banner.parallel {
+      background: var(--rose-bg);
+      border-color: #fda4af;
+      color: #881337;
+    }
+
+    .canvas-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .cam-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 7px 12px;
+      margin-bottom: 10px;
+    }
+
+    .cam-btn {
+      padding: 5px 10px;
+      border-radius: 7px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .cam-btn.active {
+      background: var(--teal);
+      color: #ffffff;
+      border-color: var(--teal);
+    }
+
+    .legend {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 0.76rem;
+      font-weight: 600;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    canvas {
+      width: 100%;
+      height: 455px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      background: #ffffff;
+      display: block;
+      cursor: grab;
+    }
+
+    canvas:active {
+      cursor: grabbing;
+    }
+
+    .misconception-box {
+      margin-top: 12px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 0.8rem;
+      line-height: 1.52;
+      color: #78350f;
+    }
+
+    .vec-inline {
+      font-family: 'Segoe UI', monospace;
+      font-weight: 700;
+    }
+
+    .preset-row {
+      grid-column: span 2;
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .mini-btn {
+      flex: 1;
+      padding: 5px 8px;
+      border-radius: 7px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.73rem;
+      font-weight: 700;
+      color: #334155;
+      cursor: pointer;
+    }
+
+    .mini-btn:hover {
+      background: #f1f5f9;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" id="guideHeader">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive 3D Visual Lab</span>
+      </div>
+      <button type="button" class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Select a Vector Product Mode</strong>
+        Switch between <em>Cross Product a × b</em>, <em>Properties &amp; Parallelism</em>, and <em>Area Applications</em> at the top-left to explore 3D cross products.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Drag or Auto-Rotate the 3D Space</strong>
+        Click and drag on the 3D canvas (or toggle <em>Auto-Rotate 3D</em>) to verify that <strong>a × b</strong> is perpendicular to both <strong>a</strong> and <strong>b</strong> via the right-hand rule.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Compare Anti-Commutativity &amp; Areas</strong>
+        Use Mode 2 to visualize <strong>b × a = −(a × b)</strong>, or switch to Mode 3 to compute parallelogram area <strong>|a × b|</strong> and triangle area <strong>½|a × b|</strong>.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROLS & ALGEBRAIC BREAKDOWN -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        3.1 Lesson 3 &bull; Vector (Cross) Product &amp; Geometric Applications
+      </div>
+
+      <div class="mode-tabs">
+        <button type="button" class="tab-btn active" id="tab_cross">1. Cross Product a × b</button>
+        <button type="button" class="tab-btn" id="tab_prop">2. Properties &amp; ∥</button>
+        <button type="button" class="tab-btn" id="tab_area">3. Area Applications</button>
+      </div>
+
+      <div class="slider-grid" id="slidersWrap"></div>
+
+      <div class="formula-box" id="formulaBox"></div>
+      <div class="derivation-box" id="derivationBox"></div>
+      <div class="working-box" id="workingBox"></div>
+      <div class="status-banner" id="statusBanner"></div>
+    </div>
+
+    <!-- RIGHT 3D VISUALIZATION CANVAS -->
+    <div class="card">
+      <div class="canvas-header">
+        <strong style="font-size:1.02rem; color:#1e293b;" id="canvasTitle">3D Vector Product a × b &amp; Right-Hand Rule Normal</strong>
+      </div>
+
+      <div class="cam-toolbar">
+        <div style="display:flex; gap:6px; flex-wrap:wrap;">
+          <button type="button" class="cam-btn active" id="btn_orbit">Auto-Rotate 3D: ON</button>
+          <button type="button" class="cam-btn" id="btn_iso">3D Isometric</button>
+          <button type="button" class="cam-btn" id="btn_xy">Top View (x-y)</button>
+          <button type="button" class="cam-btn" id="btn_xz">Front View (x-z)</button>
+        </div>
+        <div class="legend" id="legendWrap"></div>
+      </div>
+
+      <canvas id="cross3dCanvas" width="880" height="455"></canvas>
+
+      <div class="misconception-box">
+        <strong>9758 Misconception Alert (Vector Product &amp; Area Applications):</strong>
+        <ul style="margin:4px 0 0 0; padding-left:18px;">
+          <li><strong>The result of a × b is a VECTOR, not a scalar:</strong> Never write <em>a × b = 0</em> (the scalar zero) when testing if two vectors are parallel — write <strong>a × b = 0</strong> (the <strong>zero vector</strong>) or <strong>|a × b| = 0</strong>. Also remember the minus sign on the middle <strong>j</strong>-component!</li>
+          <li><strong>Triangle Area vs. Parallelogram Area:</strong> For a triangle <em>ABC</em>, always take two coterminal edge vectors sharing the same vertex (e.g. <strong>AB</strong> and <strong>AC</strong>), and multiply by <strong>½</strong>: <strong>Area(△ABC) = ½ |AB × AC|</strong>.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    let guideOpen = true;
+    let mode = "cross";
+
+    let yaw = 0.62;
+    let pitch = 0.42;
+    let autoOrbit = true;
+    let isDragging = false;
+    let lastMouseX = 0;
+    let lastMouseY = 0;
+
+    let st = {
+      ax: 2, ay: 0, az: 1,
+      bx: 1, by: 2, bz: 0
+    };
+
+    function fmtVec3(x, y, z) {
+      return "(" + x + ", " + y + ", " + z + ")";
+    }
+
+    function project3D(x, y, z, W, H) {
+      var cosY = Math.cos(yaw), sinY = Math.sin(yaw);
+      var cosP = Math.cos(pitch), sinP = Math.sin(pitch);
+
+      var rx = x * cosY - y * sinY;
+      var ry = x * sinY + y * cosY;
+
+      var sx = rx;
+      var sy = z * cosP - ry * sinP;
+
+      var scale = 34;
+      return {
+        px: W * 0.5 + sx * scale,
+        py: H * 0.54 - sy * scale
+      };
+    }
+
+    function setMode(m) {
+      mode = m;
+      ["cross", "prop", "area"].forEach(function (id) {
+        var btn = document.getElementById("tab_" + id);
+        if (btn) {
+          if (id === m) btn.classList.add("active");
+          else btn.classList.remove("active");
+        }
+      });
+      updatePanels();
+    }
+
+    function renderSliders() {
+      var wrap = document.getElementById("slidersWrap");
+      wrap.innerHTML =
+        '<div class="slider-group">' +
+          '<div class="slider-header"><span>Vector a = (x, y, z)</span><span id="lbl_a" style="color:var(--blue);">' + fmtVec3(st.ax, st.ay, st.az) + '</span></div>' +
+          '<input type="range" id="sl_ax" min="-3" max="3" step="1" value="' + st.ax + '" />' +
+          '<input type="range" id="sl_ay" min="-3" max="3" step="1" value="' + st.ay + '" style="margin-top:3px;" />' +
+          '<input type="range" id="sl_az" min="-3" max="3" step="1" value="' + st.az + '" style="margin-top:3px;" />' +
+        '</div>' +
+        '<div class="slider-group">' +
+          '<div class="slider-header"><span>Vector b = (x, y, z)</span><span id="lbl_b" style="color:var(--purple-dark);">' + fmtVec3(st.bx, st.by, st.bz) + '</span></div>' +
+          '<input type="range" id="sl_bx" min="-3" max="3" step="1" value="' + st.bx + '" />' +
+          '<input type="range" id="sl_by" min="-3" max="3" step="1" value="' + st.by + '" style="margin-top:3px;" />' +
+          '<input type="range" id="sl_bz" min="-3" max="3" step="1" value="' + st.bz + '" style="margin-top:3px;" />' +
+        '</div>' +
+        '<div class="preset-row">' +
+          '<button type="button" class="mini-btn" id="pre_general">General 3D Vectors</button>' +
+          '<button type="button" class="mini-btn" id="pre_ij">i × j = k (Basis)</button>' +
+          '<button type="button" class="mini-btn" id="pre_par">Parallel (a × b = 0)</button>' +
+        '</div>';
+
+      ["ax", "ay", "az", "bx", "by", "bz"].forEach(function (k) {
+        document.getElementById("sl_" + k).addEventListener("input", function () {
+          st[k] = parseInt(this.value, 10);
+          if (st.ax === 0 && st.ay === 0 && st.az === 0) st.ax = 1;
+          if (st.bx === 0 && st.by === 0 && st.bz === 0) st.by = 1;
+          updatePanels();
+        });
+      });
+
+      document.getElementById("pre_general").addEventListener("click", function () {
+        st = { ax: 2, ay: 0, az: 1, bx: 1, by: 2, bz: 0 };
+        syncSliders(); updatePanels();
+      });
+      document.getElementById("pre_ij").addEventListener("click", function () {
+        st = { ax: 2, ay: 0, az: 0, bx: 0, by: 2, bz: 0 };
+        syncSliders(); updatePanels();
+      });
+      document.getElementById("pre_par").addEventListener("click", function () {
+        st = { ax: 1, ay: 2, az: 1, bx: 2, by: 4, bz: 2 };
+        syncSliders(); updatePanels();
+      });
+    }
+
+    function syncSliders() {
+      ["ax", "ay", "az", "bx", "by", "bz"].forEach(function (k) {
+        var el = document.getElementById("sl_" + k);
+        if (el) el.value = st[k];
+      });
+    }
+
+    function computeCross() {
+      var cx = st.ay * st.bz - st.az * st.by;
+      var cy = -(st.ax * st.bz - st.az * st.bx);
+      var cz = st.ax * st.by - st.ay * st.bx;
+      return { cx: cx, cy: cy, cz: cz };
+    }
+
+    function updatePanels() {
+      document.getElementById("lbl_a").textContent = fmtVec3(st.ax, st.ay, st.az);
+      document.getElementById("lbl_b").textContent = fmtVec3(st.bx, st.by, st.bz);
+
+      var c = computeCross();
+      var magCSq = c.cx * c.cx + c.cy * c.cy + c.cz * c.cz;
+      var magC = Math.sqrt(magCSq);
+      var magASq = st.ax * st.ax + st.ay * st.ay + st.az * st.az;
+      var magBSq = st.bx * st.bx + st.by * st.by + st.bz * st.bz;
+      var sinTheta = (magASq > 0 && magBSq > 0) ? Math.min(1, magC / Math.sqrt(magASq * magBSq)) : 0;
+
+      var formulaBox = document.getElementById("formulaBox");
+      var derivBox = document.getElementById("derivationBox");
+      var workingBox = document.getElementById("workingBox");
+      var statusBanner = document.getElementById("statusBanner");
+      var titleEl = document.getElementById("canvasTitle");
+      var legendEl = document.getElementById("legendWrap");
+
+      statusBanner.classList.remove("parallel");
+
+      if (mode === "cross") {
+        titleEl.textContent = "3D Vector Product a × b & Right-Hand Rule Normal";
+        legendEl.innerHTML =
+          '<span class="legend-item"><span class="dot" style="background:#0284c7;"></span> Vector a</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#8b5cf6;"></span> Vector b</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#0f766e;"></span> Normal a × b</span>';
+
+        formulaBox.innerHTML =
+          '<strong>Geometric Definition:</strong> <span class="vec-inline">a × b = (|a||b|sin θ) n̂</span> (0° &le; θ &le; 180°)<br>' +
+          '<strong>Component Determinant Formula:</strong><br>' +
+          '<span class="vec-inline">a × b = (a₂b₃ − a₃b₂)i − (a₁b₃ − a₃b₁)j + (a₁b₂ − a₂b₁)k</span>';
+
+        derivBox.innerHTML =
+          '<strong>Step-by-Step Determinant Expansion:</strong><br>' +
+          '&bull; <strong>i:</strong> <span class="vec-inline">(' + st.ay + ')(' + st.bz + ') − (' + st.az + ')(' + st.by + ') = ' + c.cx + '</span><br>' +
+          '&bull; <strong>j:</strong> <span class="vec-inline">−[(' + st.ax + ')(' + st.bz + ') − (' + st.az + ')(' + st.bx + ')] = ' + c.cy + '</span> &nbsp;(<em>don’t forget minus!</em>)<br>' +
+          '&bull; <strong>k:</strong> <span class="vec-inline">(' + st.ax + ')(' + st.by + ') − (' + st.ay + ')(' + st.bx + ') = ' + c.cz + '</span>';
+
+        workingBox.innerHTML =
+          '<strong>Resulting Vector:</strong> <span class="vec-inline">a × b = ' + fmtVec3(c.cx, c.cy, c.cz) + '</span><br>' +
+          '<strong>Orthogonality Check:</strong> <span class="vec-inline">(a × b)·a = ' + (c.cx * st.ax + c.cy * st.ay + c.cz * st.az) + '</span> &nbsp;|&nbsp; <span class="vec-inline">(a × b)·b = ' + (c.cx * st.bx + c.cy * st.by + c.cz * st.bz) + '</span>';
+
+      } else if (mode === "prop") {
+        titleEl.textContent = "Algebraic Properties of Cross Product & Anti-Commutativity";
+        legendEl.innerHTML =
+          '<span class="legend-item"><span class="dot" style="background:#0f766e;"></span> a × b (Upward Normal)</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#e11d48;"></span> b × a = −(a × b)</span>';
+
+        formulaBox.innerHTML =
+          '<strong>Core 9758 Algebraic Properties:</strong><br>' +
+          '&bull; <strong>Anti-Commutative:</strong> <span class="vec-inline">b × a = −(a × b) = ' + fmtVec3(-c.cx, -c.cy, -c.cz) + '</span><br>' +
+          '&bull; <strong>Self-Cross Product:</strong> <span class="vec-inline">a × a = 0</span> (zero vector)<br>' +
+          '&bull; <strong>Distributive:</strong> <span class="vec-inline">a × (b + c) = (a × b) + (a × c)</span>';
+
+        derivBox.innerHTML =
+          '<strong>Unit Basis Cyclic Rule (Right-Handed System):</strong><br>' +
+          '<span class="vec-inline">i × j = k, &nbsp;j × k = i, &nbsp;k × i = j</span> &nbsp;(clockwise cyclic order = +)<br>' +
+          '<span class="vec-inline">j × i = −k, &nbsp;k × j = −i, &nbsp;i × k = −j</span> &nbsp;(anti-cyclic order = −)';
+
+        workingBox.innerHTML =
+          '<strong>Parallel / Collinearity Test (for non-zero a, b):</strong><br>' +
+          '<span class="vec-inline">a ∥ b &hArr; a × b = 0</span>. Currently <span class="vec-inline">|a × b| = √' + magCSq + '</span> (sin θ = ' + sinTheta.toFixed(3) + ').';
+
+      } else {
+        titleEl.textContent = "Geometric Applications: Area of Parallelogram & Triangle in 3D";
+        legendEl.innerHTML =
+          '<span class="legend-item"><span class="dot" style="background:#0284c7;"></span> Edge a</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#8b5cf6;"></span> Edge b</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#0f766e;"></span> Area = |a × b|</span>';
+
+        formulaBox.innerHTML =
+          '<strong>1. Area of Parallelogram spanned by a and b:</strong><br>' +
+          '<span class="vec-inline">Area = Base × Height = |b| × (|a|sin θ) = |a × b|</span><br>' +
+          '<strong>2. Area of Triangle OAB (with coterminal edges a, b):</strong><br>' +
+          '<span class="vec-inline">Area(△OAB) = ½ |a × b|</span>';
+
+        derivBox.innerHTML =
+          '<strong>Perpendicular Distance from Point A to Line OB:</strong><br>' +
+          'Since <span class="vec-inline">Area = |b| × d_⊥ = |a × b|</span>, dividing by <span class="vec-inline">|b|</span> gives:<br>' +
+          '<strong>d_⊥ = |a × b| / |b| = |a × b̂|</strong> (the cross-product alternative to projection!).';
+
+        var distPerp = magBSq > 0 ? magC / Math.sqrt(magBSq) : 0;
+        workingBox.innerHTML =
+          '<strong>Parallelogram Area:</strong> <span class="vec-inline">|a × b| = √' + magCSq + ' ≈ ' + magC.toFixed(3) + ' units²</span><br>' +
+          '<strong>Triangle OAB Area:</strong> <span class="vec-inline">½|a × b| = ½√' + magCSq + ' ≈ ' + (0.5 * magC).toFixed(3) + ' units²</span><br>' +
+          '<strong>Altitude from A to OB:</strong> <span class="vec-inline">d_⊥ = ' + distPerp.toFixed(3) + ' units</span>';
+      }
+
+      if (magCSq === 0) {
+        statusBanner.classList.add("parallel");
+        statusBanner.innerHTML = '<strong>PARALLEL VECTORS (a × b = 0):</strong> θ = 0° or 180°! The parallelogram collapses to zero area (<strong>|a × b| = 0</strong>).';
+      } else {
+        statusBanner.innerHTML = '<strong>NORMAL VECTOR FOUND:</strong> <span class="vec-inline">a × b = ' + fmtVec3(c.cx, c.cy, c.cz) + '</span> is perpendicular to the plane containing <strong>a</strong> and <strong>b</strong> (magnitude <strong>|a × b| = √' + magCSq + '</strong>).';
+      }
+    }
+
+    function drawArrow3D(ctx, p1, p2, color, width, dashed) {
+      var dx = p2.px - p1.px;
+      var dy = p2.py - p1.py;
+      var len = Math.hypot(dx, dy);
+      if (len < 2) return;
+      var angle = Math.atan2(dy, dx);
+      var headLen = 10;
+
+      ctx.save();
+      ctx.strokeStyle = color;
+      ctx.fillStyle = color;
+      ctx.lineWidth = width;
+      if (dashed) ctx.setLineDash([6, 4]);
+
+      ctx.beginPath();
+      ctx.moveTo(p1.px, p1.py);
+      ctx.lineTo(p2.px, p2.py);
+      ctx.stroke();
+
+      ctx.setLineDash([]);
+      ctx.beginPath();
+      ctx.moveTo(p2.px, p2.py);
+      ctx.lineTo(p2.px - headLen * Math.cos(angle - Math.PI / 6), p2.py - headLen * Math.sin(angle - Math.PI / 6));
+      ctx.lineTo(p2.px - headLen * Math.cos(angle + Math.PI / 6), p2.py - headLen * Math.sin(angle + Math.PI / 6));
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function drawDropLine(ctx, x, y, z, W, H, color) {
+      var pTop = project3D(x, y, z, W, H);
+      var pFloor = project3D(x, y, 0, W, H);
+      ctx.save();
+      ctx.strokeStyle = color;
+      ctx.globalAlpha = 0.28;
+      ctx.lineWidth = 1.2;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      ctx.moveTo(pTop.px, pTop.py);
+      ctx.lineTo(pFloor.px, pFloor.py);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    function renderFrame() {
+      if (autoOrbit && !isDragging) {
+        yaw += 0.0045;
+      }
+
+      var canvas = document.getElementById("cross3dCanvas");
+      if (!canvas) return;
+      var ctx = canvas.getContext("2d");
+      var W = canvas.width, H = canvas.height;
+      ctx.clearRect(0, 0, W, H);
+
+      ctx.strokeStyle = "#f1f5f9";
+      ctx.lineWidth = 1;
+      for (var g = -4; g <= 4; g++) {
+        var a1 = project3D(g, -4, 0, W, H), a2 = project3D(g, 4, 0, W, H);
+        ctx.beginPath(); ctx.moveTo(a1.px, a1.py); ctx.lineTo(a2.px, a2.py); ctx.stroke();
+        var b1 = project3D(-4, g, 0, W, H), b2 = project3D(4, g, 0, W, H);
+        ctx.beginPath(); ctx.moveTo(b1.px, b1.py); ctx.lineTo(b2.px, b2.py); ctx.stroke();
+      }
+
+      var oPt = project3D(0, 0, 0, W, H);
+      var xN = project3D(-4.8, 0, 0, W, H), xP = project3D(5.0, 0, 0, W, H);
+      var yN = project3D(0, -4.8, 0, W, H), yP = project3D(0, 5.0, 0, W, H);
+      var zN = project3D(0, 0, -4.2, W, H), zP = project3D(0, 0, 4.8, W, H);
+
+      ctx.strokeStyle = "#cbd5e1";
+      ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      ctx.moveTo(xN.px, xN.py); ctx.lineTo(xP.px, xP.py);
+      ctx.moveTo(yN.px, yN.py); ctx.lineTo(yP.px, yP.py);
+      ctx.moveTo(zN.px, zN.py); ctx.lineTo(zP.px, zP.py);
+      ctx.stroke();
+
+      ctx.fillStyle = "#64748b";
+      ctx.font = "bold 12px Segoe UI, sans-serif";
+      ctx.fillText("+x", xP.px + 5, xP.py + 4);
+      ctx.fillText("+y", yP.px + 5, yP.py + 4);
+      ctx.fillText("+z", zP.px - 6, zP.py - 7);
+      ctx.fillText("O", oPt.px - 14, oPt.py + 15);
+
+      var pA = project3D(st.ax, st.ay, st.az, W, H);
+      var pB = project3D(st.bx, st.by, st.bz, W, H);
+      var pAB = project3D(st.ax + st.bx, st.ay + st.by, st.az + st.bz, W, H);
+
+      ctx.save();
+      ctx.fillStyle = mode === "area" ? "rgba(15, 118, 110, 0.18)" : "rgba(139, 92, 246, 0.10)";
+      ctx.strokeStyle = "#94a3b8";
+      ctx.lineWidth = 1.2;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      ctx.moveTo(oPt.px, oPt.py);
+      ctx.lineTo(pA.px, pA.py);
+      ctx.lineTo(pAB.px, pAB.py);
+      ctx.lineTo(pB.px, pB.py);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      if (mode === "area") {
+        ctx.setLineDash([]);
+        ctx.strokeStyle = "#e11d48";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(pA.px, pA.py);
+        ctx.lineTo(pB.px, pB.py);
+        ctx.stroke();
+
+        ctx.fillStyle = "rgba(225, 29, 72, 0.14)";
+        ctx.beginPath();
+        ctx.moveTo(oPt.px, oPt.py);
+        ctx.lineTo(pA.px, pA.py);
+        ctx.lineTo(pB.px, pB.py);
+        ctx.closePath();
+        ctx.fill();
+      }
+      ctx.restore();
+
+      drawDropLine(ctx, st.ax, st.ay, st.az, W, H, "#0284c7");
+      drawDropLine(ctx, st.bx, st.by, st.bz, W, H, "#8b5cf6");
+
+      drawArrow3D(ctx, oPt, pA, "#0284c7", 2.8, false);
+      drawArrow3D(ctx, oPt, pB, "#8b5cf6", 2.8, false);
+
+      var c = computeCross();
+      var magC = Math.hypot(c.cx, c.cy, c.cz);
+      if (magC > 0.05) {
+        var dispScale = magC > 5.5 ? (5.5 / magC) : 1;
+        var pC = project3D(c.cx * dispScale, c.cy * dispScale, c.cz * dispScale, W, H);
+        drawDropLine(ctx, c.cx * dispScale, c.cy * dispScale, c.cz * dispScale, W, H, "#0f766e");
+        drawArrow3D(ctx, oPt, pC, "#0f766e", 3.4, false);
+
+        ctx.fillStyle = "#0f766e";
+        ctx.font = "bold 12px Segoe UI, sans-serif";
+        ctx.fillText("a × b " + fmtVec3(c.cx, c.cy, c.cz), pC.px + 8, pC.py - 8);
+
+        if (mode === "prop") {
+          var pRev = project3D(-c.cx * dispScale, -c.cy * dispScale, -c.cz * dispScale, W, H);
+          drawArrow3D(ctx, oPt, pRev, "#e11d48", 3.0, true);
+          ctx.fillStyle = "#be123c";
+          ctx.fillText("b × a = −(a × b)", pRev.px + 8, pRev.py + 14);
+        }
+      }
+
+      ctx.fillStyle = "#0284c7";
+      ctx.font = "bold 12px Segoe UI, sans-serif";
+      ctx.fillText("a" + fmtVec3(st.ax, st.ay, st.az), pA.px + 8, pA.py - 8);
+
+      ctx.fillStyle = "#7c3aed";
+      ctx.fillText("b" + fmtVec3(st.bx, st.by, st.bz), pB.px + 8, pB.py - 8);
+
+      requestAnimationFrame(renderFrame);
+    }
+
+    function init() {
+      document.getElementById("guideHeader").addEventListener("click", function () {
+        guideOpen = !guideOpen;
+        document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+        document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+      });
+
+      document.getElementById("tab_cross").addEventListener("click", function () { setMode("cross"); });
+      document.getElementById("tab_prop").addEventListener("click", function () { setMode("prop"); });
+      document.getElementById("tab_area").addEventListener("click", function () { setMode("area"); });
+
+      var btnOrbit = document.getElementById("btn_orbit");
+      btnOrbit.addEventListener("click", function () {
+        autoOrbit = !autoOrbit;
+        btnOrbit.classList.toggle("active", autoOrbit);
+        btnOrbit.textContent = autoOrbit ? "Auto-Rotate 3D: ON" : "Auto-Rotate 3D: OFF";
+      });
+
+      document.getElementById("btn_iso").addEventListener("click", function () {
+        autoOrbit = false; btnOrbit.classList.remove("active"); btnOrbit.textContent = "Auto-Rotate 3D: OFF";
+        yaw = 0.62; pitch = 0.42;
+      });
+      document.getElementById("btn_xy").addEventListener("click", function () {
+        autoOrbit = false; btnOrbit.classList.remove("active"); btnOrbit.textContent = "Auto-Rotate 3D: OFF";
+        yaw = 0.0; pitch = 1.54;
+      });
+      document.getElementById("btn_xz").addEventListener("click", function () {
+        autoOrbit = false; btnOrbit.classList.remove("active"); btnOrbit.textContent = "Auto-Rotate 3D: OFF";
+        yaw = 0.0; pitch = 0.04;
+      });
+
+      var canvas = document.getElementById("cross3dCanvas");
+      canvas.addEventListener("mousedown", function (e) {
+        isDragging = true;
+        lastMouseX = e.clientX;
+        lastMouseY = e.clientY;
+      });
+      window.addEventListener("mousemove", function (e) {
+        if (!isDragging) return;
+        yaw += (e.clientX - lastMouseX) * 0.01;
+        pitch = Math.max(-1.4, Math.min(1.55, pitch + (e.clientY - lastMouseY) * 0.01));
+        lastMouseX = e.clientX;
+        lastMouseY = e.clientY;
+      });
+      window.addEventListener("mouseup", function () {
+        isDragging = false;
+      });
+
+      renderSliders();
+      setMode("cross");
+      requestAnimationFrame(renderFrame);
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else {
+      init();
+    }
+  })();
+</script>
+
+</body>
+</html>

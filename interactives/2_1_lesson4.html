@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 2.1 Lesson 4: Sum to Infinity S∞ &amp; Real-World Applications</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 0.8rem;
+      line-height: 1.58;
+      color: #475569;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      font-size: 0.83rem;
+      margin-bottom: 5px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 505px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 980px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 7px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 8px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.76rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .slider-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 11px;
+    }
+
+    .slider-group {
+      background: #f8fafc;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .model-box {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 9px 13px;
+      color: #3b0764;
+      font-size: 0.79rem;
+      line-height: 1.5;
+      margin-bottom: 9px;
+    }
+
+    .derivation-box {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-left: 4px solid var(--purple);
+      border-radius: 10px;
+      padding: 9px 13px;
+      color: #1e293b;
+      font-size: 0.78rem;
+      line-height: 1.54;
+      margin-bottom: 9px;
+    }
+
+    .solver-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 9px 13px;
+      color: #134e4a;
+      font-size: 0.79rem;
+      line-height: 1.5;
+      margin-bottom: 9px;
+    }
+
+    .status-banner {
+      background: var(--blue-bg);
+      border: 1.5px solid #7dd3fc;
+      border-radius: 12px;
+      padding: 9px 13px;
+      color: #0c4a6e;
+      font-size: 0.79rem;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    .status-banner.divergent {
+      background: var(--rose-bg);
+      border-color: #fda4af;
+      color: #881337;
+    }
+
+    .canvas-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .legend {
+      display: flex;
+      gap: 13px;
+      flex-wrap: wrap;
+      font-size: 0.77rem;
+      font-weight: 600;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    canvas {
+      width: 100%;
+      height: 465px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      background: #ffffff;
+      display: block;
+    }
+
+    .misconception-box {
+      margin-top: 12px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button type="button" class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Select a Real-World GP Scenario</strong>
+        Explore <em>Bouncing Ball Total Distance</em>, <em>Drug Dosage Steady-State</em>, <em>Infinite Geometric Area</em>, and <em>General GP Convergence (|r| &lt; 1)</em> at the top-left.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Review the Derivation of S∞ &amp; Adjust Parameters</strong>
+        Follow the step-by-step limit derivation of <strong>S∞ = a / (1 − r)</strong>, then vary <em>a</em> (or <em>H</em>), ratio <em>r</em>, and error tolerance <em>ε</em> to watch <em>S_n</em> approach the dashed green ceiling.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Check the Logarithm Inequality Solver</strong>
+        Read the teal solver box to see how to find the least integer <em>n</em> where <em>|S∞ − S_n| &lt; ε</em>, noting the inequality flip when dividing by <em>ln r &lt; 0</em>.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROLS & ALGEBRAIC SOLVER -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        2.1 Lesson 4 &bull; Sum to Infinity S∞ &amp; Real-World Applications
+      </div>
+
+      <div class="preset-grid">
+        <button type="button" class="tab-btn active" id="app_ball" onclick="setScenario('ball')">
+          1. Bouncing Ball Distance
+        </button>
+        <button type="button" class="tab-btn" id="app_drug" onclick="setScenario('drug')">
+          2. Drug Dosage Concentration
+        </button>
+        <button type="button" class="tab-btn" id="app_area" onclick="setScenario('area')">
+          3. Infinite Geometric Area
+        </button>
+        <button type="button" class="tab-btn" id="app_gen" onclick="setScenario('gen')">
+          4. Convergence Test (|r| &lt; 1)
+        </button>
+      </div>
+
+      <div class="slider-grid" id="slidersWrap"></div>
+
+      <div class="model-box" id="modelBox"></div>
+
+      <div class="derivation-box">
+        <strong>Derivation of GP Sum to Infinity S∞ (when |r| &lt; 1):</strong><br>
+        1. Start with the finite GP partial sum (for <em>r ≠ 1</em>): &nbsp;<strong>S_n = a(1 − r^n) / (1 − r)</strong>.<br>
+        2. When <strong>−1 &lt; r &lt; 1</strong> (i.e. <em>|r| &lt; 1</em>), as <em>n &rarr; &infin;</em>, <strong>r^n &rarr; 0</strong>.<br>
+        3. Therefore, &nbsp;<strong>S∞ = lim_{n&rarr;&infin;} S_n = a(1 − 0) / (1 − r) = a / (1 − r)</strong>.
+      </div>
+
+      <div class="solver-box" id="solverBox"></div>
+      <div class="status-banner" id="statusBanner"></div>
+    </div>
+
+    <!-- RIGHT VISUALIZATION CANVAS -->
+    <div class="card">
+      <div class="canvas-header">
+        <strong style="font-size:1.03rem; color:#1e293b;" id="canvasTitle">Bouncing Ball: Drop H = 10 m, Rebound Ratio r = 0.7</strong>
+        <div class="legend">
+          <span class="legend-item"><span class="dot" style="background:#8b5cf6;"></span> Step Contribution</span>
+          <span class="legend-item"><span class="dot" style="background:#0284c7;"></span> Cumulative Total S_n</span>
+          <span class="legend-item"><span class="dot" style="background:#0f766e;"></span> Steady-State Limit S∞</span>
+        </div>
+      </div>
+
+      <canvas id="sinfCanvas" width="880" height="465"></canvas>
+
+      <div class="misconception-box">
+        <strong>9758 Misconception Alert (Sum to Infinity &amp; Applications):</strong>
+        <ul style="margin:4px 0 0 0; padding-left:18px;">
+          <li><strong>Bouncing ball initial drop is NOT doubled:</strong> A ball dropped from height <em>H</em> travels <em>H</em> downward once, then travels <em>2Hr + 2Hr² + ...</em> (both up and down) on subsequent rebounds: <strong>D∞ = H + 2Hr / (1 − r) = H(1 + r) / (1 − r)</strong>.</li>
+          <li><strong>Sign flip when taking logarithms:</strong> When solving <em>r^n &lt; k</em> for <em>0 &lt; r &lt; 1</em>, taking <em>ln</em> gives <em>n ln r &lt; ln k</em>; since <strong>ln r &lt; 0</strong>, dividing by <em>ln r</em> reverses the inequality to <strong>n &gt; (ln k) / (ln r)</strong>!</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  let scenario = "ball";
+  let st = {
+    ball: { H: 10, r: 0.7, eps: 0.5 },
+    drug: { D: 50, r: 0.75, eps: 2.0 },
+    area: { A: 64, r: 0.5, eps: 1.0 },
+    gen:  { a: 12, r: 0.6, eps: 0.5 }
+  };
+
+  function setScenario(sc) {
+    scenario = sc;
+    ["ball", "drug", "area", "gen"].forEach(id => {
+      document.getElementById("app_" + id).classList.toggle("active", id === sc);
+    });
+    renderSliders();
+    draw();
+  }
+
+  function renderSliders() {
+    const wrap = document.getElementById("slidersWrap");
+    const s = st[scenario];
+
+    if (scenario === "ball") {
+      wrap.innerHTML = `
+        <div class="slider-group">
+          <div class="slider-header"><span>Initial Drop Height H (m)</span><span id="lbl_H" style="color:var(--purple-dark);">${s.H}</span></div>
+          <input type="range" min="4" max="20" step="2" value="${s.H}" oninput="st.ball.H=parseFloat(this.value); document.getElementById('lbl_H').textContent=st.ball.H; draw();" />
+        </div>
+        <div class="slider-group">
+          <div class="slider-header"><span>Rebound Ratio r</span><span id="lbl_r" style="color:var(--blue);">${s.r.toFixed(2)}</span></div>
+          <input type="range" min="0.4" max="0.85" step="0.05" value="${s.r}" oninput="st.ball.r=parseFloat(this.value); document.getElementById('lbl_r').textContent=st.ball.r.toFixed(2); draw();" />
+        </div>
+        <div class="slider-group" style="grid-column:span 2;">
+          <div class="slider-header"><span>Remaining Distance Tolerance ε (m)</span><span id="lbl_eps" style="color:var(--teal);">${s.eps.toFixed(2)}</span></div>
+          <input type="range" min="0.1" max="2.0" step="0.1" value="${s.eps}" oninput="st.ball.eps=parseFloat(this.value); document.getElementById('lbl_eps').textContent=st.ball.eps.toFixed(2); draw();" />
+        </div>
+      `;
+    } else if (scenario === "drug") {
+      wrap.innerHTML = `
+        <div class="slider-group">
+          <div class="slider-header"><span>Daily Dose D (mg)</span><span id="lbl_D" style="color:var(--purple-dark);">${s.D}</span></div>
+          <input type="range" min="20" max="100" step="10" value="${s.D}" oninput="st.drug.D=parseFloat(this.value); document.getElementById('lbl_D').textContent=st.drug.D; draw();" />
+        </div>
+        <div class="slider-group">
+          <div class="slider-header"><span>Retention Factor r</span><span id="lbl_r" style="color:var(--blue);">${s.r.toFixed(2)}</span></div>
+          <input type="range" min="0.4" max="0.85" step="0.05" value="${s.r}" oninput="st.drug.r=parseFloat(this.value); document.getElementById('lbl_r').textContent=st.drug.r.toFixed(2); draw();" />
+        </div>
+        <div class="slider-group" style="grid-column:span 2;">
+          <div class="slider-header"><span>Gap to Steady-State ε (mg)</span><span id="lbl_eps" style="color:var(--teal);">${s.eps.toFixed(1)}</span></div>
+          <input type="range" min="0.5" max="10.0" step="0.5" value="${s.eps}" oninput="st.drug.eps=parseFloat(this.value); document.getElementById('lbl_eps').textContent=st.drug.eps.toFixed(1); draw();" />
+        </div>
+      `;
+    } else if (scenario === "area") {
+      wrap.innerHTML = `
+        <div class="slider-group">
+          <div class="slider-header"><span>First Shape Area A₁ (cm²)</span><span id="lbl_A" style="color:var(--purple-dark);">${s.A}</span></div>
+          <input type="range" min="16" max="100" step="4" value="${s.A}" oninput="st.area.A=parseFloat(this.value); document.getElementById('lbl_A').textContent=st.area.A; draw();" />
+        </div>
+        <div class="slider-group">
+          <div class="slider-header"><span>Area Scale Ratio r</span><span id="lbl_r" style="color:var(--blue);">${s.r.toFixed(2)}</span></div>
+          <input type="range" min="0.25" max="0.8" step="0.05" value="${s.r}" oninput="st.area.r=parseFloat(this.value); document.getElementById('lbl_r').textContent=st.area.r.toFixed(2); draw();" />
+        </div>
+        <div class="slider-group" style="grid-column:span 2;">
+          <div class="slider-header"><span>Remaining Area Tolerance ε (cm²)</span><span id="lbl_eps" style="color:var(--teal);">${s.eps.toFixed(1)}</span></div>
+          <input type="range" min="0.2" max="4.0" step="0.2" value="${s.eps}" oninput="st.area.eps=parseFloat(this.value); document.getElementById('lbl_eps').textContent=st.area.eps.toFixed(1); draw();" />
+        </div>
+      `;
+    } else {
+      wrap.innerHTML = `
+        <div class="slider-group">
+          <div class="slider-header"><span>First Term (a)</span><span id="lbl_a" style="color:var(--purple-dark);">${s.a}</span></div>
+          <input type="range" min="4" max="20" step="2" value="${s.a}" oninput="st.gen.a=parseFloat(this.value); document.getElementById('lbl_a').textContent=st.gen.a; draw();" />
+        </div>
+        <div class="slider-group">
+          <div class="slider-header"><span>Common Ratio (r)</span><span id="lbl_r" style="color:var(--blue);">${s.r.toFixed(2)}</span></div>
+          <input type="range" min="-0.85" max="1.15" step="0.05" value="${s.r}" oninput="let v=parseFloat(this.value); if(Math.abs(v)<0.04) v=0.1; st.gen.r=v; document.getElementById('lbl_r').textContent=st.gen.r.toFixed(2); draw();" />
+        </div>
+        <div class="slider-group" style="grid-column:span 2;">
+          <div class="slider-header"><span>Error Tolerance |S∞ − S_n| &lt; ε</span><span id="lbl_eps" style="color:var(--teal);">${s.eps.toFixed(2)}</span></div>
+          <input type="range" min="0.1" max="2.5" step="0.1" value="${s.eps}" oninput="st.gen.eps=parseFloat(this.value); document.getElementById('lbl_eps').textContent=st.gen.eps.toFixed(2); draw();" />
+        </div>
+      `;
+    }
+  }
+
+  function draw() {
+    const canvas = document.getElementById("sinfCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const N = 14;
+    let terms = [];
+    let sums = [];
+    let sInf = null;
+    let converges = true;
+    let leastN = null;
+
+    const banner = document.getElementById("statusBanner");
+    banner.classList.remove("divergent");
+
+    if (scenario === "ball") {
+      const { H: H0, r, eps } = st.ball;
+      let run = 0;
+      for (let n = 1; n <= N; n++) {
+        const stepDist = n === 1 ? H0 : 2 * H0 * Math.pow(r, n - 1);
+        run += stepDist;
+        terms.push(stepDist);
+        sums.push(run);
+      }
+      const gpTailSum = (2 * H0 * r) / (1 - r);
+      sInf = H0 + gpTailSum;
+
+      const rhs = eps / gpTailSum;
+      const exactN = 1 + Math.log(rhs) / Math.log(r);
+      leastN = Math.max(1, Math.floor(exactN) + 1);
+
+      document.getElementById("canvasTitle").textContent = `Bouncing Ball: Drop H = ${H0} m, Rebound Ratio r = ${r.toFixed(2)}`;
+      document.getElementById("modelBox").innerHTML = `
+        <strong>Total Distance Model:</strong> D∞ = H + [2Hr + 2Hr² + 2Hr³ + ...]<br>
+        <strong>D∞</strong> = ${H0} + ${gpTailSum.toFixed(2)} = <strong>${sInf.toFixed(2)} m</strong> (since |r| = ${r.toFixed(2)} &lt; 1).
+      `;
+      document.getElementById("solverBox").innerHTML = `
+        <strong>Find least n such that D∞ − D_n &lt; ${eps.toFixed(2)} m:</strong><br>
+        ${gpTailSum.toFixed(2)} × (${r.toFixed(2)})^{n−1} &lt; ${eps.toFixed(2)} &rArr; (n − 1) ln(${r.toFixed(2)}) &lt; ln(${rhs.toFixed(4)})<br>
+        n &gt; ${exactN.toFixed(2)} &rArr; Least integer <strong>n = ${leastN}</strong> (D_${leastN} = ${sums[Math.min(N - 1, leastN - 1)].toFixed(2)} m).
+      `;
+      banner.innerHTML = `Notice: Only the first drop (${H0} m) is single-way; every subsequent rebound travels both <strong>up and down</strong>!`;
+
+    } else if (scenario === "drug") {
+      const { D, r, eps } = st.drug;
+      let run = 0;
+      for (let n = 1; n <= N; n++) {
+        const remDose = D * Math.pow(r, n - 1);
+        run += remDose;
+        terms.push(remDose);
+        sums.push(run);
+      }
+      sInf = D / (1 - r);
+      const rhs = eps / sInf;
+      const exactN = Math.log(rhs) / Math.log(r);
+      leastN = Math.max(1, Math.floor(exactN) + 1);
+
+      document.getElementById("canvasTitle").textContent = `Drug Concentration: Daily Dose D = ${D} mg, Retention r = ${r.toFixed(2)}`;
+      document.getElementById("modelBox").innerHTML = `
+        <strong>Concentration After n-th Dose:</strong> C_n = ${D}(1 − ${r.toFixed(2)}^n) / (1 − ${r.toFixed(2)})<br>
+        <strong>Steady-State Ceiling:</strong> C∞ = D / (1 − r) = ${D} / ${(1 - r).toFixed(2)} = <strong>${sInf.toFixed(2)} mg</strong>.
+      `;
+      document.getElementById("solverBox").innerHTML = `
+        <strong>Find least dose n where C∞ − C_n &lt; ${eps.toFixed(1)} mg:</strong><br>
+        ${sInf.toFixed(2)} × (${r.toFixed(2)})^n &lt; ${eps.toFixed(1)} &rArr; n ln(${r.toFixed(2)}) &lt; ln(${rhs.toFixed(4)})<br>
+        n &gt; ${exactN.toFixed(2)} &rArr; Least integer <strong>n = ${leastN} doses</strong>.
+      `;
+      banner.innerHTML = `Safe Therapeutic Bound: Even over infinitely many days, total concentration never exceeds <strong>${sInf.toFixed(2)} mg</strong>!`;
+
+    } else if (scenario === "area") {
+      const { A, r, eps } = st.area;
+      let run = 0;
+      for (let n = 1; n <= N; n++) {
+        const termA = A * Math.pow(r, n - 1);
+        run += termA;
+        terms.push(termA);
+        sums.push(run);
+      }
+      sInf = A / (1 - r);
+      const rhs = eps / sInf;
+      const exactN = Math.log(rhs) / Math.log(r);
+      leastN = Math.max(1, Math.floor(exactN) + 1);
+
+      document.getElementById("canvasTitle").textContent = `Infinite Geometric Area: A₁ = ${A} cm², Ratio r = ${r.toFixed(2)}`;
+      document.getElementById("modelBox").innerHTML = `
+        <strong>Sum of n Nested Shapes:</strong> S_n = ${A}(1 − ${r.toFixed(2)}^n) / (1 − ${r.toFixed(2)})<br>
+        <strong>Total Infinite Area:</strong> S∞ = ${A} / ${(1 - r).toFixed(2)} = <strong>${sInf.toFixed(2)} cm²</strong>.
+      `;
+      document.getElementById("solverBox").innerHTML = `
+        <strong>Find least n such that S∞ − S_n &lt; ${eps.toFixed(1)} cm²:</strong><br>
+        ${sInf.toFixed(2)} × (${r.toFixed(2)})^n &lt; ${eps.toFixed(1)} &rArr; n &gt; ${exactN.toFixed(2)}<br>
+        Least integer <strong>n = ${leastN}</strong> shapes.
+      `;
+      banner.innerHTML = `Each nested shape scales by area factor r = ${r.toFixed(2)} (note: if side length scales by k, area scales by <strong>r = k²</strong>!).`;
+
+    } else {
+      const { a, r, eps } = st.gen;
+      let run = 0;
+      for (let n = 1; n <= N; n++) {
+        const u = a * Math.pow(r, n - 1);
+        run += u;
+        terms.push(u);
+        sums.push(run);
+      }
+      converges = Math.abs(r) < 1;
+      if (converges) {
+        sInf = a / (1 - r);
+        const absR = Math.abs(r);
+        const rhs = eps / Math.abs(sInf);
+        const exactN = Math.log(rhs) / Math.log(absR);
+        leastN = Math.max(1, Math.floor(exactN) + 1);
+
+        document.getElementById("canvasTitle").textContent = `General GP: a = ${a}, r = ${r.toFixed(2)} (|r| < 1 ⇒ Convergent)`;
+        document.getElementById("modelBox").innerHTML = `
+          <strong>Sum to Infinity:</strong> S∞ = a / (1 − r) = ${a} / ${(1 - r).toFixed(2)} = <strong>${sInf.toFixed(4)}</strong><br>
+          <strong>Error Term:</strong> |S∞ − S_n| = |a r^n / (1 − r)| = ${Math.abs(sInf).toFixed(2)} × (${absR.toFixed(2)})^n.
+        `;
+        document.getElementById("solverBox").innerHTML = `
+          <strong>Solve |S∞ − S_n| &lt; ${eps.toFixed(2)}:</strong><br>
+          ${Math.abs(sInf).toFixed(2)} × (${absR.toFixed(2)})^n &lt; ${eps.toFixed(2)} &rArr; n &gt; ${exactN.toFixed(2)}<br>
+          Least integer <strong>n = ${leastN}</strong>.
+        `;
+        banner.innerHTML = r < 0
+          ? `Alternating Convergence (r = ${r.toFixed(2)}): S_n oscillates above and below S∞ = ${sInf.toFixed(3)}, entering the ±${eps.toFixed(2)} band at n = ${leastN}!`
+          : `Monotonic Convergence (0 < r < 1): S_n increases steadily toward S∞ = ${sInf.toFixed(3)}.`;
+      } else {
+        banner.classList.add("divergent");
+        document.getElementById("canvasTitle").textContent = `General GP: a = ${a}, r = ${r.toFixed(2)} (|r| ≥ 1 ⇒ Divergent!)`;
+        document.getElementById("modelBox").innerHTML = `
+          <strong>Divergence Check:</strong> Here |r| = ${Math.abs(r).toFixed(2)} &ge; 1, so r^n does <strong>not</strong> tend to 0 as n &rarr; &infin;.<br>
+          <strong>Conclusion:</strong> <strong>S∞ does NOT exist!</strong>
+        `;
+        document.getElementById("solverBox").innerHTML = `
+          <strong>Algebraic Trap Warning:</strong> Plugging r = ${r.toFixed(2)} into a/(1 − r) would give a meaningless number (${(a / (1 - r)).toFixed(2)}) because the geometric series diverges!
+        `;
+        banner.innerHTML = `Always verify <strong>−1 &lt; r &lt; 1</strong> before applying S∞ = a / (1 − r)!`;
+      }
+    }
+
+    // Dynamic Y Scale
+    let allVals = [...terms, ...sums, 0];
+    if (sInf !== null) allVals.push(sInf);
+    let rawMax = Math.max(...allVals);
+    let rawMin = Math.min(...allVals);
+    let pad = Math.max(2, (rawMax - rawMin) * 0.15);
+    let yMax = rawMax + pad;
+    let yMin = rawMin - pad;
+
+    const leftPad = 56, rightPad = 24, topPad = 24, botPad = 36;
+    const plotW = W - leftPad - rightPad;
+    const plotH = H - topPad - botPad;
+
+    const toPxX = idx => leftPad + ((idx + 0.5) / N) * plotW;
+    const toPxY = val => topPad + ((yMax - val) / (yMax - yMin)) * plotH;
+    const zeroY = toPxY(0);
+
+    // Horizontal grid
+    ctx.strokeStyle = "#f1f5f9";
+    ctx.lineWidth = 1;
+    ctx.fillStyle = "#64748b";
+    ctx.font = "11px Segoe UI, sans-serif";
+    for (let i = 0; i <= 6; i++) {
+      const v = yMin + (i / 6) * (yMax - yMin);
+      const py = toPxY(v);
+      ctx.beginPath(); ctx.moveTo(leftPad, py); ctx.lineTo(W - rightPad, py); ctx.stroke();
+      ctx.fillText(v.toFixed(1), 8, py + 4);
+    }
+
+    // Zero baseline
+    ctx.strokeStyle = "#94a3b8";
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    ctx.moveTo(leftPad, zeroY);
+    ctx.lineTo(W - rightPad, zeroY);
+    ctx.stroke();
+
+    // S_infinity asymptote & epsilon tolerance band
+    if (sInf !== null) {
+      const epsVal = st[scenario].eps;
+      const topBand = toPxY(sInf + epsVal);
+      const botBand = toPxY(sInf - epsVal);
+      ctx.fillStyle = "rgba(15, 118, 110, 0.08)";
+      ctx.fillRect(leftPad, topBand, plotW, Math.max(2, botBand - topBand));
+
+      const sy = toPxY(sInf);
+      ctx.save();
+      ctx.strokeStyle = "#0f766e";
+      ctx.lineWidth = 2;
+      ctx.setLineDash([7, 5]);
+      ctx.beginPath();
+      ctx.moveTo(leftPad, sy);
+      ctx.lineTo(W - rightPad, sy);
+      ctx.stroke();
+      ctx.restore();
+
+      ctx.fillStyle = "#0f766e";
+      ctx.font = "bold 11.5px Segoe UI, sans-serif";
+      ctx.fillText(`S∞ = ${sInf.toFixed(2)}`, W - rightPad - 82, sy - 6);
+    }
+
+    // Step bars
+    const barW = Math.min(26, (plotW / N) * 0.48);
+    terms.forEach((u, idx) => {
+      const cx = toPxX(idx);
+      const topY = toPxY(Math.max(0, u));
+      const botY = toPxY(Math.min(0, u));
+      ctx.fillStyle = "rgba(139, 92, 246, 0.34)";
+      ctx.strokeStyle = "#7c3aed";
+      ctx.lineWidth = 1.3;
+      ctx.fillRect(cx - barW / 2, topY, barW, Math.max(1, botY - topY));
+      ctx.strokeRect(cx - barW / 2, topY, barW, Math.max(1, botY - topY));
+
+      ctx.fillStyle = "#475569";
+      ctx.font = "11px Segoe UI, sans-serif";
+      ctx.fillText(String(idx + 1), cx - 4, H - 14);
+    });
+
+    // Cumulative S_n curve
+    ctx.strokeStyle = "#0284c7";
+    ctx.lineWidth = 2.6;
+    ctx.beginPath();
+    sums.forEach((sn, idx) => {
+      const cx = toPxX(idx);
+      const cy = toPxY(sn);
+      if (idx === 0) ctx.moveTo(cx, cy);
+      else ctx.lineTo(cx, cy);
+    });
+    ctx.stroke();
+
+    sums.forEach((sn, idx) => {
+      const cx = toPxX(idx);
+      const cy = toPxY(sn);
+      const isThreshold = leastN !== null && idx + 1 === leastN;
+      ctx.beginPath();
+      ctx.arc(cx, cy, isThreshold ? 6.5 : 4.2, 0, Math.PI * 2);
+      ctx.fillStyle = isThreshold ? "#e11d48" : "#0284c7";
+      ctx.fill();
+      if (isThreshold) {
+        ctx.fillStyle = "#be123c";
+        ctx.font = "bold 11px Segoe UI, sans-serif";
+        ctx.fillText(`n=${leastN}`, cx - 10, cy - 9);
+      }
+    });
+  }
+
+  renderSliders();
+  draw();
+</script>
+
+</body>
+</html>

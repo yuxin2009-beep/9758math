@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 3.1 Lesson 1: 3D Vector Operations, Ratio Theorem &amp; Collinearity</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 0.8rem;
+      line-height: 1.58;
+      color: #475569;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      font-size: 0.83rem;
+      margin-bottom: 5px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 495px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 980px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .mode-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 6px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.75rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .slider-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 11px;
+    }
+
+    .slider-group {
+      background: #f8fafc;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.77rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .formula-box {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #3b0764;
+      font-size: 0.8rem;
+      line-height: 1.52;
+      margin-bottom: 9px;
+    }
+
+    .working-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #134e4a;
+      font-size: 0.8rem;
+      line-height: 1.52;
+      margin-bottom: 9px;
+    }
+
+    .derivation-box {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-left: 4px solid var(--purple);
+      border-radius: 10px;
+      padding: 10px 13px;
+      color: #1e293b;
+      font-size: 0.79rem;
+      line-height: 1.55;
+      margin-bottom: 9px;
+    }
+
+    .status-banner {
+      background: var(--blue-bg);
+      border: 1.5px solid #7dd3fc;
+      border-radius: 12px;
+      padding: 9px 13px;
+      color: #0c4a6e;
+      font-size: 0.8rem;
+      font-weight: 700;
+      line-height: 1.48;
+    }
+
+    .status-banner.alert {
+      background: var(--rose-bg);
+      border-color: #fda4af;
+      color: #881337;
+    }
+
+    .canvas-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .cam-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 7px 12px;
+      margin-bottom: 10px;
+    }
+
+    .cam-btn {
+      padding: 5px 10px;
+      border-radius: 7px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .cam-btn.active {
+      background: var(--teal);
+      color: #ffffff;
+      border-color: var(--teal);
+    }
+
+    .legend {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 0.76rem;
+      font-weight: 600;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    canvas {
+      width: 100%;
+      height: 445px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      background: #ffffff;
+      display: block;
+      cursor: grab;
+    }
+
+    canvas:active {
+      cursor: grabbing;
+    }
+
+    .misconception-box {
+      margin-top: 12px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 0.8rem;
+      line-height: 1.52;
+      color: #78350f;
+    }
+
+    .vec-inline {
+      font-family: 'Segoe UI', monospace;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" id="guideHeader">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive 3D Visual Lab</span>
+      </div>
+      <button type="button" class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Choose a Vector Concept Mode</strong>
+        Switch between <em>Displacement &amp; Unit Vectors</em>, <em>Ratio Theorem</em>, and <em>Collinearity Test</em> at the top-left to explore 3D position and direction vectors.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Drag or Auto-Rotate the 3D Space</strong>
+        Click and drag anywhere on the 3D canvas (or toggle <em>Auto-Rotate 3D</em>) to inspect x, y, and z coordinates from multiple angles, using the dashed height lines to judge depth.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Adjust 3D Coordinates &amp; Ratio Weights</strong>
+        Move the sliders for points A, B, C and ratio weights λ : μ to see how point P shifts along segment AB and verify the algebraic Ratio Theorem derivation.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROLS & ALGEBRAIC BREAKDOWN -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        3.1 Lesson 1 &bull; 3D Vector Operations, Ratio Theorem &amp; Collinearity
+      </div>
+
+      <div class="mode-tabs">
+        <button type="button" class="tab-btn active" id="tab_ops">1. Displacement &amp; Unit</button>
+        <button type="button" class="tab-btn" id="tab_ratio">2. Ratio Theorem</button>
+        <button type="button" class="tab-btn" id="tab_col">3. Collinearity Test</button>
+      </div>
+
+      <div class="slider-grid" id="slidersWrap"></div>
+
+      <div class="formula-box" id="formulaBox"></div>
+      <div class="working-box" id="workingBox"></div>
+      <div class="derivation-box" id="derivationBox" style="display:none;"></div>
+      <div class="status-banner" id="statusBanner"></div>
+    </div>
+
+    <!-- RIGHT 3D VISUALIZATION CANVAS -->
+    <div class="card">
+      <div class="canvas-header">
+        <strong style="font-size:1.02rem; color:#1e293b;" id="canvasTitle">3D Displacement Vector AB = OB − OA &amp; Unit Vector û</strong>
+      </div>
+
+      <div class="cam-toolbar">
+        <div style="display:flex; gap:6px; flex-wrap:wrap;">
+          <button type="button" class="cam-btn active" id="btn_orbit">Auto-Rotate 3D: ON</button>
+          <button type="button" class="cam-btn" id="btn_iso">3D Isometric</button>
+          <button type="button" class="cam-btn" id="btn_xy">Top View (x-y)</button>
+          <button type="button" class="cam-btn" id="btn_xz">Front View (x-z)</button>
+        </div>
+        <div class="legend" id="legendWrap"></div>
+      </div>
+
+      <canvas id="vec3dCanvas" width="880" height="445"></canvas>
+
+      <div class="misconception-box">
+        <strong>9758 Misconception Alert (3D Ratio Theorem &amp; Collinearity):</strong>
+        <ul style="margin:4px 0 0 0; padding-left:18px;">
+          <li><strong>Cross-weights in the Ratio Theorem:</strong> If <em>P</em> divides <em>AB</em> internally in the ratio <em>AP : PB = λ : μ</em>, then <strong>p = (μa + λb) / (λ + μ)</strong> — <em>μ</em> multiplies <strong>a</strong> and <em>λ</em> multiplies <strong>b</strong>! (When <em>λ &gt; μ</em>, <em>P</em> is closer to <em>B</em>, so <strong>b</strong> carries the larger weight <em>λ</em>.)</li>
+          <li><strong>Proving 3 points A, B, C are collinear in 3D:</strong> You must show <strong>both</strong>: (1) <span class="vec-inline">AB = k BC</span> for some scalar <em>k</em> (all 3 ratios of x, y, and z components equal <em>k</em>), <strong>AND</strong> (2) <em>B</em> is a <strong>common point</strong>.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    let guideOpen = true;
+    let mode = "ops";
+
+    // Camera angles (yaw around vertical z-axis, pitch tilt)
+    let yaw = 0.68;
+    let pitch = 0.42;
+    let autoOrbit = true;
+    let isDragging = false;
+    let lastMouseX = 0;
+    let lastMouseY = 0;
+
+    let st = {
+      ops:   { ax: -2, ay: 1, az: 3, bx: 3, by: 4, bz: -2 },
+      ratio: { ax: -3, ay: 1, az: 4, bx: 4, by: 3, bz: -2, lam: 3, mu: 1 },
+      col:   { ax: -2, ay: -1, az: 1, bx: 1, by: 1, bz: 2, cx: 4, cy: 3, cz: 3 }
+    };
+
+    function fmtVec3(x, y, z) {
+      return "(" + x + ", " + y + ", " + z + ")";
+    }
+
+    function project3D(x, y, z, W, H) {
+      // Standard right-handed math coordinates: x forward-left, y right, z vertical up
+      var cosY = Math.cos(yaw), sinY = Math.sin(yaw);
+      var cosP = Math.cos(pitch), sinP = Math.sin(pitch);
+
+      var rx = x * cosY - y * sinY;
+      var ry = x * sinY + y * cosY;
+
+      var sx = rx;
+      var sy = z * cosP - ry * sinP;
+      var depth = ry * cosP + z * sinP;
+
+      var scale = 34;
+      return {
+        px: W * 0.5 + sx * scale,
+        py: H * 0.54 - sy * scale,
+        depth: depth
+      };
+    }
+
+    function setMode(m) {
+      mode = m;
+      ["ops", "ratio", "col"].forEach(function (id) {
+        var btn = document.getElementById("tab_" + id);
+        if (btn) {
+          if (id === m) btn.classList.add("active");
+          else btn.classList.remove("active");
+        }
+      });
+      renderSliders();
+      updateTextPanels();
+    }
+
+    function renderSliders() {
+      var wrap = document.getElementById("slidersWrap");
+      if (mode === "ops") {
+        var s = st.ops;
+        wrap.innerHTML =
+          '<div class="slider-group">' +
+            '<div class="slider-header"><span>Point A (x, y, z)</span><span id="lbl_a" style="color:var(--blue);">' + fmtVec3(s.ax, s.ay, s.az) + '</span></div>' +
+            '<input type="range" id="sl_ax" min="-4" max="2" step="1" value="' + s.ax + '" />' +
+            '<input type="range" id="sl_ay" min="-3" max="4" step="1" value="' + s.ay + '" style="margin-top:3px;" />' +
+            '<input type="range" id="sl_az" min="-3" max="4" step="1" value="' + s.az + '" style="margin-top:3px;" />' +
+          '</div>' +
+          '<div class="slider-group">' +
+            '<div class="slider-header"><span>Point B (x, y, z)</span><span id="lbl_b" style="color:var(--purple-dark);">' + fmtVec3(s.bx, s.by, s.bz) + '</span></div>' +
+            '<input type="range" id="sl_bx" min="-1" max="5" step="1" value="' + s.bx + '" />' +
+            '<input type="range" id="sl_by" min="-2" max="5" step="1" value="' + s.by + '" style="margin-top:3px;" />' +
+            '<input type="range" id="sl_bz" min="-3" max="4" step="1" value="' + s.bz + '" style="margin-top:3px;" />' +
+          '</div>';
+
+        document.getElementById("sl_ax").addEventListener("input", function () { st.ops.ax = parseInt(this.value, 10); updateTextPanels(); });
+        document.getElementById("sl_ay").addEventListener("input", function () { st.ops.ay = parseInt(this.value, 10); updateTextPanels(); });
+        document.getElementById("sl_az").addEventListener("input", function () { st.ops.az = parseInt(this.value, 10); updateTextPanels(); });
+        document.getElementById("sl_bx").addEventListener("input", function () { st.ops.bx = parseInt(this.value, 10); updateTextPanels(); });
+        document.getElementById("sl_by").addEventListener("input", function () { st.ops.by = parseInt(this.value, 10); updateTextPanels(); });
+        document.getElementById("sl_bz").addEventListener("input", function () { st.ops.bz = parseInt(this.value, 10); updateTextPanels(); });
+
+      } else if (mode === "ratio") {
+        var r = st.ratio;
+        wrap.innerHTML =
+          '<div class="slider-group">' +
+            '<div class="slider-header"><span>Ratio weight λ (AP)</span><span id="lbl_lam" style="color:var(--rose);">' + r.lam + '</span></div>' +
+            '<input type="range" id="sl_lam" min="1" max="5" step="1" value="' + r.lam + '" />' +
+          '</div>' +
+          '<div class="slider-group">' +
+            '<div class="slider-header"><span>Ratio weight μ (PB)</span><span id="lbl_mu" style="color:var(--teal);">' + r.mu + '</span></div>' +
+            '<input type="range" id="sl_mu" min="1" max="5" step="1" value="' + r.mu + '" />' +
+          '</div>' +
+          '<div class="slider-group">' +
+            '<div class="slider-header"><span>Point A (x, y, z)</span><span id="lbl_ra" style="color:var(--blue);">' + fmtVec3(r.ax, r.ay, r.az) + '</span></div>' +
+            '<input type="range" id="sl_rax" min="-4" max="0" step="1" value="' + r.ax + '" />' +
+            '<input type="range" id="sl_ray" min="-3" max="3" step="1" value="' + r.ay + '" style="margin-top:3px;" />' +
+            '<input type="range" id="sl_raz" min="-2" max="4" step="1" value="' + r.az + '" style="margin-top:3px;" />' +
+          '</div>' +
+          '<div class="slider-group">' +
+            '<div class="slider-header"><span>Point B (x, y, z)</span><span id="lbl_rb" style="color:var(--purple-dark);">' + fmtVec3(r.bx, r.by, r.bz) + '</span></div>' +
+            '<input type="range" id="sl_rbx" min="1" max="5" step="1" value="' + r.bx + '" />' +
+            '<input type="range" id="sl_rby" min="-2" max="5" step="1" value="' + r.by + '" style="margin-top:3px;" />' +
+            '<input type="range" id="sl_rbz" min="-3" max="3" step="1" value="' + r.bz + '" style="margin-top:3px;" />' +
+          '</div>';
+
+        document.getElementById("sl_lam").addEventListener("input", function () { st.ratio.lam = parseInt(this.value, 10); updateTextPanels(); });
+        document.getElementById("sl_mu").addEventListener("input", function () { st.ratio.mu = parseInt(this.value, 10); updateTextPanels(); });
+        document.getElementById("sl_rax").addEventListener("input", function () { st.ratio.ax = parseInt(this.value, 10); updateTextPanels(); });
+        document.getElementById("sl_ray").addEventListener("input", function () { st.ratio.ay = parseInt(this.value, 10); updateTextPanels(); });
+        document.getElementById("sl_raz").addEventListener("input", function () { st.ratio.az = parseInt(this.value, 10); updateTextPanels(); });
+        document.getElementById("sl_rbx").addEventListener("input", function () { st.ratio.bx = parseInt(this.value, 10); updateTextPanels(); });
+        document.getElementById("sl_rby").addEventListener("input", function () { st.ratio.by = parseInt(this.value, 10); updateTextPanels(); });
+        document.getElementById("sl_rbz").addEventListener("input", function () { st.ratio.bz = parseInt(this.value, 10); updateTextPanels(); });
+
+      } else {
+        var c = st.col;
+        wrap.innerHTML =
+          '<div class="slider-group">' +
+            '<div class="slider-header"><span>Point C x &amp; y</span><span id="lbl_cxy" style="color:var(--rose);">(' + c.cx + ', ' + c.cy + ')</span></div>' +
+            '<input type="range" id="sl_cx" min="2" max="6" step="1" value="' + c.cx + '" />' +
+            '<input type="range" id="sl_cy" min="-1" max="5" step="1" value="' + c.cy + '" style="margin-top:3px;" />' +
+          '</div>' +
+          '<div class="slider-group">' +
+            '<div class="slider-header"><span>Point C z-height</span><span id="lbl_cz" style="color:var(--rose);">' + c.cz + '</span></div>' +
+            '<input type="range" id="sl_cz" min="0" max="5" step="1" value="' + c.cz + '" />' +
+            '<button type="button" id="btn_snapCol" style="width:100%; margin-top:5px; padding:4px 8px; border-radius:6px; border:1px solid #0f766e; background:#ccfbf1; color:#134e4a; font-weight:700; font-size:0.72rem; cursor:pointer;">Snap C to Collinear (4, 3, 3)</button>' +
+          '</div>';
+
+        document.getElementById("sl_cx").addEventListener("input", function () { st.col.cx = parseInt(this.value, 10); updateTextPanels(); });
+        document.getElementById("sl_cy").addEventListener("input", function () { st.col.cy = parseInt(this.value, 10); updateTextPanels(); });
+        document.getElementById("sl_cz").addEventListener("input", function () { st.col.cz = parseInt(this.value, 10); updateTextPanels(); });
+        document.getElementById("btn_snapCol").addEventListener("click", function () {
+          st.col.cx = 4; st.col.cy = 3; st.col.cz = 3;
+          document.getElementById("sl_cx").value = 4;
+          document.getElementById("sl_cy").value = 3;
+          document.getElementById("sl_cz").value = 3;
+          updateTextPanels();
+        });
+      }
+    }
+
+    function updateTextPanels() {
+      var formulaBox = document.getElementById("formulaBox");
+      var workingBox = document.getElementById("workingBox");
+      var derivBox = document.getElementById("derivationBox");
+      var statusBanner = document.getElementById("statusBanner");
+      var titleEl = document.getElementById("canvasTitle");
+      var legendEl = document.getElementById("legendWrap");
+      statusBanner.classList.remove("alert");
+
+      if (mode === "ops") {
+        derivBox.style.display = "none";
+        var s = st.ops;
+        document.getElementById("lbl_a").textContent = fmtVec3(s.ax, s.ay, s.az);
+        document.getElementById("lbl_b").textContent = fmtVec3(s.bx, s.by, s.bz);
+
+        var dx = s.bx - s.ax, dy = s.by - s.ay, dz = s.bz - s.az;
+        var magSq = dx * dx + dy * dy + dz * dz;
+        var mag = Math.sqrt(magSq);
+
+        titleEl.textContent = "3D Displacement Vector AB = OB − OA & Unit Vector û";
+        legendEl.innerHTML =
+          '<span class="legend-item"><span class="dot" style="background:#0284c7;"></span> OA = a</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#8b5cf6;"></span> OB = b</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#0f766e;"></span> AB = b − a</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#e11d48;"></span> Unit Vector û</span>';
+
+        formulaBox.innerHTML =
+          '<strong>3D Displacement Vector:</strong> <span class="vec-inline">AB = b − a = ' + fmtVec3(dx, dy, dz) + '</span><br>' +
+          '<strong>3D Magnitude:</strong> <span class="vec-inline">|AB| = √(' + dx + '² + ' + dy + '² + ' + dz + '²) = √' + magSq + (Number.isInteger(mag) ? ' = ' + mag : ' ≈ ' + mag.toFixed(3)) + '</span>';
+
+        workingBox.innerHTML = mag > 0.001
+          ? '<strong>Unit Vector in Direction of AB:</strong><br><span class="vec-inline">û = AB / |AB| = (1 / √' + magSq + ') ' + fmtVec3(dx, dy, dz) + '</span>'
+          : '<strong>Zero Vector:</strong> Points A and B coincide, so |AB| = 0 and no unit vector exists.';
+
+        statusBanner.innerHTML = '3D Triangle Law: <strong>OA + AB = OB</strong> &rArr; <strong>AB = OB − OA</strong> (head minus tail in all 3 components).';
+
+      } else if (mode === "ratio") {
+        derivBox.style.display = "block";
+        var r = st.ratio;
+        document.getElementById("lbl_lam").textContent = String(r.lam);
+        document.getElementById("lbl_mu").textContent = String(r.mu);
+        document.getElementById("lbl_ra").textContent = fmtVec3(r.ax, r.ay, r.az);
+        document.getElementById("lbl_rb").textContent = fmtVec3(r.bx, r.by, r.bz);
+
+        var denom = r.lam + r.mu;
+        var px = (r.mu * r.ax + r.lam * r.bx) / denom;
+        var py = (r.mu * r.ay + r.lam * r.by) / denom;
+        var pz = (r.mu * r.az + r.lam * r.bz) / denom;
+
+        titleEl.textContent = "3D Ratio Theorem: Point P divides AB in ratio AP : PB = " + r.lam + " : " + r.mu;
+        legendEl.innerHTML =
+          '<span class="legend-item"><span class="dot" style="background:#0284c7;"></span> OA = a</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#8b5cf6;"></span> OB = b</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#e11d48;"></span> OP = (μa + λb)/(λ + μ)</span>';
+
+        formulaBox.innerHTML =
+          '<strong>Ratio Theorem Substitution (λ = ' + r.lam + ', μ = ' + r.mu + '):</strong><br>' +
+          '<span class="vec-inline">p = (' + r.mu + 'a + ' + r.lam + 'b) / (' + r.lam + ' + ' + r.mu + ') = (1/' + denom + ')[' + r.mu + fmtVec3(r.ax, r.ay, r.az) + ' + ' + r.lam + fmtVec3(r.bx, r.by, r.bz) + ']</span>';
+
+        workingBox.innerHTML =
+          '<strong>3D Position Vector of P:</strong><br>' +
+          '<span class="vec-inline">OP = (' + px.toFixed(2) + ', ' + py.toFixed(2) + ', ' + pz.toFixed(2) + ')</span>';
+
+        derivBox.innerHTML =
+          '<strong>Derivation of the Ratio Theorem (AP : PB = λ : μ):</strong><br>' +
+          '1. Since <em>P</em> lies on <em>AB</em> with <em>AP / PB = λ / μ</em>, we have <span class="vec-inline">μ AP = λ PB</span>.<br>' +
+          '2. Express in position vectors: <span class="vec-inline">μ(p − a) = λ(b − p)</span>.<br>' +
+          '3. Expand and group <strong>p</strong>: <span class="vec-inline">(λ + μ)p = μa + λb</span> &rArr; <strong>p = (μa + λb) / (λ + μ)</strong>.';
+
+        statusBanner.innerHTML = r.lam === r.mu
+          ? 'Equal weights (λ = μ): <strong>P is the 3D Midpoint</strong> of AB, so <strong>p = ½(a + b)</strong>.'
+          : (r.lam > r.mu
+              ? 'Since λ (' + r.lam + ') &gt; μ (' + r.mu + '), P is closer to <strong>B</strong>, so <strong>b</strong> carries the larger weight λ!'
+              : 'Since μ (' + r.mu + ') &gt; λ (' + r.lam + '), P is closer to <strong>A</strong>, so <strong>a</strong> carries the larger weight μ!');
+
+      } else {
+        derivBox.style.display = "none";
+        var c = st.col;
+        document.getElementById("lbl_cxy").textContent = "(" + c.cx + ", " + c.cy + ")";
+        document.getElementById("lbl_cz").textContent = String(c.cz);
+
+        // Fixed A(-2, -1, 1) and B(1, 1, 2) => AB = (3, 2, 1)
+        var abx = 3, aby = 2, abz = 1;
+        var bcx = c.cx - 1, bcy = c.cy - 1, bcz = c.cz - 2;
+
+        var kx = bcx / abx;
+        var ky = bcy / aby;
+        var kz = bcz / abz;
+        var isCollinear = Math.abs(kx - ky) < 1e-6 && Math.abs(ky - kz) < 1e-6;
+
+        titleEl.textContent = "3D Collinearity Test: A(−2, −1, 1), B(1, 1, 2), and C" + fmtVec3(c.cx, c.cy, c.cz);
+        legendEl.innerHTML =
+          '<span class="legend-item"><span class="dot" style="background:#0284c7;"></span> Vector AB = (3, 2, 1)</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#e11d48;"></span> Vector BC</span>';
+
+        formulaBox.innerHTML =
+          '<strong>Step 1 — 3D Direction Vectors:</strong><br>' +
+          '<span class="vec-inline">AB = (3, 2, 1)</span> &nbsp;and&nbsp; <span class="vec-inline">BC = ' + fmtVec3(bcx, bcy, bcz) + '</span>';
+
+        workingBox.innerHTML =
+          '<strong>Step 2 — Compare All Three Component Ratios:</strong><br>' +
+          'x: ' + bcx + '/3 = <strong>' + kx.toFixed(2) + '</strong> &nbsp;|&nbsp; ' +
+          'y: ' + bcy + '/2 = <strong>' + ky.toFixed(2) + '</strong> &nbsp;|&nbsp; ' +
+          'z: ' + bcz + '/1 = <strong>' + kz.toFixed(2) + '</strong>';
+
+        if (isCollinear) {
+          statusBanner.innerHTML =
+            '<strong>COLLINEAR IN 3D!</strong> Since <span class="vec-inline">BC = ' + kx.toFixed(2) + ' AB</span> AND <strong>B is a common point</strong>, A, B, and C lie on the same 3D line!';
+        } else {
+          statusBanner.classList.add("alert");
+          statusBanner.innerHTML =
+            '<strong>NOT Collinear in 3D:</strong> The x, y, z ratios do not all match (' + kx.toFixed(2) + ', ' + ky.toFixed(2) + ', ' + kz.toFixed(2) + '), so <span class="vec-inline">BC ≠ k AB</span>.';
+        }
+      }
+    }
+
+    function drawArrow3D(ctx, p1, p2, color, width, dashed) {
+      var dx = p2.px - p1.px;
+      var dy = p2.py - p1.py;
+      var len = Math.hypot(dx, dy);
+      if (len < 2) return;
+      var angle = Math.atan2(dy, dx);
+      var headLen = 10;
+
+      ctx.save();
+      ctx.strokeStyle = color;
+      ctx.fillStyle = color;
+      ctx.lineWidth = width;
+      if (dashed) ctx.setLineDash([6, 4]);
+
+      ctx.beginPath();
+      ctx.moveTo(p1.px, p1.py);
+      ctx.lineTo(p2.px, p2.py);
+      ctx.stroke();
+
+      ctx.setLineDash([]);
+      ctx.beginPath();
+      ctx.moveTo(p2.px, p2.py);
+      ctx.lineTo(p2.px - headLen * Math.cos(angle - Math.PI / 6), p2.py - headLen * Math.sin(angle - Math.PI / 6));
+      ctx.lineTo(p2.px - headLen * Math.cos(angle + Math.PI / 6), p2.py - headLen * Math.sin(angle + Math.PI / 6));
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function drawDropLine(ctx, x, y, z, W, H, color) {
+      var pTop = project3D(x, y, z, W, H);
+      var pFloor = project3D(x, y, 0, W, H);
+      var pOrigin = project3D(0, 0, 0, W, H);
+
+      ctx.save();
+      ctx.strokeStyle = color;
+      ctx.globalAlpha = 0.35;
+      ctx.lineWidth = 1.3;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      ctx.moveTo(pTop.px, pTop.py);
+      ctx.lineTo(pFloor.px, pFloor.py);
+      ctx.lineTo(pOrigin.px, pOrigin.py);
+      ctx.stroke();
+      ctx.restore();
+
+      ctx.beginPath();
+      ctx.arc(pFloor.px, pFloor.py, 2.8, 0, Math.PI * 2);
+      ctx.fillStyle = color;
+      ctx.fill();
+    }
+
+    function drawPoint3D(ctx, x, y, z, W, H, color, label, ox, oy) {
+      var pt = project3D(x, y, z, W, H);
+      ctx.beginPath();
+      ctx.arc(pt.px, pt.py, 5.5, 0, Math.PI * 2);
+      ctx.fillStyle = color;
+      ctx.fill();
+
+      ctx.fillStyle = color;
+      ctx.font = "bold 11.5px Segoe UI, sans-serif";
+      ctx.fillText(label, pt.px + (ox || 8), pt.py + (oy || -7));
+    }
+
+    function renderFrame() {
+      if (autoOrbit && !isDragging) {
+        yaw += 0.0045;
+      }
+
+      var canvas = document.getElementById("vec3dCanvas");
+      if (!canvas) return;
+      var ctx = canvas.getContext("2d");
+      var W = canvas.width;
+      var H = canvas.height;
+      ctx.clearRect(0, 0, W, H);
+
+      // 3D Floor Grid (z = 0 plane)
+      ctx.strokeStyle = "#f1f5f9";
+      ctx.lineWidth = 1;
+      for (var g = -5; g <= 5; g++) {
+        var a1 = project3D(g, -5, 0, W, H);
+        var a2 = project3D(g, 5, 0, W, H);
+        ctx.beginPath(); ctx.moveTo(a1.px, a1.py); ctx.lineTo(a2.px, a2.py); ctx.stroke();
+
+        var b1 = project3D(-5, g, 0, W, H);
+        var b2 = project3D(5, g, 0, W, H);
+        ctx.beginPath(); ctx.moveTo(b1.px, b1.py); ctx.lineTo(b2.px, b2.py); ctx.stroke();
+      }
+
+      // 3D Coordinate Axes (x, y, z)
+      var oPt = project3D(0, 0, 0, W, H);
+      var xNeg = project3D(-5.5, 0, 0, W, H), xPos = project3D(5.8, 0, 0, W, H);
+      var yNeg = project3D(0, -5.5, 0, W, H), yPos = project3D(0, 5.8, 0, W, H);
+      var zNeg = project3D(0, 0, -4.2, W, H), zPos = project3D(0, 0, 5.2, W, H);
+
+      ctx.strokeStyle = "#cbd5e1";
+      ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      ctx.moveTo(xNeg.px, xNeg.py); ctx.lineTo(xPos.px, xPos.py);
+      ctx.moveTo(yNeg.px, yNeg.py); ctx.lineTo(yPos.px, yPos.py);
+      ctx.moveTo(zNeg.px, zNeg.py); ctx.lineTo(zPos.px, zPos.py);
+      ctx.stroke();
+
+      ctx.fillStyle = "#64748b";
+      ctx.font = "bold 12px Segoe UI, sans-serif";
+      ctx.fillText("+x", xPos.px + 5, xPos.py + 4);
+      ctx.fillText("+y", yPos.px + 5, yPos.py + 4);
+      ctx.fillText("+z", zPos.px - 6, zPos.py - 7);
+      ctx.fillText("O(0,0,0)", oPt.px - 46, oPt.py + 15);
+
+      if (mode === "ops") {
+        var s = st.ops;
+        var pA = project3D(s.ax, s.ay, s.az, W, H);
+        var pB = project3D(s.bx, s.by, s.bz, W, H);
+
+        drawDropLine(ctx, s.ax, s.ay, s.az, W, H, "#0284c7");
+        drawDropLine(ctx, s.bx, s.by, s.bz, W, H, "#8b5cf6");
+
+        drawArrow3D(ctx, oPt, pA, "#0284c7", 2.4, false);
+        drawArrow3D(ctx, oPt, pB, "#8b5cf6", 2.4, false);
+        drawArrow3D(ctx, pA, pB, "#0f766e", 3, false);
+
+        var dx = s.bx - s.ax, dy = s.by - s.ay, dz = s.bz - s.az;
+        var mag = Math.hypot(dx, dy, dz);
+        if (mag > 0.001) {
+          var pU = project3D(s.ax + dx / mag, s.ay + dy / mag, s.az + dz / mag, W, H);
+          drawArrow3D(ctx, pA, pU, "#e11d48", 3.4, false);
+        }
+
+        drawPoint3D(ctx, s.ax, s.ay, s.az, W, H, "#0284c7", "A" + fmtVec3(s.ax, s.ay, s.az), -22, -10);
+        drawPoint3D(ctx, s.bx, s.by, s.bz, W, H, "#8b5cf6", "B" + fmtVec3(s.bx, s.by, s.bz), 8, -8);
+
+      } else if (mode === "ratio") {
+        var r = st.ratio;
+        var denom = r.lam + r.mu;
+        var px = (r.mu * r.ax + r.lam * r.bx) / denom;
+        var py = (r.mu * r.ay + r.lam * r.by) / denom;
+        var pz = (r.mu * r.az + r.lam * r.bz) / denom;
+
+        var pA = project3D(r.ax, r.ay, r.az, W, H);
+        var pB = project3D(r.bx, r.by, r.bz, W, H);
+        var pP = project3D(px, py, pz, W, H);
+
+        drawDropLine(ctx, r.ax, r.ay, r.az, W, H, "#0284c7");
+        drawDropLine(ctx, r.bx, r.by, r.bz, W, H, "#8b5cf6");
+        drawDropLine(ctx, px, py, pz, W, H, "#e11d48");
+
+        drawArrow3D(ctx, oPt, pA, "#0284c7", 2.2, false);
+        drawArrow3D(ctx, oPt, pB, "#8b5cf6", 2.2, false);
+        drawArrow3D(ctx, oPt, pP, "#e11d48", 3, false);
+
+        ctx.strokeStyle = "#0f766e";
+        ctx.lineWidth = 2.4;
+        ctx.beginPath();
+        ctx.moveTo(pA.px, pA.py);
+        ctx.lineTo(pB.px, pB.py);
+        ctx.stroke();
+
+        drawPoint3D(ctx, r.ax, r.ay, r.az, W, H, "#0284c7", "A" + fmtVec3(r.ax, r.ay, r.az), -22, -10);
+        drawPoint3D(ctx, r.bx, r.by, r.bz, W, H, "#8b5cf6", "B" + fmtVec3(r.bx, r.by, r.bz), 8, -8);
+        drawPoint3D(ctx, px, py, pz, W, H, "#e11d48", "P(" + px.toFixed(1) + ", " + py.toFixed(1) + ", " + pz.toFixed(1) + ")", 8, 14);
+
+      } else {
+        var c = st.col;
+        var pA = project3D(-2, -1, 1, W, H);
+        var pB = project3D(1, 1, 2, W, H);
+        var pC = project3D(c.cx, c.cy, c.cz, W, H);
+
+        var bcx = c.cx - 1, bcy = c.cy - 1, bcz = c.cz - 2;
+        var isCollinear = Math.abs(bcx / 3 - bcy / 2) < 1e-6 && Math.abs(bcy / 2 - bcz / 1) < 1e-6;
+
+        drawDropLine(ctx, -2, -1, 1, W, H, "#0284c7");
+        drawDropLine(ctx, 1, 1, 2, W, H, "#7c3aed");
+        drawDropLine(ctx, c.cx, c.cy, c.cz, W, H, isCollinear ? "#0f766e" : "#e11d48");
+
+        drawArrow3D(ctx, pA, pB, "#0284c7", 3, false);
+        drawArrow3D(ctx, pB, pC, isCollinear ? "#0f766e" : "#e11d48", 3, !isCollinear);
+
+        drawPoint3D(ctx, -2, -1, 1, W, H, "#0284c7", "A(−2, −1, 1)", -28, 15);
+        drawPoint3D(ctx, 1, 1, 2, W, H, "#7c3aed", "B(1, 1, 2)", -18, -10);
+        drawPoint3D(ctx, c.cx, c.cy, c.cz, W, H, isCollinear ? "#0f766e" : "#e11d48", "C" + fmtVec3(c.cx, c.cy, c.cz), 8, -8);
+      }
+
+      requestAnimationFrame(renderFrame);
+    }
+
+    function init() {
+      document.getElementById("guideHeader").addEventListener("click", function () {
+        guideOpen = !guideOpen;
+        document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+        document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+      });
+
+      document.getElementById("tab_ops").addEventListener("click", function () { setMode("ops"); });
+      document.getElementById("tab_ratio").addEventListener("click", function () { setMode("ratio"); });
+      document.getElementById("tab_col").addEventListener("click", function () { setMode("col"); });
+
+      var btnOrbit = document.getElementById("btn_orbit");
+      btnOrbit.addEventListener("click", function () {
+        autoOrbit = !autoOrbit;
+        btnOrbit.classList.toggle("active", autoOrbit);
+        btnOrbit.textContent = autoOrbit ? "Auto-Rotate 3D: ON" : "Auto-Rotate 3D: OFF";
+      });
+
+      document.getElementById("btn_iso").addEventListener("click", function () {
+        autoOrbit = false;
+        btnOrbit.classList.remove("active");
+        btnOrbit.textContent = "Auto-Rotate 3D: OFF";
+        yaw = 0.68; pitch = 0.42;
+      });
+
+      document.getElementById("btn_xy").addEventListener("click", function () {
+        autoOrbit = false;
+        btnOrbit.classList.remove("active");
+        btnOrbit.textContent = "Auto-Rotate 3D: OFF";
+        yaw = 0.0; pitch = 1.54;
+      });
+
+      document.getElementById("btn_xz").addEventListener("click", function () {
+        autoOrbit = false;
+        btnOrbit.classList.remove("active");
+        btnOrbit.textContent = "Auto-Rotate 3D: OFF";
+        yaw = 0.0; pitch = 0.04;
+      });
+
+      var canvas = document.getElementById("vec3dCanvas");
+      canvas.addEventListener("mousedown", function (e) {
+        isDragging = true;
+        lastMouseX = e.clientX;
+        lastMouseY = e.clientY;
+      });
+
+      window.addEventListener("mousemove", function (e) {
+        if (!isDragging) return;
+        var dx = e.clientX - lastMouseX;
+        var dy = e.clientY - lastMouseY;
+        yaw += dx * 0.01;
+        pitch = Math.max(-1.4, Math.min(1.55, pitch + dy * 0.01));
+        lastMouseX = e.clientX;
+        lastMouseY = e.clientY;
+      });
+
+      window.addEventListener("mouseup", function () {
+        isDragging = false;
+      });
+
+      setMode("ops");
+      requestAnimationFrame(renderFrame);
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else {
+      init();
+    }
+  })();
+</script>
+
+</body>
+</html>

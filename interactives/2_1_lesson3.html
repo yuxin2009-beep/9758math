@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 2.1 Lesson 3: Arithmetic &amp; Geometric Progressions (u_n &amp; S_n)</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 0.8rem;
+      line-height: 1.58;
+      color: #475569;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      font-size: 0.83rem;
+      margin-bottom: 5px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 505px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 980px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .mode-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 6px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.75rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .slider-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 11px;
+    }
+
+    .slider-group {
+      background: #f8fafc;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .formula-box {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #3b0764;
+      font-size: 0.79rem;
+      line-height: 1.52;
+      margin-bottom: 9px;
+    }
+
+    .derivation-box {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-left: 4px solid var(--purple);
+      border-radius: 10px;
+      padding: 10px 13px;
+      color: #1e293b;
+      font-size: 0.78rem;
+      line-height: 1.55;
+      margin-bottom: 9px;
+    }
+
+    .threshold-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #134e4a;
+      font-size: 0.79rem;
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    .threshold-box.alert {
+      background: var(--rose-bg);
+      border-color: #fda4af;
+      color: #881337;
+    }
+
+    .table-box {
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      overflow: hidden;
+      max-height: 150px;
+      overflow-y: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+    }
+
+    th {
+      background: #f1f5f9;
+      color: #1e293b;
+      font-weight: 800;
+      padding: 6px 10px;
+      text-align: left;
+      position: sticky;
+      top: 0;
+      border-bottom: 1px solid #cbd5e1;
+    }
+
+    td {
+      padding: 5px 10px;
+      border-bottom: 1px solid #f1f5f9;
+      font-family: 'Segoe UI', monospace;
+    }
+
+    .canvas-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .legend {
+      display: flex;
+      gap: 13px;
+      flex-wrap: wrap;
+      font-size: 0.77rem;
+      font-weight: 600;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    canvas {
+      width: 100%;
+      height: 465px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      background: #ffffff;
+      display: block;
+    }
+
+    .misconception-box {
+      margin-top: 12px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 0.8rem;
+      line-height: 1.52;
+      color: #78350f;
+    }
+
+    .proof-preset-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      grid-column: span 2;
+    }
+
+    .proof-btn {
+      padding: 7px 8px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #334155;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .proof-btn.active {
+      background: var(--teal-bg);
+      border-color: var(--teal);
+      color: #134e4a;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" id="guideHeader">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button type="button" class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Explore AP, GP, and Proof Techniques</strong>
+        Switch between <em>1. Arithmetic Progression</em>, <em>2. Geometric Progression</em>, and <em>3. How to Prove AP or GP</em> at the top-left.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Study Derivations of u_n &amp; Both S_n Formulas</strong>
+        Inspect the purple and grey derivation boxes to follow how <em>u_n</em> and both standard forms of <em>S_n</em> are derived from first principles.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Test Algebraic AP/GP Proofs vs. Numerical Traps</strong>
+        In the <em>Proof Lab</em> tab, compare valid general proofs (<em>u_{n+1} − u_n</em> or <em>u_{n+1}/u_n</em> independent of <em>n</em>) against sequences where the first 3 terms deceive you!
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROLS & TABLE -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        2.1 Lesson 3 &bull; Arithmetic &amp; Geometric Progressions (u_n &amp; S_n)
+      </div>
+
+      <div class="mode-tabs">
+        <button type="button" class="tab-btn active" id="tab_ap">1. AP (u_n &amp; S_n)</button>
+        <button type="button" class="tab-btn" id="tab_gp">2. GP (u_n &amp; S_n)</button>
+        <button type="button" class="tab-btn" id="tab_proof">3. Prove AP / GP</button>
+      </div>
+
+      <div class="slider-grid" id="slidersWrap"></div>
+
+      <div class="formula-box" id="formulaBox"></div>
+      <div class="derivation-box" id="derivationBox"></div>
+      <div class="threshold-box" id="thresholdBox"></div>
+
+      <div class="table-box">
+        <table>
+          <thead id="tableHead"></thead>
+          <tbody id="progTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- RIGHT CHART CANVAS -->
+    <div class="card">
+      <div class="canvas-header">
+        <strong style="font-size:1.03rem; color:#1e293b;" id="canvasTitle">AP: a = 3, d = 2 (N = 10)</strong>
+        <div class="legend" id="legendWrap"></div>
+      </div>
+
+      <canvas id="progCanvas" width="880" height="465"></canvas>
+
+      <div class="misconception-box">
+        <strong>9758 Misconception Alert (Derivations &amp; Proving AP/GP):</strong>
+        <ul style="margin:4px 0 0 0; padding-left:18px;">
+          <li><strong>Never prove a sequence is an AP or GP using specific numbers:</strong> Checking <em>u₂ − u₁ = u₃ − u₂</em> (or <em>u₂/u₁ = u₃/u₂</em>) only tests the first 3 terms! You must show algebraically for <strong>all</strong> <em>n ∈ ℤ⁺</em> that <strong>u_{n+1} − u_n = constant</strong> (for AP) or <strong>u_{n+1} / u_n = non-zero constant</strong> (for GP), independent of <em>n</em>.</li>
+          <li><strong>Recovering <em>u_n</em> from a given <em>S_n</em> expression:</strong> Always compute <strong>u_n = S_n − S_{n−1}</strong> for <em>n ≥ 2</em>, and verify separately whether <em>n = 1</em> (<em>u₁ = S₁</em>) obeys the same formula!</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    let guideOpen = true;
+    let prog = "ap";
+    let apState = { a: 3, d: 2, N: 10, K: 50 };
+    let gpState = { a: 2, r: 1.4, N: 10, K: 40 };
+    let proofCase = "validAP";
+
+    const proofCases = {
+      validAP: {
+        label: "Case A: u_n = 5n − 2 (Valid AP)",
+        isAP: true,
+        isGP: false,
+        fn: function (n) { return 5 * n - 2; },
+        exprText: "Given general term: u_n = 5n − 2",
+        stepsText:
+          "<strong>Step 1:</strong> Find u_{n+1} by replacing n with (n + 1): u_{n+1} = 5(n + 1) − 2 = 5n + 3.<br>" +
+          "<strong>Step 2:</strong> Compute difference: u_{n+1} − u_n = (5n + 3) − (5n − 2) = <strong>5</strong> (a constant independent of n).<br>" +
+          "<strong>Conclusion:</strong> Hence {u_n} is an <strong>AP</strong> with first term a = u₁ = 3 and common difference d = 5.",
+        verdict: "VALID AP PROOF: u_{n+1} − u_n = 5 for all n ∈ ℤ⁺."
+      },
+      validGP: {
+        label: "Case B: u_n = 3 × 2^{1−n} (Valid GP)",
+        isAP: false,
+        isGP: true,
+        fn: function (n) { return 3 * Math.pow(2, 1 - n); },
+        exprText: "Given general term: u_n = 3 · 2^{1−n} (note: u_n ≠ 0 for all n)",
+        stepsText:
+          "<strong>Step 1:</strong> Find u_{n+1}: u_{n+1} = 3 · 2^{1−(n+1)} = 3 · 2^{−n}.<br>" +
+          "<strong>Step 2:</strong> Compute ratio: u_{n+1} / u_n = (3 · 2^{−n}) / (3 · 2^{1−n}) = 2^{−n − (1 − n)} = 2^{−1} = <strong>½</strong> (constant independent of n).<br>" +
+          "<strong>Conclusion:</strong> Hence {u_n} is a <strong>GP</strong> with first term a = u₁ = 3 and common ratio r = ½.",
+        verdict: "VALID GP PROOF: u_{n+1} / u_n = ½ for all n ∈ ℤ⁺."
+      },
+      trapAP: {
+        label: "Case C: u_n = n² − n + 2 (Fake AP Trap!)",
+        isAP: false,
+        isGP: false,
+        fn: function (n) { return n * n - n + 2; },
+        exprText: "Given general term: u_n = n² − n + 2",
+        stepsText:
+          "<strong>Numerical Trap:</strong> u₁ = 2, u₂ = 4, u₃ = 8? Wait — look at u₁ = 2, u₂ = 4 (diff = 2), while u₃ = 8 (diff = 4)! Even better, for u_n = 2n + (n−1)(n−2)(n−3), u₁=2, u₂=4, u₃=6 look like an AP, yet:<br>" +
+          "<strong>Algebraic Test:</strong> u_{n+1} − u_n = [(n+1)² − (n+1) + 2] − [n² − n + 2] = <strong>2n</strong>, which <strong>depends on n</strong>!",
+        verdict: "NOT AN AP: u_{n+1} − u_n = 2n is NOT constant!"
+      },
+      logGP: {
+        label: "Case D: ln(u_n) is AP ⇒ u_n is GP",
+        isAP: false,
+        isGP: true,
+        fn: function (n) { return Math.pow(1.5, n); },
+        exprText: "Given: ln(u_n) = n ln(1.5) (an AP with d = ln 1.5)",
+        stepsText:
+          "<strong>Step 1:</strong> Since {ln u_n} is an AP with common difference d = ln(1.5), ln(u_{n+1}) − ln(u_n) = ln(1.5).<br>" +
+          "<strong>Step 2:</strong> Apply log law: ln(u_{n+1} / u_n) = ln(1.5) &rArr; <strong>u_{n+1} / u_n = 1.5</strong> (a non-zero constant independent of n).<br>" +
+          "<strong>Conclusion:</strong> {u_n} is a <strong>GP</strong> with r = 1.5!",
+        verdict: "EXAM FAVORITE: If {ln u_n} is an AP, then {u_n} is ALWAYS a GP!"
+      }
+    };
+
+    function setProg(type) {
+      prog = type;
+      ["ap", "gp", "proof"].forEach(function (id) {
+        var btn = document.getElementById("tab_" + id);
+        if (btn) {
+          if (id === type) btn.classList.add("active");
+          else btn.classList.remove("active");
+        }
+      });
+      renderSliders();
+      draw();
+    }
+
+    function renderSliders() {
+      var wrap = document.getElementById("slidersWrap");
+      if (prog === "ap") {
+        wrap.innerHTML =
+          '<div class="slider-group">' +
+            '<div class="slider-header"><span>First Term (a)</span><span id="lbl_a" style="color:var(--purple-dark);">' + apState.a + '</span></div>' +
+            '<input type="range" id="sl_a" min="-4" max="10" step="1" value="' + apState.a + '" />' +
+          '</div>' +
+          '<div class="slider-group">' +
+            '<div class="slider-header"><span>Common Diff (d)</span><span id="lbl_d" style="color:var(--blue);">' + apState.d + '</span></div>' +
+            '<input type="range" id="sl_d" min="-2" max="4" step="0.5" value="' + apState.d + '" />' +
+          '</div>' +
+          '<div class="slider-group">' +
+            '<div class="slider-header"><span>Terms Displayed (N)</span><span id="lbl_N" style="color:var(--teal);">' + apState.N + '</span></div>' +
+            '<input type="range" id="sl_N" min="5" max="15" step="1" value="' + apState.N + '" />' +
+          '</div>' +
+          '<div class="slider-group">' +
+            '<div class="slider-header"><span>Target Sum (K)</span><span id="lbl_K" style="color:var(--rose);">' + apState.K + '</span></div>' +
+            '<input type="range" id="sl_K" min="10" max="150" step="5" value="' + apState.K + '" />' +
+          '</div>';
+
+        document.getElementById("sl_a").addEventListener("input", function () { apState.a = parseFloat(this.value); document.getElementById("lbl_a").textContent = apState.a; draw(); });
+        document.getElementById("sl_d").addEventListener("input", function () { apState.d = parseFloat(this.value); document.getElementById("lbl_d").textContent = apState.d; draw(); });
+        document.getElementById("sl_N").addEventListener("input", function () { apState.N = parseInt(this.value, 10); document.getElementById("lbl_N").textContent = apState.N; draw(); });
+        document.getElementById("sl_K").addEventListener("input", function () { apState.K = parseFloat(this.value); document.getElementById("lbl_K").textContent = apState.K; draw(); });
+
+      } else if (prog === "gp") {
+        wrap.innerHTML =
+          '<div class="slider-group">' +
+            '<div class="slider-header"><span>First Term (a)</span><span id="lbl_ga" style="color:var(--purple-dark);">' + gpState.a + '</span></div>' +
+            '<input type="range" id="sl_ga" min="1" max="8" step="1" value="' + gpState.a + '" />' +
+          '</div>' +
+          '<div class="slider-group">' +
+            '<div class="slider-header"><span>Common Ratio (r)</span><span id="lbl_gr" style="color:var(--blue);">' + gpState.r.toFixed(1) + '</span></div>' +
+            '<input type="range" id="sl_gr" min="0.5" max="1.8" step="0.1" value="' + gpState.r + '" />' +
+          '</div>' +
+          '<div class="slider-group">' +
+            '<div class="slider-header"><span>Terms Displayed (N)</span><span id="lbl_gN" style="color:var(--teal);">' + gpState.N + '</span></div>' +
+            '<input type="range" id="sl_gN" min="5" max="14" step="1" value="' + gpState.N + '" />' +
+          '</div>' +
+          '<div class="slider-group">' +
+            '<div class="slider-header"><span>Target Sum (K)</span><span id="lbl_gK" style="color:var(--rose);">' + gpState.K + '</span></div>' +
+            '<input type="range" id="sl_gK" min="10" max="150" step="5" value="' + gpState.K + '" />' +
+          '</div>';
+
+        document.getElementById("sl_ga").addEventListener("input", function () { gpState.a = parseFloat(this.value); document.getElementById("lbl_ga").textContent = gpState.a; draw(); });
+        document.getElementById("sl_gr").addEventListener("input", function () {
+          var v = parseFloat(this.value);
+          if (Math.abs(v - 1) < 0.05) v = 1.1;
+          gpState.r = v;
+          document.getElementById("lbl_gr").textContent = gpState.r.toFixed(1);
+          draw();
+        });
+        document.getElementById("sl_gN").addEventListener("input", function () { gpState.N = parseInt(this.value, 10); document.getElementById("lbl_gN").textContent = gpState.N; draw(); });
+        document.getElementById("sl_gK").addEventListener("input", function () { gpState.K = parseFloat(this.value); document.getElementById("lbl_gK").textContent = gpState.K; draw(); });
+
+      } else {
+        wrap.innerHTML =
+          '<div class="proof-preset-grid">' +
+            '<button type="button" class="proof-btn ' + (proofCase === "validAP" ? "active" : "") + '" id="pc_validAP">1. u_n = 5n − 2 (AP)</button>' +
+            '<button type="button" class="proof-btn ' + (proofCase === "validGP" ? "active" : "") + '" id="pc_validGP">2. u_n = 3·2^{1−n} (GP)</button>' +
+            '<button type="button" class="proof-btn ' + (proofCase === "trapAP" ? "active" : "") + '" id="pc_trapAP">3. u_n = n² − n + 2 (Not AP)</button>' +
+            '<button type="button" class="proof-btn ' + (proofCase === "logGP" ? "active" : "") + '" id="pc_logGP">4. ln(u_n) is AP ⇒ u_n is GP</button>' +
+          '</div>';
+
+        ["validAP", "validGP", "trapAP", "logGP"].forEach(function (cid) {
+          document.getElementById("pc_" + cid).addEventListener("click", function () {
+            proofCase = cid;
+            renderSliders();
+            draw();
+          });
+        });
+      }
+    }
+
+    function draw() {
+      var canvas = document.getElementById("progCanvas");
+      var ctx = canvas.getContext("2d");
+      var W = canvas.width, H = canvas.height;
+      ctx.clearRect(0, 0, W, H);
+
+      var formulaBox = document.getElementById("formulaBox");
+      var derivBox = document.getElementById("derivationBox");
+      var threshBox = document.getElementById("thresholdBox");
+      var thead = document.getElementById("tableHead");
+      var tbody = document.getElementById("progTableBody");
+      var legendWrap = document.getElementById("legendWrap");
+      threshBox.classList.remove("alert");
+
+      if (prog === "ap" || prog === "gp") {
+        var terms = [];
+        var sums = [];
+        var N = prog === "ap" ? apState.N : gpState.N;
+        var K = prog === "ap" ? apState.K : gpState.K;
+        var firstExceedIdx = -1;
+
+        legendWrap.innerHTML =
+          '<span class="legend-item"><span class="dot" style="background:#8b5cf6;"></span> Term u_n (Bars)</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#0284c7;"></span> Partial Sum S_n (Line)</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#e11d48;"></span> Target Threshold K</span>';
+
+        if (prog === "ap") {
+          var a = apState.a, d = apState.d;
+          var runSum = 0;
+          for (var n = 1; n <= N; n++) {
+            var u = a + (n - 1) * d;
+            runSum += u;
+            terms.push(u);
+            sums.push(runSum);
+            if (firstExceedIdx === -1 && runSum > K) firstExceedIdx = n - 1;
+          }
+
+          var lastTerm = terms[N - 1];
+          document.getElementById("canvasTitle").textContent = "Arithmetic Progression: a = " + a + ", d = " + d + " (N = " + N + ")";
+          formulaBox.innerHTML =
+            "<strong>n-th Term:</strong> u_n = a + (n − 1)d = " + a + " + (" + d + ")(n − 1)<br>" +
+            "<strong>Two Equivalent S_n Formulas:</strong><br>" +
+            "&bull; <strong>Form 1:</strong> S_n = (n/2)(a + l) = (" + N + "/2)(" + a + " + " + lastTerm.toFixed(1).replace(/\.0$/, "") + ") = <strong>" + sums[N - 1].toFixed(2).replace(/\.00$/, "") + "</strong><br>" +
+            "&bull; <strong>Form 2:</strong> S_n = (n/2)[2a + (n − 1)d] = <strong>" + sums[N - 1].toFixed(2).replace(/\.00$/, "") + "</strong>";
+
+          derivBox.innerHTML =
+            "<strong>1. Derivation of n-th Term u_n:</strong><br>" +
+            "u₁ = a, &nbsp;u₂ = a + d, &nbsp;u₃ = a + 2d, &hellip; &rArr; adding d exactly (n − 1) times gives <strong>u_n = a + (n − 1)d</strong>.<br>" +
+            "<strong>2. Derivation of Both S_n Formulas (Reverse-and-Add):</strong><br>" +
+            "S_n = a + (a+d) + &hellip; + l &nbsp;and&nbsp; S_n = l + (l−d) + &hellip; + a &rArr; 2S_n = n(a + l) &rArr; <strong>S_n = (n/2)(a + l)</strong>.<br>" +
+            "Substituting l = u_n = a + (n − 1)d gives <strong>S_n = (n/2)[2a + (n − 1)d]</strong>.";
+
+          var exceedTxt = firstExceedIdx !== -1
+            ? "Least integer <strong>n = " + (firstExceedIdx + 1) + "</strong> (since S_" + (firstExceedIdx + 1) + " = " + sums[firstExceedIdx].toFixed(2).replace(/\.00$/, "") + " &gt; " + K + ")."
+            : "Not reached within the first N = " + N + " terms (increase N or lower K).";
+
+          threshBox.innerHTML =
+            "<strong>Inequality Solver (Find least n such that S_n &gt; " + K + "):</strong><br>" +
+            "(n/2)[" + (2 * a) + " + (" + d + ")(n − 1)] &gt; " + K + " &nbsp;&rArr;&nbsp; " + exceedTxt;
+
+        } else {
+          var ga = gpState.a, gr = gpState.r;
+          var runSumG = 0;
+          for (var m = 1; m <= N; m++) {
+            var ug = ga * Math.pow(gr, m - 1);
+            runSumG += ug;
+            terms.push(ug);
+            sums.push(runSumG);
+            if (firstExceedIdx === -1 && runSumG > K) firstExceedIdx = m - 1;
+          }
+
+          document.getElementById("canvasTitle").textContent = "Geometric Progression: a = " + ga + ", r = " + gr.toFixed(1) + " (N = " + N + ")";
+          formulaBox.innerHTML =
+            "<strong>n-th Term:</strong> u_n = ar^{n−1} = " + ga + "(" + gr.toFixed(1) + ")^{n−1}<br>" +
+            "<strong>Two Equivalent S_n Formulas (for r ≠ 1):</strong><br>" +
+            "&bull; <strong>Form 1 (best when r &lt; 1):</strong> S_n = a(1 − r^n) / (1 − r) = <strong>" + sums[N - 1].toFixed(3) + "</strong><br>" +
+            "&bull; <strong>Form 2 (best when r &gt; 1):</strong> S_n = a(r^n − 1) / (r − 1) = <strong>" + sums[N - 1].toFixed(3) + "</strong>";
+
+          derivBox.innerHTML =
+            "<strong>1. Derivation of n-th Term u_n:</strong><br>" +
+            "u₁ = a, &nbsp;u₂ = ar, &nbsp;u₃ = ar², &hellip; &rArr; multiplying by r exactly (n − 1) times gives <strong>u_n = ar^{n−1}</strong>.<br>" +
+            "<strong>2. Derivation of Both S_n Formulas (Multiply-by-r &amp; Subtract):</strong><br>" +
+            "S_n = a + ar + &hellip; + ar^{n−1} &nbsp;and&nbsp; rS_n = ar + ar² + &hellip; + ar^n &rArr; S_n(1 − r) = a(1 − r^n).<br>" +
+            "Dividing by (1 − r) (for r ≠ 1) gives <strong>S_n = a(1 − r^n)/(1 − r) = a(r^n − 1)/(r − 1)</strong>.";
+
+          var exceedTxtG = firstExceedIdx !== -1
+            ? "Least integer <strong>n = " + (firstExceedIdx + 1) + "</strong> (since S_" + (firstExceedIdx + 1) + " = " + sums[firstExceedIdx].toFixed(2) + " &gt; " + K + ")."
+            : "Not reached within the first N = " + N + " terms (increase N or lower K).";
+
+          threshBox.innerHTML =
+            "<strong>Inequality Solver (Find least n such that S_n &gt; " + K + "):</strong><br>" +
+            ga + "((" + gr.toFixed(1) + ")^n − 1)/(" + (gr - 1).toFixed(1) + ") &gt; " + K + " &nbsp;&rArr;&nbsp; " + exceedTxtG;
+        }
+
+        thead.innerHTML = "<tr><th>n</th><th>u_n</th><th>S_n</th><th>Check: S_n − S_{n−1}</th></tr>";
+        tbody.innerHTML = terms.map(function (u, idx) {
+          var diffCheck = idx === 0 ? sums[0].toFixed(2) + " (= S₁)" : (sums[idx] - sums[idx - 1]).toFixed(2) + " (= u_" + (idx + 1) + ")";
+          var rowBg = idx === firstExceedIdx ? ' style="background:#ffe4e6;"' : "";
+          return "<tr" + rowBg + "><td><strong>" + (idx + 1) + "</strong></td><td>" + u.toFixed(2) + "</td><td style='color:#0284c7; font-weight:700;'>" + sums[idx].toFixed(2) + "</td><td style='color:#0f766e;'>" + diffCheck + "</td></tr>";
+        }).join("");
+
+        renderProgChart(ctx, W, H, terms, sums, N, K, firstExceedIdx);
+
+      } else {
+        // PROOF LAB MODE
+        var pc = proofCases[proofCase];
+        var pN = 8;
+        var pTerms = [];
+        for (var k = 1; k <= pN; k++) pTerms.push(pc.fn(k));
+
+        document.getElementById("canvasTitle").textContent = "Algebraic Proof Check: " + pc.label;
+        legendWrap.innerHTML =
+          '<span class="legend-item"><span class="dot" style="background:#8b5cf6;"></span> Sequence Term u_n</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#0f766e;"></span> Step Difference (u_{n+1} − u_n)</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#0284c7;"></span> Step Ratio (u_{n+1} / u_n)</span>';
+
+        formulaBox.innerHTML = "<strong>" + pc.exprText + "</strong>";
+        derivBox.innerHTML = pc.stepsText;
+        threshBox.innerHTML = "<strong>" + pc.verdict + "</strong>";
+        if (!pc.isAP && !pc.isGP) threshBox.classList.add("alert");
+
+        thead.innerHTML = "<tr><th>n</th><th>u_n</th><th>u_{n+1} − u_n</th><th>u_{n+1} / u_n</th></tr>";
+        tbody.innerHTML = pTerms.slice(0, pN - 1).map(function (u, idx) {
+          var nextU = pTerms[idx + 1];
+          var diff = nextU - u;
+          var ratio = nextU / u;
+          return "<tr><td><strong>" + (idx + 1) + "</strong></td><td>" + u.toFixed(3) + "</td><td style='color:#0f766e; font-weight:700;'>" + diff.toFixed(3) + "</td><td style='color:#0284c7; font-weight:700;'>" + ratio.toFixed(3) + "</td></tr>";
+        }).join("");
+
+        renderProofChart(ctx, W, H, pTerms, pc);
+      }
+    }
+
+    function renderProgChart(ctx, W, H, terms, sums, N, K, firstExceedIdx) {
+      var allVals = terms.concat(sums).concat([K, 0]);
+      var rawMax = Math.max.apply(null, allVals);
+      var rawMin = Math.min.apply(null, allVals);
+      var pad = Math.max(4, (rawMax - rawMin) * 0.14);
+      var yMax = rawMax + pad;
+      var yMin = rawMin - pad;
+
+      var leftPad = 56, rightPad = 24, topPad = 24, botPad = 36;
+      var plotW = W - leftPad - rightPad;
+      var plotH = H - topPad - botPad;
+
+      var toPxX = function (idx) { return leftPad + ((idx + 0.5) / N) * plotW; };
+      var toPxY = function (val) { return topPad + ((yMax - val) / (yMax - yMin)) * plotH; };
+      var zeroY = toPxY(0);
+
+      ctx.strokeStyle = "#f1f5f9";
+      ctx.lineWidth = 1;
+      ctx.fillStyle = "#64748b";
+      ctx.font = "11px Segoe UI, sans-serif";
+      for (var i = 0; i <= 6; i++) {
+        var v = yMin + (i / 6) * (yMax - yMin);
+        var py = toPxY(v);
+        ctx.beginPath(); ctx.moveTo(leftPad, py); ctx.lineTo(W - rightPad, py); ctx.stroke();
+        ctx.fillText(v.toFixed(0), 10, py + 4);
+      }
+
+      ctx.strokeStyle = "#94a3b8";
+      ctx.lineWidth = 1.6;
+      ctx.beginPath();
+      ctx.moveTo(leftPad, zeroY);
+      ctx.lineTo(W - rightPad, zeroY);
+      ctx.stroke();
+
+      var ky = toPxY(K);
+      ctx.save();
+      ctx.strokeStyle = "#e11d48";
+      ctx.lineWidth = 1.8;
+      ctx.setLineDash([6, 4]);
+      ctx.beginPath();
+      ctx.moveTo(leftPad, ky);
+      ctx.lineTo(W - rightPad, ky);
+      ctx.stroke();
+      ctx.restore();
+
+      ctx.fillStyle = "#be123c";
+      ctx.font = "bold 11px Segoe UI, sans-serif";
+      ctx.fillText("Target K = " + K, leftPad + 8, ky - 6);
+
+      var barW = Math.min(28, (plotW / N) * 0.48);
+      terms.forEach(function (u, idx) {
+        var cx = toPxX(idx);
+        var topY = toPxY(Math.max(0, u));
+        var botY = toPxY(Math.min(0, u));
+        ctx.fillStyle = "rgba(139, 92, 246, 0.35)";
+        ctx.strokeStyle = "#7c3aed";
+        ctx.lineWidth = 1.4;
+        ctx.fillRect(cx - barW / 2, topY, barW, Math.max(1, botY - topY));
+        ctx.strokeRect(cx - barW / 2, topY, barW, Math.max(1, botY - topY));
+
+        ctx.fillStyle = "#475569";
+        ctx.font = "11px Segoe UI, sans-serif";
+        ctx.fillText(String(idx + 1), cx - 4, H - 14);
+      });
+
+      ctx.strokeStyle = "#0284c7";
+      ctx.lineWidth = 2.6;
+      ctx.beginPath();
+      sums.forEach(function (sn, idx) {
+        var cx = toPxX(idx);
+        var cy = toPxY(sn);
+        if (idx === 0) ctx.moveTo(cx, cy);
+        else ctx.lineTo(cx, cy);
+      });
+      ctx.stroke();
+
+      sums.forEach(function (sn, idx) {
+        var cx = toPxX(idx);
+        var cy = toPxY(sn);
+        var isHit = idx === firstExceedIdx;
+        ctx.beginPath();
+        ctx.arc(cx, cy, isHit ? 6.5 : 4.3, 0, Math.PI * 2);
+        ctx.fillStyle = isHit ? "#e11d48" : "#0284c7";
+        ctx.fill();
+        if (isHit) {
+          ctx.fillStyle = "#be123c";
+          ctx.font = "bold 11px Segoe UI, sans-serif";
+          ctx.fillText("n=" + (idx + 1), cx - 10, cy - 9);
+        }
+      });
+    }
+
+    function renderProofChart(ctx, W, H, pTerms, pc) {
+      var N = pTerms.length;
+      var diffs = [];
+      var ratios = [];
+      for (var i = 0; i < N - 1; i++) {
+        diffs.push(pTerms[i + 1] - pTerms[i]);
+        ratios.push(pTerms[i + 1] / pTerms[i]);
+      }
+
+      var allVals = pTerms.concat(diffs).concat(ratios).concat([0]);
+      var rawMax = Math.max.apply(null, allVals);
+      var rawMin = Math.min.apply(null, allVals);
+      var pad = Math.max(2, (rawMax - rawMin) * 0.15);
+      var yMax = rawMax + pad;
+      var yMin = rawMin - pad;
+
+      var leftPad = 56, rightPad = 24, topPad = 24, botPad = 36;
+      var plotW = W - leftPad - rightPad;
+      var plotH = H - topPad - botPad;
+
+      var toPxX = function (idx) { return leftPad + ((idx + 0.5) / N) * plotW; };
+      var toPxY = function (val) { return topPad + ((yMax - val) / (yMax - yMin)) * plotH; };
+
+      ctx.strokeStyle = "#f1f5f9";
+      ctx.lineWidth = 1;
+      ctx.fillStyle = "#64748b";
+      ctx.font = "11px Segoe UI, sans-serif";
+      for (var g = 0; g <= 6; g++) {
+        var v = yMin + (g / 6) * (yMax - yMin);
+        var py = toPxY(v);
+        ctx.beginPath(); ctx.moveTo(leftPad, py); ctx.lineTo(W - rightPad, py); ctx.stroke();
+        ctx.fillText(v.toFixed(1), 8, py + 4);
+      }
+
+      ctx.strokeStyle = "#94a3b8";
+      ctx.lineWidth = 1.6;
+      ctx.beginPath();
+      ctx.moveTo(leftPad, toPxY(0));
+      ctx.lineTo(W - rightPad, toPxY(0));
+      ctx.stroke();
+
+      var barW = Math.min(28, (plotW / N) * 0.45);
+      pTerms.forEach(function (u, idx) {
+        var cx = toPxX(idx);
+        var topY = toPxY(Math.max(0, u));
+        var botY = toPxY(Math.min(0, u));
+        ctx.fillStyle = "rgba(139, 92, 246, 0.3)";
+        ctx.strokeStyle = "#7c3aed";
+        ctx.lineWidth = 1.4;
+        ctx.fillRect(cx - barW / 2, topY, barW, Math.max(1, botY - topY));
+        ctx.strokeRect(cx - barW / 2, topY, barW, Math.max(1, botY - topY));
+
+        ctx.fillStyle = "#475569";
+        ctx.font = "11px Segoe UI, sans-serif";
+        ctx.fillText("n=" + (idx + 1), cx - 10, H - 14);
+      });
+
+      // Plot step differences (u_{n+1} - u_n)
+      ctx.strokeStyle = "#0f766e";
+      ctx.lineWidth = 2.6;
+      ctx.beginPath();
+      diffs.forEach(function (df, idx) {
+        var cx = toPxX(idx);
+        var cy = toPxY(df);
+        if (idx === 0) ctx.moveTo(cx, cy);
+        else ctx.lineTo(cx, cy);
+      });
+      ctx.stroke();
+      diffs.forEach(function (df, idx) {
+        ctx.beginPath();
+        ctx.arc(toPxX(idx), toPxY(df), 5, 0, Math.PI * 2);
+        ctx.fillStyle = "#0f766e";
+        ctx.fill();
+      });
+
+      // Plot step ratios (u_{n+1} / u_n)
+      ctx.strokeStyle = "#0284c7";
+      ctx.lineWidth = 2.6;
+      ctx.beginPath();
+      ratios.forEach(function (rt, idx) {
+        var cx = toPxX(idx);
+        var cy = toPxY(rt);
+        if (idx === 0) ctx.moveTo(cx, cy);
+        else ctx.lineTo(cx, cy);
+      });
+      ctx.stroke();
+      ratios.forEach(function (rt, idx) {
+        ctx.beginPath();
+        ctx.arc(toPxX(idx), toPxY(rt), 5, 0, Math.PI * 2);
+        ctx.fillStyle = "#0284c7";
+        ctx.fill();
+      });
+    }
+
+    function init() {
+      document.getElementById("guideHeader").addEventListener("click", function () {
+        guideOpen = !guideOpen;
+        document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+        document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+      });
+
+      document.getElementById("tab_ap").addEventListener("click", function () { setProg("ap"); });
+      document.getElementById("tab_gp").addEventListener("click", function () { setProg("gp"); });
+      document.getElementById("tab_proof").addEventListener("click", function () { setProg("proof"); });
+
+      renderSliders();
+      draw();
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else {
+      init();
+    }
+  })();
+</script>
+
+</body>
+</html>

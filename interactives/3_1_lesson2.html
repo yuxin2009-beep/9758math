@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 3.1 Lesson 2: Scalar (Dot) Product &amp; 3D Orthogonal Projections</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed #e2e8f0;
+      align-items: stretch;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 0.8rem;
+      line-height: 1.55;
+      color: #475569;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      font-size: 0.83rem;
+      margin-bottom: 5px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 505px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 980px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .mode-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 6px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.75rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .slider-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 11px;
+    }
+
+    .slider-group {
+      background: #f8fafc;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.77rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .formula-box {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #3b0764;
+      font-size: 0.79rem;
+      line-height: 1.52;
+      margin-bottom: 9px;
+    }
+
+    .derivation-box {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-left: 4px solid var(--purple);
+      border-radius: 10px;
+      padding: 10px 13px;
+      color: #1e293b;
+      font-size: 0.78rem;
+      line-height: 1.54;
+      margin-bottom: 9px;
+    }
+
+    .working-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #134e4a;
+      font-size: 0.79rem;
+      line-height: 1.52;
+      margin-bottom: 9px;
+    }
+
+    .status-banner {
+      background: var(--blue-bg);
+      border: 1.5px solid #7dd3fc;
+      border-radius: 12px;
+      padding: 9px 13px;
+      color: #0c4a6e;
+      font-size: 0.79rem;
+      font-weight: 700;
+      line-height: 1.48;
+    }
+
+    .status-banner.obtuse {
+      background: var(--rose-bg);
+      border-color: #fda4af;
+      color: #881337;
+    }
+
+    .status-banner.perp {
+      background: var(--teal-bg);
+      border-color: #5eead4;
+      color: #134e4a;
+    }
+
+    .canvas-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .cam-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 7px 12px;
+      margin-bottom: 10px;
+    }
+
+    .cam-btn {
+      padding: 5px 10px;
+      border-radius: 7px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .cam-btn.active {
+      background: var(--teal);
+      color: #ffffff;
+      border-color: var(--teal);
+    }
+
+    .legend {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 0.76rem;
+      font-weight: 600;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    canvas {
+      width: 100%;
+      height: 455px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      background: #ffffff;
+      display: block;
+      cursor: grab;
+    }
+
+    canvas:active {
+      cursor: grabbing;
+    }
+
+    .misconception-box {
+      margin-top: 12px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 0.8rem;
+      line-height: 1.52;
+      color: #78350f;
+    }
+
+    .vec-inline {
+      font-family: 'Segoe UI', monospace;
+      font-weight: 700;
+    }
+
+    .preset-row {
+      grid-column: span 2;
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .mini-btn {
+      flex: 1;
+      padding: 5px 8px;
+      border-radius: 7px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.73rem;
+      font-weight: 700;
+      color: #334155;
+      cursor: pointer;
+    }
+
+    .mini-btn:hover {
+      background: #f1f5f9;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" id="guideHeader">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive 3D Visual Lab</span>
+      </div>
+      <button type="button" class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Select a Dot Product Mode</strong>
+        Switch between <em>Angle &amp; Dot Product</em>, <em>Properties &amp; Perpendicularity</em>, and <em>Projection Lab</em> at the top-left to explore 3D scalar products.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Drag or Auto-Rotate the 3D Space</strong>
+        Click and drag on the 3D canvas (or toggle <em>Auto-Rotate 3D</em>) to inspect the perpendicular drop-foot from vector <strong>a</strong> onto vector <strong>b</strong> from any viewpoint.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Compare Scalar vs. Vector Projections</strong>
+        Adjust the 3D components of <strong>a</strong> and <strong>b</strong> (or use the Acute, Perpendicular, and Obtuse presets) to compare <em>|a · b̂|</em> against <em>(a · b̂)b̂</em>.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROLS & ALGEBRAIC BREAKDOWN -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        3.1 Lesson 2 &bull; Scalar (Dot) Product &amp; 3D Projections
+      </div>
+
+      <div class="mode-tabs">
+        <button type="button" class="tab-btn active" id="tab_angle">1. Angle &amp; a · b</button>
+        <button type="button" class="tab-btn" id="tab_prop">2. Properties &amp; ⊥</button>
+        <button type="button" class="tab-btn" id="tab_proj">3. Projection Lab</button>
+      </div>
+
+      <div class="slider-grid" id="slidersWrap"></div>
+
+      <div class="formula-box" id="formulaBox"></div>
+      <div class="derivation-box" id="derivationBox"></div>
+      <div class="working-box" id="workingBox"></div>
+      <div class="status-banner" id="statusBanner"></div>
+    </div>
+
+    <!-- RIGHT 3D VISUALIZATION CANVAS -->
+    <div class="card">
+      <div class="canvas-header">
+        <strong style="font-size:1.02rem; color:#1e293b;" id="canvasTitle">3D Scalar Product a · b &amp; Angle θ Between Vectors</strong>
+      </div>
+
+      <div class="cam-toolbar">
+        <div style="display:flex; gap:6px; flex-wrap:wrap;">
+          <button type="button" class="cam-btn active" id="btn_orbit">Auto-Rotate 3D: ON</button>
+          <button type="button" class="cam-btn" id="btn_iso">3D Isometric</button>
+          <button type="button" class="cam-btn" id="btn_xy">Top View (x-y)</button>
+          <button type="button" class="cam-btn" id="btn_xz">Front View (x-z)</button>
+        </div>
+        <div class="legend" id="legendWrap"></div>
+      </div>
+
+      <canvas id="dot3dCanvas" width="880" height="455"></canvas>
+
+      <div class="misconception-box">
+        <strong>9758 Misconception Alert (Scalar Product &amp; Projections):</strong>
+        <ul style="margin:4px 0 0 0; padding-left:18px;">
+          <li><strong>Length of projection vs. Projection vector:</strong> The <em>length of projection</em> of <strong>a</strong> onto <strong>b</strong> is a non-negative scalar <strong>|a · b̂| = |a · b| / |b|</strong> (always take the modulus if <em>θ</em> is obtuse!). The <em>projection vector</em> of <strong>a</strong> onto <strong>b</strong> is a vector <strong>(a · b̂)b̂ = ((a · b) / |b|²) b</strong> (no modulus, and always divide by <strong>|b|²</strong>, not |b|!).</li>
+          <li><strong>No cancellation law for dot products:</strong> If <em>a · b = a · c</em> (with <em>a ≠ 0</em>), you <strong>cannot</strong> cancel <em>a</em> to conclude <em>b = c</em>; it only means <em>a · (b − c) = 0</em>, so <strong>a ⊥ (b − c)</strong>.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    let guideOpen = true;
+    let mode = "angle";
+
+    let yaw = 0.65;
+    let pitch = 0.42;
+    let autoOrbit = true;
+    let isDragging = false;
+    let lastMouseX = 0;
+    let lastMouseY = 0;
+
+    let st = {
+      ax: 2, ay: 3, az: 3,
+      bx: 4, by: 1, bz: -1
+    };
+
+    function fmtVec3(x, y, z) {
+      return "(" + x + ", " + y + ", " + z + ")";
+    }
+
+    function project3D(x, y, z, W, H) {
+      var cosY = Math.cos(yaw), sinY = Math.sin(yaw);
+      var cosP = Math.cos(pitch), sinP = Math.sin(pitch);
+
+      var rx = x * cosY - y * sinY;
+      var ry = x * sinY + y * cosY;
+
+      var sx = rx;
+      var sy = z * cosP - ry * sinP;
+
+      var scale = 36;
+      return {
+        px: W * 0.5 + sx * scale,
+        py: H * 0.54 - sy * scale
+      };
+    }
+
+    function setMode(m) {
+      mode = m;
+      ["angle", "prop", "proj"].forEach(function (id) {
+        var btn = document.getElementById("tab_" + id);
+        if (btn) {
+          if (id === m) btn.classList.add("active");
+          else btn.classList.remove("active");
+        }
+      });
+      updatePanels();
+    }
+
+    function renderSliders() {
+      var wrap = document.getElementById("slidersWrap");
+      wrap.innerHTML =
+        '<div class="slider-group">' +
+          '<div class="slider-header"><span>Vector a = (x, y, z)</span><span id="lbl_a" style="color:var(--blue);">' + fmtVec3(st.ax, st.ay, st.az) + '</span></div>' +
+          '<input type="range" id="sl_ax" min="-4" max="4" step="1" value="' + st.ax + '" />' +
+          '<input type="range" id="sl_ay" min="-4" max="4" step="1" value="' + st.ay + '" style="margin-top:3px;" />' +
+          '<input type="range" id="sl_az" min="-3" max="4" step="1" value="' + st.az + '" style="margin-top:3px;" />' +
+        '</div>' +
+        '<div class="slider-group">' +
+          '<div class="slider-header"><span>Vector b = (x, y, z)</span><span id="lbl_b" style="color:var(--purple-dark);">' + fmtVec3(st.bx, st.by, st.bz) + '</span></div>' +
+          '<input type="range" id="sl_bx" min="-4" max="4" step="1" value="' + st.bx + '" />' +
+          '<input type="range" id="sl_by" min="-4" max="4" step="1" value="' + st.by + '" style="margin-top:3px;" />' +
+          '<input type="range" id="sl_bz" min="-3" max="4" step="1" value="' + st.bz + '" style="margin-top:3px;" />' +
+        '</div>' +
+        '<div class="preset-row">' +
+          '<button type="button" class="mini-btn" id="pre_acute">Acute Preset (a·b &gt; 0)</button>' +
+          '<button type="button" class="mini-btn" id="pre_perp">Perpendicular (a·b = 0)</button>' +
+          '<button type="button" class="mini-btn" id="pre_obtuse">Obtuse Preset (a·b &lt; 0)</button>' +
+        '</div>';
+
+      ["ax", "ay", "az", "bx", "by", "bz"].forEach(function (k) {
+        document.getElementById("sl_" + k).addEventListener("input", function () {
+          st[k] = parseInt(this.value, 10);
+          if (st.bx === 0 && st.by === 0 && st.bz === 0) st.bx = 1;
+          updatePanels();
+        });
+      });
+
+      document.getElementById("pre_acute").addEventListener("click", function () {
+        st = { ax: 2, ay: 3, az: 3, bx: 4, by: 1, bz: -1 };
+        syncSliders(); updatePanels();
+      });
+      document.getElementById("pre_perp").addEventListener("click", function () {
+        st = { ax: 2, ay: -2, az: 1, bx: 1, by: 2, bz: 2 };
+        syncSliders(); updatePanels();
+      });
+      document.getElementById("pre_obtuse").addEventListener("click", function () {
+        st = { ax: -3, ay: 2, az: 3, bx: 4, by: 1, bz: 0 };
+        syncSliders(); updatePanels();
+      });
+    }
+
+    function syncSliders() {
+      ["ax", "ay", "az", "bx", "by", "bz"].forEach(function (k) {
+        var el = document.getElementById("sl_" + k);
+        if (el) el.value = st[k];
+      });
+    }
+
+    function updatePanels() {
+      document.getElementById("lbl_a").textContent = fmtVec3(st.ax, st.ay, st.az);
+      document.getElementById("lbl_b").textContent = fmtVec3(st.bx, st.by, st.bz);
+
+      var dot = st.ax * st.bx + st.ay * st.by + st.az * st.bz;
+      var magASq = st.ax * st.ax + st.ay * st.ay + st.az * st.az;
+      var magBSq = st.bx * st.bx + st.by * st.by + st.bz * st.bz;
+      var magA = Math.sqrt(magASq);
+      var magB = Math.sqrt(magBSq);
+
+      var cosTheta = (magA > 0 && magB > 0) ? Math.max(-1, Math.min(1, dot / (magA * magB))) : 0;
+      var thetaDeg = Math.acos(cosTheta) * (180 / Math.PI);
+
+      var scalarProj = dot / magB;
+      var lenProj = Math.abs(scalarProj);
+      var projScale = dot / magBSq;
+      var px = projScale * st.bx, py = projScale * st.by, pz = projScale * st.bz;
+
+      var formulaBox = document.getElementById("formulaBox");
+      var derivBox = document.getElementById("derivationBox");
+      var workingBox = document.getElementById("workingBox");
+      var statusBanner = document.getElementById("statusBanner");
+      var titleEl = document.getElementById("canvasTitle");
+      var legendEl = document.getElementById("legendWrap");
+
+      statusBanner.classList.remove("obtuse", "perp");
+
+      if (mode === "angle") {
+        titleEl.textContent = "3D Scalar Product a · b & Angle θ Between Vectors";
+        legendEl.innerHTML =
+          '<span class="legend-item"><span class="dot" style="background:#0284c7;"></span> Vector a</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#8b5cf6;"></span> Vector b</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#0f766e;"></span> Angle θ</span>';
+
+        formulaBox.innerHTML =
+          '<strong>Component Definition:</strong> <span class="vec-inline">a · b = (' + st.ax + ')(' + st.bx + ') + (' + st.ay + ')(' + st.by + ') + (' + st.az + ')(' + st.bz + ') = ' + dot + '</span><br>' +
+          '<strong>Magnitudes:</strong> <span class="vec-inline">|a| = √' + magASq + ' ≈ ' + magA.toFixed(2) + '</span> &nbsp;|&nbsp; <span class="vec-inline">|b| = √' + magBSq + ' ≈ ' + magB.toFixed(2) + '</span>';
+
+        derivBox.innerHTML =
+          '<strong>Derivation of cos θ = (a · b) / (|a||b|) via Cosine Rule:</strong><br>' +
+          'In △OAB, <span class="vec-inline">|b − a|² = |a|² + |b|² − 2|a||b|cos θ</span>.<br>' +
+          'Expanding LHS as <span class="vec-inline">(b − a)·(b − a) = |b|² − 2(a·b) + |a|²</span> &rArr; <strong>a · b = |a||b|cos θ</strong>.';
+
+        workingBox.innerHTML =
+          '<strong>Angle Calculation:</strong><br>' +
+          '<span class="vec-inline">cos θ = ' + dot + ' / (√' + magASq + ' · √' + magBSq + ') = ' + cosTheta.toFixed(4) + '</span> &rArr; <strong>θ = ' + thetaDeg.toFixed(1) + '°</strong>';
+
+      } else if (mode === "prop") {
+        titleEl.textContent = "Algebraic Properties of Scalar Product & Perpendicularity Test";
+        legendEl.innerHTML =
+          '<span class="legend-item"><span class="dot" style="background:#0284c7;"></span> Vector a</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#8b5cf6;"></span> Vector b</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#0f766e;"></span> a + b (Diagonal)</span>';
+
+        formulaBox.innerHTML =
+          '<strong>Core 9758 Algebraic Properties:</strong><br>' +
+          '&bull; Commutative: <span class="vec-inline">a · b = b · a = ' + dot + '</span> &nbsp;|&nbsp; Self-dot: <span class="vec-inline">a · a = |a|² = ' + magASq + '</span><br>' +
+          '&bull; Distributive: <span class="vec-inline">a · (b + c) = a · b + a · c</span>';
+
+        derivBox.innerHTML =
+          '<strong>Expanding |a ± b|² Using Dot Products:</strong><br>' +
+          '<span class="vec-inline">|a + b|² = (a + b)·(a + b) = |a|² + 2(a · b) + |b|² = ' + magASq + ' + 2(' + dot + ') + ' + magBSq + ' = ' + (magASq + 2 * dot + magBSq) + '</span>.<br>' +
+          'Notice: When <strong>a ⊥ b</strong> (<em>a · b = 0</em>), this simplifies directly to Pythagoras’ Theorem <span class="vec-inline">|a + b|² = |a|² + |b|²</span>!';
+
+        workingBox.innerHTML =
+          '<strong>Perpendicularity Condition (for non-zero a, b):</strong><br>' +
+          '<span class="vec-inline">a ⊥ b &hArr; a · b = 0</span>. Currently <span class="vec-inline">a · b = ' + dot + '</span>.';
+
+      } else {
+        titleEl.textContent = "3D Orthogonal Projection of Vector a onto Vector b";
+        legendEl.innerHTML =
+          '<span class="legend-item"><span class="dot" style="background:#0284c7;"></span> Vector a</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#8b5cf6;"></span> Reference Vector b</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#e11d48;"></span> Projection Vector p</span>';
+
+        formulaBox.innerHTML =
+          '<strong>1. Length of Projection of a onto b (Scalar):</strong><br>' +
+          '<span class="vec-inline">|a · b̂| = |a · b| / |b| = |' + dot + '| / √' + magBSq + ' = ' + lenProj.toFixed(3) + ' units</span>';
+
+        derivBox.innerHTML =
+          '<strong>Derivation of Projection Vector p = (a · b̂)b̂:</strong><br>' +
+          '1. Right triangle gives signed base length <span class="vec-inline">|a|cos θ = (a · b)/|b| = a · b̂</span>.<br>' +
+          '2. Multiply signed scalar length by unit direction <span class="vec-inline">b̂ = b / |b|</span>:<br>' +
+          '&nbsp;&nbsp;&nbsp;<strong>p = (a · b̂)b̂ = ((a · b) / |b|²) b</strong>.';
+
+        workingBox.innerHTML =
+          '<strong>2. Projection Vector of a onto b:</strong><br>' +
+          '<span class="vec-inline">p = (' + dot + ' / ' + magBSq + ')' + fmtVec3(st.bx, st.by, st.bz) + ' = (' + px.toFixed(2) + ', ' + py.toFixed(2) + ', ' + pz.toFixed(2) + ')</span><br>' +
+          '<strong>Perpendicular Component (a − p):</strong> <span class="vec-inline">(' + (st.ax - px).toFixed(2) + ', ' + (st.ay - py).toFixed(2) + ', ' + (st.az - pz).toFixed(2) + ')</span>';
+      }
+
+      if (dot === 0) {
+        statusBanner.classList.add("perp");
+        statusBanner.innerHTML = '<strong>PERPENDICULAR (a · b = 0):</strong> θ = 90°! Vector <strong>a</strong> projects onto the zero vector <strong>0</strong> at the origin.';
+      } else if (dot > 0) {
+        statusBanner.innerHTML = '<strong>ACUTE ANGLE (a · b = ' + dot + ' &gt; 0):</strong> 0° &le; θ = ' + thetaDeg.toFixed(1) + '° &lt; 90°. Projection vector <strong>p</strong> points in the <strong>same</strong> direction as <strong>b</strong>.';
+      } else {
+        statusBanner.classList.add("obtuse");
+        statusBanner.innerHTML = '<strong>OBTUSE ANGLE (a · b = ' + dot + ' &lt; 0):</strong> 90° &lt; θ = ' + thetaDeg.toFixed(1) + '° &le; 180°. Projection vector <strong>p</strong> points in the <strong>opposite</strong> direction (−b̂)!';
+      }
+    }
+
+    function drawArrow3D(ctx, p1, p2, color, width, dashed) {
+      var dx = p2.px - p1.px;
+      var dy = p2.py - p1.py;
+      var len = Math.hypot(dx, dy);
+      if (len < 2) return;
+      var angle = Math.atan2(dy, dx);
+      var headLen = 10;
+
+      ctx.save();
+      ctx.strokeStyle = color;
+      ctx.fillStyle = color;
+      ctx.lineWidth = width;
+      if (dashed) ctx.setLineDash([6, 4]);
+
+      ctx.beginPath();
+      ctx.moveTo(p1.px, p1.py);
+      ctx.lineTo(p2.px, p2.py);
+      ctx.stroke();
+
+      ctx.setLineDash([]);
+      ctx.beginPath();
+      ctx.moveTo(p2.px, p2.py);
+      ctx.lineTo(p2.px - headLen * Math.cos(angle - Math.PI / 6), p2.py - headLen * Math.sin(angle - Math.PI / 6));
+      ctx.lineTo(p2.px - headLen * Math.cos(angle + Math.PI / 6), p2.py - headLen * Math.sin(angle + Math.PI / 6));
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function drawDropLine(ctx, x, y, z, W, H, color) {
+      var pTop = project3D(x, y, z, W, H);
+      var pFloor = project3D(x, y, 0, W, H);
+      ctx.save();
+      ctx.strokeStyle = color;
+      ctx.globalAlpha = 0.28;
+      ctx.lineWidth = 1.2;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      ctx.moveTo(pTop.px, pTop.py);
+      ctx.lineTo(pFloor.px, pFloor.py);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    function renderFrame() {
+      if (autoOrbit && !isDragging) {
+        yaw += 0.0045;
+      }
+
+      var canvas = document.getElementById("dot3dCanvas");
+      if (!canvas) return;
+      var ctx = canvas.getContext("2d");
+      var W = canvas.width, H = canvas.height;
+      ctx.clearRect(0, 0, W, H);
+
+      ctx.strokeStyle = "#f1f5f9";
+      ctx.lineWidth = 1;
+      for (var g = -4; g <= 4; g++) {
+        var a1 = project3D(g, -4, 0, W, H), a2 = project3D(g, 4, 0, W, H);
+        ctx.beginPath(); ctx.moveTo(a1.px, a1.py); ctx.lineTo(a2.px, a2.py); ctx.stroke();
+        var b1 = project3D(-4, g, 0, W, H), b2 = project3D(4, g, 0, W, H);
+        ctx.beginPath(); ctx.moveTo(b1.px, b1.py); ctx.lineTo(b2.px, b2.py); ctx.stroke();
+      }
+
+      var oPt = project3D(0, 0, 0, W, H);
+      var xN = project3D(-4.8, 0, 0, W, H), xP = project3D(5.0, 0, 0, W, H);
+      var yN = project3D(0, -4.8, 0, W, H), yP = project3D(0, 5.0, 0, W, H);
+      var zN = project3D(0, 0, -3.5, W, H), zP = project3D(0, 0, 4.8, W, H);
+
+      ctx.strokeStyle = "#cbd5e1";
+      ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      ctx.moveTo(xN.px, xN.py); ctx.lineTo(xP.px, xP.py);
+      ctx.moveTo(yN.px, yN.py); ctx.lineTo(yP.px, yP.py);
+      ctx.moveTo(zN.px, zN.py); ctx.lineTo(zP.px, zP.py);
+      ctx.stroke();
+
+      ctx.fillStyle = "#64748b";
+      ctx.font = "bold 12px Segoe UI, sans-serif";
+      ctx.fillText("+x", xP.px + 5, xP.py + 4);
+      ctx.fillText("+y", yP.px + 5, yP.py + 4);
+      ctx.fillText("+z", zP.px - 6, zP.py - 7);
+      ctx.fillText("O", oPt.px - 14, oPt.py + 15);
+
+      var pA = project3D(st.ax, st.ay, st.az, W, H);
+      var pB = project3D(st.bx, st.by, st.bz, W, H);
+
+      drawDropLine(ctx, st.ax, st.ay, st.az, W, H, "#0284c7");
+      drawDropLine(ctx, st.bx, st.by, st.bz, W, H, "#8b5cf6");
+
+      var dot = st.ax * st.bx + st.ay * st.by + st.az * st.bz;
+      var magBSq = st.bx * st.bx + st.by * st.by + st.bz * st.bz;
+      var t = dot / magBSq;
+      var fx = t * st.bx, fy = t * st.by, fz = t * st.bz;
+      var pF = project3D(fx, fy, fz, W, H);
+
+      var pBExt1 = project3D(-1.3 * st.bx, -1.3 * st.by, -1.3 * st.bz, W, H);
+      var pBExt2 = project3D(1.4 * st.bx, 1.4 * st.by, 1.4 * st.bz, W, H);
+      ctx.save();
+      ctx.strokeStyle = "#d8b4fe";
+      ctx.lineWidth = 1.3;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      ctx.moveTo(pBExt1.px, pBExt1.py);
+      ctx.lineTo(pBExt2.px, pBExt2.py);
+      ctx.stroke();
+      ctx.restore();
+
+      ctx.save();
+      ctx.strokeStyle = "#0f766e";
+      ctx.lineWidth = 2;
+      ctx.setLineDash([5, 4]);
+      ctx.beginPath();
+      ctx.moveTo(pA.px, pA.py);
+      ctx.lineTo(pF.px, pF.py);
+      ctx.stroke();
+      ctx.restore();
+
+      drawArrow3D(ctx, oPt, pA, "#0284c7", 2.8, false);
+      drawArrow3D(ctx, oPt, pB, "#8b5cf6", 2.8, false);
+
+      if (Math.hypot(fx, fy, fz) > 0.05) {
+        drawArrow3D(ctx, oPt, pF, "#e11d48", 3.4, false);
+        ctx.fillStyle = "#be123c";
+        ctx.font = "bold 11.5px Segoe UI, sans-serif";
+        ctx.fillText("p = proj_b(a)", pF.px + 6, pF.py + 14);
+      }
+
+      if (mode === "prop") {
+        var pSum = project3D(st.ax + st.bx, st.ay + st.by, st.az + st.bz, W, H);
+        drawArrow3D(ctx, oPt, pSum, "#0f766e", 2.6, false);
+        ctx.save();
+        ctx.strokeStyle = "#94a3b8";
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath();
+        ctx.moveTo(pA.px, pA.py); ctx.lineTo(pSum.px, pSum.py);
+        ctx.moveTo(pB.px, pB.py); ctx.lineTo(pSum.px, pSum.py);
+        ctx.stroke();
+        ctx.restore();
+        ctx.fillStyle = "#0f766e";
+        ctx.font = "bold 11.5px Segoe UI, sans-serif";
+        ctx.fillText("a + b", pSum.px + 6, pSum.py - 6);
+      }
+
+      ctx.fillStyle = "#0284c7";
+      ctx.font = "bold 12px Segoe UI, sans-serif";
+      ctx.fillText("a" + fmtVec3(st.ax, st.ay, st.az), pA.px + 8, pA.py - 8);
+
+      ctx.fillStyle = "#7c3aed";
+      ctx.fillText("b" + fmtVec3(st.bx, st.by, st.bz), pB.px + 8, pB.py - 8);
+
+      requestAnimationFrame(renderFrame);
+    }
+
+    function init() {
+      document.getElementById("guideHeader").addEventListener("click", function () {
+        guideOpen = !guideOpen;
+        document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+        document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+      });
+
+      document.getElementById("tab_angle").addEventListener("click", function () { setMode("angle"); });
+      document.getElementById("tab_prop").addEventListener("click", function () { setMode("prop"); });
+      document.getElementById("tab_proj").addEventListener("click", function () { setMode("proj"); });
+
+      var btnOrbit = document.getElementById("btn_orbit");
+      btnOrbit.addEventListener("click", function () {
+        autoOrbit = !autoOrbit;
+        btnOrbit.classList.toggle("active", autoOrbit);
+        btnOrbit.textContent = autoOrbit ? "Auto-Rotate 3D: ON" : "Auto-Rotate 3D: OFF";
+      });
+
+      document.getElementById("btn_iso").addEventListener("click", function () {
+        autoOrbit = false; btnOrbit.classList.remove("active"); btnOrbit.textContent = "Auto-Rotate 3D: OFF";
+        yaw = 0.65; pitch = 0.42;
+      });
+      document.getElementById("btn_xy").addEventListener("click", function () {
+        autoOrbit = false; btnOrbit.classList.remove("active"); btnOrbit.textContent = "Auto-Rotate 3D: OFF";
+        yaw = 0.0; pitch = 1.54;
+      });
+      document.getElementById("btn_xz").addEventListener("click", function () {
+        autoOrbit = false; btnOrbit.classList.remove("active"); btnOrbit.textContent = "Auto-Rotate 3D: OFF";
+        yaw = 0.0; pitch = 0.04;
+      });
+
+      var canvas = document.getElementById("dot3dCanvas");
+      canvas.addEventListener("mousedown", function (e) {
+        isDragging = true;
+        lastMouseX = e.clientX;
+        lastMouseY = e.clientY;
+      });
+      window.addEventListener("mousemove", function (e) {
+        if (!isDragging) return;
+        yaw += (e.clientX - lastMouseX) * 0.01;
+        pitch = Math.max(-1.4, Math.min(1.55, pitch + (e.clientY - lastMouseY) * 0.01));
+        lastMouseX = e.clientX;
+        lastMouseY = e.clientY;
+      });
+      window.addEventListener("mouseup", function () {
+        isDragging = false;
+      });
+
+      renderSliders();
+      setMode("angle");
+      requestAnimationFrame(renderFrame);
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else {
+      init();
+    }
+  })();
+</script>
+
+</body>
+</html>
