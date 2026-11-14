@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 6.1 Lesson 5: Combinatorial Probability (nCr &amp; nPr)</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 530px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1000px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.76rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.48;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.74rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .control-panel {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 13px;
+      margin-bottom: 11px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .slider-row {
+      display: grid;
+      grid-template-columns: 165px 1fr 56px;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-size: 0.79rem;
+      font-weight: 700;
+    }
+
+    .slider-row input[type="range"] {
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .val-badge {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      text-align: center;
+      padding: 2px 4px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .chip-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .choice-btn {
+      flex: 1;
+      padding: 6px 8px;
+      border-radius: 8px;
+      border: 1.5px solid #cbd5e1;
+      background: #f8fafc;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: var(--text);
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .choice-btn.active {
+      background: var(--purple-bg);
+      border-color: var(--purple-dark);
+      color: #4c1d95;
+    }
+
+    .action-btn {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: none;
+      background: var(--purple-dark);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.78rem;
+      cursor: pointer;
+      margin-top: 4px;
+    }
+
+    .gc-screen-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin-bottom: 11px;
+    }
+
+    .box-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .gc-readout {
+      background: #f1f5f9;
+      border: 2px solid #64748b;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.79rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 5px;
+      line-height: 1.48;
+    }
+
+    .solution-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.81rem;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    /* RIGHT VISUAL STAGE */
+    .visual-stage {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+    }
+
+    .canvas-box {
+      background: #ffffff;
+      border: 1px dashed #94a3b8;
+      border-radius: 10px;
+      padding: 12px;
+      min-height: 225px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .toto-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+      width: 100%;
+      max-width: 440px;
+    }
+
+    .toto-ball {
+      height: 28px;
+      border-radius: 999px;
+      border: 1.5px solid #cbd5e1;
+      background: #f8fafc;
+      font-size: 0.75rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #475569;
+    }
+
+    .toto-ball.ticket {
+      background: #e0f2fe;
+      border-color: #0284c7;
+      color: #0c4a6e;
+    }
+
+    .toto-ball.drawn {
+      background: #fef3c7;
+      border-color: #d97706;
+      color: #78350f;
+    }
+
+    .toto-ball.match {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+      box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.25);
+    }
+
+    .pool-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin: 8px 0;
+    }
+
+    .person-badge {
+      padding: 7px 11px;
+      border-radius: 9px;
+      border: 2px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.77rem;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .person-badge.j1 {
+      background: #e0f2fe;
+      border-color: #0284c7;
+      color: #0c4a6e;
+    }
+
+    .person-badge.j2 {
+      background: #f3e8ff;
+      border-color: #7c3aed;
+      color: #4c1d95;
+    }
+
+    .check-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+      margin-top: 8px;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .check-table th, .check-table td {
+      border: 1px solid #e2e8f0;
+      padding: 6px 9px;
+      text-align: left;
+    }
+
+    .check-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    .gc-guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .gc-guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .step-pill {
+      background: var(--blue-bg);
+      border: 1px solid #bae6fd;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.77rem;
+      line-height: 1.45;
+      color: #0c4a6e;
+    }
+
+    .grader-card {
+      margin-top: 12px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 700px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .misconception-box {
+      margin-top: 12px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 10px 13px;
+      font-size: 0.79rem;
+      line-height: 1.48;
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Explore 4 Classic 9758 Combinatorial Probability Models</strong>
+        Switch between <em>Singapore Pools TOTO (6 from 49)</em>, <em>JC Student Council Committee</em>, <em>Random Seating Together/Apart</em>, and <em>Word Anagram Probability</em>.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Run Live Draws &amp; Adjust Group Parameters</strong>
+        Click <em>Draw 6 Winning TOTO Balls</em> or adjust <em>k</em> (matched numbers / JC2 representatives / total guests) to see both exact combinatorial ratios and TI-84 Plus CE expressions.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Verify Consistency of Numerator &amp; Denominator</strong>
+        Check the breakdown table to verify that whenever the denominator uses unordered combinations (<em>ⁿCᵣ</em>), the numerator also uses unordered combinations!
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        6.1 Lesson 5 &bull; Combinatorial Probability (ⁿCᵣ &amp; ⁿPᵣ in Action)
+      </div>
+
+      <!-- Singapore Real-World Presets -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="sc_toto" onclick="loadScenario('toto')">
+          1. Singapore Pools TOTO (6/49)
+        </button>
+        <button class="tab-btn" id="sc_committee" onclick="loadScenario('committee')">
+          2. JC Student Council Committee
+        </button>
+        <button class="tab-btn" id="sc_seating" onclick="loadScenario('seating')">
+          3. Random Round Table Seating
+        </button>
+        <button class="tab-btn" id="sc_word" onclick="loadScenario('word')">
+          4. SG Place Name Anagram Prob.
+        </button>
+      </div>
+
+      <!-- Contextual Story -->
+      <div class="context-box" id="contextBox"></div>
+
+      <!-- Interactive Controls -->
+      <div class="control-panel" id="controlPanel"></div>
+
+      <!-- Simulated TI-84 Plus CE Readout -->
+      <div class="gc-screen-box" id="gcOutputBox"></div>
+
+      <!-- Pedagogical Conclusion Banner -->
+      <div class="solution-banner" id="solutionBanner"></div>
+    </div>
+
+    <!-- RIGHT VISUAL STAGE, BREAKDOWN TABLE & EXAM CHECK -->
+    <div class="card">
+      <div style="font-size:1.02rem; font-weight:800; color:#1e293b; margin-bottom:8px;" id="rightHeading">
+        TOTO 49-Ball Draw &amp; Hypergeometric Probability Breakdown
+      </div>
+
+      <div class="visual-stage">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; font-size:0.75rem; font-weight:800; color:#475569;">
+          <span id="stageSubLabel">Blue = Your 6 Ticket Numbers | Amber = Drawn Winning Numbers | Green = Match!</span>
+          <span id="stageBadge" style="color:var(--purple-dark);">n(S) = ⁴⁹C₆ = 13,983,816</span>
+        </div>
+
+        <div class="canvas-box" id="visualCanvas"></div>
+        <div id="stageCaption" style="margin-top:8px; font-size:0.78rem; color:#334155; line-height:1.45;"></div>
+      </div>
+
+      <!-- Breakdown Table -->
+      <table class="check-table" id="breakdownTable"></table>
+
+      <!-- 3-Step Method Guide -->
+      <div class="gc-guide-grid">
+        <div class="step-pill">
+          <strong>1. Equiprobable Sample Space</strong><br>
+          <em>P(E) = n(E) / n(S)</em> requires every outcome in <em>S</em> to be <strong>equally likely</strong> (random selection or random seating).
+        </div>
+        <div class="step-pill">
+          <strong>2. Match Counting Frameworks</strong><br>
+          • <strong>Unordered Selection:</strong> <em>n(E)</em> and <em>n(S)</em> both use <strong>ⁿCᵣ</strong>.<br>
+          • <strong>Ordered Arrangement:</strong> <em>n(E)</em> and <em>n(S)</em> both use <strong>n! / ⁿPᵣ</strong>.
+        </div>
+        <div class="step-pill">
+          <strong>3. "At Least" &rarr; Casework or Complement</strong><br>
+          For "at least <em>k</em>", sum disjoint exact cases <em>(k, k+1, &hellip;)</em> or compute <strong>1 − P(fewer than k)</strong>.
+        </div>
+      </div>
+
+      <div class="misconception-box">
+        <strong>9758 Exam Misconception Alert — Mixing ⁿCᵣ and ⁿPᵣ in P(E) = n(E) / n(S):</strong>
+        <ul style="margin:3px 0 0 0; padding-left:18px;">
+          <li><strong>Golden Rule of Consistency:</strong> Never put an ordered permutation (<em>ⁿPᵣ</em> or <em>r!</em>) in the numerator if your denominator is an unordered combination (<em>ⁿCᵣ</em>)—and vice versa!</li>
+          <li><strong>Why ⁿCᵣ is usually cleaner for selection problems:</strong> Even if items are drawn one by one without replacement, ignoring order in both numerator and denominator gives the exact same probability with far less algebra!</li>
+        </ul>
+      </div>
+
+      <!-- Quick 9758 Exam Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 Combinatorial Probability Check (<span id="qIdxLbl">1</span>/3)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.8rem; line-height:1.45; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  let curKey = "toto";
+  // TOTO state
+  let totoMatches = 3; // 0 to 6
+  let ticketNums = [3, 11, 19, 27, 36, 44];
+  let drawnNums = [3, 8, 19, 24, 36, 48];
+
+  // Committee state
+  let commMode = "exact2"; // 'exact2' | 'atleast2' | 'equal'
+  let commSize = 4;
+
+  // Seating state
+  let seatN = 7;
+  let seatMode = "together"; // 'together' | 'apart'
+
+  // Word state
+  let wordChoice = "PUNGGOL";
+  let wordMode = "together"; // 'together' | 'apart'
+
+  function nCr(n, r) {
+    if (r < 0 || r > n) return 0;
+    if (r === 0 || r === n) return 1;
+    r = Math.min(r, n - r);
+    let res = 1;
+    for (let i = 1; i <= r; i++) {
+      res = (res * (n - r + i)) / i;
+    }
+    return Math.round(res);
+  }
+
+  function fact(n) {
+    let r = 1;
+    for (let i = 2; i <= n; i++) r *= i;
+    return r;
+  }
+
+  function gcd(a, b) {
+    a = Math.abs(a); b = Math.abs(b);
+    while (b) { [a, b] = [b, a % b]; }
+    return a || 1;
+  }
+
+  function fracStr(num, den) {
+    if (num === 0) return "0";
+    const g = gcd(num, den);
+    return `${num / g}/${den / g}`;
+  }
+
+  function loadScenario(key) {
+    curKey = key;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("sc_" + key).classList.add("active");
+
+    const ctx = document.getElementById("contextBox");
+    const ctrl = document.getElementById("controlPanel");
+
+    if (key === "toto") {
+      ctx.innerHTML = `
+        <div><strong>1. Singapore Pools TOTO (6 from 49):</strong> A player buys an Ordinary Entry ticket choosing 6 distinct numbers from 1 to 49. Six main winning numbers are drawn at random without replacement. Find the probability of matching <strong>exactly k</strong> of your 6 numbers.</div>
+        <div class="var-pill">Hypergeometric Model: P(Match k) = (⁶Cₖ &times; ⁴³C₆₋ₖ) / ⁴⁹C₆</div>
+      `;
+      ctrl.innerHTML = `
+        <div class="panel-header">
+          <span>Target Number of Matches (k)</span>
+          <span style="color:var(--purple-dark);">6 Ticket vs. 43 Non-Ticket</span>
+        </div>
+        <div class="slider-row">
+          <span>Matches (k):</span>
+          <input type="range" id="sliderTotoK" min="0" max="6" value="${totoMatches}" oninput="onTotoSlider()" />
+          <span class="val-badge" id="valTotoK">${totoMatches}</span>
+        </div>
+        <button class="action-btn" onclick="simulateTotoDraw()">Simulate Random 6-Ball TOTO Draw</button>
+      `;
+      renderToto();
+    } else if (key === "committee") {
+      ctx.innerHTML = `
+        <div><strong>2. JC Student Council Executive Committee:</strong> A committee of <em>r</em> students is chosen at random from <strong>5 JC1</strong> and <strong>6 JC2</strong> nominees (11 nominees total). Find the probability under different gender/cohort balance conditions.</div>
+        <div class="var-pill">Unordered Selection: Denominator n(S) = ¹¹Cᵣ</div>
+      `;
+      ctrl.innerHTML = `
+        <div class="panel-header">
+          <span>Committee Size &amp; Condition</span>
+          <span style="color:var(--purple-dark);">5 JC1 + 6 JC2 = 11</span>
+        </div>
+        <div class="slider-row">
+          <span>Committee Size (r):</span>
+          <input type="range" id="sliderCommR" min="3" max="6" value="${commSize}" oninput="onCommSlider()" />
+          <span class="val-badge" id="valCommR">${commSize}</span>
+        </div>
+        <div class="chip-row">
+          <button class="choice-btn ${commMode === "exact2" ? "active" : ""}" onclick="setCommMode('exact2')">Exactly 2 JC2s</button>
+          <button class="choice-btn ${commMode === "atleast2" ? "active" : ""}" onclick="setCommMode('atleast2')">At Least 2 JC2s</button>
+          <button class="choice-btn ${commMode === "both" ? "active" : ""}" onclick="setCommMode('both')">At Least 1 of Each</button>
+        </div>
+      `;
+      renderCommittee();
+    } else if (key === "seating") {
+      ctx.innerHTML = `
+        <div><strong>3. Random Round Table Seating (Unnumbered Seats):</strong> <em>n</em> students—including <strong>2 Student Council Presidents</strong>—sit at random around an unnumbered circular table. Find the probability that the 2 Presidents sit together vs. apart.</div>
+        <div class="var-pill">Circular Sample Space: n(S) = (n − 1)!</div>
+      `;
+      ctrl.innerHTML = `
+        <div class="panel-header">
+          <span>Total Guests &amp; Event</span>
+          <span style="color:var(--purple-dark);">2 Presidents + (n−2) Others</span>
+        </div>
+        <div class="slider-row">
+          <span>Total Guests (n):</span>
+          <input type="range" id="sliderSeatN" min="5" max="10" value="${seatN}" oninput="onSeatSlider()" />
+          <span class="val-badge" id="valSeatN">${seatN}</span>
+        </div>
+        <div class="chip-row">
+          <button class="choice-btn ${seatMode === "together" ? "active" : ""}" onclick="setSeatMode('together')">Presidents Sit Together</button>
+          <button class="choice-btn ${seatMode === "apart" ? "active" : ""}" onclick="setSeatMode('apart')">Presidents Do NOT Sit Together</button>
+        </div>
+      `;
+      renderSeating();
+    } else if (key === "word") {
+      ctx.innerHTML = `
+        <div><strong>4. Random Letter Arrangement Probability:</strong> All letters of a Singapore place name are arranged randomly in a row. Find the probability that the repeated letters end up adjacent vs. separated.</div>
+        <div class="var-pill">Identical Objects Probability: P(E) = n(E) / n(S)</div>
+      `;
+      ctrl.innerHTML = `
+        <div class="panel-header">
+          <span>Word &amp; Adjacency Event</span>
+          <span style="color:var(--purple-dark);">Repeated Letters</span>
+        </div>
+        <div class="chip-row">
+          <button class="choice-btn ${wordChoice === "PUNGGOL" ? "active" : ""}" onclick="setWordChoice('PUNGGOL')">PUNGGOL (two G's)</button>
+          <button class="choice-btn ${wordChoice === "KALLANG" ? "active" : ""}" onclick="setWordChoice('KALLANG')">KALLANG (two A's, two L's)</button>
+        </div>
+        <div class="chip-row">
+          <button class="choice-btn ${wordMode === "together" ? "active" : ""}" onclick="setWordMode('together')">Repeated Letters Adjacent</button>
+          <button class="choice-btn ${wordMode === "apart" ? "active" : ""}" onclick="setWordMode('apart')">Repeated Letters Separated</button>
+        </div>
+      `;
+      renderWord();
+    }
+  }
+
+  /* 1. TOTO */
+  function onTotoSlider() {
+    totoMatches = parseInt(document.getElementById("sliderTotoK").value, 10);
+    document.getElementById("valTotoK").textContent = totoMatches;
+    renderToto();
+  }
+
+  function simulateTotoDraw() {
+    const pool = Array.from({ length: 49 }, (_, i) => i + 1);
+    for (let i = pool.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [pool[i], pool[j]] = [pool[j], pool[i]];
+    }
+    drawnNums = pool.slice(0, 6).sort((a, b) => a - b);
+    const hits = drawnNums.filter(x => ticketNums.includes(x)).length;
+    totoMatches = hits;
+    document.getElementById("sliderTotoK").value = hits;
+    document.getElementById("valTotoK").textContent = hits;
+    renderToto();
+  }
+
+  function renderToto() {
+    document.getElementById("rightHeading").textContent = "TOTO 49-Ball Draw & Hypergeometric Probability Breakdown";
+    document.getElementById("stageSubLabel").textContent = "Blue = Your 6 Ticket Numbers | Amber = Drawn Winning Numbers | Green = Match!";
+    const totalS = nCr(49, 6);
+    document.getElementById("stageBadge").textContent = `n(S) = ⁴⁹C₆ = ${totalS.toLocaleString()}`;
+
+    const k = totoMatches;
+    const waysHit = nCr(6, k);
+    const waysMiss = nCr(43, 6 - k);
+    const fav = waysHit * waysMiss;
+    const prob = fav / totalS;
+
+    // Render 1..49 grid
+    let gridHtml = `<div class="toto-grid">`;
+    for (let num = 1; num <= 49; num++) {
+      const isT = ticketNums.includes(num);
+      const isD = drawnNums.includes(num);
+      const cls = isT && isD ? "match" : isT ? "ticket" : isD ? "drawn" : "";
+      gridHtml += `<div class="toto-ball ${cls}">${num}</div>`;
+    }
+    gridHtml += `</div>`;
+    document.getElementById("visualCanvas").innerHTML = gridHtml;
+
+    document.getElementById("stageCaption").innerHTML = `
+      <strong>Latest Simulated Draw:</strong> Ticket <code>[${ticketNums.join(", ")}]</code> vs. Winning <code>[${drawnNums.join(", ")}]</code> &rArr; <strong>${drawnNums.filter(x => ticketNums.includes(x)).length} matches</strong>.
+    `;
+
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">TI-84 Plus CE Readout ([MATH] &rarr; PROB &rarr; 3: nCr)</span>
+      <div class="gc-readout">
+        (6 nCr ${k} * 43 nCr ${6 - k}) / (49 nCr 6)<br>
+        = (${waysHit} * ${waysMiss.toLocaleString()}) / ${totalS.toLocaleString()} = ${prob.toFixed(6)}
+      </div>
+    `;
+
+    document.getElementById("solutionBanner").innerHTML = `
+      <strong>P(Match Exactly ${k} TOTO Numbers):</strong> Choose ${k} of your 6 numbers (<em>⁶C${k} = ${waysHit}</em>) AND ${6 - k} of the 43 other numbers (<em>⁴³C${6 - k} = ${waysMiss.toLocaleString()}</em>) out of <em>⁴⁹C₆</em> &rArr; <strong>${prob.toFixed(6)}</strong> (1 in ${Math.round(1 / prob).toLocaleString()}).
+    `;
+
+    let rows = "";
+    for (let m = 0; m <= 6; m++) {
+      const f = nCr(6, m) * nCr(43, 6 - m);
+      const p = f / totalS;
+      rows += `<tr style="${m === k ? "background:#f3e8ff; font-weight:800;" : ""}">
+        <td>Match ${m}</td>
+        <td>⁶C${m} &times; ⁴³C${6 - m} = ${f.toLocaleString()}</td>
+        <td>${p.toFixed(6)} (${(p * 100).toFixed(3)}%)</td>
+      </tr>`;
+    }
+    document.getElementById("breakdownTable").innerHTML = `
+      <thead><tr><th>Outcome</th><th>Favourable Combinations n(E)</th><th>Probability P(E)</th></tr></thead>
+      <tbody>${rows}</tbody>
+    `;
+  }
+
+  /* 2. COMMITTEE */
+  function onCommSlider() {
+    commSize = parseInt(document.getElementById("sliderCommR").value, 10);
+    document.getElementById("valCommR").textContent = commSize;
+    renderCommittee();
+  }
+
+  function setCommMode(m) {
+    commMode = m;
+    loadScenario("committee");
+  }
+
+  function renderCommittee() {
+    const r = commSize;
+    const totalS = nCr(11, r);
+    document.getElementById("rightHeading").textContent = "JC Student Council Committee Selection (5 JC1 + 6 JC2)";
+    document.getElementById("stageSubLabel").textContent = `Choosing r = ${r} representatives out of 11 nominees:`;
+    document.getElementById("stageBadge").textContent = `n(S) = ¹¹C${r} = ${totalS}`;
+
+    let poolHtml = `<div class="pool-row">`;
+    for (let i = 1; i <= 5; i++) poolHtml += `<div class="person-badge j1">JC1 #${i}</div>`;
+    poolHtml += `</div><div class="pool-row">`;
+    for (let i = 1; i <= 6; i++) poolHtml += `<div class="person-badge j2">JC2 #${i}</div>`;
+    poolHtml += `</div>`;
+    document.getElementById("visualCanvas").innerHTML = poolHtml;
+
+    let fav = 0;
+    let formulaStr = "";
+    let desc = "";
+
+    if (commMode === "exact2") {
+      fav = nCr(6, 2) * nCr(5, r - 2);
+      formulaStr = `(6 nCr 2 * 5 nCr ${r - 2}) / (11 nCr ${r})`;
+      desc = `Choose 2 from 6 JC2s (<em>⁶C₂ = 15</em>) AND ${r - 2} from 5 JC1s (<em>⁵C${r - 2} = ${nCr(5, r - 2)}</em>).`;
+    } else if (commMode === "atleast2") {
+      // Complement: 1 - P(0 JC2) - P(1 JC2)
+      const c0 = nCr(6, 0) * nCr(5, r);
+      const c1 = nCr(6, 1) * nCr(5, r - 1);
+      fav = totalS - c0 - c1;
+      formulaStr = `1 − (6 nCr 0*5 nCr ${r} + 6 nCr 1*5 nCr ${r - 1}) / (11 nCr ${r})`;
+      desc = `Use Complement: Total <em>¹¹C${r} = ${totalS}</em> minus 0 JC2s (<em>${c0}</em>) minus 1 JC2 (<em>${c1}</em>) = <strong>${fav}</strong>.`;
+    } else {
+      const allJ1 = nCr(5, r);
+      const allJ2 = nCr(6, r);
+      fav = totalS - allJ1 - allJ2;
+      formulaStr = `1 − (5 nCr ${r} + 6 nCr ${r}) / (11 nCr ${r})`;
+      desc = `Use Complement: Total <em>${totalS}</em> minus all-JC1 (<em>⁵C${r} = ${allJ1}</em>) minus all-JC2 (<em>⁶C${r} = ${allJ2}</em>) = <strong>${fav}</strong>.`;
+    }
+
+    const exactF = fracStr(fav, totalS);
+    const prob = fav / totalS;
+
+    document.getElementById("stageCaption").innerHTML = `<strong>Selection Logic:</strong> ${desc}`;
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">TI-84 Plus CE Readout ([MATH] &rarr; 1: Frac)</span>
+      <div class="gc-readout">
+        ${formulaStr}<br>
+        = ${fav} / ${totalS} = ${exactF} (≈ ${prob.toFixed(4)})
+      </div>
+    `;
+    document.getElementById("solutionBanner").innerHTML = `
+      <strong>Exact Committee Probability:</strong> <em>n(E) / n(S) = ${fav} / ${totalS} =</em> <strong>${exactF}</strong> (&approx; ${(prob * 100).toFixed(1)}%).
+    `;
+
+    document.getElementById("breakdownTable").innerHTML = `
+      <thead><tr><th>Component</th><th>Combinatorial Expression</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Sample Space n(S)</strong></td><td>All unrestricted committees of size ${r}: ¹¹C${r}</td><td>${totalS}</td></tr>
+        <tr><td><strong>Favourable n(E)</strong></td><td>${desc.replace(/<[^>]*>/g, "")}</td><td>${fav}</td></tr>
+        <tr style="background:#f3e8ff;"><td><strong>Probability P(E)</strong></td><td>n(E) / n(S)</td><td><strong>${exactF} (${prob.toFixed(4)})</strong></td></tr>
+      </tbody>
+    `;
+  }
+
+  /* 3. SEATING */
+  function onSeatSlider() {
+    seatN = parseInt(document.getElementById("sliderSeatN").value, 10);
+    document.getElementById("valSeatN").textContent = seatN;
+    renderSeating();
+  }
+
+  function setSeatMode(m) {
+    seatMode = m;
+    loadScenario("seating");
+  }
+
+  function renderSeating() {
+    const n = seatN;
+    const totalS = fact(n - 1);
+    document.getElementById("rightHeading").textContent = "Circular Seating Probability (Unnumbered Round Table)";
+    document.getElementById("stageSubLabel").textContent = `Randomly seating n = ${n} guests (including 2 Presidents) in a circle:`;
+    document.getElementById("stageBadge").textContent = `n(S) = (${n} − 1)! = ${totalS.toLocaleString()}`;
+
+    const togFav = fact(n - 2) * 2;
+    const apartFav = totalS - togFav;
+    const fav = seatMode === "together" ? togFav : apartFav;
+    const exactF = fracStr(fav, totalS);
+    const prob = fav / totalS;
+
+    document.getElementById("visualCanvas").innerHTML = `
+      <div style="text-align:center; padding:10px;">
+        <div style="font-size:0.9rem; font-weight:800; color:#1e293b; margin-bottom:8px;">
+          Unnumbered Round Table with ${n} Guests
+        </div>
+        <div style="display:inline-block; background:#f3e8ff; border:2px solid #7c3aed; border-radius:12px; padding:12px 18px; font-size:0.84rem; color:#4c1d95; font-weight:700;">
+          P(2 Presidents Sit Together) = [ (${n} − 2)! &times; 2! ] / (${n} − 1)! = <strong>2 / (${n} − 1) = ${fracStr(2, n - 1)}</strong><br>
+          <span style="font-size:0.77rem; font-weight:600; color:#334155;">Shortcut intuition: Seat President 1 anywhere; President 2 has 2 adjacent seats out of ${n - 1} remaining seats!</span>
+        </div>
+      </div>
+    `;
+
+    document.getElementById("stageCaption").innerHTML = seatMode === "together"
+      ? `<strong>Grouping Method:</strong> Tie the 2 Presidents as 1 unit &rArr; (${n} − 2)! &times; 2! = ${togFav.toLocaleString()} ways out of (${n} − 1)! = ${totalS.toLocaleString()}.`
+      : `<strong>Complement Method (valid for k = 2):</strong> 1 − P(Together) = 1 − 2/${n - 1} = <strong>${exactF}</strong>.`;
+
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">TI-84 Plus CE Readout</span>
+      <div class="gc-readout">
+        ${seatMode === "together" ? `(${n - 2}! * 2!) / ${n - 1}!` : `1 − (${n - 2}! * 2!) / ${n - 1}!`} = ${exactF} (≈ ${prob.toFixed(4)})
+      </div>
+    `;
+
+    document.getElementById("solutionBanner").innerHTML = `
+      <strong>Circular Seating Probability:</strong> <strong>${exactF}</strong> (&approx; ${(prob * 100).toFixed(1)}%).
+    `;
+
+    document.getElementById("breakdownTable").innerHTML = `
+      <thead><tr><th>Quantity</th><th>Formula</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Sample Space n(S)</strong></td><td>Unrestricted circular arrangements: (${n} − 1)!</td><td>${totalS.toLocaleString()}</td></tr>
+        <tr><td><strong>Favourable n(E)</strong></td><td>${seatMode === "together" ? `(${n} − 2)! × 2!` : `(${n} − 1)! − (${n} − 2)! × 2!`}</td><td>${fav.toLocaleString()}</td></tr>
+        <tr style="background:#f3e8ff;"><td><strong>Probability P(E)</strong></td><td>n(E) / n(S)</td><td><strong>${exactF} (${prob.toFixed(4)})</strong></td></tr>
+      </tbody>
+    `;
+  }
+
+  /* 4. WORD ANAGRAM PROBABILITY */
+  function setWordChoice(w) {
+    wordChoice = w;
+    loadScenario("word");
+  }
+
+  function setWordMode(m) {
+    wordMode = m;
+    loadScenario("word");
+  }
+
+  function renderWord() {
+    document.getElementById("rightHeading").textContent = `Random Anagram Probability for "${wordChoice}"`;
+    document.getElementById("stageSubLabel").textContent = "All distinct spellings are equally likely when tiles are shuffled randomly:";
+
+    let totalS = 0, fav = 0, desc = "", gcExpr = "";
+    if (wordChoice === "PUNGGOL") {
+      totalS = fact(7) / 2; // 2520
+      const tog = fact(6);  // 720
+      const apt = totalS - tog; // 1800
+      fav = wordMode === "together" ? tog : apt;
+      gcExpr = wordMode === "together" ? "6! / (7! / 2!)" : "(5! * 6 nCr 2) / (7! / 2!)";
+      desc = wordMode === "together"
+        ? "Treat [GG] as 1 block (internal order = 1 since G's are identical!) &rArr; 6! = 720 out of 7!/2! = 2520."
+        : "Arrange P, U, N, O, L in 5! = 120 ways, slot two identical G's into 6 gaps in ⁶C₂ = 15 ways &rArr; 1800 out of 2520.";
+    } else {
+      // KALLANG: 7 letters, 2 A's, 2 L's => 7! / (2!2!) = 1260
+      // Event: Both A's together AND both L's together => [AA], [LL], K, N, G => 5! = 120
+      totalS = fact(7) / 4; // 1260
+      const bothTog = fact(5); // 120
+      fav = wordMode === "together" ? bothTog : totalS - bothTog;
+      gcExpr = wordMode === "together" ? "5! / (7! / (2!*2!))" : "1 − 5! / (7! / (2!*2!))";
+      desc = wordMode === "together"
+        ? "Treat [AA] and [LL] each as 1 super-unit alongside K, N, G &rArr; 5! = 120 ways out of 7!/(2!2!) = 1260."
+        : "Complement of both pairs adjacent: 1 − 120/1260 = 1140/1260 = 19/21.";
+    }
+
+    const exactF = fracStr(fav, totalS);
+    const prob = fav / totalS;
+    document.getElementById("stageBadge").textContent = `n(S) = ${totalS.toLocaleString()} distinct words`;
+
+    document.getElementById("visualCanvas").innerHTML = `
+      <div style="text-align:center; padding:12px;">
+        <div style="font-size:1.3rem; font-weight:900; letter-spacing:6px; color:#1e293b; margin-bottom:10px;">
+          ${wordChoice}
+        </div>
+        <div style="background:#e0f2fe; border:1.5px solid #0284c7; border-radius:10px; padding:10px 14px; font-size:0.81rem; color:#0c4a6e; font-weight:700;">
+          ${desc}
+        </div>
+      </div>
+    `;
+
+    document.getElementById("stageCaption").innerHTML = `<strong>Exact Ratio:</strong> <em>n(E) / n(S) = ${fav} / ${totalS} =</em> <strong>${exactF}</strong>.`;
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">TI-84 Plus CE Readout</span>
+      <div class="gc-readout">${gcExpr} = ${exactF} (≈ ${prob.toFixed(4)})</div>
+    `;
+    document.getElementById("solutionBanner").innerHTML = `
+      <strong>Anagram Probability:</strong> <strong>${exactF}</strong> (&approx; ${(prob * 100).toFixed(1)}%).
+    `;
+    document.getElementById("breakdownTable").innerHTML = `
+      <thead><tr><th>Component</th><th>Formula</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Total Distinct Spellings n(S)</strong></td><td>${wordChoice === "PUNGGOL" ? "7! / 2!" : "7! / (2! × 2!)"}</td><td>${totalS}</td></tr>
+        <tr><td><strong>Favourable Spellings n(E)</strong></td><td>${wordChoice === "PUNGGOL" ? (wordMode === "together" ? "6!" : "5! × ⁶C₂") : (wordMode === "together" ? "5!" : "1260 − 5!")}</td><td>${fav}</td></tr>
+        <tr style="background:#f3e8ff;"><td><strong>Probability P(E)</strong></td><td>n(E) / n(S)</td><td><strong>${exactF} (${prob.toFixed(4)})</strong></td></tr>
+      </tbody>
+    `;
+  }
+
+  const examQs = [
+    {
+      q: "A committee of 4 is chosen at random from 5 boys and 6 girls. What is the probability that the committee contains at least 3 girls?",
+      opts: [
+        "(⁶C₃ × ⁵C₁ + ⁶C₄ × ⁵C₀) / ¹¹C₄ = 115/330 = 23/66",
+        "(⁶C₃ × ⁸C₁) / ¹¹C₄ = 160/330 = 16/33",
+        "(⁶P₃ × ⁵P₁) / ¹¹P₄ = 1/11",
+        "(⁶C₃ + ⁶C₄) / ¹¹C₄ = 35/330 = 7/66"
+      ],
+      ans: 0,
+      exp: "Disjoint cases for 'at least 3 girls': (3 girls, 1 boy) gives ⁶C₃ × ⁵C₁ = 20 × 5 = 100 ways; (4 girls, 0 boys) gives ⁶C₄ × ⁵C₀ = 15 × 1 = 15 ways. Total = 115 / ¹¹C₄ = 115/330 = 23/66. (Never use ⁶C₃ × ⁸C₁ because it double-counts 4-girl committees!)"
+    },
+    {
+      q: "Nine people, including a married couple, sit at random around an unnumbered round table. What is the probability that the married couple do NOT sit next to each other?",
+      opts: [
+        "1 − (7! × 2!) / 8! = 3/4",
+        "1 − (8! × 2!) / 9! = 7/9",
+        "(7! × 2!) / 8! = 1/4",
+        "7! / 8! = 1/8"
+      ],
+      ans: 0,
+      exp: "Total circular arrangements = (9 − 1)! = 8!. Arrangements with the couple together = (8 − 1)! × 2! = 7! × 2!. Thus P(Together) = (7! × 2) / 8! = 2/8 = 1/4, and P(Not Together) = 1 − 1/4 = 3/4."
+    },
+    {
+      q: "In a raffle of 20 tickets, 3 tickets are winning tickets. If you buy 4 tickets at random, which expression gives the probability of winning at least 1 prize?",
+      opts: [
+        "1 − ¹⁷C₄ / ²⁰C₄",
+        "³C₁ × ¹⁹C₃ / ²⁰C₄",
+        "1 − ³C₄ / ²⁰C₄",
+        "(³C₁ × ¹⁷C₃) / ²⁰C₄"
+      ],
+      ans: 0,
+      exp: "By the Complement Rule, P(at least 1 winning ticket) = 1 − P(0 winning tickets) = 1 − (³C₀ × ¹⁷C₄) / ²⁰C₄ = 1 − ¹⁷C₄ / ²⁰C₄."
+    }
+  ];
+
+  let curQ = 0;
+
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").textContent = item.q;
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i}, this)">${String.fromCharCode(65 + i)}. ${o}</button>
+    `).join("");
+  }
+
+  function gradeExamQ(idx, btn) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  loadScenario("toto");
+  renderExamQ();
+</script>
+
+</body>
+</html>
