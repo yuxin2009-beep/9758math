@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 1.3 Lesson 1: Rational &amp; Quadratic Inequalities</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 495px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 980px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 8px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.76rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .ineq-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .op-btn {
+      padding: 7px 6px;
+      border-radius: 8px;
+      border: 1px solid #94a3b8;
+      background: #ffffff;
+      font-weight: 800;
+      font-size: 0.85rem;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .op-btn.active {
+      background: var(--blue);
+      color: #ffffff;
+      border-color: #0369a1;
+    }
+
+    .slider-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .slider-group {
+      background: #f8fafc;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.79rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .algebra-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin-bottom: 11px;
+    }
+
+    .box-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .solution-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.83rem;
+      font-weight: 700;
+      line-height: 1.45;
+      margin-bottom: 11px;
+    }
+
+    .trap-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--rose-bg);
+      border: 1px solid #fda4af;
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #881337;
+      cursor: pointer;
+    }
+
+    .canvas-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .legend {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    canvas {
+      width: 100%;
+      height: 455px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      background: #ffffff;
+      display: block;
+    }
+
+    .misconception-box {
+      margin-top: 12px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 0.81rem;
+      line-height: 1.5;
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Select an Inequality Preset &amp; Sign</strong>
+        Pick one of the 4 algebraic/rational forms on the top-left, then toggle between <em>&gt;, &ge;, &lt;, &le;</em> to compare strict vs. non-strict boundary circles.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Adjust Parameters &amp; Read Sign-Chart Steps</strong>
+        Use the sliders to shift roots and vertical asymptotes, and follow the step-by-step algebraic simplification in the teal panel.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Compare Graph vs. Sign Chart &amp; Test the Trap</strong>
+        Inspect the shaded solution intervals and open/solid dots on the number line below the graph, and toggle the <em>Cross-Multiplication Trap</em> button to see why multiplying by <em>(x &minus; a)</em> fails.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        1.3 Lesson 1 &bull; Rational &amp; Quadratic Inequalities
+      </div>
+
+      <!-- Preset Type -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="pre_ratLin" onclick="setPreset('ratLin')">
+          1. (x &minus; a)/(x &minus; b) vs 0
+        </button>
+        <button class="tab-btn" id="pre_ratConst" onclick="setPreset('ratConst')">
+          2. (x + a)/(x &minus; b) vs c
+        </button>
+        <button class="tab-btn" id="pre_quadRat" onclick="setPreset('quadRat')">
+          3. (x &minus; a)(x &minus; b)/(x &minus; c) vs 0
+        </button>
+        <button class="tab-btn" id="pre_twoGraph" onclick="setPreset('twoGraph')">
+          4. Graphical: 6/(x &minus; 1) vs x + 1
+        </button>
+      </div>
+
+      <!-- Inequality Sign Selector -->
+      <div class="ineq-bar">
+        <button class="op-btn active" id="op_gt" onclick="setOp('gt')">&gt;</button>
+        <button class="op-btn" id="op_ge" onclick="setOp('ge')">&ge;</button>
+        <button class="op-btn" id="op_lt" onclick="setOp('lt')">&lt;</button>
+        <button class="op-btn" id="op_le" onclick="setOp('le')">&le;</button>
+      </div>
+
+      <!-- Parameter Sliders -->
+      <div class="slider-grid" id="sliderContainer"></div>
+
+      <!-- Step-by-Step Algebraic Sign Chart Box -->
+      <div class="algebra-box" id="algebraSteps"></div>
+
+      <!-- Exact Solution Set Banner -->
+      <div class="solution-banner" id="solutionSetBanner"></div>
+
+      <!-- Cross-Multiplication Trap Visualizer -->
+      <div class="trap-toggle" onclick="toggleTrap()">
+        <span>⚠️ Show Cross-Multiplication Trap (Why multiplying by x &minus; b fails)</span>
+        <span id="trapState">OFF</span>
+      </div>
+    </div>
+
+    <!-- RIGHT GRAPHING + SIGN CHART CANVAS -->
+    <div class="card">
+      <div class="canvas-header">
+        <strong style="font-size:1.05rem; color:#1e293b;" id="canvasTitle">Graphical &amp; Sign-Chart Solution</strong>
+        <div class="legend">
+          <span class="legend-item"><span class="dot" style="background:#8b5cf6;"></span> LHS Curve y = f(x)</span>
+          <span class="legend-item"><span class="dot" style="background:#0284c7;"></span> RHS Line y = g(x)</span>
+          <span class="legend-item"><span class="dot" style="background:#0f766e;"></span> Valid Solution Region</span>
+        </div>
+      </div>
+
+      <canvas id="ineqCanvas" width="880" height="455"></canvas>
+
+      <div class="misconception-box">
+        <strong>9758 Misconception Alert (Algebraic vs. Graphical Inequalities):</strong>
+        <ul style="margin:4px 0 0 0; padding-left:18px;">
+          <li><strong>Never cross-multiply by a variable denominator:</strong> Multiplying <em>(x + 1)/(x &minus; 2) &ge; 3</em> by <em>(x &minus; 2)</em> flips the inequality when <em>x &lt; 2</em>. Always bring all terms to one side and combine over a single denominator.</li>
+          <li><strong>Vertical asymptotes are NEVER included:</strong> Even when solving <em>&ge;</em> or <em>&le;</em>, any critical value where the denominator equals zero must remain an <strong>open circle</strong> (strict inequality).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  let preset = "ratLin";
+  let op = "gt";
+  let showTrap = false;
+
+  const params = {
+    ratLin: { a: -2, b: 3 },
+    ratConst: { a: 1, b: 2, c: 3 },
+    quadRat: { a: -3, b: 2, c: 0 },
+    twoGraph: { k: 6, b: 1 }
+  };
+
+  function setPreset(p) {
+    preset = p;
+    document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+    document.getElementById("pre_" + p).classList.add("active");
+    renderSliders();
+    draw();
+  }
+
+  function setOp(newOp) {
+    op = newOp;
+    document.querySelectorAll(".op-btn").forEach(btn => btn.classList.remove("active"));
+    document.getElementById("op_" + newOp).classList.add("active");
+    draw();
+  }
+
+  function toggleTrap() {
+    showTrap = !showTrap;
+    document.getElementById("trapState").textContent = showTrap ? "ON" : "OFF";
+    draw();
+  }
+
+  function renderSliders() {
+    const container = document.getElementById("sliderContainer");
+    const p = params[preset];
+    let html = "";
+
+    const makeSlider = (key, label, min, max, step) => `
+      <div class="slider-group">
+        <div class="slider-header">
+          <span>${label}</span>
+          <span id="val_${key}" style="color:var(--purple-dark);">${p[key]}</span>
+        </div>
+        <input type="range" min="${min}" max="${max}" step="${step}" value="${p[key]}"
+          oninput="updateParam('${key}', parseFloat(this.value))" />
+      </div>
+    `;
+
+    if (preset === "ratLin") {
+      html += makeSlider("a", "Numerator Root (a)", -5, 5, 1);
+      html += makeSlider("b", "Vertical Asymptote (b)", -4, 5, 1);
+    } else if (preset === "ratConst") {
+      html += makeSlider("a", "Numerator Shift (a)", -4, 5, 1);
+      html += makeSlider("b", "Asymptote (b)", -3, 4, 1);
+      html += makeSlider("c", "RHS Constant (c)", 1, 5, 1);
+    } else if (preset === "quadRat") {
+      html += makeSlider("a", "Root 1 (a)", -5, 0, 1);
+      html += makeSlider("b", "Root 2 (b)", 1, 5, 1);
+      html += makeSlider("c", "Asymptote (c)", -2, 3, 1);
+    } else if (preset === "twoGraph") {
+      html += makeSlider("k", "Numerator (k)", 2, 8, 1);
+      html += makeSlider("b", "Asymptote (b)", -2, 3, 1);
+    }
+    container.innerHTML = html;
+  }
+
+  function updateParam(key, val) {
+    params[preset][key] = val;
+    document.getElementById("val_" + key).textContent = val;
+    draw();
+  }
+
+  function opSymbol() {
+    return { gt: ">", ge: "≥", lt: "<", le: "≤" }[op];
+  }
+
+  function isInclusive() {
+    return op === "ge" || op === "le";
+  }
+
+  function fmtNum(n) {
+    if (Math.abs(n) < 1e-8) return "0";
+    return Number.isInteger(n) ? n.toString() : n.toFixed(2).replace(/\.00$/, "");
+  }
+
+  function evaluateSystem() {
+    const p = params[preset];
+    let lhsFn, rhsFn, diffFn, titleText, stepsHtml, critPoints = [];
+
+    if (preset === "ratLin") {
+      const a = p.a;
+      const b = p.b === a ? a + 1 : p.b;
+      lhsFn = x => (x - a) / (x - b);
+      rhsFn = x => 0;
+      diffFn = x => (x - a) / (x - b);
+      titleText = `Solve: (x ${a >= 0 ? "− " + a : "+ " + Math.abs(a)}) / (x ${b >= 0 ? "− " + b : "+ " + Math.abs(b)}) ${opSymbol()} 0`;
+      critPoints = [
+        { x: a, type: "root" },
+        { x: b, type: "asymp" }
+      ];
+      stepsHtml = `
+        <span class="box-title">Step-by-Step Algebraic Sign Chart</span>
+        <strong>1.</strong> Already factored with 0 on RHS.<br>
+        <strong>2.</strong> Critical values: <strong>x = ${a}</strong> (numerator = 0, ${isInclusive() ? "included" : "excluded"}) and <strong>x = ${b}</strong> (vertical asymptote, <strong>always excluded</strong>).<br>
+        <strong>3.</strong> Test intervals around ${Math.min(a, b)} and ${Math.max(a, b)} using sign chart.
+      `;
+    } else if (preset === "ratConst") {
+      const { a, c } = p;
+      const b = p.b === -a ? p.b + 1 : p.b;
+      lhsFn = x => (x + a) / (x - b);
+      rhsFn = x => c;
+      diffFn = x => ((1 - c) * x + (a + b * c)) / (x - b);
+      const rootX = (a + b * c) / (c - 1);
+      titleText = `Solve: (x ${a >= 0 ? "+ " + a : "− " + Math.abs(a)}) / (x ${b >= 0 ? "− " + b : "+ " + Math.abs(b)}) ${opSymbol()} ${c}`;
+      critPoints = [
+        { x: rootX, type: "root" },
+        { x: b, type: "asymp" }
+      ];
+      stepsHtml = `
+        <span class="box-title">Step-by-Step Algebraic Simplification (No Cross-Multiplying!)</span>
+        <strong>1.</strong> Bring ${c} to LHS: <em>(x ${a >= 0 ? "+ " + a : "− " + Math.abs(a)})/(x − ${b}) − ${c} ${opSymbol()} 0</em><br>
+        <strong>2.</strong> Combine over common denominator: <em>[${1 - c}x + ${a + b * c}] / (x − ${b}) ${opSymbol()} 0</em><br>
+        <strong>3.</strong> Critical values: <strong>x = ${fmtNum(rootX)}</strong> (root) and <strong>x = ${b}</strong> (asymptote, excluded).
+      `;
+    } else if (preset === "quadRat") {
+      const { a, b } = p;
+      const c = (p.c === a || p.c === b) ? p.c + 1 : p.c;
+      lhsFn = x => ((x - a) * (x - b)) / (x - c);
+      rhsFn = x => 0;
+      diffFn = lhsFn;
+      titleText = `Solve: (x ${a >= 0 ? "− " + a : "+ " + Math.abs(a)})(x ${b >= 0 ? "− " + b : "+ " + Math.abs(b)}) / (x ${c >= 0 ? "− " + c : "+ " + Math.abs(c)}) ${opSymbol()} 0`;
+      critPoints = [
+        { x: a, type: "root" },
+        { x: b, type: "root" },
+        { x: c, type: "asymp" }
+      ];
+      stepsHtml = `
+        <span class="box-title">Step-by-Step Three-Critical-Value Sign Chart</span>
+        <strong>1.</strong> Roots of numerator: <strong>x = ${a}</strong>, <strong>x = ${b}</strong> (${isInclusive() ? "solid dots" : "open circles"}).<br>
+        <strong>2.</strong> Denominator zero: <strong>x = ${c}</strong> (vertical asymptote, <strong>always open circle</strong>).<br>
+        <strong>3.</strong> Alternate signs across the 4 intervals partitioned by ${[a, b, c].sort((m, n) => m - n).join(", ")}.
+      `;
+    } else {
+      const { k, b } = p;
+      lhsFn = x => k / (x - b);
+      rhsFn = x => x + 1;
+      diffFn = x => k / (x - b) - (x + 1);
+      const disc = (b - 1) * (b - 1) + 4 * (k + b);
+      const r1 = ((b - 1) - Math.sqrt(disc)) / 2;
+      const r2 = ((b - 1) + Math.sqrt(disc)) / 2;
+      titleText = `Graphical Method: ${k}/(x ${b >= 0 ? "− " + b : "+ " + Math.abs(b)}) ${opSymbol()} x + 1`;
+      critPoints = [
+        { x: r1, type: "root" },
+        { x: b, type: "asymp" },
+        { x: r2, type: "root" }
+      ];
+      stepsHtml = `
+        <span class="box-title">Graphical Comparison Method (y = LHS vs y = RHS)</span>
+        <strong>1.</strong> Plot <em>y = ${k}/(x − ${b})</em> (purple hyperbola) and <em>y = x + 1</em> (blue line).<br>
+        <strong>2.</strong> Intersections at <strong>x = ${fmtNum(r1)}</strong> and <strong>x = ${fmtNum(r2)}</strong>; vertical asymptote at <strong>x = ${b}</strong>.<br>
+        <strong>3.</strong> Read x-intervals where purple curve lies ${op === "gt" || op === "ge" ? "<strong>above</strong>" : "<strong>below</strong>"} blue line.
+      `;
+    }
+
+    critPoints.sort((m, n) => m.x - n.x);
+
+    const bounds = [-10, ...critPoints.map(c => c.x), 10];
+    const intervals = [];
+    for (let i = 0; i < bounds.length - 1; i++) {
+      const left = bounds[i];
+      const right = bounds[i + 1];
+      if (right - left < 1e-6) continue;
+      const mid = (left + right) / 2;
+      const val = diffFn(mid);
+      const satisfied = (op === "gt" || op === "ge") ? val > 0 : val < 0;
+      const leftCrit = critPoints.find(c => Math.abs(c.x - left) < 1e-6);
+      const rightCrit = critPoints.find(c => Math.abs(c.x - right) < 1e-6);
+      const leftInc = leftCrit ? (leftCrit.type === "root" && isInclusive()) : false;
+      const rightInc = rightCrit ? (rightCrit.type === "root" && isInclusive()) : false;
+      intervals.push({ left, right, mid, val, satisfied, leftInc, rightInc });
+    }
+
+    const solStrings = intervals.filter(iv => iv.satisfied).map(iv => {
+      const lStr = iv.left <= -9.9 ? "" : `${fmtNum(iv.left)} ${iv.leftInc ? "≤" : "<"} `;
+      const rStr = iv.right >= 9.9 ? "" : ` ${iv.rightInc ? "≤" : "<"} ${fmtNum(iv.right)}`;
+      if (iv.left <= -9.9) return `x ${iv.rightInc ? "≤" : "<"} ${fmtNum(iv.right)}`;
+      if (iv.right >= 9.9) return `x ${iv.leftInc ? "≥" : ">"} ${fmtNum(iv.left)}`;
+      return `${lStr}x${rStr}`;
+    });
+
+    document.getElementById("canvasTitle").textContent = titleText;
+    document.getElementById("algebraSteps").innerHTML = stepsHtml;
+    document.getElementById("solutionSetBanner").innerHTML =
+      `Exact Solution Set: <strong>{ x ∈ ℝ : ${solStrings.length ? solStrings.join("  or  ") : "No real solution (∅)"} }</strong>`;
+
+    return { lhsFn, rhsFn, critPoints, intervals };
+  }
+
+  function draw() {
+    const { lhsFn, rhsFn, critPoints, intervals } = evaluateSystem();
+    const canvas = document.getElementById("ineqCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const xMin = -7, xMax = 7;
+    const yMin = -8, yMax = 10;
+    const plotBottom = H - 78;
+    const toPxX = x => ((x - xMin) / (xMax - xMin)) * W;
+    const toPxY = y => plotBottom - ((y - yMin) / (yMax - yMin)) * plotBottom;
+
+    // 1. Shade valid intervals
+    intervals.forEach(iv => {
+      if (!iv.satisfied) return;
+      const x1 = Math.max(0, toPxX(iv.left));
+      const x2 = Math.min(W, toPxX(iv.right));
+      ctx.fillStyle = "rgba(15, 118, 110, 0.11)";
+      ctx.fillRect(x1, 0, x2 - x1, plotBottom);
+    });
+
+    // 2. Grid lines
+    ctx.strokeStyle = "#f1f5f9";
+    ctx.lineWidth = 1;
+    for (let gx = Math.ceil(xMin); gx <= Math.floor(xMax); gx++) {
+      ctx.beginPath(); ctx.moveTo(toPxX(gx), 0); ctx.lineTo(toPxX(gx), plotBottom); ctx.stroke();
+    }
+    for (let gy = Math.ceil(yMin); gy <= Math.floor(yMax); gy++) {
+      ctx.beginPath(); ctx.moveTo(0, toPxY(gy)); ctx.lineTo(W, toPxY(gy)); ctx.stroke();
+    }
+
+    // 3. Axes
+    ctx.strokeStyle = "#94a3b8";
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    ctx.moveTo(0, toPxY(0)); ctx.lineTo(W, toPxY(0));
+    ctx.moveTo(toPxX(0), 0); ctx.lineTo(toPxX(0), plotBottom);
+    ctx.stroke();
+
+    ctx.fillStyle = "#64748b";
+    ctx.font = "11px Segoe UI, sans-serif";
+    for (let gx = -6; gx <= 6; gx++) {
+      if (gx !== 0) ctx.fillText(gx, toPxX(gx) - 4, toPxY(0) + 14);
+    }
+
+    // 4. Vertical asymptotes
+    critPoints.filter(c => c.type === "asymp").forEach(c => {
+      ctx.save();
+      ctx.strokeStyle = "#e11d48";
+      ctx.lineWidth = 1.8;
+      ctx.setLineDash([6, 4]);
+      ctx.beginPath();
+      ctx.moveTo(toPxX(c.x), 0);
+      ctx.lineTo(toPxX(c.x), plotBottom);
+      ctx.stroke();
+      ctx.fillStyle = "#be123c";
+      ctx.font = "bold 11px Segoe UI, sans-serif";
+      ctx.fillText(`VA: x = ${fmtNum(c.x)}`, toPxX(c.x) + 5, 16);
+      ctx.restore();
+    });
+
+    // 5. Plot RHS & LHS
+    ctx.strokeStyle = "#0284c7";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    let startedR = false;
+    for (let x = xMin; x <= xMax; x += 0.03) {
+      const y = rhsFn(x);
+      if (y < yMin - 2 || y > yMax + 2) { startedR = false; continue; }
+      if (!startedR) { ctx.moveTo(toPxX(x), toPxY(y)); startedR = true; }
+      else ctx.lineTo(toPxX(x), toPxY(y));
+    }
+    ctx.stroke();
+
+    ctx.strokeStyle = "#8b5cf6";
+    ctx.lineWidth = 2.8;
+    ctx.beginPath();
+    let startedL = false;
+    for (let x = xMin; x <= xMax; x += 0.015) {
+      const nearAsymp = critPoints.some(c => c.type === "asymp" && Math.abs(x - c.x) < 0.04);
+      const y = lhsFn(x);
+      if (nearAsymp || !isFinite(y) || y < yMin - 3 || y > yMax + 3) {
+        startedL = false;
+        continue;
+      }
+      if (!startedL) { ctx.moveTo(toPxX(x), toPxY(y)); startedL = true; }
+      else ctx.lineTo(toPxX(x), toPxY(y));
+    }
+    ctx.stroke();
+
+    // 6. Trap warning overlay
+    if (showTrap) {
+      ctx.fillStyle = "rgba(255, 228, 230, 0.94)";
+      ctx.strokeStyle = "#e11d48";
+      ctx.lineWidth = 1.5;
+      ctx.fillRect(18, 16, 470, 56);
+      ctx.strokeRect(18, 16, 470, 56);
+      ctx.fillStyle = "#881337";
+      ctx.font = "bold 12px Segoe UI, sans-serif";
+      ctx.fillText("Why Cross-Multiplying Fails:", 28, 36);
+      ctx.font = "11.5px Segoe UI, sans-serif";
+      ctx.fillText("To the left of the red vertical asymptote, (x − b) < 0, which reverses the inequality!", 28, 55);
+    }
+
+    // 7. Number Line & Sign Chart Strip at bottom
+    const stripY = plotBottom + 44;
+    ctx.fillStyle = "#f8fafc";
+    ctx.fillRect(0, plotBottom, W, H - plotBottom);
+    ctx.strokeStyle = "#cbd5e1";
+    ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.moveTo(0, plotBottom); ctx.lineTo(W, plotBottom); ctx.stroke();
+
+    ctx.strokeStyle = "#475569";
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(20, stripY); ctx.lineTo(W - 20, stripY); ctx.stroke();
+
+    intervals.forEach(iv => {
+      const x1 = Math.max(20, toPxX(iv.left));
+      const x2 = Math.min(W - 20, toPxX(iv.right));
+      const mx = (x1 + x2) / 2;
+      if (iv.satisfied) {
+        ctx.strokeStyle = "#0f766e";
+        ctx.lineWidth = 5;
+        ctx.beginPath(); ctx.moveTo(x1, stripY); ctx.lineTo(x2, stripY); ctx.stroke();
+      }
+      ctx.fillStyle = iv.val > 0 ? "#0f766e" : "#e11d48";
+      ctx.font = "bold 13px Segoe UI, sans-serif";
+      ctx.fillText(iv.val > 0 ? "+" : "−", mx - 4, stripY - 12);
+    });
+
+    critPoints.forEach(c => {
+      const cx = toPxX(c.x);
+      if (cx < 20 || cx > W - 20) return;
+      const filled = c.type === "root" && isInclusive();
+      ctx.beginPath();
+      ctx.arc(cx, stripY, 6, 0, Math.PI * 2);
+      ctx.fillStyle = filled ? "#0f766e" : "#ffffff";
+      ctx.fill();
+      ctx.strokeStyle = c.type === "asymp" ? "#e11d48" : "#0f766e";
+      ctx.lineWidth = 2.2;
+      ctx.stroke();
+
+      ctx.fillStyle = "#1e293b";
+      ctx.font = "bold 11px Segoe UI, sans-serif";
+      ctx.fillText(fmtNum(c.x), cx - 10, stripY + 20);
+    });
+  }
+
+  renderSliders();
+  draw();
+</script>
+
+</body>
+</html>

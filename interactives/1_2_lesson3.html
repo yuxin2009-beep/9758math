@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 1.2 Lesson 3: Parametric Equations &amp; Curves</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 495px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 980px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .mode-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 6px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.75rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .slider-group {
+      background: #f8fafc;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+      margin-bottom: 10px;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.79rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .algebra-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.81rem;
+      line-height: 1.52;
+      margin-bottom: 11px;
+    }
+
+    .result-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.82rem;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    canvas {
+      width: 100%;
+      height: 465px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      background: #ffffff;
+      display: block;
+    }
+
+    .misconception-box {
+      margin-top: 12px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 0.81rem;
+      line-height: 1.5;
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Select a Parametric Curve Family (Top-Left)</strong>
+        Choose between <em>1. Parabola (t)</em>, <em>2. Trig Ellipse (θ)</em>, and <em>3. Restricted Arc (θ ∈ [0, π])</em> to see how parameter intervals govern the traced curve.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Scrub the Parameter Slider (t or θ)</strong>
+        Drag the parameter slider to move the red tracer particle along the curve and read its live <em>(x(t), y(t))</em> coordinates and direction of motion.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Compare Cartesian Form vs. Parameter Domain</strong>
+        In <em>Mode 3</em>, notice how restricting <em>θ ∈ [0, π]</em> traces only the <strong>upper semi-ellipse</strong> even though the Cartesian equation is a full ellipse!
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        1.2 Lesson 3 &bull; Parametric Equations &amp; Parameter Tracing
+      </div>
+
+      <div class="mode-row">
+        <button class="tab-btn active" id="pm_parab" onclick="setMode('parab')">1. Parabola (t ∈ ℝ)</button>
+        <button class="tab-btn" id="pm_trig" onclick="setMode('trig')">2. Ellipse (θ ∈ [0, 2π])</button>
+        <button class="tab-btn" id="pm_arc" onclick="setMode('arc')">3. Restricted Arc (θ ∈ [0, π])</button>
+      </div>
+
+      <div class="slider-group">
+        <div class="slider-header"><span id="lbl_paramName">Parameter t</span><span id="lbl_t" style="color:var(--rose);">1.00</span></div>
+        <input type="range" id="sl_t" min="-2" max="2" step="0.05" value="1" oninput="tVal=parseFloat(this.value); draw();" />
+      </div>
+
+      <div class="algebra-box" id="paramStepsBox"></div>
+      <div class="result-banner" id="paramBanner"></div>
+    </div>
+
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
+        <strong style="font-size:1.04rem; color:#1e293b;" id="canvasTitle">x = 2t²,  y = 4t</strong>
+      </div>
+
+      <canvas id="paramCanvas" width="880" height="465"></canvas>
+
+      <div class="misconception-box">
+        <strong>9758 Misconception Alert (Parametric Curves):</strong>
+        <ul style="margin:4px 0 0 0; padding-left:18px;">
+          <li><strong>Always restrict the Cartesian curve to the parameter domain:</strong> Eliminating <em>θ</em> from <em>x = 4 cos θ, y = 3 sin θ</em> gives <em>x²/16 + y²/9 = 1</em>, but if <em>0 ≤ θ ≤ π</em>, then <em>y = 3 sin θ ≥ 0</em>, so only the <strong>upper half</strong> exists!</li>
+          <li><strong>Use trigonometric identities (<em>cos²θ + sin²θ = 1</em>) instead of inverse trig:</strong> Never write <em>θ = cos⁻¹(x/4)</em> when converting trig parametrics to Cartesian form.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  let mode = "parab";
+  let tVal = 1;
+
+  function setMode(m) {
+    mode = m;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("pm_" + m).classList.add("active");
+    const sl = document.getElementById("sl_t");
+    if (m === "parab") { sl.min = -2; sl.max = 2; sl.step = 0.05; tVal = 1; }
+    else if (m === "trig") { sl.min = 0; sl.max = 6.28; sl.step = 0.04; tVal = 1.05; }
+    else { sl.min = 0; sl.max = 3.14; sl.step = 0.03; tVal = 1.05; }
+    sl.value = tVal;
+    draw();
+  }
+
+  function draw() {
+    document.getElementById("lbl_paramName").textContent = mode === "parab" ? "Parameter t" : "Parameter θ (rad)";
+    document.getElementById("lbl_t").textContent = tVal.toFixed(2);
+
+    const canvas = document.getElementById("paramCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const xMin = -6, xMax = 9, yMin = -9, yMax = 9;
+    const toPxX = x => ((x - xMin) / (xMax - xMin)) * W;
+    const toPxY = y => H - ((y - yMin) / (yMax - yMin)) * H;
+
+    // Grid & Axes
+    ctx.strokeStyle = "#f1f5f9";
+    for (let gx = xMin; gx <= xMax; gx++) { ctx.beginPath(); ctx.moveTo(toPxX(gx), 0); ctx.lineTo(toPxX(gx), H); ctx.stroke(); }
+    for (let gy = yMin; gy <= yMax; gy++) { ctx.beginPath(); ctx.moveTo(0, toPxY(gy)); ctx.lineTo(W, toPxY(gy)); ctx.stroke(); }
+
+    ctx.strokeStyle = "#94a3b8";
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    ctx.moveTo(0, toPxY(0)); ctx.lineTo(W, toPxY(0));
+    ctx.moveTo(toPxX(0), 0); ctx.lineTo(toPxX(0), H);
+    ctx.stroke();
+
+    if (mode === "parab") {
+      ctx.strokeStyle = "#8b5cf6";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      for (let t = -2.1; t <= 2.1; t += 0.03) {
+        const x = 2 * t * t, y = 4 * t;
+        if (t === -2.1) ctx.moveTo(toPxX(x), toPxY(y));
+        else ctx.lineTo(toPxX(x), toPxY(y));
+      }
+      ctx.stroke();
+
+      const px = 2 * tVal * tVal, py = 4 * tVal;
+      drawDot(ctx, toPxX(px), toPxY(py), "#e11d48", 6);
+      ctx.fillStyle = "#be123c";
+      ctx.font = "bold 11.5px Segoe UI, sans-serif";
+      ctx.fillText(`P(${px.toFixed(2)}, ${py.toFixed(2)})`, toPxX(px) + 8, toPxY(py) - 6);
+
+      document.getElementById("canvasTitle").textContent = "Parametric Parabola: x = 2t²,  y = 4t  (t ∈ ℝ)";
+      document.getElementById("paramStepsBox").innerHTML = `
+        <strong>1.</strong> From <em>y = 4t</em>, express parameter <em>t = y / 4</em>.<br>
+        <strong>2.</strong> Substitute into <em>x = 2t²</em> &rArr; <em>x = 2(y/4)² = y² / 8</em>.<br>
+        <strong>3.</strong> Live point at <em>t = ${tVal.toFixed(2)}</em>: <strong>(${px.toFixed(2)}, ${py.toFixed(2)})</strong>.
+      `;
+      document.getElementById("paramBanner").innerHTML =
+        `Cartesian Equation: <strong>y² = 8x</strong>, &nbsp;Domain: <strong>x ≥ 0</strong>, &nbsp;Range: <strong>y ∈ ℝ</strong>.`;
+
+    } else {
+      const maxTheta = mode === "trig" ? Math.PI * 2 : Math.PI;
+      // Ghost full ellipse if restricted
+      if (mode === "arc") {
+        ctx.save();
+        ctx.strokeStyle = "#cbd5e1";
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath();
+        for (let th = 0; th <= Math.PI * 2; th += 0.04) {
+          const x = 5 * Math.cos(th), y = 4 * Math.sin(th);
+          if (th === 0) ctx.moveTo(toPxX(x), toPxY(y));
+          else ctx.lineTo(toPxX(x), toPxY(y));
+        }
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      ctx.strokeStyle = "#8b5cf6";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      for (let th = 0; th <= maxTheta; th += 0.03) {
+        const x = 5 * Math.cos(th), y = 4 * Math.sin(th);
+        if (th === 0) ctx.moveTo(toPxX(x), toPxY(y));
+        else ctx.lineTo(toPxX(x), toPxY(y));
+      }
+      ctx.stroke();
+
+      const px = 5 * Math.cos(tVal), py = 4 * Math.sin(tVal);
+      drawDot(ctx, toPxX(px), toPxY(py), "#e11d48", 6);
+      ctx.fillStyle = "#be123c";
+      ctx.font = "bold 11.5px Segoe UI, sans-serif";
+      ctx.fillText(`P(${px.toFixed(2)}, ${py.toFixed(2)})`, toPxX(px) + 8, toPxY(py) - 6);
+
+      document.getElementById("canvasTitle").textContent =
+        mode === "trig" ? "Parametric Ellipse: x = 5 cos θ, y = 4 sin θ (0 ≤ θ ≤ 2π)" : "Restricted Arc: x = 5 cos θ, y = 4 sin θ (0 ≤ θ ≤ π)";
+      document.getElementById("paramStepsBox").innerHTML = `
+        <strong>1.</strong> Isolate trig ratios: <em>cos θ = x/5</em> and <em>sin θ = y/4</em>.<br>
+        <strong>2.</strong> Apply <em>cos²θ + sin²θ = 1</em> &rArr; <strong>x²/25 + y²/16 = 1</strong>.<br>
+        <strong>3.</strong> Parameter restriction <em>${mode === "trig" ? "0 ≤ θ ≤ 2π" : "0 ≤ θ ≤ π"}</em> ${mode === "trig" ? "traces the entire ellipse." : "restricts <strong>y ≥ 0</strong> (upper semi-ellipse only!)."}
+      `;
+      document.getElementById("paramBanner").innerHTML = mode === "trig"
+        ? `Cartesian Equation: <strong>x²/25 + y²/16 = 1</strong>, &nbsp;Domain: <strong>[−5, 5]</strong>, &nbsp;Range: <strong>[−4, 4]</strong>.`
+        : `Cartesian Equation: <strong>x²/25 + y²/16 = 1,  y ≥ 0</strong>, &nbsp;Domain: <strong>[−5, 5]</strong>, &nbsp;Range: <strong>[0, 4]</strong>.`;
+    }
+  }
+
+  function drawDot(ctx, x, y, col, r) {
+    ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fillStyle = col; ctx.fill();
+  }
+
+  draw();
+</script>
+
+</body>
+</html>

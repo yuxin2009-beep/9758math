@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 1.3 Lesson 2: Modulus Properties &amp; Inequalities</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 505px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 980px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .prop-drawer {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 9px 12px;
+      margin-bottom: 12px;
+    }
+
+    .prop-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    .prop-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px 10px;
+      margin-top: 7px;
+      font-size: 0.75rem;
+      color: #334155;
+      line-height: 1.4;
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .tab-btn {
+      padding: 8px 7px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.75rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .control-row {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .op-btn {
+      flex: 1;
+      padding: 6px 5px;
+      border-radius: 8px;
+      border: 1px solid #94a3b8;
+      background: #ffffff;
+      font-weight: 800;
+      font-size: 0.84rem;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .op-btn.active {
+      background: var(--blue);
+      color: #ffffff;
+      border-color: #0369a1;
+    }
+
+    .method-btn {
+      flex: 1;
+      padding: 6px 8px;
+      border-radius: 8px;
+      border: 1px solid var(--teal);
+      background: #ffffff;
+      font-weight: 700;
+      font-size: 0.75rem;
+      color: var(--teal);
+      cursor: pointer;
+    }
+
+    .method-btn.active {
+      background: var(--teal);
+      color: #ffffff;
+    }
+
+    .slider-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .slider-group {
+      background: #f8fafc;
+      padding: 7px 10px;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .method-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 10px 12px;
+      color: #134e4a;
+      font-size: 0.79rem;
+      line-height: 1.48;
+      margin-bottom: 10px;
+    }
+
+    .box-title {
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .solution-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 11px;
+      padding: 9px 12px;
+      color: #4c1d95;
+      font-size: 0.82rem;
+      font-weight: 700;
+      line-height: 1.45;
+      margin-bottom: 10px;
+    }
+
+    .deduce-box {
+      background: var(--blue-bg);
+      border: 1px solid #bae6fd;
+      border-radius: 11px;
+      padding: 9px 12px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      color: #0c4a6e;
+    }
+
+    .deduce-tabs {
+      display: flex;
+      gap: 5px;
+      margin-top: 6px;
+      margin-bottom: 6px;
+    }
+
+    .ded-btn {
+      padding: 4px 9px;
+      border-radius: 6px;
+      border: 1px solid #0284c7;
+      background: #ffffff;
+      color: #0284c7;
+      font-size: 0.73rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .ded-btn.active {
+      background: #0284c7;
+      color: #ffffff;
+    }
+
+    .canvas-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .legend {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    canvas {
+      width: 100%;
+      height: 465px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      background: #ffffff;
+      display: block;
+    }
+
+    .misconception-box {
+      margin-top: 12px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 0.8rem;
+      line-height: 1.48;
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Choose a Modulus Inequality &amp; Method</strong>
+        Select one of the 4 inequality types on the left, then toggle between <em>Algebraic Method Steps</em> and <em>Graphical Method Steps</em> to compare approaches.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Adjust Parameters &amp; Check Spurious Roots</strong>
+        Move the sliders to shift vertices and lines. In <em>Type 2 (|ax + b| vs cx + d)</em>, watch how the graphical method rejects false roots where <em>cx + d &lt; 0</em>.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Practice "Hence Deduce" Substitutions</strong>
+        Use the bottom-left <em>Hence Deduce</em> panel to replace <em>x</em> with <em>|x|</em> or <em>x&sup2;</em> and observe how non-negativity filters out invalid intervals.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        1.3 Lesson 2 &bull; Modulus Properties &amp; Inequalities
+      </div>
+
+      <!-- Collapsible Properties of Modulus Reference -->
+      <div class="prop-drawer">
+        <div class="prop-header" onclick="toggleProps()">
+          <span>Core Properties of Modulus |x|</span>
+          <span id="propToggleLbl" style="color:var(--purple-dark);">Hide &Delta;</span>
+        </div>
+        <div class="prop-grid" id="propGrid">
+          <div>&bull; <strong>|x| &ge; 0</strong> for all x &isin; &real;</div>
+          <div>&bull; <strong>|x|&sup2; = x&sup2;</strong></div>
+          <div>&bull; <strong>|ab| = |a| |b|</strong></div>
+          <div>&bull; <strong>|a / b| = |a| / |b|</strong> (b &ne; 0)</div>
+          <div>&bull; <strong>|x| &lt; a &hArr; &minus;a &lt; x &lt; a</strong> (a &gt; 0)</div>
+          <div>&bull; <strong>|x| &gt; a &hArr; x &lt; &minus;a or x &gt; a</strong></div>
+        </div>
+      </div>
+
+      <!-- 4 Inequality Presets -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="mod_const" onclick="setModType('const')">
+          1. |ax + b| vs c
+        </button>
+        <button class="tab-btn" id="mod_lin" onclick="setModType('lin')">
+          2. |ax + b| vs cx + d
+        </button>
+        <button class="tab-btn" id="mod_twoMod" onclick="setModType('twoMod')">
+          3. |ax + b| vs |cx + d|
+        </button>
+        <button class="tab-btn" id="mod_quad" onclick="setModType('quad')">
+          4. |x&sup2; &minus; a| vs b
+        </button>
+      </div>
+
+      <!-- Inequality Sign + Method Toggle -->
+      <div class="control-row">
+        <button class="op-btn active" id="op_lt" onclick="setOp('lt')">&lt;</button>
+        <button class="op-btn" id="op_le" onclick="setOp('le')">&le;</button>
+        <button class="op-btn" id="op_gt" onclick="setOp('gt')">&gt;</button>
+        <button class="op-btn" id="op_ge" onclick="setOp('ge')">&ge;</button>
+      </div>
+
+      <div class="control-row">
+        <button class="method-btn active" id="m_alg" onclick="setMethod('alg')">Algebraic Method Steps</button>
+        <button class="method-btn" id="m_graph" onclick="setMethod('graph')">Graphical Method Steps</button>
+      </div>
+
+      <!-- Sliders -->
+      <div class="slider-grid" id="sliderContainer"></div>
+
+      <!-- Method Steps Box -->
+      <div class="method-box" id="methodStepsBox"></div>
+
+      <!-- Solution Banner -->
+      <div class="solution-banner" id="solutionBanner"></div>
+
+      <!-- "Hence Deduce" Substitution Explorer -->
+      <div class="deduce-box">
+        <strong>"Hence Deduce" Exam Extension (Replace x with |x| or x&sup2;):</strong>
+        <div class="deduce-tabs">
+          <button class="ded-btn active" id="ded_abs" onclick="setDeduce('abs')">Replace x &rarr; |x|</button>
+          <button class="ded-btn" id="ded_sq" onclick="setDeduce('sq')">Replace x &rarr; x&sup2;</button>
+        </div>
+        <div id="deduceOutput"></div>
+      </div>
+    </div>
+
+    <!-- RIGHT GRAPHING + NUMBER LINE CANVAS -->
+    <div class="card">
+      <div class="canvas-header">
+        <strong style="font-size:1.05rem; color:#1e293b;" id="canvasTitle">Modulus Inequality Solution</strong>
+        <div class="legend">
+          <span class="legend-item"><span class="dot" style="background:#8b5cf6;"></span> LHS y = |f(x)|</span>
+          <span class="legend-item"><span class="dot" style="background:#0284c7;"></span> RHS y = g(x)</span>
+          <span class="legend-item"><span class="dot" style="background:#0f766e;"></span> Valid Solution Region</span>
+        </div>
+      </div>
+
+      <canvas id="modCanvas" width="880" height="465"></canvas>
+
+      <div class="misconception-box">
+        <strong>9758 Misconception Alert (Modulus Inequalities):</strong>
+        <ul style="margin:4px 0 0 0; padding-left:18px;">
+          <li><strong>When is squaring both sides valid?</strong> You may square both sides of <em>|f(x)| &lt; |g(x)|</em> because both sides are guaranteed non-negative. Never blindly square <em>|ax + b| &gt; cx + d</em> without checking whether <em>cx + d &lt; 0</em>!</li>
+          <li><strong>In "Hence deduce" parts:</strong> Remember that <em>|x| &ge; 0</em> and <em>x&sup2; &ge; 0</em> always. Any negative portion of the earlier interval (such as <em>&minus;3 &lt; |x| &lt; 2</em>) automatically simplifies to <em>0 &le; |x| &lt; 2</em>.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  let modType = "const";
+  let op = "lt";
+  let method = "alg";
+  let deduceMode = "abs";
+  let propsOpen = true;
+
+  const params = {
+    const: { a: 2, b: -1, c: 3 },
+    lin: { a: 2, b: -1, c: 1, d: 2 },
+    twoMod: { a: 2, b: -3, c: 1, d: 2 },
+    quad: { a: 4, b: 3 }
+  };
+
+  function toggleProps() {
+    propsOpen = !propsOpen;
+    document.getElementById("propGrid").style.display = propsOpen ? "grid" : "none";
+    document.getElementById("propToggleLbl").textContent = propsOpen ? "Hide ▲" : "Show ▼";
+  }
+
+  function setModType(t) {
+    modType = t;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("mod_" + t).classList.add("active");
+    renderSliders();
+    draw();
+  }
+
+  function setOp(o) {
+    op = o;
+    document.querySelectorAll(".op-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("op_" + o).classList.add("active");
+    draw();
+  }
+
+  function setMethod(m) {
+    method = m;
+    document.querySelectorAll(".method-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("m_" + m).classList.add("active");
+    draw();
+  }
+
+  function setDeduce(d) {
+    deduceMode = d;
+    document.querySelectorAll(".ded-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("ded_" + d).classList.add("active");
+    draw();
+  }
+
+  function renderSliders() {
+    const container = document.getElementById("sliderContainer");
+    const p = params[modType];
+    const makeSlider = (key, label, min, max, step) => `
+      <div class="slider-group">
+        <div class="slider-header">
+          <span>${label}</span>
+          <span id="val_${key}" style="color:var(--purple-dark);">${p[key]}</span>
+        </div>
+        <input type="range" min="${min}" max="${max}" step="${step}" value="${p[key]}"
+          oninput="updateParam('${key}', parseFloat(this.value))" />
+      </div>
+    `;
+
+    let html = "";
+    if (modType === "const") {
+      html += makeSlider("a", "Slope (a)", 1, 3, 1);
+      html += makeSlider("b", "Constant (b)", -4, 4, 1);
+      html += makeSlider("c", "RHS Threshold (c)", 1, 6, 1);
+    } else if (modType === "lin") {
+      html += makeSlider("a", "LHS Slope (a)", 1, 3, 1);
+      html += makeSlider("b", "LHS Shift (b)", -3, 3, 1);
+      html += makeSlider("c", "RHS Slope (c)", 1, 2, 1);
+      html += makeSlider("d", "RHS Intercept (d)", -2, 4, 1);
+    } else if (modType === "twoMod") {
+      html += makeSlider("a", "Left Slope (a)", 2, 3, 1);
+      html += makeSlider("b", "Left Shift (b)", -4, 2, 1);
+      html += makeSlider("c", "Right Slope (c)", 1, 1, 1);
+      html += makeSlider("d", "Right Shift (d)", -2, 4, 1);
+    } else if (modType === "quad") {
+      html += makeSlider("a", "Quadratic Shift (a)", 1, 6, 1);
+      html += makeSlider("b", "RHS Threshold (b)", 1, 5, 1);
+    }
+    container.innerHTML = html;
+  }
+
+  function updateParam(key, val) {
+    params[modType][key] = val;
+    document.getElementById("val_" + key).textContent = val;
+    draw();
+  }
+
+  function opSym() {
+    return { lt: "<", le: "≤", gt: ">", ge: "≥" }[op];
+  }
+
+  function isInc() {
+    return op === "le" || op === "ge";
+  }
+
+  function fmt(n) {
+    if (Math.abs(n) < 1e-8) return "0";
+    return Number.isInteger(n) ? n.toString() : n.toFixed(2).replace(/\.00$/, "");
+  }
+
+  function solveModSystem() {
+    const p = params[modType];
+    let lhsFn, rhsFn, title, algHtml, graphHtml, intervals = [], critPts = [];
+
+    if (modType === "const") {
+      const { a, b, c } = p;
+      lhsFn = x => Math.abs(a * x + b);
+      rhsFn = x => c;
+      const r1 = (-c - b) / a;
+      const r2 = (c - b) / a;
+      critPts = [r1, r2];
+      title = `Solve: |${a === 1 ? "" : a}x ${b >= 0 ? "+ " + b : "− " + Math.abs(b)}| ${opSym()} ${c}`;
+
+      if (op === "lt" || op === "le") {
+        intervals = [{ left: r1, right: r2, lInc: isInc(), rInc: isInc() }];
+        algHtml = `
+          <span class="box-title">Algebraic Compound Inequality Method</span>
+          <strong>1.</strong> Rewrite <em>|${a}x ${b >= 0 ? "+ " + b : "− " + Math.abs(b)}| ${opSym()} ${c}</em> as <em>−${c} ${opSym()} ${a}x ${b >= 0 ? "+ " + b : "− " + Math.abs(b)} ${opSym()} ${c}</em>.<br>
+          <strong>2.</strong> Subtract ${b} and divide by ${a} &gt; 0: <strong>${fmt(r1)} ${opSym()} x ${opSym()} ${fmt(r2)}</strong>.
+        `;
+      } else {
+        intervals = [
+          { left: -10, right: r1, lInc: false, rInc: isInc() },
+          { left: r2, right: 10, lInc: isInc(), rInc: false }
+        ];
+        algHtml = `
+          <span class="box-title">Algebraic Split-Interval Method</span>
+          <strong>1.</strong> Split into two cases: <em>${a}x ${b >= 0 ? "+ " + b : "− " + Math.abs(b)} ${opSym()} −${c}</em> &nbsp;or&nbsp; <em>${a}x ${b >= 0 ? "+ " + b : "− " + Math.abs(b)} ${opSym()} ${c}</em>.<br>
+          <strong>2.</strong> Solving gives <strong>x ${opSym()} ${fmt(r1)}</strong> or <strong>x ${opSym()} ${fmt(r2)}</strong>.
+        `;
+      }
+      graphHtml = `
+        <span class="box-title">Graphical Intersection Method</span>
+        <strong>1.</strong> Sketch the V-shaped graph <em>y = |${a}x ${b >= 0 ? "+ " + b : "− " + Math.abs(b)}|</em> (vertex at <em>x = ${fmt(-b / a)}</em>) and horizontal line <em>y = ${c}</em>.<br>
+        <strong>2.</strong> Intersections occur at <strong>x = ${fmt(r1)}</strong> and <strong>x = ${fmt(r2)}</strong>. Select where V-graph lies ${op === "lt" || op === "le" ? "below" : "above"} y = ${c}.
+      `;
+    } else if (modType === "lin") {
+      const { a, b, c, d } = p;
+      lhsFn = x => Math.abs(a * x + b);
+      rhsFn = x => c * x + d;
+      const cand1 = (d - b) / (a - c);
+      const cand2 = (-d - b) / (a + c);
+      const validPts = [cand1, cand2].filter(x => Math.abs(lhsFn(x) - rhsFn(x)) < 1e-5).sort((m, n) => m - n);
+      critPts = validPts;
+      title = `Solve: |${a === 1 ? "" : a}x ${b >= 0 ? "+ " + b : "− " + Math.abs(b)}| ${opSym()} ${c === 1 ? "" : c}x ${d >= 0 ? "+ " + d : "− " + Math.abs(d)}`;
+
+      const bounds = [-10, ...validPts, 10];
+      for (let i = 0; i < bounds.length - 1; i++) {
+        const mid = (bounds[i] + bounds[i + 1]) / 2;
+        const sat = (op === "lt" || op === "le") ? lhsFn(mid) < rhsFn(mid) : lhsFn(mid) > rhsFn(mid);
+        if (sat) {
+          intervals.push({
+            left: bounds[i],
+            right: bounds[i + 1],
+            lInc: bounds[i] > -9.9 && isInc(),
+            rInc: bounds[i + 1] < 9.9 && isInc()
+          });
+        }
+      }
+
+      algHtml = `
+        <span class="box-title">Algebraic Case-Analysis Method</span>
+        <strong>1.</strong> Critical vertex at <em>x = ${fmt(-b / a)}</em>. Note RHS requires <em>${c}x + ${d} &ge; 0</em> at intersections.<br>
+        <strong>2.</strong> Solve <em>−(${a}x + ${b}) = ${c}x + ${d}</em> (&rArr; <em>x = ${fmt(cand2)}</em>) and <em>${a}x + ${b} = ${c}x + ${d}</em> (&rArr; <em>x = ${fmt(cand1)}</em>), keeping only valid intersections: <strong>${validPts.map(fmt).join(", ") || "None"}</strong>.
+      `;
+      graphHtml = `
+        <span class="box-title">Graphical Comparison Method (Avoids Spurious Roots!)</span>
+        <strong>1.</strong> Sketch <em>y = |${a}x + ${b}|</em> (purple) and <em>y = ${c}x + ${d}</em> (blue).<br>
+        <strong>2.</strong> Notice how the blue line only meets the purple V-graph at <strong>${validPts.map(x => `x = ${fmt(x)}`).join(" and ") || "no points"}</strong> (automatically rejecting any intersection where RHS &lt; 0).
+      `;
+    } else if (modType === "twoMod") {
+      const { a, b, c, d } = p;
+      lhsFn = x => Math.abs(a * x + b);
+      rhsFn = x => Math.abs(c * x + d);
+      const r1 = (d - b) / (a - c);
+      const r2 = (-d - b) / (a + c);
+      critPts = [r1, r2].sort((m, n) => m - n);
+      title = `Solve: |${a}x ${b >= 0 ? "+ " + b : "− " + Math.abs(b)}| ${opSym()} |x ${d >= 0 ? "+ " + d : "− " + Math.abs(d)}|`;
+
+      const [xL, xR] = critPts;
+      if (op === "lt" || op === "le") {
+        intervals = [{ left: xL, right: xR, lInc: isInc(), rInc: isInc() }];
+      } else {
+        intervals = [
+          { left: -10, right: xL, lInc: false, rInc: isInc() },
+          { left: xR, right: 10, lInc: isInc(), rInc: false }
+        ];
+      }
+
+      algHtml = `
+        <span class="box-title">Algebraic Squaring Method (Valid Since Both Sides &ge; 0)</span>
+        <strong>1.</strong> Square both sides: <em>(${a}x ${b >= 0 ? "+ " + b : "− " + Math.abs(b)})&sup2; ${opSym()} (x ${d >= 0 ? "+ " + d : "− " + Math.abs(d)})&sup2;</em><br>
+        <strong>2.</strong> Difference of squares: <em>[(${a - c}x + ${b - d})][(${a + c}x + ${b + d})] ${opSym()} 0</em><br>
+        <strong>3.</strong> Roots at <strong>x = ${fmt(xL)}</strong> and <strong>x = ${fmt(xR)}</strong>.
+      `;
+      graphHtml = `
+        <span class="box-title">Graphical Two-V Method</span>
+        <strong>1.</strong> Sketch both V-shaped graphs <em>y = |${a}x + ${b}|</em> and <em>y = |x + ${d}|</em>.<br>
+        <strong>2.</strong> They intersect twice at <strong>x = ${fmt(xL)}</strong> and <strong>x = ${fmt(xR)}</strong>.
+      `;
+    } else {
+      const { a, b } = p;
+      lhsFn = x => Math.abs(x * x - a);
+      rhsFn = x => b;
+      const outer = Math.sqrt(a + b);
+      const hasInner = a - b > 0;
+      const inner = hasInner ? Math.sqrt(a - b) : 0;
+      critPts = hasInner ? [-outer, -inner, inner, outer] : [-outer, outer];
+      title = `Solve: |x&sup2; &minus; ${a}| ${opSym()} ${b}`;
+
+      const bounds = [-10, ...critPts, 10];
+      for (let i = 0; i < bounds.length - 1; i++) {
+        const mid = (bounds[i] + bounds[i + 1]) / 2;
+        const sat = (op === "lt" || op === "le") ? lhsFn(mid) < b : lhsFn(mid) > b;
+        if (sat) {
+          intervals.push({
+            left: bounds[i],
+            right: bounds[i + 1],
+            lInc: bounds[i] > -9.9 && isInc(),
+            rInc: bounds[i + 1] < 9.9 && isInc()
+          });
+        }
+      }
+
+      algHtml = `
+        <span class="box-title">Algebraic Compound Quadratic Inequality</span>
+        <strong>1.</strong> Rewrite as <em>−${b} ${opSym()} x&sup2; − ${a} ${opSym()} ${b}</em> &rArr; <em>${a - b} ${opSym()} x&sup2; ${opSym()} ${a + b}</em>.<br>
+        <strong>2.</strong> Critical points: <strong>&plusmn;&radic;${a + b} (&plusmn;${fmt(outer)})</strong>${hasInner ? ` and <strong>&plusmn;&radic;${a - b} (&plusmn;${fmt(inner)})</strong>` : " (no inner roots since a &minus; b &le; 0)"}.
+      `;
+      graphHtml = `
+        <span class="box-title">Graphical W-Curve Method</span>
+        <strong>1.</strong> Reflect the bottom vertex of <em>y = x&sup2; − ${a}</em> upward to get the W-shaped curve <em>y = |x&sup2; − ${a}|</em>.<br>
+        <strong>2.</strong> Compare against the horizontal line <em>y = ${b}</em>.
+      `;
+    }
+
+    const solStrs = intervals.map(iv => {
+      if (iv.left <= -9.9 && iv.right >= 9.9) return "x ∈ ℝ";
+      if (iv.left <= -9.9) return `x ${iv.rInc ? "≤" : "<"} ${fmt(iv.right)}`;
+      if (iv.right >= 9.9) return `x ${iv.lInc ? "≥" : ">"} ${fmt(iv.left)}`;
+      return `${fmt(iv.left)} ${iv.lInc ? "≤" : "<"} x ${iv.rInc ? "≤" : "<"} ${fmt(iv.right)}`;
+    });
+
+    document.getElementById("canvasTitle").textContent = title;
+    document.getElementById("methodStepsBox").innerHTML = method === "alg" ? algHtml : graphHtml;
+    document.getElementById("solutionBanner").innerHTML =
+      `Solution Set: <strong>${solStrs.length ? solStrs.join("  or  ") : "No real solution (∅)"}</strong>`;
+
+    let dedTxt = "";
+    if (!solStrs.length) {
+      dedTxt = "Original inequality has no solution, so substitution also yields <strong>∅</strong>.";
+    } else if (deduceMode === "abs") {
+      const dedParts = [];
+      intervals.forEach(iv => {
+        const lo = Math.max(0, iv.left);
+        const hi = iv.right;
+        if (hi < 0 || (Math.abs(hi) < 1e-6 && !iv.rInc)) return;
+        const loInc = iv.left <= 0 ? true : iv.lInc;
+        if (hi >= 9.9) {
+          if (lo <= 0) dedParts.push("x ∈ ℝ");
+          else dedParts.push(`x ${loInc ? "≤" : "<"} −${fmt(lo)} or x ${loInc ? "≥" : ">"} ${fmt(lo)}`);
+        } else if (lo <= 0) {
+          dedParts.push(`−${fmt(hi)} ${iv.rInc ? "≤" : "<"} x ${iv.rInc ? "≤" : "<"} ${fmt(hi)}`);
+        } else {
+          dedParts.push(`−${fmt(hi)} ${iv.rInc ? "≤" : "<"} x ${loInc ? "≤" : "<"} −${fmt(lo)} or ${fmt(lo)} ${loInc ? "≤" : "<"} x ${iv.rInc ? "≤" : "<"} ${fmt(hi)}`);
+        }
+      });
+      dedTxt = `Replacing <em>x</em> with <em>|x|</em> (noting <em>|x| &ge; 0</em>): <strong>${dedParts.length ? dedParts.join(" or ") : "No solution (∅)"}</strong>.`;
+    } else {
+      const dedParts = [];
+      intervals.forEach(iv => {
+        const lo = Math.max(0, iv.left);
+        const hi = iv.right;
+        if (hi < 0 || (Math.abs(hi) < 1e-6 && !iv.rInc)) return;
+        const loInc = iv.left <= 0 ? true : iv.lInc;
+        const sLo = fmt(Math.sqrt(lo));
+        const sHi = fmt(Math.sqrt(hi));
+        if (hi >= 9.9) {
+          if (lo <= 0) dedParts.push("x ∈ ℝ");
+          else dedParts.push(`x ${loInc ? "≤" : "<"} −${sLo} or x ${loInc ? "≥" : ">"} ${sLo}`);
+        } else if (lo <= 0) {
+          dedParts.push(`−${sHi} ${iv.rInc ? "≤" : "<"} x ${iv.rInc ? "≤" : "<"} ${sHi}`);
+        } else {
+          dedParts.push(`−${sHi} ${iv.rInc ? "≤" : "<"} x ${loInc ? "≤" : "<"} −${sLo} or ${sLo} ${loInc ? "≤" : "<"} x ${iv.rInc ? "≤" : "<"} ${sHi}`);
+        }
+      });
+      dedTxt = `Replacing <em>x</em> with <em>x&sup2;</em> (noting <em>x&sup2; &ge; 0</em>): <strong>${dedParts.length ? dedParts.join(" or ") : "No solution (∅)"}</strong>.`;
+    }
+    document.getElementById("deduceOutput").innerHTML = dedTxt;
+
+    return { lhsFn, rhsFn, intervals, critPts };
+  }
+
+  function draw() {
+    const { lhsFn, rhsFn, intervals, critPts } = solveModSystem();
+    const canvas = document.getElementById("modCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const xMin = -6, xMax = 6;
+    const yMin = -2, yMax = 9;
+    const plotBottom = H - 72;
+    const toPxX = x => ((x - xMin) / (xMax - xMin)) * W;
+    const toPxY = y => plotBottom - ((y - yMin) / (yMax - yMin)) * plotBottom;
+
+    // 1. Shade valid intervals
+    intervals.forEach(iv => {
+      const x1 = Math.max(0, toPxX(iv.left));
+      const x2 = Math.min(W, toPxX(iv.right));
+      ctx.fillStyle = "rgba(15, 118, 110, 0.11)";
+      ctx.fillRect(x1, 0, x2 - x1, plotBottom);
+    });
+
+    // 2. Grid
+    ctx.strokeStyle = "#f1f5f9";
+    ctx.lineWidth = 1;
+    for (let gx = -6; gx <= 6; gx++) {
+      ctx.beginPath(); ctx.moveTo(toPxX(gx), 0); ctx.lineTo(toPxX(gx), plotBottom); ctx.stroke();
+    }
+    for (let gy = -2; gy <= 9; gy++) {
+      ctx.beginPath(); ctx.moveTo(0, toPxY(gy)); ctx.lineTo(W, toPxY(gy)); ctx.stroke();
+    }
+
+    // 3. Axes
+    ctx.strokeStyle = "#94a3b8";
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    ctx.moveTo(0, toPxY(0)); ctx.lineTo(W, toPxY(0));
+    ctx.moveTo(toPxX(0), 0); ctx.lineTo(toPxX(0), plotBottom);
+    ctx.stroke();
+
+    ctx.fillStyle = "#64748b";
+    ctx.font = "11px Segoe UI, sans-serif";
+    for (let gx = -5; gx <= 5; gx++) {
+      if (gx !== 0) ctx.fillText(gx, toPxX(gx) - 4, toPxY(0) + 14);
+    }
+
+    // 4. Plot RHS (blue) and LHS (purple)
+    ctx.strokeStyle = "#0284c7";
+    ctx.lineWidth = 2.2;
+    ctx.beginPath();
+    for (let x = xMin; x <= xMax; x += 0.03) {
+      const y = rhsFn(x);
+      if (x === xMin) ctx.moveTo(toPxX(x), toPxY(y));
+      else ctx.lineTo(toPxX(x), toPxY(y));
+    }
+    ctx.stroke();
+
+    ctx.strokeStyle = "#8b5cf6";
+    ctx.lineWidth = 2.8;
+    ctx.beginPath();
+    for (let x = xMin; x <= xMax; x += 0.02) {
+      const y = lhsFn(x);
+      if (x === xMin) ctx.moveTo(toPxX(x), toPxY(y));
+      else ctx.lineTo(toPxX(x), toPxY(y));
+    }
+    ctx.stroke();
+
+    // 5. Intersection points
+    critPts.forEach(cxVal => {
+      const px = toPxX(cxVal);
+      const py = toPxY(lhsFn(cxVal));
+      if (px < 0 || px > W) return;
+      ctx.beginPath();
+      ctx.arc(px, py, 5, 0, Math.PI * 2);
+      ctx.fillStyle = "#e11d48";
+      ctx.fill();
+    });
+
+    // 6. Number Line at bottom
+    const stripY = plotBottom + 38;
+    ctx.fillStyle = "#f8fafc";
+    ctx.fillRect(0, plotBottom, W, H - plotBottom);
+    ctx.strokeStyle = "#cbd5e1";
+    ctx.beginPath(); ctx.moveTo(0, plotBottom); ctx.lineTo(W, plotBottom); ctx.stroke();
+
+    ctx.strokeStyle = "#475569";
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(20, stripY); ctx.lineTo(W - 20, stripY); ctx.stroke();
+
+    intervals.forEach(iv => {
+      const x1 = Math.max(20, toPxX(iv.left));
+      const x2 = Math.min(W - 20, toPxX(iv.right));
+      ctx.strokeStyle = "#0f766e";
+      ctx.lineWidth = 5;
+      ctx.beginPath(); ctx.moveTo(x1, stripY); ctx.lineTo(x2, stripY); ctx.stroke();
+    });
+
+    critPts.forEach(cxVal => {
+      const px = toPxX(cxVal);
+      if (px < 20 || px > W - 20) return;
+      ctx.beginPath();
+      ctx.arc(px, stripY, 6, 0, Math.PI * 2);
+      ctx.fillStyle = isInc() ? "#0f766e" : "#ffffff";
+      ctx.fill();
+      ctx.strokeStyle = "#0f766e";
+      ctx.lineWidth = 2.2;
+      ctx.stroke();
+
+      ctx.fillStyle = "#1e293b";
+      ctx.font = "bold 11px Segoe UI, sans-serif";
+      ctx.fillText(fmt(cxVal), px - 10, stripY + 20);
+    });
+  }
+
+  renderSliders();
+  draw();
+</script>
+
+</body>
+</html>

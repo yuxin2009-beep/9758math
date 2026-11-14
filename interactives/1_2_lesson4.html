@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 1.2 Lesson 4: Graph Transformations</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 495px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 980px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .mode-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 6px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.75rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .slider-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .slider-group {
+      background: #f8fafc;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.79rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .algebra-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.81rem;
+      line-height: 1.52;
+      margin-bottom: 11px;
+    }
+
+    .result-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.82rem;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    canvas {
+      width: 100%;
+      height: 465px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      background: #ffffff;
+      display: block;
+    }
+
+    .misconception-box {
+      margin-top: 12px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 0.81rem;
+      line-height: 1.5;
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Choose a Transformation Family (Top-Left)</strong>
+        Switch between <em>1. Translations</em>, <em>2. Scalings &amp; Reflections</em>, and <em>3. Sequence Order</em> to compare how changes to <em>x</em> vs. <em>y</em> affect the base curve <em>y = f(x)</em>.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Adjust Parameters &amp; Track Key Points</strong>
+        Drag the sliders to shift or stretch the purple transformed curve relative to the dashed grey base curve, tracking how the stationary point and asymptote move.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Compare Transformation Order (Mode 3)</strong>
+        In <em>Mode 3</em>, toggle between <em>Translate First &rarr; Scale Second</em> vs. <em>Scale First &rarr; Translate Second</em> to see why the order of horizontal operations changes the final equation!
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        1.2 Lesson 4 &bull; Graph Transformations &amp; Sequence Order
+      </div>
+
+      <div class="mode-row">
+        <button class="tab-btn active" id="tr_trans" onclick="setMode('trans')">1. Translations</button>
+        <button class="tab-btn" id="tr_scale" onclick="setMode('scale')">2. Scalings &amp; Reflections</button>
+        <button class="tab-btn" id="tr_order" onclick="setMode('order')">3. Order of Sequence</button>
+      </div>
+
+      <div class="slider-grid" id="sliderWrap"></div>
+
+      <div class="algebra-box" id="transStepsBox"></div>
+      <div class="result-banner" id="transBanner"></div>
+    </div>
+
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
+        <strong style="font-size:1.04rem; color:#1e293b;" id="canvasTitle">y = f(x − h) + k</strong>
+        <span style="font-size:0.78rem; font-weight:700; color:var(--muted);">Dashed Grey: Base y = f(x) &nbsp;|&nbsp; Solid Purple: Transformed Curve</span>
+      </div>
+
+      <canvas id="transCanvas" width="880" height="465"></canvas>
+
+      <div class="misconception-box">
+        <strong>9758 Misconception Alert (Graph Transformations):</strong>
+        <ul style="margin:4px 0 0 0; padding-left:18px;">
+          <li><strong>Horizontal changes act inversely:</strong> Replacing <em>x</em> with <em>x − 2</em> shifts the graph <strong>2 units in the positive x-direction</strong>; replacing <em>x</em> with <em>2x</em> scales parallel to the x-axis by factor <strong>1/2</strong> (not 2!).</li>
+          <li><strong>Always factor out the coefficient of <em>x</em> when reading horizontal sequences:</strong> For <em>y = f(2x − 6) = f(2(x − 3))</em>, translating 6 units right then scaling by 1/2 yields <em>x &rarr; x − 6 &rarr; 2x − 6</em>, whereas scaling by 1/2 first requires translating by <strong>3 units</strong> right!</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  let mode = "trans";
+  let p = { h: 2, k: 1, sx: 2, sy: 1, reflX: false, reflY: false, orderType: 1 };
+
+  // Base function f(x) = x^2 - 2x = (x - 1)^2 - 1 (vertex at (1, -1))
+  const fBase = x => (x - 1) * (x - 1) - 1;
+
+  function setMode(m) {
+    mode = m;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("tr_" + m).classList.add("active");
+    renderSliders();
+    draw();
+  }
+
+  function renderSliders() {
+    const wrap = document.getElementById("sliderWrap");
+    if (mode === "trans") {
+      wrap.innerHTML = `
+        <div class="slider-group">
+          <div class="slider-header"><span>Horizontal Shift (h)</span><span id="lbl_h" style="color:var(--purple-dark);">${p.h}</span></div>
+          <input type="range" min="-3" max="3" step="1" value="${p.h}" oninput="p.h=parseInt(this.value,10); document.getElementById('lbl_h').textContent=p.h; draw();" />
+        </div>
+        <div class="slider-group">
+          <div class="slider-header"><span>Vertical Shift (k)</span><span id="lbl_k" style="color:var(--blue);">${p.k}</span></div>
+          <input type="range" min="-3" max="4" step="1" value="${p.k}" oninput="p.k=parseInt(this.value,10); document.getElementById('lbl_k').textContent=p.k; draw();" />
+        </div>
+      `;
+    } else if (mode === "scale") {
+      wrap.innerHTML = `
+        <div class="slider-group">
+          <div class="slider-header"><span>x-Multiplier (a) in f(ax)</span><span id="lbl_sx" style="color:var(--purple-dark);">${p.sx}</span></div>
+          <input type="range" min="0.5" max="2" step="0.5" value="${p.sx}" oninput="p.sx=parseFloat(this.value); document.getElementById('lbl_sx').textContent=p.sx; draw();" />
+        </div>
+        <div class="slider-group">
+          <div class="slider-header"><span>y-Multiplier (b) in b·f(x)</span><span id="lbl_sy" style="color:var(--blue);">${p.sy}</span></div>
+          <input type="range" min="0.5" max="2" step="0.5" value="${p.sy}" oninput="p.sy=parseFloat(this.value); document.getElementById('lbl_sy').textContent=p.sy; draw();" />
+        </div>
+        <div class="slider-group" style="display:flex; justify-content:center;">
+          <button style="padding:5px 9px; border-radius:7px; border:1px solid #e11d48; background:${p.reflX ? "#ffe4e6" : "#fff"}; color:#be123c; font-weight:700; font-size:0.75rem; cursor:pointer;" onclick="p.reflX=!p.reflX; renderSliders(); draw();">
+            Reflect in x-axis: −f(x) [${p.reflX ? "ON" : "OFF"}]
+          </button>
+        </div>
+        <div class="slider-group" style="display:flex; justify-content:center;">
+          <button style="padding:5px 9px; border-radius:7px; border:1px solid #0284c7; background:${p.reflY ? "#e0f2fe" : "#fff"}; color:#0369a1; font-weight:700; font-size:0.75rem; cursor:pointer;" onclick="p.reflY=!p.reflY; renderSliders(); draw();">
+            Reflect in y-axis: f(−x) [${p.reflY ? "ON" : "OFF"}]
+          </button>
+        </div>
+      `;
+    } else {
+      wrap.innerHTML = `
+        <div class="slider-group" style="grid-column:span 2; display:flex; gap:8px;">
+          <button style="flex:1; padding:7px; border-radius:8px; border:1px solid #7c3aed; background:${p.orderType === 1 ? "#8b5cf6" : "#fff"}; color:${p.orderType === 1 ? "#fff" : "#334155"}; font-weight:700; font-size:0.76rem; cursor:pointer;" onclick="p.orderType=1; renderSliders(); draw();">
+            Path A: Translate +4 right, THEN Scale x by 1/2 &rArr; y = f(2x − 4)
+          </button>
+          <button style="flex:1; padding:7px; border-radius:8px; border:1px solid #0284c7; background:${p.orderType === 2 ? "#0284c7" : "#fff"}; color:${p.orderType === 2 ? "#fff" : "#334155"}; font-weight:700; font-size:0.76rem; cursor:pointer;" onclick="p.orderType=2; renderSliders(); draw();">
+            Path B: Scale x by 1/2, THEN Translate +4 right &rArr; y = f(2(x − 4))
+          </button>
+        </div>
+      `;
+    }
+  }
+
+  function draw() {
+    const canvas = document.getElementById("transCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const xMin = -5, xMax = 8, yMin = -4, yMax = 8;
+    const toPxX = x => ((x - xMin) / (xMax - xMin)) * W;
+    const toPxY = y => H - ((y - yMin) / (yMax - yMin)) * H;
+
+    // Grid & Axes
+    ctx.strokeStyle = "#f1f5f9";
+    for (let gx = xMin; gx <= xMax; gx++) { ctx.beginPath(); ctx.moveTo(toPxX(gx), 0); ctx.lineTo(toPxX(gx), H); ctx.stroke(); }
+    for (let gy = yMin; gy <= yMax; gy++) { ctx.beginPath(); ctx.moveTo(0, toPxY(gy)); ctx.lineTo(W, toPxY(gy)); ctx.stroke(); }
+
+    ctx.strokeStyle = "#94a3b8";
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    ctx.moveTo(0, toPxY(0)); ctx.lineTo(W, toPxY(0));
+    ctx.moveTo(toPxX(0), 0); ctx.lineTo(toPxX(0), H);
+    ctx.stroke();
+
+    // Base curve y = f(x) in dashed grey
+    ctx.save();
+    ctx.strokeStyle = "#94a3b8";
+    ctx.lineWidth = 2;
+    ctx.setLineDash([5, 4]);
+    ctx.beginPath();
+    for (let x = xMin; x <= xMax; x += 0.03) {
+      if (x === xMin) ctx.moveTo(toPxX(x), toPxY(fBase(x)));
+      else ctx.lineTo(toPxX(x), toPxY(fBase(x)));
+    }
+    ctx.stroke();
+    ctx.restore();
+    drawDot(ctx, toPxX(1), toPxY(-1), "#64748b", 4.5);
+
+    let fNew, vxNew, vyNew;
+
+    if (mode === "trans") {
+      const { h, k } = p;
+      fNew = x => fBase(x - h) + k;
+      vxNew = 1 + h;
+      vyNew = -1 + k;
+
+      const xPart = h === 0 ? "x" : h > 0 ? `x − ${h}` : `x + ${Math.abs(h)}`;
+      const yPart = k === 0 ? "" : k > 0 ? ` + ${k}` : ` − ${Math.abs(k)}`;
+      document.getElementById("canvasTitle").textContent = `Translation: y = f(${xPart})${yPart}`;
+      document.getElementById("transStepsBox").innerHTML = `
+        <strong>1.</strong> Base vertex on <em>y = f(x)</em> is at <strong>(1, −1)</strong>.<br>
+        <strong>2.</strong> Translate <strong>${Math.abs(h)} unit(s) in the ${h >= 0 ? "positive" : "negative"} x-direction</strong> and <strong>${Math.abs(k)} unit(s) in the ${k >= 0 ? "positive" : "negative"} y-direction</strong>.<br>
+        <strong>3.</strong> New vertex moves to <strong>(${vxNew}, ${vyNew})</strong>.
+      `;
+      document.getElementById("transBanner").innerHTML =
+        `Exact 9758 Phrasing: "A translation of ${Math.abs(h)} units in the ${h >= 0 ? "positive" : "negative"} x-direction followed by ${Math.abs(k)} units in the ${k >= 0 ? "positive" : "negative"} y-direction."`;
+
+    } else if (mode === "scale") {
+      const { sx, sy, reflX, reflY } = p;
+      const xMult = (reflY ? -1 : 1) * sx;
+      const yMult = (reflX ? -1 : 1) * sy;
+      fNew = x => yMult * fBase(xMult * x);
+      vxNew = 1 / xMult;
+      vyNew = -1 * yMult;
+
+      document.getElementById("canvasTitle").textContent = `Scaling & Reflection: y = ${yMult === 1 ? "" : yMult === -1 ? "−" : yMult}f(${xMult === 1 ? "" : xMult === -1 ? "−" : xMult}x)`;
+      document.getElementById("transStepsBox").innerHTML = `
+        <strong>1.</strong> Horizontal scaling parallel to x-axis by factor <strong>1/${sx}</strong>${reflY ? " + reflection in y-axis" : ""}.<br>
+        <strong>2.</strong> Vertical scaling parallel to y-axis by factor <strong>${sy}</strong>${reflX ? " + reflection in x-axis" : ""}.<br>
+        <strong>3.</strong> Base vertex <em>(1, −1)</em> maps to <strong>(${vxNew.toFixed(2).replace(/\.00$/, "")}, ${vyNew.toFixed(2).replace(/\.00$/, "")})</strong>.
+      `;
+      document.getElementById("transBanner").innerHTML =
+        `Key Reminder: Scale factor parallel to x-axis for <em>f(ax)</em> is <strong>1/a = ${(1 / sx).toFixed(2).replace(/\.00$/, "")}</strong>!`;
+
+    } else {
+      if (p.orderType === 1) {
+        // Translate +4 right -> f(x - 4), then scale x by 1/2 -> f(2x - 4)
+        fNew = x => fBase(2 * x - 4);
+        vxNew = (1 + 4) / 2; // 2.5
+        vyNew = -1;
+        document.getElementById("canvasTitle").textContent = "Path A: Translate +4 right, THEN Scale x by 1/2 ⇒ y = f(2x − 4)";
+        document.getElementById("transStepsBox").innerHTML = `
+          <strong>Step 1 (Translate +4 right):</strong> <em>y = f(x) &rarr; y = f(x − 4)</em> (vertex moves <em>1 &rarr; 5</em>).<br>
+          <strong>Step 2 (Scale x by 1/2):</strong> Replace <em>x</em> with <em>2x</em> &rArr; <strong>y = f(2x − 4)</strong> (vertex halves <em>5 &rarr; 2.5</em>).
+        `;
+        document.getElementById("transBanner").innerHTML =
+          `Final Vertex: <strong>(2.5, −1)</strong> — Equation: <strong>y = f(2x − 4)</strong>.`;
+      } else {
+        // Scale x by 1/2 -> f(2x), then translate +4 right -> f(2(x - 4)) = f(2x - 8)
+        fNew = x => fBase(2 * (x - 4));
+        vxNew = 1 / 2 + 4; // 4.5
+        vyNew = -1;
+        document.getElementById("canvasTitle").textContent = "Path B: Scale x by 1/2, THEN Translate +4 right ⇒ y = f(2(x − 4)) = f(2x − 8)";
+        document.getElementById("transStepsBox").innerHTML = `
+          <strong>Step 1 (Scale x by 1/2):</strong> <em>y = f(x) &rarr; y = f(2x)</em> (vertex halves <em>1 &rarr; 0.5</em>).<br>
+          <strong>Step 2 (Translate +4 right):</strong> Replace <em>x</em> with <em>(x − 4)</em> &rArr; <strong>y = f(2(x − 4)) = f(2x − 8)</strong> (vertex shifts <em>0.5 &rarr; 4.5</em>).
+        `;
+        document.getElementById("transBanner").innerHTML =
+          `Final Vertex: <strong>(4.5, −1)</strong> — Notice how reversing the order shifts the vertex by 2 units!`;
+      }
+    }
+
+    // Plot transformed curve
+    ctx.strokeStyle = "#8b5cf6";
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    for (let x = xMin; x <= xMax; x += 0.025) {
+      const y = fNew(x);
+      if (y < yMin - 3 || y > yMax + 3) continue;
+      if (x === xMin) ctx.moveTo(toPxX(x), toPxY(y));
+      else ctx.lineTo(toPxX(x), toPxY(y));
+    }
+    ctx.stroke();
+
+    drawDot(ctx, toPxX(vxNew), toPxY(vyNew), "#e11d48", 6);
+  }
+
+  function drawDot(ctx, x, y, col, r) {
+    ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fillStyle = col; ctx.fill();
+  }
+
+  renderSliders();
+  draw();
+</script>
+
+</body>
+</html>

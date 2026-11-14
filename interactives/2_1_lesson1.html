@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 2.1 Lesson 1: General Sequences, uₙ vs Sₙ & Series Operations</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 495px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 980px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 7px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.76rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .sub-tabs {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 11px;
+    }
+
+    .sub-btn {
+      flex: 1;
+      padding: 6px 8px;
+      border-radius: 8px;
+      border: 1px solid #94a3b8;
+      background: #ffffff;
+      font-weight: 700;
+      font-size: 0.75rem;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .sub-btn.active {
+      background: var(--blue);
+      color: #ffffff;
+      border-color: #0369a1;
+    }
+
+    .slider-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 11px;
+    }
+
+    .slider-group {
+      background: #f8fafc;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.79rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .algebra-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin-bottom: 11px;
+    }
+
+    .box-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .result-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.82rem;
+      font-weight: 700;
+      line-height: 1.45;
+      margin-bottom: 11px;
+    }
+
+    .term-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.77rem;
+      background: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .term-table th, .term-table td {
+      border: 1px solid #e2e8f0;
+      padding: 5px 7px;
+      text-align: center;
+    }
+
+    .term-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    .canvas-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .legend {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    canvas {
+      width: 100%;
+      height: 455px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      background: #ffffff;
+      display: block;
+    }
+
+    .misconception-box {
+      margin-top: 12px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 0.81rem;
+      line-height: 1.5;
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Choose a Syllabus Mode (Top-Left Tabs)</strong>
+        Switch between <em>Mode 1 (Sequence y = f(n))</em>, <em>Mode 2 (Recover uₙ from Sₙ)</em>, and <em>Mode 3 (Sum/Diff of Series)</em> to explore each 9758 learning outcome.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Adjust Parameters &amp; Inspect Algebra</strong>
+        Drag the sliders to modify coefficients (such as constant term <em>C</em> in <em>Sₙ = An² + Bn + C</em>) and read the live algebraic steps in the green derivation panel.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Verify on Graph &amp; Term Table</strong>
+        Observe the discrete points or stacked cumulative bars on the right canvas, and cross-check exact values for <em>n = 1</em> to <em>6</em> in the bottom-left table.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        2.1 Lesson 1 &bull; Sequences as f(n), uₙ vs Sₙ &amp; Series Sums
+      </div>
+
+      <!-- Three Core Lesson Modes -->
+      <div class="preset-row">
+        <button class="tab-btn active" id="mode_fn" onclick="setMode('fn')">
+          1. Sequence y = f(n)
+        </button>
+        <button class="tab-btn" id="mode_snToUn" onclick="setMode('snToUn')">
+          2. Recover uₙ from Sₙ
+        </button>
+        <button class="tab-btn" id="mode_combine" onclick="setMode('combine')">
+          3. Sum/Diff of Series
+        </button>
+      </div>
+
+      <!-- Sub-options & Sliders -->
+      <div id="dynamicControls"></div>
+
+      <!-- Step-by-Step Algebraic Derivation Box -->
+      <div class="algebra-box" id="derivationBox"></div>
+
+      <!-- Key Takeaway Banner -->
+      <div class="result-banner" id="resultBanner"></div>
+
+      <!-- Term-by-Term Table (n = 1 to 6) -->
+      <table class="term-table" id="termTable"></table>
+    </div>
+
+    <!-- RIGHT GRAPHING CANVAS -->
+    <div class="card">
+      <div class="canvas-header">
+        <strong style="font-size:1.04rem; color:#1e293b;" id="canvasHeading">Sequence as a Function: uₙ = f(n), n ∈ ℤ⁺</strong>
+        <div class="legend" id="canvasLegend"></div>
+      </div>
+
+      <canvas id="seqCanvas" width="880" height="455"></canvas>
+
+      <div class="misconception-box">
+        <strong>9758 Misconception Alert (General Sequences &amp; Series):</strong>
+        <ul style="margin:4px 0 0 0; padding-left:18px;">
+          <li><strong>Discrete domain <em>n ∈ ℤ⁺</em>:</strong> A sequence <em>uₙ = f(n)</em> is defined only at positive integers <em>n = 1, 2, 3, …</em> Never join sequence points with a continuous curve!</li>
+          <li><strong>Always check <em>u₁ = S₁</em> separately:</strong> The formula <em>uₙ = Sₙ − Sₙ₋₁</em> is valid only for <strong>n ≥ 2</strong> (since <em>S₀</em> is undefined). When <em>Sₙ</em> has a non-zero constant term (e.g. <em>Sₙ = n² + 2n + 3</em>), <em>u₁ = S₁</em> will <strong>not</strong> match the <em>n ≥ 2</em> formula, so your final answer for <em>uₙ</em> must be written piecewise!</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  let mode = "fn"; // 'fn' | 'snToUn' | 'combine'
+
+  // Mode 1 state: sequence y = f(n)
+  let seqType = "convergent"; // 'convergent' | 'alternating' | 'divergent'
+  let nMax = 10;
+  let showContinuousGuide = false;
+
+  // Mode 2 state: S_n = A n^2 + B n + C
+  let snParams = { A: 2, B: 1, C: 3, nInspect: 4 };
+
+  // Mode 3 state: Combine Series A (u_r = p r + q) and Series B (v_r = c * (0.5)^(r-1))
+  let combParams = { k1: 2, op: "+", k2: 3, nTerms: 8 };
+
+  function setMode(m) {
+    mode = m;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("mode_" + m).classList.add("active");
+    renderControls();
+    draw();
+  }
+
+  function fmt(n) {
+    if (Math.abs(n) < 1e-8) return "0";
+    return Number.isInteger(n) ? n.toString() : n.toFixed(3).replace(/\.?0+$/, "");
+  }
+
+  function renderControls() {
+    const box = document.getElementById("dynamicControls");
+
+    if (mode === "fn") {
+      box.innerHTML = `
+        <div class="sub-tabs">
+          <button class="sub-btn ${seqType === "convergent" ? "active" : ""}" onclick="setSeqType('convergent')">Convergent: uₙ = 3 − 4/n</button>
+          <button class="sub-btn ${seqType === "alternating" ? "active" : ""}" onclick="setSeqType('alternating')">Oscillating: uₙ = 2 + (−1)ⁿ/n</button>
+          <button class="sub-btn ${seqType === "divergent" ? "active" : ""}" onclick="setSeqType('divergent')">Divergent: uₙ = 0.5n + 1</button>
+        </div>
+        <div class="slider-grid">
+          <div class="slider-group">
+            <div class="slider-header"><span>Terms Plotted (n)</span><span id="lbl_nMax" style="color:var(--purple-dark);">${nMax}</span></div>
+            <input type="range" min="4" max="15" step="1" value="${nMax}" oninput="nMax=parseInt(this.value,10); document.getElementById('lbl_nMax').textContent=nMax; draw();" />
+          </div>
+          <div class="slider-group" style="display:flex; align-items:center; justify-content:center;">
+            <label style="font-size:0.78rem; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:6px;">
+              <input type="checkbox" ${showContinuousGuide ? "checked" : ""} onchange="showContinuousGuide=this.checked; draw();" />
+              Show dashed y = f(x) comparison
+            </label>
+          </div>
+        </div>
+      `;
+    } else if (mode === "snToUn") {
+      box.innerHTML = `
+        <div class="slider-grid">
+          <div class="slider-group">
+            <div class="slider-header"><span>A (coeff of n²)</span><span id="lbl_A" style="color:var(--purple-dark);">${snParams.A}</span></div>
+            <input type="range" min="1" max="4" step="1" value="${snParams.A}" oninput="snParams.A=parseInt(this.value,10); document.getElementById('lbl_A').textContent=snParams.A; draw();" />
+          </div>
+          <div class="slider-group">
+            <div class="slider-header"><span>B (coeff of n)</span><span id="lbl_B" style="color:var(--purple-dark);">${snParams.B}</span></div>
+            <input type="range" min="-3" max="5" step="1" value="${snParams.B}" oninput="snParams.B=parseInt(this.value,10); document.getElementById('lbl_B').textContent=snParams.B; draw();" />
+          </div>
+          <div class="slider-group">
+            <div class="slider-header"><span>C (constant term)</span><span id="lbl_C" style="color:var(--rose);">${snParams.C}</span></div>
+            <input type="range" min="-4" max="6" step="1" value="${snParams.C}" oninput="snParams.C=parseInt(this.value,10); document.getElementById('lbl_C').textContent=snParams.C; draw();" />
+          </div>
+          <div class="slider-group">
+            <div class="slider-header"><span>Inspect step n</span><span id="lbl_nInsp" style="color:var(--blue);">${snParams.nInspect}</span></div>
+            <input type="range" min="2" max="7" step="1" value="${snParams.nInspect}" oninput="snParams.nInspect=parseInt(this.value,10); document.getElementById('lbl_nInsp').textContent=snParams.nInspect; draw();" />
+          </div>
+        </div>
+      `;
+    } else {
+      box.innerHTML = `
+        <div class="sub-tabs">
+          <button class="sub-btn ${combParams.op === "+" ? "active" : ""}" onclick="combParams.op='+'; renderControls(); draw();">Sum of Series: k₁Sₙ + k₂Tₙ</button>
+          <button class="sub-btn ${combParams.op === "-" ? "active" : ""}" onclick="combParams.op='-'; renderControls(); draw();">Difference of Series: k₁Sₙ − k₂Tₙ</button>
+        </div>
+        <div class="slider-grid">
+          <div class="slider-group">
+            <div class="slider-header"><span>Multiplier k₁ (for Sₙ)</span><span id="lbl_k1" style="color:var(--purple-dark);">${combParams.k1}</span></div>
+            <input type="range" min="1" max="4" step="1" value="${combParams.k1}" oninput="combParams.k1=parseInt(this.value,10); document.getElementById('lbl_k1').textContent=combParams.k1; draw();" />
+          </div>
+          <div class="slider-group">
+            <div class="slider-header"><span>Multiplier k₂ (for Tₙ)</span><span id="lbl_k2" style="color:var(--blue);">${combParams.k2}</span></div>
+            <input type="range" min="1" max="4" step="1" value="${combParams.k2}" oninput="combParams.k2=parseInt(this.value,10); document.getElementById('lbl_k2').textContent=combParams.k2; draw();" />
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  function setSeqType(t) {
+    seqType = t;
+    renderControls();
+    draw();
+  }
+
+  function draw() {
+    const canvas = document.getElementById("seqCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    if (mode === "fn") drawFunctionMode(ctx, W, H);
+    else if (mode === "snToUn") drawSnToUnMode(ctx, W, H);
+    else drawCombineMode(ctx, W, H);
+  }
+
+  // --- MODE 1: SEQUENCE AS FUNCTION y = f(n), n in Z+ ---
+  function drawFunctionMode(ctx, W, H) {
+    let f, formulaTxt, limitTxt, behTxt;
+    if (seqType === "convergent") {
+      f = n => 3 - 4 / n;
+      formulaTxt = "uₙ = 3 − 4/n";
+      limitTxt = "As n → ∞, 4/n → 0, so uₙ → 3 (Convergent sequence with limit 3).";
+      behTxt = "Strictly increasing and bounded above by y = 3.";
+    } else if (seqType === "alternating") {
+      f = n => 2 + Math.pow(-1, n) / n;
+      formulaTxt = "uₙ = 2 + (−1)ⁿ/n";
+      limitTxt = "As n → ∞, (−1)ⁿ/n → 0, so uₙ → 2 (Oscillating convergent sequence).";
+      behTxt = "Alternates below and above y = 2 while narrowing toward 2.";
+    } else {
+      f = n => 0.5 * n + 1;
+      formulaTxt = "uₙ = 0.5n + 1";
+      limitTxt = "As n → ∞, uₙ → ∞ (Divergent sequence; no finite limit).";
+      behTxt = "Grows without bound as n increases.";
+    }
+
+    document.getElementById("canvasHeading").textContent = `Sequence as a Function: ${formulaTxt}, n ∈ ℤ⁺`;
+    document.getElementById("canvasLegend").innerHTML = `
+      <span class="legend-item"><span class="dot" style="background:#8b5cf6;"></span> Sequence Terms (n, uₙ)</span>
+      ${seqType !== "divergent" ? `<span class="legend-item"><span class="dot" style="background:#0f766e;"></span> Limit Line y = L</span>` : ""}
+    `;
+
+    const padL = 55, padR = 30, padT = 30, padB = 45;
+    const xMin = 0, xMax = nMax + 1;
+    const yMin = -2, yMax = 9;
+    const toPxX = x => padL + ((x - xMin) / (xMax - xMin)) * (W - padL - padR);
+    const toPxY = y => H - padB - ((y - yMin) / (yMax - yMin)) * (H - padT - padB);
+
+    // Grid
+    ctx.strokeStyle = "#f1f5f9";
+    ctx.lineWidth = 1;
+    for (let gx = 1; gx <= nMax; gx++) {
+      ctx.beginPath(); ctx.moveTo(toPxX(gx), padT); ctx.lineTo(toPxX(gx), H - padB); ctx.stroke();
+    }
+    for (let gy = yMin; gy <= yMax; gy++) {
+      ctx.beginPath(); ctx.moveTo(padL, toPxY(gy)); ctx.lineTo(W - padR, toPxY(gy)); ctx.stroke();
+    }
+
+    // Axes
+    ctx.strokeStyle = "#94a3b8";
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    ctx.moveTo(padL, toPxY(0)); ctx.lineTo(W - padR, toPxY(0));
+    ctx.moveTo(toPxX(0), padT); ctx.lineTo(toPxX(0), H - padB);
+    ctx.stroke();
+
+    ctx.fillStyle = "#64748b";
+    ctx.font = "11px Segoe UI, sans-serif";
+    for (let gx = 1; gx <= nMax; gx++) {
+      ctx.fillText(gx, toPxX(gx) - 4, toPxY(0) + 16);
+    }
+    for (let gy = -1; gy <= 8; gy++) {
+      if (gy !== 0) ctx.fillText(gy, padL - 22, toPxY(gy) + 4);
+    }
+    ctx.fillText("n ∈ ℤ⁺", W - padR - 35, toPxY(0) + 32);
+
+    // Limit line
+    if (seqType !== "divergent") {
+      const L = seqType === "convergent" ? 3 : 2;
+      ctx.save();
+      ctx.strokeStyle = "#0f766e";
+      ctx.lineWidth = 1.8;
+      ctx.setLineDash([6, 4]);
+      ctx.beginPath();
+      ctx.moveTo(padL, toPxY(L));
+      ctx.lineTo(W - padR, toPxY(L));
+      ctx.stroke();
+      ctx.fillStyle = "#0f766e";
+      ctx.font = "bold 11.5px Segoe UI, sans-serif";
+      ctx.fillText(`Limit L = ${L}`, W - padR - 75, toPxY(L) - 7);
+      ctx.restore();
+    }
+
+    // Optional continuous comparison curve
+    if (showContinuousGuide && seqType !== "alternating") {
+      ctx.save();
+      ctx.strokeStyle = "rgba(139, 92, 246, 0.32)";
+      ctx.lineWidth = 1.8;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      for (let x = 0.6; x <= nMax + 0.5; x += 0.05) {
+        const y = f(x);
+        if (y < yMin || y > yMax) continue;
+        if (x === 0.6) ctx.moveTo(toPxX(x), toPxY(y));
+        else ctx.lineTo(toPxX(x), toPxY(y));
+      }
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    // Plot isolated discrete points (n, u_n)
+    let runningSum = 0;
+    let rowsHtml = `<thead><tr><th>n</th>`;
+    let uRow = `<tr><td><strong>uₙ</strong></td>`;
+    let sRow = `<tr><td><strong>Sₙ</strong></td>`;
+
+    for (let n = 1; n <= nMax; n++) {
+      const val = f(n);
+      runningSum += val;
+      const px = toPxX(n), py = toPxY(val);
+
+      // Vertical stem from axis
+      ctx.strokeStyle = "rgba(139, 92, 246, 0.25)";
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(px, toPxY(0));
+      ctx.lineTo(px, py);
+      ctx.stroke();
+
+      // Solid dot
+      ctx.fillStyle = "#8b5cf6";
+      ctx.beginPath();
+      ctx.arc(px, py, 5.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      if (n <= 6) {
+        ctx.fillStyle = "#1e293b";
+        ctx.font = "bold 10.5px Segoe UI, sans-serif";
+        ctx.fillText(fmt(val), px - 10, val >= 0 ? py - 9 : py + 16);
+        rowsHtml += `<th>n = ${n}</th>`;
+        uRow += `<td>${fmt(val)}</td>`;
+        sRow += `<td>${fmt(runningSum)}</td>`;
+      }
+    }
+
+    document.getElementById("derivationBox").innerHTML = `
+      <span class="box-title">Sequence Definition &amp; Partial Sum Relationship</span>
+      <strong>1.</strong> General term formula: <strong>${formulaTxt}</strong> for <em>n ∈ ℤ⁺</em>.<br>
+      <strong>2.</strong> Corresponding finite series sum: <em>Sₙ = u₁ + u₂ + … + uₙ</em>.<br>
+      <strong>3.</strong> Behavior: ${behTxt}
+    `;
+    document.getElementById("resultBanner").innerHTML = `Long-Term Behavior: ${limitTxt}`;
+    document.getElementById("termTable").innerHTML = rowsHtml + `</tr></thead><tbody>` + uRow + `</tr>` + sRow + `</tr></tbody>`;
+  }
+
+  // --- MODE 2: RECOVER u_n FROM S_n (u_n = S_n - S_{n-1}) ---
+  function drawSnToUnMode(ctx, W, H) {
+    const { A, B, C, nInspect } = snParams;
+    const Sn = n => A * n * n + B * n + C;
+    const unGeneral = n => 2 * A * n + (B - A); // valid for n >= 2
+    const u1True = Sn(1);
+    const u1FromFormula = unGeneral(1);
+    const matchesAt1 = u1True === u1FromFormula;
+
+    const snExpr = `${A === 1 ? "" : A}n² ${B >= 0 ? "+ " + B : "− " + Math.abs(B)}n ${C === 0 ? "" : C > 0 ? "+ " + C : "− " + Math.abs(C)}`;
+    const unExpr = `${2 * A}n ${B - A >= 0 ? "+ " + (B - A) : "− " + Math.abs(B - A)}`;
+
+    document.getElementById("canvasHeading").textContent = `Recovering uₙ from Sₙ = ${snExpr}`;
+    document.getElementById("canvasLegend").innerHTML = `
+      <span class="legend-item"><span class="dot" style="background:#93c5fd;"></span> Previous Sum Sₙ₋₁</span>
+      <span class="legend-item"><span class="dot" style="background:#8b5cf6;"></span> Step Difference uₙ = Sₙ − Sₙ₋₁</span>
+      <span class="legend-item"><span class="dot" style="background:#e11d48;"></span> u₁ = S₁ Check</span>
+    `;
+
+    const N = 7;
+    const maxVal = Math.max(20, Sn(N) * 1.15);
+    const minVal = Math.min(0, Sn(1) - 5);
+    const padL = 55, padR = 30, padT = 35, padB = 45;
+    const toPxX = n => padL + ((n - 0.3) / (N + 0.6)) * (W - padL - padR);
+    const toPxY = y => H - padB - ((y - minVal) / (maxVal - minVal)) * (H - padT - padB);
+    const barW = Math.min(54, ((W - padL - padR) / (N + 1)) * 0.58);
+
+    // Baseline
+    ctx.strokeStyle = "#94a3b8";
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    ctx.moveTo(padL, toPxY(0));
+    ctx.lineTo(W - padR, toPxY(0));
+    ctx.stroke();
+
+    let rowsHtml = `<thead><tr><th>n</th>`;
+    let sRow = `<tr><td><strong>Sₙ</strong></td>`;
+    let uRow = `<tr><td><strong>uₙ</strong></td>`;
+
+    for (let n = 1; n <= N; n++) {
+      const sCur = Sn(n);
+      const sPrev = n === 1 ? 0 : Sn(n - 1);
+      const uCur = sCur - sPrev;
+      const cx = toPxX(n);
+
+      // Draw S_{n-1} base block for n >= 2
+      if (n >= 2) {
+        const yTopPrev = toPxY(sPrev);
+        const yZero = toPxY(0);
+        ctx.fillStyle = n === nInspect ? "#60a5fa" : "#dbeafe";
+        ctx.strokeStyle = "#3b82f6";
+        ctx.lineWidth = 1.2;
+        ctx.fillRect(cx - barW / 2, Math.min(yTopPrev, yZero), barW, Math.abs(yZero - yTopPrev));
+        ctx.strokeRect(cx - barW / 2, Math.min(yTopPrev, yZero), barW, Math.abs(yZero - yTopPrev));
+      }
+
+      // Draw u_n top block (S_n - S_{n-1})
+      const yTopCur = toPxY(sCur);
+      const yBaseCur = toPxY(sPrev);
+      ctx.fillStyle = n === 1 && !matchesAt1 ? "#fda4af" : n === nInspect ? "#7c3aed" : "#c4b5fd";
+      ctx.strokeStyle = n === 1 && !matchesAt1 ? "#e11d48" : "#6d28d9";
+      ctx.lineWidth = 1.6;
+      ctx.fillRect(cx - barW / 2, Math.min(yTopCur, yBaseCur), barW, Math.abs(yBaseCur - yTopCur));
+      ctx.strokeRect(cx - barW / 2, Math.min(yTopCur, yBaseCur), barW, Math.abs(yBaseCur - yTopCur));
+
+      // Labels
+      ctx.fillStyle = "#1e293b";
+      ctx.font = "bold 10.5px Segoe UI, sans-serif";
+      ctx.fillText(`S${n}=${sCur}`, cx - barW / 2, Math.min(yTopCur, yBaseCur) - 6);
+
+      ctx.fillStyle = n === 1 && !matchesAt1 ? "#be123c" : "#4c1d95";
+      ctx.fillText(`u${n}=${uCur}`, cx - barW / 2 + 3, (yTopCur + yBaseCur) / 2 + 4);
+
+      ctx.fillStyle = "#475569";
+      ctx.fillText(`n=${n}`, cx - 12, toPxY(0) + 16);
+
+      if (n <= 6) {
+        rowsHtml += `<th>n = ${n}</th>`;
+        sRow += `<td>${sCur}</td>`;
+        uRow += `<td style="${n === 1 && !matchesAt1 ? "color:#e11d48; font-weight:800;" : ""}">${uCur}</td>`;
+      }
+    }
+
+    document.getElementById("derivationBox").innerHTML = `
+      <span class="box-title">Algebraic Derivation: uₙ = Sₙ − Sₙ₋₁ (for n ≥ 2)</span>
+      <strong>1.</strong> <em>Sₙ = ${snExpr}</em> &nbsp;and&nbsp; <em>Sₙ₋₁ = ${A}(n−1)² + ${B}(n−1) + ${C}</em>.<br>
+      <strong>2.</strong> Subtracting gives <em>uₙ = Sₙ − Sₙ₋₁ =</em> <strong>${unExpr}</strong> (valid for <strong>n ≥ 2</strong>).<br>
+      <strong>3.</strong> Check <em>n = 1</em>: <strong>u₁ = S₁ = ${u1True}</strong>, whereas formula gives <em>${u1FromFormula}</em> (${matchesAt1 ? "<strong>Matches!</strong>" : "<strong style='color:#e11d48;'>Mismatch! Must split n = 1</strong>"}).
+    `;
+
+    document.getElementById("resultBanner").innerHTML = matchesAt1
+      ? `Final Formula (Single Rule): <strong>uₙ = ${unExpr}</strong> for all <strong>n ≥ 1</strong> (since C = 0).`
+      : `Final Formula (Piecewise Required!): <strong>u₁ = ${u1True}</strong>, and <strong>uₙ = ${unExpr}</strong> for <strong>n ≥ 2</strong>.`;
+
+    document.getElementById("termTable").innerHTML = rowsHtml + `</tr></thead><tbody>` + sRow + `</tr>` + uRow + `</tr></tbody>`;
+  }
+
+  // --- MODE 3: SUM & DIFFERENCE OF TWO SERIES ---
+  function drawCombineMode(ctx, W, H) {
+    const { k1, op, k2, nTerms } = combParams;
+    const sign = op === "+" ? 1 : -1;
+
+    // Series A: u_r = 2r + 1 => S_n = n(n + 2)
+    // Series B: v_r = 4 * (0.5)^(r-1) => T_n = 8(1 - 0.5^n)
+    const Sn = n => n * (n + 2);
+    const Tn = n => 8 * (1 - Math.pow(0.5, n));
+    const Cn = n => k1 * Sn(n) + sign * k2 * Tn(n);
+
+    document.getElementById("canvasHeading").textContent =
+      `Linearity of Series: Combined Sum = ${k1}Sₙ ${op} ${k2}Tₙ`;
+    document.getElementById("canvasLegend").innerHTML = `
+      <span class="legend-item"><span class="dot" style="background:#8b5cf6;"></span> ${k1}Sₙ (Series A)</span>
+      <span class="legend-item"><span class="dot" style="background:#0284c7;"></span> ${k2}Tₙ (Series B)</span>
+      <span class="legend-item"><span class="dot" style="background:#0f766e;"></span> Combined ${k1}Sₙ ${op} ${k2}Tₙ</span>
+    `;
+
+    const padL = 55, padR = 30, padT = 30, padB = 45;
+    const maxY = Math.max(40, Cn(nTerms) * 1.15, k1 * Sn(nTerms) * 1.1);
+    const minY = Math.min(-10, Cn(1) - 10);
+    const toPxX = n => padL + (n / (nTerms + 1)) * (W - padL - padR);
+    const toPxY = y => H - padB - ((y - minY) / (maxY - minY)) * (H - padT - padB);
+
+    // Axes
+    ctx.strokeStyle = "#94a3b8";
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    ctx.moveTo(padL, toPxY(0)); ctx.lineTo(W - padR, toPxY(0));
+    ctx.moveTo(padL, padT); ctx.lineTo(padL, H - padB);
+    ctx.stroke();
+
+    ctx.fillStyle = "#64748b";
+    ctx.font = "11px Segoe UI, sans-serif";
+    for (let n = 1; n <= nTerms; n++) {
+      ctx.fillText(`n=${n}`, toPxX(n) - 10, toPxY(0) + 16);
+    }
+
+    let rowsHtml = `<thead><tr><th>n</th>`;
+    let rA = `<tr><td><strong>${k1}Sₙ</strong></td>`;
+    let rB = `<tr><td><strong>${k2}Tₙ</strong></td>`;
+    let rC = `<tr><td><strong>Combined</strong></td>`;
+
+    for (let n = 1; n <= nTerms; n++) {
+      const vA = k1 * Sn(n);
+      const vB = k2 * Tn(n);
+      const vC = Cn(n);
+      const px = toPxX(n);
+
+      drawDot(ctx, px, toPxY(vA), "#8b5cf6", 4.5);
+      drawDot(ctx, px, toPxY(vB), "#0284c7", 4.5);
+      drawDot(ctx, px, toPxY(vC), "#0f766e", 6);
+
+      if (n <= 6) {
+        rowsHtml += `<th>n = ${n}</th>`;
+        rA += `<td>${fmt(vA)}</td>`;
+        rB += `<td>${fmt(vB)}</td>`;
+        rC += `<td style="color:#0f766e; font-weight:800;">${fmt(vC)}</td>`;
+      }
+    }
+
+    document.getElementById("derivationBox").innerHTML = `
+      <span class="box-title">Sum &amp; Difference Property of Finite Series</span>
+      <strong>1.</strong> Given <em>Sₙ = u₁ + … + uₙ = n(n + 2)</em> and <em>Tₙ = v₁ + … + vₙ = 8(1 − 0.5ⁿ)</em>.<br>
+      <strong>2.</strong> By associativity and commutativity of finite sums:<br>
+      <em>(${k1}u₁ ${op} ${k2}v₁) + … + (${k1}uₙ ${op} ${k2}vₙ) =</em> <strong>${k1}Sₙ ${op} ${k2}Tₙ</strong>.<br>
+      <strong>3.</strong> Closed form: <strong>${k1}n(n + 2) ${op} ${8 * k2}(1 − 0.5ⁿ)</strong>.
+    `;
+
+    document.getElementById("resultBanner").innerHTML =
+      `At n = ${nTerms}: &nbsp; ${k1}S_${nTerms} (${fmt(k1 * Sn(nTerms))}) ${op} ${k2}T_${nTerms} (${fmt(k2 * Tn(nTerms))}) = <strong>${fmt(Cn(nTerms))}</strong>.`;
+
+    document.getElementById("termTable").innerHTML = rowsHtml + `</tr></thead><tbody>` + rA + `</tr>` + rB + `</tr>` + rC + `</tr></tbody>`;
+  }
+
+  function drawDot(ctx, x, y, color, r) {
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  renderControls();
+  draw();
+</script>
+
+</body>
+</html>

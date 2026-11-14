@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 1.1 Lesson 2: One-One Functions &amp; Inverse Functions</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 485px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 980px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .branch-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 6px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.75rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .slider-group {
+      background: #f8fafc;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+      margin-bottom: 10px;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.79rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .algebra-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.81rem;
+      line-height: 1.52;
+      margin-bottom: 11px;
+    }
+
+    .result-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.83rem;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    canvas {
+      width: 100%;
+      height: 465px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      background: #ffffff;
+      display: block;
+    }
+
+    .misconception-box {
+      margin-top: 12px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 0.81rem;
+      line-height: 1.5;
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Run the Horizontal Line Test</strong>
+        Select <em>1. Unrestricted (x ∈ ℝ)</em> and drag the horizontal test line <em>y = k</em> to see two distinct x-values sharing the same y-output—proving <em>f⁻¹</em> does not exist.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Restrict the Domain to a One-One Branch</strong>
+        Switch to <em>2. Right Branch (x ≥ 2)</em> or <em>3. Left Branch (x ≤ 2)</em> to restrict <em>f</em> to a monotonic branch where <em>f⁻¹</em> is well-defined.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Compare Reflection Across y = x &amp; Sign Choice</strong>
+        Observe how <em>y = f⁻¹(x)</em> (teal) reflects <em>y = f(x)</em> (purple) across <em>y = x</em>, and notice how <em>x ≥ 2</em> selects the <strong>+√</strong> root while <em>x ≤ 2</em> selects the <strong>−√</strong> root.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        1.1 Lesson 2 &bull; One-One Functions &amp; Inverse Functions
+      </div>
+
+      <div class="branch-row">
+        <button class="tab-btn active" id="br_all" onclick="setBranch('all')">1. Unrestricted (x ∈ ℝ)</button>
+        <button class="tab-btn" id="br_right" onclick="setBranch('right')">2. Right Branch (x ≥ 2)</button>
+        <button class="tab-btn" id="br_left" onclick="setBranch('left')">3. Left Branch (x ≤ 2)</button>
+      </div>
+
+      <div class="slider-group">
+        <div class="slider-header"><span>Horizontal Line Test (y = k)</span><span id="lbl_hlt" style="color:var(--blue);">3.0</span></div>
+        <input type="range" min="-2" max="7" step="0.25" value="3" oninput="hltY=parseFloat(this.value); draw();" />
+      </div>
+
+      <div class="slider-group">
+        <div class="slider-header"><span>Vertex Shift (h) in f(x) = (x − h)² − 1</span><span id="lbl_h" style="color:var(--purple-dark);">2</span></div>
+        <input type="range" min="0" max="3" step="1" value="2" oninput="h=parseInt(this.value,10); draw();" />
+      </div>
+
+      <div class="algebra-box" id="invStepsBox"></div>
+      <div class="result-banner" id="invBanner"></div>
+    </div>
+
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
+        <strong style="font-size:1.04rem; color:#1e293b;" id="canvasTitle">f(x) = (x − 2)² − 1 — Horizontal Line Test &amp; Reflection y = x</strong>
+        <span style="font-size:0.78rem; font-weight:700; color:var(--teal);">Purple: y = f(x) &nbsp;|&nbsp; Teal: y = f⁻¹(x)</span>
+      </div>
+
+      <canvas id="invCanvas" width="880" height="465"></canvas>
+
+      <div class="misconception-box">
+        <strong>9758 Misconception Alert (Inverse Functions):</strong>
+        <ul style="margin:4px 0 0 0; padding-left:18px;">
+          <li><strong>Always state the domain of <em>f⁻¹</em>:</strong> Writing <em>f⁻¹(x) = 2 + √(x + 1)</em> without stating <strong>D_{f⁻¹} = R_f = [−1, ∞)</strong> loses 1 mark in 9758 exams.</li>
+          <li><strong>Choose the correct ± sign:</strong> When solving <em>y = (x − h)² − 1</em>, <em>x ≥ h</em> requires <strong>x = h + √(y + 1)</strong>, whereas <em>x ≤ h</em> requires <strong>x = h − √(y + 1)</strong>.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  let branch = "all";
+  let hltY = 3;
+  let h = 2;
+
+  function setBranch(b) {
+    branch = b;
+    document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+    document.getElementById("br_" + b).classList.add("active");
+    draw();
+  }
+
+  function draw() {
+    document.getElementById("lbl_hlt").textContent = hltY.toFixed(2).replace(/\.?0+$/, "");
+    document.getElementById("lbl_h").textContent = h;
+    document.getElementById("br_right").textContent = `2. Right Branch (x ≥ ${h})`;
+    document.getElementById("br_left").textContent = `3. Left Branch (x ≤ ${h})`;
+
+    const canvas = document.getElementById("invCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const xMin = -3, xMax = 8, yMin = -3, yMax = 8;
+    const toPxX = x => ((x - xMin) / (xMax - xMin)) * W;
+    const toPxY = y => H - ((y - yMin) / (yMax - yMin)) * H;
+
+    // Grid
+    ctx.strokeStyle = "#f1f5f9";
+    ctx.lineWidth = 1;
+    for (let gx = xMin; gx <= xMax; gx++) { ctx.beginPath(); ctx.moveTo(toPxX(gx), 0); ctx.lineTo(toPxX(gx), H); ctx.stroke(); }
+    for (let gy = yMin; gy <= yMax; gy++) { ctx.beginPath(); ctx.moveTo(0, toPxY(gy)); ctx.lineTo(W, toPxY(gy)); ctx.stroke(); }
+
+    // Axes
+    ctx.strokeStyle = "#94a3b8";
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    ctx.moveTo(0, toPxY(0)); ctx.lineTo(W, toPxY(0));
+    ctx.moveTo(toPxX(0), 0); ctx.lineTo(toPxX(0), H);
+    ctx.stroke();
+
+    // Mirror line y = x
+    ctx.save();
+    ctx.strokeStyle = "#94a3b8";
+    ctx.lineWidth = 1.6;
+    ctx.setLineDash([6, 4]);
+    ctx.beginPath();
+    ctx.moveTo(toPxX(xMin), toPxY(xMin));
+    ctx.lineTo(toPxX(xMax), toPxY(xMax));
+    ctx.stroke();
+    ctx.fillStyle = "#475569";
+    ctx.font = "bold 11.5px Segoe UI, sans-serif";
+    ctx.fillText("Mirror Line y = x", toPxX(5.4), toPxY(5.8));
+    ctx.restore();
+
+    const f = x => (x - h) * (x - h) - 1;
+
+    // Ghost full parabola
+    ctx.save();
+    ctx.strokeStyle = "#cbd5e1";
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath();
+    for (let x = xMin; x <= xMax; x += 0.04) {
+      if (x === xMin) ctx.moveTo(toPxX(x), toPxY(f(x)));
+      else ctx.lineTo(toPxX(x), toPxY(f(x)));
+    }
+    ctx.stroke();
+    ctx.restore();
+
+    // Active f(x) branch
+    ctx.strokeStyle = "#8b5cf6";
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    const startX = branch === "right" ? h : xMin;
+    const endX = branch === "left" ? h : xMax;
+    for (let x = startX; x <= endX; x += 0.02) {
+      if (x === startX) ctx.moveTo(toPxX(x), toPxY(f(x)));
+      else ctx.lineTo(toPxX(x), toPxY(f(x)));
+    }
+    ctx.stroke();
+
+    // Inverse f^{-1}(x) when one-one
+    if (branch !== "all") {
+      const fInv = x => branch === "right" ? h + Math.sqrt(x + 1) : h - Math.sqrt(x + 1);
+      ctx.strokeStyle = "#0f766e";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      for (let x = -1; x <= xMax; x += 0.02) {
+        if (x === -1) ctx.moveTo(toPxX(x), toPxY(fInv(x)));
+        else ctx.lineTo(toPxX(x), toPxY(fInv(x)));
+      }
+      ctx.stroke();
+
+      // Vertex & reflected vertex
+      drawDot(ctx, toPxX(h), toPxY(-1), "#8b5cf6", 5.5);
+      drawDot(ctx, toPxX(-1), toPxY(h), "#0f766e", 5.5);
+    }
+
+    // Horizontal Line Test
+    ctx.save();
+    ctx.strokeStyle = "#0284c7";
+    ctx.lineWidth = 1.8;
+    ctx.setLineDash([6, 4]);
+    ctx.beginPath();
+    ctx.moveTo(0, toPxY(hltY));
+    ctx.lineTo(W, toPxY(hltY));
+    ctx.stroke();
+    ctx.restore();
+
+    let hits = [];
+    if (hltY >= -1) {
+      const d = Math.sqrt(hltY + 1);
+      if (branch === "all") {
+        hits.push(h - d);
+        if (d > 0.01) hits.push(h + d);
+      } else if (branch === "right") {
+        hits.push(h + d);
+      } else {
+        hits.push(h - d);
+      }
+    }
+
+    hits.forEach(hx => {
+      drawDot(ctx, toPxX(hx), toPxY(hltY), hits.length > 1 ? "#e11d48" : "#0284c7", 5.5);
+    });
+
+    if (branch === "all") {
+      document.getElementById("invStepsBox").innerHTML = `
+        <strong>1.</strong> Function: <em>f(x) = (x − ${h})² − 1</em> for <em>x ∈ ℝ</em>.<br>
+        <strong>2.</strong> Horizontal line <em>y = ${hltY}</em> cuts the curve <strong>${hits.length} time${hits.length === 1 ? "" : "s"}</strong>.<br>
+        <strong>3.</strong> Since <em>f(${h - 2}) = f(${h + 2}) = 3</em>, <em>f</em> is <strong>not one-one</strong> &rArr; <strong>f⁻¹ does not exist</strong>.
+      `;
+      document.getElementById("invBanner").innerHTML =
+        `Largest Domain Restrictions for f⁻¹ to Exist: <strong>x ≥ ${h}</strong> (right branch) or <strong>x ≤ ${h}</strong> (left branch).`;
+    } else {
+      const signStr = branch === "right" ? "+" : "−";
+      const domStr = branch === "right" ? `x ≥ ${h}` : `x ≤ ${h}`;
+      document.getElementById("invStepsBox").innerHTML = `
+        <strong>1.</strong> Let <em>y = (x − ${h})² − 1</em> &rArr; <em>x − ${h} = ±√(y + 1)</em>.<br>
+        <strong>2.</strong> Since <em>${domStr}</em>, we select the <strong>${signStr}√</strong> branch: <em>x = ${h} ${signStr} √(y + 1)</em>.<br>
+        <strong>3.</strong> Swap <em>x</em> and <em>y</em>, and set <em>D_{f⁻¹} = R_f = [−1, ∞)</em>.
+      `;
+      document.getElementById("invBanner").innerHTML =
+        `Exact Inverse: <strong>f⁻¹ : x ↦ ${h} ${signStr} √(x + 1),  x ∈ ℝ, x ≥ −1</strong>`;
+    }
+  }
+
+  function drawDot(ctx, x, y, color, r) {
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fillStyle = color;
+    ctx.fill();
+  }
+
+  draw();
+</script>
+
+</body>
+</html>

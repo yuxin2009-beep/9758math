@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 1.1 Lesson 5: Self-Inverse Functions &amp; Solving f(x) = f⁻¹(x)</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 495px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 980px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .mode-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 6px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.75rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .slider-group {
+      background: #f8fafc;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+      margin-bottom: 11px;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.79rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .algebra-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.81rem;
+      line-height: 1.52;
+      margin-bottom: 11px;
+    }
+
+    .result-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.82rem;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    canvas {
+      width: 100%;
+      height: 465px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      background: #ffffff;
+      display: block;
+    }
+
+    .misconception-box {
+      margin-top: 12px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 0.81rem;
+      line-height: 1.5;
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Choose Between Intersection &amp; Self-Inverse Cases</strong>
+        Start with <em>1. Solve f(x) = f⁻¹(x)</em> to see how solving <em>f(x) = x</em> avoids messy radicals, then explore <em>2. Self-Inverse Rational</em> and <em>3. Decreasing Exception</em>.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Adjust Function Parameters</strong>
+        Use the sliders to move the asymptote <em>x = a</em> in <em>f(x) = (ax + 3)/(x − a)</em> and verify that its vertical and horizontal asymptotes match whenever <em>f = f⁻¹</em>.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Spot Symmetric Off-Diagonal Intersections</strong>
+        Switch to <em>3. Decreasing Exception</em> to see how a decreasing function like <em>f(x) = 3 − x³</em> intersects <em>f⁻¹(x)</em> not only on <em>y = x</em>, but also at mirror pairs <em>(a, b)</em> and <em>(b, a)</em>!
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        1.1 Lesson 5 &bull; Self-Inverse Functions &amp; Solving f(x) = f⁻¹(x)
+      </div>
+
+      <div class="mode-row">
+        <button class="tab-btn active" id="si_solve" onclick="setMode('solve')">1. Solve f(x) = f⁻¹(x)</button>
+        <button class="tab-btn" id="si_rat" onclick="setMode('rat')">2. Self-Inverse Rational</button>
+        <button class="tab-btn" id="si_dec" onclick="setMode('dec')">3. Decreasing Exception</button>
+      </div>
+
+      <div class="slider-group" id="sliderWrap">
+        <div class="slider-header"><span id="sl_lbl">Asymptote Parameter (a)</span><span id="lbl_a" style="color:var(--purple-dark);">2</span></div>
+        <input type="range" id="sl_a" min="1" max="4" step="1" value="2" oninput="a=parseInt(this.value,10); draw();" />
+      </div>
+
+      <div class="algebra-box" id="siStepsBox"></div>
+      <div class="result-banner" id="siBanner"></div>
+    </div>
+
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
+        <strong style="font-size:1.04rem; color:#1e293b;" id="canvasTitle">Solving f(x) = f⁻¹(x) via Intersection with y = x</strong>
+      </div>
+
+      <canvas id="siCanvas" width="880" height="465"></canvas>
+
+      <div class="misconception-box">
+        <strong>9758 Misconception Alert (f(x) = f⁻¹(x) &amp; Self-Inverse Functions):</strong>
+        <ul style="margin:4px 0 0 0; padding-left:18px;">
+          <li><strong>Why solve <em>f(x) = x</em> instead of <em>f(x) = f⁻¹(x)</em>?</strong> For an increasing function, <em>y = f(x)</em> and <em>y = f⁻¹(x)</em> intersect strictly on the mirror line <em>y = x</em>, avoiding messy square roots or quartic equations.</li>
+          <li><strong>Watch out for decreasing functions!</strong> A decreasing function (such as <em>f(x) = 3 − x³</em>) can also intersect <em>f⁻¹(x)</em> at symmetric pairs <em>(a, b)</em> and <em>(b, a)</em> off the line <em>y = x</em>.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  let mode = "solve";
+  let a = 2;
+
+  function setMode(m) {
+    mode = m;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("si_" + m).classList.add("active");
+    document.getElementById("sliderWrap").style.display = m === "dec" ? "none" : "block";
+    document.getElementById("sl_lbl").textContent = m === "solve" ? "Shift Constant (a) in f(x) = (x − a)² + a" : "Asymptote Parameter (a) in f(x) = (ax + 3)/(x − a)";
+    draw();
+  }
+
+  function draw() {
+    document.getElementById("lbl_a").textContent = a;
+    const canvas = document.getElementById("siCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const xMin = -3, xMax = 8, yMin = -3, yMax = 8;
+    const toPxX = x => ((x - xMin) / (xMax - xMin)) * W;
+    const toPxY = y => H - ((y - yMin) / (yMax - yMin)) * H;
+
+    // Grid & Axes
+    ctx.strokeStyle = "#f1f5f9";
+    for (let g = xMin; g <= xMax; g++) {
+      ctx.beginPath(); ctx.moveTo(toPxX(g), 0); ctx.lineTo(toPxX(g), H); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0, toPxY(g)); ctx.lineTo(W, toPxY(g)); ctx.stroke();
+    }
+    ctx.strokeStyle = "#94a3b8";
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    ctx.moveTo(0, toPxY(0)); ctx.lineTo(W, toPxY(0));
+    ctx.moveTo(toPxX(0), 0); ctx.lineTo(toPxX(0), H);
+    ctx.stroke();
+
+    // Line y = x
+    ctx.save();
+    ctx.strokeStyle = "#64748b";
+    ctx.lineWidth = 1.6;
+    ctx.setLineDash([6, 4]);
+    ctx.beginPath(); ctx.moveTo(toPxX(xMin), toPxY(xMin)); ctx.lineTo(toPxX(xMax), toPxY(xMax)); ctx.stroke();
+    ctx.restore();
+
+    if (mode === "solve") {
+      // f(x) = (x - a)^2 + a for x >= a
+      const f = x => (x - a) * (x - a) + a;
+      const fInv = x => a + Math.sqrt(x - a);
+
+      ctx.strokeStyle = "#8b5cf6";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      for (let x = a; x <= xMax; x += 0.02) {
+        if (x === a) ctx.moveTo(toPxX(x), toPxY(f(x)));
+        else ctx.lineTo(toPxX(x), toPxY(f(x)));
+      }
+      ctx.stroke();
+
+      ctx.strokeStyle = "#0f766e";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      for (let x = a; x <= xMax; x += 0.02) {
+        if (x === a) ctx.moveTo(toPxX(x), toPxY(fInv(x)));
+        else ctx.lineTo(toPxX(x), toPxY(fInv(x)));
+      }
+      ctx.stroke();
+
+      drawDot(ctx, toPxX(a), toPxY(a), "#e11d48", 6);
+      drawDot(ctx, toPxX(a + 1), toPxY(a + 1), "#e11d48", 6);
+
+      document.getElementById("canvasTitle").textContent = `f(x) = (x − ${a})² + ${a} (x ≥ ${a}) — Intersections with y = x`;
+      document.getElementById("siStepsBox").innerHTML = `
+        <strong>1.</strong> Since <em>f</em> is strictly increasing for <em>x ≥ ${a}</em>, <em>f(x) = f⁻¹(x) &hArr; f(x) = x</em>.<br>
+        <strong>2.</strong> Solve <em>(x − ${a})² + ${a} = x</em> &rArr; <em>(x − ${a})² − (x − ${a}) = 0</em>.<br>
+        <strong>3.</strong> Factor: <em>(x − ${a})(x − ${a + 1}) = 0</em> &rArr; <strong>x = ${a}</strong> or <strong>x = ${a + 1}</strong>.
+      `;
+      document.getElementById("siBanner").innerHTML =
+        `Intersection Points of y = f(x) and y = f⁻¹(x): <strong>(${a}, ${a})</strong> and <strong>(${a + 1}, ${a + 1})</strong>.`;
+
+    } else if (mode === "rat") {
+      // Self-inverse f(x) = (ax + 3)/(x - a), x != a
+      const f = x => (a * x + 3) / (x - a);
+
+      ctx.save();
+      ctx.strokeStyle = "#e11d48";
+      ctx.setLineDash([5, 4]);
+      ctx.beginPath(); ctx.moveTo(toPxX(a), 0); ctx.lineTo(toPxX(a), H); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0, toPxY(a)); ctx.lineTo(W, toPxY(a)); ctx.stroke();
+      ctx.restore();
+
+      ctx.strokeStyle = "#8b5cf6";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      let started = false;
+      for (let x = xMin; x <= xMax; x += 0.02) {
+        if (Math.abs(x - a) < 0.06) { started = false; continue; }
+        const y = f(x);
+        if (y < yMin - 2 || y > yMax + 2) { started = false; continue; }
+        if (!started) { ctx.moveTo(toPxX(x), toPxY(y)); started = true; }
+        else ctx.lineTo(toPxX(x), toPxY(y));
+      }
+      ctx.stroke();
+
+      document.getElementById("canvasTitle").textContent = `Self-Inverse Rational Function: f(x) = (${a}x + 3)/(x − ${a}),  x ≠ ${a}`;
+      document.getElementById("siStepsBox").innerHTML = `
+        <strong>1.</strong> Notice the vertical asymptote <em>x = ${a}</em> and horizontal asymptote <em>y = ${a}</em> are symmetric about <em>y = x</em>.<br>
+        <strong>2.</strong> Compute <em>ff(x) = [a((ax + 3)/(x − a)) + 3] / [(ax + 3)/(x − a) − a] = (a² + 3)x / (a² + 3) = x</em>.<br>
+        <strong>3.</strong> Since <em>ff(x) = x</em> and <em>D_f = D_{f⁻¹} = ℝ \\ {${a}}</em>, <strong>f⁻¹(x) = f(x)</strong>!
+      `;
+      document.getElementById("siBanner").innerHTML =
+        `Self-Inverse Rule &amp; Domain: <strong>f⁻¹(x) = (${a}x + 3)/(x − ${a}),  x ∈ ℝ, x ≠ ${a}</strong>.`;
+
+    } else {
+      // Decreasing function f(x) = 3 - x^3 => 3 intersections with f^{-1}(x): (1.21, 1.21), (0, 3), (3, 0)
+      const f = x => 3 - x * x * x;
+      const fInv = x => Math.cbrt(3 - x);
+
+      ctx.strokeStyle = "#8b5cf6";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      for (let x = -1.8; x <= 2.3; x += 0.02) {
+        if (x === -1.8) ctx.moveTo(toPxX(x), toPxY(f(x)));
+        else ctx.lineTo(toPxX(x), toPxY(f(x)));
+      }
+      ctx.stroke();
+
+      ctx.strokeStyle = "#0f766e";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      for (let x = -3; x <= 8; x += 0.03) {
+        if (x === -3) ctx.moveTo(toPxX(x), toPxY(fInv(x)));
+        else ctx.lineTo(toPxX(x), toPxY(fInv(x)));
+      }
+      ctx.stroke();
+
+      // 3 intersections: (0, 3), (3, 0), and (1.213, 1.213)
+      drawDot(ctx, toPxX(0), toPxY(3), "#e11d48", 6);
+      drawDot(ctx, toPxX(3), toPxY(0), "#e11d48", 6);
+      drawDot(ctx, toPxX(1.213), toPxY(1.213), "#0284c7", 6);
+
+      document.getElementById("canvasTitle").textContent = "Decreasing Function Exception: f(x) = 3 − x³ Cuts f⁻¹(x) 3 Times!";
+      document.getElementById("siStepsBox").innerHTML = `
+        <strong>1.</strong> Here <em>f(x) = 3 − x³</em> is <strong>strictly decreasing</strong>.<br>
+        <strong>2.</strong> Solving <em>f(x) = x</em> gives only <strong>(1.21, 1.21)</strong> (blue dot on <em>y = x</em>).<br>
+        <strong>3.</strong> However, because <em>f(0) = 3</em> and <em>f(3) = −24</em>? Wait: <em>f(0) = 3</em> &rArr; <em>f⁻¹(3) = 0</em>, so both <strong>(0, 3)</strong> and <strong>(3, 0)</strong> lie on both curves!
+      `;
+      document.getElementById("siBanner").innerHTML =
+        `All 3 Solutions to f(x) = f⁻¹(x): <strong>x = 0,  x ≈ 1.21,  x = 3</strong> (always check via GC graph for decreasing functions!).`;
+    }
+  }
+
+  function drawDot(ctx, x, y, color, r) {
+    ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fillStyle = color; ctx.fill();
+  }
+
+  draw();
+</script>
+
+</body>
+</html>

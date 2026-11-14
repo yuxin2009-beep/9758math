@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 1.1 Lesson 4: Composite–Inverse Identities</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 495px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 980px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .mode-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 6px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.75rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .slider-group {
+      background: #f8fafc;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+      margin-bottom: 11px;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.79rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .algebra-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.81rem;
+      line-height: 1.52;
+      margin-bottom: 11px;
+    }
+
+    .result-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.82rem;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    canvas {
+      width: 100%;
+      height: 465px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      background: #ffffff;
+      display: block;
+    }
+
+    .misconception-box {
+      margin-top: 12px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 0.81rem;
+      line-height: 1.5;
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Select an Identity Mode (Top-Left Tabs)</strong>
+        Compare <em>1. f⁻¹f(x) = x</em> (defined on <em>D_f</em>), <em>2. ff⁻¹(x) = x</em> (defined on <em>R_f</em>), and <em>3. Socks-Shoes Rule (gf)⁻¹ = f⁻¹g⁻¹</em>.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Trace a Specific Input Value x₀</strong>
+        Drag the <em>Test Input x₀</em> slider to watch the round-trip mapping step-by-step on the canvas—from input to intermediate output and back.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Check Domain Restrictions on y = x</strong>
+        Notice that <em>f⁻¹f(x) = x</em> and <em>ff⁻¹(x) = x</em> do not span all of <em>ℝ</em>—their graphs are segments of <em>y = x</em> restricted to <em>D_f</em> and <em>R_f</em> respectively!
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        1.1 Lesson 4 &bull; Composite–Inverse Identities
+      </div>
+
+      <div class="mode-row">
+        <button class="tab-btn active" id="id_finvf" onclick="setMode('finvf')">1. f⁻¹f(x) = x</button>
+        <button class="tab-btn" id="id_ffinv" onclick="setMode('ffinv')">2. ff⁻¹(x) = x</button>
+        <button class="tab-btn" id="id_socks" onclick="setMode('socks')">3. (gf)⁻¹ = f⁻¹g⁻¹</button>
+      </div>
+
+      <div class="slider-group">
+        <div class="slider-header"><span>Trace Test Input (x₀)</span><span id="lbl_x0" style="color:var(--purple-dark);">3.0</span></div>
+        <input type="range" id="sl_x0" min="1" max="5" step="0.25" value="3" oninput="x0=parseFloat(this.value); draw();" />
+      </div>
+
+      <div class="algebra-box" id="idStepsBox"></div>
+      <div class="result-banner" id="idBanner"></div>
+    </div>
+
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
+        <strong style="font-size:1.04rem; color:#1e293b;" id="canvasTitle">f⁻¹f(x) = x for x ∈ D_f = [1, 5]</strong>
+      </div>
+
+      <canvas id="idCanvas" width="880" height="465"></canvas>
+
+      <div class="misconception-box">
+        <strong>9758 Misconception Alert (Composite–Inverse Identities):</strong>
+        <ul style="margin:4px 0 0 0; padding-left:18px;">
+          <li><strong>Different domains for <em>f⁻¹f</em> vs. <em>ff⁻¹</em>:</strong> <em>f⁻¹f(x) = x</em> holds only for <strong>x ∈ D_f</strong>, whereas <em>ff⁻¹(x) = x</em> holds only for <strong>x ∈ D_{f⁻¹} = R_f</strong>.</li>
+          <li><strong>Reverse the order when inverting a composite:</strong> Just like putting on socks (<em>f</em>) then shoes (<em>g</em>), undoing <em>gf</em> requires taking off shoes first (<em>g⁻¹</em>) then socks (<em>f⁻¹</em>): <strong>(gf)⁻¹ = f⁻¹g⁻¹</strong>.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  let mode = "finvf";
+  let x0 = 3;
+
+  function setMode(m) {
+    mode = m;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("id_" + m).classList.add("active");
+    const sl = document.getElementById("sl_x0");
+    if (m === "finvf") { sl.min = 1; sl.max = 5; x0 = 3; }
+    else if (m === "ffinv") { sl.min = 0; sl.max = 8; x0 = 4; }
+    else { sl.min = 1; sl.max = 4; x0 = 2; }
+    sl.value = x0;
+    draw();
+  }
+
+  function fmt(n) {
+    return Number.isInteger(n) ? n.toString() : n.toFixed(2).replace(/\.?0+$/, "");
+  }
+
+  function draw() {
+    document.getElementById("lbl_x0").textContent = fmt(x0);
+    const canvas = document.getElementById("idCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    // f(x) = 2x - 2 on D_f = [1, 5] => R_f = [0, 8], f^{-1}(x) = (x + 2)/2 on [0, 8]
+    const f = x => 2 * x - 2;
+    const fInv = x => (x + 2) / 2;
+
+    if (mode === "finvf" || mode === "ffinv") {
+      const xMin = -1, xMax = 9, yMin = -1, yMax = 9;
+      const toPxX = x => ((x - xMin) / (xMax - xMin)) * W;
+      const toPxY = y => H - ((y - yMin) / (yMax - yMin)) * H;
+
+      // Grid & Axes
+      ctx.strokeStyle = "#f1f5f9";
+      for (let g = 0; g <= 8; g++) {
+        ctx.beginPath(); ctx.moveTo(toPxX(g), 0); ctx.lineTo(toPxX(g), H); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(0, toPxY(g)); ctx.lineTo(W, toPxY(g)); ctx.stroke();
+      }
+      ctx.strokeStyle = "#94a3b8";
+      ctx.lineWidth = 1.6;
+      ctx.beginPath();
+      ctx.moveTo(0, toPxY(0)); ctx.lineTo(W, toPxY(0));
+      ctx.moveTo(toPxX(0), 0); ctx.lineTo(toPxX(0), H);
+      ctx.stroke();
+
+      // Full y = x dashed
+      ctx.save();
+      ctx.strokeStyle = "#cbd5e1";
+      ctx.setLineDash([5, 5]);
+      ctx.beginPath(); ctx.moveTo(toPxX(0), toPxY(0)); ctx.lineTo(toPxX(8.5), toPxY(8.5)); ctx.stroke();
+      ctx.restore();
+
+      // Plot f (purple) and f^{-1} (teal)
+      ctx.strokeStyle = "#8b5cf6";
+      ctx.lineWidth = 2.5;
+      ctx.beginPath(); ctx.moveTo(toPxX(1), toPxY(0)); ctx.lineTo(toPxX(5), toPxY(8)); ctx.stroke();
+
+      ctx.strokeStyle = "#0f766e";
+      ctx.lineWidth = 2.5;
+      ctx.beginPath(); ctx.moveTo(toPxX(0), toPxY(1)); ctx.lineTo(toPxX(8), toPxY(5)); ctx.stroke();
+
+      // Restricted identity segment y = x
+      const dLo = mode === "finvf" ? 1 : 0;
+      const dHi = mode === "finvf" ? 5 : 8;
+      ctx.strokeStyle = "#0284c7";
+      ctx.lineWidth = 4;
+      ctx.beginPath(); ctx.moveTo(toPxX(dLo), toPxY(dLo)); ctx.lineTo(toPxX(dHi), toPxY(dHi)); ctx.stroke();
+
+      if (mode === "finvf") {
+        const y1 = f(x0);
+        const y2 = fInv(y1);
+        drawDot(ctx, toPxX(x0), toPxY(y1), "#8b5cf6", 5.5);
+        drawDot(ctx, toPxX(y1), toPxY(y2), "#0f766e", 5.5);
+        drawDot(ctx, toPxX(x0), toPxY(x0), "#0284c7", 6);
+
+        document.getElementById("canvasTitle").textContent = "Identity 1: f⁻¹f(x) = x for x ∈ D_f = [1, 5]";
+        document.getElementById("idStepsBox").innerHTML = `
+          <strong>1.</strong> Given <em>f(x) = 2x − 2</em> on <em>D_f = [1, 5]</em> &rArr; <em>R_f = [0, 8]</em>.<br>
+          <strong>2.</strong> Step 1: <em>f(${fmt(x0)}) = ${fmt(y1)}</em> (purple point).<br>
+          <strong>3.</strong> Step 2: <em>f⁻¹(${fmt(y1)}) = ${fmt(y2)}</em> (returns to <em>x₀ = ${fmt(x0)}</em> on blue segment).
+        `;
+        document.getElementById("idBanner").innerHTML =
+          `Exact Rule &amp; Domain: <strong>f⁻¹f(x) = x,  x ∈ [1, 5]</strong> (NOT all of ℝ!).`;
+      } else {
+        const y1 = fInv(x0);
+        const y2 = f(y1);
+        drawDot(ctx, toPxX(x0), toPxY(y1), "#0f766e", 5.5);
+        drawDot(ctx, toPxX(y1), toPxY(y2), "#8b5cf6", 5.5);
+        drawDot(ctx, toPxX(x0), toPxY(x0), "#0284c7", 6);
+
+        document.getElementById("canvasTitle").textContent = "Identity 2: ff⁻¹(x) = x for x ∈ D_{f⁻¹} = R_f = [0, 8]";
+        document.getElementById("idStepsBox").innerHTML = `
+          <strong>1.</strong> Inverse <em>f⁻¹(x) = (x + 2)/2</em> has domain <em>D_{f⁻¹} = R_f = [0, 8]</em>.<br>
+          <strong>2.</strong> Step 1: <em>f⁻¹(${fmt(x0)}) = ${fmt(y1)}</em> (teal point).<br>
+          <strong>3.</strong> Step 2: <em>f(${fmt(y1)}) = ${fmt(y2)}</em> (returns to <em>x₀ = ${fmt(x0)}</em> on blue segment).
+        `;
+        document.getElementById("idBanner").innerHTML =
+          `Exact Rule &amp; Domain: <strong>ff⁻¹(x) = x,  x ∈ [0, 8]</strong> (notice the wider domain than f⁻¹f!).`;
+      }
+    } else {
+      // Socks-shoes pipeline: f(x) = x + 2, g(x) = 3x => gf(x) = 3(x + 2)
+      const u = x0 + 2;
+      const v = 3 * u;
+      document.getElementById("canvasTitle").textContent = "Identity 3 (Socks-Shoes Rule): (gf)⁻¹(x) = f⁻¹g⁻¹(x)";
+
+      const boxes = [
+        { x: 95, y: 95, lbl: "Input x₀", val: fmt(x0), col: "#8b5cf6" },
+        { x: 375, y: 95, lbl: "After f(x) = x + 2", val: fmt(u), col: "#0284c7" },
+        { x: 655, y: 95, lbl: "After g(u) = 3u", val: fmt(v), col: "#0f766e" },
+        { x: 655, y: 300, lbl: "Start at y₀ = gf(x₀)", val: fmt(v), col: "#0f766e" },
+        { x: 375, y: 300, lbl: "1st Undo g⁻¹(y) = y/3", val: fmt(u), col: "#0284c7" },
+        { x: 95, y: 300, lbl: "2nd Undo f⁻¹(u) = u − 2", val: fmt(x0), col: "#8b5cf6" }
+      ];
+
+      ctx.fillStyle = "#1e293b";
+      ctx.font = "bold 13.5px Segoe UI, sans-serif";
+      ctx.fillText("Forward Pipeline: Apply f first, then g  (gf(x) = 3(x + 2))", 95, 65);
+      ctx.fillText("Reverse Pipeline: Apply g⁻¹ first, then f⁻¹  ((gf)⁻¹(y) = y/3 − 2)", 95, 270);
+
+      boxes.forEach(b => {
+        ctx.fillStyle = "#f8fafc";
+        ctx.strokeStyle = b.col;
+        ctx.lineWidth = 2;
+        ctx.fillRect(b.x, b.y, 175, 76);
+        ctx.strokeRect(b.x, b.y, 175, 76);
+        ctx.fillStyle = b.col;
+        ctx.font = "bold 11.5px Segoe UI, sans-serif";
+        ctx.fillText(b.lbl, b.x + 12, b.y + 24);
+        ctx.fillStyle = "#0f172a";
+        ctx.font = "bold 20px Segoe UI, sans-serif";
+        ctx.fillText(b.val, b.x + 12, b.y + 56);
+      });
+
+      drawHArrow(ctx, 275, 133, 370, 133, "f");
+      drawHArrow(ctx, 555, 133, 650, 133, "g");
+      drawHArrow(ctx, 650, 338, 555, 338, "g⁻¹");
+      drawHArrow(ctx, 370, 338, 275, 338, "f⁻¹");
+
+      document.getElementById("idStepsBox").innerHTML = `
+        <strong>1.</strong> Forward: <em>x₀ = ${fmt(x0)} &xrightarrow{f} ${fmt(u)} &xrightarrow{g} ${fmt(v)}</em>.<br>
+        <strong>2.</strong> Reverse: To get back from <em>${fmt(v)}</em> to <em>${fmt(x0)}</em>, we must undo <em>g</em> first (<em>${fmt(v)}/3 = ${fmt(u)}</em>) and then undo <em>f</em> (<em>${fmt(u)} − 2 = ${fmt(x0)}</em>).<br>
+        <strong>3.</strong> Therefore, <strong>(gf)⁻¹(x) = f⁻¹(g⁻¹(x)) = x/3 − 2</strong>.
+      `;
+      document.getElementById("idBanner").innerHTML =
+        `Key Algebraic Identity: <strong>(gf)⁻¹ = f⁻¹g⁻¹</strong> (and similarly <strong>(fg)⁻¹ = g⁻¹f⁻¹</strong>).`;
+    }
+  }
+
+  function drawDot(ctx, x, y, color, r) {
+    ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fillStyle = color; ctx.fill();
+  }
+
+  function drawHArrow(ctx, x1, y1, x2, y2, lbl) {
+    ctx.strokeStyle = "#475569";
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+    ctx.fillStyle = "#1e293b";
+    ctx.font = "bold 12px Segoe UI, sans-serif";
+    ctx.fillText(lbl, (x1 + x2) / 2 - 8, y1 - 8);
+  }
+
+  draw();
+</script>
+
+</body>
+</html>

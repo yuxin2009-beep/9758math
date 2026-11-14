@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 1.3 Lesson 3: Systems of Linear Equations & Problem Formulation</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 525px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1000px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.76rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.48;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .eqn-editor {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 11px;
+    }
+
+    .eqn-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 7px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .eqn-row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 6px;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .eqn-row input {
+      width: 100%;
+      padding: 5px 4px;
+      border: 1px solid #94a3b8;
+      border-radius: 7px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 0.82rem;
+      color: #1e293b;
+    }
+
+    .eqn-row input:focus {
+      outline: none;
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .solve-bar {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: none;
+      background: var(--purple-dark);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.78rem;
+      cursor: pointer;
+    }
+
+    .action-btn.secondary {
+      background: var(--blue-bg);
+      color: var(--blue);
+      border: 1px solid #bae6fd;
+    }
+
+    .gc-screen-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin-bottom: 11px;
+    }
+
+    .box-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .gc-readout {
+      background: #f1f5f9;
+      border: 2px solid #64748b;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.81rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 5px;
+      line-height: 1.45;
+    }
+
+    .solution-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.82rem;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    .check-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.79rem;
+      margin-top: 8px;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .check-table th, .check-table td {
+      border: 1px solid #e2e8f0;
+      padding: 6px 9px;
+      text-align: left;
+    }
+
+    .check-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    .gc-guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .gc-guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .step-pill {
+      background: var(--blue-bg);
+      border: 1px solid #bae6fd;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.77rem;
+      line-height: 1.45;
+      color: #0c4a6e;
+    }
+
+    .grader-card {
+      margin-top: 12px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 700px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .misconception-box {
+      margin-top: 12px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 10px 13px;
+      font-size: 0.79rem;
+      line-height: 1.48;
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Select a Real-World Scenario (Top-Left)</strong>
+        Start with <em>Preset 1 (2 Eqns, 3 Unknowns)</em> to see how real-world integer restrictions produce a finite list of combinations, or explore the <em>3 &times; 3</em> word problems.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Edit Coefficients &amp; Toggle Constraints</strong>
+        Modify any number in the equation matrix and click <em>Solve Using GC Solver</em>, or click <em>Toggle Min Qty (&ge; 1 vs &ge; 0)</em> to see how boundary rules affect valid tuples.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Check GC Output, Table &amp; Exam Quiz</strong>
+        Compare the simulated TI-84 Plus CE readout against the filtered combinations table on the right, then test yourself on the 3-question <em>9758 Modelling Check</em>.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        1.3 Lesson 3 &bull; Systems of Linear Equations &amp; Problem Formulation
+      </div>
+
+      <!-- Scenario Presets -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="sc_stationery" onclick="loadScenario('stationery')">
+          1. 2 Eqns, 3 Unknowns (Discrete)
+        </button>
+        <button class="tab-btn" id="sc_florist" onclick="loadScenario('florist')">
+          2. Florist Bouquet Pricing (3&times;3)
+        </button>
+        <button class="tab-btn" id="sc_quadFit" onclick="loadScenario('quadFit')">
+          3. Quadratic Curve Fitting (3&times;3)
+        </button>
+        <button class="tab-btn" id="sc_invest" onclick="loadScenario('invest')">
+          4. Investment Portfolio (3&times;3)
+        </button>
+      </div>
+
+      <!-- Contextual Word Problem & Variable Definition -->
+      <div class="context-box" id="contextBox"></div>
+
+      <!-- Interactive Linear System Editor -->
+      <div class="eqn-editor">
+        <div class="eqn-header">
+          <span id="eqnCountHeader">System of 2 Linear Equations (Editable)</span>
+          <span id="varNamesHeader" style="color:var(--purple-dark);">Unknowns: x, y, z</span>
+        </div>
+        <div id="eqnInputs"></div>
+        <div class="solve-bar">
+          <button class="action-btn" onclick="solveSystem()">Solve Using GC Solver</button>
+          <button class="action-btn secondary" id="secondaryBtn" onclick="handleSecondaryAction()">Toggle Min Qty (&ge; 1 vs &ge; 0)</button>
+        </div>
+      </div>
+
+      <!-- Simulated GC Simultaneous Equation Solver Output -->
+      <div class="gc-screen-box" id="gcOutputBox"></div>
+
+      <!-- Contextual Conclusion Banner -->
+      <div class="solution-banner" id="solutionBanner"></div>
+    </div>
+
+    <!-- RIGHT VERIFICATION, GC WORKFLOW & EXAM CHECK -->
+    <div class="card">
+      <div style="font-size:1.02rem; font-weight:800; color:#1e293b; margin-bottom:8px;" id="rightPanelHeading">
+        Discrete Integer Solutions &amp; TI-84 Plus CE Presentation
+      </div>
+
+      <!-- Dynamic Verification / Combinations Table -->
+      <table class="check-table" id="verificationTable"></table>
+
+      <!-- 3-Step TI-84 Plus CE Keystroke Guide -->
+      <div class="gc-guide-grid" id="gcGuideGrid"></div>
+
+      <div class="misconception-box" id="misconceptionBox"></div>
+
+      <!-- Quick 9758 Modelling Exam Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 Modelling &amp; Systems Check (<span id="qIdxLbl">1</span>/3)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.8rem; line-height:1.45; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  const scenarios = {
+    stationery: {
+      numEqns: 2,
+      vars: ["x", "y", "z"],
+      labels: ["Total Gift Sets", "Total Budget ($)"],
+      varDesc: "Let x, y, z be the number of notebooks ($6), pens ($2), and folders ($5) purchased (x, y, z ∈ ℤ⁺).",
+      story: "<strong>2 Eqns, 3 Unknowns Problem:</strong> A committee buys <strong>20 gift sets</strong> (notebooks at $6, pens at $2, folders at $5) for <strong>$95</strong>, buying <strong>at least 1 of each item</strong>. Find all possible combinations.",
+      rows: [
+        [1, 1, 1, 20],
+        [6, 2, 5, 95]
+      ]
+    },
+    florist: {
+      numEqns: 3,
+      vars: ["r", "l", "t"],
+      labels: ["Classic Bouquet ($)", "Deluxe Bouquet ($)", "Royal Bouquet ($)"],
+      varDesc: "Let $r, $l, $t be the selling price of one rose, one lily, and one tulip respectively.",
+      story: "<strong>3×3 System Problem:</strong> Classic (5 roses, 3 lilies, 2 tulips) sells for $34; Deluxe (8 roses, 4 lilies, 4 tulips) sells for $54; Royal (12 roses, 6 lilies, 5 tulips) sells for $78.",
+      rows: [
+        [5, 3, 2, 34],
+        [8, 4, 4, 54],
+        [12, 6, 5, 78]
+      ],
+      interpret: (sol) => `Each rose costs <strong>$${sol[0].toFixed(2)}</strong>, each lily costs <strong>$${sol[1].toFixed(2)}</strong>, and each tulip costs <strong>$${sol[2].toFixed(2)}</strong>.`
+    },
+    quadFit: {
+      numEqns: 3,
+      vars: ["a", "b", "c"],
+      labels: ["Passes through (1, 4)", "Passes through (−1, 6)", "Passes through (2, 9)"],
+      varDesc: "Substitute each coordinate (x, y) into the parabola equation y = ax² + bx + c.",
+      story: "<strong>3×3 Curve Fitting Problem:</strong> A quadratic curve <em>y = ax² + bx + c</em> passes through <strong>(1, 4)</strong>, <strong>(−1, 6)</strong>, and <strong>(2, 9)</strong>. Find the constants <em>a, b, c</em>.",
+      rows: [
+        [1, 1, 1, 4],
+        [1, -1, 1, 6],
+        [4, 2, 1, 9]
+      ],
+      interpret: (sol) => `The quadratic curve is <strong>y = ${fmt(sol[0])}x² ${sol[1] >= 0 ? "+ " + fmt(sol[1]) : "− " + fmt(Math.abs(sol[1]))}x ${sol[2] >= 0 ? "+ " + fmt(sol[2]) : "− " + fmt(Math.abs(sol[2]))}</strong>.`
+    },
+    invest: {
+      numEqns: 3,
+      vars: ["x", "y", "z"],
+      labels: ["Total Capital ($)", "Annual Return ($)", "Allocation Condition"],
+      varDesc: "Let $x, $y, $z be the amounts invested in Bonds (3%), Equities (6%), and REITs (8%) respectively.",
+      story: "<strong>3×3 Portfolio Problem:</strong> Total investment is $50,000; annual return is $2,750; amount in Equities equals the sum of Bonds and REITs (<em>y = x + z ⇒ −x + y − z = 0</em>).",
+      rows: [
+        [1, 1, 1, 50000],
+        [0.03, 0.06, 0.08, 2750],
+        [-1, 1, -1, 0]
+      ],
+      interpret: (sol) => `Invest <strong>$${sol[0].toLocaleString()}</strong> in Bonds, <strong>$${sol[1].toLocaleString()}</strong> in Equities, and <strong>$${sol[2].toLocaleString()}</strong> in REITs.`
+    }
+  };
+
+  let curKey = "stationery";
+  let eqns = [];
+  let minItemQty = 1;
+
+  function fmt(n) {
+    if (Math.abs(n) < 1e-8) return "0";
+    return Number.isInteger(n) ? n.toString() : n.toFixed(2).replace(/\.00$/, "").replace(/(\.\d)0$/, "$1");
+  }
+
+  function loadScenario(key) {
+    curKey = key;
+    minItemQty = 1;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("sc_" + key).classList.add("active");
+
+    const sc = scenarios[key];
+    eqns = sc.rows.map(r => [...r]);
+
+    document.getElementById("contextBox").innerHTML = `
+      <div>${sc.story}</div>
+      <div class="var-pill">${sc.varDesc}</div>
+    `;
+    document.getElementById("eqnCountHeader").textContent = `System of ${sc.numEqns} Linear Equations (Editable)`;
+    document.getElementById("varNamesHeader").textContent = `Unknowns: ${sc.vars.join(", ")}`;
+
+    const secBtn = document.getElementById("secondaryBtn");
+    if (sc.numEqns === 2) {
+      secBtn.textContent = "Toggle Min Qty (≥ 1 vs ≥ 0)";
+    } else {
+      secBtn.textContent = "Test Inconsistent System";
+    }
+
+    renderEqnInputs();
+    solveSystem();
+  }
+
+  function renderEqnInputs() {
+    const sc = scenarios[curKey];
+    const [v1, v2, v3] = sc.vars;
+    const container = document.getElementById("eqnInputs");
+    container.innerHTML = eqns.map((row, rIdx) => `
+      <div class="eqn-row">
+        <input type="number" step="any" value="${row[0]}" onchange="updateCell(${rIdx}, 0, this.value)" />
+        <span>${v1} +</span>
+        <input type="number" step="any" value="${row[1]}" onchange="updateCell(${rIdx}, 1, this.value)" />
+        <span>${v2} +</span>
+        <input type="number" step="any" value="${row[2]}" onchange="updateCell(${rIdx}, 2, this.value)" />
+        <span>${v3} =</span>
+        <input type="number" step="any" value="${row[3]}" onchange="updateCell(${rIdx}, 3, this.value)" />
+      </div>
+    `).join("");
+  }
+
+  function updateCell(r, c, val) {
+    const parsed = parseFloat(val);
+    eqns[r][c] = isNaN(parsed) ? 0 : parsed;
+    solveSystem();
+  }
+
+  function handleSecondaryAction() {
+    if (scenarios[curKey].numEqns === 2) {
+      minItemQty = minItemQty === 1 ? 0 : 1;
+      solveSystem();
+    } else {
+      eqns[2] = [
+        eqns[0][0] + eqns[1][0],
+        eqns[0][1] + eqns[1][1],
+        eqns[0][2] + eqns[1][2],
+        eqns[0][3] + eqns[1][3] + 2
+      ];
+      renderEqnInputs();
+      solveSystem();
+    }
+  }
+
+  function solveUnderdetermined2x3(rows) {
+    const [r1, r2] = rows;
+    const det = r1[0] * r2[1] - r2[0] * r1[1];
+    if (Math.abs(det) < 1e-9) return null;
+
+    const xConst = (r1[3] * r2[1] - r2[3] * r1[1]) / det;
+    const xSlope = -(r1[2] * r2[1] - r2[2] * r1[1]) / det;
+
+    const yConst = (r1[0] * r2[3] - r2[0] * r1[3]) / det;
+    const ySlope = -(r1[0] * r2[2] - r2[0] * r1[2]) / det;
+
+    return { xConst, xSlope, yConst, ySlope };
+  }
+
+  function solveLinear3x3(rows) {
+    const M = rows.map(r => [...r]);
+    for (let col = 0; col < 3; col++) {
+      let pivot = col;
+      for (let r = col + 1; r < 3; r++) {
+        if (Math.abs(M[r][col]) > Math.abs(M[pivot][col])) pivot = r;
+      }
+      [M[col], M[pivot]] = [M[pivot], M[col]];
+      if (Math.abs(M[col][col]) < 1e-9) continue;
+
+      const div = M[col][col];
+      for (let j = col; j < 4; j++) M[col][j] /= div;
+      for (let r = 0; r < 3; r++) {
+        if (r !== col) {
+          const factor = M[r][col];
+          for (let j = col; j < 4; j++) M[r][j] -= factor * M[col][j];
+        }
+      }
+    }
+
+    for (let r = 0; r < 3; r++) {
+      const zeroLHS = Math.abs(M[r][0]) < 1e-7 && Math.abs(M[r][1]) < 1e-7 && Math.abs(M[r][2]) < 1e-7;
+      if (zeroLHS && Math.abs(M[r][3]) > 1e-7) return { status: "none", sol: null };
+    }
+    const zeroRows = M.filter(r => Math.abs(r[0]) < 1e-7 && Math.abs(r[1]) < 1e-7 && Math.abs(r[2]) < 1e-7 && Math.abs(r[3]) < 1e-7).length;
+    if (zeroRows > 0) return { status: "infinite", sol: null };
+
+    return { status: "unique", sol: [M[0][3], M[1][3], M[2][3]] };
+  }
+
+  function solveSystem() {
+    const sc = scenarios[curKey];
+    const [v1, v2, v3] = sc.vars;
+    const gcBox = document.getElementById("gcOutputBox");
+    const banner = document.getElementById("solutionBanner");
+    const table = document.getElementById("verificationTable");
+    const guideGrid = document.getElementById("gcGuideGrid");
+    const miscBox = document.getElementById("misconceptionBox");
+
+    if (sc.numEqns === 2) {
+      document.getElementById("rightPanelHeading").textContent =
+        `Discrete Integer Solutions (Domain: ${v1}, ${v2}, ${v3} ≥ ${minItemQty}, Integers)`;
+
+      const param = solveUnderdetermined2x3(eqns);
+      if (!param) {
+        gcBox.innerHTML = `<span class="box-title">TI-84 Plus CE Readout (Eqns = 2, Unknowns = 3)</span><div class="gc-readout" style="color:#be123c;">NO UNIQUE PARAMETRIC FORM (Parallel/Dependent Rows)</div>`;
+        banner.innerHTML = `Please ensure the two equations are independent.`;
+        return;
+      }
+
+      const { xConst, xSlope, yConst, ySlope } = param;
+      const xSign = xSlope >= 0 ? `+ ${fmt(xSlope)}` : `− ${fmt(Math.abs(xSlope))}`;
+      const ySign = ySlope >= 0 ? `+ ${fmt(ySlope)}` : `− ${fmt(Math.abs(ySlope))}`;
+
+      gcBox.innerHTML = `
+        <span class="box-title">TI-84 Plus CE Readout (Equations = 2, Unknowns = 3)</span>
+        <div class="gc-readout">
+          x₁ = ${fmt(xConst)} ${xSign}x₃ &nbsp;&nbsp;(i.e. ${v1} = ${fmt(xConst)} ${xSign}k)<br>
+          x₂ = ${fmt(yConst)} ${ySign}x₃ &nbsp;&nbsp;(i.e. ${v2} = ${fmt(yConst)} ${ySign}k)<br>
+          x₃ = x₃ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let ${v3} = k, k ∈ ℤ)
+        </div>
+      `;
+
+      let validCombos = [];
+      for (let k = minItemQty; k <= 200; k++) {
+        const xVal = xConst + xSlope * k;
+        const yVal = yConst + ySlope * k;
+        if (
+          xVal >= minItemQty - 1e-6 &&
+          yVal >= minItemQty - 1e-6 &&
+          Math.abs(xVal - Math.round(xVal)) < 1e-6 &&
+          Math.abs(yVal - Math.round(yVal)) < 1e-6
+        ) {
+          validCombos.push({ k, x: Math.round(xVal), y: Math.round(yVal), z: k });
+        }
+      }
+
+      banner.innerHTML = validCombos.length
+        ? `Contextual Conclusion (Min Qty ≥ ${minItemQty}): Found <strong>${validCombos.length} valid integer combination${validCombos.length > 1 ? "s" : ""}</strong>: ${validCombos.map(c => `(${c.x}, ${c.y}, ${c.z})`).join(", ")}.`
+        : `Contextual Conclusion: <strong>No integer combinations</strong> satisfy ${v1}, ${v2}, ${v3} ≥ ${minItemQty}.`;
+
+      table.innerHTML = `
+        <thead>
+          <tr>
+            <th>Parameter (z = k)</th>
+            <th>Notebooks (x)</th>
+            <th>Pens (y)</th>
+            <th>Folders (z)</th>
+            <th>Eqn 1 &amp; Eqn 2 Check</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${validCombos.length
+            ? validCombos.map(c => {
+                const lhs1 = eqns[0][0] * c.x + eqns[0][1] * c.y + eqns[0][2] * c.z;
+                const lhs2 = eqns[1][0] * c.x + eqns[1][1] * c.y + eqns[1][2] * c.z;
+                return `
+                  <tr>
+                    <td><strong>k = ${c.k}</strong></td>
+                    <td>${c.x}</td>
+                    <td>${c.y}</td>
+                    <td>${c.z}</td>
+                    <td style="color:#0f766e; font-weight:700;">✓ ${fmt(lhs1)} items, $${fmt(lhs2)}</td>
+                  </tr>
+                `;
+              }).join("")
+            : `<tr><td colspan="5">No valid integer combinations found for the current coefficients.</td></tr>`
+          }
+        </tbody>
+      `;
+
+      guideGrid.innerHTML = `
+        <div class="step-pill">
+          <strong>1. GC Setup (2 × 3)</strong><br>
+          In <strong>PlySmlt2</strong>, set <strong>Equations = 2, Unknowns = 3</strong>. The GC expresses <em>x₁, x₂</em> in terms of free parameter <em>x₃</em>.
+        </div>
+        <div class="step-pill">
+          <strong>2. Bound Parameter k</strong><br>
+          Let <em>z = k</em>. Apply domain inequalities (<em>x ≥ ${minItemQty}, y ≥ ${minItemQty}, z ≥ ${minItemQty}</em>) to find the upper and lower bounds of <em>k</em>.
+        </div>
+        <div class="step-pill">
+          <strong>3. Filter Integers &amp; Tabulate</strong><br>
+          Select values of <em>k</em> making <em>x, y</em> whole numbers (or check GC <strong>[TABLE]</strong>), then list all valid tuples clearly.
+        </div>
+      `;
+
+      miscBox.innerHTML = `
+        <strong>9758 Exam Presentation Rules for 2 Equations with 3 Unknowns:</strong>
+        <ul style="margin:3px 0 0 0; padding-left:18px;">
+          <li><strong>Never write "infinitely many solutions" in a discrete context:</strong> While the algebraic system has infinitely many real solutions, real-world constraints (<em>x, y, z ∈ ℤ⁺</em>) restrict the answer to a <strong>finite list of integer combinations</strong>.</li>
+          <li><strong>Replace GC symbols (x₁, x₂, x₃) with your defined variables:</strong> Always rewrite the GC output using your own variable names (e.g., <em>x, y, z</em>) and a parameter <em>k</em> before applying inequalities.</li>
+        </ul>
+      `;
+      return;
+    }
+
+    document.getElementById("rightPanelHeading").textContent = "Constraint Verification & TI-84 Plus CE Workflow";
+    const res = solveLinear3x3(eqns);
+
+    guideGrid.innerHTML = `
+      <div class="step-pill">
+        <strong>Step 1: Define Variables</strong><br>
+        State exact quantities and units (e.g., <em>"Let $x be the cost of 1 kg of..."</em>) before writing equations.
+      </div>
+      <div class="step-pill">
+        <strong>Step 2: GC Solver</strong><br>
+        Press <strong>[APPS] &rarr; PlySmlt2 &rarr; 2: Simultaneous Eqn Solver</strong>. Set <strong>Equations = 3, Unknowns = 3</strong>, and press <strong>[GRAPH]</strong>.
+      </div>
+      <div class="step-pill">
+        <strong>Step 3: Contextual Answer</strong><br>
+        Write a clear concluding sentence with units, and compute any follow-up combination requested.
+      </div>
+    `;
+
+    miscBox.innerHTML = `
+      <strong>9758 Exam Misconception Alert:</strong>
+      <ul style="margin:3px 0 0 0; padding-left:18px;">
+        <li><strong>Never leave variables undefined:</strong> Writing <em>5x + 3y + 2z = 34</em> without first defining what <em>x, y, z</em> represent (including units like <em>$</em>, <em>kg</em>, or <em>hours</em>) forfeits formulation marks.</li>
+        <li><strong>Rearrange equations to standard form <em>ax + by + cz = d</em> before keying into the GC:</strong> For instance, <em>"Equities equal the sum of Bonds and REITs"</em> (<em>y = x + z</em>) must be entered as <strong>−1x + 1y − 1z = 0</strong>.</li>
+      </ul>
+    `;
+
+    if (res.status === "unique") {
+      const [s1, s2, s3] = res.sol;
+      gcBox.innerHTML = `
+        <span class="box-title">TI-84 Plus CE Simultaneous Eqn Solver Readout</span>
+        <div class="gc-readout">
+          ${v1} = ${fmt(s1)} &nbsp;|&nbsp; ${v2} = ${fmt(s2)} &nbsp;|&nbsp; ${v3} = ${fmt(s3)}
+        </div>
+      `;
+      banner.innerHTML = `Contextual Conclusion: ${sc.interpret(res.sol)}`;
+
+      table.innerHTML = `
+        <thead>
+          <tr>
+            <th>Constraint</th>
+            <th>Equation</th>
+            <th>LHS Check</th>
+            <th>RHS</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${eqns.map((r, idx) => {
+            const lhsVal = r[0] * s1 + r[1] * s2 + r[2] * s3;
+            const ok = Math.abs(lhsVal - r[3]) < 1e-5;
+            return `
+              <tr>
+                <td><strong>${sc.labels[idx]}</strong></td>
+                <td>${fmt(r[0])}${v1} + ${fmt(r[1])}${v2} + ${fmt(r[2])}${v3} = ${fmt(r[3])}</td>
+                <td>${fmt(lhsVal)}</td>
+                <td>${fmt(r[3])}</td>
+                <td style="color:${ok ? "#0f766e" : "#e11d48"}; font-weight:700;">${ok ? "✓ Verified" : "✗ Mismatch"}</td>
+              </tr>
+            `;
+          }).join("")}
+        </tbody>
+      `;
+    } else if (res.status === "none") {
+      gcBox.innerHTML = `
+        <span class="box-title">TI-84 Plus CE Simultaneous Eqn Solver Readout</span>
+        <div class="gc-readout" style="color:#be123c;">
+          NO SOLUTION FOUND (Inconsistent System)
+        </div>
+      `;
+      banner.innerHTML = `Contextual Conclusion: <strong>No solution exists</strong> — the equations contradict one another.`;
+      table.innerHTML = `
+        <thead><tr><th>Constraint</th><th>Equation</th><th>Observation</th></tr></thead>
+        <tbody>
+          ${eqns.map((r, idx) => `
+            <tr>
+              <td><strong>${sc.labels[idx]}</strong></td>
+              <td>${fmt(r[0])}${v1} + ${fmt(r[1])}${v2} + ${fmt(r[2])}${v3} = ${fmt(r[3])}</td>
+              <td>Cannot be satisfied simultaneously</td>
+            </tr>
+          `).join("")}
+        </tbody>
+      `;
+    } else {
+      gcBox.innerHTML = `
+        <span class="box-title">TI-84 Plus CE Simultaneous Eqn Solver Readout</span>
+        <div class="gc-readout" style="color:#b45309;">
+          INFINITELY MANY SOLUTIONS (Dependent Equations)
+        </div>
+      `;
+      banner.innerHTML = `Contextual Conclusion: <strong>Infinitely many solutions</strong> — one equation is a linear combination of the others.`;
+      table.innerHTML = `
+        <thead><tr><th>Constraint</th><th>Equation</th><th>Observation</th></tr></thead>
+        <tbody>
+          ${eqns.map((r, idx) => `
+            <tr>
+              <td><strong>${sc.labels[idx]}</strong></td>
+              <td>${fmt(r[0])}${v1} + ${fmt(r[1])}${v2} + ${fmt(r[2])}${v3} = ${fmt(r[3])}</td>
+              <td>Consistent but underdetermined</td>
+            </tr>
+          `).join("")}
+        </tbody>
+      `;
+    }
+  }
+
+  const examQs = [
+    {
+      q: "A GC solver for 2 equations in 3 unknowns gives x = (31 − 2k)/3 and y = (14 − k)/3, where x, y, k are positive integers. Which values of k yield valid integer solutions?",
+      opts: [
+        "k = 2, 5, 8, 11",
+        "k = 1, 4, 7, 10, 13",
+        "All integers from k = 1 to k = 14",
+        "k = 2, 8, 14"
+      ],
+      ans: 0,
+      exp: "For y = (14 − k)/3 ≥ 1, we need 14 − k ≥ 3 ⇒ k ≤ 11 and 14 − k divisible by 3, which gives k = 2, 5, 8, 11 (each also makes 31 − 2k divisible by 3 and x ≥ 1)."
+    },
+    {
+      q: "A cubic curve y = ax³ + bx² + cx + 2 passes through (1, 5), (−1, 3), and (2, 16). Which system correctly determines a, b, and c?",
+      opts: [
+        "a + b + c = 3, −a + b − c = 1, 8a + 4b + 2c = 14",
+        "a + b + c = 5, −a + b − c = 3, 8a + 4b + 2c = 16",
+        "a + b + c = 3, a + b + c = 1, 4a + 2b + c = 14",
+        "3a + 2b + c = 3, −3a + 2b − c = 1, 12a + 4b + c = 14"
+      ],
+      ans: 0,
+      exp: "Subtract 2 from each y-coordinate: at x = 1, a + b + c = 3; at x = −1, −a + b − c = 1; at x = 2, 8a + 4b + 2c = 14."
+    },
+    {
+      q: "When solving a 2-equation, 3-unknown word problem using a GC in a 9758 exam, how should you present the final answer?",
+      opts: [
+        "Copy x₁, x₂, x₃ directly from the GC screen and stop",
+        "Rewrite using defined variables with parameter k, bound k using real-world inequalities, filter for integers, and list all valid combinations",
+        "Conclude that there are infinitely many solutions",
+        "Invent a third equation so the system becomes 3 × 3"
+      ],
+      ans: 1,
+      exp: "You must translate the GC parametric output into your defined variables, apply context inequalities (e.g., x, y, z ≥ 1) to bound k, select integer values, and state all valid combinations."
+    }
+  ];
+
+  let curQ = 0;
+
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").textContent = item.q;
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i}, this)">${String.fromCharCode(65 + i)}. ${o}</button>
+    `).join("");
+  }
+
+  function gradeExamQ(idx, btn) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  loadScenario("stationery");
+  renderExamQ();
+</script>
+
+</body>
+</html>
