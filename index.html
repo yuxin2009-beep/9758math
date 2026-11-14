@@ -483,11 +483,13 @@
       <span class="status-pill">4 Lessons</span>
     </button>
 
-    <div class="nav-group">More Pure &amp; Statistics</div>
+    <div class="nav-group">Topic 4: Complex Numbers</div>
     <button class="topic-btn" id="nav_4.1" onclick="selectTopic('4.1')">
       <span>4.1 Complex Numbers</span>
-      <span class="status-pill soon">Planned</span>
+      <span class="status-pill">4 Lessons</span>
     </button>
+
+    <div class="nav-group">More Pure &amp; Statistics</div>
     <button class="topic-btn" id="nav_5.1" onclick="selectTopic('5.1')">
       <span>5.1–5.4 Calculus</span>
       <span class="status-pill soon">Planned</span>
@@ -1440,6 +1442,150 @@
             exitAnswer: "Divide the second equation by 2 to get x + 2y − 2z = −6. Distance = |3 − (−6)| / √(1 + 4 + 4) = 9 / 3 = <strong>3 units</strong>."
           }
         ]
+      },
+
+      "4.1": {
+        title: "4.1 Complex Numbers",
+        syllabusNotes: "Complex numbers expressed in Cartesian form and Argand diagrams; extension of the number system from real numbers to complex numbers; complex roots of quadratic equations; modulus, argument and conjugate of a complex number; four operations of complex numbers; equality of complex numbers; conjugate roots of a polynomial equation with real coefficients; representation of complex numbers in the Argand diagram; geometrical effects of conjugation, negation, addition, subtraction, and multiplication by i. (Excludes polar/modulus-argument form, exponential form, and De Moivre's theorem.)",
+        lessons: [
+          {
+            label: "Lesson 1: Cartesian Form, Four Operations & Equality",
+            file: "interactives/4_1_lesson1.html",
+            videoEmbedUrl: "",
+            prereq: "Surd rationalisation, quadratic discriminant (b² − 4ac < 0), and equating coefficients.",
+            objectives: [
+              "Understand the extension from ℝ to ℂ via i² = −1, identifying Re(z) = x and Im(z) = y for z = x + yi (x, y ∈ ℝ).",
+              "Perform addition, subtraction, multiplication (using powers i² = −1, i³ = −i, i⁴ = 1), and division (realising the denominator via complex conjugate z* = x − yi).",
+              "Apply equality of complex numbers (a + bi = c + di ⇔ a = c and b = d for real a, b, c, d) to solve equations and find square roots of complex numbers."
+            ],
+            prompts: [
+              "Cycle through powers of iⁿ modulo 4 and step through (a + bi) ÷ (c + di) to watch conjugate multiplication turn the denominator into a real number c² + d².",
+              "Use the Equality & Square Root Solver to solve z² = a + bi by setting z = x + yi and matching real and imaginary parts."
+            ],
+            pitfalls: [
+              "Including i in the imaginary part (e.g., writing Im(3 − 4i) = −4i instead of −4).",
+              "Equating real and imaginary parts when variables inside a, b, c, d are complex rather than strictly real."
+            ],
+            gcTip: "Switch [MODE] to a+bi and press [2nd] [.] for i on your TI-84 Plus CE to verify complex arithmetic, division, and conjugates directly.",
+            workedQuestion: `
+              <strong>(i)</strong> Express <em>(5 + i) / (2 − 3i)</em> in the Cartesian form <em>a + bi</em>, where <em>a, b ∈ ℝ</em>. [2]<br>
+              <strong>(ii)</strong> Find the two square roots of <em>3 − 4i</em> in the form <em>x + yi</em>, where <em>x, y ∈ ℝ</em>. [4]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> Multiply numerator and denominator by the conjugate <em>2 + 3i</em>:<br>
+              <em>[(5 + i)(2 + 3i)] / [(2 − 3i)(2 + 3i)] = (10 + 15i + 2i + 3i²) / (2² + 3²) = (7 + 17i) / 13 =</em> <strong>7/13 + (17/13)i</strong>.<br><br>
+              <strong>(ii)</strong> Let <em>(x + yi)² = 3 − 4i</em>, where <em>x, y ∈ ℝ</em>:<br>
+              <em>(x² − y²) + 2xy i = 3 − 4i</em>.<br>
+              Equating real and imaginary parts: <em>x² − y² = 3</em> and <em>2xy = −4 ⇒ y = −2/x</em>.<br>
+              Substituting gives <em>x² − 4/x² = 3 ⇒ x⁴ − 3x² − 4 = 0 ⇒ (x² − 4)(x² + 1) = 0</em>.<br>
+              Since <em>x ∈ ℝ</em>, <em>x² = 4 ⇒ x = ±2</em>, giving <em>y = ∓1</em>. Hence the square roots are <strong>2 − i</strong> and <strong>−2 + i</strong>.
+            `,
+            exitQuestion: "Given that (2 + i)z + 3z* = 10 + 3i, find the complex number z in the form x + yi.",
+            exitAnswer: "Let z = x + yi: (2 + i)(x + yi) + 3(x − yi) = (5x − y) + (x − 2y)i = 10 + 3i. Solving 5x − y = 10 and x − 2y = 3 gives x = 17/9, y = −5/9, so <strong>z = 17/9 − (5/9)i</strong>."
+          },
+          {
+            label: "Lesson 2: Complex Roots of Quadratic & Polynomial Equations",
+            file: "interactives/4_1_lesson2.html",
+            videoEmbedUrl: "",
+            prereq: "Quadratic formula, polynomial long division, and Factor Theorem.",
+            objectives: [
+              "Solve quadratic equations with real or complex coefficients using completing the square or the quadratic formula.",
+              "Apply the Conjugate Root Theorem: if P(z) = 0 is a polynomial equation with real coefficients, then non-real roots occur in conjugate pairs (w is a root ⇔ w* is a root).",
+              "Factorise higher-degree polynomials (cubics and quartics) by forming a real quadratic factor (z − w)(z − w*) = z² − 2Re(w)z + |w|² and finding remaining roots."
+            ],
+            prompts: [
+              "Compare a polynomial with real coefficients (showing symmetric conjugate root pairs across the real axis) against one with complex coefficients (where conjugate symmetry breaks).",
+              "Input a complex root w = a + bi into the Polynomial Factoriser to generate the real quadratic factor z² − 2az + (a² + b²) and inspect the remaining roots."
+            ],
+            pitfalls: [
+              "Assuming complex roots come in conjugate pairs when the polynomial has non-real (complex) coefficients (e.g., z² + iz + 2 = 0).",
+              "Expanding (z − (2 + 3i))(z − (2 − 3i)) with sign errors instead of writing (z − 2)² + 3² = z² − 4z + 13."
+            ],
+            gcTip: "In a+bi mode, press [APPS] > [PlySmlt2] > [1: Poly Root Finder] to verify all real and complex roots of polynomials.",
+            workedQuestion: `
+              The polynomial <em>P(z) = z³ − 5z² + 17z − 13</em> has real coefficients. Given that <em>z = 2 + 3i</em> is a root of <em>P(z) = 0</em>, find all the roots of <em>P(z) = 0</em>. [4]
+            `,
+            workedSolution: `
+              Since <em>P(z)</em> has <strong>real coefficients</strong>, non-real roots occur in conjugate pairs, so <strong>z = 2 − 3i</strong> is also a root.<br>
+              Forming the real quadratic factor:<br>
+              <em>[z − (2 + 3i)][z − (2 − 3i)] = (z − 2)² − (3i)² = z² − 4z + 13</em>.<br>
+              By polynomial division (or comparing coefficients):<br>
+              <em>z³ − 5z² + 17z − 13 = (z² − 4z + 13)(z − 1) = 0</em>.<br>
+              Hence the three roots are <strong>z = 1, 2 + 3i, 2 − 3i</strong>.
+            `,
+            exitQuestion: "Why is 1 − 2i NOT a root of z² − (2 + 2i)z + (−1 + 2i) = 0 even though 1 + 2i is a root?",
+            exitAnswer: "Because the polynomial does <strong>not have real coefficients</strong>, so the Conjugate Root Theorem does not apply."
+          },
+          {
+            label: "Lesson 3: Argand Diagrams, Modulus & Principal Argument",
+            file: "interactives/4_1_lesson3.html",
+            videoEmbedUrl: "",
+            prereq: "2D Cartesian coordinates, Pythagoras' theorem, and CAST quadrant trigonometry in radians.",
+            objectives: [
+              "Represent z = x + yi as point P(x, y) or position vector OP on an Argand diagram.",
+              "Calculate modulus |z| = √(x² + y²) and principal argument arg(z) ∈ (−π, π] across all four quadrants and on the axes.",
+              "Apply key modulus and conjugate properties: |z*| = |z|, arg(z*) = −arg(z) (for z ∉ ℝ⁻), zz* = |z|², |z₁z₂| = |z₁||z₂|, and |z₁/z₂| = |z₁|/|z₂|."
+            ],
+            prompts: [
+              "Drag point z = x + yi across Quadrants I–IV and along the negative real axis to watch principal argument θ ∈ (−π, π] update dynamically (noting the jump from +π to −π).",
+              "Compare the acute reference angle α = tan⁻¹(|y/x|) against the quadrant rule (α, π − α, −π + α, −α)."
+            ],
+            pitfalls: [
+              "Writing arg(−1 − i) = tan⁻¹(−1/−1) = π/4 instead of −3π/4 (ignoring the quadrant), or giving an angle outside (−π, π] such as 5π/4.",
+              "Writing |3 + 4i| = √(3² + (4i)²) = √(−7) instead of √(3² + 4²) = 5."
+            ],
+            gcTip: "Press [MATH] > [CPX] on the TI-84 Plus CE to access abs( and angle( (in Radian mode) to verify modulus and principal argument.",
+            workedQuestion: `
+              Given <em>z₁ = −1 + √3 i</em> and <em>z₂ = 2 − 2i</em>:<br>
+              <strong>(i)</strong> Find the exact modulus and principal argument of <em>z₁</em> and <em>z₂</em>. [4]<br>
+              <strong>(ii)</strong> Sketch <em>z₁</em>, <em>z₂</em>, and <em>z₁*</em> on a single Argand diagram. [2]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> For <em>z₁ = −1 + √3 i</em> (Quadrant II):<br>
+              <em>|z₁| = √((−1)² + (√3)²) =</em> <strong>2</strong>; reference angle <em>α = tan⁻¹(√3 / 1) = π/3</em>, so <em>arg(z₁) = π − π/3 =</em> <strong>2π/3</strong>.<br>
+              For <em>z₂ = 2 − 2i</em> (Quadrant IV):<br>
+              <em>|z₂| = √(2² + (−2)²) =</em> <strong>2√2</strong>; reference angle <em>α = tan⁻¹(2/2) = π/4</em>, so <em>arg(z₂) =</em> <strong>−π/4</strong>.<br><br>
+              <strong>(ii)</strong> On the Argand diagram, <em>z₁</em> lies at <em>(−1, √3)</em>, its conjugate <em>z₁* = −1 − √3 i</em> lies symmetrically below the real axis at <em>(−1, −√3)</em>, and <em>z₂</em> lies at <em>(2, −2)</em>.
+            `,
+            exitQuestion: "Find the exact modulus and principal argument of w = −5 − 5i.",
+            exitAnswer: "|w| = √((−5)² + (−5)²) = <strong>5√2</strong>; since w is in Quadrant III, arg(w) = −π + π/4 = <strong>−3π/4</strong>."
+          },
+          {
+            label: "Lesson 4: Geometrical Effects on the Argand Diagram",
+            file: "interactives/4_1_lesson4.html",
+            videoEmbedUrl: "",
+            prereq: "Vector addition/subtraction (parallelogram/triangle law), reflections, and 90° rotations about the origin.",
+            objectives: [
+              "Interpret geometric transformations on the Argand diagram: conjugation z* (reflection in real axis), negation −z (180° rotation about O), addition z₁ + z₂ (vector parallelogram), and subtraction z₁ − z₂ (displacement vector from z₂ to z₁, with |z₁ − z₂| as distance).",
+              "Interpret multiplication by i (iz) and −i (−iz) as anticlockwise and clockwise rotations by π/2 (90°) about the origin O respectively.",
+              "Solve geometric problems on the Argand diagram involving squares, rectangles, and right-angled isosceles triangles."
+            ],
+            prompts: [
+              "Drag complex number z in the Transformation Playground and toggle overlays for z*, −z, iz, and −iz to observe reflections and 90° rotation arcs about O.",
+              "Use the Geometric Polygon Builder to construct a square or right-angled isosceles triangle by rotating side vector (z₂ − z₁) by ±i."
+            ],
+            pitfalls: [
+              "Confusing the direction of z₁ − z₂: the vector points from z₂ to z₁ (head minus tail), not from z₁ to z₂.",
+              "Rotating the position vector z₂ instead of the side vector (z₂ − z₁) by i when finding an adjacent vertex of a square centred away from the origin."
+            ],
+            gcTip: "Store two vertices in Z1 and Z2 and evaluate i*(Z2 − Z1) + Z1 on your GC home screen to verify rotated vertices.",
+            workedQuestion: `
+              In an Argand diagram, points <em>A</em> and <em>B</em> represent the complex numbers <em>z₁ = 3 + i</em> and <em>z₂ = 5 + 4i</em> respectively.<br>
+              <strong>(i)</strong> Find the exact distance <em>AB</em>. [2]<br>
+              <strong>(ii)</strong> Given that <em>ABCD</em> is a square with vertices labelled in an anticlockwise order, find the complex numbers represented by vertices <em>C</em> and <em>D</em>. [4]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> <em>AB = |z₂ − z₁| = |(5 + 4i) − (3 + i)| = |2 + 3i| = √(2² + 3²) =</em> <strong>√13</strong>.<br><br>
+              <strong>(ii)</strong> The side vector <em>AB</em> is represented by <em>z₂ − z₁ = 2 + 3i</em>.<br>
+              Rotating <em>AB</em> anticlockwise by <em>90°</em> gives side vector <em>AD</em>:<br>
+              <em>z_D − z₁ = i(z₂ − z₁) = i(2 + 3i) = −3 + 2i</em>.<br>
+              Hence <em>z_D = (3 + i) + (−3 + 2i) =</em> <strong>3i</strong> (vertex <em>D</em> is <em>(0, 3)</em>).<br>
+              Similarly, <em>z_C = z₂ + (z_D − z₁) = (5 + 4i) + (−3 + 2i) =</em> <strong>2 + 6i</strong> (vertex <em>C</em> is <em>(2, 6)</em>).
+            `,
+            exitQuestion: "Describe the single geometrical transformation that maps the point representing z to the point representing −iz on an Argand diagram.",
+            exitAnswer: "A <strong>clockwise rotation of π/2 radians (90°) about the origin O</strong>."
+          }
+        ]
       }
     };
 
@@ -1474,7 +1620,7 @@
         main.innerHTML = `
           <div class="placeholder-banner">
             <h2 style="color:#1e293b; margin-top:0;">Topic ${currentTopic} Module Coming Soon</h2>
-            <p>Select <strong>1.1 Functions</strong>, <strong>1.2 Graphs &amp; Transformations</strong>, <strong>1.3 Equations &amp; Inequalities</strong>, <strong>2.1 Sequences &amp; Series</strong>, or any module under <strong>Topic 3: Vectors (3.1, 3.2, 3.3)</strong> from the sidebar to launch the interactive lessons.</p>
+            <p>Select <strong>1.1 Functions</strong>, <strong>1.2 Graphs &amp; Transformations</strong>, <strong>1.3 Equations &amp; Inequalities</strong>, <strong>2.1 Sequences &amp; Series</strong>, any module under <strong>Topic 3: Vectors (3.1, 3.2, 3.3)</strong>, or <strong>4.1 Complex Numbers</strong> from the sidebar to launch the interactive lessons.</p>
           </div>
         `;
         return;
