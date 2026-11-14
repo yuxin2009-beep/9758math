@@ -2278,6 +2278,108 @@
           }
         ]
       },
+      "6.5": {
+        title: "6.5 Hypothesis Testing",
+        syllabusNotes: "Concepts of null hypothesis (H₀) and alternative hypothesis (H₁), test statistic, critical region, critical value, level of significance, and p-value; formulation of hypotheses and testing for a population mean based on a sample from a normal population of known variance or a large sample from any population; 1-tail and 2-tail tests; interpretation of results in the context of the problem. (Excludes 'Type I error', Type II error, and two-sample tests.)",
+        lessons: [
+          {
+            label: "Lesson 1: Logic of Hypothesis Testing, H₀ vs H₁ & Critical Regions",
+            file: "interactives/6_5_lesson1.html",
+            videoEmbedUrl: "https://www.youtube.com/embed/0oc49DyA3hU",
+            prereq: "Sample mean distribution X̄ ~ N(μ, σ²/n) and standard normal probabilities.",
+            objectives: [
+              "Define the population mean μ clearly in context and formulate H₀ : μ = μ₀ against 1-tail (μ < μ₀ or μ > μ₀) or 2-tail (μ ≠ μ₀) alternative hypotheses.",
+              "Interpret the significance level α (e.g. 5%) as the probability of wrongly rejecting H₀ when H₀ is true (without using the excluded term 'Type I error').",
+              "Identify critical values and critical (rejection) regions on Z ~ N(0, 1) for 1-tail and 2-tail tests."
+            ],
+            prompts: [
+              "In Tab 1, translate Singapore consumer and transport claims into formal hypotheses H₀ and H₁.",
+              "In Tab 2, adjust significance level α between 1%, 5%, and 10% and switch between 1-tail and 2-tail tests to watch the critical values ±z_crit shift."
+            ],
+            pitfalls: [
+              "Writing hypotheses using the sample mean x̄ instead of the population mean μ (e.g. never write H₀ : x̄ = 500).",
+              "Using the excluded term 'Type I error' in 9758 exams—always describe α in words as the probability of rejecting H₀ when H₀ is true."
+            ],
+            gcTip: "Use invNorm(α, 0, 1) for a left-tail critical value, invNorm(1 − α, 0, 1) for a right-tail critical value, and invNorm(1 − α/2, 0, 1) for a 2-tail critical value.",
+            workedQuestion: "A bubble tea chain claims that its regular cups contain an average of 500 ml of drink, with standard deviation 12 ml. A consumer watchdog suspects the chain is underfilling its cups and tests a random sample of 36 cups at the 5% level of significance. State suitable hypotheses and find the critical region in terms of Z.",
+            workedSolution: "Let <em>μ</em> be the population mean volume of drink (in ml) in a regular cup.<br><strong>H₀ : μ = 500</strong> &nbsp;vs.&nbsp; <strong>H₁ : μ &lt; 500</strong> (1-tail test at 5% significance level).<br>Under <em>H₀</em>, <em>Z = (X̄ − 500) / (12/√36) ~ N(0, 1)</em>. Since <em>invNorm(0.05, 0, 1) = −1.6449</em>, the critical region is <strong>Z &lt; −1.64</strong> (to 3 s.f.).",
+            exitQuestion: "Why does the null hypothesis H₀ always contain an equality sign (=)?",
+            exitAnswer: "Because we need a fixed benchmark value <strong>μ = μ₀</strong> in order to specify the exact sampling distribution of the test statistic under H₀."
+          },
+          {
+            label: "Lesson 2: 1-Tail & 2-Tail z-Tests (Normal Population, Known σ²)",
+            file: "interactives/6_5_lesson2.html",
+            videoEmbedUrl: "https://www.youtube.com/embed/vemZtEM63GY",
+            prereq: "Formulating H₀ and H₁, standardising Z = (X̄ − μ₀)/(σ/√n), and finding normal tail areas.",
+            objectives: [
+              "Perform full 1-tail and 2-tail z-tests when the parent population is Normal with known variance σ².",
+              "Compare the Critical Value Method (comparing z_calc against z_crit) with the p-Value Method (rejecting H₀ when p-value ≤ α).",
+              "Write complete, examiner-approved conclusions in the context of the problem."
+            ],
+            prompts: [
+              "In Tab 1, test PUB NEWater filling and SMRT headway samples and verify that the Critical Value Method and p-Value Method always yield identical decisions.",
+              "In Tab 2, practice reading TI-84 Plus CE [STAT] > [TESTS] > [1: Z-Test] outputs."
+            ],
+            pitfalls: [
+              "Forgetting to double the tail area when calculating the p-value by hand for a 2-tail test (p-value = 2 × P(Z ≥ |z_calc|)).",
+              "Writing 'Accept H₀' or 'H₁ is proven' instead of 'There is insufficient/sufficient evidence at the α% level of significance to conclude that...'."
+            ],
+            gcTip: "On the TI-84 Plus CE, press [STAT] > [TESTS] > [1: Z-Test], choose Stats, enter μ₀, σ, x̄, n, select the matching H₁ sign (≠, <, >), and press Calculate.",
+            workedQuestion: "Morning peak headways on an MRT line follow a Normal distribution with standard deviation 0.8 min. After a signalling upgrade, a random sample of 16 peak trains has a mean headway of 2.65 min. Test, at the 5% level of significance, whether the mean peak headway differs from 3.0 min.",
+            workedSolution: "Let <em>μ</em> be the population mean peak headway (in min).<br><strong>H₀ : μ = 3.0</strong> &nbsp;vs.&nbsp; <strong>H₁ : μ ≠ 3.0</strong> (2-tail test, <em>α = 0.05</em>).<br>Under <em>H₀</em>, <em>X̄ ~ N(3.0, 0.8²/16)</em>, so <em>z_calc = (2.65 − 3.0) / (0.8/4) = −1.75</em>.<br><strong>p-value</strong> = <em>2 × P(Z ≤ −1.75) = 0.0801 &gt; 0.05</em> (or <em>|z_calc| = 1.75 &lt; 1.960</em>).<br>Since <em>p-value &gt; 0.05</em>, we do not reject <em>H₀</em>. There is <strong>insufficient evidence at the 5% level of significance</strong> to conclude that the mean peak headway differs from 3.0 min.",
+            exitQuestion: "If a 2-tail z-test yields z_calc = 2.15, what is the p-value and the decision at the 5% significance level?",
+            exitAnswer: "p-value = 2 × P(Z ≥ 2.15) = <strong>0.0316</strong>. Since 0.0316 ≤ 0.05, <strong>reject H₀</strong>."
+          },
+          {
+            label: "Lesson 3: Large-Sample z-Tests via CLT & Unknown Variance (s²)",
+            file: "interactives/6_5_lesson3.html",
+            videoEmbedUrl: "https://www.youtube.com/embed/zeJD6dqJ5lo",
+            prereq: "Central Limit Theorem (Lesson 6.4.3) and unbiased variance estimate s² (Lesson 6.4.4).",
+            objectives: [
+              "Compute unbiased sample variance s² from raw or coded data Σ(x − a) and Σ(x − a)² when population variance σ² is unknown.",
+              "Justify using Z = (X̄ − μ₀)/(s/√n) ~ N(0, 1) approximately via the Central Limit Theorem for large samples (n ≥ 30).",
+              "Execute complete large-sample hypothesis tests in real-world Singapore contexts."
+            ],
+            prompts: [
+              "In Tab 1, input SP Group electricity or GrabFood coded summaries to watch s² feed into the approximate CLT test statistic.",
+              "In Tab 2, assemble the mandatory 9758 justification sentence and check for missing keywords."
+            ],
+            pitfalls: [
+              "Using biased sample variance (dividing by n instead of n − 1) when estimating σ².",
+              "Omitting the word 'approximately' when invoking the Central Limit Theorem for X̄ ~ N(μ₀, s²/n)."
+            ],
+            gcTip: "When running [1: Z-Test] on the TI-84 with unknown σ, enter the unbiased sample standard deviation s = √s² (i.e. Sx from 1-Var Stats, NOT σx!).",
+            workedQuestion: "A food delivery platform claims an average delivery time of 32 min. A random sample of 50 orders gives x̄ = 33.4 min and unbiased sample variance s² = 20.25 min². Test, at the 2% level of significance, whether the mean delivery time exceeds 32 min.",
+            workedSolution: "Let <em>μ</em> be the population mean delivery time (in min).<br><strong>H₀ : μ = 32</strong> &nbsp;vs.&nbsp; <strong>H₁ : μ &gt; 32</strong> (1-tail test, <em>α = 0.02</em>).<br>Since <em>n = 50 ≥ 30</em> is sufficiently large, by the <strong>Central Limit Theorem</strong>, under <em>H₀</em>, <em>X̄ ~ N(32, 20.25/50)</em> <strong>approximately</strong>.<br><em>z_calc = (33.4 − 32) / √(20.25/50) = 2.200</em>; <strong>p-value</strong> = <em>P(Z ≥ 2.200) = 0.0139 ≤ 0.02</em>.<br>Reject <em>H₀</em>. There is <strong>sufficient evidence at the 2% level of significance</strong> to conclude that the mean delivery time exceeds 32 min.",
+            exitQuestion: "Why is the Central Limit Theorem needed in this GrabFood problem even if σ² were known?",
+            exitAnswer: "Because delivery times are <strong>not stated to follow a Normal distribution</strong>, so n ≥ 30 and CLT are needed for X̄ to be approximately Normal."
+          },
+          {
+            label: "Lesson 4: Inverse Hypothesis Testing (Critical Region in X̄ & Range of μ₀)",
+            file: "interactives/6_5_lesson4.html",
+            videoEmbedUrl: "https://www.youtube.com/embed/12K2324S6h0",
+            prereq: "Solving algebraic inequalities involving |z| ≤ z_crit and standardising X̄.",
+            objectives: [
+              "Find the critical region in terms of the sample mean X̄ (e.g. X̄ ≤ c₁ or X̄ ≥ c₂) for a given significance level α.",
+              "Determine the range of values of claimed population mean μ₀ for which H₀ is rejected (or not rejected) given an observed sample mean x̄.",
+              "Solve algebraic inverse hypothesis testing questions without a graphing calculator."
+            ],
+            prompts: [
+              "In Tab 1, vary μ₀, σ, n, and α to see the critical region mapped directly onto the X̄ number line.",
+              "In Tab 2, drag the observed sample mean x̄ and inspect the interval of claimed μ₀ values that survive a 1-tail or 2-tail test."
+            ],
+            pitfalls: [
+              "Reversing inequality signs improperly when solving (x̄ − μ₀)/(σ/√n) ≤ −z_crit for μ₀ (remember multiplying by −1 flips the inequality!).",
+              "Forgetting that a 2-tail test produces TWO critical boundaries for X̄ (or a bounded interval for μ₀)."
+            ],
+            gcTip: "Once you solve for the boundary value of μ₀ algebraically, plug that μ₀ back into [1: Z-Test] on your GC to confirm the p-value equals α!",
+            workedQuestion: "Check-in bags on a regional flight have masses following N(μ, 3²). A random sample of 9 bags has mean mass 24.2 kg. Find the set of values of μ₀ for which H₀ : μ = μ₀ would NOT be rejected against H₁ : μ ≠ μ₀ at the 5% level of significance.",
+            workedSolution: "Under <em>H₀ : μ = μ₀</em>, <em>X̄ ~ N(μ₀, 3²/9) = N(μ₀, 1)</em>. At <em>α = 0.05</em> (2-tail), <em>H₀</em> is not rejected when <em>|z_calc| &lt; 1.960</em>:<br><em>−1.960 &lt; (24.2 − μ₀) / 1 &lt; 1.960</em><br><em>24.2 − 1.960 &lt; μ₀ &lt; 24.2 + 1.960</em> ⇒ <strong>22.24 &lt; μ₀ &lt; 26.16</strong> (or <em>22.2 &lt; μ₀ &lt; 26.2</em> to 3 s.f.).",
+            exitQuestion: "If H₀ : μ = 100 is tested against H₁ : μ > 100 at α = 5% with σ = 10 and n = 25, find the critical region in terms of X̄.",
+            exitAnswer: "(X̄ − 100) / (10/√25) > 1.6449 ⇒ X̄ − 100 > 3.29 ⇒ <strong>X̄ > 103.3</strong> (to 4 s.f.)."
+          }
+        ]
+      },
     };
 
     let currentTopic = "1.1";
