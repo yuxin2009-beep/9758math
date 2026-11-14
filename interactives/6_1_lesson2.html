@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 6.1 Lesson 2: Constrained Arrangements (Lines, Circles &amp; Repetition)</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 530px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1000px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.76rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.48;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.74rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .control-panel {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 13px;
+      margin-bottom: 11px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .rule-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .rule-btn {
+      padding: 7px 6px;
+      border-radius: 8px;
+      border: 1.5px solid #cbd5e1;
+      background: #f8fafc;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: var(--text);
+      cursor: pointer;
+      text-align: center;
+      transition: 0.15s;
+    }
+
+    .rule-btn.active {
+      background: var(--purple-bg);
+      border-color: var(--purple-dark);
+      color: #4c1d95;
+    }
+
+    .slider-row {
+      display: grid;
+      grid-template-columns: 145px 1fr 44px;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 7px;
+      font-size: 0.79rem;
+      font-weight: 700;
+    }
+
+    .slider-row input[type="range"] {
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .val-badge {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      text-align: center;
+      padding: 2px 4px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .word-chip-bar {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .word-btn {
+      padding: 5px 10px;
+      border-radius: 7px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-size: 0.75rem;
+      font-weight: 800;
+      cursor: pointer;
+      color: #1e293b;
+    }
+
+    .word-btn.active {
+      background: var(--blue-bg);
+      border-color: var(--blue);
+      color: #0c4a6e;
+    }
+
+    .toggle-row {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: none;
+      background: var(--purple-dark);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.77rem;
+      cursor: pointer;
+    }
+
+    .action-btn.secondary {
+      background: var(--blue-bg);
+      color: var(--blue);
+      border: 1px solid #bae6fd;
+    }
+
+    .gc-screen-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin-bottom: 11px;
+    }
+
+    .box-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .gc-readout {
+      background: #f1f5f9;
+      border: 2px solid #64748b;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.81rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 5px;
+      line-height: 1.48;
+    }
+
+    .solution-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.81rem;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    /* RIGHT VISUAL STAGE */
+    .visual-stage {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+    }
+
+    .canvas-box {
+      background: #ffffff;
+      border: 1px dashed #94a3b8;
+      border-radius: 10px;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 255px;
+    }
+
+    .tile-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 7px;
+      padding: 16px 8px;
+    }
+
+    .letter-tile {
+      width: 44px;
+      height: 52px;
+      border-radius: 9px;
+      border: 2px solid #cbd5e1;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 1.05rem;
+      color: #1e293b;
+      box-shadow: 0 2px 5px rgba(15, 23, 42, 0.06);
+    }
+
+    .letter-tile.dup-1 {
+      background: var(--rose-bg);
+      border-color: var(--rose);
+      color: #881337;
+    }
+
+    .letter-tile.dup-2 {
+      background: var(--blue-bg);
+      border-color: var(--blue);
+      color: #0c4a6e;
+    }
+
+    .letter-tile.dup-3 {
+      background: var(--amber-bg);
+      border-color: var(--amber);
+      color: #78350f;
+    }
+
+    .letter-sub {
+      font-size: 0.62rem;
+      font-weight: 800;
+      opacity: 0.85;
+    }
+
+    .gap-pill {
+      width: 24px;
+      height: 36px;
+      border-radius: 6px;
+      border: 1.5px dashed #16a34a;
+      background: #dcfce7;
+      color: #14532d;
+      font-size: 0.68rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .check-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+      margin-top: 8px;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .check-table th, .check-table td {
+      border: 1px solid #e2e8f0;
+      padding: 6px 9px;
+      text-align: left;
+    }
+
+    .check-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    .gc-guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .gc-guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .step-pill {
+      background: var(--blue-bg);
+      border: 1px solid #bae6fd;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.77rem;
+      line-height: 1.45;
+      color: #0c4a6e;
+    }
+
+    .grader-card {
+      margin-top: 12px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 700px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .misconception-box {
+      margin-top: 12px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 10px 13px;
+      font-size: 0.79rem;
+      line-height: 1.48;
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Compare Linear, Anagram, Unnumbered Circle &amp; Numbered Circle</strong>
+        Explore <em>Golden Village Cinema Row (n!)</em>, <em>SG Place Name Anagrams</em>, <em>CNY Reunion Round Table ((n − 1)!)</em>, and <em>Round Table with Numbered Seats (n!)</em>.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Toggle Grouping vs. Slotting Constraints</strong>
+        Switch between <em>Unrestricted</em>, <em>Must Sit Together (Super-Unit)</em>, and <em>Must NOT Sit Together (Slotting Method)</em>, and rotate the round table to see when rotations are identical vs. distinct.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Check Step-by-Step Breakdown &amp; Exam Quiz</strong>
+        Verify each multiplicative factor in the breakdown table on the right, then test yourself on the 3-question <em>9758 Constrained Arrangements Check</em>.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        6.1 Lesson 2 &bull; Arrangements in a Line, Circle, Repetition &amp; Restrictions
+      </div>
+
+      <!-- Singapore Real-World Presets (Ordered 1 to 4 as requested) -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="sc_line" onclick="loadScenario('line')">
+          1. Golden Village Cinema Row (n!)
+        </button>
+        <button class="tab-btn" id="sc_anagram" onclick="loadScenario('anagram')">
+          2. SG Place Name Anagrams (Repetition)
+        </button>
+        <button class="tab-btn" id="sc_circle" onclick="loadScenario('circle')">
+          3. CNY Reunion Round Table ((n−1)!)
+        </button>
+        <button class="tab-btn" id="sc_numbered_circle" onclick="loadScenario('numbered_circle')">
+          4. Round Table with Numbered Seats (n!)
+        </button>
+      </div>
+
+      <!-- Contextual Story -->
+      <div class="context-box" id="contextBox"></div>
+
+      <!-- Interactive Controls -->
+      <div class="control-panel">
+        <div class="panel-header">
+          <span id="ctrlHeader">Seating &amp; Restriction Controls</span>
+          <span id="formulaTag" style="color:var(--purple-dark);">n!</span>
+        </div>
+
+        <!-- Seating Rule Buttons (for Line / Unnumbered Circle / Numbered Circle) -->
+        <div class="rule-grid" id="seatingRuleGrid">
+          <button class="rule-btn active" id="rule_none" onclick="setRule('none')">
+            Unrestricted
+          </button>
+          <button class="rule-btn" id="rule_together" onclick="setRule('together')">
+            Must Sit Together
+          </button>
+          <button class="rule-btn" id="rule_apart" onclick="setRule('apart')">
+            Must NOT Sit Together
+          </button>
+        </div>
+
+        <!-- Word Presets (for Anagram mode) -->
+        <div class="word-chip-bar" id="wordChipBar" style="display:none;">
+          <button class="word-btn active" id="w_SINGAPORE" onclick="setWord('SINGAPORE')">SINGAPORE (9 distinct)</button>
+          <button class="word-btn" id="w_PUNGGOL" onclick="setWord('PUNGGOL')">PUNGGOL (7, two G's)</button>
+          <button class="word-btn" id="w_SERANGOON" onclick="setWord('SERANGOON')">SERANGOON (9, two N's, O's)</button>
+          <button class="word-btn" id="w_TAMPINES" onclick="setWord('TAMPINES')">TAMPINES (8 distinct)</button>
+        </div>
+
+        <!-- Sliders -->
+        <div id="seatingSliders">
+          <div class="slider-row">
+            <span>Total People (n):</span>
+            <input type="range" id="sliderN" min="5" max="9" value="7" oninput="updateSliders()" />
+            <span class="val-badge" id="valN">7</span>
+          </div>
+          <div class="slider-row" id="rowK">
+            <span>Restricted Group (k):</span>
+            <input type="range" id="sliderK" min="2" max="4" value="3" oninput="updateSliders()" />
+            <span class="val-badge" id="valK">3</span>
+          </div>
+        </div>
+
+        <!-- Anagram Rule Buttons -->
+        <div class="rule-grid" id="anagramRuleGrid" style="display:none; margin-top:6px;">
+          <button class="rule-btn active" id="arule_none" onclick="setAnaRule('none')">
+            All Anagrams
+          </button>
+          <button class="rule-btn" id="arule_vowels_tog" onclick="setAnaRule('vowels_tog')">
+            Vowels Together
+          </button>
+          <button class="rule-btn" id="arule_vowels_apart" onclick="setAnaRule('vowels_apart')">
+            Vowels Separated
+          </button>
+        </div>
+
+        <div class="toggle-row">
+          <button class="action-btn" id="primaryActionBtn" onclick="rotateOrShuffle()">Shift Row 1 Seat Right</button>
+          <button class="action-btn secondary" id="anchorBtn" onclick="toggleAnchor()" style="display:none;">Anchor Highlight: ON</button>
+        </div>
+      </div>
+
+      <!-- Simulated TI-84 Plus CE Readout -->
+      <div class="gc-screen-box" id="gcOutputBox"></div>
+
+      <!-- Pedagogical Conclusion Banner -->
+      <div class="solution-banner" id="solutionBanner"></div>
+    </div>
+
+    <!-- RIGHT VISUAL STAGE, BREAKDOWN TABLE & EXAM CHECK -->
+    <div class="card">
+      <div style="font-size:1.02rem; font-weight:800; color:#1e293b; margin-bottom:8px;" id="rightPanelHeading">
+        Interactive Seating &amp; Slotting Diagram
+      </div>
+
+      <!-- Visual Diagram Canvas -->
+      <div class="visual-stage">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; font-size:0.76rem; font-weight:800; color:#475569;">
+          <span id="stageSubLabel">Linear Cinema Row (Seat 1 to Seat n are distinct positions):</span>
+          <span id="rotBadge" style="color:var(--purple-dark);">Shift Step: 0</span>
+        </div>
+        <div class="canvas-box" id="visualCanvas"></div>
+        <div id="stageCaption" style="margin-top:8px; font-size:0.78rem; color:#334155; line-height:1.45;"></div>
+      </div>
+
+      <!-- Step-by-Step Multiplicative Factors Table -->
+      <table class="check-table" id="breakdownTable"></table>
+
+      <!-- 3-Step Method Guide -->
+      <div class="gc-guide-grid">
+        <div class="step-pill">
+          <strong>1. Unnumbered vs. Numbered Circle</strong><br>
+          An unnumbered circle has rotational symmetry &rArr; <strong>(n − 1)!</strong> ways. Once seats are numbered (or a reference landmark exists), all <em>n</em> rotations become distinct &rArr; <strong>n!</strong> ways!
+        </div>
+        <div class="step-pill">
+          <strong>2. Grouping ("Together")</strong><br>
+          Tie the <em>k</em> items into <strong>1 Super-Unit</strong>. Arrange all units externally, then multiply by internal orders (<em>k!</em> if distinct, or <em>k! / r₁!</em> if repeated).
+        </div>
+        <div class="step-pill">
+          <strong>3. Slotting ("Separated")</strong><br>
+          Never use <em>Total − Together</em> when <em>k &ge; 3</em>! Seat the other <em>m</em> items first, then slot the <em>k</em> separated items into the available gaps (<strong>ᵐ⁺¹Pₖ</strong> in a line, <strong>ᵐPₖ</strong> in a circle).
+        </div>
+      </div>
+
+      <div class="misconception-box" id="misconceptionBox"></div>
+
+      <!-- Quick 9758 Exam Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 Constrained Arrangements Check (<span id="qIdxLbl">1</span>/3)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.8rem; line-height:1.45; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  let curKey = "line";
+  let rule = "none"; // 'none' | 'together' | 'apart'
+  let anaRule = "none"; // 'none' | 'vowels_tog' | 'vowels_apart'
+  let curWord = "SINGAPORE";
+  let nVal = 7;
+  let kVal = 3;
+  let rotOffset = 0;
+  let showAnchor = true;
+
+  const guestNames = ["Ah Ma", "Ah Gong", "Dad", "Mum", "Wei Ming", "Jia Yi", "Auntie", "Uncle", "Cousin"];
+  const vowelsSet = new Set(["A", "E", "I", "O", "U"]);
+
+  function fact(num) {
+    if (num < 0) return 0;
+    let res = 1;
+    for (let i = 2; i <= num; i++) res *= i;
+    return res;
+  }
+
+  function nPr(n, r) {
+    if (r > n || r < 0) return 0;
+    return fact(n) / fact(n - r);
+  }
+
+  function nCr(n, r) {
+    if (r > n || r < 0) return 0;
+    return fact(n) / (fact(r) * fact(n - r));
+  }
+
+  function loadScenario(key) {
+    curKey = key;
+    rotOffset = 0;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("sc_" + key).classList.add("active");
+
+    const ctx = document.getElementById("contextBox");
+    const seatingRuleGrid = document.getElementById("seatingRuleGrid");
+    const wordChipBar = document.getElementById("wordChipBar");
+    const seatingSliders = document.getElementById("seatingSliders");
+    const anagramRuleGrid = document.getElementById("anagramRuleGrid");
+    const priBtn = document.getElementById("primaryActionBtn");
+    const ancBtn = document.getElementById("anchorBtn");
+
+    if (key === "line") {
+      rule = "none";
+      nVal = 7; kVal = 3;
+      document.getElementById("sliderN").min = 5;
+      document.getElementById("sliderN").max = 9;
+      document.getElementById("sliderN").value = nVal;
+      document.getElementById("sliderK").value = kVal;
+
+      ctx.innerHTML = `
+        <div><strong>1. Golden Village Cinema Row Seating:</strong> <em>n</em> friends book a straight row of <em>n</em> numbered cinema seats (Seat 1 to Seat <em>n</em>). Because every seat has a distinct row position, shifting everyone one seat to the right produces a brand-new arrangement &rArr; <strong>n! linear arrangements</strong>.</div>
+        <div class="var-pill">Linear Row: Distinct End Seats &rArr; n! Arrangements</div>
+      `;
+      seatingRuleGrid.style.display = "grid";
+      wordChipBar.style.display = "none";
+      seatingSliders.style.display = "block";
+      document.getElementById("rowK").style.display = "grid";
+      anagramRuleGrid.style.display = "none";
+      priBtn.textContent = "Shift Row 1 Seat Right";
+      ancBtn.style.display = "none";
+    } else if (key === "anagram") {
+      anaRule = "none";
+      curWord = "SINGAPORE";
+      ctx.innerHTML = `
+        <div><strong>2. Singapore Place Name Anagrams (Repetition):</strong> When arranging letters of a word with identical letters (like <code>PUNGGOL</code> or <code>SERANGOON</code>), swapping two identical letters produces no new word—so divide by <em>k!</em> for each group of <em>k</em> identical letters.</div>
+        <div class="var-pill">Identical Objects Formula: n! / (n₁! n₂! &hellip; nₖ!)</div>
+      `;
+      seatingRuleGrid.style.display = "none";
+      wordChipBar.style.display = "flex";
+      seatingSliders.style.display = "none";
+      anagramRuleGrid.style.display = "grid";
+      priBtn.textContent = "Scramble Letter Tiles";
+      ancBtn.style.display = "none";
+      syncWordButtons();
+    } else if (key === "circle") {
+      rule = "none";
+      nVal = 7; kVal = 3;
+      document.getElementById("sliderN").min = 5;
+      document.getElementById("sliderN").max = 9;
+      document.getElementById("sliderN").value = nVal;
+      document.getElementById("sliderK").value = kVal;
+
+      ctx.innerHTML = `
+        <div><strong>3. CNY Reunion Round Table (Unnumbered Seats):</strong> <em>n</em> family members are seated around an identical circular table. Rotating everyone clockwise keeps every person's left and right neighbours unchanged, so <em>n</em> rotated views collapse into <strong>1 circular arrangement</strong> &rArr; <strong>(n − 1)!</strong> ways.</div>
+        <div class="var-pill">Circular Symmetry: Fix 1 Anchor Person &rArr; (n − 1)! Arrangements</div>
+      `;
+      seatingRuleGrid.style.display = "grid";
+      wordChipBar.style.display = "none";
+      seatingSliders.style.display = "block";
+      document.getElementById("rowK").style.display = "grid";
+      anagramRuleGrid.style.display = "none";
+      priBtn.textContent = "Rotate Table 1 Seat Clockwise";
+      ancBtn.style.display = "inline-block";
+    } else if (key === "numbered_circle") {
+      rule = "none";
+      nVal = 7; kVal = 3;
+      document.getElementById("sliderN").min = 5;
+      document.getElementById("sliderN").max = 9;
+      document.getElementById("sliderN").value = nVal;
+      document.getElementById("sliderK").value = kVal;
+
+      ctx.innerHTML = `
+        <div><strong>4. Round Table with Numbered Seats (e.g. Banquet Table Labels S1–Sₙ):</strong> When the <em>n</em> seats around a circular table are <strong>numbered 1 to n</strong> (or distinguished by a fixed stage/door), rotating everyone clockwise moves each guest to a <strong>different seat number</strong>! Rotational symmetry is broken &rArr; <strong>n! arrangements</strong> (same count as a line, though circular gaps still wrap around!).</div>
+        <div class="var-pill">Numbered Circle: No Rotational Collapse &rArr; n! = (n − 1)! &times; n Ways</div>
+      `;
+      seatingRuleGrid.style.display = "grid";
+      wordChipBar.style.display = "none";
+      seatingSliders.style.display = "block";
+      document.getElementById("rowK").style.display = "grid";
+      anagramRuleGrid.style.display = "none";
+      priBtn.textContent = "Rotate Guests 1 Seat Clockwise";
+      ancBtn.style.display = "none";
+    }
+
+    syncRuleButtons();
+    renderAll();
+  }
+
+  function setRule(r) {
+    rule = r;
+    syncRuleButtons();
+    renderAll();
+  }
+
+  function setAnaRule(r) {
+    anaRule = r;
+    syncRuleButtons();
+    renderAll();
+  }
+
+  function setWord(w) {
+    curWord = w;
+    rotOffset = 0;
+    syncWordButtons();
+    renderAll();
+  }
+
+  function syncWordButtons() {
+    ["SINGAPORE", "PUNGGOL", "SERANGOON", "TAMPINES"].forEach(w => {
+      const btn = document.getElementById("w_" + w);
+      if (btn) btn.className = "word-btn" + (curWord === w ? " active" : "");
+    });
+  }
+
+  function syncRuleButtons() {
+    ["none", "together", "apart"].forEach(r => {
+      const b = document.getElementById("rule_" + r);
+      if (b) b.className = "rule-btn" + (rule === r ? " active" : "");
+    });
+    ["none", "vowels_tog", "vowels_apart"].forEach(r => {
+      const b = document.getElementById("arule_" + r);
+      if (b) b.className = "rule-btn" + (anaRule === r ? " active" : "");
+    });
+  }
+
+  function updateSliders() {
+    nVal = parseInt(document.getElementById("sliderN").value, 10);
+    kVal = parseInt(document.getElementById("sliderK").value, 10);
+    const maxK = Math.min(4, Math.floor(nVal / 2));
+    if (kVal > maxK) {
+      kVal = maxK;
+      document.getElementById("sliderK").value = kVal;
+    }
+    document.getElementById("sliderK").max = maxK;
+    renderAll();
+  }
+
+  function rotateOrShuffle() {
+    rotOffset = (rotOffset + 1) % 24;
+    renderAll();
+  }
+
+  function toggleAnchor() {
+    showAnchor = !showAnchor;
+    document.getElementById("anchorBtn").textContent = showAnchor ? "Anchor Highlight: ON" : "Anchor Highlight: OFF";
+    renderAll();
+  }
+
+  function getLetterCounts(word) {
+    const counts = {};
+    for (const ch of word) counts[ch] = (counts[ch] || 0) + 1;
+    return counts;
+  }
+
+  function multinomial(word) {
+    const counts = getLetterCounts(word);
+    let denom = 1;
+    for (const ch in counts) denom *= fact(counts[ch]);
+    return { total: fact(word.length) / denom, counts, denom };
+  }
+
+  function renderCircleSVG(guests, isTogether, isApart, numberedSeats) {
+    const totalSeats = guests.length;
+    const cx = 240, cy = 126, R = 82;
+    let svg = `<svg width="480" height="252" viewBox="0 0 480 252">`;
+    // Table circle
+    svg += `<circle cx="${cx}" cy="${cy}" r="${R}" fill="#fefce8" stroke="#d97706" stroke-width="2.5"/>`;
+    svg += `<circle cx="${cx}" cy="${cy}" r="35" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4,3"/>`;
+    svg += `<text x="${cx}" y="${cy + 3}" text-anchor="middle" font-size="9.5" font-weight="800" fill="#92400e">${numberedSeats ? "Banquet Table" : "Lazy Susan"}</text>`;
+
+    // Draw fixed seat numbers on the outer ring if numberedSeats === true
+    if (numberedSeats) {
+      for (let s = 0; s < totalSeats; s++) {
+        const angle = -Math.PI / 2 + (2 * Math.PI * s) / totalSeats;
+        const nx = cx + (R + 31) * Math.cos(angle);
+        const ny = cy + (R + 31) * Math.sin(angle);
+        svg += `<rect x="${nx - 17}" y="${ny - 8}" width="34" height="15" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.1"/>`;
+        svg += `<text x="${nx}" y="${ny + 3}" text-anchor="middle" font-size="8" font-weight="800" fill="#0c4a6e">Seat ${s + 1}</text>`;
+      }
+    }
+
+    // Draw guests (rotating with rotOffset)
+    for (let i = 0; i < totalSeats; i++) {
+      const seatIdx = (i + rotOffset) % totalSeats;
+      const angle = -Math.PI / 2 + (2 * Math.PI * seatIdx) / totalSeats;
+      const sx = cx + R * Math.cos(angle);
+      const sy = cy + R * Math.sin(angle);
+      const g = guests[i];
+
+      let fill = "#ffffff";
+      let stroke = "#475569";
+      let textCol = "#1e293b";
+
+      if (g.role === "restricted") {
+        fill = "#ffe4e6";
+        stroke = "#e11d48";
+        textCol = "#881337";
+      } else if (!numberedSeats && showAnchor && i === 0) {
+        fill = "#f3e8ff";
+        stroke = "#7c3aed";
+        textCol = "#4c1d95";
+      }
+
+      svg += `<circle cx="${sx}" cy="${sy}" r="18.5" fill="${fill}" stroke="${stroke}" stroke-width="${!numberedSeats && showAnchor && i === 0 ? 3 : 2}"/>`;
+      svg += `<text x="${sx}" y="${sy + 3}" text-anchor="middle" font-size="8.2" font-weight="800" fill="${textCol}">${g.label}</text>`;
+
+      if (!numberedSeats && showAnchor && i === 0 && !isTogether) {
+        const lx = cx + (R + 28) * Math.cos(angle);
+        const ly = cy + (R + 28) * Math.sin(angle);
+        svg += `<text x="${lx}" y="${ly + 3}" text-anchor="middle" font-size="8" font-weight="800" fill="#7c3aed">ANCHOR</text>`;
+      }
+    }
+
+    // Draw gap markers if slotting mode
+    if (isApart) {
+      for (let i = 0; i < totalSeats; i++) {
+        const angle = -Math.PI / 2 + (2 * Math.PI * (i + 0.5)) / totalSeats;
+        const gx = cx + (R + (numberedSeats ? 26 : 22)) * Math.cos(angle);
+        const gy = cy + (R + (numberedSeats ? 26 : 22)) * Math.sin(angle);
+        svg += `<rect x="${gx - 11}" y="${gy - 8}" width="22" height="15" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.2"/>`;
+        svg += `<text x="${gx}" y="${gy + 3}" text-anchor="middle" font-size="7.5" font-weight="800" fill="#14532d">Gap</text>`;
+      }
+    }
+
+    svg += `</svg>`;
+    return svg;
+  }
+
+  function renderAll() {
+    document.getElementById("valN").textContent = nVal;
+    document.getElementById("valK").textContent = kVal;
+
+    const gcBox = document.getElementById("gcOutputBox");
+    const banner = document.getElementById("solutionBanner");
+    const table = document.getElementById("breakdownTable");
+    const canvas = document.getElementById("visualCanvas");
+    const stageSub = document.getElementById("stageSubLabel");
+    const rotBadge = document.getElementById("rotBadge");
+    const caption = document.getElementById("stageCaption");
+    const miscBox = document.getElementById("misconceptionBox");
+
+    // 1. GOLDEN VILLAGE CINEMA ROW (LINE)
+    if (curKey === "line") {
+      rotBadge.textContent = `Row Shift: ${rotOffset % nVal}`;
+      stageSub.textContent = "Linear Cinema Row (Seat 1 to Seat n are distinct positions):";
+
+      if (rule === "none") {
+        document.getElementById("formulaTag").textContent = "n!";
+        const ans = fact(nVal);
+        const tiles = Array.from({ length: nVal }, (_, i) => {
+          const idx = (i + rotOffset) % nVal;
+          return `<div class="letter-tile"><span>${guestNames[idx].slice(0, 4)}</span><span class="letter-sub">Seat ${i + 1}</span></div>`;
+        }).join("");
+        canvas.innerHTML = `<div class="tile-row">${tiles}</div>`;
+        caption.innerHTML = `<strong>Linear Row (n!):</strong> Every seat has a unique position number (Seat 1 to Seat ${nVal}), so shifting everyone 1 seat creates a brand-new arrangement &rArr; <strong>${nVal}! = ${ans.toLocaleString()}</strong> ways.`;
+
+        gcBox.innerHTML = `<span class="box-title">TI-84 Plus CE Readout</span><div class="gc-readout">${nVal}! = ${ans.toLocaleString()}</div>`;
+        banner.innerHTML = `<strong>Unrestricted Linear Seating:</strong> ${nVal} distinct friends in a row can be arranged in <strong>${nVal}! = ${ans.toLocaleString()} ways</strong>.`;
+        table.innerHTML = `
+          <thead><tr><th>Stage</th><th>Action</th><th>Formula</th><th>Count</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Step 1</strong></td><td>Arrange all ${nVal} distinct friends in ${nVal} numbered seats</td><td>${nVal}!</td><td>${ans.toLocaleString()}</td></tr>
+          </tbody>
+        `;
+      } else if (rule === "together") {
+        document.getElementById("formulaTag").textContent = "(n − k + 1)! × k!";
+        const numUnits = nVal - kVal + 1;
+        const extWays = fact(numUnits);
+        const intWays = fact(kVal);
+        const ans = extWays * intWays;
+
+        const tiles = [
+          `<div class="letter-tile dup-1" style="width:94px;"><span>Group(${kVal})</span><span class="letter-sub">${kVal}! internal</span></div>`,
+          ...Array.from({ length: nVal - kVal }, (_, i) => `<div class="letter-tile"><span>${guestNames[i + kVal].slice(0, 4)}</span><span class="letter-sub">Unit ${i + 2}</span></div>`)
+        ].join("");
+        canvas.innerHTML = `<div class="tile-row">${tiles}</div>`;
+        caption.innerHTML = `<strong>Grouping Method (Line):</strong> Tie the ${kVal} friends into <strong>1 Super-Unit</strong>. Now arrange <em>${nVal} − ${kVal} + 1 = ${numUnits}</em> units in a line in <em>${numUnits}! = ${extWays}</em> ways, then permute the ${kVal} friends inside in <em>${kVal}! = ${intWays}</em> ways.`;
+
+        gcBox.innerHTML = `<span class="box-title">TI-84 Plus CE Readout</span><div class="gc-readout">${numUnits}! * ${kVal}! = ${extWays.toLocaleString()} * ${intWays} = ${ans.toLocaleString()}</div>`;
+        banner.innerHTML = `<strong>Must Sit Together (Line):</strong> ${numUnits} units in a row &times; ${kVal}! internal orders = <strong>${numUnits}! &times; ${kVal}! = ${ans.toLocaleString()} ways</strong>.`;
+        table.innerHTML = `
+          <thead><tr><th>Stage</th><th>Action</th><th>Formula</th><th>Count</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Step 1</strong></td><td>Arrange 1 Super-Unit + ${nVal - kVal} individuals (${numUnits} units) in a line</td><td>${numUnits}!</td><td>${extWays.toLocaleString()}</td></tr>
+            <tr><td><strong>Step 2</strong></td><td>Arrange the ${kVal} friends internally within the Super-Unit</td><td>${kVal}!</td><td>${intWays}</td></tr>
+            <tr style="background:#f3e8ff;"><td colspan="3"><strong>Total Linear Arrangements (Together):</strong></td><td style="font-weight:800; color:#4c1d95;">${ans.toLocaleString()}</td></tr>
+          </tbody>
+        `;
+      } else {
+        document.getElementById("formulaTag").textContent = "m! × ᵐ⁺¹Pₖ";
+        const m = nVal - kVal;
+        const baseWays = fact(m);
+        const slotWays = nPr(m + 1, kVal);
+        const ans = baseWays * slotWays;
+
+        let html = `<div class="tile-row"><div class="gap-pill">G1</div>`;
+        for (let i = 0; i < m; i++) {
+          html += `<div class="letter-tile"><span>${guestNames[i + kVal].slice(0, 4)}</span><span class="letter-sub">Base ${i + 1}</span></div><div class="gap-pill">G${i + 2}</div>`;
+        }
+        html += `</div>`;
+        canvas.innerHTML = html;
+        caption.innerHTML = `<strong>Slotting Method (Line):</strong> Arrange the other <em>m = ${m}</em> friends in <em>${m}! = ${baseWays}</em> ways. Notice there are <strong>m + 1 = ${m + 1} gaps</strong> (including both ends). Slot the ${kVal} restricted friends into ${kVal} of these ${m + 1} gaps in <em>${m + 1}P${kVal} = ${slotWays}</em> ways.`;
+
+        gcBox.innerHTML = `<span class="box-title">TI-84 Plus CE Readout</span><div class="gc-readout">${m}! * ${m + 1} nPr ${kVal} = ${baseWays} * ${slotWays} = ${ans.toLocaleString()}</div>`;
+        banner.innerHTML = `<strong>Must NOT Sit Together (Line Slotting):</strong> <strong>${m}! &times; <sup>${m + 1}</sup>P<sub>${kVal}</sub> = ${ans.toLocaleString()} ways</strong>.`;
+        table.innerHTML = `
+          <thead><tr><th>Stage</th><th>Action</th><th>Formula</th><th>Count</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Step 1</strong></td><td>Arrange the other m = ${m} friends in a row</td><td>${m}!</td><td>${baseWays}</td></tr>
+            <tr><td><strong>Step 2</strong></td><td>Slot the ${kVal} restricted friends into ${kVal} of the ${m + 1} gaps</td><td><sup>${m + 1}</sup>P<sub>${kVal}</sub></td><td>${slotWays}</td></tr>
+            <tr style="background:#f3e8ff;"><td colspan="3"><strong>Total Linear Arrangements (No Two Adjacent):</strong></td><td style="font-weight:800; color:#4c1d95;">${ans.toLocaleString()}</td></tr>
+          </tbody>
+        `;
+      }
+
+      miscBox.innerHTML = `
+        <strong>9758 Exam Reminder:</strong> Always double-check whether the question asks for <strong>"no two of the k people sit together"</strong> (Slotting Method: <em>m! &times; <sup>m+1</sup>P<sub>k</sub></em>) versus <strong>"the k people do not ALL sit together"</strong> (Complement Method: <em>n! − (n − k + 1)! &times; k!</em>). Those two phrases mean completely different things!
+      `;
+      return;
+    }
+
+    // 2. SG PLACE NAME ANAGRAMS (REPETITION)
+    if (curKey === "anagram") {
+      const letters = curWord.split("");
+      const { total: allAnagrams, counts } = multinomial(curWord);
+      const dupChars = Object.keys(counts).filter(ch => counts[ch] > 1);
+      const vowels = letters.filter(ch => vowelsSet.has(ch));
+      const consonants = letters.filter(ch => !vowelsSet.has(ch));
+
+      rotBadge.textContent = `Word Length: ${letters.length}`;
+      stageSub.textContent = `Letter Tiles for "${curWord}" (colour-coded by repeated letters):`;
+
+      const scrambled = [...letters];
+      if (rotOffset > 0) {
+        for (let i = scrambled.length - 1; i > 0; i--) {
+          const j = (i * 7 + rotOffset) % (i + 1);
+          [scrambled[i], scrambled[j]] = [scrambled[j], scrambled[i]];
+        }
+      }
+
+      const getTileClass = (ch) => {
+        const idx = dupChars.indexOf(ch);
+        if (idx === 0) return "dup-1";
+        if (idx === 1) return "dup-2";
+        if (idx >= 2) return "dup-3";
+        return "";
+      };
+
+      const denomParts = dupChars.map(ch => `${counts[ch]}! (${ch}'s)`);
+      const denomExpr = denomParts.length ? ` / (${dupChars.map(ch => `${counts[ch]}!`).join(" × ")})` : "";
+
+      if (anaRule === "none") {
+        document.getElementById("formulaTag").textContent = dupChars.length ? "n! / (n₁! n₂!)" : "n!";
+        canvas.innerHTML = `<div class="tile-row">${scrambled.map(ch => `<div class="letter-tile ${getTileClass(ch)}"><span>${ch}</span><span class="letter-sub">${vowelsSet.has(ch) ? "Vowel" : "Cons"}</span></div>`).join("")}</div>`;
+        caption.innerHTML = dupChars.length
+          ? `<strong>Why we divide by ${denomParts.join(" and ")}:</strong> Swapping identical coloured tiles yields the exact same spelling, so divide ${letters.length}! by ${denomParts.join(" × ")}.`
+          : `<strong>All ${letters.length} letters are distinct:</strong> Every permutation produces a unique spelling &rArr; <strong>${letters.length}! = ${allAnagrams.toLocaleString()}</strong>.`;
+
+        gcBox.innerHTML = `<span class="box-title">TI-84 Plus CE Readout</span><div class="gc-readout">${letters.length}!${denomExpr} = ${allAnagrams.toLocaleString()}</div>`;
+        banner.innerHTML = `<strong>Total Distinct Anagrams of ${curWord}:</strong> <strong>${allAnagrams.toLocaleString()}</strong> arrangements.`;
+        table.innerHTML = `
+          <thead><tr><th>Component</th><th>Details</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Total Letters</strong></td><td>${letters.length} letters (${vowels.length} vowels, ${consonants.length} consonants)</td><td>${letters.length}! = ${fact(letters.length).toLocaleString()}</td></tr>
+            <tr><td><strong>Repeated Letters</strong></td><td>${dupChars.length ? dupChars.map(c => `${counts[c]} × '${c}'`).join(", ") : "None (all distinct)"}</td><td>Divide by ${dupChars.length ? dupChars.map(c => `${counts[c]}!`).join(" × ") : "1"}</td></tr>
+            <tr style="background:#f3e8ff;"><td colspan="2"><strong>Total Distinct Arrangements:</strong></td><td style="font-weight:800; color:#4c1d95;">${allAnagrams.toLocaleString()}</td></tr>
+          </tbody>
+        `;
+      } else if (anaRule === "vowels_tog") {
+        document.getElementById("formulaTag").textContent = "Units! × Vowels!";
+        const vWord = vowels.join("");
+        const { total: vInternal } = multinomial(vWord);
+        const unitWord = "V" + consonants.join("");
+        const { total: extWays } = multinomial(unitWord);
+        const ans = extWays * vInternal;
+
+        canvas.innerHTML = `<div class="tile-row">
+          <div class="letter-tile dup-1" style="width:110px;"><span>[${vWord}]</span><span class="letter-sub">Vowel Block</span></div>
+          ${consonants.map(ch => `<div class="letter-tile ${getTileClass(ch)}"><span>${ch}</span><span class="letter-sub">Cons</span></div>`).join("")}
+        </div>`;
+        caption.innerHTML = `<strong>Vowels Together:</strong> Group the ${vowels.length} vowels <code>[${vWord}]</code> into 1 Super-Unit. Arrange this block with the ${consonants.length} consonants (${consonants.length + 1} units) in <em>${extWays.toLocaleString()}</em> ways, then permute the vowels internally in <em>${vInternal}</em> ways.`;
+
+        gcBox.innerHTML = `<span class="box-title">TI-84 Plus CE Readout</span><div class="gc-readout">External Units (${extWays.toLocaleString()}) * Internal Vowels (${vInternal}) = ${ans.toLocaleString()}</div>`;
+        banner.innerHTML = `<strong>All Vowels Together in ${curWord}:</strong> <strong>${extWays.toLocaleString()} &times; ${vInternal} = ${ans.toLocaleString()}</strong> arrangements.`;
+        table.innerHTML = `
+          <thead><tr><th>Stage</th><th>Action</th><th>Count</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Step 1 (External)</strong></td><td>Arrange 1 Vowel Block + ${consonants.length} consonants (${consonants.length + 1} units, accounting for repeated consonants)</td><td>${extWays.toLocaleString()}</td></tr>
+            <tr><td><strong>Step 2 (Internal)</strong></td><td>Arrange the ${vowels.length} vowels <code>${vWord}</code> internally (dividing by any repeated vowels)</td><td>${vInternal}</td></tr>
+            <tr style="background:#f3e8ff;"><td colspan="2"><strong>Total Arrangements (Vowels Together):</strong></td><td style="font-weight:800; color:#4c1d95;">${ans.toLocaleString()}</td></tr>
+          </tbody>
+        `;
+      } else {
+        document.getElementById("formulaTag").textContent = "Cons! × Gap Choice";
+        const cWord = consonants.join("");
+        const { total: cWays } = multinomial(cWord);
+        const numGaps = consonants.length + 1;
+        const vWord = vowels.join("");
+        const { counts: vCounts } = multinomial(vWord);
+        const hasDupVowels = Object.values(vCounts).some(c => c > 1);
+        const slotWays = hasDupVowels ? nCr(numGaps, vowels.length) : nPr(numGaps, vowels.length);
+        const ans = cWays * slotWays;
+
+        let html = `<div class="tile-row"><div class="gap-pill">G1</div>`;
+        consonants.forEach((ch, idx) => {
+          html += `<div class="letter-tile ${getTileClass(ch)}"><span>${ch}</span><span class="letter-sub">C${idx + 1}</span></div><div class="gap-pill">G${idx + 2}</div>`;
+        });
+        html += `</div>`;
+        canvas.innerHTML = html;
+        caption.innerHTML = `<strong>Vowels Separated (Slotting):</strong> Arrange the ${consonants.length} consonants in <em>${cWays.toLocaleString()}</em> ways, creating <strong>${numGaps} gaps</strong>. Slot the ${vowels.length} vowels (<code>${vWord}</code>) into ${vowels.length} gaps in <em>${hasDupVowels ? `${numGaps}C${vowels.length} (identical vowels!)` : `${numGaps}P${vowels.length} (distinct vowels)`} = ${slotWays}</em> ways.`;
+
+        gcBox.innerHTML = `<span class="box-title">TI-84 Plus CE Readout</span><div class="gc-readout">Consonants (${cWays.toLocaleString()}) * Slot Vowels (${slotWays}) = ${ans.toLocaleString()}</div>`;
+        banner.innerHTML = `<strong>No Two Vowels Adjacent in ${curWord}:</strong> <strong>${cWays.toLocaleString()} &times; ${slotWays} = ${ans.toLocaleString()}</strong> arrangements.`;
+        table.innerHTML = `
+          <thead><tr><th>Stage</th><th>Action</th><th>Count</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Step 1 (Consonants)</strong></td><td>Arrange ${consonants.length} consonants <code>${cWord}</code></td><td>${cWays.toLocaleString()}</td></tr>
+            <tr><td><strong>Step 2 (Slot Vowels)</strong></td><td>Choose ${vowels.length} of ${numGaps} gaps for <code>${vWord}</code> (${hasDupVowels ? "identical O's ⇒ use nCr!" : "distinct ⇒ use nPr"})</td><td>${slotWays}</td></tr>
+            <tr style="background:#f3e8ff;"><td colspan="2"><strong>Total Arrangements (Vowels Separated):</strong></td><td style="font-weight:800; color:#4c1d95;">${ans.toLocaleString()}</td></tr>
+          </tbody>
+        `;
+      }
+
+      miscBox.innerHTML = `
+        <strong>9758 Exam Misconception Alert — Slotting Identical Objects (e.g., two <code>O</code>'s in <code>SERANGOON</code>):</strong>
+        <ul style="margin:3px 0 0 0; padding-left:18px;">
+          <li>When slotting <strong>distinct</strong> objects into gaps, use <strong>ⁿPᵣ</strong> because order in the gaps matters.</li>
+          <li>When slotting <strong>identical</strong> objects (like two <code>O</code>'s) into gaps, use <strong>ⁿCᵣ</strong> (or divide <em>ⁿPᵣ</em> by <em>r!</em>), because swapping two identical <code>O</code>'s produces the exact same arrangement!</li>
+        </ul>
+      `;
+      return;
+    }
+
+    // 3. CNY REUNION ROUND TABLE (UNNUMBERED CIRCLE)
+    if (curKey === "circle") {
+      rotBadge.textContent = `Table Rotation: ${rotOffset % nVal} / ${nVal}`;
+      stageSub.textContent = "Circular Table View (rotating all guests preserves relative order):";
+
+      if (rule === "none") {
+        document.getElementById("formulaTag").textContent = "(n − 1)!";
+        const ans = fact(nVal - 1);
+        const guests = Array.from({ length: nVal }, (_, i) => ({ label: guestNames[i], role: "normal" }));
+        canvas.innerHTML = renderCircleSVG(guests, false, false, false);
+        caption.innerHTML = `<strong>Why (n − 1)! instead of n!:</strong> Click <em>Rotate Table 1 Seat Clockwise</em>. Notice that every guest still has the exact same person on their left and right. Fixing <strong>Ah Ma (Anchor)</strong> removes the ${nVal} identical rotations, leaving <strong>(${nVal} − 1)! = ${nVal - 1}!</strong> ways.`;
+
+        gcBox.innerHTML = `
+          <span class="box-title">TI-84 Plus CE Readout ([MATH] &rarr; PROB &rarr; 4: !)</span>
+          <div class="gc-readout">
+            (${nVal} − 1)! = ${nVal - 1}! = ${ans.toLocaleString()} &nbsp;&nbsp;[= ${nVal}! ÷ ${nVal} rotations]
+          </div>
+        `;
+        banner.innerHTML = `<strong>Unrestricted Circular Seating:</strong> ${nVal} distinct family members can be seated around a round table in <strong>(${nVal} − 1)! = ${ans.toLocaleString()} ways</strong>.`;
+
+        table.innerHTML = `
+          <thead><tr><th>Stage</th><th>Action</th><th>Formula</th><th>Count</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Step 1</strong></td><td>Seat 1 anchor guest (Ah Ma) to fix rotational symmetry</td><td>1 choice</td><td>1</td></tr>
+            <tr><td><strong>Step 2</strong></td><td>Arrange remaining ${nVal - 1} guests in the ${nVal - 1} distinct relative seats</td><td>(${nVal} − 1)!</td><td>${ans.toLocaleString()}</td></tr>
+            <tr style="background:#f3e8ff;"><td colspan="3"><strong>Total Circular Arrangements:</strong></td><td style="font-weight:800; color:#4c1d95;">${ans.toLocaleString()}</td></tr>
+          </tbody>
+        `;
+      } else if (rule === "together") {
+        document.getElementById("formulaTag").textContent = "(n − k)! × k!";
+        const numUnits = nVal - kVal + 1;
+        const extWays = fact(numUnits - 1);
+        const intWays = fact(kVal);
+        const ans = extWays * intWays;
+
+        const guests = [{ label: `Block(${kVal})`, role: "restricted" }];
+        for (let i = kVal; i < nVal; i++) guests.push({ label: guestNames[i], role: "normal" });
+        canvas.innerHTML = renderCircleSVG(guests, true, false, false);
+        caption.innerHTML = `<strong>Grouping (Super-Unit) Method:</strong> Tie the ${kVal} restricted guests into <strong>1 pink Super-Unit</strong>. Now arrange ${numUnits} units in a circle in <em>(${numUnits} − 1)! = ${extWays}</em> ways, then permute the ${kVal} guests inside the block in <em>${kVal}! = ${intWays}</em> ways.`;
+
+        gcBox.innerHTML = `
+          <span class="box-title">TI-84 Plus CE Readout ([MATH] &rarr; PROB)</span>
+          <div class="gc-readout">
+            (${numUnits} − 1)! * ${kVal}! = ${nVal - kVal}! * ${kVal}! = ${extWays.toLocaleString()} * ${intWays} = ${ans.toLocaleString()}
+          </div>
+        `;
+        banner.innerHTML = `<strong>Must Sit Together (Circle):</strong> Grouping ${kVal} guests gives ${numUnits} circular units &rArr; <strong>(${numUnits} − 1)! &times; ${kVal}! = ${ans.toLocaleString()} ways</strong>.`;
+
+        table.innerHTML = `
+          <thead><tr><th>Stage</th><th>Action</th><th>Formula</th><th>Count</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Step 1</strong></td><td>Arrange 1 Super-Unit + ${nVal - kVal} other guests (${numUnits} units) in a circle</td><td>(${numUnits} − 1)!</td><td>${extWays.toLocaleString()}</td></tr>
+            <tr><td><strong>Step 2</strong></td><td>Arrange the ${kVal} distinct guests internally within their block</td><td>${kVal}!</td><td>${intWays}</td></tr>
+            <tr style="background:#f3e8ff;"><td colspan="3"><strong>Total Circular Arrangements (Together):</strong></td><td style="font-weight:800; color:#4c1d95;">${ans.toLocaleString()}</td></tr>
+          </tbody>
+        `;
+      } else if (rule === "apart") {
+        document.getElementById("formulaTag").textContent = "(m − 1)! × ᵐPₖ";
+        const m = nVal - kVal;
+        const baseWays = fact(m - 1);
+        const slotWays = nPr(m, kVal);
+        const ans = baseWays * slotWays;
+
+        const guests = Array.from({ length: m }, (_, i) => ({ label: guestNames[i + kVal], role: "normal" }));
+        canvas.innerHTML = renderCircleSVG(guests, false, true, false);
+        caption.innerHTML = `<strong>Slotting Method (Circle):</strong> First seat the other <em>m = ${m}</em> guests in a circle in <em>(${m} − 1)! = ${baseWays}</em> ways. This creates <strong>${m} distinct gaps</strong> (green tags) between them. Slot the ${kVal} restricted guests into ${kVal} of these ${m} gaps in <em>${m}P${kVal} = ${slotWays}</em> ways.`;
+
+        gcBox.innerHTML = `
+          <span class="box-title">TI-84 Plus CE Readout ([MATH] &rarr; PROB)</span>
+          <div class="gc-readout">
+            (${m} − 1)! * ${m} nPr ${kVal} = ${baseWays.toLocaleString()} * ${slotWays} = ${ans.toLocaleString()}
+          </div>
+        `;
+        banner.innerHTML = `<strong>Must NOT Sit Together (Circle Slotting):</strong> Seat ${m} guests first, then slot ${kVal} guests into ${m} gaps &rArr; <strong>(${m} − 1)! &times; <sup>${m}</sup>P<sub>${kVal}</sub> = ${ans.toLocaleString()} ways</strong>.`;
+
+        table.innerHTML = `
+          <thead><tr><th>Stage</th><th>Action</th><th>Formula</th><th>Count</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Step 1</strong></td><td>Seat the other m = ${m} guests around the circle</td><td>(${m} − 1)!</td><td>${baseWays.toLocaleString()}</td></tr>
+            <tr><td><strong>Step 2</strong></td><td>Slot the ${kVal} restricted guests into ${kVal} of the ${m} gaps</td><td><sup>${m}</sup>P<sub>${kVal}</sub></td><td>${slotWays}</td></tr>
+            <tr style="background:#f3e8ff;"><td colspan="3"><strong>Total Circular Arrangements (No Two Adjacent):</strong></td><td style="font-weight:800; color:#4c1d95;">${ans.toLocaleString()}</td></tr>
+          </tbody>
+        `;
+      }
+
+      miscBox.innerHTML = `
+        <strong>9758 Exam Misconception Alert — Circular Slotting vs. Linear Slotting:</strong>
+        <ul style="margin:3px 0 0 0; padding-left:18px;">
+          <li><strong>Number of gaps:</strong> Arranging <em>m</em> people in a <strong>line</strong> creates <strong>m + 1</strong> gaps (including both ends), whereas arranging <em>m</em> people in a <strong>circle</strong> creates <strong>m</strong> gaps!</li>
+          <li><strong>Why Total − Together fails for k &ge; 3:</strong> Subtracting <em>(n − k)! &times; k!</em> from <em>(n − 1)!</em> only removes cases where <em>all ${kVal}</em> sit together—it still leaves invalid cases where 2 of them sit next to each other!</li>
+        </ul>
+      `;
+      return;
+    }
+
+    // 4. ROUND TABLE WITH NUMBERED SEATS (n!)
+    if (curKey === "numbered_circle") {
+      rotBadge.textContent = `Seat Rotation: ${rotOffset % nVal} / ${nVal}`;
+      stageSub.textContent = "Numbered Circular Seats (Seat 1 to Seat n are distinct chairs around the table):";
+
+      if (rule === "none") {
+        document.getElementById("formulaTag").textContent = "n! = (n − 1)! × n";
+        const ans = fact(nVal);
+        const guests = Array.from({ length: nVal }, (_, i) => ({ label: guestNames[i], role: "normal" }));
+        canvas.innerHTML = renderCircleSVG(guests, false, false, true);
+        caption.innerHTML = `<strong>Why Numbered Seats Give n! instead of (n − 1)!:</strong> Click <em>Rotate Guests 1 Seat Clockwise</em>. Even though everyone keeps the same neighbours, <strong>Ah Ma moves from Seat 1 to Seat 2</strong>—a brand-new seat assignment! Thus each of the <em>(${nVal} − 1)!</em> relative circle orders can be rotated across <em>${nVal}</em> numbered starting chairs &rArr; <strong>(${nVal} − 1)! &times; ${nVal} = ${nVal}! = ${ans.toLocaleString()}</strong>.`;
+
+        gcBox.innerHTML = `
+          <span class="box-title">TI-84 Plus CE Readout</span>
+          <div class="gc-readout">
+            ${nVal}! = (${nVal} − 1)! * ${nVal} = ${fact(nVal - 1).toLocaleString()} * ${nVal} = ${ans.toLocaleString()}
+          </div>
+        `;
+        banner.innerHTML = `<strong>Round Table with Numbered Seats:</strong> Distinct chair numbers eliminate rotational equivalence &rArr; <strong>${nVal}! = ${ans.toLocaleString()} ways</strong>.`;
+
+        table.innerHTML = `
+          <thead><tr><th>Perspective</th><th>Method</th><th>Formula</th><th>Count</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Direct Chair Assignment</strong></td><td>Assign ${nVal} distinct guests directly to numbered chairs Seat 1 &hellip; Seat ${nVal}</td><td>${nVal}!</td><td>${ans.toLocaleString()}</td></tr>
+            <tr><td><strong>Unnumbered Circle &times; Rotations</strong></td><td>Arrange in an unnumbered circle (${nVal - 1}!) then choose which of the ${nVal} numbered seats Seat 1 starts at (&times; ${nVal})</td><td>(${nVal} − 1)! &times; ${nVal}</td><td>${ans.toLocaleString()}</td></tr>
+            <tr style="background:#f3e8ff;"><td colspan="3"><strong>Total Numbered-Circle Arrangements:</strong></td><td style="font-weight:800; color:#4c1d95;">${ans.toLocaleString()}</td></tr>
+          </tbody>
+        `;
+      } else if (rule === "together") {
+        document.getElementById("formulaTag").textContent = "n × (n − k)! × k!";
+        const numUnits = nVal - kVal + 1;
+        const unnumberedWays = fact(numUnits - 1) * fact(kVal);
+        const ans = nVal * unnumberedWays;
+
+        const guests = [{ label: `Block(${kVal})`, role: "restricted" }];
+        for (let i = kVal; i < nVal; i++) guests.push({ label: guestNames[i], role: "normal" });
+        canvas.innerHTML = renderCircleSVG(guests, true, false, true);
+        caption.innerHTML = `<strong>Numbered Circle + Together:</strong> Notice that around a circle, the ${kVal} people can even wrap around from Seat ${nVal} back to Seat 1! There are <strong>${nVal} choices</strong> for the starting seat of the ${kVal}-person block, <em>${kVal}!</em> internal orders inside the block, and <em>(${nVal} − ${kVal})!</em> ways to seat the rest &rArr; <strong>${nVal} &times; ${kVal}! &times; (${nVal} − ${kVal})! = ${ans.toLocaleString()}</strong>.`;
+
+        gcBox.innerHTML = `
+          <span class="box-title">TI-84 Plus CE Readout</span>
+          <div class="gc-readout">
+            ${nVal} * ${kVal}! * (${nVal} − ${kVal})! = ${nVal} * ${fact(kVal)} * ${fact(nVal - kVal)} = ${ans.toLocaleString()}
+          </div>
+        `;
+        banner.innerHTML = `<strong>Must Sit Together (Numbered Circle):</strong> Unnumbered circle ways &times; ${nVal} rotations = <strong>${nVal} &times; (${numUnits} − 1)! &times; ${kVal}! = ${ans.toLocaleString()} ways</strong>.`;
+
+        table.innerHTML = `
+          <thead><tr><th>Stage</th><th>Action</th><th>Formula</th><th>Count</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Step 1</strong></td><td>Choose starting numbered chair for the ${kVal}-person adjacent block (including wrap-around Seat ${nVal}&rarr;Seat 1)</td><td>${nVal}</td><td>${nVal}</td></tr>
+            <tr><td><strong>Step 2</strong></td><td>Permute the ${kVal} restricted guests inside those ${kVal} consecutive seats</td><td>${kVal}!</td><td>${fact(kVal)}</td></tr>
+            <tr><td><strong>Step 3</strong></td><td>Assign the remaining ${nVal - kVal} guests to the remaining ${nVal - kVal} numbered chairs</td><td>(${nVal} − ${kVal})!</td><td>${fact(nVal - kVal)}</td></tr>
+            <tr style="background:#f3e8ff;"><td colspan="3"><strong>Total Numbered-Circle Arrangements (Together):</strong></td><td style="font-weight:800; color:#4c1d95;">${ans.toLocaleString()}</td></tr>
+          </tbody>
+        `;
+      } else {
+        document.getElementById("formulaTag").textContent = "n × (m − 1)! × ᵐPₖ";
+        const m = nVal - kVal;
+        const unnumberedWays = fact(m - 1) * nPr(m, kVal);
+        const ans = nVal * unnumberedWays;
+
+        const guests = Array.from({ length: m }, (_, i) => ({ label: guestNames[i + kVal], role: "normal" }));
+        canvas.innerHTML = renderCircleSVG(guests, false, true, true);
+        caption.innerHTML = `<strong>Numbered Circle + Apart:</strong> Because Seat ${nVal} and Seat 1 are physically adjacent around the table, we CANNOT just use linear slotting! Instead, form an unnumbered circular seating where no two of the ${kVal} guests are adjacent in <em>(${m} − 1)! &times; <sup>${m}</sup>P<sub>${kVal}</sub> = ${unnumberedWays}</em> ways, then multiply by <strong>${nVal} rotations</strong> across the numbered seats &rArr; <strong>${ans.toLocaleString()}</strong>.`;
+
+        gcBox.innerHTML = `
+          <span class="box-title">TI-84 Plus CE Readout</span>
+          <div class="gc-readout">
+            ${nVal} * (${m} − 1)! * ${m} nPr ${kVal} = ${nVal} * ${fact(m - 1)} * ${nPr(m, kVal)} = ${ans.toLocaleString()}
+          </div>
+        `;
+        banner.innerHTML = `<strong>Must NOT Sit Together (Numbered Circle):</strong> Unnumbered circle slotting &times; ${nVal} chair rotations = <strong>${nVal} &times; (${m} − 1)! &times; <sup>${m}</sup>P<sub>${kVal}</sub> = ${ans.toLocaleString()} ways</strong>.`;
+
+        table.innerHTML = `
+          <thead><tr><th>Stage</th><th>Action</th><th>Formula</th><th>Count</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Step 1</strong></td><td>Find valid relative circular arrangements with no two of the ${kVal} guests adjacent</td><td>(${m} − 1)! &times; <sup>${m}</sup>P<sub>${kVal}</sub></td><td>${unnumberedWays.toLocaleString()}</td></tr>
+            <tr><td><strong>Step 2</strong></td><td>Rotate each valid circular pattern across the ${nVal} numbered seats</td><td>&times; ${nVal}</td><td>${nVal}</td></tr>
+            <tr style="background:#f3e8ff;"><td colspan="3"><strong>Total Numbered-Circle Arrangements (No Two Adjacent):</strong></td><td style="font-weight:800; color:#4c1d95;">${ans.toLocaleString()}</td></tr>
+          </tbody>
+        `;
+      }
+
+      miscBox.innerHTML = `
+        <strong>9758 Exam Pro-Tip — Numbered Seats Around a Round Table:</strong>
+        <ul style="margin:3px 0 0 0; padding-left:18px;">
+          <li><strong>Why it is NOT identical to a straight line when restrictions exist:</strong> Even though unrestricted seating is <em>n!</em> in both a line and a numbered circle, <strong>Seat 1 and Seat n are adjacent in a numbered circle</strong> (wrap-around adjacency!).</li>
+          <li><strong>Cleanest 9758 Formula:</strong> Solve the restriction on an <em>unnumbered</em> circle first, then simply multiply by <strong>n</strong> (the <em>n</em> distinct rotations onto the <em>n</em> numbered chairs)!</li>
+        </ul>
+      `;
+    }
+  }
+
+  const examQs = [
+    {
+      q: "Eight people—including a pair of twins and 3 teachers—are to be seated at an unnumbered round table. If the twins must sit together and no two teachers may sit next to each other, which expression gives the number of arrangements?",
+      opts: [
+        "2! × (4 − 1)! × ⁴P₃ = 288",
+        "2! × 4! × ⁵P₃ = 2880",
+        "2! × (7 − 1)! − 2! × 3! × 4!",
+        "(8 − 1)! − 2! × 3!"
+      ],
+      ans: 0,
+      exp: "Group the 2 twins as 1 unit (2! internal orders). Together with the 3 other non-teachers, there are 4 units seated in a circle in (4 − 1)! = 3! = 6 ways, creating 4 gaps. Slot the 3 distinct teachers into 4 gaps in ⁴P₃ = 24 ways: 2 × 6 × 24 = 288."
+    },
+    {
+      q: "Six guests are seated at a round table whose chairs are numbered 1 to 6. In how many ways can they be seated if 2 particular guests must NOT sit next to each other?",
+      opts: [
+        "6 × (3! × ⁴P₂) = 432",
+        "4! × ⁵P₂ = 480",
+        "(6 − 1)! − 2! × 4! = 72",
+        "3! × ⁴P₂ = 72"
+      ],
+      ans: 0,
+      exp: "In a numbered circle, Seat 6 and Seat 1 are adjacent! First solve for an unnumbered circle: seat the other 4 guests in (4 − 1)! = 3! ways (4 gaps), then slot the 2 restricted guests in ⁴P₂ ways. Finally multiply by 6 rotations for the 6 numbered seats: 6 × 6 × 12 = 432."
+    },
+    {
+      q: "How many distinct 7-letter arrangements can be formed from the word PUNGGOL in which the two G's are NOT adjacent?",
+      opts: [
+        "5! × ⁶C₂ = 1800",
+        "5! × ⁶P₂ = 3600",
+        "7! − 6! × 2! = 3600",
+        "5! × ⁵C₂ = 1200"
+      ],
+      ans: 0,
+      exp: "Arrange the 5 distinct non-G letters (P, U, N, O, L) in 5! = 120 ways, creating 6 gaps. Since the two G's are identical, choose 2 of the 6 gaps in ⁶C₂ = 15 ways (no × 2!). Total = 120 × 15 = 1800."
+    }
+  ];
+
+  let curQ = 0;
+
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").textContent = item.q;
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i}, this)">${String.fromCharCode(65 + i)}. ${o}</button>
+    `).join("");
+  }
+
+  function gradeExamQ(idx, btn) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  loadScenario("line");
+  renderExamQ();
+</script>
+
+</body>
+</html>
