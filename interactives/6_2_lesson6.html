@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>6.2 Lesson 6 | Solving for Unknown n or p & Mode of B(n, p)</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 16px 20px 28px 20px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    /* HEADER & MODE TABS */
+    .lab-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .lab-title-group h1 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge-9758 {
+      background: var(--purple);
+      color: #ffffff;
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .lab-title-group p {
+      margin: 3px 0 0 0;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .mode-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mode-btn {
+      padding: 8px 13px;
+      border-radius: 10px;
+      border: 1.5px solid #cbd5e1;
+      background: #ffffff;
+      color: var(--text);
+      font-size: 0.81rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mode-btn:hover {
+      border-color: var(--purple);
+      color: var(--purple-dark);
+    }
+
+    .mode-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.22);
+    }
+
+    /* WORKSPACE LAYOUT */
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: 405px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    @media (max-width: 980px) {
+      .workspace-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 18px;
+      box-shadow: 0 3px 10px rgba(148, 163, 184, 0.06);
+      margin-bottom: 14px;
+    }
+
+    .card-kicker {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    /* SUB-MODE PILLS */
+    .sub-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .sub-btn {
+      padding: 8px 8px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: var(--text);
+      font-size: 0.77rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      transition: 0.15s;
+    }
+
+    .sub-btn.active {
+      background: var(--blue-bg);
+      border-color: var(--blue);
+      color: #0369a1;
+    }
+
+    /* PRESET GRID */
+    .preset-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+      margin-bottom: 12px;
+    }
+
+    .preset-btn {
+      text-align: left;
+      padding: 8px 10px;
+      border-radius: 9px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #1e293b;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+      line-height: 1.3;
+    }
+
+    .preset-btn span {
+      display: block;
+      font-size: 0.71rem;
+      font-weight: 500;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .preset-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .preset-btn.active {
+      background: var(--purple-bg);
+      border-color: var(--purple-dark);
+      color: var(--purple-dark);
+    }
+
+    /* SLIDERS & INPUTS */
+    .control-group {
+      margin-bottom: 11px;
+    }
+
+    .control-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .val-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 0.82rem;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple-dark);
+      cursor: pointer;
+    }
+
+    select.styled-select {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #1e293b;
+      background: #ffffff;
+      margin-bottom: 10px;
+    }
+
+    /* TI-84 PLUS CE KEYCAP & CONSOLE STYLES */
+    .gc-box {
+      background: #0f172a;
+      color: #f1f5f9;
+      border-radius: 12px;
+      padding: 13px 15px;
+      border: 2px solid #334155;
+      margin-top: 10px;
+      font-size: 0.8rem;
+      line-height: 1.6;
+    }
+
+    .gc-box-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #334155;
+      padding-bottom: 6px;
+      margin-bottom: 8px;
+    }
+
+    .gc-box-title {
+      color: #38bdf8;
+      font-weight: 800;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .gc-step-list {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .gc-step-list li {
+      margin-bottom: 7px;
+    }
+
+    .gc-step-list li:last-child {
+      margin-bottom: 0;
+    }
+
+    kbd.key {
+      display: inline-block;
+      padding: 1px 6px;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #0f172a;
+      background: #e2e8f0;
+      border: 1px solid #94a3b8;
+      border-bottom-width: 2px;
+      border-radius: 4px;
+      margin: 0 1px;
+    }
+
+    kbd.key.blue {
+      background: #38bdf8;
+      color: #082f49;
+      border-color: #0284c7;
+    }
+
+    kbd.key.green {
+      background: #4ade80;
+      color: #052e16;
+      border-color: #16a34a;
+    }
+
+    .gc-code {
+      display: inline-block;
+      background: #1e293b;
+      color: #fde047;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 5px;
+      border: 1px solid #475569;
+      margin-top: 2px;
+    }
+
+    .gc-ans {
+      color: #4ade80;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-weight: 800;
+    }
+
+    /* ALGEBRA STEPS & BANNERS */
+    .steps-box {
+      background: #faf5ff;
+      border-left: 4px solid var(--purple);
+      padding: 11px 13px;
+      border-radius: 8px;
+      font-size: 0.81rem;
+      line-height: 1.6;
+      color: #1e293b;
+      margin-top: 10px;
+    }
+
+    .trap-banner {
+      background: var(--rose-bg);
+      border-left: 4px solid var(--rose);
+      padding: 9px 12px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      color: #881337;
+      line-height: 1.45;
+      margin-top: 10px;
+    }
+
+    /* METRIC TILES */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    @media (max-width: 720px) {
+      .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .metric-tile {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      text-align: center;
+    }
+
+    .metric-tile .m-label {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .metric-tile .m-val {
+      font-size: 1.02rem;
+      font-weight: 800;
+      color: #1e293b;
+      font-family: 'Consolas', 'Courier New', monospace;
+    }
+
+    .metric-tile.purple { background: var(--purple-bg); border-color: #d8b4fe; }
+    .metric-tile.purple .m-val { color: var(--purple-dark); }
+
+    .metric-tile.teal { background: var(--teal-bg); border-color: #5eead4; }
+    .metric-tile.teal .m-val { color: var(--teal); }
+
+    .metric-tile.blue { background: var(--blue-bg); border-color: #7dd3fc; }
+    .metric-tile.blue .m-val { color: var(--blue); }
+
+    .metric-tile.amber { background: var(--amber-bg); border-color: #fcd34d; }
+    .metric-tile.amber .m-val { color: var(--amber); }
+
+    /* SVG & TABLES */
+    .svg-wrap {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 6px;
+      margin-bottom: 12px;
+    }
+
+    table.calc-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+      text-align: center;
+    }
+
+    table.calc-table th,
+    table.calc-table td {
+      border: 1px solid #cbd5e1;
+      padding: 6px 8px;
+      font-family: 'Consolas', 'Courier New', monospace;
+    }
+
+    table.calc-table th {
+      background: #1e293b;
+      font-weight: 800;
+      color: #f8fafc;
+    }
+
+    table.calc-table tr.hl-row {
+      background: #fef3c7;
+      font-weight: 800;
+      color: #78350f;
+    }
+
+    table.calc-table tr.pass-row {
+      background: #ccfbf1;
+      font-weight: 700;
+      color: #134e4a;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="lab-header">
+    <div class="lab-title-group">
+      <h1>
+        <span class="badge-9758">6.2 Lesson 6</span>
+        Solving for Unknown n or p &amp; Mode of B(n, p)
+      </h1>
+      <p>Use E(X) = np and Var(X) = npq to solve for unknown parameters, follow exact TI-84 Plus CE keystrokes, and find modal ranges.</p>
+    </div>
+    <div class="mode-tabs">
+      <button class="mode-btn active" id="tab_solve" onclick="switchMainTab('solve')">
+        1. Solve for Unknown n or p
+      </button>
+      <button class="mode-btn" id="tab_mode" onclick="switchMainTab('mode')">
+        2. Mode &amp; Range of p Given Mode
+      </button>
+    </div>
+  </header>
+
+  <!-- TAB 1: SOLVING FOR UNKNOWN n OR p -->
+  <div id="viewSolve" class="workspace-grid">
+    <div>
+      <div class="card">
+        <span class="card-kicker" style="color:var(--purple-dark);">Select Problem Type</span>
+        <div class="sub-tabs">
+          <button class="sub-btn active" id="sub_moments" onclick="switchSolveSub('moments')">
+            A. Given E(X) &amp; Var(X)
+          </button>
+          <button class="sub-btn" id="sub_ineq" onclick="switchSolveSub('ineq')">
+            B. Given Probability Bound (GC)
+          </button>
+        </div>
+
+        <!-- SUB-MODE A: GIVEN E(X) & VAR(X) -->
+        <div id="controlsMoments">
+          <span class="card-kicker" style="color:var(--blue);">Quick 9758 Worked Presets</span>
+          <div class="preset-grid">
+            <button class="preset-btn active" id="mp_ex1" onclick="loadMomentPreset('ex1', 6.0, 4.2)">
+              Worked Ex 1
+              <span>E(X) = 6, Var(X) = 4.2</span>
+            </button>
+            <button class="preset-btn" id="mp_ex2" onclick="loadMomentPreset('ex2', 12.0, 3.0)">
+              Worked Ex 2
+              <span>E(X) = 12, Var(X) = 3.0</span>
+            </button>
+            <button class="preset-btn" id="mp_ex3" onclick="loadMomentPreset('ex3', 4.5, 3.6)">
+              Worked Ex 3
+              <span>E(X) = 4.5, Var(X) = 3.6</span>
+            </button>
+            <button class="preset-btn" id="mp_trap" onclick="loadMomentPreset('trap', 4.0, 4.5)">
+              Invalid Trap Check
+              <span>E(X) = 4.0, Var(X) = 4.5</span>
+            </button>
+          </div>
+
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Target Mean <em>E(X) = np</em>:</span>
+              <span class="val-pill" id="targetMeanDisp">6.0</span>
+            </div>
+            <input type="range" id="targetMeanSlider" min="1.0" max="20.0" step="0.5" value="6.0" oninput="onMomentSlider()" />
+          </div>
+
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Target Variance <em>Var(X) = npq</em>:</span>
+              <span class="val-pill" id="targetVarDisp">4.2</span>
+            </div>
+            <input type="range" id="targetVarSlider" min="0.5" max="15.0" step="0.1" value="4.2" oninput="onMomentSlider()" />
+          </div>
+
+          <div id="momentAlgebraBox"></div>
+          <div id="momentGcBox"></div>
+        </div>
+
+        <!-- SUB-MODE B: PROBABILITY INEQUALITY FOR UNKNOWN n -->
+        <div id="controlsIneq" style="display:none;">
+          <span class="card-kicker" style="color:var(--amber);">Select Inequality Type for Unknown n</span>
+          <select class="styled-select" id="ineqConditionSelect" onchange="renderSolveIneq()">
+            <option value="ge1">Find least n such that P(X ≥ 1) &gt; α</option>
+            <option value="ge2">Find least n such that P(X ≥ 2) &gt; α</option>
+            <option value="le1">Find least n such that P(X ≤ 1) &lt; α</option>
+            <option value="le2">Find least n such that P(X ≤ 2) &lt; α</option>
+          </select>
+
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Known Success Probability <em>p</em>:</span>
+              <span class="val-pill" id="ineqPDisp">p = 0.20</span>
+            </div>
+            <input type="range" id="ineqPSlider" min="0.05" max="0.60" step="0.01" value="0.20" oninput="renderSolveIneq()" />
+          </div>
+
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Probability Threshold <em>α</em>:</span>
+              <span class="val-pill" id="ineqAlphaDisp">α = 0.95</span>
+            </div>
+            <input type="range" id="ineqAlphaSlider" min="0.05" max="0.99" step="0.01" value="0.95" oninput="renderSolveIneq()" />
+          </div>
+
+          <div id="ineqGcStepsBox"></div>
+          <div id="ineqAlgebraBox"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN FOR TAB 1 -->
+    <div>
+      <div class="metrics-grid" id="solveMetricsGrid"></div>
+
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
+          <div>
+            <span class="card-kicker" style="color:var(--blue); margin-bottom:2px;" id="solveVizKicker">Recovered Binomial Distribution</span>
+            <strong style="font-size:0.9rem; color:#1e293b;" id="solveVizHeadline">PMF of B(n, p) matching your target moments</strong>
+          </div>
+        </div>
+
+        <div class="svg-wrap">
+          <svg id="solveSvg" viewBox="0 0 680 280" width="100%" height="auto"></svg>
+        </div>
+
+        <div style="overflow-x:auto;" id="solveTableWrap"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 2: MODE OF B(n, p) & RANGE OF p GIVEN MODE -->
+  <div id="viewMode" class="workspace-grid" style="display:none;">
+    <div>
+      <div class="card">
+        <span class="card-kicker" style="color:var(--purple-dark);">Select Mode Investigation Direction</span>
+        <div class="sub-tabs">
+          <button class="sub-btn active" id="msub_findMode" onclick="switchModeSub('findMode')">
+            A. Find Mode Given (n, p)
+          </button>
+          <button class="sub-btn" id="msub_findRange" onclick="switchModeSub('findRange')">
+            B. Find Range of p Given Mode
+          </button>
+        </div>
+
+        <!-- SUB-MODE A: FIND MODE GIVEN n, p -->
+        <div id="controlsFindMode">
+          <div class="preset-grid">
+            <button class="preset-btn active" id="md_unique" onclick="loadModePreset('unique', 12, 0.30)">
+              Unique Mode Peak
+              <span>B(12, 0.30) ⇒ (n+1)p = 3.9</span>
+            </button>
+            <button class="preset-btn" id="md_tie" onclick="loadModePreset('tie', 11, 0.25)">
+              Bimodal Tie Case!
+              <span>B(11, 0.25) ⇒ (n+1)p = 3.0 (Int!)</span>
+            </button>
+          </div>
+
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Number of Trials <em>n</em>:</span>
+              <span class="val-pill" id="mdNDisp">n = 12</span>
+            </div>
+            <input type="range" id="mdNSlider" min="3" max="25" step="1" value="12" oninput="onFindModeSlider()" />
+          </div>
+
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Probability <em>p</em>:</span>
+              <span class="val-pill" id="mdPDisp">p = 0.30</span>
+            </div>
+            <input type="range" id="mdPSlider" min="0.05" max="0.95" step="0.01" value="0.30" oninput="onFindModeSlider()" />
+          </div>
+
+          <div id="findModeAlgebraBox"></div>
+          <div id="findModeGcBox"></div>
+        </div>
+
+        <!-- SUB-MODE B: FIND RANGE OF p GIVEN MODE m -->
+        <div id="controlsFindRange" style="display:none;">
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Fixed Number of Trials <em>n</em>:</span>
+              <span class="val-pill" id="rgNDisp">n = 10</span>
+            </div>
+            <input type="range" id="rgNSlider" min="2" max="25" step="1" value="10" oninput="onRangeNSlider()" />
+          </div>
+
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Given Modal Outcome <em>m</em>:</span>
+              <span class="val-pill" id="rgMDisp">m = 3</span>
+            </div>
+            <input type="range" id="rgMSlider" min="0" max="10" step="1" value="3" oninput="renderFindRange()" />
+          </div>
+
+          <div id="findRangeAlgebraBox"></div>
+          <div id="findRangeGcBox"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN FOR TAB 2 -->
+    <div>
+      <div class="metrics-grid" id="modeMetricsGrid"></div>
+
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
+          <div>
+            <span class="card-kicker" style="color:var(--amber); margin-bottom:2px;" id="modeVizKicker">Modal Peak &amp; Adjacent Term Ratios</span>
+            <strong style="font-size:0.9rem; color:#1e293b;" id="modeVizHeadline">Modal bar(s) highlighted in gold</strong>
+          </div>
+        </div>
+
+        <div class="svg-wrap">
+          <svg id="modeSvg" viewBox="0 0 680 280" width="100%" height="auto"></svg>
+        </div>
+
+        <div style="overflow-x:auto;" id="modeTableWrap"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let mainTab = "solve";
+    let solveSub = "moments";
+    let modeSub = "findMode";
+
+    function logFactorial(m) {
+      let s = 0;
+      for (let i = 2; i <= m; i++) s += Math.log(i);
+      return s;
+    }
+
+    function binomPdf(n, p, x) {
+      if (x < 0 || x > n) return 0;
+      if (p <= 0) return x === 0 ? 1 : 0;
+      if (p >= 1) return x === n ? 1 : 0;
+      const logComb = logFactorial(n) - logFactorial(x) - logFactorial(n - x);
+      return Math.exp(logComb + x * Math.log(p) + (n - x) * Math.log(1 - p));
+    }
+
+    function binomCdf(n, p, x) {
+      let sum = 0;
+      const top = Math.min(n, Math.floor(x));
+      for (let i = 0; i <= top; i++) sum += binomPdf(n, p, i);
+      return Math.min(1, sum);
+    }
+
+    function switchMainTab(tab) {
+      mainTab = tab;
+      document.getElementById("tab_solve").classList.toggle("active", tab === "solve");
+      document.getElementById("tab_mode").classList.toggle("active", tab === "mode");
+      document.getElementById("viewSolve").style.display = tab === "solve" ? "grid" : "none";
+      document.getElementById("viewMode").style.display = tab === "mode" ? "grid" : "none";
+      if (tab === "solve") {
+        solveSub === "moments" ? renderSolveMoments() : renderSolveIneq();
+      } else {
+        modeSub === "findMode" ? renderFindMode() : renderFindRange();
+      }
+    }
+
+    function switchSolveSub(sub) {
+      solveSub = sub;
+      document.getElementById("sub_moments").classList.toggle("active", sub === "moments");
+      document.getElementById("sub_ineq").classList.toggle("active", sub === "ineq");
+      document.getElementById("controlsMoments").style.display = sub === "moments" ? "block" : "none";
+      document.getElementById("controlsIneq").style.display = sub === "ineq" ? "block" : "none";
+      sub === "moments" ? renderSolveMoments() : renderSolveIneq();
+    }
+
+    // =========================================================
+    // TAB 1A: SOLVING FOR n AND p FROM E(X) & Var(X)
+    // =========================================================
+    function loadMomentPreset(key, mu, v) {
+      ["ex1", "ex2", "ex3", "trap"].forEach(k => {
+        document.getElementById("mp_" + k).classList.toggle("active", k === key);
+      });
+      document.getElementById("targetMeanSlider").value = mu;
+      document.getElementById("targetVarSlider").value = v;
+      renderSolveMoments();
+    }
+
+    function onMomentSlider() {
+      ["ex1", "ex2", "ex3", "trap"].forEach(k => {
+        document.getElementById("mp_" + k).classList.remove("active");
+      });
+      renderSolveMoments();
+    }
+
+    function renderSolveMoments() {
+      const mu = parseFloat(document.getElementById("targetMeanSlider").value);
+      const v = parseFloat(document.getElementById("targetVarSlider").value);
+      document.getElementById("targetMeanDisp").textContent = mu.toFixed(1);
+      document.getElementById("targetVarDisp").textContent = v.toFixed(1);
+
+      const q = v / mu;
+      const p = 1 - q;
+      const nRaw = p > 0 ? mu / p : NaN;
+      const nInt = Math.round(nRaw);
+      const isValidRange = v < mu && p > 0 && p < 1;
+      const isExactInt = isValidRange && Math.abs(nRaw - nInt) < 1e-3 && nInt >= 1;
+
+      if (!isValidRange) {
+        document.getElementById("momentAlgebraBox").innerHTML = `
+          <div class="trap-banner">
+            <strong>Impossible Binomial Parameters!</strong><br>
+            Dividing <em>Var(X) / E(X) = npq / np = q</em> gives:<br>
+            <strong>q = ${v.toFixed(2)} / ${mu.toFixed(2)} = ${q.toFixed(4)} ≥ 1</strong><br>
+            Since <em>0 &lt; q &lt; 1</em> for every Binomial distribution, we must ALWAYS have <strong>Var(X) &lt; E(X)</strong>!
+          </div>
+        `;
+        document.getElementById("momentGcBox").innerHTML = "";
+        document.getElementById("solveMetricsGrid").innerHTML = `
+          <div class="metric-tile purple"><span class="m-label">Ratio q = Var / E</span><span class="m-val">${q.toFixed(3)}</span></div>
+          <div class="metric-tile amber"><span class="m-label">Recovered p = 1 − q</span><span class="m-val">${p.toFixed(3)} (Invalid)</span></div>
+          <div class="metric-tile teal"><span class="m-label">Recovered n = E / p</span><span class="m-val">Undefined</span></div>
+          <div class="metric-tile blue"><span class="m-label">Status</span><span class="m-val">Var ≥ Mean</span></div>
+        `;
+        document.getElementById("solveSvg").innerHTML = `<text x="340" y="145" text-anchor="middle" font-size="14" font-weight="bold" fill="#e11d48">No B(n, p) exists when Var(X) ≥ E(X) because q = Var(X)/E(X) ≥ 1.</text>`;
+        document.getElementById("solveTableWrap").innerHTML = "";
+        return;
+      }
+
+      document.getElementById("momentAlgebraBox").innerHTML = `
+        <div class="steps-box">
+          <strong>3-Step Algebraic Elimination (Done by Hand First):</strong><br>
+          <strong>1. Divide Var by Mean:</strong> <code>q = Var(X)/E(X) = ${v.toFixed(2)}/${mu.toFixed(2)} = ${q.toFixed(4)}</code><br>
+          <strong>2. Find p = 1 − q:</strong> <code>p = 1 − ${q.toFixed(4)} = <strong>${p.toFixed(4)}</strong></code><br>
+          <strong>3. Solve n = E(X)/p:</strong> <code>n = ${mu.toFixed(2)}/${p.toFixed(4)} = <strong>${nRaw.toFixed(3)}</strong> ${isExactInt ? `⇒ <strong>n = ${nInt}</strong>` : `(≈ ${nInt})`}</code>
+        </div>
+      `;
+
+      const displayN = Math.max(1, Math.min(40, nInt));
+      const modeSample = Math.round(displayN * p);
+      document.getElementById("momentGcBox").innerHTML = `
+        <div class="gc-box">
+          <div class="gc-box-header">
+            <span class="gc-box-title">TI-84 Plus CE Verification Steps</span>
+          </div>
+          <ol class="gc-step-list">
+            <li>Press <kbd class="key blue">2nd</kbd> <kbd class="key">VARS</kbd> (<strong>DISTR</strong>) and scroll to <strong>A:binompdf(</strong> (or <strong>B:binomcdf(</strong>).</li>
+            <li>Enter <code>trials:${displayN}</code>, <code>p:${p.toFixed(4)}</code>, <code>x value:${modeSample}</code> and select <strong>Paste</strong>.</li>
+            <li>Press <kbd class="key">ENTER</kbd> to evaluate:<br>
+              <span class="gc-code">binompdf(${displayN}, ${p.toFixed(4)}, ${modeSample})</span> = <span class="gc-ans">${binomPdf(displayN, p, modeSample).toFixed(5)}</span>
+            </li>
+          </ol>
+        </div>
+      `;
+
+      document.getElementById("solveMetricsGrid").innerHTML = `
+        <div class="metric-tile blue"><span class="m-label">q = Var(X) / E(X)</span><span class="m-val">${q.toFixed(4)}</span></div>
+        <div class="metric-tile purple"><span class="m-label">Solved p = 1 − q</span><span class="m-val">${p.toFixed(4)}</span></div>
+        <div class="metric-tile teal"><span class="m-label">Solved n = E(X) / p</span><span class="m-val">${isExactInt ? nInt : nRaw.toFixed(2)}</span></div>
+        <div class="metric-tile amber"><span class="m-label">Recovered Model</span><span class="m-val">B(${displayN}, ${p.toFixed(2)})</span></div>
+      `;
+
+      document.getElementById("solveVizKicker").textContent = "Recovered Binomial Distribution";
+      document.getElementById("solveVizHeadline").textContent = `PMF of X ~ B(${displayN}, ${p.toFixed(3)}) with E(X) = ${(displayN * p).toFixed(2)} and Var(X) = ${(displayN * p * q).toFixed(2)}`;
+
+      renderBarChart("solveSvg", displayN, p, new Set([modeSample]));
+      renderMomentVerifyTable(displayN, p);
+    }
+
+    function renderMomentVerifyTable(n, p) {
+      const wrap = document.getElementById("solveTableWrap");
+      const maxCols = Math.min(n, 9);
+      let h = "", r = "";
+      for (let x = 0; x <= maxCols; x++) {
+        h += `<th>x = ${x}</th>`;
+        r += `<td>${binomPdf(n, p, x).toFixed(4)}</td>`;
+      }
+      wrap.innerHTML = `
+        <table class="calc-table">
+          <thead><tr><th>Outcome ${n > 9 ? '(first 10)' : ''}</th>${h}</tr></thead>
+          <tbody><tr><th>P(X = x)</th>${r}</tr></tbody>
+        </table>
+      `;
+    }
+
+    // =========================================================
+    // TAB 1B: SOLVING FOR UNKNOWN n FROM PROBABILITY INEQUALITY
+    // =========================================================
+    function evalCondition(type, n, p) {
+      if (type === "ge1") return 1 - Math.pow(1 - p, n);
+      if (type === "ge2") return 1 - binomCdf(n, p, 1);
+      if (type === "le1") return binomCdf(n, p, 1);
+      return binomCdf(n, p, 2);
+    }
+
+    function renderSolveIneq() {
+      const type = document.getElementById("ineqConditionSelect").value;
+      const p = parseFloat(document.getElementById("ineqPSlider").value);
+      const alpha = parseFloat(document.getElementById("ineqAlphaSlider").value);
+      const q = 1 - p;
+
+      document.getElementById("ineqPDisp").textContent = `p = ${p.toFixed(2)}`;
+      document.getElementById("ineqAlphaDisp").textContent = `α = ${alpha.toFixed(2)}`;
+
+      let nStar = 1;
+      while (nStar <= 150) {
+        const val = evalCondition(type, nStar, p);
+        const ok = (type === "ge1" || type === "ge2") ? val > alpha : val < alpha;
+        if (ok) break;
+        nStar++;
+      }
+
+      const prevN = Math.max(1, nStar - 1);
+      const prevVal = evalCondition(type, prevN, p);
+      const starVal = evalCondition(type, nStar, p);
+
+      let exprLabel = "", rewriteStr = "", distChoice = "", algebraHtml = "";
+
+      if (type === "ge1") {
+        exprLabel = `P(X ≥ 1) > ${alpha.toFixed(2)}`;
+        rewriteStr = `1 − P(X = 0) > ${alpha.toFixed(2)}`;
+        distChoice = `1 - binomcdf(X,${p.toFixed(2)},0)`;
+        const exactN = Math.log(1 - alpha) / Math.log(q);
+        algebraHtml = `
+          <div class="steps-box">
+            <strong>9758 Exam Presentation (Write Both Rows from GC Table!):</strong><br>
+            • Alternative algebraic check: <code>1 − (${q.toFixed(2)})ⁿ &gt; ${alpha.toFixed(2)} ⇒ n &gt; ln(${(1 - alpha).toFixed(2)})/ln(${q.toFixed(2)}) = ${exactN.toFixed(2)}</code><br>
+            • From GC Table: When <code>n = ${prevN}</code>, <code>P(X ≥ 1) = ${prevVal.toFixed(4)} &lt; ${alpha.toFixed(2)}</code>; when <code>n = ${nStar}</code>, <code>P(X ≥ 1) = ${starVal.toFixed(4)} &gt; ${alpha.toFixed(2)}</code>.<br>
+            ⇒ Least integer <strong>n = ${nStar}</strong>.
+          </div>
+        `;
+      } else if (type === "ge2") {
+        exprLabel = `P(X ≥ 2) > ${alpha.toFixed(2)}`;
+        rewriteStr = `1 − P(X ≤ 1) > ${alpha.toFixed(2)}`;
+        distChoice = `1 - binomcdf(X,${p.toFixed(2)},1)`;
+        algebraHtml = `
+          <div class="steps-box">
+            <strong>9758 Exam Presentation (GC Table Method Required):</strong><br>
+            Because <em>k ≥ 1</em>, logarithms cannot isolate <em>n</em>. You MUST quote the two bounding rows from your TI-84 table:<br>
+            • When <code>n = ${prevN}</code>, <code>P(X ≥ 2) = ${prevVal.toFixed(4)} &lt; ${alpha.toFixed(2)}</code><br>
+            • When <code>n = ${nStar}</code>, <code>P(X ≥ 2) = ${starVal.toFixed(4)} &gt; ${alpha.toFixed(2)}</code><br>
+            ⇒ Least integer <strong>n = ${nStar}</strong>.
+          </div>
+        `;
+      } else if (type === "le1") {
+        exprLabel = `P(X ≤ 1) < ${alpha.toFixed(2)}`;
+        rewriteStr = `P(X ≤ 1) < ${alpha.toFixed(2)} (already in ≤ form)`;
+        distChoice = `binomcdf(X,${p.toFixed(2)},1)`;
+        algebraHtml = `
+          <div class="steps-box">
+            <strong>9758 Exam Presentation (Quote Both Bounding GC Table Rows):</strong><br>
+            • When <code>n = ${prevN}</code>, <code>P(X ≤ 1) = ${prevVal.toFixed(4)} &gt; ${alpha.toFixed(2)}</code><br>
+            • When <code>n = ${nStar}</code>, <code>P(X ≤ 1) = ${starVal.toFixed(4)} &lt; ${alpha.toFixed(2)}</code><br>
+            ⇒ Least integer <strong>n = ${nStar}</strong>.
+          </div>
+        `;
+      } else {
+        exprLabel = `P(X ≤ 2) < ${alpha.toFixed(2)}`;
+        rewriteStr = `P(X ≤ 2) < ${alpha.toFixed(2)} (already in ≤ form)`;
+        distChoice = `binomcdf(X,${p.toFixed(2)},2)`;
+        algebraHtml = `
+          <div class="steps-box">
+            <strong>9758 Exam Presentation (Quote Both Bounding GC Table Rows):</strong><br>
+            • When <code>n = ${prevN}</code>, <code>P(X ≤ 2) = ${prevVal.toFixed(4)} &gt; ${alpha.toFixed(2)}</code><br>
+            • When <code>n = ${nStar}</code>, <code>P(X ≤ 2) = ${starVal.toFixed(4)} &lt; ${alpha.toFixed(2)}</code><br>
+            ⇒ Least integer <strong>n = ${nStar}</strong>.
+          </div>
+        `;
+      }
+
+      document.getElementById("ineqGcStepsBox").innerHTML = `
+        <div class="gc-box">
+          <div class="gc-box-header">
+            <span class="gc-box-title">TI-84 Plus CE Exact Button-by-Button Guide</span>
+          </div>
+          <ol class="gc-step-list">
+            <li><strong>Rewrite using ≤:</strong> Convert <code>${exprLabel}</code> into <code>${rewriteStr}</code>.</li>
+            <li><strong>Open Function Editor:</strong> Press <kbd class="key">Y=</kbd> and clear any old equations with <kbd class="key">CLEAR</kbd>.</li>
+            <li><strong>Insert binomcdf:</strong> ${type.startsWith("ge") ? `Type <kbd class="key">1</kbd> <kbd class="key">−</kbd>, then press ` : `Press `}<kbd class="key blue">2nd</kbd> <kbd class="key">VARS</kbd> (<strong>DISTR</strong>) → select <strong>B:binomcdf(</strong>.</li>
+            <li><strong>Use <kbd class="key">X,T,θ,n</kbd> for unknown <em>n</em>:</strong> Set <code>trials:</code><kbd class="key">X,T,θ,n</kbd>, <code>p:${p.toFixed(2)}</code>, <code>x value:${type.endsWith("1") && type.startsWith("ge") ? 0 : (type.endsWith("2") && type.startsWith("ge") ? 1 : (type.endsWith("1") ? 1 : 2))}</code> → <strong>Paste</strong> so:<br>
+              <span class="gc-code">Y₁ = ${distChoice}</span>
+            </li>
+            <li><strong>Configure Table Step:</strong> Press <kbd class="key blue">2nd</kbd> <kbd class="key">WINDOW</kbd> (<strong>TBLSET</strong>) → set <code>TblStart = 1</code>, <code>ΔTbl = 1</code>, <code>Indpnt: Auto</code>, <code>Depend: Auto</code>.</li>
+            <li><strong>Inspect Crossover:</strong> Press <kbd class="key blue">2nd</kbd> <kbd class="key">GRAPH</kbd> (<strong>TABLE</strong>) and scroll down to <code>X = ${nStar}</code> where <code>Y₁</code> crosses <code>${alpha.toFixed(2)}</code> (<span class="gc-ans">${starVal.toFixed(4)}</span>).</li>
+          </ol>
+        </div>
+      `;
+
+      document.getElementById("ineqAlgebraBox").innerHTML = algebraHtml;
+
+      document.getElementById("solveMetricsGrid").innerHTML = `
+        <div class="metric-tile purple"><span class="m-label">Target Inequality</span><span class="m-val">${exprLabel}</span></div>
+        <div class="metric-tile amber"><span class="m-label">Row X = ${prevN}</span><span class="m-val">Y₁ = ${prevVal.toFixed(4)}</span></div>
+        <div class="metric-tile teal"><span class="m-label">Crossover Row X = ${nStar}</span><span class="m-val">Y₁ = ${starVal.toFixed(4)}</span></div>
+        <div class="metric-tile blue"><span class="m-label">TI-84 Y₁ Formula</span><span class="m-val" style="font-size:0.75rem;">${distChoice}</span></div>
+      `;
+
+      document.getElementById("solveVizKicker").textContent = "TI-84 [TABLE] Crossover Visualization";
+      document.getElementById("solveVizHeadline").textContent = `Probability sequence across trial count n crossing α = ${alpha.toFixed(2)} at n* = ${nStar}`;
+
+      renderIneqSequenceSvg(type, p, alpha, nStar);
+      renderTi84Table(type, p, alpha, nStar, distChoice);
+    }
+
+    function renderIneqSequenceSvg(type, p, alpha, nStar) {
+      const svg = document.getElementById("solveSvg");
+      const W = 680, H = 280;
+      const padL = 54, padR = 26, padT = 24, padB = 42;
+      const plotW = W - padL - padR;
+      const plotH = H - padT - padB;
+
+      const startN = Math.max(1, nStar - 5);
+      const endN = Math.max(startN + 9, nStar + 5);
+      const count = endN - startN + 1;
+      const toX = k => padL + ((k - startN + 0.5) / count) * plotW;
+      const toY = v => padT + (1 - v) * plotH;
+
+      let html = "";
+      for (let v = 0; v <= 1.001; v += 0.2) {
+        const y = toY(v);
+        html += `<line x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}" stroke="#f1f5f9" stroke-width="1"/>`;
+        html += `<text x="${padL - 8}" y="${y + 4}" text-anchor="end" font-size="10" fill="#64748b">${v.toFixed(1)}</text>`;
+      }
+
+      const ay = toY(alpha);
+      html += `<line x1="${padL}" y1="${ay}" x2="${W - padR}" y2="${ay}" stroke="#e11d48" stroke-width="1.8" stroke-dasharray="5,4"/>`;
+      html += `<text x="${W - padR - 4}" y="${ay - 6}" text-anchor="end" font-size="10.5" font-weight="bold" fill="#e11d48">Threshold α = ${alpha.toFixed(2)}</text>`;
+
+      html += `<line x1="${padL}" y1="${padT}" x2="${padL}" y2="${H - padB}" stroke="#64748b" stroke-width="1.4"/>`;
+      html += `<line x1="${padL}" y1="${H - padB}" x2="${W - padR}" y2="${H - padB}" stroke="#334155" stroke-width="1.5"/>`;
+
+      for (let k = startN; k <= endN; k++) {
+        const val = evalCondition(type, k, p);
+        const cx = toX(k);
+        const cy = toY(val);
+        const pass = (type === "ge1" || type === "ge2") ? val > alpha : val < alpha;
+        const isStar = k === nStar;
+        html += `
+          <circle cx="${cx}" cy="${cy}" r="${isStar ? 7 : 5}" fill="${pass ? '#0f766e' : '#94a3b8'}" stroke="${isStar ? '#f59e0b' : '#ffffff'}" stroke-width="${isStar ? 2.5 : 1.5}"/>
+          <text x="${cx}" y="${H - padB + 16}" text-anchor="middle" font-size="10.5" font-weight="bold" fill="${isStar ? '#0f766e' : '#334155'}">${k}</text>
+        `;
+        if (isStar) {
+          html += `<text x="${cx}" y="${cy - 11}" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#0f766e">n*=${k} (${val.toFixed(3)})</text>`;
+        }
+      }
+
+      html += `<text x="${W / 2}" y="${H - 8}" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#334155">Trial Count n (X column on TI-84 Table)</text>`;
+      svg.innerHTML = html;
+    }
+
+    function renderTi84Table(type, p, alpha, nStar, distChoice) {
+      const wrap = document.getElementById("solveTableWrap");
+      const startN = Math.max(1, nStar - 2);
+      const endN = nStar + 2;
+      let rows = "";
+      for (let k = startN; k <= endN; k++) {
+        const val = evalCondition(type, k, p);
+        const pass = (type === "ge1" || type === "ge2") ? val > alpha : val < alpha;
+        rows += `
+          <tr class="${k === nStar ? 'hl-row' : (pass ? 'pass-row' : '')}">
+            <td><strong>${k}</strong></td>
+            <td>${val.toFixed(5)}</td>
+            <td>${pass ? `Satisfies condition (${k === nStar ? 'FIRST CROSSOVER n*!' : 'Yes'})` : 'Does NOT satisfy'}</td>
+          </tr>
+        `;
+      }
+      wrap.innerHTML = `
+        <table class="calc-table">
+          <thead><tr><th>TI-84 X (= n)</th><th>Y₁ = ${distChoice}</th><th>9758 Exam Table Audit</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
+    }
+
+    // =========================================================
+    // TAB 2: MODE OF B(n, p) & RANGE OF p GIVEN MODE
+    // =========================================================
+    function switchModeSub(sub) {
+      modeSub = sub;
+      document.getElementById("msub_findMode").classList.toggle("active", sub === "findMode");
+      document.getElementById("msub_findRange").classList.toggle("active", sub === "findRange");
+      document.getElementById("controlsFindMode").style.display = sub === "findMode" ? "block" : "none";
+      document.getElementById("controlsFindRange").style.display = sub === "findRange" ? "block" : "none";
+      sub === "findMode" ? renderFindMode() : renderFindRange();
+    }
+
+    function loadModePreset(key, n, p) {
+      ["unique", "tie"].forEach(k => document.getElementById("md_" + k).classList.remove("active"));
+      document.getElementById("md_" + key).classList.add("active");
+      document.getElementById("mdNSlider").value = n;
+      document.getElementById("mdPSlider").value = p;
+      renderFindMode();
+    }
+
+    function onFindModeSlider() {
+      ["unique", "tie"].forEach(k => document.getElementById("md_" + k).classList.remove("active"));
+      renderFindMode();
+    }
+
+    function renderFindMode() {
+      const n = parseInt(document.getElementById("mdNSlider").value, 10);
+      const p = parseFloat(document.getElementById("mdPSlider").value);
+      document.getElementById("mdNDisp").textContent = `n = ${n}`;
+      document.getElementById("mdPDisp").textContent = `p = ${p.toFixed(2)}`;
+
+      const np1p = (n + 1) * p;
+      const isTie = Math.abs(np1p - Math.round(np1p)) < 1e-6 && np1p >= 1 && np1p <= n;
+      const modes = isTie
+        ? [Math.round(np1p) - 1, Math.round(np1p)]
+        : [Math.floor(np1p)];
+
+      const modalProb = binomPdf(n, p, modes[0]);
+
+      document.getElementById("findModeAlgebraBox").innerHTML = `
+        <div class="steps-box">
+          <strong>Algebraic Ratio Method:</strong><br>
+          <code>(n + 1)p − 1 ≤ m ≤ (n + 1)p</code><br>
+          Here <strong>(n + 1)p = (${n} + 1)(${p.toFixed(2)}) = ${np1p.toFixed(2)}</strong>:<br>
+          <code>${(np1p - 1).toFixed(2)} ≤ m ≤ ${np1p.toFixed(2)}</code><br>
+          ${isTie
+            ? `Exact integer ⇒ <strong>bimodal tie</strong> at <strong>x = ${modes[0]} and x = ${modes[1]}</strong>!`
+            : `Unique integer ⇒ <strong>Mode m = ${modes[0]}</strong>.`}
+        </div>
+      `;
+
+      document.getElementById("findModeGcBox").innerHTML = `
+        <div class="gc-box">
+          <div class="gc-box-header">
+            <span class="gc-box-title">TI-84 Plus CE Peak Inspection Steps</span>
+          </div>
+          <ol class="gc-step-list">
+            <li>Press <kbd class="key">Y=</kbd> and enter <span class="gc-code">Y₁ = binompdf(${n}, ${p.toFixed(2)}, X)</span> using <kbd class="key blue">2nd</kbd> <kbd class="key">VARS</kbd> → <strong>A:binompdf(</strong> and <kbd class="key">X,T,θ,n</kbd>.</li>
+            <li>Press <kbd class="key blue">2nd</kbd> <kbd class="key">WINDOW</kbd> (<strong>TBLSET</strong>): set <code>TblStart = 0</code>, <code>ΔTbl = 1</code>.</li>
+            <li>Press <kbd class="key blue">2nd</kbd> <kbd class="key">GRAPH</kbd> (<strong>TABLE</strong>) and scroll to find the highest <code>Y₁</code> value: peaks at <code>X = ${modes.join(" & ")}</code> (<span class="gc-ans">${modalProb.toFixed(5)}</span>).</li>
+          </ol>
+        </div>
+      `;
+
+      document.getElementById("modeMetricsGrid").innerHTML = `
+        <div class="metric-tile blue"><span class="m-label">(n + 1)p</span><span class="m-val">${np1p.toFixed(2)}</span></div>
+        <div class="metric-tile purple"><span class="m-label">Bounds [(n+1)p−1, (n+1)p]</span><span class="m-val">[${(np1p - 1).toFixed(2)}, ${np1p.toFixed(2)}]</span></div>
+        <div class="metric-tile amber"><span class="m-label">Modal Outcome(s)</span><span class="m-val">x = ${modes.join(" & ")}</span></div>
+        <div class="metric-tile teal"><span class="m-label">Peak P(X = m)</span><span class="m-val">${modalProb.toFixed(4)}</span></div>
+      `;
+
+      document.getElementById("modeVizKicker").textContent = "Modal Peak & Adjacent Term Ratios";
+      document.getElementById("modeVizHeadline").textContent = `X ~ B(${n}, ${p.toFixed(2)}) peaks at x = ${modes.join(" and ")} (gold bar${modes.length > 1 ? 's' : ''})`;
+
+      renderBarChart("modeSvg", n, p, new Set(modes));
+      renderModeRatioTable(n, p, modes);
+    }
+
+    function onRangeNSlider() {
+      const n = parseInt(document.getElementById("rgNSlider").value, 10);
+      const mSl = document.getElementById("rgMSlider");
+      mSl.max = n;
+      if (parseInt(mSl.value, 10) > n) mSl.value = Math.floor(n / 2);
+      renderFindRange();
+    }
+
+    function renderFindRange() {
+      const n = parseInt(document.getElementById("rgNSlider").value, 10);
+      const m = parseInt(document.getElementById("rgMSlider").value, 10);
+      document.getElementById("rgNDisp").textContent = `n = ${n}`;
+      document.getElementById("rgMDisp").textContent = `m = ${m}`;
+
+      const lowP = m / (n + 1);
+      const highP = (m + 1) / (n + 1);
+      const midP = (lowP + highP) / 2;
+
+      document.getElementById("findRangeAlgebraBox").innerHTML = `
+        <div class="steps-box">
+          <strong>Deriving Exact Range of <em>p</em> for Mode <em>m = ${m}</em> (n = ${n}):</strong><br>
+          1. <code>P(X = ${m}) ≥ P(X = ${Math.max(0, m - 1)})</code>:<br>
+          ${m === 0 ? `Holds for all <code>p ≥ 0</code>` : `<code>(${n} − ${m} + 1)p ≥ ${m}(1 − p) ⇒ p ≥ ${m}/${n + 1} (${lowP.toFixed(4)})</code>`}<br>
+          2. <code>P(X = ${m}) ≥ P(X = ${Math.min(n, m + 1)})</code>:<br>
+          ${m === n ? `Holds for all <code>p ≤ 1</code>` : `<code>(${m + 1})(1 − p) ≥ (${n} − ${m})p ⇒ p ≤ ${m + 1}/${n + 1} (${highP.toFixed(4)})</code>`}<br><br>
+          <strong>Exact Interval:</strong> <code>${m}/${n + 1} ≤ p ≤ ${m + 1}/${n + 1}</code> (${lowP.toFixed(4)} ≤ p ≤ ${highP.toFixed(4)})
+        </div>
+      `;
+
+      document.getElementById("findRangeGcBox").innerHTML = `
+        <div class="gc-box">
+          <div class="gc-box-header">
+            <span class="gc-box-title">TI-84 Plus CE Endpoint Check</span>
+          </div>
+          <ol class="gc-step-list">
+            <li>Note: In 9758 exams, deriving the exact fraction <code>${m}/${n + 1} ≤ p ≤ ${m + 1}/${n + 1}</code> MUST be done algebraically using <sup>n</sup>C<sub>r</sub> ratios.</li>
+            <li>To verify an endpoint on your TI-84, test <code>p = ${highP.toFixed(4)}</code> in <span class="gc-code">Y₁ = binompdf(${n}, ${highP.toFixed(4)}, X)</span> and view <kbd class="key blue">2nd</kbd> <kbd class="key">GRAPH</kbd> (<strong>TABLE</strong>): rows <code>X = ${m}</code> and <code>X = ${Math.min(n, m + 1)}</code> will tie!</li>
+          </ol>
+        </div>
+      `;
+
+      document.getElementById("modeMetricsGrid").innerHTML = `
+        <div class="metric-tile purple"><span class="m-label">Lower Bound m/(n+1)</span><span class="m-val">${m}/${n + 1} (${lowP.toFixed(3)})</span></div>
+        <div class="metric-tile teal"><span class="m-label">Upper Bound (m+1)/(n+1)</span><span class="m-val">${m + 1}/${n + 1} (${highP.toFixed(3)})</span></div>
+        <div class="metric-tile amber"><span class="m-label">Midpoint Sample p</span><span class="m-val">${midP.toFixed(4)}</span></div>
+        <div class="metric-tile blue"><span class="m-label">Interval Width</span><span class="m-val">1/${n + 1} (${(1 / (n + 1)).toFixed(3)})</span></div>
+      `;
+
+      document.getElementById("modeVizKicker").textContent = "Verification PMF at Midpoint p";
+      document.getElementById("modeVizHeadline").textContent = `At p = ${midP.toFixed(4)}, B(${n}, ${midP.toFixed(3)}) achieves its unique peak at x = ${m}`;
+
+      renderBarChart("modeSvg", n, midP, new Set([m]));
+      renderModeRatioTable(n, midP, [m]);
+    }
+
+    function renderBarChart(svgId, n, p, highlightSet) {
+      const svg = document.getElementById(svgId);
+      const W = 680, H = 280;
+      const padL = 50, padR = 22, padT = 24, padB = 42;
+      const plotW = W - padL - padR;
+      const plotH = H - padT - padB;
+
+      const probs = [];
+      for (let x = 0; x <= n; x++) probs.push({ x, p: binomPdf(n, p, x) });
+      const maxP = Math.max(0.22, ...probs.map(it => it.p * 1.18));
+      const toY = v => padT + ((maxP - v) / maxP) * plotH;
+      const baseY = H - padB;
+
+      let html = "";
+      const step = maxP > 0.5 ? 0.1 : 0.05;
+      for (let v = 0; v <= maxP + 1e-6; v += step) {
+        const y = toY(v);
+        html += `<line x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}" stroke="#f1f5f9" stroke-width="1"/>`;
+        html += `<text x="${padL - 8}" y="${y + 4}" text-anchor="end" font-size="10" fill="#64748b">${v.toFixed(2)}</text>`;
+      }
+
+      html += `<line x1="${padL}" y1="${padT}" x2="${padL}" y2="${baseY}" stroke="#64748b" stroke-width="1.4"/>`;
+      html += `<line x1="${padL}" y1="${baseY}" x2="${W - padR}" y2="${baseY}" stroke="#334155" stroke-width="1.5"/>`;
+
+      const slotW = plotW / probs.length;
+      const barW = Math.max(5, Math.min(34, slotW * 0.68));
+
+      probs.forEach((it, idx) => {
+        const cx = padL + slotW * (idx + 0.5);
+        const bh = (it.p / maxP) * plotH;
+        const by = baseY - bh;
+        const isHl = highlightSet.has(it.x);
+        html += `
+          <rect x="${cx - barW / 2}" y="${by}" width="${barW}" height="${Math.max(1, bh)}" rx="3" fill="${isHl ? '#f59e0b' : '#8b5cf6'}" fill-opacity="0.88" stroke="${isHl ? '#b45309' : '#7c3aed'}" stroke-width="1.2"/>
+        `;
+        if (probs.length <= 16 || it.x % 2 === 0) {
+          html += `<text x="${cx}" y="${baseY + 16}" text-anchor="middle" font-size="10.5" font-weight="bold" fill="${isHl ? '#b45309' : '#334155'}">${it.x}</text>`;
+        }
+        if (probs.length <= 13 && it.p >= 0.005) {
+          html += `<text x="${cx}" y="${by - 5}" text-anchor="middle" font-size="9" font-weight="bold" fill="#1e293b">${it.p.toFixed(3)}</text>`;
+        }
+      });
+
+      html += `<text x="${W / 2}" y="${H - 8}" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#334155">Number of Successes X = x</text>`;
+      svg.innerHTML = html;
+    }
+
+    function renderModeRatioTable(n, p, modes) {
+      const wrap = document.getElementById("modeTableWrap");
+      const m0 = modes[0];
+      const start = Math.max(0, m0 - 2);
+      const end = Math.min(n, (modes[modes.length - 1]) + 2);
+
+      let rows = "";
+      for (let x = start; x <= end; x++) {
+        const px = binomPdf(n, p, x);
+        const ratio = x === 0 ? "—" : (((n - x + 1) * p) / (x * (1 - p))).toFixed(4);
+        const isMode = modes.includes(x);
+        rows += `
+          <tr class="${isMode ? 'hl-row' : ''}">
+            <td><strong>${x}</strong> ${isMode ? '(MODE)' : ''}</td>
+            <td>${px.toFixed(5)}</td>
+            <td>${ratio}</td>
+          </tr>
+        `;
+      }
+
+      wrap.innerHTML = `
+        <table class="calc-table">
+          <thead>
+            <tr>
+              <th>TI-84 X</th>
+              <th>Y₁ = binompdf(${n}, ${p.toFixed(2)}, X)</th>
+              <th>Ratio P(X = x) / P(X = x − 1)</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
+    }
+
+    // Initialize Lesson 6
+    loadMomentPreset("ex1", 6.0, 4.2);
+  </script>
+</body>
+</html>

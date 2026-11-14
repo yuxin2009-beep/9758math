@@ -1,0 +1,1654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>6.2 Lesson 5 | Binomial B(n, p), TI-84 Syntax, Sums & Conditioned Binomials</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 16px 20px 28px 20px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    /* HEADER & MODE TABS */
+    .lab-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .lab-title-group h1 {
+      margin: 0;
+      font-size: 1.18rem;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge-9758 {
+      background: var(--purple);
+      color: #ffffff;
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .lab-title-group p {
+      margin: 3px 0 0 0;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .mode-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mode-btn {
+      padding: 8px 13px;
+      border-radius: 10px;
+      border: 1.5px solid #cbd5e1;
+      background: #ffffff;
+      color: var(--text);
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mode-btn:hover {
+      border-color: var(--purple);
+      color: var(--purple-dark);
+    }
+
+    .mode-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.22);
+    }
+
+    /* WORKSPACE LAYOUT */
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: 395px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    @media (max-width: 980px) {
+      .workspace-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 18px;
+      box-shadow: 0 3px 10px rgba(148, 163, 184, 0.06);
+      margin-bottom: 14px;
+    }
+
+    .card-kicker {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    /* SUB-TABS */
+    .sub-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .sub-btn {
+      padding: 8px 8px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: var(--text);
+      font-size: 0.77rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      transition: 0.15s;
+    }
+
+    .sub-btn.active {
+      background: var(--blue-bg);
+      border-color: var(--blue);
+      color: #0369a1;
+    }
+
+    /* PRESET GRID */
+    .preset-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+      margin-bottom: 12px;
+    }
+
+    .preset-btn {
+      text-align: left;
+      padding: 8px 10px;
+      border-radius: 9px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #1e293b;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+      line-height: 1.3;
+    }
+
+    .preset-btn span {
+      display: block;
+      font-size: 0.71rem;
+      font-weight: 500;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .preset-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .preset-btn.active {
+      background: var(--purple-bg);
+      border-color: var(--purple-dark);
+      color: var(--purple-dark);
+    }
+
+    /* REAL-WORLD SCENARIO PROMPT BOX */
+    .context-card {
+      background: #f0f9ff;
+      border: 1.5px solid #7dd3fc;
+      border-left: 5px solid var(--blue);
+      border-radius: 11px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      font-size: 0.82rem;
+      line-height: 1.55;
+      color: #0f172a;
+    }
+
+    .context-card .ctx-tag {
+      display: inline-block;
+      background: var(--blue);
+      color: #ffffff;
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 2px 7px;
+      border-radius: 5px;
+      margin-bottom: 5px;
+    }
+
+    .formulate-strip {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed #38bdf8;
+      color: #0369a1;
+      font-size: 0.8rem;
+    }
+
+    /* SLIDERS & INPUTS */
+    .control-group {
+      margin-bottom: 11px;
+    }
+
+    .control-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .val-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 0.82rem;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple-dark);
+      cursor: pointer;
+    }
+
+    select.styled-select {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      font-size: 0.81rem;
+      font-weight: 700;
+      color: #1e293b;
+      background: #ffffff;
+      margin-bottom: 10px;
+    }
+
+    /* INEQUALITY SELECTOR PILLS */
+    .ineq-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .ineq-btn {
+      padding: 7px 6px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: var(--text);
+      font-size: 0.77rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      transition: 0.15s;
+    }
+
+    .ineq-btn:hover {
+      border-color: var(--amber);
+      color: var(--amber);
+    }
+
+    .ineq-btn.active {
+      background: var(--amber-bg);
+      border-color: var(--amber);
+      color: #78350f;
+    }
+
+    /* TI-84 SCREEN BOX */
+    .ti84-screen {
+      background: #1e293b;
+      color: #f8fafc;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 0.81rem;
+      line-height: 1.55;
+      margin-top: 8px;
+      border: 2px solid #475569;
+    }
+
+    .ti84-screen .ti-header {
+      color: #38bdf8;
+      font-weight: 700;
+      font-size: 0.73rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .ti84-screen .ti-cmd {
+      color: #fde047;
+      font-weight: 700;
+      font-size: 0.89rem;
+    }
+
+    .ti84-screen .ti-ans {
+      color: #4ade80;
+      font-weight: 700;
+      font-size: 0.93rem;
+    }
+
+    .trap-banner {
+      background: var(--rose-bg);
+      border-left: 4px solid var(--rose);
+      padding: 9px 12px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      color: #881337;
+      line-height: 1.45;
+      margin-top: 10px;
+    }
+
+    .steps-box {
+      background: #faf5ff;
+      border-left: 4px solid var(--purple);
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 0.81rem;
+      line-height: 1.55;
+      color: #1e293b;
+      margin-top: 10px;
+    }
+
+    /* SUMMARY METRIC TILES */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    @media (max-width: 720px) {
+      .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .metric-tile {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      text-align: center;
+    }
+
+    .metric-tile .m-label {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .metric-tile .m-val {
+      font-size: 1.02rem;
+      font-weight: 800;
+      color: #1e293b;
+      font-family: 'Consolas', 'Courier New', monospace;
+    }
+
+    .metric-tile.purple { background: var(--purple-bg); border-color: #d8b4fe; }
+    .metric-tile.purple .m-val { color: var(--purple-dark); }
+
+    .metric-tile.teal { background: var(--teal-bg); border-color: #5eead4; }
+    .metric-tile.teal .m-val { color: var(--teal); }
+
+    .metric-tile.blue { background: var(--blue-bg); border-color: #7dd3fc; }
+    .metric-tile.blue .m-val { color: var(--blue); }
+
+    .metric-tile.amber { background: var(--amber-bg); border-color: #fcd34d; }
+    .metric-tile.amber .m-val { color: var(--amber); }
+
+    /* SVG & TABLES */
+    .svg-wrap {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 6px;
+      margin-bottom: 12px;
+    }
+
+    table.calc-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+      text-align: center;
+    }
+
+    table.calc-table th,
+    table.calc-table td {
+      border: 1px solid #cbd5e1;
+      padding: 6px 8px;
+    }
+
+    table.calc-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    table.calc-table tr.hl-row {
+      background: #fef3c7;
+      font-weight: 800;
+      color: #78350f;
+    }
+
+    /* BISC DIAGNOSTIC CARDS */
+    .bisc-card {
+      border-radius: 11px;
+      padding: 12px 14px;
+      border: 1.5px solid #cbd5e1;
+      margin-bottom: 10px;
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+
+    .bisc-card.valid {
+      background: var(--teal-bg);
+      border-color: #2dd4bf;
+      color: #134e4a;
+    }
+
+    .bisc-card.invalid {
+      background: var(--rose-bg);
+      border-color: #fda4af;
+      color: #881337;
+    }
+
+    .bisc-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="lab-header">
+    <div class="lab-title-group">
+      <h1>
+        <span class="badge-9758">6.2 Lesson 5</span>
+        Binomial B(n, p), TI-84 Syntax, Sums &amp; Conditioned Binomials
+      </h1>
+      <p>Audit B.I.S.C. conditions, translate TI-84 commands, and formulate probability statements from real-world Binomial contexts.</p>
+    </div>
+    <div class="mode-tabs">
+      <button class="mode-btn active" id="tab_bisc" onclick="switchMode('bisc')">
+        1. B.I.S.C. Conditions &amp; Traps
+      </button>
+      <button class="mode-btn" id="tab_explorer" onclick="switchMode('explorer')">
+        2. B(n, p) &amp; TI-84 Translator
+      </button>
+      <button class="mode-btn" id="tab_sumcond" onclick="switchMode('sumcond')">
+        3. Sum X + Y &amp; Conditioned Binomials
+      </button>
+    </div>
+  </header>
+
+  <!-- MODE 1: B.I.S.C. CONDITIONS CHECKER -->
+  <div id="modeBisc" class="workspace-grid">
+    <div>
+      <div class="card">
+        <span class="card-kicker" style="color:var(--purple-dark);">Select Real-World Scenario to Audit</span>
+        <div class="preset-grid" style="grid-template-columns:1fr;">
+          <button class="preset-btn active" id="sc_valid" onclick="selectScenario('valid')">
+            Scenario A: Sampling WITH Replacement (or Large Population)
+            <span>5 items drawn with replacement from a box of 20 (4 defective)</span>
+          </button>
+          <button class="preset-btn" id="sc_noReplace" onclick="selectScenario('noReplace')">
+            Scenario B: Small Batch WITHOUT Replacement (Trap!)
+            <span>5 items drawn WITHOUT replacement from a box of 20 (4 defective)</span>
+          </button>
+          <button class="preset-btn" id="sc_nonConst" onclick="selectScenario('nonConst')">
+            Scenario C: Non-Constant Probability Across Trials (Trap!)
+            <span>A student takes 4 quizzes with pass probabilities 0.9, 0.8, 0.6, 0.5</span>
+          </button>
+          <button class="preset-btn" id="sc_dependent" onclick="selectScenario('dependent')">
+            Scenario D: Dependent Weather / Traffic Trials (Trap!)
+            <span>Number of rainy days in 7 consecutive days in Singapore</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card">
+        <span class="card-kicker" style="color:var(--teal);">B.I.S.C. Diagnostic Audit &amp; Exact Probability Comparison</span>
+        <div id="biscAuditContainer"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODE 2: BINOMIAL EXPLORER & TI-84 TRANSLATOR -->
+  <div id="modeExplorer" class="workspace-grid" style="display:none;">
+    <!-- LEFT CONTROLS -->
+    <div>
+      <div class="card">
+        <span class="card-kicker" style="color:var(--purple-dark);">1. Select Preset or Tune Parameters (n, p)</span>
+        <div class="preset-grid">
+          <button class="preset-btn active" id="pre_mrt" onclick="loadBinomialPreset('mrt', 12, 0.15)">
+            MRT Peak-Hour Delay
+            <span>X ~ B(12, 0.15) (Right-skewed)</span>
+          </button>
+          <button class="preset-btn" id="pre_coin" onclick="loadBinomialPreset('coin', 10, 0.50)">
+            Symmetric Fair Coins
+            <span>X ~ B(10, 0.50) (Symmetric)</span>
+          </button>
+          <button class="preset-btn" id="pre_clinic" onclick="loadBinomialPreset('clinic', 15, 0.85)">
+            Clinic Treatment Success
+            <span>X ~ B(15, 0.85) (Left-skewed)</span>
+          </button>
+          <button class="preset-btn" id="pre_small" onclick="loadBinomialPreset('small', 5, 0.30)">
+            Small Sample Practice
+            <span>X ~ B(5, 0.30) (By-hand formula)</span>
+          </button>
+        </div>
+
+        <div class="control-group">
+          <div class="control-label-row">
+            <span>Number of Fixed Trials <em>n</em>:</span>
+            <span class="val-pill" id="nDisp">n = 12</span>
+          </div>
+          <input type="range" id="nSlider" min="2" max="30" step="1" value="12" oninput="onParamChange()" />
+        </div>
+
+        <div class="control-group">
+          <div class="control-label-row">
+            <span>Probability of Success <em>p</em>:</span>
+            <span class="val-pill" id="pDisp">p = 0.15 (q = 0.85)</span>
+          </div>
+          <input type="range" id="pSlider" min="0.05" max="0.95" step="0.01" value="0.15" oninput="onParamChange()" />
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-kicker" style="color:var(--amber);">2. Inequality &amp; TI-84 Plus CE Command Translator</span>
+        <div class="ineq-grid">
+          <button class="ineq-btn" id="iq_eq" onclick="setIneq('eq')">P(X = k)</button>
+          <button class="ineq-btn active" id="iq_le" onclick="setIneq('le')">P(X ≤ k)</button>
+          <button class="ineq-btn" id="iq_lt" onclick="setIneq('lt')">P(X &lt; k)</button>
+          <button class="ineq-btn" id="iq_ge" onclick="setIneq('ge')">P(X ≥ k)</button>
+          <button class="ineq-btn" id="iq_gt" onclick="setIneq('gt')">P(X &gt; k)</button>
+          <button class="ineq-btn" id="iq_btw" onclick="setIneq('btw')">P(a ≤ X ≤ b)</button>
+        </div>
+
+        <div id="kSliderWrap" class="control-group">
+          <div class="control-label-row">
+            <span>Boundary Integer <em>k</em>:</span>
+            <span class="val-pill" id="kDisp">k = 3</span>
+          </div>
+          <input type="range" id="kSlider" min="0" max="12" step="1" value="3" oninput="onBoundChange()" />
+        </div>
+
+        <div id="abSliderWrap" style="display:none;">
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Lower Bound <em>a</em>:</span>
+              <span class="val-pill" id="aDisp">a = 1</span>
+            </div>
+            <input type="range" id="aSlider" min="0" max="12" step="1" value="1" oninput="onBoundChange()" />
+          </div>
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Upper Bound <em>b</em>:</span>
+              <span class="val-pill" id="bDisp">b = 4</span>
+            </div>
+            <input type="range" id="bSlider" min="0" max="12" step="1" value="4" oninput="onBoundChange()" />
+          </div>
+        </div>
+
+        <div class="ti84-screen" id="ti84ScreenBox"></div>
+        <div class="trap-banner" id="boundaryTrapBox"></div>
+      </div>
+    </div>
+
+    <!-- RIGHT VISUALIZATION -->
+    <div>
+      <div class="metrics-grid">
+        <div class="metric-tile purple">
+          <span class="m-label">Distribution</span>
+          <span class="m-val" id="tileDist">B(12, 0.15)</span>
+        </div>
+        <div class="metric-tile blue">
+          <span class="m-label">Mean E(X) = np</span>
+          <span class="m-val" id="tileMean">1.8000</span>
+        </div>
+        <div class="metric-tile teal">
+          <span class="m-label">Var(X) = npq</span>
+          <span class="m-val" id="tileVar">1.5300</span>
+        </div>
+        <div class="metric-tile amber">
+          <span class="m-label">Mode(s) &amp; σ</span>
+          <span class="m-val" id="tileMode">x = 1 (σ=1.24)</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
+          <div>
+            <span class="card-kicker" style="color:var(--blue); margin-bottom:2px;">Binomial Probability Mass Function Chart</span>
+            <strong style="font-size:0.9rem; color:#1e293b;" id="chartHeadline">Highlighted bars show outcomes included in your event</strong>
+          </div>
+          <div style="display:flex; gap:12px; font-size:0.75rem; font-weight:700; color:var(--muted);">
+            <span><span style="display:inline-block;width:10px;height:10px;background:#f59e0b;border-radius:2px;margin-right:4px;"></span>Included in Event</span>
+            <span><span style="display:inline-block;width:10px;height:10px;background:#8b5cf6;border-radius:2px;margin-right:4px;"></span>Excluded</span>
+          </div>
+        </div>
+
+        <div class="svg-wrap">
+          <svg id="binomSvg" viewBox="0 0 680 295" width="100%" height="auto"></svg>
+        </div>
+
+        <div style="overflow-x:auto;" id="binomTableWrap"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODE 3: SUM OF INDEPENDENT BINOMIALS & MULTI-PART CONDITIONED BINOMIALS -->
+  <div id="modeSumCond" class="workspace-grid" style="display:none;">
+    <!-- LEFT CONTROLS -->
+    <div>
+      <div class="card">
+        <span class="card-kicker" style="color:var(--purple-dark);">Select Real-World Binomial Topic</span>
+        <div class="sub-tabs">
+          <button class="sub-btn active" id="scSub_sum" onclick="switchSumCondSub('sum')">
+            A. Sum X + Y ~ B(m + n, p)
+          </button>
+          <button class="sub-btn" id="scSub_cond" onclick="switchSumCondSub('cond')">
+            B. Conditioned Binomials
+          </button>
+        </div>
+
+        <!-- SUB-MODE A: SUM OF INDEPENDENT BINOMIALS -->
+        <div id="controlsSum">
+          <span class="card-kicker" style="color:var(--blue);">Select Real-World Scenario</span>
+          <select class="styled-select" id="sumCaseSelect" onchange="renderSumBinomials()">
+            <option value="valid">1. GrabFood Shifts: Morning (m) + Evening (n) [Equal p]</option>
+            <option value="doubleTrap">2. Trap: Two Shifts (X₁ + X₂) vs. Double Points (2X)</option>
+            <option value="unequalTrap">3. Trap: Weekday (p₁) + Weekend (p₂) Orders [p₁ ≠ p₂]</option>
+          </select>
+
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Morning / First Batch Orders (<em>m</em>):</span>
+              <span class="val-pill" id="sumMDisp">m = 6</span>
+            </div>
+            <input type="range" id="sumMSlider" min="2" max="12" step="1" value="6" oninput="renderSumBinomials()" />
+          </div>
+
+          <div class="control-group" id="sumNGroup">
+            <div class="control-label-row">
+              <span>Evening / Second Batch Orders (<em>n</em>):</span>
+              <span class="val-pill" id="sumNDisp">n = 4</span>
+            </div>
+            <input type="range" id="sumNSlider" min="2" max="12" step="1" value="4" oninput="renderSumBinomials()" />
+          </div>
+
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Tip Probability <em>p₁</em> (and <em>p</em>):</span>
+              <span class="val-pill" id="sumP1Disp">p₁ = 0.30</span>
+            </div>
+            <input type="range" id="sumP1Slider" min="0.10" max="0.85" step="0.05" value="0.30" oninput="renderSumBinomials()" />
+          </div>
+
+          <div class="control-group" id="sumP2Group" style="display:none;">
+            <div class="control-label-row">
+              <span>Weekend Tip Probability <em>p₂</em>:</span>
+              <span class="val-pill" id="sumP2Disp">p₂ = 0.60</span>
+            </div>
+            <input type="range" id="sumP2Slider" min="0.10" max="0.85" step="0.05" value="0.60" oninput="renderSumBinomials()" />
+          </div>
+
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Target Total Tipped Orders / Points (<em>t</em>):</span>
+              <span class="val-pill" id="sumTDisp">t = 4</span>
+            </div>
+            <input type="range" id="sumTSlider" min="0" max="10" step="1" value="4" oninput="renderSumBinomials()" />
+          </div>
+
+          <div id="sumAlgebraBox"></div>
+        </div>
+
+        <!-- SUB-MODE B: MULTI-PART CONDITIONED BINOMIALS -->
+        <div id="controlsCond" style="display:none;">
+          <span class="card-kicker" style="color:var(--amber);">Select Real-World Conditioned Problem</span>
+          <select class="styled-select" id="condPatternSelect" onchange="renderCondBinomials()">
+            <option value="sameVar">1. Changi Airport Screening: P(X ≥ a | X ≥ b)</option>
+            <option value="splitSum">2. HDB Parcel Vans: P(Morning = k | Total = t)</option>
+            <option value="nested">3. Jurong Factory Line: Maintenance Days in a Week</option>
+          </select>
+
+          <div id="condDynamicControls"></div>
+          <div id="condAlgebraBox"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT VISUALIZATION FOR MODE 3 -->
+    <div>
+      <!-- REAL-WORLD CONTEXT & FORMULATION CARD -->
+      <div class="context-card" id="sumCondContextCard"></div>
+
+      <div class="metrics-grid" id="sumCondMetricsGrid"></div>
+
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
+          <div>
+            <span class="card-kicker" style="color:var(--blue); margin-bottom:2px;" id="scVizKicker">Distribution &amp; Conditioning Breakdown</span>
+            <strong style="font-size:0.9rem; color:#1e293b;" id="scVizHeadline">Exact probability mass &amp; convolution verification</strong>
+          </div>
+        </div>
+
+        <div class="svg-wrap">
+          <svg id="sumCondSvg" viewBox="0 0 680 275" width="100%" height="auto"></svg>
+        </div>
+
+        <div style="overflow-x:auto;" id="sumCondTableWrap"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentMode = "bisc";
+    let nVal = 12;
+    let pVal = 0.15;
+    let ineqType = "le";
+    let kBound = 3;
+    let aBound = 1;
+    let bBound = 4;
+
+    let sumCondSub = "sum";
+    let condParamA = 5;
+    let condParamB = 3;
+
+    function logFactorial(m) {
+      let s = 0;
+      for (let i = 2; i <= m; i++) s += Math.log(i);
+      return s;
+    }
+
+    function binomPdf(n, p, x) {
+      if (x < 0 || x > n) return 0;
+      if (p <= 0) return x === 0 ? 1 : 0;
+      if (p >= 1) return x === n ? 1 : 0;
+      const logComb = logFactorial(n) - logFactorial(x) - logFactorial(n - x);
+      return Math.exp(logComb + x * Math.log(p) + (n - x) * Math.log(1 - p));
+    }
+
+    function binomCdf(n, p, x) {
+      let sum = 0;
+      const top = Math.min(n, Math.floor(x));
+      for (let i = 0; i <= top; i++) sum += binomPdf(n, p, i);
+      return Math.min(1, sum);
+    }
+
+    function switchMode(mode) {
+      currentMode = mode;
+      ["bisc", "explorer", "sumcond"].forEach(m => {
+        document.getElementById("tab_" + m).classList.toggle("active", m === mode);
+      });
+      document.getElementById("modeBisc").style.display = mode === "bisc" ? "grid" : "none";
+      document.getElementById("modeExplorer").style.display = mode === "explorer" ? "grid" : "none";
+      document.getElementById("modeSumCond").style.display = mode === "sumcond" ? "grid" : "none";
+
+      if (mode === "bisc") {
+        selectScenario("valid");
+      } else if (mode === "explorer") {
+        renderExplorer();
+      } else {
+        sumCondSub === "sum" ? renderSumBinomials() : renderCondBinomials();
+      }
+    }
+
+    // =========================================================
+    // MODE 1: B.I.S.C. AUDIT
+    // =========================================================
+    function comb(n, r) {
+      if (r < 0 || r > n) return 0;
+      let res = 1;
+      for (let i = 1; i <= r; i++) res = (res * (n - i + 1)) / i;
+      return res;
+    }
+
+    function selectScenario(key) {
+      ["valid", "noReplace", "nonConst", "dependent"].forEach(k => {
+        document.getElementById("sc_" + k).classList.toggle("active", k === key);
+      });
+
+      const container = document.getElementById("biscAuditContainer");
+      if (key === "valid") {
+        container.innerHTML = `
+          <div class="bisc-card valid">
+            <span class="bisc-badge" style="background:#0f766e; color:#fff;">VALID BINOMIAL MODEL: X ~ B(5, 0.2)</span><br>
+            <strong>B (Binary Outcomes):</strong> Each drawn item is either Defective (Success) or Non-defective (Failure).<br>
+            <strong>I (Independent Trials):</strong> Because each item is replaced and mixed before the next draw, knowing Draw 1 was defective does not change Draw 2.<br>
+            <strong>S (Same Probability p):</strong> <em>p = 4/20 = 0.20</em> remains identical on every draw.<br>
+            <strong>C (Count of Fixed Trials):</strong> Fixed <em>n = 5</em> draws.<br><br>
+            <strong>Exact P(X = 2):</strong> <sup>5</sup>C<sub>2</sub> (0.2)<sup>2</sup> (0.8)<sup>3</sup> = <strong>0.2048</strong>.
+          </div>
+        `;
+      } else if (key === "noReplace") {
+        const binomP2 = binomPdf(5, 0.2, 2);
+        const hyperP2 = (comb(4, 2) * comb(16, 3)) / comb(20, 5);
+        container.innerHTML = `
+          <div class="bisc-card invalid">
+            <span class="bisc-badge" style="background:#e11d48; color:#fff;">NOT BINOMIAL — VIOLATES I &amp; S</span><br>
+            <strong>Why it fails:</strong> Drawing 5 items <em>without replacement</em> from a small batch of 20 changes the proportion of defectives remaining after each pick:<br>
+            • On Draw 1, <em>P(Defective) = 4/20 = 0.20</em>.<br>
+            • If Draw 1 is defective, Draw 2 has <em>P(Defective) = 3/19 ≈ 0.1579</em>; if Draw 1 is good, Draw 2 has <em>4/19 ≈ 0.2105</em>.<br><br>
+            <strong>Numerical Comparison for P(X = 2):</strong><br>
+            • True Exact Probability (Hypergeometric): <sup>4</sup>C<sub>2</sub> × <sup>16</sup>C<sub>3</sub> / <sup>20</sup>C<sub>5</sub> = <strong>${hyperP2.toFixed(5)}</strong><br>
+            • Incorrect Binomial Approximation B(5, 0.2): <strong>${binomP2.toFixed(5)}</strong> (Error of ${(Math.abs(hyperP2 - binomP2) * 100).toFixed(2)} percentage points!)<br>
+            <em>(Note: In 9758 exams, sampling without replacement is only approximated as Binomial when the population N is very large compared to n, e.g., n / N &lt; 0.05.)</em>
+          </div>
+        `;
+      } else if (key === "nonConst") {
+        container.innerHTML = `
+          <div class="bisc-card invalid">
+            <span class="bisc-badge" style="background:#e11d48; color:#fff;">NOT BINOMIAL — VIOLATES S (SAME p)</span><br>
+            <strong>Why it fails:</strong> Although there are <em>n = 4</em> binary quizzes, the probability of passing changes from quiz to quiz (<em>0.9, 0.8, 0.6, 0.5</em>).<br>
+            Because <em>p</em> is not constant across trials, <em>X</em> cannot be written as <em>B(4, p)</em>. Instead, calculate probabilities directly by multiplying individual event branches (e.g., <em>P(X = 4) = 0.9 × 0.8 × 0.6 × 0.5 = 0.216</em>).
+          </div>
+        `;
+      } else {
+        container.innerHTML = `
+          <div class="bisc-card invalid">
+            <span class="bisc-badge" style="background:#e11d48; color:#fff;">NOT BINOMIAL — VIOLATES I (INDEPENDENCE)</span><br>
+            <strong>Why it fails:</strong> Weather systems (such as a monsoon surge over Singapore) persist across consecutive days. If Monday is rainy, Tuesday has a much higher conditional probability of rain than if Monday was dry.<br>
+            Because trials are <strong>not independent</strong>, a Binomial model underestimates the probability of extreme streaks (0 rainy days or 7 rainy days).
+          </div>
+        `;
+      }
+    }
+
+    // =========================================================
+    // MODE 2: B(n, p) EXPLORER & TI-84 TRANSLATOR
+    // =========================================================
+    function loadBinomialPreset(key, n, p) {
+      document.querySelectorAll("#modeExplorer .preset-btn").forEach(b => b.classList.remove("active"));
+      document.getElementById("pre_" + key).classList.add("active");
+      nVal = n;
+      pVal = p;
+      document.getElementById("nSlider").value = n;
+      document.getElementById("pSlider").value = p;
+      syncBoundSliders();
+      renderExplorer();
+    }
+
+    function onParamChange() {
+      document.querySelectorAll("#modeExplorer .preset-btn").forEach(b => b.classList.remove("active"));
+      nVal = parseInt(document.getElementById("nSlider").value, 10);
+      pVal = parseFloat(document.getElementById("pSlider").value);
+      syncBoundSliders();
+      renderExplorer();
+    }
+
+    function syncBoundSliders() {
+      const kSl = document.getElementById("kSlider");
+      const aSl = document.getElementById("aSlider");
+      const bSl = document.getElementById("bSlider");
+      kSl.max = nVal;
+      aSl.max = nVal;
+      bSl.max = nVal;
+      if (kBound > nVal) kBound = Math.floor(nVal / 2);
+      if (aBound > nVal) aBound = 0;
+      if (bBound > nVal) bBound = nVal;
+      kSl.value = kBound;
+      aSl.value = aBound;
+      bSl.value = bBound;
+    }
+
+    function setIneq(type) {
+      ineqType = type;
+      ["eq", "le", "lt", "ge", "gt", "btw"].forEach(t => {
+        document.getElementById("iq_" + t).classList.toggle("active", t === type);
+      });
+      document.getElementById("kSliderWrap").style.display = type === "btw" ? "none" : "block";
+      document.getElementById("abSliderWrap").style.display = type === "btw" ? "block" : "none";
+      renderExplorer();
+    }
+
+    function onBoundChange() {
+      kBound = parseInt(document.getElementById("kSlider").value, 10);
+      aBound = parseInt(document.getElementById("aSlider").value, 10);
+      bBound = parseInt(document.getElementById("bSlider").value, 10);
+      if (aBound > bBound) {
+        bBound = aBound;
+        document.getElementById("bSlider").value = bBound;
+      }
+      renderExplorer();
+    }
+
+    function renderExplorer() {
+      const qVal = 1 - pVal;
+      document.getElementById("nDisp").textContent = `n = ${nVal}`;
+      document.getElementById("pDisp").textContent = `p = ${pVal.toFixed(2)} (q = ${qVal.toFixed(2)})`;
+      document.getElementById("kDisp").textContent = `k = ${kBound}`;
+      document.getElementById("aDisp").textContent = `a = ${aBound}`;
+      document.getElementById("bDisp").textContent = `b = ${bBound}`;
+
+      const mean = nVal * pVal;
+      const variance = nVal * pVal * qVal;
+      const sd = Math.sqrt(variance);
+
+      const probs = [];
+      let maxP = 0;
+      for (let x = 0; x <= nVal; x++) {
+        const pr = binomPdf(nVal, pVal, x);
+        probs.push({ x, p: pr });
+        if (pr > maxP) maxP = pr;
+      }
+      const modes = probs.filter(it => Math.abs(it.p - maxP) < 1e-6).map(it => it.x);
+
+      document.getElementById("tileDist").textContent = `B(${nVal}, ${pVal.toFixed(2)})`;
+      document.getElementById("tileMean").textContent = mean.toFixed(4);
+      document.getElementById("tileVar").textContent = variance.toFixed(4);
+      document.getElementById("tileMode").textContent = `x = ${modes.join(",")} (σ=${sd.toFixed(2)})`;
+
+      let includedSet = new Set();
+      let phraseLabel = "";
+      let tiCmd = "";
+      let probAns = 0;
+      let trapHtml = "";
+
+      const pStr = pVal.toFixed(2);
+
+      if (ineqType === "eq") {
+        includedSet.add(kBound);
+        phraseLabel = `P(X = ${kBound})  ["exactly ${kBound}"]`;
+        tiCmd = `binompdf(${nVal}, ${pStr}, ${kBound})`;
+        probAns = binomPdf(nVal, pVal, kBound);
+        trapHtml = `<strong>Formula Check:</strong> By hand: <sup>${nVal}</sup>C<sub>${kBound}</sub> (${pStr})<sup>${kBound}</sup> (${qVal.toFixed(2)})<sup>${nVal - kBound}</sup> = <strong>${probAns.toFixed(5)}</strong>.`;
+      } else if (ineqType === "le") {
+        for (let x = 0; x <= kBound; x++) includedSet.add(x);
+        phraseLabel = `P(X ≤ ${kBound})  ["at most ${kBound}" / "no more than ${kBound}"]`;
+        tiCmd = `binomcdf(${nVal}, ${pStr}, ${kBound})`;
+        probAns = binomCdf(nVal, pVal, kBound);
+        trapHtml = `<strong>TI-84 Direct Match:</strong> <code>binomcdf</code> always accumulates from <em>x = 0</em> up to and including <em>x = ${kBound}</em>.`;
+      } else if (ineqType === "lt") {
+        for (let x = 0; x < kBound; x++) includedSet.add(x);
+        const upper = kBound - 1;
+        phraseLabel = `P(X < ${kBound}) = P(X ≤ ${upper})  ["fewer than ${kBound}"]`;
+        tiCmd = upper < 0 ? `0  (impossible since X ≥ 0)` : `binomcdf(${nVal}, ${pStr}, ${upper})`;
+        probAns = upper < 0 ? 0 : binomCdf(nVal, pVal, upper);
+        trapHtml = `<strong>Strict (&lt;) Boundary Trap:</strong> "Fewer than ${kBound}" excludes <em>x = ${kBound}</em>! Always rewrite <em>P(X &lt; ${kBound})</em> as <strong>P(X ≤ ${upper})</strong> before using <code>binomcdf</code>.`;
+      } else if (ineqType === "ge") {
+        for (let x = kBound; x <= nVal; x++) includedSet.add(x);
+        const cut = kBound - 1;
+        phraseLabel = `P(X ≥ ${kBound}) = 1 − P(X ≤ ${cut})  ["at least ${kBound}"]`;
+        tiCmd = kBound === 0 ? `1  (all outcomes X ≥ 0)` : `1 - binomcdf(${nVal}, ${pStr}, ${cut})`;
+        probAns = kBound === 0 ? 1 : 1 - binomCdf(nVal, pVal, cut);
+        trapHtml = `<strong>Complement Off-by-One Trap:</strong> To keep <em>x = ${kBound}</em>, subtract <em>P(X ≤ ${cut})</em>—NOT <em>P(X ≤ ${kBound})</em>!`;
+      } else if (ineqType === "gt") {
+        for (let x = kBound + 1; x <= nVal; x++) includedSet.add(x);
+        phraseLabel = `P(X > ${kBound}) = 1 − P(X ≤ ${kBound})  ["more than ${kBound}"]`;
+        tiCmd = kBound >= nVal ? `0  (impossible since X ≤ ${nVal})` : `1 - binomcdf(${nVal}, ${pStr}, ${kBound})`;
+        probAns = kBound >= nVal ? 0 : 1 - binomCdf(nVal, pVal, kBound);
+        trapHtml = `<strong>Strict (&gt;) Complement:</strong> "More than ${kBound}" excludes <em>x = ${kBound}</em>, so subtracting <em>P(X ≤ ${kBound})</em> leaves <em>x ≥ ${kBound + 1}</em>.`;
+      } else {
+        for (let x = aBound; x <= bBound; x++) includedSet.add(x);
+        const lowCut = aBound - 1;
+        phraseLabel = `P(${aBound} ≤ X ≤ ${bBound})  ["between ${aBound} and ${bBound} inclusive"]`;
+        tiCmd = aBound === 0
+          ? `binomcdf(${nVal}, ${pStr}, ${bBound})`
+          : `binomcdf(${nVal}, ${pStr}, ${bBound}) - binomcdf(${nVal}, ${pStr}, ${lowCut})`;
+        probAns = binomCdf(nVal, pVal, bBound) - (aBound === 0 ? 0 : binomCdf(nVal, pVal, lowCut));
+        trapHtml = `<strong>Interval Subtraction Trap:</strong> Subtract <em>P(X ≤ ${lowCut})</em> (one less than <em>a = ${aBound}</em>) so that <em>x = ${aBound}</em> remains included!`;
+      }
+
+      document.getElementById("ti84ScreenBox").innerHTML = `
+        <span class="ti-header">TI-84 Plus CE [2nd] [VARS] (DISTR)</span>
+        Event: ${phraseLabel}<br>
+        Syntax: <span class="ti-cmd">${tiCmd}</span><br>
+        Output: <span class="ti-ans">${probAns.toFixed(6)}</span> &nbsp;(${probAns.toPrecision(3)} to 3 s.f.)
+      `;
+      document.getElementById("boundaryTrapBox").innerHTML = trapHtml;
+      document.getElementById("chartHeadline").textContent = `${phraseLabel} = ${probAns.toFixed(4)}`;
+
+      renderBarChart("binomSvg", probs, includedSet, null, mean, `Number of Successes X = x (0 to ${nVal})`);
+      renderBinomTable(probs, includedSet);
+    }
+
+    function renderBinomTable(probs, includedSet) {
+      const wrap = document.getElementById("binomTableWrap");
+      const visible = probs.slice(0, 11);
+      const headers = visible.map(it => `<th style="${includedSet.has(it.x) ? 'background:#fef3c7; color:#78350f;' : ''}">x = ${it.x}</th>`).join("");
+      const pdfRow = visible.map(it => `<td style="${includedSet.has(it.x) ? 'background:#fef3c7; font-weight:700;' : ''}">${it.p.toFixed(4)}</td>`).join("");
+      const cdfRow = visible.map(it => `<td>${binomCdf(nVal, pVal, it.x).toFixed(4)}</td>`).join("");
+
+      wrap.innerHTML = `
+        <table class="calc-table">
+          <thead>
+            <tr>
+              <th>Outcome ${probs.length > 11 ? '(first 11)' : ''}</th>
+              ${headers}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>P(X = x) [pdf]</th>
+              ${pdfRow}
+            </tr>
+            <tr>
+              <th>P(X ≤ x) [cdf]</th>
+              ${cdfRow}
+            </tr>
+          </tbody>
+        </table>
+      `;
+    }
+
+    // =========================================================
+    // MODE 3: SUM OF INDEPENDENT BINOMIALS & CONDITIONED BINOMIALS
+    // =========================================================
+    function switchSumCondSub(sub) {
+      sumCondSub = sub;
+      document.getElementById("scSub_sum").classList.toggle("active", sub === "sum");
+      document.getElementById("scSub_cond").classList.toggle("active", sub === "cond");
+      document.getElementById("controlsSum").style.display = sub === "sum" ? "block" : "none";
+      document.getElementById("controlsCond").style.display = sub === "cond" ? "block" : "none";
+      sub === "sum" ? renderSumBinomials() : renderCondBinomials();
+    }
+
+    function renderSumBinomials() {
+      const caseType = document.getElementById("sumCaseSelect").value;
+      const m = parseInt(document.getElementById("sumMSlider").value, 10);
+      let n = parseInt(document.getElementById("sumNSlider").value, 10);
+      const p1 = parseFloat(document.getElementById("sumP1Slider").value);
+      const p2 = parseFloat(document.getElementById("sumP2Slider").value);
+
+      document.getElementById("sumNGroup").style.display = caseType === "doubleTrap" ? "none" : "block";
+      document.getElementById("sumP2Group").style.display = caseType === "unequalTrap" ? "block" : "none";
+
+      if (caseType === "doubleTrap") n = m;
+      const maxT = caseType === "doubleTrap" ? 2 * m : m + n;
+      const tSl = document.getElementById("sumTSlider");
+      tSl.max = maxT;
+      if (parseInt(tSl.value, 10) > maxT) tSl.value = Math.floor(maxT / 2);
+      const t = parseInt(tSl.value, 10);
+
+      document.getElementById("sumMDisp").textContent = `m = ${m}`;
+      document.getElementById("sumNDisp").textContent = `n = ${n}`;
+      document.getElementById("sumP1Disp").textContent = `p₁ = ${p1.toFixed(2)}`;
+      document.getElementById("sumP2Disp").textContent = `p₂ = ${p2.toFixed(2)}`;
+      document.getElementById("sumTDisp").textContent = `t = ${t}`;
+
+      if (caseType === "valid") {
+        const totN = m + n;
+        const probs = [];
+        for (let x = 0; x <= totN; x++) probs.push({ x, p: binomPdf(totN, p1, x) });
+        const pt = binomPdf(totN, p1, t);
+        const mean = totN * p1;
+        const variance = totN * p1 * (1 - p1);
+
+        document.getElementById("sumCondContextCard").innerHTML = `
+          <span class="ctx-tag">Real-World Word Problem — GrabFood Delivery Shifts</span><br>
+          <strong>Problem:</strong> A GrabFood rider completes <strong>${m} morning orders</strong> and <strong>${n} evening orders</strong> on Tuesday. Independently for every order, the probability of receiving a customer tip is <strong>${p1.toFixed(2)}</strong>. Find the probability that the rider receives <strong>exactly ${t} tips in total</strong> across both shifts.
+          <div class="formulate-strip">
+            <strong>Step 1 — Define Variables &amp; Formulate Statement:</strong><br>
+            Let <em>X</em> = number of tipped morning orders, so <code>X ~ B(${m}, ${p1.toFixed(2)})</code>.<br>
+            Let <em>Y</em> = number of tipped evening orders, so <code>Y ~ B(${n}, ${p1.toFixed(2)})</code>.<br>
+            Since <em>X</em> and <em>Y</em> are independent with the <strong>same p = ${p1.toFixed(2)}</strong>, combine them: <code>X + Y ~ B(${totN}, ${p1.toFixed(2)})</code>, and we want <strong>P(X + Y = ${t})</strong>.
+          </div>
+        `;
+
+        const pairs = [];
+        for (let x = 0; x <= m; x++) {
+          const y = t - x;
+          if (y >= 0 && y <= n) {
+            const px = binomPdf(m, p1, x);
+            const py = binomPdf(n, p1, y);
+            pairs.push({ x, y, px, py, prod: px * py });
+          }
+        }
+
+        document.getElementById("sumAlgebraBox").innerHTML = `
+          <div class="steps-box">
+            <strong>Step 2 — Evaluate Combined Binomial on TI-84:</strong><br>
+            <code>P(X + Y = ${t}) = binompdf(${totN}, ${p1.toFixed(2)}, ${t}) = <strong>${pt.toFixed(5)}</strong></code><br>
+            <span style="font-size:0.75rem; color:#475569;">(Confirmed by summing all ${pairs.length} morning/evening pairs (x, y) with x + y = ${t} in the table.)</span>
+          </div>
+        `;
+
+        document.getElementById("sumCondMetricsGrid").innerHTML = `
+          <div class="metric-tile purple"><span class="m-label">Combined Model</span><span class="m-val">B(${totN}, ${p1.toFixed(2)})</span></div>
+          <div class="metric-tile blue"><span class="m-label">Expected Tips E(X+Y)</span><span class="m-val">${mean.toFixed(3)}</span></div>
+          <div class="metric-tile teal"><span class="m-label">Var(X + Y) = (m+n)pq</span><span class="m-val">${variance.toFixed(3)}</span></div>
+          <div class="metric-tile amber"><span class="m-label">P(X + Y = ${t})</span><span class="m-val">${pt.toFixed(4)}</span></div>
+        `;
+
+        document.getElementById("scVizKicker").textContent = `Combined Binomial Distribution X + Y ~ B(${totN}, ${p1.toFixed(2)})`;
+        document.getElementById("scVizHeadline").textContent = `Gold bar shows P(X + Y = ${t}) = ${pt.toFixed(4)} via binompdf(${totN}, ${p1.toFixed(2)}, ${t})`;
+
+        renderBarChart("sumCondSvg", probs, new Set([t]), null, mean, `Total Tipped Orders X + Y (0 to ${totN})`);
+
+        const rows = pairs.map(pr => `
+          <tr>
+            <td>Morning X = ${pr.x}, Evening Y = ${pr.y}</td>
+            <td>${pr.px.toFixed(4)}</td>
+            <td>${pr.py.toFixed(4)}</td>
+            <td><strong>${pr.prod.toFixed(5)}</strong></td>
+          </tr>
+        `).join("");
+
+        document.getElementById("sumCondTableWrap").innerHTML = `
+          <table class="calc-table">
+            <thead>
+              <tr><th>Shift Breakdown (x + y = ${t})</th><th>P(X = x)</th><th>P(Y = y)</th><th>P(X = x) · P(Y = y)</th></tr>
+            </thead>
+            <tbody>
+              ${rows}
+              <tr class="hl-row">
+                <td colspan="3">Combined Total = binompdf(${totN}, ${p1.toFixed(2)}, ${t})</td>
+                <td>${pt.toFixed(5)}</td>
+              </tr>
+            </tbody>
+          </table>
+        `;
+      } else if (caseType === "doubleTrap") {
+        const totN = 2 * m;
+        const probsSum = [];
+        for (let x = 0; x <= totN; x++) probsSum.push({ x, p: binomPdf(totN, p1, x) });
+
+        const probs2X = [];
+        for (let x = 0; x <= totN; x++) {
+          probs2X.push({ x, p: x % 2 === 0 ? binomPdf(m, p1, x / 2) : 0 });
+        }
+
+        const varSingle = m * p1 * (1 - p1);
+        const varSum = 2 * varSingle;
+        const var2X = 4 * varSingle;
+
+        document.getElementById("sumCondContextCard").innerHTML = `
+          <span class="ctx-tag">Real-World Trap — Two Shifts (X₁ + X₂) vs. Double-Point Promo (2X)</span><br>
+          <strong>Compare Two Scenarios:</strong><br>
+          • <strong>Plan A (Two Independent Shifts):</strong> Rider completes <strong>${m} orders on Monday</strong> (<em>X₁</em>) and <strong>${m} orders on Tuesday</strong> (<em>X₂</em>), each tipping with probability <strong>${p1.toFixed(2)}</strong>, earning 1 bonus point per tip.<br>
+          • <strong>Plan B (Single Shift Double-Point Promo):</strong> Rider completes only <strong>${m} orders on Monday</strong> (<em>X</em>), but earns <strong>2 bonus points per tip</strong>.
+          <div class="formulate-strip">
+            <strong>Step 1 — Formulate &amp; Compare Models:</strong><br>
+            • Plan A Total Points = <code>X₁ + X₂ ~ B(${totN}, ${p1.toFixed(2)})</code> (Binomial!).<br>
+            • Plan B Total Points = <code>2X</code> where <code>X ~ B(${m}, ${p1.toFixed(2)})</code> (<strong>NOT Binomial</strong> — odd scores like 1, 3, 5 have probability 0!).
+          </div>
+        `;
+
+        document.getElementById("sumAlgebraBox").innerHTML = `
+          <div class="trap-banner">
+            <strong>Why E(X₁ + X₂) = E(2X) = ${(totN * p1).toFixed(2)}, yet Var(2X) = 2 × Var(X₁ + X₂):</strong><br>
+            • <strong>Var(X₁ + X₂)</strong> = Var(X₁) + Var(X₂) = 2mpq = <strong>${varSum.toFixed(3)}</strong>.<br>
+            • <strong>Var(2X)</strong> = 2² Var(X) = 4mpq = <strong>${var2X.toFixed(3)}</strong> (all outcomes come from one single shift, magnifying risk!).
+          </div>
+        `;
+
+        document.getElementById("sumCondMetricsGrid").innerHTML = `
+          <div class="metric-tile teal"><span class="m-label">Mean Points (Both)</span><span class="m-val">${(totN * p1).toFixed(3)}</span></div>
+          <div class="metric-tile blue"><span class="m-label">Var(X₁ + X₂) [Plan A]</span><span class="m-val">${varSum.toFixed(3)}</span></div>
+          <div class="metric-tile purple"><span class="m-label">Var(2X) [Plan B]</span><span class="m-val">${var2X.toFixed(3)}</span></div>
+          <div class="metric-tile amber"><span class="m-label">P(Total = ${t}): A vs B</span><span class="m-val">${probsSum[t].p.toFixed(3)} vs ${probs2X[t].p.toFixed(3)}</span></div>
+        `;
+
+        document.getElementById("scVizKicker").textContent = "Plan A: X₁ + X₂ ~ B(2m, p) [Purple] vs. Plan B: 2X [Amber]";
+        document.getElementById("scVizHeadline").textContent = `Plan B (2X) cannot score odd points and has double the variance (${var2X.toFixed(2)} vs ${varSum.toFixed(2)})`;
+
+        renderComparisonOverlaySvg("sumCondSvg", probsSum, probs2X, totN);
+
+        document.getElementById("sumCondTableWrap").innerHTML = `
+          <table class="calc-table">
+            <thead>
+              <tr><th>Bonus Plan</th><th>Binomial?</th><th>Possible Total Points</th><th>Mean</th><th>Variance</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Plan A: X₁ + X₂</strong></td><td><strong>Yes: B(${totN}, ${p1.toFixed(2)})</strong></td><td>0, 1, 2, …, ${totN}</td><td>${(totN * p1).toFixed(3)}</td><td>${varSum.toFixed(3)}</td></tr>
+              <tr class="hl-row"><td><strong>Plan B: 2X</strong></td><td><strong>No!</strong></td><td>0, 2, 4, …, ${totN} (Even only)</td><td>${(totN * p1).toFixed(3)}</td><td>${var2X.toFixed(3)}</td></tr>
+            </tbody>
+          </table>
+        `;
+      } else {
+        const totN = m + n;
+        const probs = [];
+        for (let z = 0; z <= totN; z++) {
+          let sumP = 0;
+          for (let x = 0; x <= m; x++) {
+            const y = z - x;
+            if (y >= 0 && y <= n) sumP += binomPdf(m, p1, x) * binomPdf(n, p2, y);
+          }
+          probs.push({ x: z, p: sumP });
+        }
+
+        const pairs = [];
+        for (let x = 0; x <= m; x++) {
+          const y = t - x;
+          if (y >= 0 && y <= n) {
+            const px = binomPdf(m, p1, x);
+            const py = binomPdf(n, p2, y);
+            pairs.push({ x, y, px, py, prod: px * py });
+          }
+        }
+
+        const mean = m * p1 + n * p2;
+        const variance = m * p1 * (1 - p1) + n * p2 * (1 - p2);
+
+        document.getElementById("sumCondContextCard").innerHTML = `
+          <span class="ctx-tag">Real-World Trap — Weekday vs. Weekend Tipping Rates (p₁ ≠ p₂)</span><br>
+          <strong>Problem:</strong> A rider completes <strong>${m} Friday orders</strong> (each tipping with probability <strong>p₁ = ${p1.toFixed(2)}</strong>) and <strong>${n} Saturday orders</strong> (each tipping with probability <strong>p₂ = ${p2.toFixed(2)}</strong>). All orders are independent. Find the probability that the rider receives <strong>exactly ${t} tips in total</strong>.
+          <div class="formulate-strip">
+            <strong>Step 1 — Formulate Case-by-Case Sum:</strong><br>
+            Let <code>X ~ B(${m}, ${p1.toFixed(2)})</code> (Friday) and <code>Y ~ B(${n}, ${p2.toFixed(2)})</code> (Saturday).<br>
+            Because <strong>p₁ ≠ p₂</strong>, <em>X + Y</em> is <strong>NOT Binomial</strong>! We must formulate:<br>
+            <code>P(X + Y = ${t}) = ∑ P(X = x) · P(Y = ${t} − x)</code> across all valid pairs <em>(x, y)</em>.
+          </div>
+        `;
+
+        document.getElementById("sumAlgebraBox").innerHTML = `
+          <div class="trap-banner">
+            <strong>Step 2 — Moments vs. Exact Probability when p₁ ≠ p₂:</strong><br>
+            • Mean &amp; Variance still add by independence: <code>E(X + Y) = ${mean.toFixed(3)}</code>, <code>Var(X + Y) = ${variance.toFixed(3)}</code>.<br>
+            • Exact probability requires summing the ${pairs.length} individual cases shown in the table: <strong>P(X + Y = ${t}) = ${probs[t].p.toFixed(5)}</strong>.
+          </div>
+        `;
+
+        document.getElementById("sumCondMetricsGrid").innerHTML = `
+          <div class="metric-tile purple"><span class="m-label">Model Status</span><span class="m-val">Not Binomial (p₁≠p₂)</span></div>
+          <div class="metric-tile blue"><span class="m-label">E(X + Y) = mp₁ + np₂</span><span class="m-val">${mean.toFixed(3)}</span></div>
+          <div class="metric-tile teal"><span class="m-label">Var(X + Y)</span><span class="m-val">${variance.toFixed(3)}</span></div>
+          <div class="metric-tile amber"><span class="m-label">Exact P(X + Y = ${t})</span><span class="m-val">${probs[t].p.toFixed(4)}</span></div>
+        `;
+
+        document.getElementById("scVizKicker").textContent = "Exact Case-by-Case Distribution of X + Y";
+        document.getElementById("scVizHeadline").textContent = `P(X + Y = ${t}) = ${probs[t].p.toFixed(5)} computed by summing ${pairs.length} mutually exclusive cases`;
+
+        renderBarChart("sumCondSvg", probs, new Set([t]), null, mean, `Total Tipped Orders X + Y (0 to ${totN})`);
+
+        const rows = pairs.map(pr => `
+          <tr>
+            <td>Fri X = ${pr.x}, Sat Y = ${pr.y}</td>
+            <td>${pr.px.toFixed(4)}</td>
+            <td>${pr.py.toFixed(4)}</td>
+            <td><strong>${pr.prod.toFixed(5)}</strong></td>
+          </tr>
+        `).join("");
+
+        document.getElementById("sumCondTableWrap").innerHTML = `
+          <table class="calc-table">
+            <thead>
+              <tr><th>Case (x + y = ${t})</th><th>binompdf(${m}, ${p1.toFixed(2)}, x)</th><th>binompdf(${n}, ${p2.toFixed(2)}, y)</th><th>Product</th></tr>
+            </thead>
+            <tbody>
+              ${rows}
+              <tr class="hl-row">
+                <td colspan="3">Total P(X + Y = ${t})</td>
+                <td>${probs[t].p.toFixed(5)}</td>
+              </tr>
+            </tbody>
+          </table>
+        `;
+      }
+    }
+
+    function renderCondBinomials() {
+      const pattern = document.getElementById("condPatternSelect").value;
+      const dynWrap = document.getElementById("condDynamicControls");
+
+      if (pattern === "sameVar") {
+        const n = 10, p = 0.35;
+        if (condParamB > 8) condParamB = 3;
+        if (condParamA < condParamB) condParamA = condParamB + 2;
+        if (condParamA > 10) condParamA = 10;
+
+        dynWrap.innerHTML = `
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Given Condition: At Least <em>b</em> Bags Flagged:</span>
+              <span class="val-pill">b = ${condParamB}</span>
+            </div>
+            <input type="range" min="1" max="8" step="1" value="${condParamB}" oninput="condParamB = parseInt(this.value,10); renderCondBinomials();" />
+          </div>
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Target Event: At Least <em>a</em> Bags Flagged:</span>
+              <span class="val-pill">a = ${condParamA}</span>
+            </div>
+            <input type="range" min="1" max="10" step="1" value="${condParamA}" oninput="condParamA = parseInt(this.value,10); renderCondBinomials();" />
+          </div>
+        `;
+
+        const topCut = Math.max(condParamA, condParamB);
+        const pNum = 1 - binomCdf(n, p, topCut - 1);
+        const pDen = 1 - binomCdf(n, p, condParamB - 1);
+        const ans = pNum / pDen;
+
+        document.getElementById("sumCondContextCard").innerHTML = `
+          <span class="ctx-tag">Real-World Word Problem — Changi Airport Baggage Screening</span><br>
+          <strong>Problem:</strong> At Changi Airport Terminal 3, each checked bag independently has a <strong>0.35 probability</strong> of requiring secondary X-ray inspection. In a random batch of <strong>10 bags</strong>, <strong>given that at least ${condParamB} bags</strong> require inspection, find the probability that <strong>at least ${condParamA} bags</strong> require inspection.
+          <div class="formulate-strip">
+            <strong>Step 1 — Define Variable &amp; Formulate Conditional Statement:</strong><br>
+            Let <em>X</em> = number of bags out of 10 requiring inspection, so <code>X ~ B(10, 0.35)</code>.<br>
+            "Given at least ${condParamB} ... find probability at least ${condParamA}" translates to: <strong>P(X ≥ ${condParamA} | X ≥ ${condParamB})</strong>.
+          </div>
+        `;
+
+        document.getElementById("condAlgebraBox").innerHTML = `
+          <div class="steps-box">
+            <strong>Step 2 — Apply Conditional Formula &amp; TI-84 Syntax:</strong><br>
+            <code>P(X ≥ ${condParamA} | X ≥ ${condParamB}) = P(X ≥ ${condParamA} ∩ X ≥ ${condParamB}) / P(X ≥ ${condParamB})</code><br>
+            <code>= P(X ≥ ${topCut}) / P(X ≥ ${condParamB})</code><br>
+            <code>= (1 − binomcdf(10, 0.35, ${topCut - 1})) / (1 − binomcdf(10, 0.35, ${condParamB - 1}))</code><br>
+            <code>= ${pNum.toFixed(5)} / ${pDen.toFixed(5)} = <strong>${ans.toFixed(5)}</strong></code>
+          </div>
+        `;
+
+        document.getElementById("sumCondMetricsGrid").innerHTML = `
+          <div class="metric-tile purple"><span class="m-label">Model</span><span class="m-val">X ~ B(10, 0.35)</span></div>
+          <div class="metric-tile amber"><span class="m-label">Numerator P(X ≥ ${topCut})</span><span class="m-val">${pNum.toFixed(4)}</span></div>
+          <div class="metric-tile blue"><span class="m-label">Denominator P(X ≥ ${condParamB})</span><span class="m-val">${pDen.toFixed(4)}</span></div>
+          <div class="metric-tile teal"><span class="m-label">P(X ≥ ${condParamA} | X ≥ ${condParamB})</span><span class="m-val">${ans.toFixed(4)}</span></div>
+        `;
+
+        const probs = [];
+        const numSet = new Set();
+        const denSet = new Set();
+        for (let x = 0; x <= n; x++) {
+          probs.push({ x, p: binomPdf(n, p, x) });
+          if (x >= topCut) numSet.add(x);
+          else if (x >= condParamB) denSet.add(x);
+        }
+
+        document.getElementById("scVizKicker").textContent = "Reduced Sample Space Visualization";
+        document.getElementById("scVizHeadline").textContent = `Gold = Numerator (X ≥ ${topCut}) | Blue = Remaining Condition Space (${condParamB} ≤ X < ${topCut})`;
+        renderBarChart("sumCondSvg", probs, numSet, denSet, n * p, "Number of Flagged Bags X (0 to 10)");
+
+        document.getElementById("sumCondTableWrap").innerHTML = `
+          <table class="calc-table">
+            <thead><tr><th>Component</th><th>Event</th><th>TI-84 Expression</th><th>Value</th></tr></thead>
+            <tbody>
+              <tr class="hl-row"><td>Numerator</td><td>X ≥ ${topCut}</td><td>1 - binomcdf(10, 0.35, ${topCut - 1})</td><td>${pNum.toFixed(5)}</td></tr>
+              <tr><td>Denominator</td><td>X ≥ ${condParamB}</td><td>1 - binomcdf(10, 0.35, ${condParamB - 1})</td><td>${pDen.toFixed(5)}</td></tr>
+              <tr><td><strong>Conditional Ratio</strong></td><td><strong>P(X ≥ ${condParamA} | X ≥ ${condParamB})</strong></td><td>Numerator / Denominator</td><td><strong>${ans.toFixed(5)}</strong></td></tr>
+            </tbody>
+          </table>
+        `;
+      } else if (pattern === "splitSum") {
+        const m = 6, n = 4, p = 0.4;
+        if (condParamB > 10 || condParamB < 1) condParamB = 5;
+        const t = condParamB;
+        const maxK = Math.min(m, t);
+        const minK = Math.max(0, t - n);
+        if (condParamA < minK || condParamA > maxK) condParamA = minK;
+        const k = condParamA;
+
+        dynWrap.innerHTML = `
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Given Total Signed Parcels (<em>X + Y = t</em>):</span>
+              <span class="val-pill">t = ${t}</span>
+            </div>
+            <input type="range" min="1" max="10" step="1" value="${t}" oninput="condParamB = parseInt(this.value,10); renderCondBinomials();" />
+          </div>
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Target Morning Van Parcels (<em>X = k</em>, Valid: ${minK}..${maxK}):</span>
+              <span class="val-pill">k = ${k}</span>
+            </div>
+            <input type="range" min="${minK}" max="${maxK}" step="1" value="${k}" oninput="condParamA = parseInt(this.value,10); renderCondBinomials();" />
+          </div>
+        `;
+
+        const px = binomPdf(m, p, k);
+        const py = binomPdf(n, p, t - k);
+        const pJoint = px * py;
+        const pTotal = binomPdf(m + n, p, t);
+        const ans = pJoint / pTotal;
+
+        document.getElementById("sumCondContextCard").innerHTML = `
+          <span class="ctx-tag">Real-World Word Problem — HDB Estate Courier Vans</span><br>
+          <strong>Problem:</strong> A courier company sends <strong>6 parcels in a morning van</strong> and <strong>4 parcels in an afternoon van</strong> to a Tampines HDB block. Independently, each parcel requires a recipient signature with probability <strong>0.40</strong>. <strong>Given that exactly ${t} parcels in total</strong> required a signature that day, find the probability that <strong>exactly ${k} of them</strong> were delivered by the morning van.
+          <div class="formulate-strip">
+            <strong>Step 1 — Define Variables &amp; Formulate Conditional Statement:</strong><br>
+            Let <code>X ~ B(6, 0.40)</code> (morning) and <code>Y ~ B(4, 0.40)</code> (afternoon), so <code>X + Y ~ B(10, 0.40)</code>.<br>
+            We want <strong>P(X = ${k} | X + Y = ${t})</strong>, where <code>{X = ${k}} ∩ {X + Y = ${t}}</code> is equivalent to <code>{X = ${k} ∩ Y = ${t - k}}</code>!
+          </div>
+        `;
+
+        document.getElementById("condAlgebraBox").innerHTML = `
+          <div class="steps-box">
+            <strong>Step 2 — Split Numerator by Independence &amp; Combine Denominator:</strong><br>
+            <code>P(X = ${k} | X + Y = ${t}) = [P(X = ${k}) · P(Y = ${t - k})] / P(X + Y = ${t})</code><br>
+            <code>= [binompdf(6, 0.4, ${k}) × binompdf(4, 0.4, ${t - k})] / binompdf(10, 0.4, ${t})</code><br>
+            <code>= (${px.toFixed(5)} × ${py.toFixed(5)}) / ${pTotal.toFixed(5)} = <strong>${ans.toFixed(5)}</strong></code>
+          </div>
+        `;
+
+        document.getElementById("sumCondMetricsGrid").innerHTML = `
+          <div class="metric-tile purple"><span class="m-label">Combined Sum</span><span class="m-val">X + Y ~ B(10, 0.4)</span></div>
+          <div class="metric-tile amber"><span class="m-label">P(X=${k})·P(Y=${t - k})</span><span class="m-val">${pJoint.toFixed(5)}</span></div>
+          <div class="metric-tile blue"><span class="m-label">P(X + Y = ${t})</span><span class="m-val">${pTotal.toFixed(5)}</span></div>
+          <div class="metric-tile teal"><span class="m-label">P(X=${k} | X+Y=${t})</span><span class="m-val">${ans.toFixed(4)}</span></div>
+        `;
+
+        const probs = [];
+        for (let x = 0; x <= m + n; x++) probs.push({ x, p: binomPdf(m + n, p, x) });
+        document.getElementById("scVizKicker").textContent = "Combined Distribution X + Y ~ B(10, 0.40)";
+        document.getElementById("scVizHeadline").textContent = `Denominator P(X + Y = ${t}) = ${pTotal.toFixed(4)} highlighted in gold`;
+        renderBarChart("sumCondSvg", probs, new Set([t]), null, 4.0, "Total Signed Parcels X + Y (0 to 10)");
+
+        document.getElementById("sumCondTableWrap").innerHTML = `
+          <table class="calc-table">
+            <thead><tr><th>Term</th><th>Distribution Used</th><th>TI-84 Command</th><th>Value</th></tr></thead>
+            <tbody>
+              <tr><td>P(X = ${k}) [Morning]</td><td>X ~ B(6, 0.40)</td><td>binompdf(6, 0.4, ${k})</td><td>${px.toFixed(5)}</td></tr>
+              <tr><td>P(Y = ${t - k}) [Afternoon]</td><td>Y ~ B(4, 0.40)</td><td>binompdf(4, 0.4, ${t - k})</td><td>${py.toFixed(5)}</td></tr>
+              <tr><td>P(X + Y = ${t}) [Total]</td><td>X + Y ~ B(10, 0.40)</td><td>binompdf(10, 0.4, ${t})</td><td>${pTotal.toFixed(5)}</td></tr>
+              <tr class="hl-row"><td colspan="3">Conditional Probability P(X = ${k} | X + Y = ${t})</td><td>${ans.toFixed(5)}</td></tr>
+            </tbody>
+          </table>
+        `;
+      } else {
+        const nDaily = 8, pItem = 0.30, nDays = 7;
+        if (condParamA < 1 || condParamA > 8) condParamA = 3;
+        if (condParamB < 0 || condParamB > 7) condParamB = 4;
+        const kQuota = condParamA;
+        const wTarget = condParamB;
+
+        dynWrap.innerHTML = `
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Daily Maintenance Trigger (<em>X ≥ k</em> defects out of 8):</span>
+              <span class="val-pill">k = ${kQuota}</span>
+            </div>
+            <input type="range" min="1" max="8" step="1" value="${kQuota}" oninput="condParamA = parseInt(this.value,10); renderCondBinomials();" />
+          </div>
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Target Maintenance Days (<em>W = w</em> out of 7 days):</span>
+              <span class="val-pill">w = ${wTarget}</span>
+            </div>
+            <input type="range" min="0" max="7" step="1" value="${wTarget}" oninput="condParamB = parseInt(this.value,10); renderCondBinomials();" />
+          </div>
+        `;
+
+        const pDay = 1 - binomCdf(nDaily, pItem, kQuota - 1);
+        const pWeek = binomPdf(nDays, pDay, wTarget);
+
+        document.getElementById("sumCondContextCard").innerHTML = `
+          <span class="ctx-tag">Real-World Word Problem — Jurong Semiconductor QC Line (Two-Stage)</span><br>
+          <strong>Problem:</strong> Each day, a Jurong factory inspects <strong>8 microchips</strong>, where each chip independently has a <strong>0.30 probability</strong> of failing a stress test. If <strong>at least ${kQuota} chips fail</strong> on a given day, the machine is flagged for maintenance. Find the probability that in a <strong>7-day week</strong>, the machine is flagged on <strong>exactly ${wTarget} days</strong>.
+          <div class="formulate-strip">
+            <strong>Step 1 — Formulate Two-Stage Binomial Variables:</strong><br>
+            • <strong>Stage 1 (Daily Failures):</strong> Let <code>X ~ B(8, 0.30)</code>. Probability a day is flagged is <code>p_day = P(X ≥ ${kQuota})</code>.<br>
+            • <strong>Stage 2 (Weekly Flagged Days):</strong> Let <code>W ~ B(7, p_day)</code>. We want <strong>P(W = ${wTarget})</strong>.
+          </div>
+        `;
+
+        document.getElementById("condAlgebraBox").innerHTML = `
+          <div class="steps-box">
+            <strong>Step 2 — Evaluate Stage 1 First (Keep Full Accuracy!), Then Stage 2:</strong><br>
+            <strong>Stage 1:</strong> <code>p_day = 1 − binomcdf(8, 0.30, ${kQuota - 1}) = <strong>${pDay.toFixed(5)}</strong></code><br>
+            <strong>Stage 2:</strong> <code>P(W = ${wTarget}) = binompdf(7, ${pDay.toFixed(5)}, ${wTarget}) = <strong>${pWeek.toFixed(5)}</strong></code>
+          </div>
+        `;
+
+        document.getElementById("sumCondMetricsGrid").innerHTML = `
+          <div class="metric-tile blue"><span class="m-label">Stage 1 Daily Model</span><span class="m-val">X ~ B(8, 0.30)</span></div>
+          <div class="metric-tile amber"><span class="m-label">p_day = P(X ≥ ${kQuota})</span><span class="m-val">${pDay.toFixed(4)}</span></div>
+          <div class="metric-tile purple"><span class="m-label">Stage 2 Weekly Model</span><span class="m-val">W ~ B(7, ${pDay.toFixed(3)})</span></div>
+          <div class="metric-tile teal"><span class="m-label">P(W = ${wTarget} days)</span><span class="m-val">${pWeek.toFixed(4)}</span></div>
+        `;
+
+        const probs = [];
+        for (let w = 0; w <= nDays; w++) probs.push({ x: w, p: binomPdf(nDays, pDay, w) });
+        document.getElementById("scVizKicker").textContent = `Stage 2 Weekly Distribution W ~ B(7, ${pDay.toFixed(4)})`;
+        document.getElementById("scVizHeadline").textContent = `Probability of exactly w = ${wTarget} flagged maintenance days in 7 days = ${pWeek.toFixed(4)}`;
+        renderBarChart("sumCondSvg", probs, new Set([wTarget]), null, nDays * pDay, "Number of Flagged Maintenance Days W (0 to 7)");
+
+        document.getElementById("sumCondTableWrap").innerHTML = `
+          <table class="calc-table">
+            <thead><tr><th>Stage</th><th>Random Variable</th><th>Distribution</th><th>Probability Result</th></tr></thead>
+            <tbody>
+              <tr><td>Stage 1 (Daily)</td><td>X = failed chips out of 8</td><td>B(8, 0.30)</td><td>p_day = P(X ≥ ${kQuota}) = ${pDay.toFixed(5)}</td></tr>
+              <tr class="hl-row"><td>Stage 2 (Weekly)</td><td>W = flagged days out of 7</td><td>B(7, ${pDay.toFixed(5)})</td><td>P(W = ${wTarget}) = ${pWeek.toFixed(5)}</td></tr>
+            </tbody>
+          </table>
+        `;
+      }
+    }
+
+    // Shared SVG Bar Chart Helper
+    function renderBarChart(svgId, probs, primarySet, secondarySet, mean, xAxisTitle) {
+      const svg = document.getElementById(svgId);
+      const W = 680, H = 275;
+      const padL = 52, padR = 22, padT = 24, padB = 42;
+      const plotW = W - padL - padR;
+      const plotH = H - padT - padB;
+
+      const maxP = Math.max(0.25, ...probs.map(it => it.p * 1.18));
+      const toY = v => padT + ((maxP - v) / maxP) * plotH;
+      const baseY = H - padB;
+
+      let html = "";
+      const step = maxP > 0.5 ? 0.1 : 0.05;
+      for (let v = 0; v <= maxP + 1e-6; v += step) {
+        const y = toY(v);
+        html += `<line x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}" stroke="#f1f5f9" stroke-width="1"/>`;
+        html += `<text x="${padL - 8}" y="${y + 4}" text-anchor="end" font-size="10" fill="#64748b">${v.toFixed(2)}</text>`;
+      }
+
+      html += `<line x1="${padL}" y1="${padT}" x2="${padL}" y2="${baseY}" stroke="#64748b" stroke-width="1.4"/>`;
+      html += `<line x1="${padL}" y1="${baseY}" x2="${W - padR}" y2="${baseY}" stroke="#334155" stroke-width="1.5"/>`;
+
+      const slotW = plotW / probs.length;
+      const barW = Math.max(6, Math.min(36, slotW * 0.68));
+
+      probs.forEach((it, idx) => {
+        const cx = padL + slotW * (idx + 0.5);
+        const bh = (it.p / maxP) * plotH;
+        const by = baseY - bh;
+        const isPrim = primarySet && primarySet.has(it.x);
+        const isSec = secondarySet && secondarySet.has(it.x);
+
+        let fill = "#8b5cf6", stroke = "#7c3aed";
+        if (isPrim) { fill = "#f59e0b"; stroke = "#b45309"; }
+        else if (isSec) { fill = "#0284c7"; stroke = "#0369a1"; }
+
+        html += `
+          <rect x="${cx - barW / 2}" y="${by}" width="${barW}" height="${Math.max(1, bh)}" rx="3" fill="${fill}" fill-opacity="0.88" stroke="${stroke}" stroke-width="1.2"/>
+        `;
+        if (probs.length <= 18 || it.x % 2 === 0) {
+          html += `<text x="${cx}" y="${baseY + 16}" text-anchor="middle" font-size="10.5" font-weight="bold" fill="${isPrim ? '#b45309' : '#334155'}">${it.x}</text>`;
+        }
+        if (probs.length <= 13 && it.p >= 0.005) {
+          html += `<text x="${cx}" y="${by - 5}" text-anchor="middle" font-size="9" font-weight="bold" fill="#1e293b">${it.p.toFixed(3)}</text>`;
+        }
+      });
+
+      if (mean !== null && mean !== undefined) {
+        const meanCx = padL + slotW * (mean + 0.5);
+        if (meanCx >= padL && meanCx <= W - padR) {
+          html += `
+            <line x1="${meanCx}" y1="${padT}" x2="${meanCx}" y2="${baseY}" stroke="#0f766e" stroke-width="1.6" stroke-dasharray="4,3"/>
+            <text x="${Math.min(W - 90, meanCx + 5)}" y="${padT + 12}" font-size="10" font-weight="bold" fill="#0f766e">Mean = ${mean.toFixed(2)}</text>
+          `;
+        }
+      }
+
+      html += `<text x="${W / 2}" y="${H - 8}" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#334155">${xAxisTitle}</text>`;
+      svg.innerHTML = html;
+    }
+
+    function renderComparisonOverlaySvg(svgId, probsSum, probs2X, totN) {
+      const svg = document.getElementById(svgId);
+      const W = 680, H = 275;
+      const padL = 52, padR = 22, padT = 24, padB = 42;
+      const plotW = W - padL - padR;
+      const plotH = H - padT - padB;
+
+      const maxP = Math.max(0.25, ...probsSum.map(it => it.p * 1.18), ...probs2X.map(it => it.p * 1.18));
+      const toY = v => padT + ((maxP - v) / maxP) * plotH;
+      const baseY = H - padB;
+
+      let html = "";
+      const step = maxP > 0.5 ? 0.1 : 0.05;
+      for (let v = 0; v <= maxP + 1e-6; v += step) {
+        const y = toY(v);
+        html += `<line x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}" stroke="#f1f5f9" stroke-width="1"/>`;
+        html += `<text x="${padL - 8}" y="${y + 4}" text-anchor="end" font-size="10" fill="#64748b">${v.toFixed(2)}</text>`;
+      }
+
+      html += `<line x1="${padL}" y1="${padT}" x2="${padL}" y2="${baseY}" stroke="#64748b" stroke-width="1.4"/>`;
+      html += `<line x1="${padL}" y1="${baseY}" x2="${W - padR}" y2="${baseY}" stroke="#334155" stroke-width="1.5"/>`;
+
+      const slotW = plotW / probsSum.length;
+      const barW = Math.max(4, Math.min(18, slotW * 0.4));
+
+      probsSum.forEach((it, idx) => {
+        const cx = padL + slotW * (idx + 0.5);
+        const bh1 = (it.p / maxP) * plotH;
+        const bh2 = (probs2X[idx].p / maxP) * plotH;
+
+        html += `<rect x="${cx - barW}" y="${baseY - bh1}" width="${barW}" height="${Math.max(1, bh1)}" rx="2" fill="#8b5cf6" fill-opacity="0.88"/>`;
+        if (probs2X[idx].p > 0) {
+          html += `<rect x="${cx}" y="${baseY - bh2}" width="${barW}" height="${Math.max(1, bh2)}" rx="2" fill="#f59e0b" fill-opacity="0.88"/>`;
+        }
+        if (probsSum.length <= 17 || it.x % 2 === 0) {
+          html += `<text x="${cx}" y="${baseY + 16}" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#334155">${it.x}</text>`;
+        }
+      });
+
+      html += `<text x="${W / 2}" y="${H - 8}" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#334155">Total Bonus Points (Purple = Plan A: X₁ + X₂, Amber = Plan B: 2X)</text>`;
+      svg.innerHTML = html;
+    }
+
+    // Initialize Lesson 5 with Tab 1 (B.I.S.C.) active
+    selectScenario("valid");
+  </script>
+</body>
+</html>
