@@ -2167,6 +2167,107 @@
             exitAnswer: "E(X − Y) = 20 − 15 = 5; Var(X − Y) = 9 + 16 = 25. Thus <strong>X − Y ~ N(5, 25)</strong>."
           }
         ]
+      },
+      "6.4": {
+    title: "6.4 Sampling",
+    lessons: [
+      {
+        label: "Lesson 1: Populations, Simple Random Sampling & Sample Mean X̄ (SG Election Context)",
+        file: "interactives/6_4_lesson1.html",
+        videoEmbedUrl: "",
+        prereq: "Expectation E(aX + bY) and variance Var(aX + bY) of independent random variables.",
+        objectives: [
+          "Distinguish between a population (fixed parameters μ, σ²) and a sample (random statistics X̄, S²) using Singapore General Election sample counts.",
+          "State the two defining conditions of a Simple Random Sample (SRS) and explain why convenience sampling introduces bias.",
+          "Derive and apply E(X̄) = μ and Var(X̄) = σ² / n for the sample mean X̄."
+        ],
+        prompts: [
+          "In Tab 1 (SG Election Sample Count), compare sampling ballot papers from a single HDB precinct against a Simple Random Sample across the entire constituency.",
+          "In Tab 2, simulate 500 sample counts and increase sample size n from 10 to 100 to verify that Var(X̄) shrinks by 1/n."
+        ],
+        pitfalls: [
+          "Confusing the random variable X̄ (which varies from sample to sample) with a single observed sample mean x̄.",
+          "Forgetting to divide the population variance σ² by n (or dividing σ by n instead of √n)."
+        ],
+        gcTip: "On TI-84 Plus CE, press [MATH] > PRB > 8: randIntNoRep(1, N, n) to select n distinct ballot papers or households without replacement from a population of size N.",
+        workedQuestion: "During a Singapore General Election counting centre check, each ballot box contains ballots whose candidate score X has population mean μ = 0.54 and variance σ² = 0.2484. A Simple Random Sample of n = 100 ballots is drawn. State E(X̄) and Var(X̄), and explain why a Simple Random Sample is required.",
+        workedSolution: "E(X̄) = μ = <strong>0.54</strong>, and Var(X̄) = σ² / n = 0.2484 / 100 = <strong>0.002484</strong>.<br>A Simple Random Sample ensures every ballot in the constituency has an equal probability of selection and selections are independent, eliminating precinct or polling-station bias so E(X̄) = μ.",
+        exitQuestion: "Why would sampling the first 100 commuters entering Raffles Place MRT at 8:30 AM NOT form a Simple Random Sample of all daily MRT commuters?",
+        exitAnswer: "Because commuters travelling at other times or stations have <strong>zero probability</strong> of being selected, violating the equal-probability condition of an SRS."
+      },
+      {
+        label: "Lesson 2: Sample Mean from a Normal Population (X̄ vs. nX)",
+        file: "interactives/6_4_lesson2.html",
+        videoEmbedUrl: "",
+        prereq: "Properties of Normal distributions and linear combinations of independent Normal variables.",
+        objectives: [
+          "Apply X̄ ~ N(μ, σ² / n) for ANY sample size n when the parent population follows a Normal distribution (without invoking CLT).",
+          "Distinguish clearly between X̄ ~ N(μ, σ² / n), sample sum ΣXᵢ ~ N(nμ, nσ²), and scaled variable nX ~ N(nμ, n²σ²).",
+          "Find the minimum integer sample size n required to satisfy a given probability condition on X̄."
+        ],
+        prompts: [
+          "In Tab 1, slide n from 1 to 36 and observe how X̄ concentrates tightly around μ while remaining an exact Normal distribution.",
+          "In Tab 2, compare the variance of 4 independent Changi Airport check-in bags (4σ²) against 4 times a single bag (16σ²)."
+        ],
+        pitfalls: [
+          "Invoking the Central Limit Theorem when the parent population is already stated to be a Normal distribution—do NOT cite CLT for Normal populations!",
+          "Rounding n down instead of UP when solving for minimum sample size n ≥ k."
+        ],
+        gcTip: "To find the least integer n such that P(X̄ > c) < 0.05, enter Y₁ = normalcdf(c, 1E99, μ, σ/√(X)) and inspect [2nd] [GRAPH] (TABLE).",
+        workedQuestion: "Bottles of NEWater have volumes following a Normal distribution X ~ N(500, 6²) ml. Find the probability that the mean volume of a random sample of 9 bottles exceeds 504 ml.",
+        workedSolution: "Since X follows a Normal distribution, X̄ ~ N(500, 36/9) = N(500, 4) exactly. P(X̄ > 504) = normalcdf(504, 1E99, 500, 2) = <strong>0.0228</strong>.",
+        exitQuestion: "Why is it incorrect to write 'By the Central Limit Theorem' when finding P(X̄ < 52) for X ~ N(50, 16) with n = 40?",
+        exitAnswer: "Because the parent population X is <strong>already a Normal distribution</strong>, so X̄ ~ N(50, 16/40) holds <strong>exactly</strong> for any n without needing CLT."
+      },
+      {
+        label: "Lesson 3: The Central Limit Theorem (CLT) for Non-Normal Distributions",
+        file: "interactives/6_4_lesson3.html",
+        videoEmbedUrl: "https://www.youtube.com/embed/zeJD6dqJ5lo",
+        prereq: "Sample mean distribution X̄ ~ N(μ, σ² / n) and standard normal probabilities.",
+        objectives: [
+          "Apply the Central Limit Theorem: for sufficiently large n (e.g. n ≥ 30), X̄ ~ N(μ, σ² / n) approximately even when the parent population is a non-normal distribution or Binomial distribution.",
+          "Write complete examiner-approved justification statements including sample size condition and the word 'approximately'.",
+          "Approximate probabilities involving sample totals ΣXᵢ ~ N(nμ, nσ²) approximately for large n (such as HDB lift load limits)."
+        ],
+        prompts: [
+          "In Tab 1, select a skewed non-normal distribution or a Binomial distribution and increase n from 1 to 30 to watch the sampling histogram of X̄ become bell-shaped.",
+          "In Tab 2, classify exam scenarios (Normal vs. non-normal distribution, small vs. large n) to check when CLT is required."
+        ],
+        pitfalls: [
+          "Omitting the keyword 'approximately' when stating X̄ ~ N(μ, σ² / n) by CLT.",
+          "Applying CLT to a single observation X (CLT applies ONLY to the sample mean X̄ or sample sum ΣXᵢ, never to an individual observation X!)."
+        ],
+        gcTip: "Always state: 'Since n = ... ≥ 30 is sufficiently large, by the Central Limit Theorem, X̄ ~ N(μ, σ²/n) approximately.'",
+        workedQuestion: "Morning peak waiting times at Jurong East MRT interchange follow a non-normal distribution with mean 4.2 min and standard deviation 1.8 min. Estimate the probability that the mean waiting time of 36 randomly selected commuters exceeds 4.7 min.",
+        workedSolution: "Since n = 36 ≥ 30 is sufficiently large, by the Central Limit Theorem, X̄ ~ N(4.2, 1.8²/36) = N(4.2, 0.09) approximately.<br>P(X̄ > 4.7) = normalcdf(4.7, 1E99, 4.2, 0.3) = <strong>0.0478</strong>.",
+        exitQuestion: "If individual commuter waiting times follow a skewed non-normal distribution, does taking a sample of n = 100 commuters make the individual waiting times Normal?",
+        exitAnswer: "<strong>No.</strong> Individual waiting times X keep their original non-normal distribution; only the <strong>sample mean X̄</strong> (and sample sum) becomes approximately Normal."
+      },
+      {
+        label: "Lesson 4: Unbiased Estimates (x̄ & s²) from Raw & Coded Data",
+        file: "interactives/6_4_lesson4.html",
+        videoEmbedUrl: "",
+        prereq: "Summation notation Σx, Σx², and Central Limit Theorem.",
+        objectives: [
+          "Calculate unbiased estimates of population mean x̄ = Σx / n and population variance s² = [1/(n−1)][Σx² − (Σx)²/n].",
+          "Compute x̄ and s² from coded/shifted summaries Σ(x − a) and Σ(x − a)² (e.g. SP Group monthly electricity usage or NEA hawker waste).",
+          "Combine unbiased estimates x̄ and s² with CLT for large samples (n ≥ 30) when μ and σ² are unknown."
+        ],
+        prompts: [
+          "In Tab 1, run the 1,000-sample simulation to verify why dividing by n − 1 gives an unbiased estimate of σ² whereas dividing by n underestimates σ².",
+          "In Tab 2, input coded data Σ(x − a) and Σ(x − a)² to trace how shift constant a affects x̄ but leaves s² unchanged."
+        ],
+        pitfalls: [
+          "Dividing by n instead of n − 1 when computing the unbiased estimate s² of population variance.",
+          "Adding the shift constant a to s² (variance is unaffected by shifting every data value by a constant a!)."
+        ],
+        gcTip: "In TI-84 [STAT] > CALC > 1-Var Stats, Sx is the unbiased sample standard deviation (so s² = Sx²), whereas σx divides by n (biased).",
+        workedQuestion: "The monthly electricity consumption x kWh of 50 randomly selected 4-room HDB flats is summarised by Σ(x − 350) = 600 and Σ(x − 350)² = 31696. Find unbiased estimates of the population mean and variance.",
+        workedSolution: "x̄ = 350 + 600/50 = <strong>362 kWh</strong>.<br>s² = (1/49)[31696 − 600²/50] = (1/49)[31696 − 7200] = 24496/49 = <strong>499.92</strong> (or 500 to 3 s.f.).",
+        exitQuestion: "If the biased sample variance of 10 HDB electricity bills is 360, what is the unbiased estimate s² of the population variance?",
+        exitAnswer: "s²
+      }
+      ]
       }
     };
 
