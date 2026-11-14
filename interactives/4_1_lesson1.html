@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 4.1 Lesson 1: Cartesian Form, Four Operations &amp; Equality</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 525px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    @media (max-width: 1000px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.76rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.48;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .control-panel {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 13px;
+      margin-bottom: 11px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .slider-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 7px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .slider-row label {
+      min-width: 115px;
+      color: #1e293b;
+    }
+
+    .slider-row input[type="range"] {
+      flex: 1;
+      accent-color: var(--purple-dark);
+      cursor: pointer;
+    }
+
+    .val-badge {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 2px 7px;
+      min-width: 38px;
+      text-align: center;
+      font-weight: 800;
+      font-size: 0.79rem;
+      color: #1e293b;
+    }
+
+    .sub-pill-bar {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .sub-pill {
+      flex: 1;
+      min-width: 72px;
+      padding: 6px 8px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .sub-pill.active {
+      background: var(--blue-bg);
+      border-color: var(--blue);
+      color: #0c4a6e;
+    }
+
+    .gc-screen-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin-bottom: 11px;
+    }
+
+    .box-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .gc-readout {
+      background: #f1f5f9;
+      border: 2px solid #64748b;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.81rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 5px;
+      line-height: 1.48;
+    }
+
+    .solution-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.82rem;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    /* RIGHT PANEL */
+    .visual-stage {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .step-derivation {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 13px;
+      font-size: 0.81rem;
+      line-height: 1.55;
+      margin-bottom: 10px;
+    }
+
+    .re-hl {
+      background: var(--teal-bg);
+      color: var(--teal);
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-weight: 800;
+    }
+
+    .im-hl {
+      background: var(--rose-bg);
+      color: var(--rose);
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-weight: 800;
+    }
+
+    .cycle-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .cycle-cell {
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 6px 4px;
+      text-align: center;
+      background: #ffffff;
+      font-size: 0.76rem;
+    }
+
+    .cycle-cell.active {
+      border-color: var(--purple-dark);
+      background: var(--purple-bg);
+      color: #4c1d95;
+      font-weight: 800;
+    }
+
+    .gc-guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .gc-guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .step-pill {
+      background: var(--blue-bg);
+      border: 1px solid #bae6fd;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.77rem;
+      line-height: 1.45;
+      color: #0c4a6e;
+    }
+
+    .misconception-box {
+      margin-top: 10px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 10px 13px;
+      font-size: 0.79rem;
+      line-height: 1.48;
+      color: #78350f;
+    }
+
+    .grader-card {
+      margin-top: 10px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 700px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Choose a Concept Mode (Top-Left)</strong>
+        Switch between <em>1. Cartesian &amp; Powers of i</em>, <em>2. Four Operations (+, &minus;, &times;, &divide;)</em>, <em>3. Equality &amp; Linear Equations</em>, and <em>4. Square Roots &radic;(p + qi)</em>.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Adjust Sliders &amp; Operation Presets</strong>
+        Drag the real and imaginary sliders to see how conjugate multiplication realises denominators into <em>c&sup2; + d&sup2;</em>, or how equating real and imaginary parts solves for unknowns.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Verify with TI-84 Readout &amp; Exam Check</strong>
+        Compare the step-by-step algebraic derivation and complex-plane preview on the right against the simulated <strong>TI-84 Plus CE (a+bi mode)</strong> output, then complete the 3-question exam check.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        4.1 Lesson 1 &bull; Cartesian Form, Four Operations &amp; Equality of Complex Numbers
+      </div>
+
+      <!-- 4 Mode Presets -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="mode_cartesian" onclick="setMode('cartesian')">
+          1. Cartesian Form &amp; Powers of i
+        </button>
+        <button class="tab-btn" id="mode_fouroperations" onclick="setMode('fouroperations')">
+          2. Four Operations (+, &minus;, &times;, &divide;)
+        </button>
+        <button class="tab-btn" id="mode_equality" onclick="setMode('equality')">
+          3. Equality of Complex Numbers
+        </button>
+        <button class="tab-btn" id="mode_squareroot" onclick="setMode('squareroot')">
+          4. Square Roots &radic;(p + qi)
+        </button>
+      </div>
+
+      <!-- Concept Context Box -->
+      <div class="context-box" id="contextBox"></div>
+
+      <!-- Interactive Sliders & Sub-Controls -->
+      <div class="control-panel" id="controlPanel"></div>
+
+      <!-- Simulated TI-84 Plus CE Output -->
+      <div class="gc-screen-box" id="gcOutputBox"></div>
+
+      <!-- Final Answer Banner -->
+      <div class="solution-banner" id="solutionBanner"></div>
+    </div>
+
+    <!-- RIGHT VISUALIZATION, DERIVATION & EXAM CHECK -->
+    <div class="card">
+      <div style="font-size:1.02rem; font-weight:800; color:#1e293b; margin-bottom:8px;" id="rightHeading">
+        Complex Plane Representation &amp; Step-by-Step Derivation
+      </div>
+
+      <!-- Visual Diagram / Power Cycle Stage -->
+      <div class="visual-stage" id="visualStage"></div>
+
+      <!-- Algebraic Derivation Steps -->
+      <div class="step-derivation" id="derivationBox"></div>
+
+      <!-- 3-Step TI-84 Plus CE Guide -->
+      <div class="gc-guide-grid" id="gcGuideGrid"></div>
+
+      <!-- 9758 Misconception Alert -->
+      <div class="misconception-box" id="misconceptionBox"></div>
+
+      <!-- Quick 9758 Exam Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 Complex Arithmetic &amp; Equality Check (<span id="qIdxLbl">1</span>/3)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.8rem; line-height:1.45; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  /* -------------------- MATH FORMATTING HELPERS -------------------- */
+  function gcd(a, b) {
+    a = Math.abs(Math.round(a));
+    b = Math.abs(Math.round(b));
+    while (b) {
+      const t = b;
+      b = a % b;
+      a = t;
+    }
+    return a || 1;
+  }
+
+  function fmtFrac(num, den) {
+    if (den < 0) { num = -num; den = -den; }
+    if (num === 0) return "0";
+    const g = gcd(num, den);
+    num /= g;
+    den /= g;
+    return den === 1 ? `${num}` : `${num}/${den}`;
+  }
+
+  function fmtSigned(n) {
+    return n < 0 ? `−${Math.abs(n)}` : `${n}`;
+  }
+
+  function fmtComplex(re, im) {
+    if (re === 0 && im === 0) return "0";
+    let out = "";
+    if (re !== 0) out += fmtSigned(re);
+    if (im !== 0) {
+      const absIm = Math.abs(im);
+      const imPart = absIm === 1 ? "i" : `${absIm}i`;
+      if (re === 0) {
+        out += im < 0 ? `−${imPart}` : imPart;
+      } else {
+        out += im < 0 ? ` − ${imPart}` : ` + ${imPart}`;
+      }
+    }
+    return out;
+  }
+
+  function fmtComplexFrac(reNum, reDen, imNum, imDen) {
+    const reStr = fmtFrac(reNum, reDen);
+    if (imNum === 0) return reStr;
+    if (imDen < 0) { imNum = -imNum; imDen = -imDen; }
+    const g = gcd(imNum, imDen);
+    imNum /= g;
+    imDen /= g;
+    const absN = Math.abs(imNum);
+    let term = imDen === 1 ? (absN === 1 ? "i" : `${absN}i`) : `(${absN}/${imDen})i`;
+    if (reNum === 0) return imNum < 0 ? `−${term}` : term;
+    return imNum < 0 ? `${reStr} − ${term}` : `${reStr} + ${term}`;
+  }
+
+  /* -------------------- STATE -------------------- */
+  let currentMode = "cartesian";
+  const state = {
+    // Mode 1: Cartesian & Powers of i
+    x: 3,
+    y: -4,
+    powN: 19,
+    // Mode 2: Four Operations
+    a: 5,
+    b: 1,
+    c: 2,
+    d: -3,
+    op: "div",
+    // Mode 3: Equality of Complex Numbers: (p + qi)z + r z* = u + vi
+    eqP: 2,
+    eqQ: 1,
+    eqR: 3,
+    eqU: 10,
+    eqV: 3,
+    // Mode 4: Square roots of p + qi
+    sqP: 3,
+    sqQ: -4
+  };
+
+  function setMode(mode) {
+    currentMode = mode;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("mode_" + mode).classList.add("active");
+    renderAll();
+  }
+
+  function renderAll() {
+    if (currentMode === "cartesian") renderCartesianMode();
+    else if (currentMode === "fouroperations") renderFourOpsMode();
+    else if (currentMode === "equality") renderEqualityMode();
+    else if (currentMode === "squareroot") renderSquareRootMode();
+  }
+
+  /* =====================================================================
+     MODE 1: CARTESIAN FORM & POWERS OF i
+     ===================================================================== */
+  function renderCartesianMode() {
+    document.getElementById("contextBox").innerHTML = `
+      <div><strong>Extension ℝ &rarr; ℂ:</strong> Defining <strong>i&sup2; = &minus;1</strong> extends real numbers to <strong>ℂ = {x + yi : x, y &isin; ℝ}</strong>. Every complex number <em>z = x + yi</em> has a real part <strong>Re(z) = x</strong>, an imaginary part <strong>Im(z) = y</strong>, and a conjugate <strong>z* = x &minus; yi</strong>.</div>
+      <div class="var-pill">Key Identity: z &middot; z* = (x + yi)(x &minus; yi) = x&sup2; + y&sup2; &isin; ℝ</div>
+    `;
+
+    document.getElementById("controlPanel").innerHTML = `
+      <div class="panel-header">
+        <span>Configure z = x + yi &amp; Exponent i&#8319;</span>
+        <span style="color:var(--purple-dark);">x, y &isin; ℝ</span>
+      </div>
+      <div class="slider-row">
+        <label>Real Part x = Re(z):</label>
+        <input type="range" min="-6" max="6" step="1" value="${state.x}" oninput="state.x=parseInt(this.value); renderCartesianMode()" />
+        <span class="val-badge">${fmtSigned(state.x)}</span>
+      </div>
+      <div class="slider-row">
+        <label>Imag Part y = Im(z):</label>
+        <input type="range" min="-6" max="6" step="1" value="${state.y}" oninput="state.y=parseInt(this.value); renderCartesianMode()" />
+        <span class="val-badge">${fmtSigned(state.y)}</span>
+      </div>
+      <div class="slider-row" style="margin-bottom:4px;">
+        <label>Power Exponent n:</label>
+        <input type="range" min="0" max="35" step="1" value="${state.powN}" oninput="state.powN=parseInt(this.value); renderCartesianMode()" />
+        <span class="val-badge">${state.powN}</span>
+      </div>
+      <div class="sub-pill-bar">
+        <button class="sub-pill" onclick="state.x=3; state.y=-4; state.powN=19; renderCartesianMode()">z = 3 &minus; 4i</button>
+        <button class="sub-pill" onclick="state.x=-2; state.y=5; state.powN=22; renderCartesianMode()">z = &minus;2 + 5i</button>
+        <button class="sub-pill" onclick="state.x=0; state.y=4; state.powN=25; renderCartesianMode()">Pure Imag (4i)</button>
+        <button class="sub-pill" onclick="state.x=-5; state.y=0; state.powN=28; renderCartesianMode()">Pure Real (&minus;5)</button>
+      </div>
+    `;
+
+    const zStr = fmtComplex(state.x, state.y);
+    const conjStr = fmtComplex(state.x, -state.y);
+    const zzStar = state.x * state.x + state.y * state.y;
+    const rem = state.powN % 4;
+    const quot = Math.floor(state.powN / 4);
+    const powVals = ["1", "i", "−1", "−i"];
+
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">TI-84 Plus CE Readout (MODE: a+bi)</span>
+      <div class="gc-readout">
+        real(${zStr}) &rarr; ${state.x} &nbsp;|&nbsp; imag(${zStr}) &rarr; ${state.y}<br>
+        conj(${zStr}) &rarr; ${conjStr} &nbsp;|&nbsp; i^${state.powN} &rarr; ${powVals[rem]}
+      </div>
+    `;
+
+    document.getElementById("solutionBanner").innerHTML = `
+      For <strong>z = ${zStr}</strong>: &nbsp;Re(z) = <strong>${state.x}</strong>, &nbsp;Im(z) = <strong>${state.y}</strong>, &nbsp;z* = <strong>${conjStr}</strong>, &nbsp;and &nbsp;i<sup>${state.powN}</sup> = <strong>${powVals[rem]}</strong>.
+    `;
+
+    document.getElementById("rightHeading").textContent = "Cartesian Components, Conjugate Reflection & Modulo-4 Cycle of iⁿ";
+
+    // SVG Preview + 4-cycle bar
+    const cx = 250, cy = 122, sc = 17;
+    const zx = cx + state.x * sc, zy = cy - state.y * sc;
+    const czx = cx + state.x * sc, czy = cy - (-state.y) * sc;
+
+    document.getElementById("visualStage").innerHTML = `
+      <svg width="500" height="240" viewBox="0 0 500 240">
+        <line x1="65" y1="${cy}" x2="435" y2="${cy}" stroke="#64748b" stroke-width="1.3"/>
+        <line x1="${cx}" y1="12" x2="${cx}" y2="230" stroke="#64748b" stroke-width="1.3"/>
+        <text x="424" y="${cy - 6}" font-size="10.5" font-weight="bold" fill="#475569">Re</text>
+        <text x="${cx + 7}" y="22" font-size="10.5" font-weight="bold" fill="#475569">Im</text>
+        <text x="${cx - 12}" y="${cy + 13}" font-size="9.5" fill="#475569">O</text>
+
+        <line x1="${zx}" y1="${zy}" x2="${zx}" y2="${cy}" stroke="#0f766e" stroke-width="1.2" stroke-dasharray="4,3"/>
+        <line x1="${zx}" y1="${zy}" x2="${cx}" y2="${zy}" stroke="#e11d48" stroke-width="1.2" stroke-dasharray="4,3"/>
+
+        ${state.y !== 0 ? `
+          <line x1="${cx}" y1="${cy}" x2="${czx}" y2="${czy}" stroke="#0284c7" stroke-width="1.8" stroke-dasharray="5,3"/>
+          <circle cx="${czx}" cy="${czy}" r="4.8" fill="#0284c7"/>
+          <text x="${czx + 8}" y="${czy + (state.y > 0 ? 13 : -6)}" font-size="10.5" font-weight="bold" fill="#0369a1">z* = ${conjStr}</text>
+        ` : ""}
+
+        <line x1="${cx}" y1="${cy}" x2="${zx}" y2="${zy}" stroke="#7c3aed" stroke-width="2.3"/>
+        <circle cx="${zx}" cy="${zy}" r="5.2" fill="#7c3aed"/>
+        <text x="${zx + 8}" y="${zy + (state.y >= 0 ? -7 : 14)}" font-size="11" font-weight="bold" fill="#6d28d9">z = ${zStr}</text>
+      </svg>
+      <div class="cycle-strip">
+        <div class="cycle-cell ${rem === 0 ? "active" : ""}">n &equiv; 0 (mod 4)<br><strong>i&#8308;&#7503; = 1</strong></div>
+        <div class="cycle-cell ${rem === 1 ? "active" : ""}">n &equiv; 1 (mod 4)<br><strong>i&#8308;&#7503;&#8314;&sup1; = i</strong></div>
+        <div class="cycle-cell ${rem === 2 ? "active" : ""}">n &equiv; 2 (mod 4)<br><strong>i&#8308;&#7503;&#8314;&sup2; = &minus;1</strong></div>
+        <div class="cycle-cell ${rem === 3 ? "active" : ""}">n &equiv; 3 (mod 4)<br><strong>i&#8308;&#7503;&#8314;&sup3; = &minus;i</strong></div>
+      </div>
+    `;
+
+    document.getElementById("derivationBox").innerHTML = `
+      <strong>Algebraic Identities for z = ${zStr}:</strong><br>
+      &bull; <strong>z + z*</strong> = (${zStr}) + (${conjStr}) = <span class="re-hl">${2 * state.x}</span> = 2 Re(z) (strictly real)<br>
+      &bull; <strong>z &minus; z*</strong> = (${zStr}) &minus; (${conjStr}) = <span class="im-hl">${state.y === 0 ? "0" : 2 * state.y + "i"}</span> = 2i Im(z)<br>
+      &bull; <strong>z &middot; z*</strong> = (${state.x})&sup2; + (${state.y})&sup2; = <strong>${zzStar}</strong><br>
+      &bull; <strong>Power Reduction:</strong> i<sup>${state.powN}</sup> = (i<sup>4</sup>)<sup>${quot}</sup> &middot; i<sup>${rem}</sup> = 1<sup>${quot}</sup> &middot; (${powVals[rem]}) = <strong>${powVals[rem]}</strong>
+    `;
+
+    renderSharedFooter();
+  }
+
+  /* =====================================================================
+     MODE 2: FOUR OPERATIONS (+, -, *, /)
+     ===================================================================== */
+  function renderFourOpsMode() {
+    document.getElementById("contextBox").innerHTML = `
+      <div><strong>Four Operations in Cartesian Form:</strong> Add/subtract real and imaginary parts separately. For multiplication, expand and replace <strong>i&sup2; = &minus;1</strong>. For division <em>z&#8321; / z&#8322;</em>, multiply top and bottom by the denominator's conjugate <strong>z&#8322;*</strong>.</div>
+      <div class="var-pill">Realising Denominator: (z&#8321; / z&#8322;) = (z&#8321; &middot; z&#8322;*) / (c&sup2; + d&sup2;)</div>
+    `;
+
+    document.getElementById("controlPanel").innerHTML = `
+      <div class="panel-header">
+        <span>Configure z&#8321; = a + bi &amp; z&#8322; = c + di</span>
+        <span style="color:var(--purple-dark);">Select Operation</span>
+      </div>
+      <div class="slider-row">
+        <label>a = Re(z&#8321;):</label>
+        <input type="range" min="-6" max="6" step="1" value="${state.a}" oninput="state.a=parseInt(this.value); renderFourOpsMode()" />
+        <span class="val-badge">${fmtSigned(state.a)}</span>
+      </div>
+      <div class="slider-row">
+        <label>b = Im(z&#8321;):</label>
+        <input type="range" min="-6" max="6" step="1" value="${state.b}" oninput="state.b=parseInt(this.value); renderFourOpsMode()" />
+        <span class="val-badge">${fmtSigned(state.b)}</span>
+      </div>
+      <div class="slider-row">
+        <label>c = Re(z&#8322;):</label>
+        <input type="range" min="-6" max="6" step="1" value="${state.c}" oninput="state.c=parseInt(this.value); renderFourOpsMode()" />
+        <span class="val-badge">${fmtSigned(state.c)}</span>
+      </div>
+      <div class="slider-row" style="margin-bottom:4px;">
+        <label>d = Im(z&#8322;):</label>
+        <input type="range" min="-6" max="6" step="1" value="${state.d}" oninput="state.d=parseInt(this.value); renderFourOpsMode()" />
+        <span class="val-badge">${fmtSigned(state.d)}</span>
+      </div>
+      <div class="sub-pill-bar">
+        <button class="sub-pill ${state.op === "add" ? "active" : ""}" onclick="state.op='add'; renderFourOpsMode()">Add (z&#8321; + z&#8322;)</button>
+        <button class="sub-pill ${state.op === "sub" ? "active" : ""}" onclick="state.op='sub'; renderFourOpsMode()">Sub (z&#8321; &minus; z&#8322;)</button>
+        <button class="sub-pill ${state.op === "mul" ? "active" : ""}" onclick="state.op='mul'; renderFourOpsMode()">Mul (z&#8321; &times; z&#8322;)</button>
+        <button class="sub-pill ${state.op === "div" ? "active" : ""}" onclick="state.op='div'; renderFourOpsMode()">Div (z&#8321; &divide; z&#8322;)</button>
+      </div>
+    `;
+
+    const z1 = fmtComplex(state.a, state.b);
+    const z2 = fmtComplex(state.c, state.d);
+    document.getElementById("rightHeading").textContent = "Step-by-Step Algebraic Working & Real/Imaginary Breakdown";
+
+    if (state.op === "div" && state.c === 0 && state.d === 0) {
+      document.getElementById("gcOutputBox").innerHTML = `<span class="box-title">TI-84 Plus CE Readout</span><div class="gc-readout" style="color:#be123c;">ERR: DIVIDE BY 0 (z&#8322; cannot be 0)</div>`;
+      document.getElementById("solutionBanner").innerHTML = `Division by <strong>z&#8322; = 0</strong> is undefined. Adjust <em>c</em> or <em>d</em>.`;
+      document.getElementById("visualStage").innerHTML = `<div style="padding:20px; color:var(--rose); font-weight:700;">Cannot divide by z&#8322; = 0 + 0i.</div>`;
+      document.getElementById("derivationBox").innerHTML = `Choose a non-zero complex number z&#8322; = c + di.`;
+      renderSharedFooter();
+      return;
+    }
+
+    let finalStr = "", exprStr = "", derivHtml = "", stageHtml = "";
+
+    if (state.op === "add") {
+      const re = state.a + state.c, im = state.b + state.d;
+      finalStr = fmtComplex(re, im);
+      exprStr = `(${z1}) + (${z2})`;
+      stageHtml = `
+        <div style="font-size:0.86rem; font-weight:700; color:#1e293b; padding:8px;">
+          Real Part: <span class="re-hl">${state.a} + (${state.c}) = ${re}</span> &nbsp;&nbsp;+&nbsp;&nbsp;
+          Imaginary Part: <span class="im-hl">${state.b} + (${state.d}) = ${im}</span>
+        </div>
+      `;
+      derivHtml = `
+        <strong>Step 1:</strong> (${z1}) + (${z2})<br>
+        <strong>Step 2:</strong> Group real and imaginary terms: <span class="re-hl">(${state.a} + ${state.c})</span> + <span class="im-hl">(${state.b} + ${state.d})</span>i<br>
+        <strong>Step 3:</strong> Final Cartesian Form = <strong>${finalStr}</strong>
+      `;
+    } else if (state.op === "sub") {
+      const re = state.a - state.c, im = state.b - state.d;
+      finalStr = fmtComplex(re, im);
+      exprStr = `(${z1}) - (${z2})`;
+      stageHtml = `
+        <div style="font-size:0.86rem; font-weight:700; color:#1e293b; padding:8px;">
+          Real Part: <span class="re-hl">${state.a} &minus; (${state.c}) = ${re}</span> &nbsp;&nbsp;+&nbsp;&nbsp;
+          Imaginary Part: <span class="im-hl">${state.b} &minus; (${state.d}) = ${im}</span>
+        </div>
+      `;
+      derivHtml = `
+        <strong>Step 1:</strong> (${z1}) &minus; (${z2})<br>
+        <strong>Step 2:</strong> Distribute negative sign: <span class="re-hl">(${state.a} &minus; ${state.c})</span> + <span class="im-hl">(${state.b} &minus; ${state.d})</span>i<br>
+        <strong>Step 3:</strong> Final Cartesian Form = <strong>${finalStr}</strong>
+      `;
+    } else if (state.op === "mul") {
+      const ac = state.a * state.c, ad = state.a * state.d, bc = state.b * state.c, bd = state.b * state.d;
+      const re = ac - bd, im = ad + bc;
+      finalStr = fmtComplex(re, im);
+      exprStr = `(${z1})*(${z2})`;
+      stageHtml = `
+        <div style="font-size:0.84rem; font-weight:700; color:#1e293b; padding:8px;">
+          FOIL Expansion: (${ac}) + (${ad})i + (${bc})i + (${bd})<span class="im-hl">i&sup2;</span> &nbsp;&rarr;&nbsp; replace <strong>i&sup2; = &minus;1</strong>
+        </div>
+      `;
+      derivHtml = `
+        <strong>Step 1:</strong> Expand (${z1})(${z2}) = ${ac} + (${ad})i + (${bc})i + (${bd})i&sup2;<br>
+        <strong>Step 2:</strong> Substitute i&sup2; = &minus;1: <span class="re-hl">(${ac} &minus; ${bd})</span> + <span class="im-hl">(${ad} + ${bc})</span>i<br>
+        <strong>Step 3:</strong> Final Cartesian Form = <strong>${finalStr}</strong>
+      `;
+    } else {
+      const conjZ2 = fmtComplex(state.c, -state.d);
+      const den = state.c * state.c + state.d * state.d;
+      const numRe = state.a * state.c + state.b * state.d;
+      const numIm = state.b * state.c - state.a * state.d;
+      finalStr = fmtComplexFrac(numRe, den, numIm, den);
+      exprStr = `(${z1})/(${z2})`;
+      stageHtml = `
+        <div style="font-size:0.84rem; font-weight:700; color:#1e293b; padding:8px;">
+          Conjugate Multiplier: <span style="color:var(--purple-dark);">z&#8322;* = ${conjZ2}</span> &nbsp;|&nbsp;
+          Realised Denominator: (${z2})(${conjZ2}) = <span class="re-hl">${state.c}&sup2; + (${state.d})&sup2; = ${den}</span>
+        </div>
+      `;
+      derivHtml = `
+        <strong>Step 1:</strong> Multiply numerator &amp; denominator by z&#8322;* = ${conjZ2}: &nbsp;[(${z1})(${conjZ2})] / [(${z2})(${conjZ2})]<br>
+        <strong>Step 2:</strong> Numerator = ${state.a * state.c} + (${-state.a * state.d})i + (${state.b * state.c})i + (${-state.b * state.d})i&sup2; = <strong>${fmtComplex(numRe, numIm)}</strong>; &nbsp;Denominator = <strong>${den}</strong><br>
+        <strong>Step 3:</strong> Split into Cartesian parts: <span class="re-hl">${numRe}/${den}</span> + (<span class="im-hl">${numIm}/${den}</span>)i = <strong>${finalStr}</strong>
+      `;
+    }
+
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">TI-84 Plus CE Readout (MODE: a+bi, ▶Frac)</span>
+      <div class="gc-readout">${exprStr} &rarr; ${finalStr}</div>
+    `;
+    document.getElementById("solutionBanner").innerHTML = `Result in Cartesian Form: <strong>${finalStr}</strong>`;
+    document.getElementById("visualStage").innerHTML = stageHtml;
+    document.getElementById("derivationBox").innerHTML = derivHtml;
+    renderSharedFooter();
+  }
+
+  /* =====================================================================
+     MODE 3: EQUALITY OF COMPLEX NUMBERS
+     ===================================================================== */
+  function renderEqualityMode() {
+    document.getElementById("contextBox").innerHTML = `
+      <div><strong>Equality of Complex Numbers:</strong> For real numbers <em>a, b, c, d &isin; ℝ</em>, <strong>a + bi = c + di &iff; a = c and b = d</strong>. To solve equations involving both <em>z</em> and <em>z*</em>, substitute <strong>z = x + yi</strong> (<em>x, y &isin; ℝ</em>) first!</div>
+      <div class="var-pill">Equation Model: (p + qi)z + r z* = u + vi</div>
+    `;
+
+    document.getElementById("controlPanel").innerHTML = `
+      <div class="panel-header">
+        <span>Solve (p + qi)z + r z* = u + vi</span>
+        <span style="color:var(--purple-dark);">Let z = x + yi</span>
+      </div>
+      <div class="slider-row">
+        <label>Coeff p &amp; q:</label>
+        <input type="range" min="-4" max="5" step="1" value="${state.eqP}" oninput="state.eqP=parseInt(this.value); renderEqualityMode()" />
+        <span class="val-badge">p=${state.eqP}</span>
+        <input type="range" min="-4" max="5" step="1" value="${state.eqQ}" oninput="state.eqQ=parseInt(this.value); renderEqualityMode()" />
+        <span class="val-badge">q=${state.eqQ}</span>
+      </div>
+      <div class="slider-row">
+        <label>Coeff r (of z*):</label>
+        <input type="range" min="-4" max="5" step="1" value="${state.eqR}" oninput="state.eqR=parseInt(this.value); renderEqualityMode()" />
+        <span class="val-badge">r=${state.eqR}</span>
+      </div>
+      <div class="slider-row" style="margin-bottom:4px;">
+        <label>RHS u + vi:</label>
+        <input type="range" min="-12" max="12" step="1" value="${state.eqU}" oninput="state.eqU=parseInt(this.value); renderEqualityMode()" />
+        <span class="val-badge">u=${state.eqU}</span>
+        <input type="range" min="-12" max="12" step="1" value="${state.eqV}" oninput="state.eqV=parseInt(this.value); renderEqualityMode()" />
+        <span class="val-badge">v=${state.eqV}</span>
+      </div>
+      <div class="sub-pill-bar">
+        <button class="sub-pill" onclick="state.eqP=2; state.eqQ=1; state.eqR=3; state.eqU=10; state.eqV=3; renderEqualityMode()">Preset 1: (2+i)z + 3z* = 10+3i</button>
+        <button class="sub-pill" onclick="state.eqP=1; state.eqQ=2; state.eqR=-1; state.eqU=4; state.eqV=6; renderEqualityMode()">Preset 2: (1+2i)z &minus; z* = 4+6i</button>
+      </div>
+    `;
+
+    // (p + qi)(x + yi) + r(x - yi) = [(p + r)x - qy] + [qx + (p - r)y]i = u + vi
+    const A1 = state.eqP + state.eqR, B1 = -state.eqQ;
+    const A2 = state.eqQ, B2 = state.eqP - state.eqR;
+    const det = A1 * B2 - A2 * B1;
+
+    document.getElementById("rightHeading").textContent = "Simultaneous Real & Imaginary Equations System";
+
+    if (det === 0) {
+      document.getElementById("gcOutputBox").innerHTML = `<span class="box-title">System Status</span><div class="gc-readout" style="color:#be123c;">Singular Coefficient Matrix (det = 0)</div>`;
+      document.getElementById("solutionBanner").innerHTML = `No unique solution for current coefficients (det = 0). Adjust p, q, or r.`;
+      document.getElementById("visualStage").innerHTML = `<div style="padding:14px; font-weight:700; color:var(--rose);">Simultaneous equations are parallel/dependent.</div>`;
+      document.getElementById("derivationBox").innerHTML = `Adjust p, q, or r so that (p + r)(p &minus; r) + q&sup2; &ne; 0.`;
+      renderSharedFooter();
+      return;
+    }
+
+    const xNum = state.eqU * B2 - state.eqV * B1;
+    const yNum = A1 * state.eqV - A2 * state.eqU;
+    const zSol = fmtComplexFrac(xNum, det, yNum, det);
+
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">TI-84 Plus CE PlySmlt2 (2 Eqns, 2 Unknowns)</span>
+      <div class="gc-readout">
+        x = ${fmtFrac(xNum, det)} &nbsp;|&nbsp; y = ${fmtFrac(yNum, det)} &nbsp;&rArr;&nbsp; z = ${zSol}
+      </div>
+    `;
+    document.getElementById("solutionBanner").innerHTML = `Unique Complex Solution: <strong>z = ${zSol}</strong>`;
+
+    document.getElementById("visualStage").innerHTML = `
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; text-align:left; font-size:0.81rem;">
+        <div style="background:var(--teal-bg); border:1px solid #5eead4; border-radius:9px; padding:8px 10px;">
+          <strong style="color:var(--teal);">Equation (1): Equate Real Parts</strong><br>
+          ${A1}x ${B1 >= 0 ? "+ " + B1 : "− " + Math.abs(B1)}y = ${state.eqU}
+        </div>
+        <div style="background:var(--rose-bg); border:1px solid #fda4af; border-radius:9px; padding:8px 10px;">
+          <strong style="color:var(--rose);">Equation (2): Equate Imaginary Parts</strong><br>
+          ${A2}x ${B2 >= 0 ? "+ " + B2 : "− " + Math.abs(B2)}y = ${state.eqV}
+        </div>
+      </div>
+    `;
+
+    document.getElementById("derivationBox").innerHTML = `
+      <strong>Step 1:</strong> Let <em>z = x + yi</em> and <em>z* = x &minus; yi</em>, where <em>x, y &isin; ℝ</em>.<br>
+      <strong>Step 2:</strong> Expand LHS: (${fmtComplex(state.eqP, state.eqQ)})(x + yi) + (${state.eqR})(x &minus; yi) = <span class="re-hl">(${A1}x ${B1 >= 0 ? "+ " + B1 : "− " + Math.abs(B1)}y)</span> + <span class="im-hl">(${A2}x ${B2 >= 0 ? "+ " + B2 : "− " + Math.abs(B2)}y)</span>i.<br>
+      <strong>Step 3:</strong> Equating real &amp; imaginary parts with <em>${fmtComplex(state.eqU, state.eqV)}</em> and solving gives <strong>x = ${fmtFrac(xNum, det)}</strong>, <strong>y = ${fmtFrac(yNum, det)}</strong> &rArr; <strong>z = ${zSol}</strong>.
+    `;
+    renderSharedFooter();
+  }
+
+  /* =====================================================================
+     MODE 4: SQUARE ROOTS OF p + qi
+     ===================================================================== */
+  function renderSquareRootMode() {
+    document.getElementById("contextBox").innerHTML = `
+      <div><strong>Finding Square Roots &radic;(p + qi):</strong> Let <strong>(x + yi)&sup2; = p + qi</strong> (<em>x, y &isin; ℝ</em>). Expanding gives <strong>(x&sup2; &minus; y&sup2;) + 2xy i = p + qi</strong>. Equate real and imaginary parts to solve for the two opposite roots &plusmn;(x + yi).</div>
+      <div class="var-pill">System: x&sup2; &minus; y&sup2; = p &nbsp;and&nbsp; 2xy = q</div>
+    `;
+
+    document.getElementById("controlPanel").innerHTML = `
+      <div class="panel-header">
+        <span>Solve z&sup2; = p + qi</span>
+        <span style="color:var(--purple-dark);">Exact Pythagorean Triples</span>
+      </div>
+      <div class="slider-row">
+        <label>Target Re(w) = p:</label>
+        <input type="range" min="-15" max="15" step="1" value="${state.sqP}" oninput="state.sqP=parseInt(this.value); renderSquareRootMode()" />
+        <span class="val-badge">${fmtSigned(state.sqP)}</span>
+      </div>
+      <div class="slider-row" style="margin-bottom:4px;">
+        <label>Target Im(w) = q:</label>
+        <input type="range" min="-24" max="24" step="1" value="${state.sqQ}" oninput="state.sqQ=parseInt(this.value); renderSquareRootMode()" />
+        <span class="val-badge">${fmtSigned(state.sqQ)}</span>
+      </div>
+      <div class="sub-pill-bar">
+        <button class="sub-pill" onclick="state.sqP=3; state.sqQ=-4; renderSquareRootMode()">3 &minus; 4i</button>
+        <button class="sub-pill" onclick="state.sqP=5; state.sqQ=12; renderSquareRootMode()">5 + 12i</button>
+        <button class="sub-pill" onclick="state.sqP=-7; state.sqQ=24; renderSquareRootMode()">&minus;7 + 24i</button>
+        <button class="sub-pill" onclick="state.sqP=8; state.sqQ=-6; renderSquareRootMode()">8 &minus; 6i</button>
+      </div>
+    `;
+
+    const p = state.sqP, q = state.sqQ;
+    const wStr = fmtComplex(p, q);
+    const mag = Math.hypot(p, q);
+    const xAbs = Math.sqrt(Math.max(0, (mag + p) / 2));
+    const yAbs = Math.sqrt(Math.max(0, (mag - p) / 2));
+    const x1 = xAbs;
+    const y1 = q >= 0 ? yAbs : -yAbs;
+
+    const isInt = Math.abs(x1 - Math.round(x1)) < 1e-7 && Math.abs(y1 - Math.round(y1)) < 1e-7;
+    const r1 = isInt
+      ? fmtComplex(Math.round(x1), Math.round(y1))
+      : `${x1.toFixed(3)} ${y1 >= 0 ? "+" : "−"} ${Math.abs(y1).toFixed(3)}i`;
+    const r2 = isInt
+      ? fmtComplex(-Math.round(x1), -Math.round(y1))
+      : `${(-x1).toFixed(3)} ${-y1 >= 0 ? "+" : "−"} ${Math.abs(y1).toFixed(3)}i`;
+
+    document.getElementById("rightHeading").textContent = "Opposite Root Pair on Argand Diagram & Equating Coefficients";
+
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">TI-84 Plus CE Readout (MODE: a+bi)</span>
+      <div class="gc-readout">&radic;(${wStr}) &rarr; ${r1} &nbsp;(and opposite root ${r2})</div>
+    `;
+    document.getElementById("solutionBanner").innerHTML = p === 0 && q === 0
+      ? `Repeated Root: <strong>z = 0</strong>`
+      : `Two Square Roots of <strong>${wStr}</strong>: &nbsp;<strong>${r1}</strong> &nbsp;and&nbsp; <strong>${r2}</strong>`;
+
+    const cx = 250, cy = 95, maxC = Math.max(4, Math.abs(x1) + 1.5, Math.abs(y1) + 1.5);
+    const sc = Math.min(24, 78 / maxC);
+    const p1x = cx + x1 * sc, p1y = cy - y1 * sc;
+    const p2x = cx - x1 * sc, p2y = cy + y1 * sc;
+
+    document.getElementById("visualStage").innerHTML = `
+      <svg width="500" height="190" viewBox="0 0 500 190">
+        <line x1="70" y1="${cy}" x2="430" y2="${cy}" stroke="#64748b" stroke-width="1.2"/>
+        <line x1="${cx}" y1="10" x2="${cx}" y2="180" stroke="#64748b" stroke-width="1.2"/>
+        <circle cx="${cx}" cy="${cy}" r="${Math.hypot(x1, y1) * sc}" fill="none" stroke="#cbd5e1" stroke-dasharray="4,3"/>
+        <line x1="${p2x}" y1="${p2y}" x2="${p1x}" y2="${p1y}" stroke="#8b5cf6" stroke-width="2"/>
+        <circle cx="${p1x}" cy="${p1y}" r="5" fill="#7c3aed"/>
+        <text x="${p1x + 8}" y="${p1y - 5}" font-size="10.5" font-weight="bold" fill="#6d28d9">z&#8321; = ${r1}</text>
+        <circle cx="${p2x}" cy="${p2y}" r="5" fill="#0284c7"/>
+        <text x="${p2x - 8}" y="${p2y + 13}" font-size="10.5" font-weight="bold" fill="#0369a1" text-anchor="end">z&#8322; = ${r2}</text>
+      </svg>
+    `;
+
+    document.getElementById("derivationBox").innerHTML = `
+      <strong>Step 1:</strong> Let <em>(x + yi)&sup2; = ${wStr}</em> (<em>x, y &isin; ℝ</em>) &rArr; <span class="re-hl">(x&sup2; &minus; y&sup2;)</span> + <span class="im-hl">2xy</span>i = <span class="re-hl">${p}</span> + (<span class="im-hl">${q}</span>)i.<br>
+      <strong>Step 2:</strong> Equating parts: <strong>x&sup2; &minus; y&sup2; = ${p}</strong> and <strong>2xy = ${q}</strong> (so <em>xy</em> is ${q >= 0 ? "&ge; 0 (same signs)" : "&lt; 0 (opposite signs)"}).<br>
+      <strong>Step 3:</strong> Using <em>x&sup2; + y&sup2; = &radic;(${p}&sup2; + ${q}&sup2;) = ${isInt ? Math.round(mag) : mag.toFixed(3)}</em> gives <strong>z = ${r1}</strong> or <strong>z = ${r2}</strong>.
+    `;
+    renderSharedFooter();
+  }
+
+  /* =====================================================================
+     SHARED TI-84 GUIDE & MISCONCEPTION ALERT
+     ===================================================================== */
+  function renderSharedFooter() {
+    document.getElementById("gcGuideGrid").innerHTML = `
+      <div class="step-pill">
+        <strong>1. Set Mode to a+bi</strong><br>
+        Press <strong>[MODE]</strong>, scroll to <strong>REAL a+bi re^(&theta;i)</strong>, highlight <strong>a+bi</strong>, and press <strong>[ENTER]</strong>.
+      </div>
+      <div class="step-pill">
+        <strong>2. Type Imaginary Unit i</strong><br>
+        Press <strong>[2nd] [.]</strong> (the decimal point key) to enter <strong>i</strong>, then use <strong>[MATH] &rarr; [FRAC]</strong> for exact fractions.
+      </div>
+      <div class="step-pill">
+        <strong>3. Conjugate &amp; Parts</strong><br>
+        Press <strong>[MATH] &rarr; [CPX]</strong> to access <strong>1:conj(</strong>, <strong>2:real(</strong>, and <strong>3:imag(</strong> to verify manual working.
+      </div>
+    `;
+
+    document.getElementById("misconceptionBox").innerHTML = `
+      <strong>9758 Exam Misconception Alert:</strong>
+      <ul style="margin:3px 0 0 0; padding-left:18px;">
+        <li><strong>Never include i in Im(z):</strong> For <em>z = 3 &minus; 4i</em>, write <strong>Im(z) = &minus;4</strong>, NOT &minus;4i. Both Re(z) and Im(z) are strictly real numbers.</li>
+        <li><strong>Check that coefficients are real before equating parts:</strong> You may only equate <em>a + bi = c + di &iff; a = c, b = d</em> after expanding into real and imaginary components where <em>a, b, c, d &isin; ℝ</em>.</li>
+      </ul>
+    `;
+  }
+
+  /* =====================================================================
+     3-QUESTION 9758 EXAM CHECK
+     ===================================================================== */
+  const examQs = [
+    {
+      q: "If z = 4 − 7i, what is the value of Im(z*)?",
+      opts: [
+        "7",
+        "7i",
+        "−7",
+        "−7i"
+      ],
+      ans: 0,
+      exp: "Since z = 4 − 7i, its conjugate is z* = 4 + 7i. The imaginary part Im(z*) is the real coefficient of i, which is 7."
+    },
+    {
+      q: "Express (5 + i) / (2 − 3i) in the Cartesian form a + bi, where a, b ∈ ℝ.",
+      opts: [
+        "7/13 + (17/13)i",
+        "13/13 − (13/13)i",
+        "7/5 + (17/5)i",
+        "13/13 + (17/13)i"
+      ],
+      ans: 0,
+      exp: "Multiply top and bottom by 2 + 3i: [(5 + i)(2 + 3i)] / (2² + 3²) = (10 + 15i + 2i + 3i²) / 13 = (7 + 17i) / 13 = 7/13 + (17/13)i."
+    },
+    {
+      q: "To solve (2 + i)z + 3z* = 10 + 3i for z ∈ ℂ, what is the correct first step?",
+      opts: [
+        "Let z = x + yi and z* = x − yi (where x, y ∈ ℝ), expand, and equate real and imaginary parts",
+        "Equate 2z = 10 and z + 3z* = 3 directly",
+        "Divide every term by z*",
+        "Assume z is purely real so z* = z"
+      ],
+      ans: 0,
+      exp: "Because z is complex, you cannot equate parts directly before replacing z = x + yi and z* = x − yi with real variables x, y ∈ ℝ."
+    }
+  ];
+
+  let curQ = 0;
+
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").textContent = item.q;
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i}, this)">${String.fromCharCode(65 + i)}. ${o}</button>
+    `).join("");
+  }
+
+  function gradeExamQ(idx, btn) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  renderAll();
+  renderExamQ();
+</script>
+
+</body>
+</html>
