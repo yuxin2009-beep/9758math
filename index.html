@@ -505,7 +505,11 @@
       <span class="status-pill">6 Lessons</span>
     </button>
     <button class="topic-btn" id="nav_6.3" onclick="selectTopic('6.3')">
-      <span>6.3–6.6 Distributions &amp; Inference</span>
+      <span>6.3 Normal Distribution</span>
+      <span class="status-pill">4 Lessons</span>
+    </button>
+    <button class="topic-btn" id="nav_6.4" onclick="selectTopic('6.4')">
+      <span>6.4–6.6 Sampling &amp; Hypothesis Testing</span>
       <span class="status-pill soon">Planned</span>
     </button>
   </aside>
@@ -2010,6 +2014,160 @@
             exitAnswer: "Var(X) / E(X) = np(1 − p) / (np) = 1 − p = 7.2 / 12 = 0.6 ⇒ <strong>p = 0.4</strong>, and n = 12 / 0.4 = <strong>30</strong>."
           }
         ]
+      },
+
+      "6.3": {
+        title: "6.3 Normal Distribution",
+        syllabusNotes: "Concept of continuous random variables; concept of a normal distribution as a continuous probability model and its mean and variance; use of N(μ, σ²) notation; symmetry of the normal curve and its properties; standard normal distribution Z ~ N(0, 1); standardising a normal random variable Z = (X − μ)/σ; finding probabilities and cut-off values given parameters, or finding unknown μ and σ given probabilities; solving problems involving E(aX + b), Var(aX + b), and independent E(aX + bY), Var(aX + bY). (Excludes normal approximation to the binomial distribution and calculus integration of the PDF.)",
+        lessons: [
+          {
+            label: "Lesson 1: Continuous Random Variables & The Normal Curve N(μ, σ²)",
+            file: "interactives/6_3_lesson1.html",
+            videoEmbedUrl: "",
+            prereq: "Concept of discrete probability distributions, mean μ, variance σ², and standard deviation σ = √Var(X).",
+            objectives: [
+              "Understand continuous random variables where probability equals area under a probability density curve y = f(x), so P(X = c) = 0 and P(a < X < b) = P(a ≤ X ≤ b).",
+              "Interpret X ~ N(μ, σ²) correctly, identifying μ as the axis of symmetry and σ² (NOT σ!) as the variance.",
+              "Describe bell-curve properties: symmetry about x = μ, total area = 1, points of inflection at x = μ ± σ, and the Empirical Rule (≈ 68%–95%–99.7%)."
+            ],
+            prompts: [
+              "In Tab 1 (Discrete → Continuous Zoom), shrink histogram bin width Δx from 2.00 down to 0.05 to see why the probability around a single point x = c approaches 0 while interval area P(a < X < b) stays invariant.",
+              "In Tab 2 (N(μ, σ²) Shape & Notation Lab), increase σ₂ relative to σ₁ and observe how larger variance flattens the peak height f(μ) = 1/(σ√(2π)) while keeping total area fixed at 1.",
+              "Toggle 'Inflection Points (μ ± σ)' and '68–95–99.7% Bands' to verify how spread scales with σ."
+            ],
+            pitfalls: [
+              "Misreading N(μ, σ²) by entering the variance σ² instead of the standard deviation σ = √(σ²) into TI-84 normalcdf or invNorm (e.g., for X ~ N(50, 16), σ = 4, not 16!).",
+              "Treating P(X ≤ a) and P(X < a) differently for a continuous normal variable—unlike Binomial distributions, P(X = a) = 0 so strict and inclusive inequalities are always equal."
+            ],
+            gcTip: "Whenever a question states X ~ N(μ, k), immediately write σ = √k beside your distribution statement before keying parameters into [2nd] [VARS] (DISTR).",
+            workedQuestion: `
+              The masses <em>X</em> grams of apples from an orchard are modelled by <em>X ~ N(180, 144)</em>.<br>
+              <strong>(i)</strong> State the mean and standard deviation of <em>X</em>, and write down the coordinates of the axis of symmetry and the x-coordinates of the points of inflection of the normal curve. [3]<br>
+              <strong>(ii)</strong> Explain why <em>P(X = 180) = 0</em>, and state the value of <em>P(168 &lt; X ≤ 192)</em> using the Empirical Rule (or a graphing calculator) to 3 significant figures. [2]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> Comparing <em>N(180, 144)</em> with <em>N(μ, σ²)</em>: mean <strong>μ = 180 g</strong>, variance <em>σ² = 144</em>, so standard deviation <strong>σ = √144 = 12 g</strong>.<br>
+              • Axis of symmetry: <strong>x = 180</strong>.<br>
+              • Points of inflection: <em>x = μ ± σ = 180 ± 12</em>, i.e., <strong>x = 168</strong> and <strong>x = 192</strong>.<br><br>
+              <strong>(ii)</strong> Because <em>X</em> is a continuous random variable, probability is represented by area under the density curve; a single point <em>x = 180</em> has zero width and therefore zero area, so <strong>P(X = 180) = 0</strong>.<br>
+              Since <em>[168, 192] = [μ − σ, μ + σ]</em>, <em>P(168 &lt; X ≤ 192) = P(168 &lt; X &lt; 192) =</em> <strong>0.683</strong> (to 3 s.f.).
+            `,
+            exitQuestion: "If Y ~ N(40, 25), state the standard deviation of Y and compare P(Y < 40) with P(Y ≤ 40).",
+            exitAnswer: "Standard deviation <strong>σ = √25 = 5</strong>. By symmetry and continuity, <strong>P(Y &lt; 40) = P(Y ≤ 40) = 0.5</strong>."
+          },
+          {
+            label: "Lesson 2: Forward (normalcdf) & Inverse (invNorm) with Known Parameters",
+            file: "interactives/6_3_lesson2.html",
+            videoEmbedUrl: "",
+            prereq: "Normal curve symmetry about μ, modulus inequalities (|a| < b and |a| > b), and Binomial B(n, p) probabilities.",
+            objectives: [
+              "Evaluate forward probabilities P(X < x₁), P(X > x₁), P(x₁ < X < x₂), and modulus events P(|X − μ| < k) or P(|aX + b| > c) using TI-84 normalcdf(lower, upper, μ, σ).",
+              "Determine cut-off values x₁ given tail or central probabilities (when μ and σ are known) using TI-84 invNorm(area, μ, σ, tail).",
+              "Deduce probabilities from curve symmetry without parameters, and solve two-stage Normal → Binomial problems."
+            ],
+            prompts: [
+              "In Tab 1 (Forward normalcdf & Modulus Studio), test Left, Right, Between, and Modulus inequalities like P(|2X − 5| > 3) to see how modulus statements split into intervals before entering bounds.",
+              "In Tab 2 (Inverse invNorm Cut-Offs & Binomial Link), switch between 'Bottom k%', 'Top k%', and 'Middle k%' cut-offs and trace how a Normal tail probability p feeds into Y ~ B(n, p)."
+            ],
+            pitfalls: [
+              "Entering variance σ² instead of standard deviation σ in normalcdf or invNorm, or forgetting to convert 'top k%' into left-tail area (1 − k/100) on older calculators without a TAIL option.",
+              "Rounding intermediate Normal probabilities p to 3 s.f. before feeding p into a subsequent Binomial distribution Y ~ B(n, p)—always store at least 5–6 significant figures (or use GC Ans/STO)!"
+            ],
+            gcTip: "Press [2nd] [VARS] (DISTR) > [2: normalcdf(lower, upper, μ, σ)] using -1E99 for −∞ and 1E99 for +∞; use [3: invNorm(area, μ, σ, tail)] with LEFT, CENTER, or RIGHT.",
+            workedQuestion: `
+              The battery life <em>X</em> hours of a smartphone model follows <em>X ~ N(18, 2.5²)</em>.<br>
+              <strong>(i)</strong> Find <em>P(|X − 18| &gt; 3)</em>. [2]<br>
+              <strong>(ii)</strong> The manufacturer advertises a minimum battery life <em>h</em> hours that is exceeded by <strong>90%</strong> of all phones. Find the value of <em>h</em> to 2 decimal places. [2]<br>
+              <strong>(iii)</strong> In a random batch of <strong>12</strong> phones, find the probability that <strong>at least 10</strong> phones exceed <em>h</em> hours. [2]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> Rewrite modulus inequality: <em>|X − 18| &gt; 3 ⇔ X &lt; 15</em> or <em>X &gt; 21</em>.<br>
+              By symmetry, <em>P(|X − 18| &gt; 3) = 2 × P(X &gt; 21) = 2 × normalcdf(21, 1E99, 18, 2.5) = 2(0.11507) =</em> <strong>0.230</strong> (to 3 s.f.).<br><br>
+              <strong>(ii)</strong> We require <em>P(X &gt; h) = 0.90 ⇔ P(X &lt; h) = 0.10</em>.<br>
+              Using GC: <em>h = invNorm(0.10, 18, 2.5) = 14.7961… =</em> <strong>14.80 hours</strong> (to 2 d.p.).<br><br>
+              <strong>(iii)</strong> Let <em>Y</em> be the number of phones out of 12 exceeding <em>h</em> hours, so <em>Y ~ B(12, 0.90)</em>.<br>
+              <em>P(Y ≥ 10) = 1 − P(Y ≤ 9) = 1 − binomcdf(12, 0.90, 9) =</em> <strong>0.889</strong> (to 3 s.f.).
+            `,
+            exitQuestion: "Given X ~ N(50, 16) and P(X > 56) = 0.0668, use symmetry to state P(44 < X < 56).",
+            exitAnswer: "Since 44 and 56 are both 6 units from μ = 50, P(X < 44) = P(X > 56) = 0.0668. Thus P(44 < X < 56) = 1 − 2(0.0668) = <strong>0.8664</strong>."
+          },
+          {
+            label: "Lesson 3: Standard Normal Z ~ N(0, 1), Standardisation & Unknown Parameters",
+            file: "interactives/6_3_lesson3.html",
+            videoEmbedUrl: "",
+            prereq: "Solving linear equations and 2 × 2 simultaneous linear equations.",
+            objectives: [
+              "Understand the standard normal distribution Z ~ N(0, 1) and apply symmetry properties Φ(−z) = 1 − Φ(z) and P(|Z| < z) = 2Φ(z) − 1.",
+              "Standardise any normal variable X ~ N(μ, σ²) via Z = (X − μ)/σ to map intervals [x₁, x₂] onto [z₁, z₂] with identical probability.",
+              "Solve for a single unknown parameter (μ or σ) or two simultaneous unknowns (μ and σ) given tail or central probabilities."
+            ],
+            prompts: [
+              "In Tab 1 (Dual-Curve Standardisation Mapper X ↦ Z), watch how shifting μ or scaling σ keeps the shaded area identical when mapped to Z = (X − μ)/σ on Z ~ N(0, 1).",
+              "In Tab 2 (Unknown μ, Unknown σ & Simultaneous Solver), practice the Sign-Check Rule: whenever left-tail area < 0.5, z = invNorm(left area, 0, 1) MUST be negative!",
+              "Test a two-unknown (μ, σ) problem and solve the resulting linear system via TI-84 PlySmlt2."
+            ],
+            pitfalls: [
+              "Dropping the minus sign on z when left-tail area < 0.5 (e.g., if P(X < 30) = 0.15, then (30 − μ)/σ = −1.0364, NOT +1.0364—always sketch the curve first!).",
+              "Attempting to use invNorm(area, μ, σ) directly on a calculator when μ or σ is unknown—you MUST standardise to Z ~ N(0, 1) first."
+            ],
+            gcTip: "When μ or σ is unknown, always compute z = invNorm(left-tail area, 0, 1) first, equate (x₁ − μ)/σ = z, and use [APPS] > [PlySmlt2] > [2: Simultaneous Eqn Solver] when two equations are formed.",
+            workedQuestion: `
+              The lengths <em>X</em> cm of metal rods produced by a machine follow <em>X ~ N(μ, σ²)</em>. It is given that <strong>10%</strong> of the rods are shorter than <strong>46.5 cm</strong>, and <strong>5%</strong> of the rods are longer than <strong>54.2 cm</strong>.<br>
+              <strong>(i)</strong> Standardise both probability statements and find the values of <em>μ</em> and <em>σ</em> to 2 decimal places. [4]<br>
+              <strong>(ii)</strong> Hence find <em>P(48 &lt; X &lt; 52)</em>. [2]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> Standardising <em>Z = (X − μ)/σ ~ N(0, 1)</em>:<br>
+              • <em>P(X &lt; 46.5) = 0.10 ⇒ P(Z &lt; (46.5 − μ)/σ) = 0.10</em>.<br>
+              Using GC: <em>(46.5 − μ)/σ = invNorm(0.10, 0, 1) = −1.28155 ⇒ μ − 1.28155σ = 46.5</em> &nbsp;— (1)<br>
+              • <em>P(X &gt; 54.2) = 0.05 ⇔ P(X &lt; 54.2) = 0.95 ⇒ P(Z &lt; (54.2 − μ)/σ) = 0.95</em>.<br>
+              Using GC: <em>(54.2 − μ)/σ = invNorm(0.95, 0, 1) = +1.64485 ⇒ μ + 1.64485σ = 54.2</em> &nbsp;— (2)<br>
+              Subtracting (1) from (2): <em>2.92640σ = 7.7 ⇒ σ = 2.6312… =</em> <strong>2.63 cm</strong>.<br>
+              Substituting into (2): <em>μ = 54.2 − 1.64485(2.63122) = 49.872… =</em> <strong>49.87 cm</strong>.<br><br>
+              <strong>(ii)</strong> Using unrounded values: <em>P(48 &lt; X &lt; 52) = normalcdf(48, 52, 49.872, 2.6312) =</em> <strong>0.553</strong> (to 3 s.f.).
+            `,
+            exitQuestion: "If X ~ N(μ, 9) and P(X > 25) = 0.20, write down the standardised equation to find μ.",
+            exitAnswer: "Left-tail area is 0.80, so (25 − μ) / 3 = invNorm(0.80, 0, 1) ≈ 0.84162 ⇒ <strong>μ = 25 − 3(0.84162) ≈ 22.48</strong>."
+          },
+          {
+            label: "Lesson 4: Linear Transformations (aX + b) & Combinations (aX + bY)",
+            file: "interactives/6_3_lesson4.html",
+            videoEmbedUrl: "",
+            prereq: "Properties of expectation E(aX + b) and variance Var(aX + b), and independence of random variables.",
+            objectives: [
+              "State and apply the distribution of a single linear transformation: if X ~ N(μ, σ²), then aX + b ~ N(aμ + b, a²σ²) (for a ≠ 0).",
+              "State and apply the distribution of linear combinations of independent Normal variables: aX + bY ~ N(aμ_X + bμ_Y, a²σ_X² + b²σ_Y²).",
+              "Distinguish clearly between X₁ + X₂ + … + Xₙ ~ N(nμ, nσ²) and nX ~ N(nμ, n²σ²), and ensure variances ADD when subtracting independent variables (Var(X − Y) = σ_X² + σ_Y²)."
+            ],
+            prompts: [
+              "In Tab 1 (Single-Variable Linear Scaling aX + b), test unit conversions (e.g., Celsius to Fahrenheit or SGD pricing with GST) and verify why Var(−X + b) = +σ² > 0.",
+              "In Tab 2 (Independent Combinations aX + bY & Trap Lab), solve comparison problems P(X > Y) by rewriting as P(X − Y > 0), and overlay X₁ + X₂ + X₃ against 3X to contrast nσ² with n²σ²."
+            ],
+            pitfalls: [
+              "Subtracting variances for X − Y: because X and Y are independent, Var(X − Y) = 1²Var(X) + (−1)²Var(Y) = σ_X² + σ_Y² (variances ALWAYS add!).",
+              "Confusing the sum of n independent observations X₁ + … + Xₙ (Var = nσ²) with n times a single observation nX (Var = n²σ²), or forgetting to state the full Normal distribution before calculating probabilities."
+            ],
+            gcTip: "Always write down the explicit distribution—such as T = X − Y ~ N(μ_X − μ_Y, σ_X² + σ_Y²)—and take the square root √(σ_X² + σ_Y²) as the standard deviation in normalcdf.",
+            workedQuestion: `
+              The masses of large apples <em>X</em> grams and small apples <em>Y</em> grams follow independent normal distributions <em>X ~ N(180, 12²)</em> and <em>Y ~ N(110, 8²)</em>.<br>
+              <strong>(i)</strong> Find the probability that a randomly chosen large apple has a mass greater than <strong>twice</strong> the mass of a randomly chosen small apple. [3]<br>
+              <strong>(ii)</strong> Find the probability that the total mass of <strong>3</strong> randomly chosen large apples and <strong>2</strong> randomly chosen small apples exceeds <strong>780 g</strong>. [3]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> We want <em>P(X &gt; 2Y) = P(X − 2Y &gt; 0)</em>.<br>
+              Let <em>D = X − 2Y</em>. Since <em>X</em> and <em>Y</em> are independent:<br>
+              <em>E(D) = 180 − 2(110) = −40</em>, &nbsp;<em>Var(D) = 1²(12²) + (−2)²(8²) = 144 + 256 = 400</em>.<br>
+              Thus <em>D ~ N(−40, 400)</em> (standard deviation <em>√400 = 20</em>).<br>
+              <em>P(D &gt; 0) = normalcdf(0, 1E99, −40, 20) =</em> <strong>0.0228</strong> (to 3 s.f.).<br><br>
+              <strong>(ii)</strong> Let <em>T = X₁ + X₂ + X₃ + Y₁ + Y₂</em> (sum of 5 independent variables):<br>
+              <em>E(T) = 3(180) + 2(110) = 760</em>, &nbsp;<em>Var(T) = 3(12²) + 2(8²) = 432 + 128 = 560</em>.<br>
+              Thus <em>T ~ N(760, 560)</em> (standard deviation <em>√560</em>).<br>
+              <em>P(T &gt; 780) = normalcdf(780, 1E99, 760, √560) =</em> <strong>0.199</strong> (to 3 s.f.).
+            `,
+            exitQuestion: "If X ~ N(20, 9) and Y ~ N(15, 16) are independent, state the exact distribution of X − Y.",
+            exitAnswer: "E(X − Y) = 20 − 15 = 5; Var(X − Y) = 9 + 16 = 25. Thus <strong>X − Y ~ N(5, 25)</strong>."
+          }
+        ]
       }
     };
 
@@ -2044,7 +2202,7 @@
         main.innerHTML = `
           <div class="placeholder-banner">
             <h2 style="color:#1e293b; margin-top:0;">Topic ${currentTopic} Module Coming Soon</h2>
-            <p>Select <strong>1.1 Functions</strong>, <strong>1.2 Graphs &amp; Transformations</strong>, <strong>1.3 Equations &amp; Inequalities</strong>, <strong>2.1 Sequences &amp; Series</strong>, any module under <strong>Topic 3: Vectors (3.1, 3.2, 3.3)</strong>, <strong>4.1 Complex Numbers</strong>, <strong>6.1 Probability</strong>, or <strong>6.2 Discrete Random Variables</strong> from the sidebar to launch the interactive lessons.</p>
+            <p>Select <strong>1.1 Functions</strong>, <strong>1.2 Graphs &amp; Transformations</strong>, <strong>1.3 Equations &amp; Inequalities</strong>, <strong>2.1 Sequences &amp; Series</strong>, any module under <strong>Topic 3: Vectors (3.1, 3.2, 3.3)</strong>, <strong>4.1 Complex Numbers</strong>, <strong>6.1 Probability</strong>, <strong>6.2 Discrete Random Variables</strong>, or <strong>6.3 Normal Distribution</strong> from the sidebar to launch the interactive lessons.</p>
           </div>
         `;
         return;
