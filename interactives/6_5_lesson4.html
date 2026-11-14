@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 6.5 Lesson 4: Inverse Hypothesis Testing (Critical Region in x̄ & Range of μ₀ / σ)</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 540px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1000px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.76rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.48;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .inverse-editor {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 13px;
+      margin-bottom: 11px;
+    }
+
+    .hyp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 8px;
+    }
+
+    .input-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 7px;
+      margin-bottom: 8px;
+    }
+
+    .field-box label {
+      display: block;
+      font-size: 0.71rem;
+      font-weight: 800;
+      color: #475569;
+      margin-bottom: 3px;
+    }
+
+    .field-box input {
+      width: 100%;
+      padding: 6px 8px;
+      border: 1px solid #94a3b8;
+      border-radius: 7px;
+      font-weight: 700;
+      font-size: 0.81rem;
+      color: #1e293b;
+    }
+
+    .field-box input:focus {
+      outline: none;
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .pill-select-group {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+      margin-bottom: 8px;
+    }
+
+    .pill-select-group.two-col {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .pill-select-group.four-col {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .mini-pill {
+      padding: 6px 5px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+      text-align: center;
+      transition: 0.15s;
+    }
+
+    .mini-pill:hover {
+      border-color: var(--purple);
+      color: var(--purple-dark);
+    }
+
+    .mini-pill.active {
+      background: var(--purple-bg);
+      border-color: var(--purple);
+      color: var(--purple-dark);
+    }
+
+    /* TI-84 INVNORM SCREENS */
+    .gc-screen-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin-bottom: 11px;
+    }
+
+    .box-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .gc-dual-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    @media (max-width: 560px) {
+      .gc-dual-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .gc-lcd {
+      background: #f1f5f9;
+      border: 2px solid #475569;
+      border-radius: 8px;
+      padding: 7px 9px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.48;
+    }
+
+    .gc-lcd-bar {
+      background: #1e293b;
+      color: #f8fafc;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .gc-hl-black {
+      background: #0f172a;
+      color: #ffffff;
+      padding: 0 4px;
+      border-radius: 2px;
+    }
+
+    .gc-sigma-row {
+      background: #fef08a;
+      border: 1.5px solid #ca8a04;
+      color: #713f12;
+      padding: 1px 4px;
+      border-radius: 4px;
+      display: inline-block;
+      margin: 1px 0;
+    }
+
+    .solution-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.81rem;
+      font-weight: 700;
+      line-height: 1.48;
+    }
+
+    /* RIGHT PANEL */
+    .algebra-card {
+      background: #f5f3ff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 11px;
+      padding: 10px 13px;
+      font-size: 0.81rem;
+      line-height: 1.52;
+      color: #3b0764;
+      margin-bottom: 10px;
+    }
+
+    .legend-bar {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      font-size: 0.76rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      align-items: center;
+    }
+
+    .legend-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 3px;
+      display: inline-block;
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+
+    canvas {
+      width: 100%;
+      height: auto;
+      display: block;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+    }
+
+    .check-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.79rem;
+      margin-top: 10px;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .check-table th, .check-table td {
+      border: 1px solid #e2e8f0;
+      padding: 6px 9px;
+      text-align: left;
+    }
+
+    .check-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    .gc-guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .gc-guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .step-pill {
+      background: var(--blue-bg);
+      border: 1px solid #bae6fd;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.77rem;
+      line-height: 1.45;
+      color: #0c4a6e;
+    }
+
+    .misconception-box {
+      margin-top: 10px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 10px 13px;
+      font-size: 0.79rem;
+      line-height: 1.48;
+      color: #78350f;
+    }
+
+    .grader-card {
+      margin-top: 10px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 14px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 700px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Choose an Inverse Hypothesis Scenario (Top-Left)</strong>
+        Select one of the 4 Singapore exam-style problems to either find the <strong>critical region in terms of x&#772;</strong> or solve backwards for the <strong>range of claimed &mu;₀ or &sigma;</strong>.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Switch Target Outcome &amp; Parameters</strong>
+        Toggle between <em>"Reject H₀"</em> and <em>"Do Not Reject H₀"</em>, change tail direction (1-tail vs. 2-tail) or significance level <em>&alpha;</em>, and see how the inequality direction flips!
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Compare Sampling Distribution X&#772; vs. Parameter Line</strong>
+        Inspect the sampling curve of <em>X&#772;</em> on the right, verify the TI-84 <code>invNorm</code> input (using standard error <em>&sigma;/&radic;n</em>!), and practice with the 3-question check.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        6.5 Lesson 4 &bull; Inverse Hypothesis Testing (Critical Region in x&#772; &amp; Range of &mu;₀ / &sigma;)
+      </div>
+
+      <!-- 4 Classic 9758 Inverse Problem Modes -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="sc_cr_xbar" onclick="loadScenario('cr_xbar')">
+          1. Critical Region in x&#772; (1- &amp; 2-Tail)
+        </button>
+        <button class="tab-btn" id="sc_mu0_1tail" onclick="loadScenario('mu0_1tail')">
+          2. Range of &mu;₀ (1-Tail Test)
+        </button>
+        <button class="tab-btn" id="sc_mu0_2tail" onclick="loadScenario('mu0_2tail')">
+          3. Range of &mu;₀ (2-Tail Test)
+        </button>
+        <button class="tab-btn" id="sc_sigma" onclick="loadScenario('sigma')">
+          4. Range of Population &sigma;
+        </button>
+      </div>
+
+      <!-- Contextual Word Problem -->
+      <div class="context-box" id="contextBox"></div>
+
+      <!-- Interactive Inverse Controls -->
+      <div class="inverse-editor">
+        <div class="hyp-header">
+          <span id="hypFormDisplay">H₀ : &mu; = 500 &nbsp;vs&nbsp; H₁ : &mu; &lt; 500</span>
+          <span id="modeBadge" style="color:var(--purple-dark);">Find Critical Region in x&#772;</span>
+        </div>
+
+        <div class="input-grid-3">
+          <div class="field-box" id="box_mu0">
+            <label id="lbl_mu0">Claimed Mean &mu;₀</label>
+            <input type="number" id="in_mu0" step="any" value="500" oninput="updateModel()" />
+          </div>
+          <div class="field-box" id="box_sigma">
+            <label id="lbl_sigma">Population SD &sigma;</label>
+            <input type="number" id="in_sigma" min="0.01" step="any" value="12" oninput="updateModel()" />
+          </div>
+          <div class="field-box">
+            <label>Sample Size n</label>
+            <input type="number" id="in_n" min="1" step="1" value="36" oninput="updateModel()" />
+          </div>
+        </div>
+
+        <div class="input-grid-3" id="obsRow">
+          <div class="field-box" style="grid-column: span 3;">
+            <label>Observed Sample Mean x&#772; (Given in Question)</label>
+            <input type="number" id="in_xbar" step="any" value="496.2" oninput="updateModel()" />
+          </div>
+        </div>
+
+        <div class="pill-select-group">
+          <button class="mini-pill active" id="tail_left" onclick="setTail('left')">Left-Tail (&mu; &lt; &mu;₀)</button>
+          <button class="mini-pill" id="tail_right" onclick="setTail('right')">Right-Tail (&mu; &gt; &mu;₀)</button>
+          <button class="mini-pill" id="tail_two" onclick="setTail('two')">2-Tail (&mu; &ne; &mu;₀)</button>
+        </div>
+
+        <div class="pill-select-group two-col" id="outcomeRow">
+          <button class="mini-pill active" id="out_reject" onclick="setOutcome('reject')">Target: Reject H₀</button>
+          <button class="mini-pill" id="out_retain" onclick="setOutcome('retain')">Target: Do Not Reject H₀</button>
+        </div>
+
+        <div class="pill-select-group four-col" style="margin-bottom:2px;">
+          <button class="mini-pill" id="alp_0.10" onclick="setAlpha(0.10)">&alpha; = 10%</button>
+          <button class="mini-pill active" id="alp_0.05" onclick="setAlpha(0.05)">&alpha; = 5%</button>
+          <button class="mini-pill" id="alp_0.02" onclick="setAlpha(0.02)">&alpha; = 2%</button>
+          <button class="mini-pill" id="alp_0.01" onclick="setAlpha(0.01)">&alpha; = 1%</button>
+        </div>
+      </div>
+
+      <!-- TI-84 invNorm Screen & Calculation -->
+      <div class="gc-screen-box" id="gcOutputBox"></div>
+
+      <!-- Final Solved Inequality Banner -->
+      <div class="solution-banner" id="solutionBanner"></div>
+    </div>
+
+    <!-- RIGHT ALGEBRAIC PIPELINE, VISUALIZATION, TABLE & EXAM CHECK -->
+    <div class="card">
+      <div style="font-size:1.02rem; font-weight:800; color:#1e293b; margin-bottom:6px;" id="rightPanelHeading">
+        Sampling Distribution of X&#772; &amp; Inverse Inequality Derivation
+      </div>
+
+      <!-- Step-by-Step Algebraic Derivation Card -->
+      <div class="algebra-card" id="algebraCard"></div>
+
+      <div class="legend-bar">
+        <span><span class="legend-dot" style="background:rgba(225,29,72,0.28); border:1px solid #e11d48;"></span>Rejection Region (H₀ Rejected)</span>
+        <span><span class="legend-dot" style="background:rgba(15,118,110,0.22); border:1px solid #0f766e;"></span>Non-Rejection Region (H₀ Retained)</span>
+        <span><span class="legend-dot" style="background:#7c3aed;"></span>Critical Boundary / Observed Value</span>
+      </div>
+
+      <canvas id="inverseCanvas" width="840" height="230"></canvas>
+
+      <!-- Inverse Method Reference Table -->
+      <table class="check-table" id="summaryTable"></table>
+
+      <!-- 3-Step TI-84 Plus CE Keystroke Guide -->
+      <div class="gc-guide-grid">
+        <div class="step-pill">
+          <strong>Step 1: Find z_crit via invNorm</strong><br>
+          Press <strong>[2ND] &rarr; [VARS] &rarr; 3:invNorm</strong> with <em>&mu; = 0, &sigma; = 1</em> (or directly with <em>&mu; = &mu;₀, &sigma; = &sigma;/&radic;n</em> for x&#772;_crit!).
+        </div>
+        <div class="step-pill">
+          <strong>Step 2: Set Up Inequality</strong><br>
+          Match the inequality sign to <strong>Reject H₀</strong> (inside critical region) or <strong>Do Not Reject H₀</strong> (outside critical region).
+        </div>
+        <div class="step-pill">
+          <strong>Step 3: Solve &amp; Check Domain</strong><br>
+          Solve for <em>x&#772;</em>, <em>&mu;₀</em>, or <em>&sigma;</em> (remember <strong>&sigma; &gt; 0</strong>!), and use lowercase <strong>x&#772;</strong> when stating critical regions.
+        </div>
+      </div>
+
+      <!-- 9758 Exam Misconception Box -->
+      <div class="misconception-box">
+        <strong>9758 H2 Math Exam Misconception &amp; Algebraic Traps:</strong>
+        <ul style="margin:3px 0 0 0; padding-left:18px;">
+          <li><strong>CRITICAL <code>invNorm</code> SD TRAP:</strong> When using <code>invNorm(area, &mu;₀, &sigma;/&radic;n)</code> to find the critical boundary in terms of <em>x&#772;</em> directly, you MUST enter the <strong>standard error &sigma;/&radic;n</strong> (NOT &sigma;!).</li>
+          <li><strong>Lowercase <em>x&#772;</em> for critical regions:</strong> State critical regions as inequalities of observed sample means (e.g. <em>x&#772; &lt; 496.7</em> or <em>x&#772; &gt; 503.3</em>), never uppercase <em>X&#772;</em>.</li>
+          <li><strong>2-Tail <code>|z_calc|</code> inequality:</strong> For a 2-tail test, <em>"H₀ is NOT rejected"</em> means <strong>&minus;z_crit &le; (x&#772; &minus; &mu;₀)/(&sigma;/&radic;n) &le; +z_crit</strong>, which yields a bounded interval <em>a &le; &mu;₀ &le; b</em> (whereas <em>"H₀ is rejected"</em> gives two outer rays <em>&mu;₀ &lt; a</em> or <em>&mu;₀ &gt; b</em>).</li>
+        </ul>
+      </div>
+
+      <!-- Quick 9758 Inverse Hypothesis Testing Exam Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 Inverse Hypothesis Testing Check (<span id="qIdxLbl">1</span>/3)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.8rem; line-height:1.45; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  const scenarios = {
+    cr_xbar: {
+      mode: "cr_xbar",
+      unit: "ml",
+      mu0: 500,
+      sigma: 12,
+      n: 36,
+      xbar: 496.2,
+      defaultTail: "left",
+      defaultAlpha: 0.05,
+      defaultOutcome: "reject",
+      varDesc: "X ~ N(500, 12²), n = 36 ⇒ X̄ ~ N(500, 12²/36) = N(500, 2²).",
+      story: "<strong>Critical Region in Terms of x&#772; (Bubble Tea Volume):</strong> Regular bubble tea cups have volume <em>X ~ N(500, 12²)</em> ml. A sample of <strong>n = 36</strong> cups is tested. Find the <strong>critical region in terms of x&#772;</strong> at the chosen significance level &alpha;."
+    },
+    mu0_1tail: {
+      mode: "mu0",
+      unit: "min",
+      mu0: 32,
+      sigma: 4.5,
+      n: 25,
+      xbar: 33.8,
+      defaultTail: "right",
+      defaultAlpha: 0.05,
+      defaultOutcome: "reject",
+      varDesc: "X ~ N(μ₀, 4.5²), n = 25, observed x̄ = 33.8 min. Solve for μ₀.",
+      story: "<strong>Range of Claimed &mu;₀ (1-Tail GrabFood Audit):</strong> Delivery times follow <em>N(&mu;₀, 4.5²)</em> min. A sample of <strong>n = 25</strong> orders gives <strong>x&#772; = 33.8 min</strong>. Find the set of values of <strong>&mu;₀</strong> for which H₀ is rejected (or not rejected) in a 1-tail test."
+    },
+    mu0_2tail: {
+      mode: "mu0",
+      unit: "g",
+      mu0: 65,
+      sigma: 4.0,
+      n: 16,
+      xbar: 62.8,
+      defaultTail: "two",
+      defaultAlpha: 0.05,
+      defaultOutcome: "retain",
+      varDesc: "X ~ N(μ₀, 4.0²), n = 16, observed x̄ = 62.8 g. Solve for μ₀.",
+      story: "<strong>Range of Claimed &mu;₀ (2-Tail Bakery QC):</strong> Kaya toast bun masses follow <em>N(&mu;₀, 4.0²)</em> g. A sample of <strong>n = 16</strong> buns has mean <strong>x&#772; = 62.8 g</strong>. Find the range of values of <strong>&mu;₀</strong> for which H₀ is not rejected (or rejected) in a 2-tail test."
+    },
+    sigma: {
+      mode: "sigma",
+      unit: "ml",
+      mu0: 500,
+      sigma: 12,
+      n: 36,
+      xbar: 496.2,
+      defaultTail: "left",
+      defaultAlpha: 0.05,
+      defaultOutcome: "reject",
+      varDesc: "X ~ N(500, σ²), n = 36, observed x̄ = 496.2 ml. Solve for σ > 0.",
+      story: "<strong>Range of Unknown Population SD &sigma; (Bottling Plant):</strong> Bottle volumes follow <em>N(500, &sigma;²)</em> ml. A sample of <strong>n = 36</strong> bottles gives <strong>x&#772; = 496.2 ml</strong>. Find the range of values of <strong>&sigma;</strong> (&sigma; &gt; 0) for which H₀ is rejected (or not rejected)."
+    }
+  };
+
+  let curKey = "cr_xbar";
+  let curTail = "left";
+  let curAlpha = 0.05;
+  let curOutcome = "reject";
+
+  function fmt(n, dp = 3) {
+    if (Math.abs(n) < 1e-8) return "0";
+    return Number(n.toFixed(dp)).toString();
+  }
+
+  function normPDF(z) {
+    return Math.exp(-0.5 * z * z) / Math.sqrt(2 * Math.PI);
+  }
+
+  function invNorm(p) {
+    const a = [-3.969683028665376e+01, 2.209460984245205e+02, -2.759285104469687e+02, 1.383577518672690e+02, -3.066479806614716e+01, 2.506628277459239e+00];
+    const b = [-5.447609879822406e+01, 1.615858368580409e+02, -1.556989798598866e+02, 6.680131188771972e+01, -1.328068155288572e+01];
+    const c = [-7.784894002430293e-03, -3.223964580411365e-01, -2.400758277161838e+00, -2.549732539343734e+00, 4.374664141464968e+00, 2.938163982698783e+00];
+    const d = [7.784695709041462e-03, 3.224671290700398e-01, 2.445134137142996e+00, 3.754408661907416e+00];
+    const pLow = 0.02425, pHigh = 1 - pLow;
+    let q, r;
+    if (p < pLow) {
+      q = Math.sqrt(-2 * Math.log(p));
+      return (((((c[0]*q + c[1])*q + c[2])*q + c[3])*q + c[4])*q + c[5]) / ((((d[0]*q + d[1])*q + d[2])*q + d[3])*q + 1);
+    } else if (p <= pHigh) {
+      q = p - 0.5;
+      r = q * q;
+      return (((((a[0]*r + a[1])*r + a[2])*r + a[3])*r + a[4])*r + a[5])*q / (((((b[0]*r + b[1])*r + b[2])*r + b[3])*r + b[4])*r + 1);
+    } else {
+      q = Math.sqrt(-2 * Math.log(1 - p));
+      return -(((((c[0]*q + c[1])*q + c[2])*q + c[3])*q + c[4])*q + c[5]) / ((((d[0]*q + d[1])*q + d[2])*q + d[3])*q + 1);
+    }
+  }
+
+  function loadScenario(key) {
+    curKey = key;
+    const sc = scenarios[key];
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("sc_" + key).classList.add("active");
+
+    document.getElementById("contextBox").innerHTML = `
+      <div>${sc.story}</div>
+      <div class="var-pill">${sc.varDesc}</div>
+    `;
+
+    document.getElementById("in_mu0").value = sc.mu0;
+    document.getElementById("in_sigma").value = sc.sigma;
+    document.getElementById("in_n").value = sc.n;
+    document.getElementById("in_xbar").value = sc.xbar;
+
+    // Toggle active/disabled appearance for unknown parameter
+    document.getElementById("in_mu0").disabled = (sc.mode === "mu0");
+    document.getElementById("in_sigma").disabled = (sc.mode === "sigma");
+    document.getElementById("lbl_mu0").textContent = sc.mode === "mu0" ? "Claimed μ₀ (UNKNOWN)" : "Claimed Mean μ₀";
+    document.getElementById("lbl_sigma").textContent = sc.mode === "sigma" ? "Pop SD σ (UNKNOWN)" : "Population SD σ";
+
+    document.getElementById("obsRow").style.display = sc.mode === "cr_xbar" ? "none" : "grid";
+    document.getElementById("outcomeRow").style.display = sc.mode === "cr_xbar" ? "none" : "grid";
+
+    setTail(sc.defaultTail, false);
+    setAlpha(sc.defaultAlpha, false);
+    setOutcome(sc.defaultOutcome, false);
+    updateModel();
+  }
+
+  function setTail(t, refresh = true) {
+    curTail = t;
+    ["left", "right", "two"].forEach(k => {
+      document.getElementById("tail_" + k).classList.toggle("active", k === t);
+    });
+    if (refresh) updateModel();
+  }
+
+  function setAlpha(a, refresh = true) {
+    curAlpha = a;
+    [0.10, 0.05, 0.02, 0.01].forEach(v => {
+      document.getElementById("alp_" + v.toFixed(2)).classList.toggle("active", Math.abs(v - a) < 1e-6);
+    });
+    if (refresh) updateModel();
+  }
+
+  function setOutcome(o, refresh = true) {
+    curOutcome = o;
+    ["reject", "retain"].forEach(k => {
+      document.getElementById("out_" + k).classList.toggle("active", k === o);
+    });
+    if (refresh) updateModel();
+  }
+
+  function updateModel() {
+    const sc = scenarios[curKey];
+    const mu0 = parseFloat(document.getElementById("in_mu0").value) || 0;
+    const sigma = Math.max(0.01, parseFloat(document.getElementById("in_sigma").value) || 1);
+    const n = Math.max(1, parseInt(document.getElementById("in_n").value, 10) || 1);
+    const xbar = parseFloat(document.getElementById("in_xbar").value) || 0;
+    const se = sigma / Math.sqrt(n);
+    const pct = Math.round(curAlpha * 100);
+
+    const muLabel = sc.mode === "mu0" ? "&mu;₀" : mu0;
+    let h1Sym = curTail === "left" ? `&lt; ${muLabel}` : (curTail === "right" ? `&gt; ${muLabel}` : `&ne; ${muLabel}`);
+    document.getElementById("hypFormDisplay").innerHTML = `H₀ : &mu; = ${muLabel} &nbsp;vs&nbsp; H₁ : &mu; ${h1Sym}`;
+
+    let zCritAbs, zCritSigned, gcCmdStr, gcValStr;
+    if (curTail === "left") {
+      zCritSigned = invNorm(curAlpha);
+      zCritAbs = Math.abs(zCritSigned);
+      gcCmdStr = `area:${curAlpha}<br>&mu;:0<br>&sigma;:1<br>Tail:LEFT`;
+      gcValStr = `${zCritSigned.toFixed(5)}`;
+    } else if (curTail === "right") {
+      zCritSigned = invNorm(1 - curAlpha);
+      zCritAbs = zCritSigned;
+      gcCmdStr = `area:${(1 - curAlpha).toFixed(2)}<br>&mu;:0<br>&sigma;:1<br>Tail:LEFT`;
+      gcValStr = `+${zCritSigned.toFixed(5)}`;
+    } else {
+      zCritAbs = invNorm(1 - curAlpha / 2);
+      zCritSigned = zCritAbs;
+      gcCmdStr = `area:${(1 - curAlpha / 2).toFixed(3)}<br>&mu;:0<br>&sigma;:1<br>Tail:LEFT`;
+      gcValStr = `&plusmn;${zCritAbs.toFixed(5)}`;
+    }
+
+    // TI-84 invNorm Dual Screens
+    let directXbarNote = "";
+    if (sc.mode === "cr_xbar") {
+      directXbarNote = `<div style="margin-top:6px; font-size:0.75rem; color:#134e4a;">
+        <strong>Shortcut on TI-84:</strong> Entering <code>&mu;:${mu0}</code> and <span class="gc-sigma-row">&sigma;:${sigma}/&radic;(${n}) = ${fmt(se, 3)}</span> directly in <code>invNorm</code> outputs the critical boundary in <strong>x&#772;</strong> immediately!
+      </div>`;
+    }
+
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">TI-84 Plus CE &bull; [2ND] &rarr; [VARS] &rarr; [3: invNorm] Critical Value</span>
+      <div class="gc-dual-grid">
+        <div class="gc-lcd">
+          <div class="gc-lcd-bar"><span>invNorm (INPUT)</span><span>Z ~ N(0,1)</span></div>
+          ${gcCmdStr}<br>
+          <span class="gc-hl-black">Paste</span>
+        </div>
+        <div class="gc-lcd">
+          <div class="gc-lcd-bar"><span>invNorm (OUTPUT)</span><span>3 s.f.</span></div>
+          z_crit = ${gcValStr}<br>
+          (3 s.f.: ${curTail === "left" ? zCritSigned.toPrecision(3) : (curTail === "right" ? "+" + zCritSigned.toPrecision(3) : "&plusmn;" + zCritAbs.toPrecision(3))})<br>
+          &alpha; = ${curAlpha} (${pct}%)
+        </div>
+      </div>
+      ${directXbarNote}
+    `;
+
+    // Mode-specific algebra, banner, summary table & canvas
+    const algCard = document.getElementById("algebraCard");
+    const banner = document.getElementById("solutionBanner");
+    const table = document.getElementById("summaryTable");
+
+    if (sc.mode === "cr_xbar") {
+      document.getElementById("modeBadge").textContent = "Critical Region in x̄";
+      let crXbar, stepsHtml;
+      if (curTail === "left") {
+        const b = mu0 - zCritAbs * se;
+        crXbar = `x&#772; < ${b.toFixed(2)} ${sc.unit}  (3 s.f.: x&#772; < ${b.toPrecision(3)})`;
+        stepsHtml = `<strong>Step-by-Step Derivation (Left-Tail):</strong><br>
+          Reject H₀ when <code>z_calc &lt; &minus;${zCritAbs.toFixed(4)}</code><br>
+          &rArr; <code>(x&#772; &minus; ${mu0}) / (${sigma}/&radic;${n}) &lt; &minus;${zCritAbs.toFixed(4)}</code><br>
+          &rArr; <code>x&#772; &lt; ${mu0} &minus; ${zCritAbs.toFixed(4)}(${fmt(se, 3)}) = ${b.toFixed(3)}</code>`;
+      } else if (curTail === "right") {
+        const b = mu0 + zCritAbs * se;
+        crXbar = `x&#772; > ${b.toFixed(2)} ${sc.unit}  (3 s.f.: x&#772; > ${b.toPrecision(3)})`;
+        stepsHtml = `<strong>Step-by-Step Derivation (Right-Tail):</strong><br>
+          Reject H₀ when <code>z_calc &gt; +${zCritAbs.toFixed(4)}</code><br>
+          &rArr; <code>(x&#772; &minus; ${mu0}) / (${sigma}/&radic;${n}) &gt; +${zCritAbs.toFixed(4)}</code><br>
+          &rArr; <code>x&#772; &gt; ${mu0} + ${zCritAbs.toFixed(4)}(${fmt(se, 3)}) = ${b.toFixed(3)}</code>`;
+      } else {
+        const bLow = mu0 - zCritAbs * se;
+        const bHigh = mu0 + zCritAbs * se;
+        crXbar = `x&#772; < ${bLow.toFixed(2)} or x&#772; > ${bHigh.toFixed(2)} ${sc.unit}`;
+        stepsHtml = `<strong>Step-by-Step Derivation (2-Tail):</strong><br>
+          Reject H₀ when <code>|z_calc| &gt; ${zCritAbs.toFixed(4)}</code><br>
+          &rArr; <code>x&#772; &lt; ${mu0} &minus; ${zCritAbs.toFixed(4)}(${fmt(se, 3)})</code> &nbsp;or&nbsp; <code>x&#772; &gt; ${mu0} + ${zCritAbs.toFixed(4)}(${fmt(se, 3)})</code><br>
+          &rArr; <code>x&#772; &lt; ${bLow.toFixed(3)}</code> &nbsp;or&nbsp; <code>x&#772; &gt; ${bHigh.toFixed(3)}</code>`;
+      }
+
+      algCard.innerHTML = stepsHtml;
+      banner.innerHTML = `Critical Region in Terms of x&#772; (&alpha; = ${pct}%): <strong>${crXbar}</strong>`;
+
+      table.innerHTML = `
+        <thead><tr><th>Quantity</th><th>Formula</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Sampling Distribution</strong></td><td>X&#772; ~ N(&mu;₀, &sigma;²/n)</td><td>X&#772; ~ N(${mu0}, ${fmt(se * se, 3)}) &nbsp;(SE = ${fmt(se, 3)})</td></tr>
+          <tr><td><strong>Standardised Critical Region</strong></td><td>In terms of lowercase z</td><td><strong>${curTail === "left" ? `z < &minus;${zCritAbs.toFixed(3)}` : (curTail === "right" ? `z > +${zCritAbs.toFixed(3)}` : `z < &minus;${zCritAbs.toFixed(3)} or z > +${zCritAbs.toFixed(3)}`)}</strong></td></tr>
+          <tr><td><strong>Unstandardised Critical Region</strong></td><td>In terms of lowercase x&#772;</td><td><strong>${crXbar}</strong></td></tr>
+        </tbody>
+      `;
+      drawXbarCanvas(mu0, se, zCritAbs);
+
+    } else if (sc.mode === "mu0") {
+      document.getElementById("modeBadge").textContent = "Solve for Range of μ₀";
+      const isReject = (curOutcome === "reject");
+      let ansStr, stepsHtml;
+
+      if (curTail === "left") {
+        // Reject H0 iff (xbar - mu0)/se < -zCritAbs <=> mu0 > xbar + zCritAbs*se
+        const bound = xbar + zCritAbs * se;
+        const sign = isReject ? "&gt;" : "&le;";
+        ansStr = `&mu;₀ ${sign} ${bound.toFixed(2)} ${sc.unit}  (3 s.f.: &mu;₀ ${sign} ${bound.toPrecision(3)})`;
+        stepsHtml = `<strong>Step-by-Step Derivation (Left-Tail, ${isReject ? "Reject H₀" : "Do Not Reject H₀"}):</strong><br>
+          Condition: <code>(${xbar} &minus; &mu;₀) / (${sigma}/&radic;${n}) ${isReject ? "&lt;" : "&ge;"} &minus;${zCritAbs.toFixed(4)}</code><br>
+          &rArr; <code>${xbar} &minus; &mu;₀ ${isReject ? "&lt;" : "&ge;"} &minus;${(zCritAbs * se).toFixed(4)}</code><br>
+          &rArr; <code>&mu;₀ ${sign} ${xbar} + ${(zCritAbs * se).toFixed(4)} = ${bound.toFixed(3)}</code>`;
+      } else if (curTail === "right") {
+        // Reject H0 iff (xbar - mu0)/se > +zCritAbs <=> mu0 < xbar - zCritAbs*se
+        const bound = xbar - zCritAbs * se;
+        const sign = isReject ? "&lt;" : "&ge;";
+        ansStr = `&mu;₀ ${sign} ${bound.toFixed(2)} ${sc.unit}  (3 s.f.: &mu;₀ ${sign} ${bound.toPrecision(3)})`;
+        stepsHtml = `<strong>Step-by-Step Derivation (Right-Tail, ${isReject ? "Reject H₀" : "Do Not Reject H₀"}):</strong><br>
+          Condition: <code>(${xbar} &minus; &mu;₀) / (${sigma}/&radic;${n}) ${isReject ? "&gt;" : "&le;"} +${zCritAbs.toFixed(4)}</code><br>
+          &rArr; <code>${xbar} &minus; &mu;₀ ${isReject ? "&gt;" : "&le;"} +${(zCritAbs * se).toFixed(4)}</code><br>
+          &rArr; <code>&mu;₀ ${sign} ${xbar} &minus; ${(zCritAbs * se).toFixed(4)} = ${bound.toFixed(3)}</code>`;
+      } else {
+        const low = xbar - zCritAbs * se;
+        const high = xbar + zCritAbs * se;
+        if (isReject) {
+          ansStr = `&mu;₀ < ${low.toFixed(2)} or &mu;₀ > ${high.toFixed(2)} ${sc.unit}`;
+          stepsHtml = `<strong>Step-by-Step Derivation (2-Tail, Reject H₀):</strong><br>
+            Condition: <code>|${xbar} &minus; &mu;₀| / ${fmt(se, 3)} &gt; ${zCritAbs.toFixed(4)}</code><br>
+            &rArr; <code>|${xbar} &minus; &mu;₀| &gt; ${(zCritAbs * se).toFixed(4)}</code><br>
+            &rArr; <code>&mu;₀ &lt; ${low.toFixed(3)}</code> &nbsp;or&nbsp; <code>&mu;₀ &gt; ${high.toFixed(3)}</code>`;
+        } else {
+          ansStr = `${low.toFixed(2)} &le; &mu;₀ &le; ${high.toFixed(2)} ${sc.unit}`;
+          stepsHtml = `<strong>Step-by-Step Derivation (2-Tail, Do Not Reject H₀):</strong><br>
+            Condition: <code>&minus;${zCritAbs.toFixed(4)} &le; (${xbar} &minus; &mu;₀) / ${fmt(se, 3)} &le; +${zCritAbs.toFixed(4)}</code><br>
+            &rArr; <code>&minus;${(zCritAbs * se).toFixed(4)} &le; ${xbar} &minus; &mu;₀ &le; +${(zCritAbs * se).toFixed(4)}</code><br>
+            &rArr; <code>${low.toFixed(3)} &le; &mu;₀ &le; ${high.toFixed(3)}</code>`;
+        }
+      }
+
+      algCard.innerHTML = stepsHtml;
+      banner.innerHTML = `Required Range of Claimed Mean &mu;₀ (&alpha; = ${pct}%): <strong>${ansStr}</strong>`;
+
+      table.innerHTML = `
+        <thead><tr><th>Item</th><th>Expression</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Observed Sample Mean</strong></td><td>x&#772; (with n = ${n}, &sigma; = ${sigma})</td><td>x&#772; = ${xbar} ${sc.unit}, SE = ${fmt(se, 3)}</td></tr>
+          <tr><td><strong>Margin z_crit &times; (&sigma;/&radic;n)</strong></td><td>${zCritAbs.toFixed(4)} &times; ${fmt(se, 3)}</td><td>${(zCritAbs * se).toFixed(4)} ${sc.unit}</td></tr>
+          <tr><td><strong>Range of &mu;₀</strong></td><td>${isReject ? "When H₀ is rejected" : "When H₀ is NOT rejected"}</td><td><strong>${ansStr}</strong></td></tr>
+        </tbody>
+      `;
+      drawMu0Canvas(xbar, se, zCritAbs, isReject);
+
+    } else {
+      // Mode 4: Range of unknown population SD sigma > 0
+      document.getElementById("modeBadge").textContent = "Solve for Range of σ > 0";
+      const isReject = (curOutcome === "reject");
+      const diff = xbar - mu0;
+      const absDiff = Math.abs(diff);
+      const sigmaBound = (absDiff * Math.sqrt(n)) / zCritAbs;
+
+      // Check directional feasibility for 1-tail tests
+      let possibleReject = true;
+      if (curTail === "left" && diff >= 0) possibleReject = false;
+      if (curTail === "right" && diff <= 0) possibleReject = false;
+
+      let ansStr, stepsHtml;
+      if (!possibleReject) {
+        ansStr = isReject
+          ? `No real values of &sigma; &gt; 0 (since x&#772; = ${xbar} is on the opposite side of &mu;₀ = ${mu0} from H₁)`
+          : `All &sigma; &gt; 0 (H₀ is never rejected for any &sigma; &gt; 0)`;
+        stepsHtml = `<strong>Directional Check:</strong> Since x&#772; = ${xbar} and &mu;₀ = ${mu0}, <code>x&#772; &minus; &mu;₀ = ${diff.toFixed(2)}</code> is in the opposite direction of H₁. Thus <em>z_calc</em> never enters the critical region for any <em>&sigma; &gt; 0</em>.`;
+      } else {
+        const sign = isReject ? "&lt;" : "&ge;";
+        ansStr = isReject
+          ? `0 < &sigma; < ${sigmaBound.toFixed(2)} ${sc.unit}  (3 s.f.: 0 < &sigma; < ${sigmaBound.toPrecision(3)})`
+          : `&sigma; &ge; ${sigmaBound.toFixed(2)} ${sc.unit}  (3 s.f.: &sigma; &ge; ${sigmaBound.toPrecision(3)})`;
+        stepsHtml = `<strong>Step-by-Step Derivation (Solve for &sigma; &gt; 0):</strong><br>
+          Condition: <code>|${xbar} &minus; ${mu0}| / (&sigma;/&radic;${n}) ${isReject ? "&gt;" : "&le;"} ${zCritAbs.toFixed(4)}</code><br>
+          Since <code>&sigma; &gt; 0</code>, multiply both sides by <code>&sigma;</code>:<br>
+          &rArr; <code>${absDiff.toFixed(2)} &times; &radic;${n} ${isReject ? "&gt;" : "&le;"} ${zCritAbs.toFixed(4)} &sigma;</code><br>
+          &rArr; <code>&sigma; ${sign} (${absDiff.toFixed(2)} &times; ${Math.sqrt(n).toFixed(3)}) / ${zCritAbs.toFixed(4)} = ${sigmaBound.toFixed(3)}</code> (with <code>&sigma; &gt; 0</code>)`;
+      }
+
+      algCard.innerHTML = stepsHtml;
+      banner.innerHTML = `Required Range of Population SD &sigma; (&alpha; = ${pct}%): <strong>${ansStr}</strong>`;
+
+      table.innerHTML = `
+        <thead><tr><th>Item</th><th>Expression</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Sample Deviation |x&#772; &minus; &mu;₀|</strong></td><td>|${xbar} &minus; ${mu0}|</td><td>${absDiff.toFixed(3)} ${sc.unit}</td></tr>
+          <tr><td><strong>Boundary Value &sigma;_crit</strong></td><td>|x&#772; &minus; &mu;₀|&radic;n / z_crit</td><td>${possibleReject ? sigmaBound.toFixed(4) + " " + sc.unit : "N/A"}</td></tr>
+          <tr><td><strong>Range of &sigma; (&sigma; &gt; 0)</strong></td><td>${isReject ? "When H₀ is rejected" : "When H₀ is NOT rejected"}</td><td><strong>${ansStr}</strong></td></tr>
+        </tbody>
+      `;
+      drawSigmaCanvas(sigmaBound, possibleReject, isReject, sc.unit);
+    }
+  }
+
+  function drawXbarCanvas(mu0, se, zCritAbs) {
+    const canvas = document.getElementById("inverseCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const padL = 42, padR = 28, padT = 28, padB = 38;
+    const plotW = W - padL - padR, plotH = H - padT - padB;
+    const zMin = -3.8, zMax = 3.8;
+    const yMax = normPDF(0) * 1.16;
+    const toX = z => padL + ((z - zMin) / (zMax - zMin)) * plotW;
+    const toY = y => padT + plotH - (y / yMax) * plotH;
+
+    function shade(a, b, fill) {
+      ctx.fillStyle = fill;
+      ctx.beginPath();
+      ctx.moveTo(toX(a), toY(0));
+      for (let i = 0; i <= 120; i++) {
+        const z = a + (i / 120) * (b - a);
+        ctx.lineTo(toX(z), toY(normPDF(z)));
+      }
+      ctx.lineTo(toX(b), toY(0));
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    if (curTail === "left") {
+      shade(zMin, -zCritAbs, "rgba(225,29,72,0.28)");
+      shade(-zCritAbs, zMax, "rgba(15,118,110,0.14)");
+    } else if (curTail === "right") {
+      shade(zCritAbs, zMax, "rgba(225,29,72,0.28)");
+      shade(zMin, zCritAbs, "rgba(15,118,110,0.14)");
+    } else {
+      shade(zMin, -zCritAbs, "rgba(225,29,72,0.28)");
+      shade(zCritAbs, zMax, "rgba(225,29,72,0.28)");
+      shade(-zCritAbs, zCritAbs, "rgba(15,118,110,0.14)");
+    }
+
+    ctx.strokeStyle = "#334155";
+    ctx.lineWidth = 2.4;
+    ctx.beginPath();
+    for (let i = 0; i <= 300; i++) {
+      const z = zMin + (i / 300) * (zMax - zMin);
+      if (i === 0) ctx.moveTo(toX(z), toY(normPDF(z)));
+      else ctx.lineTo(toX(z), toY(normPDF(z)));
+    }
+    ctx.stroke();
+
+    const crits = curTail === "left" ? [-zCritAbs] : (curTail === "right" ? [zCritAbs] : [-zCritAbs, zCritAbs]);
+    crits.forEach(cz => {
+      const xb = mu0 + cz * se;
+      ctx.strokeStyle = "#7c3aed";
+      ctx.lineWidth = 2.3;
+      ctx.beginPath();
+      ctx.moveTo(toX(cz), padT + 14);
+      ctx.lineTo(toX(cz), padT + plotH);
+      ctx.stroke();
+
+      ctx.fillStyle = "#7c3aed";
+      ctx.font = "bold 11px Segoe UI, sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText(`x̄ = ${xb.toFixed(2)}`, toX(cz), padT + 10);
+    });
+
+    ctx.strokeStyle = "#475569";
+    ctx.lineWidth = 1.3;
+    ctx.beginPath();
+    ctx.moveTo(padL, padT + plotH);
+    ctx.lineTo(W - padR, padT + plotH);
+    ctx.stroke();
+
+    ctx.fillStyle = "#334155";
+    ctx.font = "bold 10.5px Segoe UI, sans-serif";
+    ctx.textAlign = "center";
+    for (let z = -3; z <= 3; z++) {
+      ctx.fillText((mu0 + z * se).toFixed(1), toX(z), padT + plotH + 15);
+    }
+    ctx.fillStyle = "#64748b";
+    ctx.fillText(`Scale of Sample Mean x̄  (μ₀ = ${mu0}, SE = ${fmt(se, 2)})`, W / 2, padT + plotH + 31);
+  }
+
+  function drawMu0Canvas(xbar, se, zCritAbs, isReject) {
+    const canvas = document.getElementById("inverseCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const margin = zCritAbs * se;
+    const span = Math.max(margin * 2.2, 2.0);
+    const minV = xbar - span, maxV = xbar + span;
+    const padL = 55, padR = 55, yLine = 122;
+    const toX = v => padL + ((v - minV) / (maxV - minV)) * (W - padL - padR);
+
+    ctx.fillStyle = "#1e293b";
+    ctx.font = "bold 12px Segoe UI, sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(`Number Line Solution for Unknown Claimed Mean μ₀ (Observed x̄ = ${xbar})`, W / 2, 34);
+
+    // Base axis
+    ctx.strokeStyle = "#94a3b8";
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(padL, yLine);
+    ctx.lineTo(W - padR, yLine);
+    ctx.stroke();
+
+    function drawInterval(x1, x2, color, label) {
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 8;
+      ctx.beginPath();
+      ctx.moveTo(x1, yLine);
+      ctx.lineTo(x2, yLine);
+      ctx.stroke();
+      ctx.fillStyle = color;
+      ctx.font = "bold 11px Segoe UI, sans-serif";
+      ctx.fillText(label, (x1 + x2) / 2, yLine - 18);
+    }
+
+    const activeColor = isReject ? "#e11d48" : "#0f766e";
+    const activeLabel = isReject ? "Reject H₀" : "Do Not Reject H₀";
+
+    if (curTail === "left") {
+      const b = xbar + margin;
+      if (isReject) drawInterval(toX(b), W - padR, activeColor, activeLabel);
+      else drawInterval(padL, toX(b), activeColor, activeLabel);
+      drawDot(ctx, toX(b), yLine, isReject, `μ₀ = ${b.toFixed(2)}`);
+    } else if (curTail === "right") {
+      const b = xbar - margin;
+      if (isReject) drawInterval(padL, toX(b), activeColor, activeLabel);
+      else drawInterval(toX(b), W - padR, activeColor, activeLabel);
+      drawDot(ctx, toX(b), yLine, isReject, `μ₀ = ${b.toFixed(2)}`);
+    } else {
+      const low = xbar - margin, high = xbar + margin;
+      if (isReject) {
+        drawInterval(padL, toX(low), activeColor, activeLabel);
+        drawInterval(toX(high), W - padR, activeColor, activeLabel);
+      } else {
+        drawInterval(toX(low), toX(high), activeColor, activeLabel);
+      }
+      drawDot(ctx, toX(low), yLine, isReject, `μ₀ = ${low.toFixed(2)}`);
+      drawDot(ctx, toX(high), yLine, isReject, `μ₀ = ${high.toFixed(2)}`);
+    }
+
+    // Observed xbar marker
+    ctx.strokeStyle = "#7c3aed";
+    ctx.setLineDash([4, 4]);
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    ctx.moveTo(toX(xbar), yLine - 34);
+    ctx.lineTo(toX(xbar), yLine + 34);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = "#7c3aed";
+    ctx.font = "bold 11px Segoe UI, sans-serif";
+    ctx.fillText(`x̄ = ${xbar}`, toX(xbar), yLine + 48);
+  }
+
+  function drawSigmaCanvas(sigmaBound, possibleReject, isReject, unit) {
+    const canvas = document.getElementById("inverseCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const padL = 70, padR = 55, yLine = 122;
+    const maxS = possibleReject ? Math.max(sigmaBound * 1.9, 10) : 25;
+    const toX = s => padL + (s / maxS) * (W - padL - padR);
+
+    ctx.fillStyle = "#1e293b";
+    ctx.font = "bold 12px Segoe UI, sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(`Number Line Solution for Unknown Population SD σ > 0`, W / 2, 34);
+
+    ctx.strokeStyle = "#94a3b8";
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(padL, yLine);
+    ctx.lineTo(W - padR, yLine);
+    ctx.stroke();
+
+    // Open circle at sigma = 0 (strictly positive constraint)
+    drawDot(ctx, toX(0), yLine, true, "σ = 0");
+
+    if (!possibleReject) {
+      if (!isReject) {
+        ctx.strokeStyle = "#0f766e";
+        ctx.lineWidth = 8;
+        ctx.beginPath();
+        ctx.moveTo(toX(0), yLine);
+        ctx.lineTo(W - padR, yLine);
+        ctx.stroke();
+        ctx.fillStyle = "#0f766e";
+        ctx.font = "bold 11px Segoe UI, sans-serif";
+        ctx.fillText("Do Not Reject H₀ for all σ > 0", W / 2, yLine - 18);
+      }
+      return;
+    }
+
+    const activeColor = isReject ? "#e11d48" : "#0f766e";
+    if (isReject) {
+      ctx.strokeStyle = activeColor;
+      ctx.lineWidth = 8;
+      ctx.beginPath();
+      ctx.moveTo(toX(0), yLine);
+      ctx.lineTo(toX(sigmaBound), yLine);
+      ctx.stroke();
+      ctx.fillStyle = activeColor;
+      ctx.font = "bold 11px Segoe UI, sans-serif";
+      ctx.fillText(`Reject H₀ (0 < σ < ${sigmaBound.toFixed(2)})`, (toX(0) + toX(sigmaBound)) / 2, yLine - 18);
+    } else {
+      ctx.strokeStyle = activeColor;
+      ctx.lineWidth = 8;
+      ctx.beginPath();
+      ctx.moveTo(toX(sigmaBound), yLine);
+      ctx.lineTo(W - padR, yLine);
+      ctx.stroke();
+      ctx.fillStyle = activeColor;
+      ctx.font = "bold 11px Segoe UI, sans-serif";
+      ctx.fillText(`Do Not Reject H₀ (σ ≥ ${sigmaBound.toFixed(2)})`, (toX(sigmaBound) + W - padR) / 2, yLine - 18);
+    }
+
+    drawDot(ctx, toX(sigmaBound), yLine, isReject, `σ = ${sigmaBound.toFixed(2)} ${unit}`);
+  }
+
+  function drawDot(ctx, x, y, hollow, label) {
+    ctx.fillStyle = hollow ? "#ffffff" : "#1e293b";
+    ctx.strokeStyle = "#1e293b";
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.arc(x, y, 5.5, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.fillStyle = "#1e293b";
+    ctx.font = "bold 11px Segoe UI, sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(label, x, y + 24);
+  }
+
+  const examQs = [
+    {
+      q: "Regular bubble tea cups have volume X ~ N(500, 12²). For a sample of n = 36 cups, what is the critical region in terms of x̄ for a 2-tail test at the 5% level of significance?",
+      opts: [
+        "x̄ < 496.08 or x̄ > 503.92",
+        "x̄ < 476.48 or x̄ > 523.52",
+        "X̄ < 496.08 or X̄ > 503.92",
+        "x̄ < 496.71 or x̄ > 503.29"
+      ],
+      ans: 0,
+      exp: "Here SE = 12/√36 = 2 and z_crit = ±1.960. Thus x̄ < 500 − 1.960(2) = 496.08 or x̄ > 500 + 1.960(2) = 503.92 (always use lowercase x̄)."
+    },
+    {
+      q: "In a 2-tail test of H₀ : μ = μ₀ vs H₁ : μ ≠ μ₀ at α = 5% with n = 16, σ = 4.0, and observed x̄ = 62.8, H₀ is NOT rejected. What is the range of μ₀?",
+      opts: [
+        "60.84 ≤ μ₀ ≤ 64.76",
+        "μ₀ < 60.84 or μ₀ > 64.76",
+        "54.96 ≤ μ₀ ≤ 70.64",
+        "61.16 ≤ μ₀ ≤ 64.44"
+      ],
+      ans: 0,
+      exp: "H₀ is not rejected when −1.960 ≤ (62.8 − μ₀)/(4/√16) ≤ +1.960. Since SE = 1, |62.8 − μ₀| ≤ 1.960 ⇒ 60.84 ≤ μ₀ ≤ 64.76."
+    },
+    {
+      q: "Bottle volumes follow N(500, σ²). A sample of n = 36 bottles gives x̄ = 496.2. In a left-tail test at α = 5% (z_crit = −1.645), H₀ is rejected. What is the range of σ?",
+      opts: [
+        "0 < σ < 13.86 (remembering σ > 0)",
+        "σ < 13.86 (forgetting σ > 0)",
+        "σ > 13.86",
+        "0 < σ < 2.31"
+      ],
+      ans: 0,
+      exp: "(496.2 − 500)/(σ/6) < −1.6449 ⇒ −22.8/σ < −1.6449 ⇒ σ < 22.8/1.6449 = 13.86. Since standard deviation must be positive, 0 < σ < 13.86."
+    }
+  ];
+
+  let curQ = 0;
+
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").textContent = item.q;
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i}, this)">${String.fromCharCode(65 + i)}. ${o}</button>
+    `).join("");
+  }
+
+  function gradeExamQ(idx, btn) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  loadScenario("cr_xbar");
+  renderExamQ();
+</script>
+
+</body>
+</html>
