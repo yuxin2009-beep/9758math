@@ -382,7 +382,7 @@
 
     .interactive-iframe {
       width: 100%;
-      height: 720px;
+      height: 740px;
       border: none;
       display: block;
       background: #fdfbf7;
@@ -489,13 +489,19 @@
       <span class="status-pill">4 Lessons</span>
     </button>
 
-    <div class="nav-group">More Pure &amp; Statistics</div>
+    <div class="nav-group">Topic 5: Calculus</div>
     <button class="topic-btn" id="nav_5.1" onclick="selectTopic('5.1')">
-      <span>5.1–5.4 Calculus</span>
+      <span>5.1–5.5 Calculus</span>
       <span class="status-pill soon">Planned</span>
     </button>
+
+    <div class="nav-group">Topic 6: Probability &amp; Statistics</div>
     <button class="topic-btn" id="nav_6.1" onclick="selectTopic('6.1')">
-      <span>6.1–6.5 Probability &amp; Distributions</span>
+      <span>6.1 Probability</span>
+      <span class="status-pill">5 Lessons</span>
+    </button>
+    <button class="topic-btn" id="nav_6.2" onclick="selectTopic('6.2')">
+      <span>6.2–6.6 Distributions &amp; Inference</span>
       <span class="status-pill soon">Planned</span>
     </button>
   </aside>
@@ -1586,6 +1592,196 @@
             exitAnswer: "A <strong>clockwise rotation of π/2 radians (90°) about the origin O</strong>."
           }
         ]
+      },
+
+      "6.1": {
+        title: "6.1 Probability",
+        syllabusNotes: "Addition and multiplication principles for counting; concepts of permutation (ⁿPᵣ) and combination (ⁿCᵣ); arrangements of objects in a line or in a circle, including cases involving repetition and restriction; addition and multiplication of probabilities; mutually exclusive events and independent events; use of tables of outcomes, Venn diagrams, tree diagrams, and permutations and combinations techniques to calculate probabilities; calculation of conditional probabilities in simple cases; use of P(A') = 1 − P(A), P(A ∪ B) = P(A) + P(B) − P(A ∩ B), and P(A|B) = P(A ∩ B) / P(B).",
+        lessons: [
+          {
+            label: "Lesson 1: Counting Principles, ⁿPᵣ & ⁿCᵣ",
+            file: "interactives/6_1_lesson1.html",
+            videoEmbedUrl: "",
+            prereq: "Factorial notation n!, basic tree counting, and distinguishing ordered sequences from unordered sets.",
+            objectives: [
+              "Apply the Addition Principle ('OR' across mutually exclusive cases) and Multiplication Principle ('AND' across sequential stages).",
+              "Distinguish between permutations ⁿPᵣ = n!/(n − r)! (order matters) and combinations ⁿCᵣ = n!/[r!(n − r)!] (order does not matter).",
+              "Explain the bridge identity ⁿPᵣ = ⁿCᵣ × r! and partition restricted selection problems into disjoint cases."
+            ],
+            prompts: [
+              "Compare the 'Hawker Cai Fan Meal (ⁿCᵣ)' preset against the 'LTA Car Plate Prefix (ⁿPᵣ)' preset to see why swapping dishes leaves a meal unchanged while swapping letters creates a new plate.",
+              "Toggle between Slot Mode and Basket Mode and click 'Shuffle Chosen r Items' to observe how r! permutations collapse into 1 combination.",
+              "Inspect the '\"At Least 1 Meat\" Casework' preset to contrast disjoint casework addition against complement subtraction."
+            ],
+            pitfalls: [
+              "Double-counting when selecting 'at least one' by picking 1 mandatory item first and choosing the rest from the remaining pool (e.g., ⁴C₁ × ⁷C₂ overcounts pairs of meats!).",
+              "Using ⁿPᵣ instead of ⁿCᵣ (or vice versa) without checking whether rearranging the chosen r objects produces a distinct outcome."
+            ],
+            gcTip: "On the TI-84 Plus CE, enter n, press [MATH] > [PROB] > [2: nPr] or [3: nCr], enter r, and press [ENTER].",
+            workedQuestion: `
+              A Singapore hawker stall sells <strong>4 distinct meat dishes</strong> and <strong>5 distinct vegetable dishes</strong>.<br>
+              <strong>(i)</strong> A customer orders a 3-dish <em>Cai Fan</em> meal containing <strong>at least 1 meat dish</strong>. Find the number of different meals the customer can choose. [3]<br>
+              <strong>(ii)</strong> Separately, a custom 3-letter LTA vehicle prefix is formed using <strong>3 distinct letters</strong> chosen from <code>{S, B, A, E, K, T}</code>, where the first letter must be <code>S</code>. Find the number of possible prefixes. [2]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> Order of dishes on the plate does not matter (use <em>ⁿCᵣ</em>). Partition into mutually exclusive cases:<br>
+              • 1 meat and 2 veg: <em>⁴C₁ × ⁵C₂ = 4 × 10 = 40</em><br>
+              • 2 meats and 1 veg: <em>⁴C₂ × ⁵C₁ = 6 × 5 = 30</em><br>
+              • 3 meats and 0 veg: <em>⁴C₃ × ⁵C₀ = 4 × 1 = 4</em><br>
+              By the Addition Principle, total meals = <em>40 + 30 + 4 =</em> <strong>74</strong>.<br>
+              <em>(Alternative via complement: Total 3-dish meals − 0 meat meals = ⁹C₃ − ⁵C₃ = 84 − 10 = 74.)</em><br><br>
+              <strong>(ii)</strong> Order matters for vehicle plates. Fix <code>S</code> in position 1 (1 choice), then arrange 2 distinct letters from the remaining 5 letters in positions 2 and 3: <em>1 × ⁵P₂ = 5 × 4 =</em> <strong>20</strong> prefixes.
+            `,
+            exitQuestion: "How many 4-person committees can be formed from 6 JC1 students and 5 JC2 students if there must be exactly 2 JC1 and 2 JC2 students?",
+            exitAnswer: "Choose 2 JC1 AND 2 JC2: ⁶C₂ × ⁵C₂ = 15 × 10 = <strong>150</strong> committees."
+          },
+          {
+            label: "Lesson 2: Constrained Arrangements: Lines, Circles & Repetition",
+            file: "interactives/6_1_lesson2.html",
+            videoEmbedUrl: "",
+            prereq: "Factorial arithmetic and basic permutations ⁿPᵣ.",
+            objectives: [
+              "Arrange n distinct objects in a line (n!) and in a circle ((n − 1)!), accounting for rotational symmetry.",
+              "Calculate arrangements involving identical/repeated objects using n! / (n₁! n₂! ⋯ nₖ!).",
+              "Apply the Grouping (Super-Unit) Method for objects that must stay together and the Slotting Method for objects that must be separated."
+            ],
+            prompts: [
+              "In the Chinese New Year Reunion Table preset, rotate the circular table to see why n identical rotations collapse into (n − 1)! distinct relative seatings.",
+              "Compare the Grouping Method ('Must sit together') against the Slotting Method ('Must NOT sit together' for ≥ 3 guests).",
+              "Test anagrams of Singapore place names like PUNGGOL or SERANGOON to observe why identical letters divide out by k!."
+            ],
+            pitfalls: [
+              "Using (Total − All Together) when 3 or more people cannot sit together—subtracting 'all 3 together' still leaves invalid cases where 2 of them sit next to each other! Always use the Slotting Method for ≥ 3 separated items.",
+              "Forgetting to multiply by internal arrangements k! inside a grouped 'super-unit' block (or forgetting to divide by repeated letters inside that block)."
+            ],
+            gcTip: "Use [MATH] > [PROB] > [4: !] on your TI-84 Plus CE to evaluate large factorial expressions accurately.",
+            workedQuestion: `
+              <strong>(a)</strong> Find the number of distinct arrangements of all 9 letters of the word <strong>SERANGOON</strong> in which the two <code>O</code>'s are separated. [3]<br>
+              <strong>(b)</strong> Eight family members—comprising parents, 2 grandparents, and 4 children—sit around a circular table for a Chinese New Year reunion dinner. Find the number of seating arrangements if the 2 grandparents must sit together, while the 2 parents must NOT sit next to each other. [4]
+            `,
+            workedSolution: `
+              <strong>(a)</strong> Note the repeated letters in <code>SERANGOON</code>: two <code>N</code>'s and two <code>O</code>'s (with <code>S, E, R, A, G</code> distinct).<br>
+              First arrange the 7 non-<code>O</code> letters (<code>S, E, R, A, G, N, N</code>) in <em>7! / 2! = 2520</em> ways.<br>
+              This creates 8 gaps (including both ends). Slot the two identical <code>O</code>'s into 2 of the 8 gaps in <em>⁸C₂ = 28</em> ways (no × 2! since the <code>O</code>'s are identical).<br>
+              Total arrangements = <em>2520 × 28 =</em> <strong>70,560</strong>.<br><br>
+              <strong>(b)</strong> Treat the 2 grandparents as 1 single block (arranged internally in <em>2! = 2</em> ways).<br>
+              Arrange this grandparent block and the 4 children (5 units in total) in a circle in <em>(5 − 1)! = 4! = 24</em> ways.<br>
+              This creates 5 gaps between the 5 units around the circle. Slot the 2 distinct parents into 2 of these 5 gaps in <em>⁵P₂ = 5 × 4 = 20</em> ways.<br>
+              Total circular arrangements = <em>2! × 4! × ⁵P₂ = 2 × 24 × 20 =</em> <strong>960</strong>.
+            `,
+            exitQuestion: "In how many ways can 6 distinct people be seated around a round table if 2 particular people insist on sitting next to each other?",
+            exitAnswer: "Group the 2 people as 1 unit (2! internal orders), leaving 5 units in a circle: (5 − 1)! × 2! = 24 × 2 = <strong>48</strong> ways."
+          },
+          {
+            label: "Lesson 3: Probability Laws, Venn Diagrams & Independence",
+            file: "interactives/6_1_lesson3.html",
+            videoEmbedUrl: "",
+            prereq: "Set operations (union ∪, intersection ∩, complement ′) and basic sample space proportions.",
+            objectives: [
+              "Apply the probability axioms and Addition Law: P(A′) = 1 − P(A) and P(A ∪ B) = P(A) + P(B) − P(A ∩ B).",
+              "Use Venn diagrams and De Morgan's Laws—P(A′ ∩ B′) = 1 − P(A ∪ B) and P(A′ ∪ B′) = 1 − P(A ∩ B)—to solve set probability problems.",
+              "Distinguish clearly between mutually exclusive events (P(A ∩ B) = 0) and independent events (P(A ∩ B) = P(A)P(B))."
+            ],
+            prompts: [
+              "Adjust the probabilities P(A), P(B), and P(A ∩ B) in the Venn Diagram explorer to watch all four disjoint regions update.",
+              "Test the 'Mutually Exclusive vs. Independent' toggle using Singapore commuter events (taking NSL vs. EWL, vs. rainy weather and train delays) to see why two positive-probability mutually exclusive events can NEVER be independent."
+            ],
+            pitfalls: [
+              "Confusing 'mutually exclusive' (P(A ∩ B) = 0, disjoint circles) with 'independent' (P(A ∩ B) = P(A)P(B), occurrence of one does not affect the probability of the other).",
+              "Using P(A ∪ B) = P(A) + P(B) when A and B overlap without subtracting P(A ∩ B)."
+            ],
+            gcTip: "Store exact decimal or fractional probabilities in variables A, B, and I on your GC home screen to verify P(A ∪ B) = A + B − I and test if I = A × B.",
+            workedQuestion: `
+              In a survey of commuters at Jurong East MRT station, let <em>R</em> be the event that a randomly chosen commuter experiences rainy weather, and <em>D</em> be the event that the commuter experiences a train delay. It is given that <em>P(R) = 0.35</em>, <em>P(D) = 0.20</em>, and <em>P(R ∪ D) = 0.48</em>.<br>
+              <strong>(i)</strong> Find <em>P(R ∩ D)</em> and <em>P(R′ ∩ D′)</em>. [3]<br>
+              <strong>(ii)</strong> Determine, with justification, whether events <em>R</em> and <em>D</em> are independent. [2]<br>
+              <strong>(iii)</strong> State whether <em>R</em> and <em>D</em> are mutually exclusive, giving a reason. [1]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> Using <em>P(R ∪ D) = P(R) + P(D) − P(R ∩ D)</em>:<br>
+              <em>0.48 = 0.35 + 0.20 − P(R ∩ D) ⇒</em> <strong>P(R ∩ D) = 0.07</strong>.<br>
+              By complement of union, <em>P(R′ ∩ D′) = 1 − P(R ∪ D) = 1 − 0.48 =</em> <strong>0.52</strong>.<br><br>
+              <strong>(ii)</strong> Check product: <em>P(R) × P(D) = 0.35 × 0.20 =</em> <strong>0.07</strong>.<br>
+              Since <em>P(R ∩ D) = P(R) × P(D) = 0.07</em>, events <em>R</em> and <em>D</em> are <strong>independent</strong>.<br><br>
+              <strong>(iii)</strong> Since <em>P(R ∩ D) = 0.07 ≠ 0</em>, events <em>R</em> and <em>D</em> are <strong>not mutually exclusive</strong> (both can occur together).
+            `,
+            exitQuestion: "Events A and B are independent with P(A) = 0.4 and P(B) = 0.3. Find P(A ∪ B).",
+            exitAnswer: "Since A and B are independent, P(A ∩ B) = 0.4 × 0.3 = 0.12. Thus P(A ∪ B) = 0.4 + 0.3 − 0.12 = <strong>0.58</strong>."
+          },
+          {
+            label: "Lesson 4: Conditional Probability & Tree Diagrams",
+            file: "interactives/6_1_lesson4.html",
+            videoEmbedUrl: "",
+            prereq: "Multiplication along tree diagram branches and reading 2 × 2 contingency tables.",
+            objectives: [
+              "Understand conditional probability P(A | B) = P(A ∩ B) / P(B) (for P(B) > 0) as restricting the sample space to event B.",
+              "Construct and use tree diagrams and tables of outcomes to compute forward and reverse ('Bayes-style') conditional probabilities.",
+              "Recognize that when A and B are independent, P(A | B) = P(A) and P(B | A) = P(B)."
+            ],
+            prompts: [
+              "Activate 'Sample Space Zoom' on event B to watch the universe crop out B′ and rescale B to 100%.",
+              "Explore the Singapore Polyclinic ART Diagnostic Screening preset in both 2 × 2 Contingency Table view and Tree Diagram view to see why a 99% accurate test for a rare 1% condition yields P(Condition | Positive) = 50%!"
+            ],
+            pitfalls: [
+              "Confusing P(A | B) with P(B | A) (the prosecutor's fallacy—e.g., equating P(Positive | Infected) with P(Infected | Positive)).",
+              "Forgetting to sum ALL terminal tree branches leading to event B in the denominator of P(A | B) = P(A ∩ B) / P(B)."
+            ],
+            gcTip: "On your GC, compute the numerator N and denominator D separately, then press [MATH] > [1: Frac] on N/D to express exact fractional probabilities.",
+            workedQuestion: `
+              A polyclinic screens residents for a viral infection that affects <strong>2%</strong> of the target population. A rapid test gives a positive result for <strong>95%</strong> of infected residents, and gives a false positive result for <strong>4%</strong> of uninfected residents.<br>
+              <strong>(i)</strong> Draw a clearly labelled probability tree diagram to represent this information. [2]<br>
+              <strong>(ii)</strong> Find the probability that a randomly selected resident tests positive. [2]<br>
+              <strong>(iii)</strong> Given that a resident tests positive, find the exact probability that the resident actually has the infection. [3]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> Let <em>I</em> = infected (<em>0.02</em>), <em>I′</em> = uninfected (<em>0.98</em>); <em>+</em> = positive test, <em>−</em> = negative test:<br>
+              • From <em>I (0.02)</em>: branch to <em>+ (0.95)</em> and <em>− (0.05)</em>.<br>
+              • From <em>I′ (0.98)</em>: branch to <em>+ (0.04)</em> and <em>− (0.96)</em>.<br><br>
+              <strong>(ii)</strong> <em>P(+) = P(I ∩ +) + P(I′ ∩ +) = (0.02 × 0.95) + (0.98 × 0.04) = 0.019 + 0.0392 =</em> <strong>0.0582</strong> (or <em>291/5000</em>).<br><br>
+              <strong>(iii)</strong> <em>P(I | +) = P(I ∩ +) / P(+) = 0.019 / 0.0582 = 190 / 582 =</em> <strong>95/291</strong> (≈ 0.326).
+            `,
+            exitQuestion: "Given P(A ∩ B) = 0.18 and P(B) = 0.45, find P(A | B) and P(A′ | B).",
+            exitAnswer: "P(A | B) = 0.18 / 0.45 = <strong>0.4</strong> (or 2/5); P(A′ | B) = 1 − P(A | B) = <strong>0.6</strong> (or 3/5)."
+          },
+          {
+            label: "Lesson 5: Combinatorial Probability Synthesis",
+            file: "interactives/6_1_lesson5.html",
+            videoEmbedUrl: "",
+            prereq: "All counting techniques (ⁿPᵣ, ⁿCᵣ, casework, circle/line restrictions) and conditional probability P(A | B).",
+            objectives: [
+              "Calculate probabilities in equally likely sample spaces using P(E) = n(E) / n(S) with ⁿCᵣ and ⁿPᵣ.",
+              "Maintain strict order consistency between numerator n(E) and denominator n(S) (both unordered or both ordered).",
+              "Verify combinatorial probability answers against sequential probability tree methods and combine counting with conditional probability."
+            ],
+            prompts: [
+              "In the Singapore Pools TOTO (6 out of 49) simulator, pick 6 numbers and run 50,000 simulated draws to compare empirical hit rates against theoretical combinatorial probabilities.",
+              "In the JC Student Council Committee builder, compare the Combinatorial Method (ⁿCᵣ / ⁿCᵣ) side-by-side with the Sequential Tree Method to confirm both yield the exact same fraction."
+            ],
+            pitfalls: [
+              "Mixing ordered permutations in the numerator with unordered combinations in the denominator (or vice versa).",
+              "Treating identical-looking coloured balls in a bag as indistinguishable when computing probabilities—always label objects as distinct so every elementary selection in ⁿCᵣ is equally likely!"
+            ],
+            gcTip: "Use [MATH] > [1: Frac] after dividing combinatorial expressions on the TI-84 Plus CE to convert decimals back to exact simplified fractions.",
+            workedQuestion: `
+              <strong>(a)</strong> In a Singapore Pools TOTO draw, 6 distinct winning numbers are drawn at random from the integers 1 to 49. Find, in terms of <em>ⁿCᵣ</em> (and evaluate to 3 significant figures), the probability that a ticket with 6 chosen numbers matches <strong>exact 4</strong> of the winning numbers. [3]<br>
+              <strong>(b)</strong> A JC Student Council EXCO of 5 members is chosen at random from 6 JC1 students and 4 JC2 students.<br>
+              <strong>(i)</strong> Find the exact probability that the EXCO contains <strong>more JC1 students than JC2 students</strong>. [3]<br>
+              <strong>(ii)</strong> Given that the EXCO contains more JC1 students than JC2 students, find the exact probability that it contains <strong>no JC2 students</strong>. [2]
+            `,
+            workedSolution: `
+              <strong>(a)</strong> Total ways to draw 6 numbers from 49 = <em>⁴⁹C₆</em>. To match exact 4 of the 6 winning numbers and 2 of the 43 non-winning numbers:<br>
+              <em>P(exact 4 matches) = (⁶C₄ × ⁴³C₂) / ⁴⁹C₆ = (15 × 903) / 13,983,816 =</em> <strong>13,545 / 13,983,816</strong> ≈ <strong>0.000969</strong>.<br><br>
+              <strong>(b)(i)</strong> Total committees = <em>¹⁰C₅ = 252</em>. 'More JC1 than JC2' comprises three disjoint cases:<br>
+              • 3 JC1, 2 JC2: <em>⁶C₃ × ⁴C₂ = 20 × 6 = 120</em><br>
+              • 4 JC1, 1 JC2: <em>⁶C₄ × ⁴C₁ = 15 × 4 = 60</em><br>
+              • 5 JC1, 0 JC2: <em>⁶C₅ × ⁴C₀ = 6 × 1 = 6</em><br>
+              <em>P(more JC1 than JC2) = (120 + 60 + 6) / 252 = 186 / 252 =</em> <strong>31/42</strong>.<br><br>
+              <strong>(b)(ii)</strong> <em>P(5 JC1, 0 JC2 | more JC1 than JC2) = 6 / 186 =</em> <strong>1/31</strong>.
+            `,
+            exitQuestion: "A bag contains 4 red and 5 blue marbles. Two marbles are drawn at random without replacement. Verify that ⁴C₂ / ⁹C₂ gives the exact same probability as (4/9) × (3/8).",
+            exitAnswer: "⁴C₂ / ⁹C₂ = 6 / 36 = <strong>1/6</strong>, and (4/9) × (3/8) = 12 / 72 = <strong>1/6</strong>."
+          }
+        ]
       }
     };
 
@@ -1620,7 +1816,7 @@
         main.innerHTML = `
           <div class="placeholder-banner">
             <h2 style="color:#1e293b; margin-top:0;">Topic ${currentTopic} Module Coming Soon</h2>
-            <p>Select <strong>1.1 Functions</strong>, <strong>1.2 Graphs &amp; Transformations</strong>, <strong>1.3 Equations &amp; Inequalities</strong>, <strong>2.1 Sequences &amp; Series</strong>, any module under <strong>Topic 3: Vectors (3.1, 3.2, 3.3)</strong>, or <strong>4.1 Complex Numbers</strong> from the sidebar to launch the interactive lessons.</p>
+            <p>Select <strong>1.1 Functions</strong>, <strong>1.2 Graphs &amp; Transformations</strong>, <strong>1.3 Equations &amp; Inequalities</strong>, <strong>2.1 Sequences &amp; Series</strong>, any module under <strong>Topic 3: Vectors (3.1, 3.2, 3.3)</strong>, <strong>4.1 Complex Numbers</strong>, or <strong>6.1 Probability</strong> from the sidebar to launch the interactive lessons.</p>
           </div>
         `;
         return;
