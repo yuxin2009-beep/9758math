@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 6.1 Lesson 1: Order vs. Group Builder (Counting, ⁿPᵣ &amp; ⁿCᵣ)</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 530px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1000px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.76rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.48;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.74rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .control-panel {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 13px;
+      margin-bottom: 11px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .mode-switch {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .mode-btn {
+      padding: 8px 10px;
+      border-radius: 9px;
+      border: 1.5px solid #cbd5e1;
+      background: #f8fafc;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mode-btn.active-perm {
+      background: var(--blue-bg);
+      border-color: var(--blue);
+      color: #0c4a6e;
+    }
+
+    .mode-btn.active-comb {
+      background: var(--purple-bg);
+      border-color: var(--purple);
+      color: #4c1d95;
+    }
+
+    .slider-row {
+      display: grid;
+      grid-template-columns: 135px 1fr 42px;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 7px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .slider-row input[type="range"] {
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .val-badge {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      text-align: center;
+      padding: 2px 4px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .toggle-row {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: none;
+      background: var(--purple-dark);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.77rem;
+      cursor: pointer;
+    }
+
+    .action-btn.secondary {
+      background: var(--blue-bg);
+      color: var(--blue);
+      border: 1px solid #bae6fd;
+    }
+
+    .gc-screen-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin-bottom: 11px;
+    }
+
+    .box-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .gc-readout {
+      background: #f1f5f9;
+      border: 2px solid #64748b;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.81rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 5px;
+      line-height: 1.48;
+    }
+
+    .solution-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.81rem;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    /* RIGHT VISUAL STAGE */
+    .visual-stage {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+    }
+
+    .pool-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .item-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 9px;
+      border-radius: 8px;
+      border: 1.5px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+      user-select: none;
+    }
+
+    .item-chip.selected {
+      border-color: var(--purple-dark);
+      background: var(--purple-bg);
+      color: #4c1d95;
+      transform: translateY(-1px);
+    }
+
+    .item-chip.cat-a {
+      border-left: 4px solid #e11d48;
+    }
+
+    .item-chip.cat-b {
+      border-left: 4px solid #0f766e;
+    }
+
+    .slot-stage {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 10px;
+      background: #ffffff;
+      border: 1px dashed #94a3b8;
+      border-radius: 10px;
+      min-height: 62px;
+    }
+
+    .slot-box {
+      min-width: 112px;
+      padding: 7px 10px;
+      border-radius: 9px;
+      text-align: center;
+      font-size: 0.77rem;
+      font-weight: 800;
+    }
+
+    .slot-box.ordered {
+      background: var(--blue-bg);
+      border: 1.5px solid var(--blue);
+      color: #0c4a6e;
+    }
+
+    .slot-box.unordered {
+      background: var(--purple-bg);
+      border: 1.5px solid var(--purple);
+      color: #4c1d95;
+    }
+
+    .slot-sub {
+      display: block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      opacity: 0.85;
+      margin-top: 2px;
+    }
+
+    .check-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+      margin-top: 8px;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .check-table th, .check-table td {
+      border: 1px solid #e2e8f0;
+      padding: 6px 9px;
+      text-align: left;
+    }
+
+    .check-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    .gc-guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .gc-guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .step-pill {
+      background: var(--blue-bg);
+      border: 1px solid #bae6fd;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.77rem;
+      line-height: 1.45;
+      color: #0c4a6e;
+    }
+
+    .grader-card {
+      margin-top: 12px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 700px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .misconception-box {
+      margin-top: 12px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 10px 13px;
+      font-size: 0.79rem;
+      line-height: 1.48;
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Choose a Singapore Context (Top-Left)</strong>
+        Compare unordered groups (<em>Cai Fan</em> meal combos &amp; <em>TOTO</em> numbers) against ordered arrangements (<em>LTA Vehicle Plates</em> &amp; <em>MRT Express Line</em> stops).
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Toggle Slot Mode vs. Basket Mode</strong>
+        Switch between <em>ⁿPᵣ (Order Matters)</em> and <em>ⁿCᵣ (Order Ignored)</em>, adjust <em>n</em> and <em>r</em>, or click items in the pool to watch <em>r!</em> permutations collapse into 1 group.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Compare Addition vs. Multiplication Principles</strong>
+        Inspect how <em>"AND" (sequential stages)</em> multiplies choices while <em>"OR" (mutually exclusive cases)</em> adds disjoint case counts, then attempt the 3-question <em>9758 Exam Check</em>.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        6.1 Lesson 1 &bull; Addition &amp; Multiplication Principles, ⁿPᵣ &amp; ⁿCᵣ
+      </div>
+
+      <!-- Singapore Real-World Presets -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="sc_caifan" onclick="loadScenario('caifan')">
+          1. Hawker Cai Fan Meal (ⁿCᵣ)
+        </button>
+        <button class="tab-btn" id="sc_carplate" onclick="loadScenario('carplate')">
+          2. LTA Car Plate Prefix (ⁿPᵣ)
+        </button>
+        <button class="tab-btn" id="sc_mrt" onclick="loadScenario('mrt')">
+          3. MRT Express Stops (Order vs Group)
+        </button>
+        <button class="tab-btn" id="sc_casework" onclick="loadScenario('casework')">
+          4. "At Least 1 Meat" Casework (+ vs &times;)
+        </button>
+      </div>
+
+      <!-- Contextual Story -->
+      <div class="context-box" id="contextBox"></div>
+
+      <!-- Interactive Controls -->
+      <div class="control-panel">
+        <div class="panel-header">
+          <span>Selection Structure &amp; Parameters</span>
+          <span id="formulaTag" style="color:var(--purple-dark);">ⁿCᵣ = ⁿPᵣ / r!</span>
+        </div>
+
+        <div class="mode-switch">
+          <button class="mode-btn" id="btnPerm" onclick="setOrderMode(true)">
+            Slot Mode: Order Matters (ⁿPᵣ)
+          </button>
+          <button class="mode-btn active-comb" id="btnComb" onclick="setOrderMode(false)">
+            Basket Mode: Order Ignored (ⁿCᵣ)
+          </button>
+        </div>
+
+        <div class="slider-row">
+          <span>Total Pool (n):</span>
+          <input type="range" id="sliderN" min="4" max="10" value="8" oninput="updateNR()" />
+          <span class="val-badge" id="valN">8</span>
+        </div>
+
+        <div class="slider-row">
+          <span>Items Chosen (r):</span>
+          <input type="range" id="sliderR" min="2" max="5" value="3" oninput="updateNR()" />
+          <span class="val-badge" id="valR">3</span>
+        </div>
+
+        <div class="toggle-row">
+          <button class="action-btn" onclick="shuffleSelection()">Shuffle Chosen r Items</button>
+          <button class="action-btn secondary" id="repBtn" onclick="toggleRepetition()">Repetition: OFF (Distinct)</button>
+        </div>
+      </div>
+
+      <!-- Simulated TI-84 Plus CE Math PRB Readout -->
+      <div class="gc-screen-box" id="gcOutputBox"></div>
+
+      <!-- Pedagogical Bridge Banner -->
+      <div class="solution-banner" id="solutionBanner"></div>
+    </div>
+
+    <!-- RIGHT VISUAL LAB, COMPARISON TABLE & EXAM CHECK -->
+    <div class="card">
+      <div style="font-size:1.02rem; font-weight:800; color:#1e293b; margin-bottom:8px;" id="rightPanelHeading">
+        Interactive Sample Builder &amp; Symmetry Collapse (ⁿPᵣ = ⁿCᵣ &times; r!)
+      </div>
+
+      <!-- Interactive Item Pool & Live Slot/Basket Visualizer -->
+      <div class="visual-stage">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; font-size:0.76rem; font-weight:800; color:#475569;">
+          <span id="poolLabel">Click any r items from the pool below to inspect their arrangements:</span>
+          <span id="selectedCountBadge" style="color:var(--purple-dark);">Selected: 3 / 3</span>
+        </div>
+        <div class="pool-strip" id="poolStrip"></div>
+
+        <div style="font-size:0.75rem; font-weight:800; color:#1e293b; margin:8px 0 5px 0;" id="slotStageTitle">
+          Current Selection Representation:
+        </div>
+        <div class="slot-stage" id="slotStage"></div>
+        <div id="collapseCaption" style="margin-top:8px; font-size:0.78rem; color:#334155; line-height:1.45;"></div>
+      </div>
+
+      <!-- Dynamic Breakdown Table (Addition vs Multiplication / Permutations of Selected r) -->
+      <table class="check-table" id="breakdownTable"></table>
+
+      <!-- 3-Step TI-84 Plus CE Keystroke Guide -->
+      <div class="gc-guide-grid">
+        <div class="step-pill">
+          <strong>1. Ask: Does Order Matter?</strong><br>
+          If swapping two chosen items creates a <em>new outcome</em> (e.g., plate <code>SBA</code> vs <code>SAB</code>), use <strong>ⁿPᵣ</strong>. If it stays the same meal/group, use <strong>ⁿCᵣ</strong>.
+        </div>
+        <div class="step-pill">
+          <strong>2. TI-84 Plus CE ([MATH] &rarr; PROB)</strong><br>
+          Type <em>n</em>, press <strong>[MATH] &rarr; PROB &rarr; 2:nPr</strong> (or <strong>3:nCr</strong>), type <em>r</em>, and press <strong>[ENTER]</strong>.
+        </div>
+        <div class="step-pill">
+          <strong>3. Multiply ("AND") vs Add ("OR")</strong><br>
+          <strong>Multiply</strong> across sequential stages of one case; <strong>Add</strong> across mutually exclusive (non-overlapping) cases.
+        </div>
+      </div>
+
+      <div class="misconception-box" id="misconceptionBox"></div>
+
+      <!-- Quick 9758 Exam Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 Counting Principles Check (<span id="qIdxLbl">1</span>/3)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.8rem; line-height:1.45; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  const scenarios = {
+    caifan: {
+      title: "Hawker Centre Cai Fan (Economy Rice)",
+      orderMatters: false,
+      allowRep: false,
+      n: 8,
+      r: 3,
+      story: "<strong>Singapore Hawker Context:</strong> You are ordering a <strong>3-dish Cai Fan meal</strong> from <strong>8 distinct trays</strong> at a food centre. Placing <em>Sweet &amp; Sour Pork, Broccoli, and Steamed Egg</em> onto one plate gives the exact same meal regardless of which dish the uncle scoops first.",
+      pill: "Order does NOT matter → Combination (ⁿCᵣ)",
+      items: [
+        { label: "Sweet & Sour Pork", cat: "a", tag: "Meat" },
+        { label: "Curry Chicken", cat: "a", tag: "Meat" },
+        { label: "Teriyaki Fish", cat: "a", tag: "Meat" },
+        { label: "Minced Pork Tofu", cat: "a", tag: "Meat" },
+        { label: "Garlic Broccoli", cat: "b", tag: "Veg" },
+        { label: "Braised Cabbage", cat: "b", tag: "Veg" },
+        { label: "Steamed Egg", cat: "b", tag: "Veg" },
+        { label: "Sambal Kang Kong", cat: "b", tag: "Veg" },
+        { label: "Crispy Otah", cat: "a", tag: "Meat" },
+        { label: "Lotus Root", cat: "b", tag: "Veg" }
+      ]
+    },
+    carplate: {
+      title: "LTA Singapore Vehicle Registration Prefix",
+      orderMatters: true,
+      allowRep: false,
+      n: 6,
+      r: 3,
+      story: "<strong>LTA Car Plate Context:</strong> Suppose a custom 3-letter prefix is formed using <strong>3 distinct letters</strong> chosen from a pool of <strong>6 letters</strong> (e.g. <code>S, B, A, E, K, T</code>). Here <code>SBA</code> and <code>SAB</code> are completely different vehicle plates!",
+      pill: "Order MATTERS → Permutation (ⁿPᵣ)",
+      items: [
+        { label: "Letter S", cat: "a", tag: "Consonant" },
+        { label: "Letter B", cat: "a", tag: "Consonant" },
+        { label: "Letter K", cat: "a", tag: "Consonant" },
+        { label: "Letter T", cat: "a", tag: "Consonant" },
+        { label: "Letter A", cat: "b", tag: "Vowel" },
+        { label: "Letter E", cat: "b", tag: "Vowel" },
+        { label: "Letter M", cat: "a", tag: "Consonant" },
+        { label: "Letter P", cat: "a", tag: "Consonant" },
+        { label: "Letter U", cat: "b", tag: "Vowel" },
+        { label: "Letter X", cat: "a", tag: "Consonant" }
+      ]
+    },
+    mrt: {
+      title: "MRT Express Service vs. Station Upgrade",
+      orderMatters: true,
+      allowRep: false,
+      n: 7,
+      r: 3,
+      story: "<strong>SMRT / SBS Transit Context:</strong> Compare choosing <strong>3 stations</strong> out of 7 along the East-West Line: (1) Designing an <strong>ordered express route</strong> (1st stop &rarr; 2nd stop &rarr; 3rd stop uses <strong>ⁿPᵣ</strong>), vs. (2) Selecting <strong>3 stations for simultaneous lift upgrading</strong> (unordered set uses <strong>ⁿCᵣ</strong>).",
+      pill: "Toggle Slot vs Basket Mode to compare ⁿPᵣ and ⁿCᵣ directly",
+      items: [
+        { label: "Jurong East", cat: "a", tag: "West" },
+        { label: "Buona Vista", cat: "a", tag: "West" },
+        { label: "Outram Park", cat: "a", tag: "Central" },
+        { label: "City Hall", cat: "a", tag: "Central" },
+        { label: "Bugis", cat: "b", tag: "Central" },
+        { label: "Paya Lebar", cat: "b", tag: "East" },
+        { label: "Tampines", cat: "b", tag: "East" },
+        { label: "Bedok", cat: "b", tag: "East" },
+        { label: "Pasir Ris", cat: "b", tag: "East" },
+        { label: "Clementi", cat: "a", tag: "West" }
+      ]
+    },
+    casework: {
+      title: "Addition vs. Multiplication Principle (Casework)",
+      orderMatters: false,
+      allowRep: false,
+      n: 8,
+      r: 3,
+      story: "<strong>Addition (" + '"OR"' + ") vs. Multiplication (" + '"AND"' + "):</strong> From <strong>4 Meat dishes</strong> and <strong>4 Veg dishes</strong>, how many 3-dish Cai Fan meals contain <strong>at least 1 Meat dish</strong>? Partition into disjoint cases (<em>OR</em>) and multiply dish choices within each case (<em>AND</em>).",
+      pill: "Disjoint Cases Added (OR) • Within Each Case Multiplied (AND)",
+      items: [
+        { label: "Sweet & Sour Pork", cat: "a", tag: "Meat" },
+        { label: "Curry Chicken", cat: "a", tag: "Meat" },
+        { label: "Teriyaki Fish", cat: "a", tag: "Meat" },
+        { label: "Minced Pork Tofu", cat: "a", tag: "Meat" },
+        { label: "Garlic Broccoli", cat: "b", tag: "Veg" },
+        { label: "Braised Cabbage", cat: "b", tag: "Veg" },
+        { label: "Steamed Egg", cat: "b", tag: "Veg" },
+        { label: "Sambal Kang Kong", cat: "b", tag: "Veg" }
+      ]
+    }
+  };
+
+  let curKey = "caifan";
+  let orderMatters = false;
+  let allowRep = false;
+  let nVal = 8;
+  let rVal = 3;
+  let selectedIndices = [0, 1, 4];
+
+  function fact(num) {
+    let res = 1;
+    for (let i = 2; i <= num; i++) res *= i;
+    return res;
+  }
+
+  function nPr(n, r) {
+    if (r > n || r < 0) return 0;
+    return fact(n) / fact(n - r);
+  }
+
+  function nCr(n, r) {
+    if (r > n || r < 0) return 0;
+    return fact(n) / (fact(r) * fact(n - r));
+  }
+
+  function loadScenario(key) {
+    curKey = key;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("sc_" + key).classList.add("active");
+
+    const sc = scenarios[key];
+    orderMatters = sc.orderMatters;
+    allowRep = sc.allowRep;
+    nVal = sc.n;
+    rVal = sc.r;
+
+    const sliderN = document.getElementById("sliderN");
+    const sliderR = document.getElementById("sliderR");
+    if (key === "casework") {
+      sliderN.min = 8; sliderN.max = 8;
+      sliderR.min = 3; sliderR.max = 3;
+    } else {
+      sliderN.min = 4; sliderN.max = 10;
+      sliderR.min = 2; sliderR.max = 5;
+    }
+    sliderN.value = nVal;
+    sliderR.value = rVal;
+
+    document.getElementById("contextBox").innerHTML = `
+      <div>${sc.story}</div>
+      <div class="var-pill">${sc.pill}</div>
+    `;
+
+    selectedIndices = [];
+    for (let i = 0; i < rVal; i++) selectedIndices.push(i);
+
+    syncControls();
+    renderAll();
+  }
+
+  function setOrderMode(isOrdered) {
+    orderMatters = isOrdered;
+    syncControls();
+    renderAll();
+  }
+
+  function toggleRepetition() {
+    if (curKey === "casework") return;
+    allowRep = !allowRep;
+    syncControls();
+    renderAll();
+  }
+
+  function updateNR() {
+    nVal = parseInt(document.getElementById("sliderN").value, 10);
+    rVal = parseInt(document.getElementById("sliderR").value, 10);
+    if (rVal > nVal) {
+      rVal = nVal;
+      document.getElementById("sliderR").value = rVal;
+    }
+    selectedIndices = selectedIndices.filter(idx => idx < nVal);
+    while (selectedIndices.length < rVal) {
+      for (let i = 0; i < nVal; i++) {
+        if (!selectedIndices.includes(i)) {
+          selectedIndices.push(i);
+          break;
+        }
+      }
+    }
+    if (selectedIndices.length > rVal) {
+      selectedIndices = selectedIndices.slice(0, rVal);
+    }
+    syncControls();
+    renderAll();
+  }
+
+  function shuffleSelection() {
+    if (selectedIndices.length < rVal) return;
+    for (let i = selectedIndices.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [selectedIndices[i], selectedIndices[j]] = [selectedIndices[j], selectedIndices[i]];
+    }
+    renderAll();
+  }
+
+  function toggleItem(idx) {
+    const pos = selectedIndices.indexOf(idx);
+    if (pos !== -1) {
+      if (selectedIndices.length > 1) {
+        selectedIndices.splice(pos, 1);
+      }
+    } else {
+      if (selectedIndices.length < rVal) {
+        selectedIndices.push(idx);
+      } else {
+        selectedIndices.shift();
+        selectedIndices.push(idx);
+      }
+    }
+    renderAll();
+  }
+
+  function syncControls() {
+    document.getElementById("valN").textContent = nVal;
+    document.getElementById("valR").textContent = rVal;
+
+    const btnPerm = document.getElementById("btnPerm");
+    const btnComb = document.getElementById("btnComb");
+    btnPerm.className = "mode-btn" + (orderMatters ? " active-perm" : "");
+    btnComb.className = "mode-btn" + (!orderMatters ? " active-comb" : "");
+
+    const repBtn = document.getElementById("repBtn");
+    if (curKey === "casework") {
+      repBtn.textContent = "Casework Mode (Distinct Dishes)";
+      repBtn.style.opacity = "0.6";
+    } else {
+      repBtn.style.opacity = "1";
+      repBtn.textContent = allowRep ? "Repetition: ON (With Replacement)" : "Repetition: OFF (Distinct)";
+    }
+
+    document.getElementById("formulaTag").textContent = allowRep
+      ? (orderMatters ? "nʳ (Ordered w/ Rep)" : "ⁿ⁺ʳ⁻¹Cᵣ (Stars & Bars)")
+      : (orderMatters ? "ⁿPᵣ = n! / (n − r)!" : "ⁿCᵣ = ⁿPᵣ / r!");
+  }
+
+  function getPermutations(arr) {
+    if (arr.length <= 1) return [arr];
+    const res = [];
+    for (let i = 0; i < arr.length; i++) {
+      const rest = arr.slice(0, i).concat(arr.slice(i + 1));
+      for (const p of getPermutations(rest)) {
+        res.push([arr[i], ...p]);
+      }
+    }
+    return res;
+  }
+
+  function renderAll() {
+    const sc = scenarios[curKey];
+    const pool = sc.items.slice(0, nVal);
+
+    // 1. Render Pool Chips
+    document.getElementById("selectedCountBadge").textContent = `Selected: ${selectedIndices.length} / ${rVal}`;
+    document.getElementById("poolStrip").innerHTML = pool.map((item, idx) => {
+      const isSel = selectedIndices.includes(idx);
+      return `
+        <div class="item-chip cat-${item.cat} ${isSel ? "selected" : ""}" onclick="toggleItem(${idx})">
+          <span>${item.label}</span>
+          <span style="font-size:0.66rem; opacity:0.75;">(${item.tag})</span>
+        </div>
+      `;
+    }).join("");
+
+    // 2. Render Slot vs Basket Stage
+    const chosenItems = selectedIndices.map(i => pool[i]);
+    const slotStage = document.getElementById("slotStage");
+    const stageTitle = document.getElementById("slotStageTitle");
+    const caption = document.getElementById("collapseCaption");
+
+    if (orderMatters) {
+      stageTitle.textContent = `Slot Mode (Order Matters): ${rVal} Ordered Positions`;
+      slotStage.innerHTML = chosenItems.map((it, pos) => `
+        <div class="slot-box ordered">
+          <div>${it.label}</div>
+          <span class="slot-sub">Position #${pos + 1} (${nVal - (allowRep ? 0 : pos)} choices)</span>
+        </div>
+      `).join(`<span style="font-weight:800; color:#0284c7;">&rarr;</span>`);
+
+      const rFact = fact(chosenItems.length);
+      caption.innerHTML = `<strong>Why ⁿPᵣ is larger:</strong> Click <em>Shuffle Chosen r Items</em> above. Every reordering of these ${chosenItems.length} items forms a <strong>distinct arrangement</strong> (${rFact} permutations for this single subset alone).`;
+    } else {
+      stageTitle.textContent = `Basket Mode (Order Ignored): 1 Unordered Set of ${rVal}`;
+      slotStage.innerHTML = chosenItems.map(it => `
+        <div class="slot-box unordered">
+          <div>${it.label}</div>
+          <span class="slot-sub">In Same Group / Plate</span>
+        </div>
+      `).join(`<span style="font-weight:800; color:#7c3aed;">+</span>`);
+
+      const rFact = fact(chosenItems.length);
+      caption.innerHTML = `<strong>Why we divide by r! (${chosenItems.length}! = ${rFact}):</strong> Clicking <em>Shuffle</em> changes the internal sequence, but the <strong>unordered set remains identical</strong>. All ${rFact} linear arrangements collapse into <strong>1 combination</strong>.`;
+    }
+
+    // 3. GC Readout & Conclusion Banner
+    const permCount = allowRep ? Math.pow(nVal, rVal) : nPr(nVal, rVal);
+    const combCount = allowRep ? nCr(nVal + rVal - 1, rVal) : nCr(nVal, rVal);
+    const activeAns = orderMatters ? permCount : combCount;
+
+    const gcBox = document.getElementById("gcOutputBox");
+    const banner = document.getElementById("solutionBanner");
+    const table = document.getElementById("breakdownTable");
+    const miscBox = document.getElementById("misconceptionBox");
+
+    if (curKey === "casework") {
+      // 4 Meats, 4 Veg, choose 3 with at least 1 Meat
+      const c1 = nCr(4, 1) * nCr(4, 2); // 4 * 6 = 24
+      const c2 = nCr(4, 2) * nCr(4, 1); // 6 * 4 = 24
+      const c3 = nCr(4, 3) * nCr(4, 0); // 4 * 1 = 4
+      const total = c1 + c2 + c3;
+      const compTotal = nCr(8, 3) - nCr(4, 3); // 56 - 4 = 52
+
+      gcBox.innerHTML = `
+        <span class="box-title">TI-84 Plus CE Readout &amp; Principle Synthesis</span>
+        <div class="gc-readout">
+          Direct Cases (OR): 4nCr1*4nCr2 + 4nCr2*4nCr1 + 4nCr3*4nCr0 = ${c1} + ${c2} + ${c3} = ${total}<br>
+          Complement Check : 8nCr3 − 4nCr3 = 56 − 4 = ${compTotal}
+        </div>
+      `;
+
+      banner.innerHTML = `<strong>Addition + Multiplication Synthesis:</strong> Multiply within each case (<em>Meat AND Veg</em>), then add across disjoint cases (<em>Case 1 OR Case 2 OR Case 3</em>) &rArr; <strong>${total} valid meals</strong>.`;
+
+      table.innerHTML = `
+        <thead>
+          <tr>
+            <th>Mutually Exclusive Case</th>
+            <th>Stage 1: Meat (AND)</th>
+            <th>Stage 2: Veg</th>
+            <th>Multiplication Principle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Case 1:</strong> 1 Meat, 2 Veg</td>
+            <td>⁴C₁ = 4</td>
+            <td>⁴C₂ = 6</td>
+            <td style="font-weight:700; color:#0f766e;">4 &times; 6 = 24</td>
+          </tr>
+          <tr>
+            <td><strong>Case 2:</strong> 2 Meats, 1 Veg</td>
+            <td>⁴C₂ = 6</td>
+            <td>⁴C₁ = 4</td>
+            <td style="font-weight:700; color:#0f766e;">6 &times; 4 = 24</td>
+          </tr>
+          <tr>
+            <td><strong>Case 3:</strong> 3 Meats, 0 Veg</td>
+            <td>⁴C₃ = 4</td>
+            <td>⁴C₀ = 1</td>
+            <td style="font-weight:700; color:#0f766e;">4 &times; 1 = 4</td>
+          </tr>
+          <tr style="background:#f3e8ff;">
+            <td colspan="3"><strong>Addition Principle (Case 1 OR Case 2 OR Case 3):</strong></td>
+            <td style="font-weight:800; color:#4c1d95;">24 + 24 + 4 = 52</td>
+          </tr>
+        </tbody>
+      `;
+
+      miscBox.innerHTML = `
+        <strong>9758 Exam Misconception Alert — The "Pick 1 First, Pick Rest Later" Double-Count Trap:</strong>
+        <ul style="margin:3px 0 0 0; padding-left:18px;">
+          <li><strong>Wrong Method:</strong> Choosing 1 mandatory meat first (⁴C₁) and then choosing any 2 remaining dishes from the other 7 (⁷C₂) gives 4 &times; 21 = <strong>84</strong> (wrong!). Why? Picking <em>Pork</em> first then <em>Chicken + Broccoli</em> counts the exact same meal as picking <em>Chicken</em> first then <em>Pork + Broccoli</em>.</li>
+          <li><strong>Correct Fix:</strong> Always split into <strong>mutually exclusive cases</strong> by exact category counts, or subtract the complement (<em>All meals − 0 Meat meals</em> = ⁸C₃ − ⁴C₃ = 52).</li>
+        </ul>
+      `;
+      return;
+    }
+
+    // Standard nPr vs nCr view
+    const stepStr = Array.from({ length: rVal }, (_, k) => allowRep ? nVal : (nVal - k)).join(" × ");
+    gcBox.innerHTML = `
+      <span class="box-title">TI-84 Plus CE Readout ([MATH] &rarr; PROB)</span>
+      <div class="gc-readout">
+        ${allowRep ? `${nVal}^${rVal} (Ordered w/ Rep)` : `${nVal} nPr ${rVal}`} = ${permCount.toLocaleString()} &nbsp;&nbsp;[Stages: ${stepStr}]<br>
+        ${allowRep ? `${nVal + rVal - 1} nCr ${rVal} (Unordered w/ Rep)` : `${nVal} nCr ${rVal}`} = ${combCount.toLocaleString()} &nbsp;&nbsp;${!allowRep ? `[= ${permCount.toLocaleString()} ÷ ${rVal}!]` : ""}
+      </div>
+    `;
+
+    banner.innerHTML = orderMatters
+      ? `<strong>Slot Mode Result:</strong> With <em>n = ${nVal}</em> and <em>r = ${rVal}</em> (${allowRep ? "with repetition" : "without repetition"}), there are <strong>${activeAns.toLocaleString()} ordered arrangements</strong>.`
+      : `<strong>Basket Mode Result:</strong> With <em>n = ${nVal}</em> and <em>r = ${rVal}</em> (${allowRep ? "with repetition" : "without repetition"}), there are <strong>${activeAns.toLocaleString()} unordered combinations</strong>.`;
+
+    // Show actual permutations of the selected r items (up to 6 rows) to visualize r! collapse
+    const perms = getPermutations(chosenItems);
+    const showPerms = perms.slice(0, 6);
+    table.innerHTML = `
+      <thead>
+        <tr>
+          <th>Order #</th>
+          <th>Sequence of Selected ${chosenItems.length} Items</th>
+          <th>Slot Mode (ⁿPᵣ)</th>
+          <th>Basket Mode (ⁿCᵣ)</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${showPerms.map((p, idx) => `
+          <tr>
+            <td><strong>#${idx + 1}</strong></td>
+            <td>${p.map(x => x.label).join(" &rarr; ")}</td>
+            <td style="color:#0284c7; font-weight:700;">Counted separately</td>
+            <td style="color:#7c3aed; font-weight:700;">${idx === 0 ? "1st copy of set" : "Same set (collapsed)"}</td>
+          </tr>
+        `).join("")}
+        ${perms.length > 6 ? `<tr><td colspan="4" style="color:#64748b; font-style:italic;">... plus ${perms.length - 6} more permutations of this same ${chosenItems.length}-item subset (total ${perms.length}! = ${perms.length} orders).</td></tr>` : ""}
+      </tbody>
+    `;
+
+    miscBox.innerHTML = `
+      <strong>9758 Exam Presentation &amp; Conceptual Reminders:</strong>
+      <ul style="margin:3px 0 0 0; padding-left:18px;">
+        <li><strong>Bridge identity:</strong> ${allowRep ? "When repetition is allowed, order-matters gives <em>nʳ</em> while unordered selection uses <em>ⁿ⁺ʳ⁻¹Cᵣ</em> (outside basic ⁿCᵣ = ⁿPᵣ/r!)." : `Because every subset of <em>r = ${rVal}</em> distinct items can be arranged in <em>${rVal}! = ${fact(rVal)}</em> ways, <strong>ⁿPᵣ = ⁿCᵣ &times; r!</strong> (${permCount.toLocaleString()} = ${combCount.toLocaleString()} &times; ${fact(rVal)}).`}</li>
+        <li><strong>Show working clearly:</strong> Write explicit <code>ⁿCᵣ</code> and <code>ⁿPᵣ</code> expressions (e.g., <code>⁸C₃ &times; 3!</code>) before evaluating on your GC so method marks are secured even if a digit is mistyped.</li>
+      </ul>
+    `;
+  }
+
+  const examQs = [
+    {
+      q: "A Singapore car registration prefix uses 3 distinct letters chosen from {S, B, A, E, K, T}. Which expression gives the total number of possible prefixes?",
+      opts: [
+        "⁶P₃ = 120",
+        "⁶C₃ = 20",
+        "6³ = 216",
+        "6! = 720"
+      ],
+      ans: 0,
+      exp: "Order matters (SBA ≠ SAB) and the 3 letters must be distinct (no repetition), so the number of arrangements is ⁶P₃ = 6 × 5 × 4 = 120."
+    },
+    {
+      q: "From 5 teachers and 6 students, a committee of 4 must include at least 3 students. Which setup correctly applies the Addition and Multiplication Principles?",
+      opts: [
+        "(⁶C₃ × ⁵C₁) + (⁶C₄ × ⁵C₀)",
+        "⁶C₃ × ⁸C₁",
+        "(⁶C₃ + ⁵C₁) × (⁶C₄ + ⁵C₀)",
+        "⁶P₃ × ⁵P₁ + ⁶P₄"
+      ],
+      ans: 0,
+      exp: "Partition into two mutually exclusive cases: (3 students AND 1 teacher) OR (4 students AND 0 teachers). Multiply within each case and add across cases: (20 × 5) + (15 × 1) = 115."
+    },
+    {
+      q: "Why does ⁿCᵣ equal ⁿPᵣ ÷ r! when choosing r distinct objects from n distinct objects?",
+      opts: [
+        "Because every unordered group of r distinct items corresponds to r! different linear arrangements",
+        "Because r! is the number of items left unchosen in the pool",
+        "Because addition of probabilities requires dividing by r!",
+        "Because repetition is allowed r times"
+      ],
+      ans: 0,
+      exp: "ⁿPᵣ counts every ordered sequence of r items. Since each specific set of r distinct items can be ordered in r! ways, dividing ⁿPᵣ by r! collapses those r! permutations into 1 unordered combination."
+    }
+  ];
+
+  let curQ = 0;
+
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").textContent = item.q;
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i}, this)">${String.fromCharCode(65 + i)}. ${o}</button>
+    `).join("");
+  }
+
+  function gradeExamQ(idx, btn) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  loadScenario("caifan");
+  renderExamQ();
+</script>
+
+</body>
+</html>
