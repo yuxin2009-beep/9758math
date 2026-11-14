@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>6.2 Lesson 1 | PMF Builder & Unknown Constant Solver</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 16px 20px 28px 20px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    /* HEADER & MODE SWITCHER */
+    .lab-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .lab-title-group h1 {
+      margin: 0;
+      font-size: 1.22rem;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge-9758 {
+      background: var(--purple);
+      color: #ffffff;
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .lab-title-group p {
+      margin: 3px 0 0 0;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .mode-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mode-btn {
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 1.5px solid #cbd5e1;
+      background: #ffffff;
+      color: var(--text);
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mode-btn:hover {
+      border-color: var(--purple);
+      color: var(--purple-dark);
+    }
+
+    .mode-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.22);
+    }
+
+    /* MAIN GRID */
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: 370px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    @media (max-width: 980px) {
+      .workspace-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 18px;
+      box-shadow: 0 3px 10px rgba(148, 163, 184, 0.06);
+      margin-bottom: 14px;
+    }
+
+    .card-kicker {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    /* PRESET PILLS */
+    .preset-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+      margin-bottom: 12px;
+    }
+
+    .preset-btn {
+      text-align: left;
+      padding: 8px 10px;
+      border-radius: 9px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #1e293b;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+      line-height: 1.3;
+    }
+
+    .preset-btn span {
+      display: block;
+      font-size: 0.71rem;
+      font-weight: 500;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .preset-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .preset-btn.active {
+      background: var(--purple-bg);
+      border-color: var(--purple-dark);
+      color: var(--purple-dark);
+    }
+
+    /* SLIDER & CONTROLS */
+    .control-group {
+      margin-bottom: 12px;
+    }
+
+    .control-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .val-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 0.82rem;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple-dark);
+      cursor: pointer;
+    }
+
+    .action-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .btn-primary {
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: none;
+      background: var(--teal);
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .btn-primary:hover {
+      background: #115e59;
+    }
+
+    .btn-secondary {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: var(--text);
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--purple);
+      color: var(--purple-dark);
+    }
+
+    /* AXIOM VALIDATION BOX */
+    .axiom-box {
+      border-radius: 10px;
+      padding: 11px 13px;
+      font-size: 0.81rem;
+      line-height: 1.45;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+    }
+
+    .axiom-box.valid {
+      background: var(--teal-bg);
+      border-color: #5eead4;
+      color: #134e4a;
+    }
+
+    .axiom-box.invalid {
+      background: var(--rose-bg);
+      border-color: #fda4af;
+      color: #881337;
+    }
+
+    .axiom-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+      font-weight: 700;
+    }
+
+    .sum-bar-track {
+      width: 100%;
+      height: 10px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 6px 0 8px 0;
+      position: relative;
+    }
+
+    .sum-bar-fill {
+      height: 100%;
+      background: var(--purple);
+      transition: width 0.15s ease, background-color 0.15s ease;
+    }
+
+    /* ALGEBRAIC DERIVATION BOX */
+    .algebra-steps {
+      background: #faf5ff;
+      border-left: 4px solid var(--purple);
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 0.81rem;
+      line-height: 1.5;
+      color: #1e293b;
+      margin-top: 10px;
+    }
+
+    /* VISUALIZATION PANEL */
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .legend-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .swatch {
+      width: 11px;
+      height: 11px;
+      border-radius: 3px;
+      display: inline-block;
+    }
+
+    .svg-wrap {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 6px;
+    }
+
+    /* PMF TABLE */
+    .pmf-table-wrap {
+      overflow-x: auto;
+      margin-top: 12px;
+    }
+
+    table.pmf-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      text-align: center;
+    }
+
+    table.pmf-table th,
+    table.pmf-table td {
+      border: 1px solid #cbd5e1;
+      padding: 7px 10px;
+    }
+
+    table.pmf-table th {
+      background: #f8fafc;
+      color: #1e293b;
+      font-weight: 800;
+    }
+
+    table.pmf-table td.selected-col {
+      background: var(--amber-bg);
+      color: #78350f;
+      font-weight: 700;
+    }
+
+    table.pmf-table td.invalid-col {
+      background: var(--rose-bg);
+      color: #9f1239;
+      font-weight: 700;
+    }
+
+    /* EVENT QUERY CHIPS */
+    .event-chips {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .event-chip {
+      padding: 6px 11px;
+      border-radius: 999px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: var(--text);
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .event-chip:hover {
+      border-color: var(--amber);
+      color: var(--amber);
+    }
+
+    .event-chip.active {
+      background: var(--amber-bg);
+      border-color: var(--amber);
+      color: #78350f;
+    }
+
+    .event-result-banner {
+      background: #fffbeb;
+      border: 1px solid #fcd34d;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 0.84rem;
+      line-height: 1.5;
+      color: #78350f;
+    }
+
+    /* SAMPLE SPACE GRID (CONTEXTUAL MODE) */
+    .grid-matrix {
+      display: inline-grid;
+      gap: 4px;
+      margin-top: 8px;
+      background: #f8fafc;
+      padding: 8px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+    }
+
+    .matrix-cell {
+      width: 34px;
+      height: 28px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      color: #334155;
+    }
+
+    .matrix-cell.highlight {
+      background: var(--amber-bg);
+      border-color: var(--amber);
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="lab-header">
+    <div class="lab-title-group">
+      <h1>
+        <span class="badge-9758">6.2 Lesson 1</span>
+        PMF Builder &amp; Unknown Constant Solver
+      </h1>
+      <p>Explore probability mass functions P(X = x), verify Σ P(X = x) = 1 and 0 ≤ P(X = x) ≤ 1, and evaluate discrete event inequalities.</p>
+    </div>
+    <div class="mode-tabs">
+      <button class="mode-btn active" id="tabUnknownK" onclick="switchMode('unknownK')">
+        1. Unknown Constant k Solver
+      </button>
+      <button class="mode-btn" id="tabBuilder" onclick="switchMode('builder')">
+        2. Contextual PMF Builder
+      </button>
+    </div>
+  </header>
+
+  <div class="workspace-grid">
+    <!-- LEFT CONTROL COLUMN -->
+    <div>
+      <!-- MODE 1 CONTROLS -->
+      <div id="controlsUnknownK">
+        <div class="card">
+          <span class="card-kicker" style="color:var(--purple-dark);">Select 9758 PMF Formula</span>
+          <div class="preset-grid">
+            <button class="preset-btn active" id="preset_linear" onclick="selectPreset('linear')">
+              Linear PMF
+              <span>P(X = x) = k(x + 1), x ∈ {0,1,2,3}</span>
+            </button>
+            <button class="preset-btn" id="preset_quadratic" onclick="selectPreset('quadratic')">
+              Quadratic PMF
+              <span>P(X = x) = k(x² + 1), x ∈ {0,1,2,3}</span>
+            </button>
+            <button class="preset-btn" id="preset_quadK" onclick="selectPreset('quadK')">
+              Quadratic in k (Trap!)
+              <span>P(X = x) = k²x + k, x ∈ {1,2}</span>
+            </button>
+            <button class="preset-btn" id="preset_geometric" onclick="selectPreset('geometric')">
+              Fractional PMF
+              <span>P(X = x) = k / 2ˣ, x ∈ {1,2,3,4}</span>
+            </button>
+          </div>
+
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Test Value of Constant <em>k</em>:</span>
+              <span class="val-pill" id="kDisplay">k = 0.1000</span>
+            </div>
+            <input type="range" id="kSlider" min="-1.5" max="1.5" step="0.0005" value="0.1" oninput="onKSliderChange(this.value)" />
+          </div>
+
+          <div class="action-row">
+            <button class="btn-primary" onclick="snapToValidK()">
+              Snap to Exact Valid k
+            </button>
+            <button class="btn-secondary" id="btnRejectRoot" style="display:none;" onclick="testInvalidRoot()">
+              Test Rejected Root k = −1
+            </button>
+          </div>
+
+          <div class="algebra-steps" id="algebraDerivationBox"></div>
+        </div>
+      </div>
+
+      <!-- MODE 2 CONTROLS -->
+      <div id="controlsBuilder" style="display:none;">
+        <div class="card">
+          <span class="card-kicker" style="color:var(--purple-dark);">Select Real-World Experiment</span>
+          <div class="preset-grid">
+            <button class="preset-btn active" id="ctx_dice" onclick="selectContext('dice')">
+              Two Fair Dice Difference
+              <span>X = |D₁ − D₂|, x ∈ {0,1,2,3,4,5}</span>
+            </button>
+            <button class="preset-btn" id="ctx_grab" onclick="selectContext('grab')">
+              GrabFood Rider Orders
+              <span>X = orders completed in 1 hr</span>
+            </button>
+          </div>
+
+          <div id="ctxParameterBox"></div>
+        </div>
+      </div>
+
+      <!-- AXIOM VERIFIER CARD (ALWAYS VISIBLE) -->
+      <div class="card">
+        <span class="card-kicker" style="color:var(--teal);">Probability Distribution Axioms Check</span>
+        <div class="axiom-box valid" id="axiomBox">
+          <div class="axiom-row">
+            <span>Axiom 1: Σ P(X = x) = 1</span>
+            <span id="sumStatusText">1.0000 ✓</span>
+          </div>
+          <div class="sum-bar-track">
+            <div class="sum-bar-fill" id="sumBarFill" style="width:100%;"></div>
+          </div>
+          <div class="axiom-row" style="margin-top:6px;">
+            <span>Axiom 2: 0 ≤ P(X = x) ≤ 1 ∀ x</span>
+            <span id="rangeStatusText">All Valid ✓</span>
+          </div>
+          <div id="axiomMessage" style="margin-top:6px; font-size:0.78rem;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT VISUALIZATION & EVENT COLUMN -->
+    <div>
+      <div class="card">
+        <div class="chart-header">
+          <div>
+            <span class="card-kicker" style="color:var(--blue); margin-bottom:2px;">Probability Mass Function Chart</span>
+            <strong style="font-size:0.95rem; color:#1e293b;" id="chartSubtitle">Click any bar to toggle its inclusion in your event!</strong>
+          </div>
+          <div class="legend-row">
+            <span class="legend-item"><span class="swatch" style="background:#8b5cf6;"></span> Default P(X = x)</span>
+            <span class="legend-item"><span class="swatch" style="background:#f59e0b;"></span> Selected Event</span>
+            <span class="legend-item"><span class="swatch" style="background:#0f766e;"></span> Mode</span>
+            <span class="legend-item"><span class="swatch" style="background:#e11d48;"></span> Invalid (&lt;0 or &gt;1)</span>
+          </div>
+        </div>
+
+        <div class="svg-wrap">
+          <svg id="pmfSvg" viewBox="0 0 680 285" width="100%" height="auto"></svg>
+        </div>
+
+        <!-- TABULAR DISTRIBUTION -->
+        <div class="pmf-table-wrap" id="pmfTableContainer"></div>
+      </div>
+
+      <!-- COMPOUND EVENT & INEQUALITY EVALUATOR -->
+      <div class="card">
+        <span class="card-kicker" style="color:var(--amber);">Discrete Event &amp; Inequality Evaluator (Strict vs. Inclusive)</span>
+        <div class="event-chips" id="eventChipsRow"></div>
+        <div class="event-result-banner" id="eventResultBox"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Fraction helper for clean 9758 exact arithmetic
+    function gcd(a, b) {
+      a = Math.abs(Math.round(a));
+      b = Math.abs(Math.round(b));
+      while (b !== 0) {
+        const t = b;
+        b = a % b;
+        a = t;
+      }
+      return a || 1;
+    }
+
+    function toFraction(num, den) {
+      if (den < 0) { num = -num; den = -den; }
+      if (num === 0) return "0";
+      const g = gcd(num, den);
+      const n = num / g;
+      const d = den / g;
+      return d === 1 ? `${n}` : `${n}/${d}`;
+    }
+
+    let currentMode = "unknownK";
+    let currentPreset = "linear";
+    let currentContext = "dice";
+    let kVal = 0.1;
+    let grabPeaks = 0.4; // parameter for contextual GrabFood model
+    let selectedXs = new Set();
+    let activeEventLabel = "All Outcomes";
+
+    const presets = {
+      linear: {
+        name: "P(X = x) = k(x + 1)",
+        xs: [0, 1, 2, 3],
+        sliderMin: -0.2,
+        sliderMax: 0.4,
+        sliderStep: 0.002,
+        validK: 0.1,
+        validKFrac: "1/10",
+        evalNum: (x, k) => k * (x + 1),
+        exactFrac: (x) => toFraction(x + 1, 10),
+        derivation: `
+          <strong>Step 1 (Sum to 1):</strong> ∑ P(X = x) = k(1) + k(2) + k(3) + k(4) = 10k = 1 ⇒ <strong>k = 1/10 = 0.1</strong>.<br>
+          <strong>Step 2 (Check 0 ≤ P ≤ 1):</strong> P(X = 0) = 1/10, P(X = 1) = 2/10, P(X = 2) = 3/10, P(X = 3) = 4/10. All lie in [0, 1].
+        `,
+        queries: [
+          { label: "P(X ≥ 2)", desc: "Includes x = 2, 3", filter: x => x >= 2 },
+          { label: "P(X > 2)", desc: "Strict (>): excludes x = 2, only x = 3", filter: x => x > 2 },
+          { label: "P(1 ≤ X < 3)", desc: "Includes x = 1, 2 (excludes 3)", filter: x => x >= 1 && x < 3 },
+          { label: "P(|X − 2| ≤ 1)", desc: "1 ≤ X ≤ 3 ⇒ x = 1, 2, 3", filter: x => Math.abs(x - 2) <= 1 }
+        ]
+      },
+      quadratic: {
+        name: "P(X = x) = k(x² + 1)",
+        xs: [0, 1, 2, 3],
+        sliderMin: -0.1,
+        sliderMax: 0.2,
+        sliderStep: 0.0005,
+        validK: 1 / 18,
+        validKFrac: "1/18",
+        evalNum: (x, k) => k * (x * x + 1),
+        exactFrac: (x) => toFraction(x * x + 1, 18),
+        derivation: `
+          <strong>Step 1 (Sum to 1):</strong> k(0²+1) + k(1²+1) + k(2²+1) + k(3²+1) = k(1 + 2 + 5 + 10) = 18k = 1 ⇒ <strong>k = 1/18</strong> (≈ 0.0556).<br>
+          <strong>Step 2 (Check 0 ≤ P ≤ 1):</strong> Probabilities are 1/18, 2/18, 5/18, 10/18 — all valid in [0, 1].
+        `,
+        queries: [
+          { label: "P(1 ≤ X < 3)", desc: "Includes x = 1, 2", filter: x => x >= 1 && x < 3 },
+          { label: "P(X² > 2)", desc: "x² > 2 holds for x = 2, 3", filter: x => x * x > 2 },
+          { label: "P(X ≤ 1)", desc: "Includes x = 0, 1", filter: x => x <= 1 },
+          { label: "P(X ≠ 3)", desc: "Complement 1 − P(X = 3)", filter: x => x !== 3 }
+        ]
+      },
+      quadK: {
+        name: "P(X = x) = k²x + k",
+        xs: [1, 2],
+        sliderMin: -1.2,
+        sliderMax: 0.8,
+        sliderStep: 0.005,
+        validK: 1 / 3,
+        validKFrac: "1/3",
+        hasRejectedRoot: true,
+        rejectedK: -1,
+        evalNum: (x, k) => k * k * x + k,
+        exactFrac: (x) => toFraction(x + 3, 9),
+        derivation: `
+          <strong>Step 1 (Sum to 1):</strong> (k² + k) + (2k² + k) = 1 ⇒ 3k² + 2k − 1 = 0 ⇒ (3k − 1)(k + 1) = 0 ⇒ <em>k = 1/3</em> or <em>k = −1</em>.<br>
+          <strong>Step 2 (Axiom Filter!):</strong> If <em>k = −1</em>, P(X = 1) = (−1)²(1) + (−1) = 0, but <strong>P(X = 2) = 2(−1)² − 1 = +1</strong> wait—check k = −1 carefully! Actually for k = −1: P(X=1)=0 and P(X=2)=1, whereas if P(X=x)=k²x + k for x=0,1,2, negative probabilities appear. Here let's check both roots! (For k = 1/3: P(1) = 4/9, P(2) = 5/9.)
+        `,
+        queries: [
+          { label: "P(X = 1)", desc: "Single outcome x = 1", filter: x => x === 1 },
+          { label: "P(X = 2)", desc: "Single outcome x = 2", filter: x => x === 2 },
+          { label: "P(X ≥ 1)", desc: "Entire sample space", filter: x => x >= 1 }
+        ]
+      },
+      geometric: {
+        name: "P(X = x) = k / 2ˣ",
+        xs: [1, 2, 3, 4],
+        sliderMin: 0,
+        sliderMax: 2.2,
+        sliderStep: 0.005,
+        validK: 16 / 15,
+        validKFrac: "16/15",
+        evalNum: (x, k) => k / Math.pow(2, x),
+        exactFrac: (x) => toFraction(Math.pow(2, 4 - x), 15),
+        derivation: `
+          <strong>Step 1 (Sum to 1):</strong> k(1/2 + 1/4 + 1/8 + 1/16) = (15/16)k = 1 ⇒ <strong>k = 16/15</strong> (≈ 1.0667).<br>
+          <strong>Notice:</strong> Even though <em>k = 16/15 &gt; 1</em>, every probability P(X = x) = k/2ˣ ≤ 8/15 &lt; 1, so <strong>k &gt; 1 IS valid</strong>!
+        `,
+        queries: [
+          { label: "P(X ≤ 2)", desc: "Includes x = 1, 2", filter: x => x <= 2 },
+          { label: "P(X > 2)", desc: "Strict (>): includes x = 3, 4", filter: x => x > 2 },
+          { label: "P(X is even)", desc: "Includes x = 2, 4", filter: x => x % 2 === 0 },
+          { label: "P(2 ≤ X ≤ 4)", desc: "Includes x = 2, 3, 4", filter: x => x >= 2 && x <= 4 }
+        ]
+      }
+    };
+
+    // Refine quadK preset to x in {1, 2, 3} so k = -1 gives P(X=1) = 0, P(X=2) = 1, P(X=3) = 2 > 1 (classic 9758 trap!)
+    presets.quadK = {
+      name: "P(X = x) = k²(x − 1) + k",
+      xs: [1, 2, 3],
+      sliderMin: -1.2,
+      sliderMax: 0.6,
+      sliderStep: 0.002,
+      validK: 0.25,
+      validKFrac: "1/4",
+      hasRejectedRoot: true,
+      rejectedK: -1,
+      evalNum: (x, k) => k * k * (x - 1) + k,
+      exactFrac: (x) => toFraction((x - 1) + 4, 16),
+      derivation: `
+        <strong>Step 1 (Sum to 1):</strong> k + (k² + k) + (2k² + k) = 1 ⇒ 3k² + 3k − 1 = 0... wait: let's use <em>P(X = x) = k²(x − 1) + k</em> with <em>3k² + 3k = 1</em>? Better yet, <strong>P(X = x) = k²(x − 1) + k</strong> for <em>x ∈ {1, 2}</em> has <em>k² + 2k = 1</em>; with <em>P(X = x) = 2k²(x − 1) + k</em> for <em>x ∈ {1, 2}</em>: <em>2k² + 2k − 1 = 0</em>. Let's use <strong>P(X = x) = 3k²(x − 1) + k</strong> for <em>x ∈ {1, 2}</em> ⇒ <em>3k² + 2k − 1 = 0 ⇒ (3k − 1)(k + 1) = 0</em>!
+      `,
+      queries: [
+        { label: "P(X = 1)", desc: "Single outcome x = 1", filter: x => x === 1 },
+        { label: "P(X = 2)", desc: "Single outcome x = 2", filter: x => x === 2 },
+        { label: "P(X ≥ 1)", desc: "All outcomes", filter: x => x >= 1 }
+      ]
+    };
+
+    // Clean, crystal-clear quadK preset: P(X = x) = 3k^2(x - 1) + k for x = 1, 2
+    presets.quadK.name = "P(X = x) = 3k²(x − 1) + k";
+    presets.quadK.xs = [1, 2];
+    presets.quadK.validK = 1 / 3;
+    presets.quadK.validKFrac = "1/3";
+    presets.quadK.evalNum = (x, k) => 3 * k * k * (x - 1) + k;
+    presets.quadK.exactFrac = (x) => toFraction((x - 1) + 1, 3);
+    presets.quadK.derivation = `
+      <strong>Step 1 (Sum to 1):</strong> P(1) + P(2) = k + (3k² + k) = 1 ⇒ 3k² + 2k − 1 = 0 ⇒ (3k − 1)(k + 1) = 0 ⇒ <em>k = 1/3</em> or <em>k = −1</em>.<br>
+      <strong>Step 2 (Axiom Check!):</strong> If <em>k = −1</em>, P(X = 1) = <strong>−1 &lt; 0</strong> and P(X = 2) = <strong>+2 &gt; 1</strong> (INVALID!). Hence reject <em>k = −1</em>; only <strong>k = 1/3</strong> is valid (giving P(1) = 1/3, P(2) = 2/3).
+    `;
+
+    function switchMode(mode) {
+      currentMode = mode;
+      document.getElementById("tabUnknownK").classList.toggle("active", mode === "unknownK");
+      document.getElementById("tabBuilder").classList.toggle("active", mode === "builder");
+      document.getElementById("controlsUnknownK").style.display = mode === "unknownK" ? "block" : "none";
+      document.getElementById("controlsBuilder").style.display = mode === "builder" ? "block" : "none";
+
+      if (mode === "unknownK") {
+        selectPreset(currentPreset);
+      } else {
+        selectContext(currentContext);
+      }
+    }
+
+    function selectPreset(key) {
+      currentPreset = key;
+      document.querySelectorAll("#controlsUnknownK .preset-btn").forEach(b => b.classList.remove("active"));
+      document.getElementById("preset_" + key).classList.add("active");
+
+      const p = presets[key];
+      const slider = document.getElementById("kSlider");
+      slider.min = p.sliderMin;
+      slider.max = p.sliderMax;
+      slider.step = p.sliderStep;
+      kVal = p.validK;
+      slider.value = kVal;
+
+      document.getElementById("btnRejectRoot").style.display = p.hasRejectedRoot ? "inline-block" : "none";
+      document.getElementById("algebraDerivationBox").innerHTML = p.derivation;
+
+      // Default highlight first query
+      selectedXs = new Set(p.xs.filter(p.queries[0].filter));
+      activeEventLabel = p.queries[0].label;
+
+      renderAll();
+    }
+
+    function onKSliderChange(val) {
+      kVal = parseFloat(val);
+      renderAll();
+    }
+
+    function snapToValidK() {
+      const p = presets[currentPreset];
+      kVal = p.validK;
+      document.getElementById("kSlider").value = kVal;
+      renderAll();
+    }
+
+    function testInvalidRoot() {
+      const p = presets[currentPreset];
+      if (!p.hasRejectedRoot) return;
+      kVal = p.rejectedK;
+      document.getElementById("kSlider").value = kVal;
+      renderAll();
+    }
+
+    function selectContext(ctx) {
+      currentContext = ctx;
+      document.querySelectorAll("#controlsBuilder .preset-btn").forEach(b => b.classList.remove("active"));
+      document.getElementById("ctx_" + ctx).classList.add("active");
+
+      const paramBox = document.getElementById("ctxParameterBox");
+      if (ctx === "dice") {
+        paramBox.innerHTML = `
+          <div style="font-size:0.81rem; line-height:1.45; color:#1e293b; margin-bottom:8px;">
+            <strong>Experiment:</strong> Two fair 6-sided dice are rolled. Let <em>X = |D₁ − D₂|</em> be the positive difference between the two scores (36 equally likely outcomes).
+          </div>
+          <div style="font-size:0.75rem; font-weight:700; color:var(--muted);">6 × 6 Sample Space Grid of |D₁ − D₂| (highlighted cells match selected event):</div>
+          <div id="diceMatrixContainer"></div>
+        `;
+        selectedXs = new Set([2, 3, 4, 5]);
+        activeEventLabel = "P(X ≥ 2)";
+      } else {
+        paramBox.innerHTML = `
+          <div style="font-size:0.81rem; line-height:1.45; color:#1e293b; margin-bottom:10px;">
+            <strong>Experiment:</strong> A GrabFood rider in Tampines completes <em>X ∈ {1, 2, 3, 4}</em> deliveries per hour. Peak-hour demand probability <em>p</em> shifts weight toward 3–4 deliveries:
+          </div>
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Peak Demand Factor <em>p</em>:</span>
+              <span class="val-pill" id="grabPDisplay">p = ${grabPeaks.toFixed(2)}</span>
+            </div>
+            <input type="range" min="0.10" max="0.80" step="0.05" value="${grabPeaks}" oninput="onGrabPChange(this.value)" />
+          </div>
+          <div class="algebra-steps">
+            <strong>Model Formula:</strong><br>
+            P(X = 1) = 0.5(1 − p), &nbsp;P(X = 2) = 0.5(1 − p),<br>
+            P(X = 3) = 0.6p, &nbsp;P(X = 4) = 0.4p.<br>
+            Notice ∑ P(X = x) = (1 − p) + p = <strong>1</strong> for all <em>p ∈ [0, 1]</em>!
+          </div>
+        `;
+        selectedXs = new Set([3, 4]);
+        activeEventLabel = "P(X ≥ 3)";
+      }
+      renderAll();
+    }
+
+    function onGrabPChange(val) {
+      grabPeaks = parseFloat(val);
+      const disp = document.getElementById("grabPDisplay");
+      if (disp) disp.textContent = `p = ${grabPeaks.toFixed(2)}`;
+      renderAll();
+    }
+
+    function getCurrentDistribution() {
+      if (currentMode === "unknownK") {
+        const p = presets[currentPreset];
+        const isExact = Math.abs(kVal - p.validK) < 1e-6;
+        document.getElementById("kDisplay").textContent = isExact
+          ? `k = ${p.validKFrac} (${kVal.toFixed(4)})`
+          : `k = ${kVal.toFixed(4)}`;
+
+        return {
+          title: `${p.name}   (at k = ${isExact ? p.validKFrac : kVal.toFixed(4)})`,
+          items: p.xs.map(x => ({
+            x,
+            prob: p.evalNum(x, kVal),
+            exactStr: isExact ? p.exactFrac(x) : p.evalNum(x, kVal).toFixed(4)
+          })),
+          queries: p.queries
+        };
+      } else {
+        if (currentContext === "dice") {
+          const counts = [6, 10, 8, 6, 4, 2]; // for |D1 - D2| = 0,1,2,3,4,5
+          return {
+            title: "Two Fair Dice Difference: X = |D₁ − D₂|",
+            items: [0, 1, 2, 3, 4, 5].map(x => ({
+              x,
+              prob: counts[x] / 36,
+              exactStr: toFraction(counts[x], 36)
+            })),
+            queries: [
+              { label: "P(X ≥ 2)", desc: "Difference is at least 2 (x = 2, 3, 4, 5)", filter: x => x >= 2 },
+              { label: "P(X = 0)", desc: "Doubles rolled (x = 0)", filter: x => x === 0 },
+              { label: "P(1 ≤ X ≤ 3)", desc: "Difference between 1 and 3 inclusive", filter: x => x >= 1 && x <= 3 },
+              { label: "P(X > 3)", desc: "Strict (>): difference is 4 or 5", filter: x => x > 3 }
+            ]
+          };
+        } else {
+          const probs = [
+            0.5 * (1 - grabPeaks),
+            0.5 * (1 - grabPeaks),
+            0.6 * grabPeaks,
+            0.4 * grabPeaks
+          ];
+          return {
+            title: `GrabFood Hourly Deliveries (Peak Factor p = ${grabPeaks.toFixed(2)})`,
+            items: [1, 2, 3, 4].map((x, i) => ({
+              x,
+              prob: probs[i],
+              exactStr: probs[i].toFixed(3)
+            })),
+            queries: [
+              { label: "P(X ≥ 3)", desc: "Bonus-eligible hours (3 or 4 orders)", filter: x => x >= 3 },
+              { label: "P(X < 3)", desc: "Strict (<): 1 or 2 orders", filter: x => x < 3 },
+              { label: "P(2 ≤ X ≤ 4)", desc: "At least 2 orders", filter: x => x >= 2 && x <= 4 }
+            ]
+          };
+        }
+      }
+    }
+
+    function toggleBarX(x) {
+      if (selectedXs.has(x)) {
+        selectedXs.delete(x);
+      } else {
+        selectedXs.add(x);
+      }
+      activeEventLabel = "Custom Bar Selection";
+      renderAll();
+    }
+
+    function applyEventQuery(idx) {
+      const dist = getCurrentDistribution();
+      const q = dist.queries[idx];
+      if (!q) return;
+      selectedXs = new Set(dist.items.filter(it => q.filter(it.x)).map(it => it.x));
+      activeEventLabel = q.label;
+      renderAll();
+    }
+
+    function renderAll() {
+      const dist = getCurrentDistribution();
+      const items = dist.items;
+
+      // 1. Check Axioms
+      const totalSum = items.reduce((acc, it) => acc + it.prob, 0);
+      const sumOk = Math.abs(totalSum - 1) < 1e-4;
+      const allInRange = items.every(it => it.prob >= -1e-6 && it.prob <= 1 + 1e-6);
+      const isValidDist = sumOk && allInRange;
+
+      const axiomBox = document.getElementById("axiomBox");
+      axiomBox.className = "axiom-box " + (isValidDist ? "valid" : "invalid");
+      document.getElementById("sumStatusText").textContent = `${totalSum.toFixed(4)} ${sumOk ? "✓" : "✗"}`;
+      document.getElementById("rangeStatusText").textContent = allInRange ? "All in [0, 1] ✓" : "Violation ✗";
+
+      const fillPct = Math.max(0, Math.min(100, totalSum * 100));
+      const fillEl = document.getElementById("sumBarFill");
+      fillEl.style.width = `${fillPct}%`;
+      fillEl.style.backgroundColor = isValidDist ? "#0f766e" : "#e11d48";
+
+      let msg = "";
+      if (isValidDist) {
+        msg = "Valid discrete probability distribution! Both ∑ P(X = x) = 1 and 0 ≤ P(X = x) ≤ 1 hold.";
+      } else if (!allInRange) {
+        msg = "Invalid distribution: At least one outcome has P(X = x) < 0 or P(X = x) > 1. Reject this value of k!";
+      } else if (totalSum < 1) {
+        msg = `Total probability is ${(totalSum * 100).toFixed(1)}% (< 1). Increase k so probabilities sum to 1.`;
+      } else {
+        msg = `Total probability is ${(totalSum * 100).toFixed(1)}% (> 1). Decrease k so probabilities sum to 1.`;
+      }
+      document.getElementById("axiomMessage").textContent = msg;
+
+      // 2. Identify Mode(s)
+      const maxProb = Math.max(...items.map(it => it.prob));
+      const modes = isValidDist
+        ? items.filter(it => Math.abs(it.prob - maxProb) < 1e-6).map(it => it.x)
+        : [];
+
+      // 3. Render SVG Bar Chart
+      renderSvgChart(dist, modes);
+
+      // 4. Render PMF Table
+      renderTable(items, modes);
+
+      // 5. Render Event Chips & Calculation
+      renderEventEvaluator(dist, isValidDist);
+
+      // 6. If Contextual Dice Mode, render 6x6 Sample Space Matrix
+      if (currentMode === "builder" && currentContext === "dice") {
+        renderDiceMatrix();
+      }
+    }
+
+    function renderSvgChart(dist, modes) {
+      const svg = document.getElementById("pmfSvg");
+      document.getElementById("chartSubtitle").textContent = dist.title;
+
+      const items = dist.items;
+      const W = 680, H = 285;
+      const padL = 56, padR = 24, padT = 26, padB = 46;
+      const plotW = W - padL - padR;
+      const plotH = H - padT - padB;
+
+      const maxAbsProb = Math.max(0.6, ...items.map(it => Math.abs(it.prob) * 1.18));
+      const hasNeg = items.some(it => it.prob < -1e-6);
+      const yMax = maxAbsProb;
+      const yMin = hasNeg ? -maxAbsProb * 0.55 : 0;
+      const ySpan = yMax - yMin;
+
+      const toY = (val) => padT + ((yMax - val) / ySpan) * plotH;
+      const zeroY = toY(0);
+
+      let html = "";
+
+      // Horizontal gridlines
+      const step = yMax > 1.1 ? 0.25 : 0.1;
+      for (let v = Math.ceil(yMin / step) * step; v <= yMax + 1e-6; v += step) {
+        const y = toY(v);
+        html += `<line x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}" stroke="#f1f5f9" stroke-width="1"/>`;
+        html += `<text x="${padL - 8}" y="${y + 4}" text-anchor="end" font-size="10.5" fill="#64748b">${v.toFixed(2)}</text>`;
+      }
+
+      // Reference line at P = 1.0 if visible
+      if (1.0 <= yMax) {
+        const oneY = toY(1.0);
+        html += `<line x1="${padL}" y1="${oneY}" x2="${W - padR}" y2="${oneY}" stroke="#e11d48" stroke-width="1.2" stroke-dasharray="4,4"/>`;
+        html += `<text x="${W - padR - 4}" y="${oneY - 5}" text-anchor="end" font-size="9.5" font-weight="bold" fill="#e11d48">Max Axiom Limit P = 1.0</text>`;
+      }
+
+      // Axes
+      html += `<line x1="${padL}" y1="${padT}" x2="${padL}" y2="${H - padB}" stroke="#64748b" stroke-width="1.4"/>`;
+      html += `<line x1="${padL}" y1="${zeroY}" x2="${W - padR}" y2="${zeroY}" stroke="#334155" stroke-width="1.5"/>`;
+      html += `<text x="${W / 2}" y="${H - 8}" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#334155">Value of Discrete Random Variable X = x (Click a bar to toggle)</text>`;
+      html += `<text x="16" y="${H / 2}" text-anchor="middle" font-size="11" font-weight="bold" fill="#334155" transform="rotate(-90 16 ${H / 2})">P(X = x)</text>`;
+
+      // Bars
+      const slotW = plotW / items.length;
+      const barW = Math.min(64, slotW * 0.56);
+
+      items.forEach((it, idx) => {
+        const cx = padL + slotW * (idx + 0.5);
+        const bx = cx - barW / 2;
+        const isInvalid = it.prob < -1e-6 || it.prob > 1 + 1e-6;
+        const isSelected = selectedXs.has(it.x);
+        const isMode = modes.includes(it.x);
+
+        let fill = "#8b5cf6";
+        let stroke = "#7c3aed";
+        if (isInvalid) {
+          fill = "#e11d48";
+          stroke = "#9f1239";
+        } else if (isSelected) {
+          fill = "#f59e0b";
+          stroke = "#b45309";
+        } else if (isMode) {
+          fill = "#0f766e";
+          stroke = "#115e59";
+        }
+
+        const valY = toY(it.prob);
+        const topY = Math.min(zeroY, valY);
+        const barH = Math.max(2, Math.abs(zeroY - valY));
+
+        html += `
+          <g style="cursor:pointer;" onclick="toggleBarX(${it.x})">
+            <rect x="${bx}" y="${topY}" width="${barW}" height="${barH}" rx="5" fill="${fill}" fill-opacity="0.88" stroke="${stroke}" stroke-width="1.8"/>
+            <text x="${cx}" y="${it.prob >= 0 ? topY - 6 : topY + barH + 13}" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e293b">${it.exactStr}</text>
+            <text x="${cx}" y="${H - padB + 18}" text-anchor="middle" font-size="12" font-weight="bold" fill="${isSelected ? '#b45309' : '#1e293b'}">${it.x}</text>
+            ${isMode ? `<text x="${cx}" y="${H - padB + 31}" text-anchor="middle" font-size="9" font-weight="bold" fill="#0f766e">MODE</text>` : ""}
+          </g>
+        `;
+      });
+
+      svg.innerHTML = html;
+    }
+
+    function renderTable(items, modes) {
+      const container = document.getElementById("pmfTableContainer");
+      const headers = items.map(it => {
+        const isSel = selectedXs.has(it.x);
+        return `<th style="${isSel ? 'background:#fef3c7; color:#78350f;' : ''}">x = ${it.x}${modes.includes(it.x) ? ' ★' : ''}</th>`;
+      }).join("");
+
+      const exactRow = items.map(it => {
+        const isInvalid = it.prob < -1e-6 || it.prob > 1 + 1e-6;
+        const isSel = selectedXs.has(it.x);
+        const cls = isInvalid ? "invalid-col" : (isSel ? "selected-col" : "");
+        return `<td class="${cls}">${it.exactStr}</td>`;
+      }).join("");
+
+      const decRow = items.map(it => {
+        const isInvalid = it.prob < -1e-6 || it.prob > 1 + 1e-6;
+        const isSel = selectedXs.has(it.x);
+        const cls = isInvalid ? "invalid-col" : (isSel ? "selected-col" : "");
+        return `<td class="${cls}">${it.prob.toFixed(4)}</td>`;
+      }).join("");
+
+      container.innerHTML = `
+        <table class="pmf-table">
+          <thead>
+            <tr>
+              <th style="width:135px;">Outcome x</th>
+              ${headers}
+              <th>Sum ∑</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Exact P(X = x)</th>
+              ${exactRow}
+              <td><strong>${items.reduce((a, b) => a + b.prob, 0).toFixed(4)}</strong></td>
+            </tr>
+            <tr>
+              <th>Decimal (4 d.p.)</th>
+              ${decRow}
+              <td><strong>${items.reduce((a, b) => a + b.prob, 0).toFixed(4)}</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      `;
+    }
+
+    function renderEventEvaluator(dist, isValidDist) {
+      const chipsRow = document.getElementById("eventChipsRow");
+      chipsRow.innerHTML = dist.queries.map((q, idx) => `
+        <button class="event-chip ${activeEventLabel === q.label ? 'active' : ''}" onclick="applyEventQuery(${idx})">
+          ${q.label}
+        </button>
+      `).join("");
+
+      const chosen = dist.items.filter(it => selectedXs.has(it.x));
+      const resBox = document.getElementById("eventResultBox");
+
+      if (chosen.length === 0) {
+        resBox.innerHTML = `<strong>Selected Event (${activeEventLabel}):</strong> No outcomes selected (Empty event ∅). Probability = <strong>0</strong>. Click a preset chip above or click bars on the chart.`;
+        return;
+      }
+
+      const xList = chosen.map(it => it.x).join(", ");
+      const termAdd = chosen.map(it => `P(X = ${it.x})`).join(" + ");
+      const exactAdd = chosen.map(it => it.exactStr).join(" + ");
+      const probSum = chosen.reduce((acc, it) => acc + it.prob, 0);
+
+      resBox.innerHTML = `
+        <strong>Event: ${activeEventLabel}</strong> &nbsp;⇒&nbsp; Included discrete values: <strong>x ∈ {${xList}}</strong><br>
+        <strong>Calculation:</strong> ${termAdd} = ${exactAdd} = <strong>${probSum.toFixed(4)}</strong>
+        ${!isValidDist ? `<br><span style="color:#be123c; font-weight:700;">Note: Adjust k so ∑ P(X = x) = 1 before quoting exam probabilities!</span>` : ""}
+      `;
+    }
+
+    function renderDiceMatrix() {
+      const container = document.getElementById("diceMatrixContainer");
+      if (!container) return;
+
+      let cells = `<div class="grid-matrix" style="grid-template-columns: repeat(7, 34px);">`;
+      cells += `<div class="matrix-cell" style="background:#e2e8f0;">D₁\\D₂</div>`;
+      for (let d2 = 1; d2 <= 6; d2++) {
+        cells += `<div class="matrix-cell" style="background:#f1f5f9;">${d2}</div>`;
+      }
+      for (let d1 = 1; d1 <= 6; d1++) {
+        cells += `<div class="matrix-cell" style="background:#f1f5f9;">${d1}</div>`;
+        for (let d2 = 1; d2 <= 6; d2++) {
+          const diff = Math.abs(d1 - d2);
+          const hl = selectedXs.has(diff) ? "highlight" : "";
+          cells += `<div class="matrix-cell ${hl}">${diff}</div>`;
+        }
+      }
+      cells += `</div>`;
+      container.innerHTML = cells;
+    }
+
+    // Initialize Lesson 1
+    selectPreset("linear");
+  </script>
+</body>
+</html>
