@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 6.5 Lesson 1: Logic of Hypothesis Testing — H₀ vs. H₁, Significance Level & Critical Regions</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 525px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1000px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.76rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.48;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .hyp-editor {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 13px;
+      margin-bottom: 11px;
+    }
+
+    .hyp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.76rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 8px;
+      letter-spacing: 0.2px;
+    }
+
+    .control-row {
+      margin-bottom: 9px;
+    }
+
+    .control-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 4px;
+    }
+
+    .pill-select-group {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+    }
+
+    .pill-select-group.four-col {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .mini-pill {
+      padding: 6px 6px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+      text-align: center;
+      transition: 0.15s;
+    }
+
+    .mini-pill:hover {
+      border-color: var(--purple);
+      color: var(--purple-dark);
+    }
+
+    .mini-pill.active {
+      background: var(--purple-bg);
+      border-color: var(--purple);
+      color: var(--purple-dark);
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .solve-bar {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: none;
+      background: var(--purple-dark);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.78rem;
+      cursor: pointer;
+    }
+
+    .action-btn.secondary {
+      background: var(--blue-bg);
+      color: var(--blue);
+      border: 1px solid #bae6fd;
+    }
+
+    .gc-screen-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin-bottom: 11px;
+    }
+
+    .box-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .gc-readout {
+      background: #f1f5f9;
+      border: 2px solid #64748b;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.81rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 5px;
+      line-height: 1.45;
+    }
+
+    .solution-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.81rem;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    .solution-banner.reject {
+      background: var(--rose-bg);
+      border-color: #fda4af;
+      color: #881337;
+    }
+
+    .solution-banner.retain {
+      background: var(--teal-bg);
+      border-color: #5eead4;
+      color: #134e4a;
+    }
+
+    /* RIGHT PANEL */
+    .legend-bar {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      font-size: 0.76rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      align-items: center;
+    }
+
+    .legend-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 3px;
+      display: inline-block;
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+
+    canvas {
+      width: 100%;
+      height: auto;
+      display: block;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+    }
+
+    .check-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.79rem;
+      margin-top: 10px;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .check-table th, .check-table td {
+      border: 1px solid #e2e8f0;
+      padding: 6px 9px;
+      text-align: left;
+    }
+
+    .check-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    .gc-guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .gc-guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .step-pill {
+      background: var(--blue-bg);
+      border: 1px solid #bae6fd;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.77rem;
+      line-height: 1.45;
+      color: #0c4a6e;
+    }
+
+    .misconception-box {
+      margin-top: 10px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 10px 13px;
+      font-size: 0.79rem;
+      line-height: 1.48;
+      color: #78350f;
+    }
+
+    .grader-card {
+      margin-top: 10px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 14px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 700px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Choose a Singapore Context (Top-Left)</strong>
+        Pick one of the 4 real-world scenarios (Bubble Tea underfilling, SMRT headway change, GrabFood delivery surge, or Kopi sugar audit) to see how <em>H₀</em> and <em>H₁</em> are formulated in terms of <em>&mu;</em>.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Adjust Tail Type, &alpha; &amp; Observed Sample Mean x&#772;</strong>
+        Switch between 1-tail (&lt; or &gt;) and 2-tail (&ne;), vary significance level <em>&alpha;</em> (10%, 5%, 2%, 1%), and drag the sample mean <em>x&#772;</em> slider to move <em>z<sub>calc</sub></em> in and out of the red critical region.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Compare Critical Region, GC Readout &amp; Exam Check</strong>
+        Inspect the shaded rejection region (in terms of lowercase <em>z</em> and <em>x&#772;</em>), check the TI-84 <code>invNorm</code> syntax, and complete the 3-question <em>9758 Hypothesis Logic Check</em>.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        6.5 Lesson 1 &bull; Logic of Hypothesis Testing — H₀ vs. H₁, &alpha; &amp; Critical Regions
+      </div>
+
+      <!-- Singapore Scenario Presets -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="sc_bbt" onclick="loadScenario('bbt')">
+          1. Bubble Tea Volume (Left-Tail)
+        </button>
+        <button class="tab-btn" id="sc_smrt" onclick="loadScenario('smrt')">
+          2. SMRT Headway Drift (2-Tail)
+        </button>
+        <button class="tab-btn" id="sc_grab" onclick="loadScenario('grab')">
+          3. GrabFood Delivery Surge (Right-Tail)
+        </button>
+        <button class="tab-btn" id="sc_kopi" onclick="loadScenario('kopi')">
+          4. Kopi Siu Dai Sugar Audit (2-Tail)
+        </button>
+      </div>
+
+      <!-- Contextual Word Problem & Parameter Definition -->
+      <div class="context-box" id="contextBox"></div>
+
+      <!-- Interactive Hypothesis & Critical Region Builder -->
+      <div class="hyp-editor">
+        <div class="hyp-header">
+          <span id="hypFormDisplay">H₀ : &mu; = 500 &nbsp;vs&nbsp; H₁ : &mu; &lt; 500</span>
+          <span id="tailBadge" style="color:var(--purple-dark);">1-Tail (Left)</span>
+        </div>
+
+        <div class="control-row">
+          <div class="control-label"><span>Alternative Hypothesis H₁ (Tail Direction)</span></div>
+          <div class="pill-select-group">
+            <button class="mini-pill active" id="tail_left" onclick="setTail('left')">Left-Tail (&mu; &lt; &mu;₀)</button>
+            <button class="mini-pill" id="tail_right" onclick="setTail('right')">Right-Tail (&mu; &gt; &mu;₀)</button>
+            <button class="mini-pill" id="tail_two" onclick="setTail('two')">2-Tail (&mu; &ne; &mu;₀)</button>
+          </div>
+        </div>
+
+        <div class="control-row">
+          <div class="control-label"><span>Level of Significance &alpha; (Risk of Wrongly Rejecting H₀)</span></div>
+          <div class="pill-select-group four-col">
+            <button class="mini-pill" id="alp_0.10" onclick="setAlpha(0.10)">10% (0.10)</button>
+            <button class="mini-pill active" id="alp_0.05" onclick="setAlpha(0.05)">5% (0.05)</button>
+            <button class="mini-pill" id="alp_0.02" onclick="setAlpha(0.02)">2% (0.02)</button>
+            <button class="mini-pill" id="alp_0.01" onclick="setAlpha(0.01)">1% (0.01)</button>
+          </div>
+        </div>
+
+        <div class="control-row" style="margin-bottom:4px;">
+          <div class="control-label">
+            <span>Observed Sample Mean x&#772;</span>
+            <span id="xbarReadout" style="color:var(--purple-dark);">x&#772; = 496.2 ml (z_calc = −1.90)</span>
+          </div>
+          <input type="range" id="sl_xbar" min="493" max="507" step="0.1" value="496.2" oninput="updateModel()" />
+        </div>
+
+        <div class="solve-bar">
+          <button class="action-btn" onclick="drawRandomSample()">Simulate New Random Sample (Under H₀)</button>
+          <button class="action-btn secondary" onclick="resetPresetSample()">Reset Scenario Sample</button>
+        </div>
+      </div>
+
+      <!-- Simulated GC Critical Value & Test Statistic Readout -->
+      <div class="gc-screen-box" id="gcOutputBox"></div>
+
+      <!-- Contextual Decision Banner -->
+      <div class="solution-banner" id="solutionBanner"></div>
+    </div>
+
+    <!-- RIGHT VISUALIZATION, TABLE, GC GUIDE & EXAM CHECK -->
+    <div class="card">
+      <div style="font-size:1.02rem; font-weight:800; color:#1e293b; margin-bottom:6px;" id="rightPanelHeading">
+        Standard Normal Sampling Distribution Z ~ N(0, 1) &amp; Critical Region
+      </div>
+
+      <div class="legend-bar">
+        <span><span class="legend-dot" style="background:rgba(225,29,72,0.32); border:1px solid #e11d48;"></span>Critical (Rejection) Region (Area = &alpha;)</span>
+        <span><span class="legend-dot" style="background:#f8fafc; border:1px solid #94a3b8;"></span>Non-Rejection Region (Area = 1 &minus; &alpha;)</span>
+        <span><span class="legend-dot" style="background:#7c3aed;"></span>Observed Test Statistic z_calc</span>
+      </div>
+
+      <canvas id="critCanvas" width="840" height="245"></canvas>
+
+      <!-- Dynamic Hypothesis & Critical Region Summary Table -->
+      <table class="check-table" id="summaryTable"></table>
+
+      <!-- 3-Step TI-84 Plus CE Keystroke Guide -->
+      <div class="gc-guide-grid">
+        <div class="step-pill">
+          <strong>Step 1: Define Parameter &amp; H₀, H₁</strong><br>
+          Define <em>&mu;</em> in words with units. Always write <strong>H₀ : &mu; = &mu;₀</strong> and match <strong>H₁</strong> to the question's directional claim.
+        </div>
+        <div class="step-pill">
+          <strong>Step 2: GC Critical Value</strong><br>
+          Press <strong>[2ND] &rarr; [VARS] &rarr; 3:invNorm</strong>. Use area <em>&alpha;</em> (left-tail), <em>1 &minus; &alpha;</em> (right-tail), or <em>1 &minus; &alpha;/2</em> (2-tail) with <em>&mu; = 0, &sigma; = 1</em>.
+        </div>
+        <div class="step-pill">
+          <strong>Step 3: Contextual Verdict</strong><br>
+          If <em>z_calc</em> falls inside the critical region, <strong>reject H₀</strong>; otherwise <strong>do not reject H₀</strong>. Conclude in context!
+        </div>
+      </div>
+
+      <!-- 9758 Exam Misconception Box -->
+      <div class="misconception-box">
+        <strong>9758 H2 Math Exam Misconception &amp; Syllabus Guardrail:</strong>
+        <ul style="margin:3px 0 0 0; padding-left:18px;">
+          <li><strong>Never write hypotheses using sample mean x&#772;:</strong> Always use the population parameter <strong>&mu;</strong> (e.g. write <em>H₀ : &mu; = 500</em>, never <em>H₀ : x&#772; = 500</em>).</li>
+          <li><strong>Use lowercase <em>z</em> or <em>x&#772;</em> for critical regions:</strong> State critical regions as inequalities of observed values (e.g. <em>z &lt; &minus;1.64</em> or <em>x&#772; &lt; 496.7</em>), reserving uppercase <em>Z</em> and <em>X&#772;</em> for random variables.</li>
+          <li><strong>Never use the term "Type I error" (excluded from 9758):</strong> Always interpret <em>&alpha;</em> in words as <em>"the probability of wrongly rejecting H₀ when H₀ is actually true."</em></li>
+        </ul>
+      </div>
+
+      <!-- Quick 9758 Hypothesis Logic Exam Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 Hypothesis Testing Logic Check (<span id="qIdxLbl">1</span>/3)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.8rem; line-height:1.45; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  const scenarios = {
+    bbt: {
+      unit: "ml",
+      mu0: 500,
+      sigma: 12,
+      n: 36,
+      defaultTail: "left",
+      defaultXbar: 496.2,
+      minXbar: 493.0,
+      maxXbar: 507.0,
+      stepXbar: 0.1,
+      varDesc: "Let &mu; be the population mean volume of drink (in ml) in a regular bubble tea cup (X ~ N(&mu;, 12²)).",
+      story: "<strong>Bubble Tea Volume Audit:</strong> A Singapore bubble tea chain claims regular cups contain an average of <strong>500 ml</strong> (<em>&sigma; = 12 ml</em>). A consumer watchdog suspects <strong>underfilling</strong> and tests a random sample of <strong>n = 36</strong> cups.",
+      claimPhrase: "the mean volume of drink in a regular cup is less than 500 ml"
+    },
+    smrt: {
+      unit: "min",
+      mu0: 3.0,
+      sigma: 0.8,
+      n: 16,
+      defaultTail: "two",
+      defaultXbar: 2.65,
+      minXbar: 2.30,
+      maxXbar: 3.70,
+      stepXbar: 0.01,
+      varDesc: "Let &mu; be the population mean peak train headway (in minutes) after the signalling upgrade (X ~ N(&mu;, 0.8²)).",
+      story: "<strong>SMRT Signalling Upgrade:</strong> Historical peak headways averaged <strong>3.0 min</strong> (<em>&sigma; = 0.8 min</em>). LTA engineers test a sample of <strong>n = 16</strong> peak trains to check if the mean headway has <strong>changed in either direction</strong>.",
+      claimPhrase: "the mean peak train headway differs from 3.0 minutes"
+    },
+    grab: {
+      unit: "min",
+      mu0: 32.0,
+      sigma: 4.5,
+      n: 25,
+      defaultTail: "right",
+      defaultXbar: 33.6,
+      minXbar: 28.8,
+      maxXbar: 35.2,
+      stepXbar: 0.1,
+      varDesc: "Let &mu; be the population mean GrabFood delivery time (in minutes) during evening peak hours (X ~ N(&mu;, 4.5²)).",
+      story: "<strong>GrabFood Delivery Guarantee:</strong> A delivery platform advertises a mean delivery time of <strong>32.0 min</strong> (<em>&sigma; = 4.5 min</em>). Following rainy-evening traffic surges, a consumer group tests <strong>n = 25</strong> orders to check if the mean time <strong>exceeds 32.0 min</strong>.",
+      claimPhrase: "the mean delivery time exceeds 32.0 minutes"
+    },
+    kopi: {
+      unit: "g",
+      mu0: 8.5,
+      sigma: 1.2,
+      n: 36,
+      defaultTail: "two",
+      defaultXbar: 8.95,
+      minXbar: 7.80,
+      maxXbar: 9.20,
+      stepXbar: 0.05,
+      varDesc: "Let &mu; be the population mean sugar content (in g) per cup of Kopi O Siu Dai (X ~ N(&mu;, 1.2²)).",
+      story: "<strong>Kopi O Siu Dai Sugar Audit:</strong> A local kopi chain states each cup of Kopi O Siu Dai contains an average of <strong>8.5 g</strong> of sugar (<em>&sigma; = 1.2 g</em>). Inspectors test <strong>n = 36</strong> cups to check whether the mean sugar content <strong>differs from 8.5 g</strong>.",
+      claimPhrase: "the mean sugar content per cup differs from 8.5 g"
+    }
+  };
+
+  let curKey = "bbt";
+  let curTail = "left";
+  let curAlpha = 0.05;
+
+  function fmt(n, dp = 2) {
+    if (Math.abs(n) < 1e-8) return "0";
+    return Number(n.toFixed(dp)).toString();
+  }
+
+  function normPDF(z) {
+    return Math.exp(-0.5 * z * z) / Math.sqrt(2 * Math.PI);
+  }
+
+  function invNorm(p) {
+    const a = [-3.969683028665376e+01, 2.209460984245205e+02, -2.759285104469687e+02, 1.383577518672690e+02, -3.066479806614716e+01, 2.506628277459239e+00];
+    const b = [-5.447609879822406e+01, 1.615858368580409e+02, -1.556989798598866e+02, 6.680131188771972e+01, -1.328068155288572e+01];
+    const c = [-7.784894002430293e-03, -3.223964580411365e-01, -2.400758277161838e+00, -2.549732539343734e+00, 4.374664141464968e+00, 2.938163982698783e+00];
+    const d = [7.784695709041462e-03, 3.224671290700398e-01, 2.445134137142996e+00, 3.754408661907416e+00];
+    const pLow = 0.02425, pHigh = 1 - pLow;
+    let q, r;
+    if (p < pLow) {
+      q = Math.sqrt(-2 * Math.log(p));
+      return (((((c[0]*q + c[1])*q + c[2])*q + c[3])*q + c[4])*q + c[5]) / ((((d[0]*q + d[1])*q + d[2])*q + d[3])*q + 1);
+    } else if (p <= pHigh) {
+      q = p - 0.5;
+      r = q * q;
+      return (((((a[0]*r + a[1])*r + a[2])*r + a[3])*r + a[4])*r + a[5])*q / (((((b[0]*r + b[1])*r + b[2])*r + b[3])*r + b[4])*r + 1);
+    } else {
+      q = Math.sqrt(-2 * Math.log(1 - p));
+      return -(((((c[0]*q + c[1])*q + c[2])*q + c[3])*q + c[4])*q + c[5]) / ((((d[0]*q + d[1])*q + d[2])*q + d[3])*q + 1);
+    }
+  }
+
+  function loadScenario(key) {
+    curKey = key;
+    const sc = scenarios[key];
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("sc_" + key).classList.add("active");
+
+    document.getElementById("contextBox").innerHTML = `
+      <div>${sc.story}</div>
+      <div class="var-pill">${sc.varDesc}</div>
+    `;
+
+    const sl = document.getElementById("sl_xbar");
+    sl.min = sc.minXbar;
+    sl.max = sc.maxXbar;
+    sl.step = sc.stepXbar;
+    sl.value = sc.defaultXbar;
+
+    setTail(sc.defaultTail, false);
+    updateModel();
+  }
+
+  function setTail(t, refresh = true) {
+    curTail = t;
+    ["left", "right", "two"].forEach(k => {
+      document.getElementById("tail_" + k).classList.toggle("active", k === t);
+    });
+    if (refresh) updateModel();
+  }
+
+  function setAlpha(a) {
+    curAlpha = a;
+    [0.10, 0.05, 0.02, 0.01].forEach(v => {
+      document.getElementById("alp_" + v.toFixed(2)).classList.toggle("active", Math.abs(v - a) < 1e-6);
+    });
+    updateModel();
+  }
+
+  function resetPresetSample() {
+    const sc = scenarios[curKey];
+    document.getElementById("sl_xbar").value = sc.defaultXbar;
+    setTail(sc.defaultTail, false);
+    updateModel();
+  }
+
+  function drawRandomSample() {
+    const sc = scenarios[curKey];
+    const se = sc.sigma / Math.sqrt(sc.n);
+    let u = 0, v = 0;
+    while (u === 0) u = Math.random();
+    while (v === 0) v = Math.random();
+    const z = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+    const simXbar = Math.max(sc.minXbar, Math.min(sc.maxXbar, sc.mu0 + z * se));
+    document.getElementById("sl_xbar").value = simXbar.toFixed(2);
+    updateModel();
+  }
+
+  function updateModel() {
+    const sc = scenarios[curKey];
+    const xbar = parseFloat(document.getElementById("sl_xbar").value);
+    const se = sc.sigma / Math.sqrt(sc.n);
+    const zCalc = (xbar - sc.mu0) / se;
+    const pct = Math.round(curAlpha * 100);
+
+    let h1Sym, tailTitle, zCrit, critRegStr, xbarCritStr, gcCmdStr, inCrit;
+    if (curTail === "left") {
+      h1Sym = `&lt; ${sc.mu0}`;
+      tailTitle = "1-Tail (Left)";
+      zCrit = invNorm(curAlpha); // negative
+      const xCrit = sc.mu0 + zCrit * se;
+      critRegStr = `z < ${zCrit.toFixed(3)}`;
+      xbarCritStr = `x&#772; < ${xCrit.toFixed(2)} ${sc.unit}`;
+      gcCmdStr = `invNorm(${curAlpha}, 0, 1) = ${zCrit.toFixed(5)}  ⇒  CR: z < ${zCrit.toPrecision(3)}`;
+      inCrit = zCalc < zCrit;
+    } else if (curTail === "right") {
+      h1Sym = `&gt; ${sc.mu0}`;
+      tailTitle = "1-Tail (Right)";
+      zCrit = invNorm(1 - curAlpha); // positive
+      const xCrit = sc.mu0 + zCrit * se;
+      critRegStr = `z > +${zCrit.toFixed(3)}`;
+      xbarCritStr = `x&#772; > ${xCrit.toFixed(2)} ${sc.unit}`;
+      gcCmdStr = `invNorm(${(1 - curAlpha).toFixed(2)}, 0, 1) = ${zCrit.toFixed(5)}  ⇒  CR: z > ${zCrit.toPrecision(3)}`;
+      inCrit = zCalc > zCrit;
+    } else {
+      h1Sym = `&ne; ${sc.mu0}`;
+      tailTitle = "2-Tail";
+      zCrit = invNorm(1 - curAlpha / 2); // positive
+      const xLow = sc.mu0 - zCrit * se;
+      const xHigh = sc.mu0 + zCrit * se;
+      critRegStr = `z < &minus;${zCrit.toFixed(3)} or z > +${zCrit.toFixed(3)}`;
+      xbarCritStr = `x&#772; < ${xLow.toFixed(2)} or x&#772; > ${xHigh.toFixed(2)} ${sc.unit}`;
+      gcCmdStr = `invNorm(${(1 - curAlpha / 2).toFixed(3)}, 0, 1) = ${zCrit.toFixed(5)}  ⇒  CR: |z| > ${zCrit.toPrecision(3)}`;
+      inCrit = Math.abs(zCalc) > zCrit;
+    }
+
+    document.getElementById("hypFormDisplay").innerHTML = `H₀ : &mu; = ${sc.mu0} &nbsp;vs&nbsp; H₁ : &mu; ${h1Sym}`;
+    document.getElementById("tailBadge").textContent = `${tailTitle} • α = ${pct}%`;
+    document.getElementById("xbarReadout").innerHTML = `x&#772; = ${fmt(xbar, 2)} ${sc.unit} (z_calc = ${zCalc >= 0 ? "+" : "&minus;"}${Math.abs(zCalc).toFixed(2)})`;
+
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">TI-84 Plus CE Critical Value &amp; Test Statistic Readout</span>
+      <div class="gc-readout">
+        ${gcCmdStr}<br>
+        z_calc = (${fmt(xbar, 2)} &minus; ${sc.mu0}) / (${sc.sigma}/√${sc.n}) = ${zCalc >= 0 ? "+" : "&minus;"}${Math.abs(zCalc).toFixed(4)}
+      </div>
+    `;
+
+    const banner = document.getElementById("solutionBanner");
+    if (inCrit) {
+      banner.className = "solution-banner reject";
+      banner.innerHTML = `Decision at &alpha; = ${pct}%: Since z_calc = ${zCalc.toFixed(2)} lies inside the critical region (${critRegStr}), <strong>reject H₀</strong>. There is sufficient evidence at the ${pct}% level of significance to conclude that ${sc.claimPhrase}.`;
+    } else {
+      banner.className = "solution-banner retain";
+      banner.innerHTML = `Decision at &alpha; = ${pct}%: Since z_calc = ${zCalc.toFixed(2)} does NOT lie in the critical region (${critRegStr}), <strong>do not reject H₀</strong>. There is insufficient evidence at the ${pct}% level of significance to conclude that ${sc.claimPhrase}.`;
+    }
+
+    document.getElementById("summaryTable").innerHTML = `
+      <thead>
+        <tr>
+          <th>Component</th>
+          <th>Formal 9758 Expression</th>
+          <th>Numerical / Contextual Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Null &amp; Alternative Hypotheses</strong></td>
+          <td>H₀ : &mu; = ${sc.mu0} &nbsp;vs.&nbsp; H₁ : &mu; ${h1Sym}</td>
+          <td>${tailTitle} test at &alpha; = ${pct}% (${curAlpha})</td>
+        </tr>
+        <tr>
+          <td><strong>Distribution under H₀</strong></td>
+          <td>X&#772; ~ N(${sc.mu0}, ${sc.sigma}²/${sc.n})</td>
+          <td>Standard Error &sigma;/√n = ${se.toFixed(3)} ${sc.unit}</td>
+        </tr>
+        <tr>
+          <td><strong>Critical Region</strong></td>
+          <td><strong>${critRegStr}</strong></td>
+          <td>Equivalent in x&#772;: <strong>${xbarCritStr}</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Test Statistic &amp; Verdict</strong></td>
+          <td>z_calc = ${zCalc >= 0 ? "+" : "&minus;"}${Math.abs(zCalc).toFixed(3)}</td>
+          <td style="color:${inCrit ? "#e11d48" : "#0f766e"}; font-weight:800;">${inCrit ? "✓ Inside Critical Region → Reject H₀" : "✗ Outside Critical Region → Do Not Reject H₀"}</td>
+        </tr>
+      </tbody>
+    `;
+
+    drawCritCanvas(zCrit, zCalc, inCrit);
+  }
+
+  function drawCritCanvas(zCrit, zCalc, inCrit) {
+    const canvas = document.getElementById("critCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const padL = 42, padR = 28, padT = 28, padB = 38;
+    const plotW = W - padL - padR;
+    const plotH = H - padT - padB;
+
+    const zMin = -3.8, zMax = 3.8;
+    const yMax = normPDF(0) * 1.16;
+    const toX = z => padL + ((z - zMin) / (zMax - zMin)) * plotW;
+    const toY = y => padT + plotH - (y / yMax) * plotH;
+
+    function shadeTail(a, b) {
+      ctx.fillStyle = "rgba(225, 29, 72, 0.30)";
+      ctx.beginPath();
+      ctx.moveTo(toX(a), toY(0));
+      for (let i = 0; i <= 140; i++) {
+        const z = a + (i / 140) * (b - a);
+        ctx.lineTo(toX(z), toY(normPDF(z)));
+      }
+      ctx.lineTo(toX(b), toY(0));
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    if (curTail === "left") shadeTail(zMin, zCrit);
+    else if (curTail === "right") shadeTail(zCrit, zMax);
+    else {
+      shadeTail(zMin, -zCrit);
+      shadeTail(zCrit, zMax);
+    }
+
+    // Bell curve
+    ctx.strokeStyle = "#334155";
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    for (let i = 0; i <= 300; i++) {
+      const z = zMin + (i / 300) * (zMax - zMin);
+      const y = normPDF(z);
+      if (i === 0) ctx.moveTo(toX(z), toY(y));
+      else ctx.lineTo(toX(z), toY(y));
+    }
+    ctx.stroke();
+
+    // z = 0 dashed reference
+    ctx.strokeStyle = "#94a3b8";
+    ctx.lineWidth = 1.2;
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath();
+    ctx.moveTo(toX(0), padT + 8);
+    ctx.lineTo(toX(0), padT + plotH);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Critical boundary markers
+    const crits = curTail === "two" ? [-zCrit, zCrit] : [zCrit];
+    crits.forEach(cz => {
+      ctx.strokeStyle = "#e11d48";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(toX(cz), padT + 14);
+      ctx.lineTo(toX(cz), padT + plotH);
+      ctx.stroke();
+
+      ctx.fillStyle = "#e11d48";
+      ctx.font = "bold 11px Segoe UI, sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText(`z_crit = ${cz.toFixed(2)}`, toX(cz), padT + plotH + 30);
+    });
+
+    // Observed z_calc marker
+    const clampedZ = Math.max(zMin + 0.15, Math.min(zMax - 0.15, zCalc));
+    ctx.strokeStyle = inCrit ? "#be123c" : "#0f766e";
+    ctx.lineWidth = 2.6;
+    ctx.beginPath();
+    ctx.moveTo(toX(clampedZ), padT + 12);
+    ctx.lineTo(toX(clampedZ), padT + plotH);
+    ctx.stroke();
+
+    ctx.fillStyle = inCrit ? "#be123c" : "#0f766e";
+    ctx.beginPath();
+    ctx.arc(toX(clampedZ), toY(normPDF(clampedZ)), 4.8, 0, 2 * Math.PI);
+    ctx.fill();
+
+    ctx.font = "bold 11.5px Segoe UI, sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(`z_calc = ${zCalc.toFixed(2)}`, toX(clampedZ), padT + 9);
+
+    // Horizontal axis
+    ctx.strokeStyle = "#475569";
+    ctx.lineWidth = 1.3;
+    ctx.beginPath();
+    ctx.moveTo(padL, padT + plotH);
+    ctx.lineTo(W - padR, padT + plotH);
+    ctx.stroke();
+
+    ctx.fillStyle = "#334155";
+    ctx.font = "bold 11px Segoe UI, sans-serif";
+    for (let z = -3; z <= 3; z++) {
+      ctx.fillText(z.toString(), toX(z), padT + plotH + 15);
+    }
+  }
+
+  const examQs = [
+    {
+      q: "A bubble tea chain claims its cups contain 500 ml on average. A watchdog tests a sample of 36 cups (mean x̄ = 496 ml) to check if cups are underfilled. Which hypotheses are correctly formulated?",
+      opts: [
+        "H₀ : μ = 500 vs. H₁ : μ < 500, where μ is the population mean volume (ml)",
+        "H₀ : x̄ = 500 vs. H₁ : x̄ < 500, where x̄ is the sample mean volume (ml)",
+        "H₀ : μ = 496 vs. H₁ : μ > 496, where μ is the population mean volume (ml)",
+        "H₀ : μ ≥ 500 vs. H₁ : μ ≠ 500, where μ is the sample mean volume (ml)"
+      ],
+      ans: 0,
+      exp: "Hypotheses always refer to the population parameter μ (never sample mean x̄) using the claimed value μ₀ = 500, with H₁ : μ < 500 matching 'underfilled'."
+    },
+    {
+      q: "In a 9758 H2 Math exam, how should you write the critical region for a left-tail z-test at the 5% level of significance?",
+      opts: [
+        "z < −1.64 (or z < −1.645)",
+        "Z < −1.64 (using uppercase Z)",
+        "μ < −1.64",
+        "X̄ < −1.64"
+      ],
+      ans: 0,
+      exp: "Critical regions describe the set of observed test statistic values (lowercase z or lowercase x̄) for which H₀ is rejected, so write z < −1.645 (or z < −1.64 to 3 s.f.)."
+    },
+    {
+      q: "A 2-tail z-test is conducted at the 2% level of significance. Which TI-84 Plus CE command gives the positive critical value z_crit?",
+      opts: [
+        "invNorm(0.99, 0, 1) = 2.326",
+        "invNorm(0.98, 0, 1) = 2.054",
+        "invNorm(0.02, 0, 1) = −2.054",
+        "normalcdf(0.01, 1E99, 0, 1)"
+      ],
+      ans: 0,
+      exp: "In a 2-tail test with α = 0.02, each tail has area α/2 = 0.01, so the cumulative area to the left of the upper critical value is 1 − 0.01 = 0.99, giving critical region z < −2.33 or z > 2.33 (3 s.f.)."
+    }
+  ];
+
+  let curQ = 0;
+
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").textContent = item.q;
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i}, this)">${String.fromCharCode(65 + i)}. ${o}</button>
+    `).join("");
+  }
+
+  function gradeExamQ(idx, btn) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  loadScenario("bbt");
+  renderExamQ();
+</script>
+
+</body>
+</html>

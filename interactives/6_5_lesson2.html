@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 6.5 Lesson 2: 1-Tail & 2-Tail z-Tests (Normal Population with Known Variance)</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 535px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1000px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.76rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.48;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .hyp-editor {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 13px;
+      margin-bottom: 11px;
+    }
+
+    .hyp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.76rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 8px;
+      letter-spacing: 0.2px;
+    }
+
+    .control-row {
+      margin-bottom: 9px;
+    }
+
+    .control-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 4px;
+    }
+
+    .pill-select-group {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+    }
+
+    .pill-select-group.four-col {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .mini-pill {
+      padding: 6px 6px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+      text-align: center;
+      transition: 0.15s;
+    }
+
+    .mini-pill:hover {
+      border-color: var(--purple);
+      color: var(--purple-dark);
+    }
+
+    .mini-pill.active {
+      background: var(--purple-bg);
+      border-color: var(--purple);
+      color: var(--purple-dark);
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .solve-bar {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: none;
+      background: var(--purple-dark);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.78rem;
+      cursor: pointer;
+    }
+
+    .action-btn.secondary {
+      background: var(--blue-bg);
+      color: var(--blue);
+      border: 1px solid #bae6fd;
+    }
+
+    /* TI-84 INPUT & OUTPUT DUAL SCREENS */
+    .gc-screen-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin-bottom: 11px;
+    }
+
+    .box-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .gc-dual-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    @media (max-width: 560px) {
+      .gc-dual-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .gc-lcd {
+      background: #f1f5f9;
+      border: 2px solid #475569;
+      border-radius: 8px;
+      padding: 7px 9px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.48;
+    }
+
+    .gc-lcd-bar {
+      background: #1e293b;
+      color: #f8fafc;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .gc-hl-black {
+      background: #0f172a;
+      color: #ffffff;
+      padding: 0 4px;
+      border-radius: 2px;
+    }
+
+    .gc-sigma-row {
+      background: #fef08a;
+      border: 1.5px solid #ca8a04;
+      color: #713f12;
+      padding: 1px 4px;
+      border-radius: 4px;
+      display: inline-block;
+      margin: 1px 0;
+    }
+
+    .sigma-alert-strip {
+      margin-top: 8px;
+      background: #fff1f2;
+      border: 1.5px solid #fb7185;
+      border-left: 4px solid #e11d48;
+      border-radius: 8px;
+      padding: 7px 10px;
+      font-size: 0.76rem;
+      line-height: 1.42;
+      color: #881337;
+    }
+
+    .solution-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.81rem;
+      font-weight: 700;
+      line-height: 1.48;
+    }
+
+    .solution-banner.reject {
+      background: var(--rose-bg);
+      border-color: #fda4af;
+      color: #881337;
+    }
+
+    .solution-banner.retain {
+      background: var(--teal-bg);
+      border-color: #5eead4;
+      color: #134e4a;
+    }
+
+    /* RIGHT PANEL */
+    .legend-bar {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      font-size: 0.76rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      align-items: center;
+    }
+
+    .legend-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 3px;
+      display: inline-block;
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+
+    canvas {
+      width: 100%;
+      height: auto;
+      display: block;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+    }
+
+    .check-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.79rem;
+      margin-top: 10px;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .check-table th, .check-table td {
+      border: 1px solid #e2e8f0;
+      padding: 6px 9px;
+      text-align: left;
+    }
+
+    .check-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    .gc-guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .gc-guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .step-pill {
+      background: var(--blue-bg);
+      border: 1px solid #bae6fd;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.77rem;
+      line-height: 1.45;
+      color: #0c4a6e;
+    }
+
+    .misconception-box {
+      margin-top: 10px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 10px 13px;
+      font-size: 0.79rem;
+      line-height: 1.48;
+      color: #78350f;
+    }
+
+    .grader-card {
+      margin-top: 10px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 14px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 700px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Choose a Normal-Population Scenario (Top-Left)</strong>
+        Select one of the 4 Singapore quality-control problems where individual observations follow <em>N(&mu;, &sigma;²)</em> with known variance <em>&sigma;²</em> (no CLT required even for small <em>n</em>).
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Inspect TI-84 [1: Z-Test] Input vs. Output Screens</strong>
+        Pay special attention to the highlighted <strong>&sigma;</strong> input row: enter the <strong>population standard deviation &sigma;</strong> (NOT &sigma;/&radic;n and NOT variance &sigma;²), as the TI-84 divides by &radic;n automatically.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Compare Critical Region, p-Value &amp; Exam Check</strong>
+        Drag the sample mean <em>x&#772;</em> slider and verify on the graph and table that the <strong>Critical Value Method</strong> and <strong><em>p</em>-Value Method</strong> always yield the exact same conclusion.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        6.5 Lesson 2 &bull; 1-Tail &amp; 2-Tail z-Tests (Normal Population, Known &sigma;²)
+      </div>
+
+      <!-- Singapore Scenario Presets -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="sc_newater" onclick="loadScenario('newater')">
+          1. PUB NEWater Filling (Left-Tail)
+        </button>
+        <button class="tab-btn" id="sc_smrt" onclick="loadScenario('smrt')">
+          2. SMRT Peak Headway (2-Tail)
+        </button>
+        <button class="tab-btn" id="sc_changi" onclick="loadScenario('changi')">
+          3. Changi Baggage Mass (Right-Tail)
+        </button>
+        <button class="tab-btn" id="sc_kaya" onclick="loadScenario('kaya')">
+          4. Kaya Toast Bun Mass (2-Tail)
+        </button>
+      </div>
+
+      <!-- Contextual Word Problem & Parameter Definition -->
+      <div class="context-box" id="contextBox"></div>
+
+      <!-- Interactive Hypothesis & Sample Mean Controls -->
+      <div class="hyp-editor">
+        <div class="hyp-header">
+          <span id="hypFormDisplay">H₀ : &mu; = 500 &nbsp;vs&nbsp; H₁ : &mu; &lt; 500</span>
+          <span id="tailBadge" style="color:var(--purple-dark);">1-Tail (Left)</span>
+        </div>
+
+        <div class="control-row">
+          <div class="control-label"><span>Alternative Hypothesis H₁ (Tail Type)</span></div>
+          <div class="pill-select-group">
+            <button class="mini-pill active" id="tail_left" onclick="setTail('left')">Left-Tail (&mu; &lt; &mu;₀)</button>
+            <button class="mini-pill" id="tail_right" onclick="setTail('right')">Right-Tail (&mu; &gt; &mu;₀)</button>
+            <button class="mini-pill" id="tail_two" onclick="setTail('two')">2-Tail (&mu; &ne; &mu;₀)</button>
+          </div>
+        </div>
+
+        <div class="control-row">
+          <div class="control-label"><span>Level of Significance &alpha;</span></div>
+          <div class="pill-select-group four-col">
+            <button class="mini-pill" id="alp_0.10" onclick="setAlpha(0.10)">10% (0.10)</button>
+            <button class="mini-pill active" id="alp_0.05" onclick="setAlpha(0.05)">5% (0.05)</button>
+            <button class="mini-pill" id="alp_0.02" onclick="setAlpha(0.02)">2% (0.02)</button>
+            <button class="mini-pill" id="alp_0.01" onclick="setAlpha(0.01)">1% (0.01)</button>
+          </div>
+        </div>
+
+        <div class="control-row" style="margin-bottom:4px;">
+          <div class="control-label">
+            <span>Observed Sample Mean x&#772;</span>
+            <span id="xbarReadout" style="color:var(--purple-dark);">x&#772; = 496.5 ml (z_calc = &minus;1.75)</span>
+          </div>
+          <input type="range" id="sl_xbar" min="493" max="507" step="0.1" value="496.5" oninput="updateModel()" />
+        </div>
+
+        <div class="solve-bar">
+          <button class="action-btn" onclick="drawRandomSample()">Simulate Random Sample (Under H₀)</button>
+          <button class="action-btn secondary" onclick="resetPresetSample()">Reset Scenario Sample</button>
+        </div>
+      </div>
+
+      <!-- Simulated TI-84 Plus CE [1: Z-Test] INPUT & OUTPUT Screens -->
+      <div class="gc-screen-box" id="gcOutputBox"></div>
+
+      <!-- Examiner-Approved Contextual Conclusion Banner -->
+      <div class="solution-banner" id="solutionBanner"></div>
+    </div>
+
+    <!-- RIGHT DUAL-METHOD VISUALIZATION, TABLE, GC GUIDE & EXAM CHECK -->
+    <div class="card">
+      <div style="font-size:1.02rem; font-weight:800; color:#1e293b; margin-bottom:6px;" id="rightPanelHeading">
+        Critical Value Method vs. p-Value Method on Z ~ N(0, 1)
+      </div>
+
+      <div class="legend-bar">
+        <span><span class="legend-dot" style="background:rgba(225,29,72,0.28); border:1px solid #e11d48;"></span>Critical Region (Area = &alpha;)</span>
+        <span><span class="legend-dot" style="background:rgba(139,92,246,0.34); border:1px solid #7c3aed;"></span>p-Value Tail Area</span>
+        <span><span class="legend-dot" style="background:#0f766e;"></span>Observed z_calc</span>
+      </div>
+
+      <canvas id="dualCanvas" width="840" height="245"></canvas>
+
+      <!-- Side-by-Side Comparison Table -->
+      <table class="check-table" id="comparisonTable"></table>
+
+      <!-- 3-Step TI-84 Plus CE Z-Test Keystroke Guide -->
+      <div class="gc-guide-grid">
+        <div class="step-pill">
+          <strong>Step 1: Exact Model (No CLT)</strong><br>
+          Since <em>X ~ N(&mu;₀, &sigma;²)</em>, <strong>X&#772; ~ N(&mu;₀, &sigma;²/n)</strong> holds <em>exactly</em> for any <em>n</em>. Do not cite CLT!
+        </div>
+        <div class="step-pill">
+          <strong>Step 2: TI-84 [1: Z-Test] Input</strong><br>
+          Press <strong>[STAT] &rarr; [TESTS] &rarr; 1:Z-Test</strong>. Select <strong>Stats</strong> and enter <strong>&sigma;</strong> (the single-item population SD, <em>not</em> &sigma;/&radic;n).
+        </div>
+        <div class="step-pill">
+          <strong>Step 3: Compare &amp; Conclude</strong><br>
+          Compare <strong>p-value &le; &alpha;</strong> (or <em>z_calc</em> in critical region) and write a full contextual verdict.
+        </div>
+      </div>
+
+      <!-- 9758 Exam Misconception Box -->
+      <div class="misconception-box">
+        <strong>9758 H2 Math Exam Misconception &amp; Calculator Traps:</strong>
+        <ul style="margin:3px 0 0 0; padding-left:18px;">
+          <li><strong>CRITICAL &sigma; INPUT TRAP:</strong> On the TI-84 <code>Z-Test</code> screen, enter the <strong>population standard deviation &sigma;</strong> (e.g. <code>6</code>), <strong>NOT</strong> the standard error <code>&sigma;/&radic;n = 2</code> and <strong>NOT</strong> the variance <code>&sigma;² = 36</code>! The TI-84 divides by <code>&radic;n</code> automatically.</li>
+          <li><strong>Doubling the tail area in a 2-tail test:</strong> When computing the <em>p</em>-value manually via <code>normalcdf</code> for <em>H₁ : &mu; &ne; &mu;₀</em>, multiply the single-tail area by 2: <em>p-value = 2 &times; P(Z &ge; |z_calc|)</em>.</li>
+          <li><strong>Never write "Accept H₀" or "H₁ is proven":</strong> Always state <em>"There is sufficient/insufficient evidence at the &alpha;% level of significance to conclude that..."</em></li>
+        </ul>
+      </div>
+
+      <!-- Quick 9758 1-Tail & 2-Tail z-Test Exam Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 1-Tail &amp; 2-Tail z-Test Check (<span id="qIdxLbl">1</span>/3)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.8rem; line-height:1.45; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  const scenarios = {
+    newater: {
+      unit: "ml",
+      mu0: 500,
+      sigma: 6,
+      varStr: "36",
+      n: 9,
+      defaultTail: "left",
+      defaultXbar: 496.5,
+      minXbar: 493.0,
+      maxXbar: 507.0,
+      stepXbar: 0.1,
+      varDesc: "Let &mu; be the population mean volume (in ml) of a PUB NEWater bottle (X ~ N(&mu;, 6²), n = 9).",
+      story: "<strong>PUB NEWater Bottling Audit:</strong> Bottled water volumes follow a Normal distribution with variance <strong>&sigma;² = 36 ml²</strong> (so <strong>&sigma; = 6 ml</strong>). A quality inspector tests a random sample of <strong>n = 9</strong> bottles (<em>x&#772; = 496.5 ml</em>) to check if the machine is <strong>underfilling below 500 ml</strong>.",
+      claimPhrase: "the mean volume of water in a bottle is less than 500 ml"
+    },
+    smrt: {
+      unit: "min",
+      mu0: 3.0,
+      sigma: 0.8,
+      varStr: "0.64",
+      n: 16,
+      defaultTail: "two",
+      defaultXbar: 2.65,
+      minXbar: 2.30,
+      maxXbar: 3.70,
+      stepXbar: 0.01,
+      varDesc: "Let &mu; be the population mean peak headway (in minutes) on the Circle Line (X ~ N(&mu;, 0.8²), n = 16).",
+      story: "<strong>SMRT Circle Line Peak Headway:</strong> Peak train headways follow a Normal distribution with variance <strong>&sigma;² = 0.64 min²</strong> (so <strong>&sigma; = 0.8 min</strong>). LTA tests a random sample of <strong>n = 16</strong> trains (<em>x&#772; = 2.65 min</em>) to determine whether the mean peak headway <strong>differs from 3.0 min</strong>.",
+      claimPhrase: "the mean peak train headway differs from 3.0 minutes"
+    },
+    changi: {
+      unit: "kg",
+      mu0: 23.0,
+      sigma: 3.0,
+      varStr: "9",
+      n: 9,
+      defaultTail: "right",
+      defaultXbar: 25.1,
+      minXbar: 19.5,
+      maxXbar: 26.5,
+      stepXbar: 0.1,
+      varDesc: "Let &mu; be the population mean mass (in kg) of check-in bags on a regional flight (X ~ N(&mu;, 3²), n = 9).",
+      story: "<strong>Changi Airport Check-In Baggage:</strong> Individual bag masses follow a Normal distribution with variance <strong>&sigma;² = 9 kg²</strong> (so <strong>&sigma; = 3 kg</strong>). Ground staff weigh <strong>n = 9</strong> bags (<em>x&#772; = 25.1 kg</em>) to test if the mean bag mass <strong>exceeds 23.0 kg</strong>.",
+      claimPhrase: "the mean mass of check-in bags exceeds 23.0 kg"
+    },
+    kaya: {
+      unit: "g",
+      mu0: 65.0,
+      sigma: 4.0,
+      varStr: "16",
+      n: 16,
+      defaultTail: "two",
+      defaultXbar: 62.8,
+      minXbar: 61.5,
+      maxXbar: 68.5,
+      stepXbar: 0.1,
+      varDesc: "Let &mu; be the population mean mass (in g) of a baked kaya toast bun (X ~ N(&mu;, 4²), n = 16).",
+      story: "<strong>Kaya Toast Bakery QC:</strong> Bun masses from a commercial oven follow a Normal distribution with variance <strong>&sigma;² = 16 g²</strong> (so <strong>&sigma; = 4 g</strong>). A baker samples <strong>n = 16</strong> buns (<em>x&#772; = 62.8 g</em>) to test whether the mean bun mass <strong>has changed from 65.0 g</strong>.",
+      claimPhrase: "the mean mass of a kaya toast bun differs from 65.0 g"
+    }
+  };
+
+  let curKey = "newater";
+  let curTail = "left";
+  let curAlpha = 0.05;
+
+  function fmt(n, dp = 2) {
+    if (Math.abs(n) < 1e-8) return "0";
+    return Number(n.toFixed(dp)).toString();
+  }
+
+  function normPDF(z) {
+    return Math.exp(-0.5 * z * z) / Math.sqrt(2 * Math.PI);
+  }
+
+  function erf(x) {
+    const sign = x >= 0 ? 1 : -1;
+    x = Math.abs(x);
+    const a1 = 0.254829592, a2 = -0.284496736, a3 = 1.421413741;
+    const a4 = -1.453152027, a5 = 1.061405429, p = 0.3275911;
+    const t = 1 / (1 + p * x);
+    const y = 1 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-x * x);
+    return sign * y;
+  }
+
+  function normCDF(z) {
+    return 0.5 * (1 + erf(z / Math.SQRT2));
+  }
+
+  function invNorm(p) {
+    const a = [-3.969683028665376e+01, 2.209460984245205e+02, -2.759285104469687e+02, 1.383577518672690e+02, -3.066479806614716e+01, 2.506628277459239e+00];
+    const b = [-5.447609879822406e+01, 1.615858368580409e+02, -1.556989798598866e+02, 6.680131188771972e+01, -1.328068155288572e+01];
+    const c = [-7.784894002430293e-03, -3.223964580411365e-01, -2.400758277161838e+00, -2.549732539343734e+00, 4.374664141464968e+00, 2.938163982698783e+00];
+    const d = [7.784695709041462e-03, 3.224671290700398e-01, 2.445134137142996e+00, 3.754408661907416e+00];
+    const pLow = 0.02425, pHigh = 1 - pLow;
+    let q, r;
+    if (p < pLow) {
+      q = Math.sqrt(-2 * Math.log(p));
+      return (((((c[0]*q + c[1])*q + c[2])*q + c[3])*q + c[4])*q + c[5]) / ((((d[0]*q + d[1])*q + d[2])*q + d[3])*q + 1);
+    } else if (p <= pHigh) {
+      q = p - 0.5;
+      r = q * q;
+      return (((((a[0]*r + a[1])*r + a[2])*r + a[3])*r + a[4])*r + a[5])*q / (((((b[0]*r + b[1])*r + b[2])*r + b[3])*r + b[4])*r + 1);
+    } else {
+      q = Math.sqrt(-2 * Math.log(1 - p));
+      return -(((((c[0]*q + c[1])*q + c[2])*q + c[3])*q + c[4])*q + c[5]) / ((((d[0]*q + d[1])*q + d[2])*q + d[3])*q + 1);
+    }
+  }
+
+  function loadScenario(key) {
+    curKey = key;
+    const sc = scenarios[key];
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("sc_" + key).classList.add("active");
+
+    document.getElementById("contextBox").innerHTML = `
+      <div>${sc.story}</div>
+      <div class="var-pill">${sc.varDesc}</div>
+    `;
+
+    const sl = document.getElementById("sl_xbar");
+    sl.min = sc.minXbar;
+    sl.max = sc.maxXbar;
+    sl.step = sc.stepXbar;
+    sl.value = sc.defaultXbar;
+
+    setTail(sc.defaultTail, false);
+    updateModel();
+  }
+
+  function setTail(t, refresh = true) {
+    curTail = t;
+    ["left", "right", "two"].forEach(k => {
+      document.getElementById("tail_" + k).classList.toggle("active", k === t);
+    });
+    if (refresh) updateModel();
+  }
+
+  function setAlpha(a) {
+    curAlpha = a;
+    [0.10, 0.05, 0.02, 0.01].forEach(v => {
+      document.getElementById("alp_" + v.toFixed(2)).classList.toggle("active", Math.abs(v - a) < 1e-6);
+    });
+    updateModel();
+  }
+
+  function resetPresetSample() {
+    const sc = scenarios[curKey];
+    document.getElementById("sl_xbar").value = sc.defaultXbar;
+    setTail(sc.defaultTail, false);
+    updateModel();
+  }
+
+  function drawRandomSample() {
+    const sc = scenarios[curKey];
+    const se = sc.sigma / Math.sqrt(sc.n);
+    let u = 0, v = 0;
+    while (u === 0) u = Math.random();
+    while (v === 0) v = Math.random();
+    const z = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+    const simXbar = Math.max(sc.minXbar, Math.min(sc.maxXbar, sc.mu0 + z * se));
+    document.getElementById("sl_xbar").value = simXbar.toFixed(2);
+    updateModel();
+  }
+
+  function updateModel() {
+    const sc = scenarios[curKey];
+    const xbar = parseFloat(document.getElementById("sl_xbar").value);
+    const se = sc.sigma / Math.sqrt(sc.n);
+    const zCalc = (xbar - sc.mu0) / se;
+    const pct = Math.round(curAlpha * 100);
+
+    let h1Sym, gcH1Label, tailTitle, zCrit, critRegStr, xbarCritStr, pVal, pFormulaStr, reject;
+    let optNeq = "&ne;&mu;₀", optLt = "&lt;&mu;₀", optGt = "&gt;&mu;₀";
+
+    if (curTail === "left") {
+      h1Sym = `&lt; ${sc.mu0}`;
+      gcH1Label = `&mu; < ${sc.mu0}`;
+      optLt = `<span class="gc-hl-black">&lt;&mu;₀</span>`;
+      tailTitle = "1-Tail (Left)";
+      zCrit = invNorm(curAlpha); // negative
+      const xCrit = sc.mu0 + zCrit * se;
+      critRegStr = `z < ${zCrit.toFixed(3)}`;
+      xbarCritStr = `x&#772; < ${xCrit.toFixed(2)} ${sc.unit}`;
+      pVal = normCDF(zCalc);
+      pFormulaStr = `P(Z &le; ${zCalc.toFixed(3)}) = ${pVal.toFixed(4)}`;
+      reject = zCalc < zCrit;
+    } else if (curTail === "right") {
+      h1Sym = `&gt; ${sc.mu0}`;
+      gcH1Label = `&mu; > ${sc.mu0}`;
+      optGt = `<span class="gc-hl-black">&gt;&mu;₀</span>`;
+      tailTitle = "1-Tail (Right)";
+      zCrit = invNorm(1 - curAlpha); // positive
+      const xCrit = sc.mu0 + zCrit * se;
+      critRegStr = `z > +${zCrit.toFixed(3)}`;
+      xbarCritStr = `x&#772; > ${xCrit.toFixed(2)} ${sc.unit}`;
+      pVal = 1 - normCDF(zCalc);
+      pFormulaStr = `P(Z &ge; ${zCalc.toFixed(3)}) = ${pVal.toFixed(4)}`;
+      reject = zCalc > zCrit;
+    } else {
+      h1Sym = `&ne; ${sc.mu0}`;
+      gcH1Label = `&mu; &ne; ${sc.mu0}`;
+      optNeq = `<span class="gc-hl-black">&ne;&mu;₀</span>`;
+      tailTitle = "2-Tail";
+      zCrit = invNorm(1 - curAlpha / 2); // positive
+      const xLow = sc.mu0 - zCrit * se;
+      const xHigh = sc.mu0 + zCrit * se;
+      critRegStr = `z < &minus;${zCrit.toFixed(3)} or z > +${zCrit.toFixed(3)}`;
+      xbarCritStr = `x&#772; < ${xLow.toFixed(2)} or x&#772; > ${xHigh.toFixed(2)} ${sc.unit}`;
+      pVal = 2 * (1 - normCDF(Math.abs(zCalc)));
+      pFormulaStr = `2 &times; P(Z &ge; ${Math.abs(zCalc).toFixed(3)}) = ${pVal.toFixed(4)}`;
+      reject = Math.abs(zCalc) > zCrit;
+    }
+
+    document.getElementById("hypFormDisplay").innerHTML = `H₀ : &mu; = ${sc.mu0} &nbsp;vs&nbsp; H₁ : &mu; ${h1Sym}`;
+    document.getElementById("tailBadge").textContent = `${tailTitle} • α = ${pct}%`;
+    document.getElementById("xbarReadout").innerHTML = `x&#772; = ${fmt(xbar, 2)} ${sc.unit} (z_calc = ${zCalc >= 0 ? "+" : "&minus;"}${Math.abs(zCalc).toFixed(2)})`;
+
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">TI-84 Plus CE &bull; [STAT] &rarr; [TESTS] &rarr; [1: Z-Test] Input vs. Output</span>
+      <div class="gc-dual-grid">
+        <div class="gc-lcd">
+          <div class="gc-lcd-bar"><span>Z-Test (INPUT)</span><span>Stats</span></div>
+          Inpt: Data &nbsp;<span class="gc-hl-black">Stats</span><br>
+          &mu;₀:${sc.mu0}<br>
+          <span class="gc-sigma-row">&sigma;:${sc.sigma} &nbsp;&larr; Pop SD &sigma;!</span><br>
+          x&#772;:${fmt(xbar, 2)}<br>
+          n:${sc.n}<br>
+          &mu;:${optNeq} ${optLt} ${optGt}<br>
+          <span class="gc-hl-black">Calculate</span> &nbsp;Draw
+        </div>
+        <div class="gc-lcd">
+          <div class="gc-lcd-bar"><span>Z-Test (OUTPUT)</span><span>Result</span></div>
+          &nbsp;&nbsp;&mu; ${gcH1Label.replace('&mu; ', '')}<br>
+          z = ${zCalc >= 0 ? "+" : "&minus;"}${Math.abs(zCalc).toFixed(5)}<br>
+          p = ${pVal.toFixed(5)}<br>
+          <span style="color:#475569;">(3 s.f.: ${pVal.toPrecision(3)})</span><br>
+          x&#772; = ${fmt(xbar, 2)}<br>
+          n = ${sc.n}
+        </div>
+      </div>
+      <div class="sigma-alert-strip">
+        <strong>CRITICAL &sigma; INPUT RULE:</strong> Enter <strong>&sigma; = ${sc.sigma}</strong> (the <em>population</em> standard deviation, &radic;${sc.varStr}). Do <strong>NOT</strong> enter variance &sigma;² = ${sc.varStr} and do <strong>NOT</strong> enter standard error &sigma;/&radic;n = ${se.toFixed(2)} — the TI-84 automatically computes <code>&sigma;/&radic;n</code> inside <code>Z-Test</code>!
+      </div>
+    `;
+
+    const banner = document.getElementById("solutionBanner");
+    if (reject) {
+      banner.className = "solution-banner reject";
+      banner.innerHTML = `Examiner-Approved Conclusion (&alpha; = ${pct}%): Since p-value = ${pVal.toFixed(4)} &le; ${curAlpha} (equivalently, z_calc = ${zCalc.toFixed(2)} lies inside the critical region ${critRegStr}), we <strong>reject H₀</strong>. There is sufficient evidence at the ${pct}% level of significance to conclude that ${sc.claimPhrase}.`;
+    } else {
+      banner.className = "solution-banner retain";
+      banner.innerHTML = `Examiner-Approved Conclusion (&alpha; = ${pct}%): Since p-value = ${pVal.toFixed(4)} &gt; ${curAlpha} (equivalently, z_calc = ${zCalc.toFixed(2)} lies outside the critical region ${critRegStr}), we <strong>do not reject H₀</strong>. There is insufficient evidence at the ${pct}% level of significance to conclude that ${sc.claimPhrase}.`;
+    }
+
+    document.getElementById("comparisonTable").innerHTML = `
+      <thead>
+        <tr>
+          <th>Decision Method</th>
+          <th>Observed Statistic</th>
+          <th>Threshold at &alpha; = ${pct}%</th>
+          <th>Verdict (Always Identical!)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1. Critical Value Method</strong></td>
+          <td>z_calc = ${zCalc >= 0 ? "+" : "&minus;"}${Math.abs(zCalc).toFixed(3)}</td>
+          <td>Critical Region: <strong>${critRegStr}</strong><br><span style="font-size:0.73rem; color:var(--muted);">(or ${xbarCritStr})</span></td>
+          <td style="color:${reject ? "#e11d48" : "#0f766e"}; font-weight:800;">${reject ? "✓ In Critical Region → Reject H₀" : "✗ Outside CR → Do Not Reject H₀"}</td>
+        </tr>
+        <tr>
+          <td><strong>2. p-Value Method (GC)</strong></td>
+          <td>${pFormulaStr}</td>
+          <td>Significance Level: <strong>&alpha; = ${curAlpha}</strong></td>
+          <td style="color:${reject ? "#e11d48" : "#0f766e"}; font-weight:800;">${reject ? "✓ p-value ≤ α → Reject H₀" : "✗ p-value > α → Do Not Reject H₀"}</td>
+        </tr>
+      </tbody>
+    `;
+
+    drawDualCanvas(zCrit, zCalc, reject);
+  }
+
+  function drawDualCanvas(zCrit, zCalc, reject) {
+    const canvas = document.getElementById("dualCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const padL = 42, padR = 28, padT = 28, padB = 38;
+    const plotW = W - padL - padR;
+    const plotH = H - padT - padB;
+
+    const zMin = -3.8, zMax = 3.8;
+    const yMax = normPDF(0) * 1.16;
+    const toX = z => padL + ((z - zMin) / (zMax - zMin)) * plotW;
+    const toY = y => padT + plotH - (y / yMax) * plotH;
+
+    function shadeRegion(a, b, fillStyle) {
+      if (b <= a) return;
+      ctx.fillStyle = fillStyle;
+      ctx.beginPath();
+      ctx.moveTo(toX(a), toY(0));
+      for (let i = 0; i <= 140; i++) {
+        const z = a + (i / 140) * (b - a);
+        ctx.lineTo(toX(z), toY(normPDF(z)));
+      }
+      ctx.lineTo(toX(b), toY(0));
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    // 1. Shade Critical Region (Rose)
+    if (curTail === "left") {
+      shadeRegion(zMin, zCrit, "rgba(225, 29, 72, 0.25)");
+    } else if (curTail === "right") {
+      shadeRegion(zCrit, zMax, "rgba(225, 29, 72, 0.25)");
+    } else {
+      shadeRegion(zMin, -zCrit, "rgba(225, 29, 72, 0.25)");
+      shadeRegion(zCrit, zMax, "rgba(225, 29, 72, 0.25)");
+    }
+
+    // 2. Shade p-Value Tail Area (Purple)
+    const clampedZ = Math.max(zMin + 0.05, Math.min(zMax - 0.05, zCalc));
+    if (curTail === "left") {
+      shadeRegion(zMin, clampedZ, "rgba(139, 92, 246, 0.30)");
+    } else if (curTail === "right") {
+      shadeRegion(clampedZ, zMax, "rgba(139, 92, 246, 0.30)");
+    } else {
+      const absZ = Math.abs(clampedZ);
+      shadeRegion(zMin, -absZ, "rgba(139, 92, 246, 0.30)");
+      shadeRegion(absZ, zMax, "rgba(139, 92, 246, 0.30)");
+    }
+
+    // Standard normal bell curve
+    ctx.strokeStyle = "#334155";
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    for (let i = 0; i <= 300; i++) {
+      const z = zMin + (i / 300) * (zMax - zMin);
+      const y = normPDF(z);
+      if (i === 0) ctx.moveTo(toX(z), toY(y));
+      else ctx.lineTo(toX(z), toY(y));
+    }
+    ctx.stroke();
+
+    // z = 0 dashed reference
+    ctx.strokeStyle = "#94a3b8";
+    ctx.lineWidth = 1.2;
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath();
+    ctx.moveTo(toX(0), padT + 8);
+    ctx.lineTo(toX(0), padT + plotH);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Critical boundary lines
+    const crits = curTail === "two" ? [-zCrit, zCrit] : [zCrit];
+    crits.forEach(cz => {
+      ctx.strokeStyle = "#e11d48";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(toX(cz), padT + 14);
+      ctx.lineTo(toX(cz), padT + plotH);
+      ctx.stroke();
+
+      ctx.fillStyle = "#e11d48";
+      ctx.font = "bold 11px Segoe UI, sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText(`z_crit = ${cz.toFixed(2)}`, toX(cz), padT + plotH + 30);
+    });
+
+    // Observed z_calc marker
+    ctx.strokeStyle = "#0f766e";
+    ctx.lineWidth = 2.6;
+    ctx.beginPath();
+    ctx.moveTo(toX(clampedZ), padT + 12);
+    ctx.lineTo(toX(clampedZ), padT + plotH);
+    ctx.stroke();
+
+    ctx.fillStyle = "#0f766e";
+    ctx.beginPath();
+    ctx.arc(toX(clampedZ), toY(normPDF(clampedZ)), 4.8, 0, 2 * Math.PI);
+    ctx.fill();
+
+    ctx.font = "bold 11.5px Segoe UI, sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(`z_calc = ${zCalc.toFixed(2)}`, toX(clampedZ), padT + 9);
+
+    // X-axis
+    ctx.strokeStyle = "#475569";
+    ctx.lineWidth = 1.3;
+    ctx.beginPath();
+    ctx.moveTo(padL, padT + plotH);
+    ctx.lineTo(W - padR, padT + plotH);
+    ctx.stroke();
+
+    ctx.fillStyle = "#334155";
+    ctx.font = "bold 11px Segoe UI, sans-serif";
+    for (let z = -3; z <= 3; z++) {
+      ctx.fillText(z.toString(), toX(z), padT + plotH + 15);
+    }
+  }
+
+  const examQs = [
+    {
+      q: "NEWater bottle volumes follow N(μ, 36). A sample of n = 9 bottles gives x̄ = 496.5 ml. On the TI-84 Plus CE [1: Z-Test] input screen, what value must you enter for σ?",
+      opts: [
+        "σ = 6 (the population standard deviation √36)",
+        "σ = 36 (the population variance σ²)",
+        "σ = 2 (the standard error 6/√9)",
+        "σ = 4 (the variance of X̄, 36/9)"
+      ],
+      ans: 0,
+      exp: "Always enter the population standard deviation σ = √36 = 6 on the TI-84 Z-Test screen. The calculator divides by √n = √9 = 3 automatically when computing z."
+    },
+    {
+      q: "A 2-tail z-test for H₀ : μ = 3.0 vs H₁ : μ ≠ 3.0 yields z_calc = −1.75. What is the correct p-value?",
+      opts: [
+        "0.0801 (since p-value = 2 × P(Z ≤ −1.75))",
+        "0.0401 (since P(Z ≤ −1.75) = 0.0401)",
+        "0.9599 (since P(Z ≥ −1.75) = 0.9599)",
+        "0.0500 (equal to α)"
+      ],
+      ans: 0,
+      exp: "For a 2-tail test (H₁ : μ ≠ μ₀), the p-value includes both tails beyond ±|z_calc|, so p-value = 2 × P(Z ≤ −1.75) = 2 × 0.04006 = 0.0801."
+    },
+    {
+      q: "In a 1-tail z-test at the 5% level of significance, the TI-84 Z-Test screen displays p = 0.0684. Which conclusion is examiner-approved?",
+      opts: [
+        "Since p-value = 0.0684 > 0.05, do not reject H₀. There is insufficient evidence at the 5% level of significance to support H₁.",
+        "Since p-value = 0.0684 > 0.05, accept H₀. H₀ is proven true.",
+        "Since p-value = 0.0684 > 0.05, reject H₀ and accept H₁.",
+        "Since 0.0684 > 0.05, invoke the Central Limit Theorem."
+      ],
+      ans: 0,
+      exp: "When p-value > α, we do not reject H₀ (never write 'Accept H₀') and state that there is insufficient evidence at the 5% level of significance."
+    }
+  ];
+
+  let curQ = 0;
+
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").textContent = item.q;
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i}, this)">${String.fromCharCode(65 + i)}. ${o}</button>
+    `).join("");
+  }
+
+  function gradeExamQ(idx, btn) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  loadScenario("newater");
+  renderExamQ();
+</script>
+
+</body>
+</html>
