@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 6.1 Lesson 4: Conditional Probability &amp; Tree Diagrams</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 530px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1000px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.76rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.48;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.74rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .control-panel {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 13px;
+      margin-bottom: 11px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .slider-row {
+      display: grid;
+      grid-template-columns: 165px 1fr 56px;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-size: 0.79rem;
+      font-weight: 700;
+    }
+
+    .slider-row input[type="range"] {
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .val-badge {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      text-align: center;
+      padding: 2px 4px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .toggle-row {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: none;
+      background: var(--purple-dark);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.76rem;
+      cursor: pointer;
+    }
+
+    .action-btn.secondary {
+      background: var(--blue-bg);
+      color: var(--blue);
+      border: 1px solid #bae6fd;
+    }
+
+    .gc-screen-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin-bottom: 11px;
+    }
+
+    .box-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .gc-readout {
+      background: #f1f5f9;
+      border: 2px solid #64748b;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 5px;
+      line-height: 1.48;
+    }
+
+    .solution-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.81rem;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    /* RIGHT VISUAL STAGE */
+    .visual-stage {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+    }
+
+    .view-chip-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .view-btn {
+      padding: 5px 10px;
+      border-radius: 7px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .view-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .canvas-box {
+      background: #ffffff;
+      border: 1px dashed #94a3b8;
+      border-radius: 10px;
+      padding: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .check-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+      margin-top: 8px;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .check-table th, .check-table td {
+      border: 1px solid #e2e8f0;
+      padding: 6px 9px;
+      text-align: left;
+    }
+
+    .check-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    .gc-guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .gc-guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .step-pill {
+      background: var(--blue-bg);
+      border: 1px solid #bae6fd;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.77rem;
+      line-height: 1.45;
+      color: #0c4a6e;
+    }
+
+    .grader-card {
+      margin-top: 12px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 700px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .misconception-box {
+      margin-top: 12px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 10px 13px;
+      font-size: 0.79rem;
+      line-height: 1.48;
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Choose a Singapore 2-Stage Scenario</strong>
+        Switch between <em>Polyclinic Rapid Test Screening</em>, <em>LTA Bus-to-MRT Commute</em>, <em>Without-Replacement Draw (Hawker Voucher Box)</em>, and <em>3-Branch Campus Transport Tree</em>.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Toggle Tree Diagram vs. Sample Space Zoom</strong>
+        Switch between the <em>2-Stage Probability Tree</em> and the <em>Proportional Unit-Square Sample Space Zoom</em> to see why <em>P(A | B) = P(A &cap; B) / P(B)</em> shrinks the denominator!
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Compare Forward vs. Reverse Conditional Probabilities</strong>
+        Adjust prior and branch probabilities with the sliders to verify how <em>P(B | A)</em> differs sharply from <em>P(A | B)</em> (especially for rare conditions!).
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        6.1 Lesson 4 &bull; Conditional Probability &amp; Tree Diagrams
+      </div>
+
+      <!-- Singapore Real-World Presets -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="sc_clinic" onclick="loadScenario('clinic')">
+          1. Polyclinic Rapid Test Screening
+        </button>
+        <button class="tab-btn" id="sc_commute" onclick="loadScenario('commute')">
+          2. SBS Bus &rarr; MRT Punctuality
+        </button>
+        <button class="tab-btn" id="sc_urn" onclick="loadScenario('urn')">
+          3. Without Replacement (Voucher Draw)
+        </button>
+        <button class="tab-btn" id="sc_three_branch" onclick="loadScenario('three_branch')">
+          4. 3-Branch JC Transport Tree
+        </button>
+      </div>
+
+      <!-- Contextual Story -->
+      <div class="context-box" id="contextBox"></div>
+
+      <!-- Interactive Controls -->
+      <div class="control-panel" id="twoBranchControls">
+        <div class="panel-header">
+          <span>Stage 1 &amp; Stage 2 Branch Probabilities</span>
+          <span style="color:var(--teal);">Law of Total Probability</span>
+        </div>
+
+        <div class="slider-row">
+          <span id="lblP1">P(A) [Infected]:</span>
+          <input type="range" id="sliderP1" min="0.01" max="0.90" step="0.01" value="0.05" oninput="onSliderChange()" />
+          <span class="val-badge" id="valP1">0.05</span>
+        </div>
+
+        <div class="slider-row">
+          <span id="lblBgivenA">P(B | A) [True +]:</span>
+          <input type="range" id="sliderBgivenA" min="0.05" max="0.99" step="0.01" value="0.94" oninput="onSliderChange()" />
+          <span class="val-badge" id="valBgivenA">0.94</span>
+        </div>
+
+        <div class="slider-row">
+          <span id="lblBgivenAc">P(B | A&prime;) [False +]:</span>
+          <input type="range" id="sliderBgivenAc" min="0.01" max="0.95" step="0.01" value="0.08" oninput="onSliderChange()" />
+          <span class="val-badge" id="valBgivenAc">0.08</span>
+        </div>
+
+        <div class="toggle-row">
+          <button class="action-btn secondary" onclick="toggleZoomMode()" id="zoomToggleBtn">Highlight Conditioning Event B: ON</button>
+        </div>
+      </div>
+
+      <!-- Simulated TI-84 Plus CE Readout -->
+      <div class="gc-screen-box" id="gcOutputBox"></div>
+
+      <!-- Pedagogical Conclusion Banner -->
+      <div class="solution-banner" id="solutionBanner"></div>
+    </div>
+
+    <!-- RIGHT VISUAL TREE / SAMPLE SPACE ZOOM, TABLE & EXAM CHECK -->
+    <div class="card">
+      <div style="font-size:1.02rem; font-weight:800; color:#1e293b; margin-bottom:8px;">
+        Interactive Probability Tree &amp; Sample Space Zoom Lab
+      </div>
+
+      <div class="visual-stage">
+        <div class="view-chip-bar" id="viewChips">
+          <button class="view-btn active" id="v_tree" onclick="setView('tree')">View 1: 2-Stage Probability Tree Diagram</button>
+          <button class="view-btn" id="v_zoom" onclick="setView('zoom')">View 2: Sample Space Zoom (Unit Square)</button>
+        </div>
+
+        <div class="canvas-box" id="visualCanvas"></div>
+        <div id="stageCaption" style="margin-top:8px; font-size:0.78rem; color:#334155; line-height:1.45;"></div>
+      </div>
+
+      <!-- Path & Conditional Probability Breakdown Table -->
+      <table class="check-table" id="breakdownTable"></table>
+
+      <!-- 3-Step Method Guide -->
+      <div class="gc-guide-grid">
+        <div class="step-pill">
+          <strong>1. Conditional Definition</strong><br>
+          <em>P(A | B) = P(A &cap; B) / P(B)</em> (provided <em>P(B) &gt; 0</em>).<br>
+          Conditioning on <em>B</em> restricts the sample space from <em>1</em> down to <em>P(B)</em>.
+        </div>
+        <div class="step-pill">
+          <strong>2. Multiplication Law</strong><br>
+          Multiply along a branch path:<br>
+          <em>P(A &cap; B) = P(A) &times; P(B | A)</em>.<br>
+          Note that <em>P(B | A) + P(B&prime; | A) = 1</em> at every node!
+        </div>
+        <div class="step-pill">
+          <strong>3. Reverse Conditioning (Total Probability)</strong><br>
+          To find <em>P(A | B)</em> from a tree:<br>
+          <em>P(A | B) = [P(A)P(B|A)] / [P(A)P(B|A) + P(A&prime;)P(B|A&prime;)]</em>.
+        </div>
+      </div>
+
+      <div class="misconception-box">
+        <strong>9758 Exam Misconception Alert — Confusing P(A | B) with P(B | A):</strong>
+        <ul style="margin:3px 0 0 0; padding-left:18px;">
+          <li><strong>The Prosecutor's / Screening Fallacy:</strong> Even if a rapid test is 94% accurate when infected (<em>P(+ | Infected) = 0.94</em>), if the infection is rare (<em>P(Infected) = 0.05</em>), most positive results come from the huge healthy group (<em>0.95 &times; 0.08 = 0.076</em> vs. <em>0.05 &times; 0.94 = 0.047</em>)!</li>
+          <li><strong>Always check the given condition:</strong> The event after the vertical bar <code>|</code> is your <strong>new denominator</strong>.</li>
+        </ul>
+      </div>
+
+      <!-- Quick 9758 Exam Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 Conditional Probability &amp; Trees Check (<span id="qIdxLbl">1</span>/3)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.8rem; line-height:1.45; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  let curKey = "clinic";
+  let viewMode = "tree"; // 'tree' | 'zoom'
+  let highlightCond = true;
+
+  let pA = 0.05;
+  let pBgivenA = 0.94;
+  let pBgivenAc = 0.08;
+
+  let labelA = "Infected (I)";
+  let labelAc = "Healthy (I')";
+  let labelB = "Test + (T)";
+  let labelBc = "Test − (T')";
+  let shortA = "I", shortAc = "I'", shortB = "T", shortBc = "T'";
+
+  function round4(x) {
+    return Math.round(x * 10000) / 10000;
+  }
+
+  function loadScenario(key) {
+    curKey = key;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("sc_" + key).classList.add("active");
+
+    const ctx = document.getElementById("contextBox");
+    const twoCtrl = document.getElementById("twoBranchControls");
+    const viewChips = document.getElementById("viewChips");
+
+    if (key === "three_branch") {
+      twoCtrl.style.display = "none";
+      viewChips.style.display = "none";
+      ctx.innerHTML = `
+        <div><strong>4. 3-Branch JC Student Transport Tree:</strong> Students travel to campus by <strong>MRT (0.50)</strong>, <strong>Bus (0.35)</strong>, or <strong>Car (0.15)</strong>. The probabilities of arriving late (<em>L</em>) are <em>P(L | MRT) = 0.04</em>, <em>P(L | Bus) = 0.12</em>, and <em>P(L | Car) = 0.10</em>. Given a student arrives late, find <em>P(Bus | L)</em>.</div>
+        <div class="var-pill">3-Branch Total Probability: P(L) = 0.50(0.04) + 0.35(0.12) + 0.15(0.10) = 0.077</div>
+      `;
+      renderThreeBranch();
+      return;
+    }
+
+    twoCtrl.style.display = "block";
+    viewChips.style.display = "flex";
+
+    if (key === "clinic") {
+      labelA = "Infected (I)"; labelAc = "Healthy (I')";
+      labelB = "Test + (T)"; labelBc = "Test − (T')";
+      shortA = "I"; shortAc = "I'"; shortB = "T"; shortBc = "T'";
+      pA = 0.05; pBgivenA = 0.94; pBgivenAc = 0.08;
+      ctx.innerHTML = `
+        <div><strong>1. Singapore Polyclinic Dengue Rapid Test:</strong> 5% of fever patients actually have dengue (<em>P(I) = 0.05</em>). The rapid test gives a positive result (<em>T</em>) for 94% of infected patients (<em>P(T | I) = 0.94</em>) and a false positive for 8% of healthy patients (<em>P(T | I&prime;) = 0.08</em>). Find <em>P(I | T)</em>.</div>
+        <div class="var-pill">Reverse Conditional Probability: P(I | T) = P(I &cap; T) / P(T)</div>
+      `;
+    } else if (key === "commute") {
+      labelA = "Bus On-Time (O)"; labelAc = "Bus Delayed (O')";
+      labelB = "Catch MRT (M)"; labelBc = "Miss MRT (M')";
+      shortA = "O"; shortAc = "O'"; shortB = "M"; shortBc = "M'";
+      pA = 0.80; pBgivenA = 0.90; pBgivenAc = 0.25;
+      ctx.innerHTML = `
+        <div><strong>2. SBS Feeder Bus &rarr; MRT Connection:</strong> A feeder bus arrives on time (<em>O</em>) with probability <em>0.80</em>. If on time, a commuter catches the express MRT (<em>M</em>) with probability <em>0.90</em>; if delayed, with probability <em>0.25</em>. Given the commuter caught the MRT, find <em>P(O | M)</em>.</div>
+        <div class="var-pill">2-Stage Tree: P(M) = P(O)P(M | O) + P(O&prime;)P(M | O&prime;)</div>
+      `;
+    } else if (key === "urn") {
+      labelA = "1st Gold (G₁)"; labelAc = "1st Silver (S₁)";
+      labelB = "2nd Gold (G₂)"; labelBc = "2nd Silver (S₂)";
+      shortA = "G₁"; shortAc = "S₁"; shortB = "G₂"; shortBc = "S₂";
+      pA = 0.40; pBgivenA = 0.33; pBgivenAc = 0.44;
+      ctx.innerHTML = `
+        <div><strong>3. Without-Replacement Draw (4 Gold, 6 Silver Vouchers):</strong> Two vouchers are drawn at random <strong>without replacement</strong> from 4 Gold and 6 Silver vouchers (<em>P(G₁) = 4/10 = 0.40</em>). Note how the Stage 2 denominator drops from 10 to 9: <em>P(G₂ | G₁) = 3/9 &approx; 0.33</em> and <em>P(G₂ | S₁) = 4/9 &approx; 0.44</em>!</div>
+        <div class="var-pill">Dependent Draws: Second-stage probabilities change based on first draw</div>
+      `;
+    }
+
+    document.getElementById("lblP1").textContent = `P(${shortA}):`;
+    document.getElementById("lblBgivenA").textContent = `P(${shortB} | ${shortA}):`;
+    document.getElementById("lblBgivenAc").textContent = `P(${shortB} | ${shortAc}):`;
+
+    document.getElementById("sliderP1").value = pA;
+    document.getElementById("sliderBgivenA").value = pBgivenA;
+    document.getElementById("sliderBgivenAc").value = pBgivenAc;
+    renderAll();
+  }
+
+  function onSliderChange() {
+    pA = parseFloat(document.getElementById("sliderP1").value);
+    pBgivenA = parseFloat(document.getElementById("sliderBgivenA").value);
+    pBgivenAc = parseFloat(document.getElementById("sliderBgivenAc").value);
+    renderAll();
+  }
+
+  function setView(v) {
+    viewMode = v;
+    document.getElementById("v_tree").className = "view-btn" + (v === "tree" ? " active" : "");
+    document.getElementById("v_zoom").className = "view-btn" + (v === "zoom" ? " active" : "");
+    renderAll();
+  }
+
+  function toggleZoomMode() {
+    highlightCond = !highlightCond;
+    document.getElementById("zoomToggleBtn").textContent = highlightCond
+      ? `Highlight Conditioning Event ${shortB}: ON`
+      : `Highlight Conditioning Event ${shortB}: OFF`;
+    renderAll();
+  }
+
+  function renderTreeSVG() {
+    const pAc = round4(1 - pA);
+    const pBcGivenA = round4(1 - pBgivenA);
+    const pBcGivenAc = round4(1 - pBgivenAc);
+
+    const pAB = round4(pA * pBgivenA);
+    const pABc = round4(pA * pBcGivenA);
+    const pAcB = round4(pAc * pBgivenAc);
+    const pAcBc = round4(pAc * pBcGivenAc);
+
+    const hlCol = "#7c3aed";
+    const hlBg = "#f3e8ff";
+
+    let svg = `<svg width="490" height="252" viewBox="0 0 490 252">`;
+    svg += `<text x="16" y="20" font-size="11" font-weight="800" fill="#475569">Stage 1</text>`;
+    svg += `<text x="195" y="20" font-size="11" font-weight="800" fill="#475569">Stage 2 (Conditional)</text>`;
+    svg += `<text x="370" y="20" font-size="11" font-weight="800" fill="#475569">Joint Path Prob.</text>`;
+
+    // Root node
+    const rx = 28, ry = 132;
+    const n1x = 175, n1yTop = 72, n1yBot = 192;
+    const n2x = 345, y1 = 42, y2 = 102, y3 = 162, y4 = 222;
+
+    // Stage 1 branches
+    svg += `<line x1="${rx}" y1="${ry}" x2="${n1x}" y2="${n1yTop}" stroke="#0284c7" stroke-width="2.4"/>`;
+    svg += `<line x1="${rx}" y1="${ry}" x2="${n1x}" y2="${n1yBot}" stroke="#64748b" stroke-width="2.2"/>`;
+
+    svg += `<text x="95" y="92" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0284c7">${shortA}: ${pA.toFixed(2)}</text>`;
+    svg += `<text x="95" y="176" text-anchor="middle" font-size="10.5" font-weight="800" fill="#475569">${shortAc}: ${pAc.toFixed(2)}</text>`;
+
+    // Stage 2 branches (Top: from A)
+    svg += `<line x1="${n1x}" y1="${n1yTop}" x2="${n2x}" y2="${y1}" stroke="${highlightCond ? hlCol : "#0f766e"}" stroke-width="${highlightCond ? 3 : 2}"/>`;
+    svg += `<line x1="${n1x}" y1="${n1yTop}" x2="${n2x}" y2="${y2}" stroke="#94a3b8" stroke-width="1.8"/>`;
+
+    svg += `<text x="260" y="49" text-anchor="middle" font-size="10" font-weight="800" fill="${highlightCond ? hlCol : "#0f766e"}">${shortB}|${shortA}: ${pBgivenA.toFixed(2)}</text>`;
+    svg += `<text x="260" y="98" text-anchor="middle" font-size="10" font-weight="700" fill="#64748b">${shortBc}|${shortA}: ${pBcGivenA.toFixed(2)}</text>`;
+
+    // Stage 2 branches (Bottom: from A')
+    svg += `<line x1="${n1x}" y1="${n1yBot}" x2="${n2x}" y2="${y3}" stroke="${highlightCond ? hlCol : "#0f766e"}" stroke-width="${highlightCond ? 3 : 2}"/>`;
+    svg += `<line x1="${n1x}" y1="${n1yBot}" x2="${n2x}" y2="${y4}" stroke="#94a3b8" stroke-width="1.8"/>`;
+
+    svg += `<text x="260" y="169" text-anchor="middle" font-size="10" font-weight="800" fill="${highlightCond ? hlCol : "#0f766e"}">${shortB}|${shortAc}: ${pBgivenAc.toFixed(2)}</text>`;
+    svg += `<text x="260" y="218" text-anchor="middle" font-size="10" font-weight="700" fill="#64748b">${shortBc}|${shortAc}: ${pBcGivenAc.toFixed(2)}</text>`;
+
+    // Nodes
+    svg += `<circle cx="${rx}" cy="${ry}" r="5" fill="#1e293b"/>`;
+    svg += `<circle cx="${n1x}" cy="${n1yTop}" r="13" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>`;
+    svg += `<text x="${n1x}" y="${n1yTop + 4}" text-anchor="middle" font-size="10" font-weight="900" fill="#0c4a6e">${shortA}</text>`;
+
+    svg += `<circle cx="${n1x}" cy="${n1yBot}" r="13" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>`;
+    svg += `<text x="${n1x}" y="${n1yBot + 4}" text-anchor="middle" font-size="10" font-weight="900" fill="#1e293b">${shortAc}</text>`;
+
+    // Leaf Joint Probability Pills
+    const leaves = [
+      { y: y1, lbl: `P(${shortA}∩${shortB}) = ${pAB.toFixed(4)}`, isB: true },
+      { y: y2, lbl: `P(${shortA}∩${shortBc}) = ${pABc.toFixed(4)}`, isB: false },
+      { y: y3, lbl: `P(${shortAc}∩${shortB}) = ${pAcB.toFixed(4)}`, isB: true },
+      { y: y4, lbl: `P(${shortAc}∩${shortBc}) = ${pAcBc.toFixed(4)}`, isB: false }
+    ];
+
+    leaves.forEach(lf => {
+      const active = highlightCond && lf.isB;
+      svg += `<rect x="352" y="${lf.y - 12}" width="128" height="24" rx="6" fill="${active ? hlBg : "#f8fafc"}" stroke="${active ? hlCol : "#cbd5e1"}" stroke-width="${active ? 1.8 : 1}"/>`;
+      svg += `<text x="416" y="${lf.y + 4}" text-anchor="middle" font-size="9.6" font-weight="${active ? 900 : 700}" fill="${active ? "#4c1d95" : "#334155"}">${lf.lbl}</text>`;
+    });
+
+    svg += `</svg>`;
+    return svg;
+  }
+
+  function renderZoomSquareSVG() {
+    const pAc = round4(1 - pA);
+    const pAB = round4(pA * pBgivenA);
+    const pAcB = round4(pAc * pBgivenAc);
+
+    // Unit square x in [60, 420] (width 360), y in [34, 214] (height 180)
+    const X0 = 60, W = 360, Y0 = 34, H = 180;
+    const wA = Math.max(36, Math.min(W - 36, W * pA));
+    const wAc = W - wA;
+
+    const hBgivenA = H * pBgivenA;
+    const hBgivenAc = H * pBgivenAc;
+
+    let svg = `<svg width="490" height="252" viewBox="0 0 490 252">`;
+    svg += `<text x="240" y="19" text-anchor="middle" font-size="11" font-weight="800" fill="#1e293b">Unit-Area Sample Space (Total Area = 1.0000): Conditioning Zooms Into ${shortB}</text>`;
+
+    // Left column: Event A (width proportional to P(A))
+    // Bottom part of A: A ∩ B
+    svg += `<rect x="${X0}" y="${Y0 + H - hBgivenA}" width="${wA}" height="${hBgivenA}" fill="#c084fc" stroke="#4c1d95" stroke-width="1.8"/>`;
+    // Top part of A: A ∩ B'
+    svg += `<rect x="${X0}" y="${Y0}" width="${wA}" height="${H - hBgivenA}" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>`;
+
+    // Right column: Event A' (width proportional to P(A'))
+    // Bottom part of A': A' ∩ B
+    svg += `<rect x="${X0 + wA}" y="${Y0 + H - hBgivenAc}" width="${wAc}" height="${hBgivenAc}" fill="#ddd6fe" stroke="#6d28d9" stroke-width="1.8"/>`;
+    // Top part of A': A' ∩ B'
+    svg += `<rect x="${X0 + wA}" y="${Y0}" width="${wAc}" height="${H - hBgivenAc}" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>`;
+
+    // Labels
+    svg += `<text x="${X0 + wA / 2}" y="232" text-anchor="middle" font-size="10" font-weight="800" fill="#0284c7">${shortA} (${pA.toFixed(2)})</text>`;
+    svg += `<text x="${X0 + wA + wAc / 2}" y="232" text-anchor="middle" font-size="10" font-weight="800" fill="#475569">${shortAc} (${pAc.toFixed(2)})</text>`;
+
+    // Area numbers inside highlighted B regions
+    if (hBgivenA > 20) {
+      svg += `<text x="${X0 + wA / 2}" y="${Y0 + H - hBgivenA / 2 + 4}" text-anchor="middle" font-size="9.5" font-weight="900" fill="#ffffff">${pAB.toFixed(4)}</text>`;
+    }
+    if (hBgivenAc > 20) {
+      svg += `<text x="${X0 + wA + wAc / 2}" y="${Y0 + H - hBgivenAc / 2 + 4}" text-anchor="middle" font-size="9.5" font-weight="900" fill="#4c1d95">${pAcB.toFixed(4)}</text>`;
+    }
+
+    svg += `<text x="430" y="185" font-size="9.5" font-weight="800" fill="#6d28d9">Shaded = ${shortB}</text>`;
+    svg += `<text x="430" y="198" font-size="9" font-weight="700" fill="#475569">(New Sample</text>`;
+    svg += `<text x="430" y="209" font-size="9" font-weight="700" fill="#475569">Space)</text>`;
+
+    svg += `</svg>`;
+    return svg;
+  }
+
+  function renderAll() {
+    document.getElementById("valP1").textContent = pA.toFixed(2);
+    document.getElementById("valBgivenA").textContent = pBgivenA.toFixed(2);
+    document.getElementById("valBgivenAc").textContent = pBgivenAc.toFixed(2);
+
+    const pAc = round4(1 - pA);
+    const pAB = round4(pA * pBgivenA);
+    const pABc = round4(pA * (1 - pBgivenA));
+    const pAcB = round4(pAc * pBgivenAc);
+    const pAcBc = round4(pAc * (1 - pBgivenAc));
+
+    const pB = round4(pAB + pAcB);
+    const pAgivenB = pB > 0 ? round4(pAB / pB) : 0;
+
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">TI-84 Plus CE Calculation Readout</span>
+      <div class="gc-readout">
+        P(${shortB}) = (${pA.toFixed(2)})(${pBgivenA.toFixed(2)}) + (${pAc.toFixed(2)})(${pBgivenAc.toFixed(2)}) = ${pB.toFixed(4)}<br>
+        P(${shortA} | ${shortB}) = ${pAB.toFixed(4)} / ${pB.toFixed(4)} = ${pAgivenB.toFixed(4)} (${(pAgivenB * 100).toFixed(1)}%)
+      </div>
+    `;
+
+    document.getElementById("solutionBanner").innerHTML = `
+      <strong>Reverse Conditional Probability P(${shortA} | ${shortB}):</strong> Given <em>${labelB}</em> occurred (total probability <strong>${pB.toFixed(4)}</strong>), the probability it came from <em>${labelA}</em> is <strong>${pAB.toFixed(4)} / ${pB.toFixed(4)} = ${pAgivenB.toFixed(4)}</strong> (compare with forward <em>P(${shortB} | ${shortA}) = ${pBgivenA.toFixed(2)}</em>!).
+    `;
+
+    document.getElementById("visualCanvas").innerHTML = viewMode === "tree" ? renderTreeSVG() : renderZoomSquareSVG();
+
+    document.getElementById("stageCaption").innerHTML = viewMode === "tree"
+      ? `<strong>Tree Diagram Rule:</strong> Highlighted purple branches lead to <em>${shortB}</em>. Sum their joint probabilities to get the denominator <em>P(${shortB}) = ${pAB.toFixed(4)} + ${pAcB.toFixed(4)} =</em> <strong>${pB.toFixed(4)}</strong>.`
+      : `<strong>Sample Space Zoom:</strong> Knowing <em>${shortB}</em> occurred restricts our universe to the purple shaded area (<em>${pB.toFixed(4)}</em>). Thus <em>P(${shortA} | ${shortB})</em> is the dark-purple fraction of the purple area: <strong>${pAB.toFixed(4)} / ${pB.toFixed(4)} = ${pAgivenB.toFixed(4)}</strong>.`;
+
+    document.getElementById("breakdownTable").innerHTML = `
+      <thead><tr><th>Joint Path</th><th>Branch Product</th><th>Joint Probability</th><th>Share of P(${shortB})</th></tr></thead>
+      <tbody>
+        <tr style="background:#f3e8ff;"><td><strong>${shortA} &cap; ${shortB}</strong></td><td>${pA.toFixed(2)} &times; ${pBgivenA.toFixed(2)}</td><td><strong>${pAB.toFixed(4)}</strong></td><td><strong>P(${shortA} | ${shortB}) = ${pAgivenB.toFixed(4)}</strong></td></tr>
+        <tr><td><strong>${shortA} &cap; ${shortBc}</strong></td><td>${pA.toFixed(2)} &times; ${(1 - pBgivenA).toFixed(2)}</td><td>${pABc.toFixed(4)}</td><td>—</td></tr>
+        <tr style="background:#f3e8ff;"><td><strong>${shortAc} &cap; ${shortB}</strong></td><td>${pAc.toFixed(2)} &times; ${pBgivenAc.toFixed(2)}</td><td><strong>${pAcB.toFixed(4)}</strong></td><td>P(${shortAc} | ${shortB}) = ${(1 - pAgivenB).toFixed(4)}</td></tr>
+        <tr><td><strong>${shortAc} &cap; ${shortBc}</strong></td><td>${pAc.toFixed(2)} &times; ${(1 - pBgivenAc).toFixed(2)}</td><td>${pAcBc.toFixed(4)}</td><td>—</td></tr>
+      </tbody>
+    `;
+  }
+
+  function renderThreeBranch() {
+    // 3-branch transport tree: MRT (0.50, late 0.04), Bus (0.35, late 0.12), Car (0.15, late 0.10)
+    let svg = `<svg width="490" height="252" viewBox="0 0 490 252">`;
+    const rx = 28, ry = 126;
+    const branches = [
+      { name: "MRT", p1: 0.50, pL: 0.04, y: 46, col: "#0284c7" },
+      { name: "Bus", p1: 0.35, pL: 0.12, y: 126, col: "#7c3aed" },
+      { name: "Car", p1: 0.15, pL: 0.10, y: 206, col: "#0f766e" }
+    ];
+
+    branches.forEach(br => {
+      const jointL = round4(br.p1 * br.pL);
+      svg += `<line x1="${rx}" y1="${ry}" x2="180" y2="${br.y}" stroke="${br.col}" stroke-width="2.3"/>`;
+      svg += `<text x="102" y="${(ry + br.y) / 2 - 6}" text-anchor="middle" font-size="10" font-weight="800" fill="${br.col}">${br.name}: ${br.p1.toFixed(2)}</text>`;
+      svg += `<circle cx="180" cy="${br.y}" r="12" fill="#f8fafc" stroke="${br.col}" stroke-width="2"/>`;
+      svg += `<text x="180" y="${br.y + 3.5}" text-anchor="middle" font-size="8.5" font-weight="900" fill="${br.col}">${br.name}</text>`;
+
+      // Late branch
+      svg += `<line x1="192" y1="${br.y}" x2="335" y2="${br.y - 12}" stroke="#e11d48" stroke-width="2"/>`;
+      svg += `<text x="262" y="${br.y - 12}" text-anchor="middle" font-size="9.2" font-weight="800" fill="#e11d48">L|${br.name}: ${br.pL.toFixed(2)}</text>`;
+      svg += `<rect x="340" y="${br.y - 23}" width="138" height="21" rx="5" fill="#ffe4e6" stroke="#e11d48" stroke-width="1.2"/>`;
+      svg += `<text x="409" y="${br.y - 9}" text-anchor="middle" font-size="9.2" font-weight="900" fill="#881337">P(${br.name}∩L) = ${jointL.toFixed(4)}</text>`;
+
+      // On-time branch
+      svg += `<line x1="192" y1="${br.y}" x2="335" y2="${br.y + 12}" stroke="#94a3b8" stroke-width="1.5"/>`;
+      svg += `<text x="262" y="${br.y + 20}" text-anchor="middle" font-size="8.8" font-weight="700" fill="#64748b">L': ${(1 - br.pL).toFixed(2)}</text>`;
+    });
+
+    svg += `<circle cx="${rx}" cy="${ry}" r="5" fill="#1e293b"/>`;
+    svg += `</svg>`;
+    document.getElementById("visualCanvas").innerHTML = svg;
+
+    document.getElementById("stageCaption").innerHTML = `
+      <strong>3-Branch Partition:</strong> Sum all 3 red late-arrival leaves: <em>P(L) = 0.0200 + 0.0420 + 0.0150 =</em> <strong>0.0770</strong>. Then <em>P(Bus | L) = 0.0420 / 0.0770 =</em> <strong>6/11 &approx; 0.5455</strong>.
+    `;
+
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">TI-84 Plus CE Readout</span>
+      <div class="gc-readout">
+        P(L) = 0.50(0.04) + 0.35(0.12) + 0.15(0.10) = 0.077<br>
+        P(Bus | L) = 0.042 / 0.077 = 6/11 ≈ 0.5455
+      </div>
+    `;
+
+    document.getElementById("solutionBanner").innerHTML = `
+      <strong>3-Branch Reverse Probability:</strong> Although only 35% of students take the Bus, Bus commuters account for <strong>6/11 (54.5%)</strong> of all late arrivals!
+    `;
+
+    document.getElementById("breakdownTable").innerHTML = `
+      <thead><tr><th>Mode of Transport</th><th>Prior P(Mode)</th><th>P(Late | Mode)</th><th>Joint P(Mode &cap; L)</th><th>Reverse P(Mode | L)</th></tr></thead>
+      <tbody>
+        <tr><td><strong>MRT</strong></td><td>0.50</td><td>0.04</td><td>0.0200</td><td>0.020 / 0.077 = 20/77 (0.2597)</td></tr>
+        <tr style="background:#f3e8ff;"><td><strong>Bus</strong></td><td>0.35</td><td>0.12</td><td><strong>0.0420</strong></td><td><strong>0.042 / 0.077 = 6/11 (0.5455)</strong></td></tr>
+        <tr><td><strong>Car</strong></td><td>0.15</td><td>0.10</td><td>0.0150</td><td>0.015 / 0.077 = 15/77 (0.1948)</td></tr>
+      </tbody>
+    `;
+  }
+
+  const examQs = [
+    {
+      q: "A diagnostic kit detects a viral strain with P(Positive | Infected) = 0.95 and P(Positive | Healthy) = 0.05. If 2% of the population is infected, what is P(Infected | Positive)?",
+      opts: [
+        "0.019 / (0.019 + 0.049) = 19/68 ≈ 0.279",
+        "0.95",
+        "0.02 × 0.95 = 0.019",
+        "0.95 / (0.95 + 0.05) = 0.95"
+      ],
+      ans: 0,
+      exp: "P(I ∩ +) = 0.02 × 0.95 = 0.019, and P(I' ∩ +) = 0.98 × 0.05 = 0.049. Thus P(+) = 0.019 + 0.049 = 0.068, giving P(I | +) = 0.019 / 0.068 = 19/68 ≈ 0.279."
+    },
+    {
+      q: "Events A and B satisfy P(A) = 0.4, P(B) = 0.5, and P(A | B) = 0.3. Find P(B | A).",
+      opts: [
+        "0.375",
+        "0.300",
+        "0.150",
+        "0.600"
+      ],
+      ans: 0,
+      exp: "First find P(A ∩ B) = P(B) × P(A | B) = 0.5 × 0.3 = 0.15. Then P(B | A) = P(A ∩ B) / P(A) = 0.15 / 0.4 = 0.375."
+    },
+    {
+      q: "A bag contains 3 red and 5 blue marbles. Two marbles are drawn without replacement. Given that the second marble drawn is red, what is the probability that the first marble was also red?",
+      opts: [
+        "2/7",
+        "3/8",
+        "3/28",
+        "6/56"
+      ],
+      ans: 0,
+      exp: "P(R₁ ∩ R₂) = (3/8)(2/7) = 6/56, and P(B₁ ∩ R₂) = (5/8)(3/7) = 15/56. Thus P(R₂) = 21/56 = 3/8, and P(R₁ | R₂) = (6/56) / (21/56) = 6/21 = 2/7."
+    }
+  ];
+
+  let curQ = 0;
+
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").textContent = item.q;
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i}, this)">${String.fromCharCode(65 + i)}. ${o}</button>
+    `).join("");
+  }
+
+  function gradeExamQ(idx, btn) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  loadScenario("clinic");
+  renderExamQ();
+</script>
+
+</body>
+</html>
