@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 4.1 Lesson 3: Argand Diagrams, Modulus &amp; Principal Argument</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    /* Prevent superscripts from distorting line height */
+    sup {
+      font-size: 0.72em;
+      line-height: 0;
+      position: relative;
+      vertical-align: baseline;
+      top: -0.45em;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.48;
+    }
+
+    .guide-step-card strong.step-heading {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 525px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    @media (max-width: 1000px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.76rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.48;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .control-panel {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 13px;
+      margin-bottom: 11px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .slider-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 7px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .slider-row label {
+      min-width: 115px;
+      color: #1e293b;
+    }
+
+    .slider-row input[type="range"] {
+      flex: 1;
+      accent-color: var(--purple-dark);
+      cursor: pointer;
+    }
+
+    .val-badge {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 2px 7px;
+      min-width: 42px;
+      text-align: center;
+      font-weight: 800;
+      font-size: 0.79rem;
+      color: #1e293b;
+    }
+
+    .sub-pill-bar {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .sub-pill {
+      flex: 1;
+      min-width: 82px;
+      padding: 6px 8px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .sub-pill.active {
+      background: var(--blue-bg);
+      border-color: var(--blue);
+      color: #0c4a6e;
+    }
+
+    .gc-screen-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin-bottom: 11px;
+    }
+
+    .box-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .gc-readout {
+      background: #f1f5f9;
+      border: 2px solid #64748b;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.81rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 5px;
+      line-height: 1.48;
+    }
+
+    .solution-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.82rem;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    /* RIGHT PANEL */
+    .visual-stage {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .step-derivation {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 13px;
+      font-size: 0.81rem;
+      line-height: 1.55;
+      margin-bottom: 10px;
+    }
+
+    .re-hl {
+      background: var(--teal-bg);
+      color: var(--teal);
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-weight: 800;
+    }
+
+    .im-hl {
+      background: var(--rose-bg);
+      color: var(--rose);
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-weight: 800;
+    }
+
+    .gc-guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .gc-guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .step-pill {
+      background: var(--blue-bg);
+      border: 1px solid #bae6fd;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.77rem;
+      line-height: 1.45;
+      color: #0c4a6e;
+    }
+
+    .misconception-box {
+      margin-top: 10px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 10px 13px;
+      font-size: 0.79rem;
+      line-height: 1.48;
+      color: #78350f;
+    }
+
+    .grader-card {
+      margin-top: 10px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 700px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong class="step-heading">1. Select an Argand Concept Mode (Top-Left)</strong>
+        Explore <em>1. Modulus &amp; Quadrant Rules</em>, <em>2. Vector Addition &amp; Subtraction (|z&#8321; &minus; z&#8322;|)</em>, <em>3. Modulus &amp; Argument Properties</em>, and <em>4. Principal Range Wrap-Around</em>.
+      </div>
+      <div class="guide-step-card">
+        <strong class="step-heading">2. Drag Coordinates Across All Four Quadrants</strong>
+        Compute the basic angle <em>&alpha; = tan<sup>&minus;1</sup>|y/x|</em> first, then apply each quadrant's rule (&alpha;, &pi; &minus; &alpha;, &minus;(&pi; &minus; &alpha;), or &minus;&alpha;) to keep <em>arg(z) &isin; (&minus;&pi;, &pi;]</em>.
+      </div>
+      <div class="guide-step-card">
+        <strong class="step-heading">3. Verify with TI-84 Commands &amp; Exam Check</strong>
+        Compare the geometric angle arc and vector geometry on the right with the simulated <strong>TI-84 Plus CE (abs &amp; angle)</strong> output, then complete the 3-question exam check.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        4.1 Lesson 3 &bull; Argand Diagrams, Modulus &amp; Principal Argument
+      </div>
+
+      <!-- 4 Mode Presets -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="mode_quadrants" onclick="setMode('quadrants')">
+          1. Modulus &amp; 4 Quadrants
+        </button>
+        <button class="tab-btn" id="mode_vectors" onclick="setMode('vectors')">
+          2. Vector Ops &amp; Distance |z&#8321;&minus;z&#8322;|
+        </button>
+        <button class="tab-btn" id="mode_properties" onclick="setMode('properties')">
+          3. Modulus &amp; Arg Properties
+        </button>
+        <button class="tab-btn" id="mode_principal" onclick="setMode('principal')">
+          4. Principal Range (&minus;&pi;, &pi;]
+        </button>
+      </div>
+
+      <!-- Concept Context Box -->
+      <div class="context-box" id="contextBox"></div>
+
+      <!-- Interactive Sliders & Sub-Controls -->
+      <div class="control-panel" id="controlPanel"></div>
+
+      <!-- Simulated TI-84 Plus CE Output -->
+      <div class="gc-screen-box" id="gcOutputBox"></div>
+
+      <!-- Final Answer Banner -->
+      <div class="solution-banner" id="solutionBanner"></div>
+    </div>
+
+    <!-- RIGHT VISUALIZATION, DERIVATION & EXAM CHECK -->
+    <div class="card">
+      <div style="font-size:1.02rem; font-weight:800; color:#1e293b; margin-bottom:8px;" id="rightHeading">
+        Argand Diagram: Modulus r = |z| &amp; Principal Argument &theta; = arg(z)
+      </div>
+
+      <!-- Visual Diagram Stage -->
+      <div class="visual-stage" id="visualStage"></div>
+
+      <!-- Algebraic Derivation Steps -->
+      <div class="step-derivation" id="derivationBox"></div>
+
+      <!-- 3-Step TI-84 Plus CE Guide -->
+      <div class="gc-guide-grid" id="gcGuideGrid"></div>
+
+      <!-- 9758 Misconception Alert -->
+      <div class="misconception-box" id="misconceptionBox"></div>
+
+      <!-- Quick 9758 Exam Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 Argand, Modulus &amp; Argument Check (<span id="qIdxLbl">1</span>/3)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.8rem; line-height:1.45; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  /* -------------------- MATH HELPERS -------------------- */
+  function fmtSigned(n) {
+    return n < 0 ? `−${Math.abs(n)}` : `${n}`;
+  }
+
+  function fmtComplex(re, im) {
+    const r = Math.abs(re) < 1e-8 ? 0 : re;
+    const i = Math.abs(im) < 1e-8 ? 0 : im;
+    if (r === 0 && i === 0) return "0";
+    const rStr = Number.isInteger(r) ? fmtSigned(r) : r.toFixed(2).replace(/\.00$/, "");
+    const absI = Math.abs(i);
+    const iNum = Number.isInteger(absI) ? (absI === 1 ? "" : `${absI}`) : absI.toFixed(2).replace(/\.00$/, "");
+    if (r === 0) return i < 0 ? `−${iNum}i` : `${iNum}i`;
+    if (i === 0) return rStr;
+    return i < 0 ? `${rStr} − ${iNum}i` : `${rStr} + ${iNum}i`;
+  }
+
+  function exactModulus(x, y) {
+    const sq = x * x + y * y;
+    const root = Math.sqrt(sq);
+    if (Number.isInteger(root)) return `${root}`;
+    let outside = 1, inside = sq;
+    for (let f = 2; f * f <= inside; f++) {
+      while (inside % (f * f) === 0) {
+        outside *= f;
+        inside /= f * f;
+      }
+    }
+    return outside === 1 ? `√${inside}` : `${outside}√${inside}`;
+  }
+
+  function exactArgInfo(x, y) {
+    if (x === 0 && y === 0) {
+      return { exact: "Undefined", rad: 0, quad: "Origin (0, 0)", rule: "arg(0) is undefined", basicAlpha: "—" };
+    }
+    if (x > 0 && y === 0) return { exact: "0", rad: 0, quad: "Positive Real Axis", rule: "θ = 0", basicAlpha: "0" };
+    if (x < 0 && y === 0) return { exact: "π", rad: Math.PI, quad: "Negative Real Axis", rule: "θ = π (included in (−π, π])", basicAlpha: "0" };
+    if (x === 0 && y > 0) return { exact: "π/2", rad: Math.PI / 2, quad: "Positive Imaginary Axis", rule: "θ = π/2", basicAlpha: "π/2" };
+    if (x === 0 && y < 0) return { exact: "−π/2", rad: -Math.PI / 2, quad: "Negative Imaginary Axis", rule: "θ = −π/2", basicAlpha: "π/2" };
+
+    const ax = Math.abs(x), ay = Math.abs(y);
+    let alphaExact = "";
+    if (ax === ay) alphaExact = "π/4";
+    else alphaExact = `tan⁻¹(${ay}/${ax})`;
+
+    const rad = Math.atan2(y, x);
+    let quad = "", rule = "", exact = "";
+    if (x > 0 && y > 0) {
+      quad = "Quadrant I (x > 0, y > 0)";
+      rule = "θ = α";
+      exact = alphaExact;
+    } else if (x < 0 && y > 0) {
+      quad = "Quadrant II (x < 0, y > 0)";
+      rule = "θ = π − α";
+      exact = ax === ay ? "3π/4" : `π − tan⁻¹(${ay}/${ax})`;
+    } else if (x < 0 && y < 0) {
+      quad = "Quadrant III (x < 0, y < 0)";
+      rule = "θ = −(π − α) = α − π";
+      exact = ax === ay ? "−3π/4" : `−π + tan⁻¹(${ay}/${ax})`;
+    } else {
+      quad = "Quadrant IV (x > 0, y < 0)";
+      rule = "θ = −α";
+      exact = ax === ay ? "−π/4" : `−tan⁻¹(${ay}/${ax})`;
+    }
+    return { exact, rad, quad, rule, basicAlpha: alphaExact };
+  }
+
+  function fmtPiMultiple(num, den) {
+    if (num === 0) return "0";
+    const g = (function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { const t = b; b = a % b; a = t; } return a || 1; })(num, den);
+    num /= g;
+    den /= g;
+    const sign = num < 0 ? "−" : "";
+    const absN = Math.abs(num);
+    if (den === 1) return absN === 1 ? `${sign}π` : `${sign}${absN}π`;
+    return absN === 1 ? `${sign}π/${den}` : `${sign}${absN}π/${den}`;
+  }
+
+  /* -------------------- STATE -------------------- */
+  let currentMode = "quadrants";
+  const state = {
+    x: -3,
+    y: -3,
+    x1: 3,
+    y1: 2,
+    x2: -1,
+    y2: 4,
+    vecOp: "sub",
+    propPreset: 0,
+    basicNum: 5,
+    basicDen: 4
+  };
+
+  function setMode(mode) {
+    currentMode = mode;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("mode_" + mode).classList.add("active");
+    renderAll();
+  }
+
+  function renderAll() {
+    if (currentMode === "quadrants") renderQuadrantsMode();
+    else if (currentMode === "vectors") renderVectorsMode();
+    else if (currentMode === "properties") renderPropertiesMode();
+    else if (currentMode === "principal") renderPrincipalMode();
+  }
+
+  /* =====================================================================
+     MODE 1: MODULUS & 4 QUADRANTS
+     ===================================================================== */
+  function renderQuadrantsMode() {
+    document.getElementById("contextBox").innerHTML = `
+      <div><strong>Modulus &amp; Principal Argument:</strong> Representing <em>z = x + yi</em> as point <em>P(x, y)</em> on an Argand diagram gives distance from origin <strong>|z| = &radic;(x&sup2; + y&sup2;)</strong> and angle <strong>&theta; = arg(z) &isin; (&minus;&pi;, &pi;]</strong> measured anticlockwise from the positive Real axis.</div>
+      <div class="var-pill">Basic Angle &alpha; = tan<sup>&minus;1</sup>|y/x| &nbsp;(for x &ne; 0, y &ne; 0)</div>
+    `;
+
+    document.getElementById("controlPanel").innerHTML = `
+      <div class="panel-header">
+        <span>Move Point P(x, y) Across All Quadrants</span>
+        <span style="color:var(--purple-dark);">z = x + yi</span>
+      </div>
+      <div class="slider-row">
+        <label>Real Part x:</label>
+        <input type="range" min="-5" max="5" step="1" value="${state.x}" oninput="state.x=parseInt(this.value); renderQuadrantsMode()" />
+        <span class="val-badge">${fmtSigned(state.x)}</span>
+      </div>
+      <div class="slider-row" style="margin-bottom:4px;">
+        <label>Imag Part y:</label>
+        <input type="range" min="-5" max="5" step="1" value="${state.y}" oninput="state.y=parseInt(this.value); renderQuadrantsMode()" />
+        <span class="val-badge">${fmtSigned(state.y)}</span>
+      </div>
+      <div class="sub-pill-bar">
+        <button class="sub-pill" onclick="state.x=3; state.y=4; renderQuadrantsMode()">QI: 3 + 4i</button>
+        <button class="sub-pill" onclick="state.x=-3; state.y=3; renderQuadrantsMode()">QII: &minus;3 + 3i</button>
+        <button class="sub-pill" onclick="state.x=-3; state.y=-3; renderQuadrantsMode()">QIII: &minus;3 &minus; 3i</button>
+        <button class="sub-pill" onclick="state.x=4; state.y=-3; renderQuadrantsMode()">QIV: 4 &minus; 3i</button>
+      </div>
+    `;
+
+    const zStr = fmtComplex(state.x, state.y);
+    const modExact = exactModulus(state.x, state.y);
+    const modNum = Math.hypot(state.x, state.y);
+    const argInfo = exactArgInfo(state.x, state.y);
+
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">TI-84 Plus CE Readout (RADIAN Mode)</span>
+      <div class="gc-readout">
+        abs(${zStr}) &rarr; ${modNum.toFixed(4)} (Exact: ${modExact})<br>
+        angle(${zStr}) &rarr; ${state.x === 0 && state.y === 0 ? "ERR: DOMAIN" : argInfo.rad.toFixed(4) + " rad (Exact: " + argInfo.exact + ")"}
+      </div>
+    `;
+
+    document.getElementById("solutionBanner").innerHTML = state.x === 0 && state.y === 0
+      ? `At the origin <strong>z = 0</strong>: <strong>|0| = 0</strong>, while <strong>arg(0) is undefined</strong>.`
+      : `For <strong>z = ${zStr}</strong> (${argInfo.quad}): &nbsp;<strong>|z| = ${modExact}</strong> &nbsp;and&nbsp; <strong>arg(z) = ${argInfo.exact}</strong>.`;
+
+    document.getElementById("rightHeading").textContent = "Argand Vector, Reference Triangle & Principal Argument Arc";
+
+    const cx = 250, cy = 115, sc = 18;
+    const px = cx + state.x * sc, py = cy - state.y * sc;
+    let arcSvg = "";
+    if (!(state.x === 0 && state.y === 0)) {
+      const arcR = 32;
+      const endX = cx + arcR * Math.cos(argInfo.rad);
+      const endY = cy - arcR * Math.sin(argInfo.rad);
+      const sweepFlag = argInfo.rad >= 0 ? 0 : 1;
+      arcSvg = `
+        <path d="M ${cx + arcR} ${cy} A ${arcR} ${arcR} 0 0 ${sweepFlag} ${endX} ${endY}"
+              fill="none" stroke="#e11d48" stroke-width="2.2" />
+        <text x="${cx + (arcR + 14) * Math.cos(argInfo.rad / 2) - 10}"
+              y="${cy - (arcR + 14) * Math.sin(argInfo.rad / 2) + 4}"
+              font-size="10.5" font-weight="bold" fill="#e11d48">θ = ${argInfo.exact}</text>
+      `;
+    }
+
+    let grid = "";
+    for (let g = -5; g <= 5; g++) {
+      if (g === 0) continue;
+      grid += `<line x1="${cx + g * sc}" y1="15" x2="${cx + g * sc}" y2="215" stroke="#f1f5f9" stroke-width="1"/>`;
+      grid += `<line x1="80" y1="${cy - g * sc}" x2="420" y2="${cy - g * sc}" stroke="#f1f5f9" stroke-width="1"/>`;
+    }
+
+    document.getElementById("visualStage").innerHTML = `
+      <svg width="500" height="225" viewBox="0 0 500 225">
+        ${grid}
+        <line x1="75" y1="${cy}" x2="425" y2="${cy}" stroke="#475569" stroke-width="1.4"/>
+        <line x1="${cx}" y1="12" x2="${cx}" y2="218" stroke="#475569" stroke-width="1.4"/>
+        <text x="414" y="${cy - 6}" font-size="10.5" font-weight="bold" fill="#334155">Re</text>
+        <text x="${cx + 7}" y="22" font-size="10.5" font-weight="bold" fill="#334155">Im</text>
+        <text x="365" y="30" font-size="9.5" font-weight="bold" fill="#94a3b8">QI (θ = α)</text>
+        <text x="90" y="30" font-size="9.5" font-weight="bold" fill="#94a3b8">QII (θ = π − α)</text>
+        <text x="90" y="206" font-size="9.5" font-weight="bold" fill="#94a3b8">QIII (θ = −π + α)</text>
+        <text x="355" y="206" font-size="9.5" font-weight="bold" fill="#94a3b8">QIV (θ = −α)</text>
+
+        <line x1="${px}" y1="${py}" x2="${px}" y2="${cy}" stroke="#0f766e" stroke-width="1.4" stroke-dasharray="4,3"/>
+        <line x1="${cx}" y1="${cy}" x2="${px}" y2="${cy}" stroke="#0284c7" stroke-width="1.4" stroke-dasharray="4,3"/>
+
+        ${arcSvg}
+
+        <line x1="${cx}" y1="${cy}" x2="${px}" y2="${py}" stroke="#7c3aed" stroke-width="2.6"/>
+        <circle cx="${px}" cy="${py}" r="5.5" fill="#7c3aed"/>
+        <text x="${px + (state.x >= 0 ? 8 : -8)}" y="${py + (state.y >= 0 ? -8 : 15)}"
+              text-anchor="${state.x >= 0 ? "start" : "end"}"
+              font-size="11" font-weight="bold" fill="#6d28d9">P(${state.x}, ${state.y}) : r = ${modExact}</text>
+      </svg>
+    `;
+
+    document.getElementById("derivationBox").innerHTML = `
+      <strong>Step 1 (Modulus |z|):</strong> |${zStr}| = &radic;[(${state.x})&sup2; + (${state.y})&sup2;] = &radic;(${state.x * state.x + state.y * state.y}) = <span class="re-hl">${modExact}</span>.<br>
+      <strong>Step 2 (Location &amp; Basic Angle &alpha; = tan<sup>&minus;1</sup>|y/x|):</strong> ${argInfo.quad}; basic angle &alpha; = ${argInfo.basicAlpha}.<br>
+      <strong>Step 3 (Apply Quadrant Rule):</strong> ${argInfo.rule} &rArr; <span class="im-hl">arg(z) = ${argInfo.exact}</span> (&approx; ${argInfo.rad.toFixed(3)} rad).
+    `;
+
+    renderSharedFooter();
+  }
+
+  /* =====================================================================
+     MODE 2: VECTOR OPERATIONS & DISTANCE |z1 - z2|
+     ===================================================================== */
+  function renderVectorsMode() {
+    document.getElementById("contextBox").innerHTML = `
+      <div><strong>Geometric Interpretation of Addition &amp; Subtraction:</strong> Complex numbers add like 2D position vectors (parallelogram rule). Crucially, <strong>z&#8321; &minus; z&#8322;</strong> represents the displacement vector <strong>P&#8322;P&#8321;</strong>, so <strong>|z&#8321; &minus; z&#8322;|</strong> is the exact Euclidean distance between <em>z&#8321;</em> and <em>z&#8322;</em>!</div>
+      <div class="var-pill">|z&#8321; &minus; z&#8322;| = Distance between points P&#8321;(x&#8321;, y&#8321;) and P&#8322;(x&#8322;, y&#8322;)</div>
+    `;
+
+    document.getElementById("controlPanel").innerHTML = `
+      <div class="panel-header">
+        <span>Configure Vectors z&#8321; &amp; z&#8322;</span>
+        <span style="color:var(--purple-dark);">Parallelogram &amp; Distance</span>
+      </div>
+      <div class="slider-row">
+        <label>z&#8321; = x&#8321; + y&#8321;i:</label>
+        <input type="range" min="-4" max="4" step="1" value="${state.x1}" oninput="state.x1=parseInt(this.value); renderVectorsMode()" />
+        <span class="val-badge">x&#8321;=${state.x1}</span>
+        <input type="range" min="-4" max="4" step="1" value="${state.y1}" oninput="state.y1=parseInt(this.value); renderVectorsMode()" />
+        <span class="val-badge">y&#8321;=${state.y1}</span>
+      </div>
+      <div class="slider-row" style="margin-bottom:4px;">
+        <label>z&#8322; = x&#8322; + y&#8322;i:</label>
+        <input type="range" min="-4" max="4" step="1" value="${state.x2}" oninput="state.x2=parseInt(this.value); renderVectorsMode()" />
+        <span class="val-badge">x&#8322;=${state.x2}</span>
+        <input type="range" min="-4" max="4" step="1" value="${state.y2}" oninput="state.y2=parseInt(this.value); renderVectorsMode()" />
+        <span class="val-badge">y&#8322;=${state.y2}</span>
+      </div>
+      <div class="sub-pill-bar">
+        <button class="sub-pill ${state.vecOp === "sub" ? "active" : ""}" onclick="state.vecOp='sub'; renderVectorsMode()">Difference z&#8321; &minus; z&#8322; (Distance)</button>
+        <button class="sub-pill ${state.vecOp === "add" ? "active" : ""}" onclick="state.vecOp='add'; renderVectorsMode()">Sum z&#8321; + z&#8322; (Parallelogram)</button>
+      </div>
+    `;
+
+    const z1Str = fmtComplex(state.x1, state.y1);
+    const z2Str = fmtComplex(state.x2, state.y2);
+    const sumX = state.x1 + state.x2, sumY = state.y1 + state.y2;
+    const diffX = state.x1 - state.x2, diffY = state.y1 - state.y2;
+
+    const resX = state.vecOp === "add" ? sumX : diffX;
+    const resY = state.vecOp === "add" ? sumY : diffY;
+    const resStr = fmtComplex(resX, resY);
+    const modExact = exactModulus(resX, resY);
+    const argInfo = exactArgInfo(resX, resY);
+
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">TI-84 Plus CE Vector Result</span>
+      <div class="gc-readout">
+        (${z1Str}) ${state.vecOp === "add" ? "+" : "−"} (${z2Str}) = ${resStr}<br>
+        abs(${resStr}) = ${modExact} &nbsp;|&nbsp; angle(${resStr}) = ${argInfo.exact}
+      </div>
+    `;
+
+    document.getElementById("solutionBanner").innerHTML = state.vecOp === "add"
+      ? `Vector Sum: <strong>z&#8321; + z&#8322; = ${resStr}</strong> (diagonal of parallelogram from origin), <strong>|z&#8321; + z&#8322;| = ${modExact}</strong>.`
+      : `Distance Between P&#8321; and P&#8322;: <strong>|z&#8321; &minus; z&#8322;| = |${resStr}| = ${modExact}</strong>; direction angle <strong>arg(z&#8321; &minus; z&#8322;) = ${argInfo.exact}</strong>.`;
+
+    document.getElementById("rightHeading").textContent = state.vecOp === "add"
+      ? "Parallelogram Law of Complex Addition (z₁ + z₂)"
+      : "Displacement Vector P₂P₁ & Distance |z₁ − z₂|";
+
+    const cx = 250, cy = 115, sc = 15;
+    const p1x = cx + state.x1 * sc, p1y = cy - state.y1 * sc;
+    const p2x = cx + state.x2 * sc, p2y = cy - state.y2 * sc;
+    const psx = cx + sumX * sc, psy = cy - sumY * sc;
+    const pdx = cx + diffX * sc, pdy = cy - diffY * sc;
+
+    let extraGeo = "";
+    if (state.vecOp === "add") {
+      extraGeo = `
+        <line x1="${p1x}" y1="${p1y}" x2="${psx}" y2="${psy}" stroke="#94a3b8" stroke-width="1.3" stroke-dasharray="4,3"/>
+        <line x1="${p2x}" y1="${p2y}" x2="${psx}" y2="${psy}" stroke="#94a3b8" stroke-width="1.3" stroke-dasharray="4,3"/>
+        <line x1="${cx}" y1="${cy}" x2="${psx}" y2="${psy}" stroke="#0f766e" stroke-width="2.5"/>
+        <circle cx="${psx}" cy="${psy}" r="5.2" fill="#0f766e"/>
+        <text x="${psx + 7}" y="${psy - 6}" font-size="10.5" font-weight="bold" fill="#0f766e">z₁ + z₂ = ${resStr}</text>
+      `;
+    } else {
+      extraGeo = `
+        <line x1="${p2x}" y1="${p2y}" x2="${p1x}" y2="${p1y}" stroke="#e11d48" stroke-width="2.5"/>
+        <line x1="${cx}" y1="${cy}" x2="${pdx}" y2="${pdy}" stroke="#e11d48" stroke-width="1.8" stroke-dasharray="4,3"/>
+        <circle cx="${pdx}" cy="${pdy}" r="4.5" fill="#e11d48"/>
+        <text x="${(p1x + p2x) / 2 + 8}" y="${(p1y + p2y) / 2 - 6}" font-size="10.5" font-weight="bold" fill="#e11d48">|z₁ − z₂| = ${modExact}</text>
+      `;
+    }
+
+    document.getElementById("visualStage").innerHTML = `
+      <svg width="500" height="225" viewBox="0 0 500 225">
+        <line x1="75" y1="${cy}" x2="425" y2="${cy}" stroke="#64748b" stroke-width="1.3"/>
+        <line x1="${cx}" y1="12" x2="${cx}" y2="218" stroke="#64748b" stroke-width="1.3"/>
+        <text x="414" y="${cy - 6}" font-size="10.5" font-weight="bold" fill="#475569">Re</text>
+        <text x="${cx + 7}" y="22" font-size="10.5" font-weight="bold" fill="#475569">Im</text>
+
+        <line x1="${cx}" y1="${cy}" x2="${p1x}" y2="${p1y}" stroke="#7c3aed" stroke-width="2.2"/>
+        <circle cx="${p1x}" cy="${p1y}" r="5" fill="#7c3aed"/>
+        <text x="${p1x + 7}" y="${p1y - 6}" font-size="10.5" font-weight="bold" fill="#6d28d9">z₁ = ${z1Str}</text>
+
+        <line x1="${cx}" y1="${cy}" x2="${p2x}" y2="${p2y}" stroke="#0284c7" stroke-width="2.2"/>
+        <circle cx="${p2x}" cy="${p2y}" r="5" fill="#0284c7"/>
+        <text x="${p2x - 7}" y="${p2y - 6}" text-anchor="end" font-size="10.5" font-weight="bold" fill="#0369a1">z₂ = ${z2Str}</text>
+
+        ${extraGeo}
+      </svg>
+    `;
+
+    document.getElementById("derivationBox").innerHTML = state.vecOp === "add"
+      ? `
+        <strong>Parallelogram Rule:</strong> Vector <strong>OP&#8321;</strong> + Vector <strong>OP&#8322;</strong> = Vector <strong>OS</strong>.<br>
+        <strong>Algebraic Check:</strong> (${z1Str}) + (${z2Str}) = <span class="re-hl">${resStr}</span>, with modulus <strong>|z&#8321; + z&#8322;| = ${modExact}</strong>.<br>
+        <strong>Triangle Inequality:</strong> |z&#8321; + z&#8322;| &le; |z&#8321;| + |z&#8322;| &rArr; ${Math.hypot(sumX, sumY).toFixed(2)} &le; ${(Math.hypot(state.x1, state.y1) + Math.hypot(state.x2, state.y2)).toFixed(2)}.
+      `
+      : `
+        <strong>Displacement Vector P&#8322;P&#8321;:</strong> z&#8321; &minus; z&#8322; = (${z1Str}) &minus; (${z2Str}) = <span class="im-hl">${resStr}</span>.<br>
+        <strong>Distance Formula:</strong> |z&#8321; &minus; z&#8322;| = &radic;[(${state.x1} &minus; (${state.x2}))&sup2; + (${state.y1} &minus; (${state.y2}))&sup2;] = <strong>${modExact}</strong>.<br>
+        <strong>Geometric Meaning:</strong> Direction of segment from <em>P&#8322;</em> to <em>P&#8321;</em> makes angle <strong>arg(z&#8321; &minus; z&#8322;) = ${argInfo.exact}</strong> with the positive Real axis.
+      `;
+
+    renderSharedFooter();
+  }
+
+  /* =====================================================================
+     MODE 3: MODULUS & ARGUMENT PROPERTIES
+     ===================================================================== */
+  const propPresets = [
+    {
+      title: "1. Product: |z₁z₂| & arg(z₁z₂)",
+      z1: { x: 1, y: 1, label: "1 + i", r: "√2", theta: "π/4" },
+      z2: { x: -1, y: 1, label: "−1 + i", r: "√2", theta: "3π/4" },
+      res: { x: -2, y: 0, label: "z₁z₂ = −2", r: "2", theta: "π" },
+      formula: "|z₁z₂| = |z₁|·|z₂| = √2 × √2 = 2; &nbsp;&nbsp;arg(z₁z₂) = arg(z₁) + arg(z₂) = π/4 + 3π/4 = π."
+    },
+    {
+      title: "2. Quotient: |z₁/z₂| & arg(z₁/z₂)",
+      z1: { x: -1, y: 1, label: "−1 + i", r: "√2", theta: "3π/4" },
+      z2: { x: 1, y: 1, label: "1 + i", r: "√2", theta: "π/4" },
+      res: { x: 0, y: 1, label: "z₁/z₂ = i", r: "1", theta: "π/2" },
+      formula: "|z₁/z₂| = |z₁| / |z₂| = √2 / √2 = 1; &nbsp;&nbsp;arg(z₁/z₂) = arg(z₁) − arg(z₂) = 3π/4 − π/4 = π/2."
+    },
+    {
+      title: "3. Power: |zⁿ| & arg(zⁿ) (e.g. (1 + i)³)",
+      z1: { x: 1, y: 1, label: "z = 1 + i", r: "√2", theta: "π/4" },
+      z2: { x: 0, y: 2, label: "z² = 2i", r: "2", theta: "π/2" },
+      res: { x: -2, y: 2, label: "z³ = −2 + 2i", r: "2√2", theta: "3π/4" },
+      formula: "|z³| = |z|³ = (√2)³ = 2√2; &nbsp;&nbsp;arg(z³) = 3·arg(z) = 3(π/4) = 3π/4."
+    },
+    {
+      title: "4. Conjugate: |z*| & arg(z*)",
+      z1: { x: 2, y: 2, label: "z = 2 + 2i", r: "2√2", theta: "π/4" },
+      z2: { x: 2, y: -2, label: "z* = 2 − 2i", r: "2√2", theta: "−π/4" },
+      res: { x: 4, y: 0, label: "z·z* = 8", r: "8", theta: "0" },
+      formula: "|z*| = |z| = 2√2; &nbsp;&nbsp;arg(z*) = −arg(z) = −π/4 (except when z is negative real, where arg(z) = arg(z*) = π)."
+    }
+  ];
+
+  function renderPropertiesMode() {
+    const item = propPresets[state.propPreset];
+    document.getElementById("contextBox").innerHTML = `
+      <div><strong>Modulus &amp; Argument Laws (Fast Exam Shortcuts):</strong> Instead of expanding high powers or dividing messy fractions first, apply modulus and argument laws directly! Remember to add/subtract <strong>2&pi;</strong> if the resulting angle falls outside <strong>(&minus;&pi;, &pi;]</strong>.</div>
+      <div class="var-pill">|z&#8321;z&#8322;| = |z&#8321;||z&#8322;|, &nbsp;|z&#8321;/z&#8322;| = |z&#8321;|/|z&#8322;|, &nbsp;arg(z&#8321;z&#8322;) = arg(z&#8321;) + arg(z&#8322;) + 2k&pi;</div>
+    `;
+
+    document.getElementById("controlPanel").innerHTML = `
+      <div class="panel-header">
+        <span>Select Modulus &amp; Argument Identity</span>
+        <span style="color:var(--purple-dark);">Rotation &amp; Scaling</span>
+      </div>
+      <div class="sub-pill-bar" style="margin-top:0;">
+        ${propPresets.map((p, idx) => `
+          <button class="sub-pill ${state.propPreset === idx ? "active" : ""}" onclick="state.propPreset=${idx}; renderPropertiesMode()">
+            ${p.title}
+          </button>
+        `).join("")}
+      </div>
+    `;
+
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">Modulus &amp; Principal Argument Verification</span>
+      <div class="gc-readout">${item.res.label} &nbsp;|&nbsp; Modulus = ${item.res.r} &nbsp;|&nbsp; Principal Arg = ${item.res.theta}</div>
+    `;
+
+    document.getElementById("solutionBanner").innerHTML = item.formula;
+    document.getElementById("rightHeading").textContent = "Geometric Scaling & Rotation on the Argand Diagram";
+
+    const cx = 250, cy = 110, sc = 36;
+    const pts = [
+      { ...item.z1, col: "#7c3aed" },
+      { ...item.z2, col: "#0284c7" },
+      { ...item.res, col: "#0f766e" }
+    ];
+
+    let vecSvg = "";
+    pts.forEach(p => {
+      const px = cx + p.x * sc, py = cy - p.y * sc;
+      vecSvg += `
+        <line x1="${cx}" y1="${cy}" x2="${px}" y2="${py}" stroke="${p.col}" stroke-width="2.3"/>
+        <circle cx="${px}" cy="${py}" r="5.2" fill="${p.col}"/>
+        <text x="${px + (p.x >= 0 ? 8 : -8)}" y="${py + (p.y >= 0 ? -7 : 15)}"
+              text-anchor="${p.x >= 0 ? "start" : "end"}"
+              font-size="10.5" font-weight="bold" fill="${p.col}">${p.label} (r=${p.r}, θ=${p.theta})</text>
+      `;
+    });
+
+    document.getElementById("visualStage").innerHTML = `
+      <svg width="500" height="220" viewBox="0 0 500 220">
+        <line x1="75" y1="${cy}" x2="425" y2="${cy}" stroke="#64748b" stroke-width="1.3"/>
+        <line x1="${cx}" y1="12" x2="${cx}" y2="208" stroke="#64748b" stroke-width="1.3"/>
+        <circle cx="${cx}" cy="${cy}" r="${Math.SQRT2 * sc}" fill="none" stroke="#e2e8f0" stroke-dasharray="4,3"/>
+        <circle cx="${cx}" cy="${cy}" r="${2 * sc}" fill="none" stroke="#e2e8f0" stroke-dasharray="4,3"/>
+        ${vecSvg}
+      </svg>
+    `;
+
+    document.getElementById("derivationBox").innerHTML = `
+      <strong>Summary of Key 9758 Laws:</strong><br>
+      &bull; <strong>Product:</strong> |z&#8321;z&#8322;| = |z&#8321;||z&#8322;| &nbsp;and&nbsp; arg(z&#8321;z&#8322;) = arg(z&#8321;) + arg(z&#8322;) (+ 2k&pi; to bring into (&minus;&pi;, &pi;]).<br>
+      &bull; <strong>Quotient:</strong> |z&#8321;/z&#8322;| = |z&#8321;| / |z&#8322;| &nbsp;and&nbsp; arg(z&#8321;/z&#8322;) = arg(z&#8321;) &minus; arg(z&#8322;) (+ 2k&pi;).<br>
+      &bull; <strong>Power:</strong> |z&#8319;| = |z|&#8319; &nbsp;and&nbsp; arg(z&#8319;) = n &middot; arg(z) (+ 2k&pi;).<br>
+      &bull; <strong>Conjugate:</strong> |z*| = |z| &nbsp;and&nbsp; arg(z*) = &minus;arg(z) (for z &notin; ℝ&#8315;).
+    `;
+
+    renderSharedFooter();
+  }
+
+  /* =====================================================================
+     MODE 4: PRINCIPAL RANGE (-pi, pi] WRAP-AROUND LAB
+     ===================================================================== */
+  function renderPrincipalMode() {
+    document.getElementById("contextBox").innerHTML = `
+      <div><strong>Principal Argument Range (&minus;&pi;, &pi;]:</strong> When adding or multiplying arguments (e.g., <em>arg(z&#8321;z&#8322;)</em> or <em>arg(z&#8319;)</em>), the basic angle <em>&theta;<sub>basic</sub></em> often exceeds <strong>&pi;</strong> or drops below <strong>&minus;&pi;</strong>. Add or subtract integer multiples of <strong>2&pi;</strong> to obtain the unique principal argument in <strong>(&minus;&pi;, &pi;]</strong>!</div>
+      <div class="var-pill">Note: +&pi; IS included (&theta; = &pi; for negative reals), while &minus;&pi; is excluded!</div>
+    `;
+
+    document.getElementById("controlPanel").innerHTML = `
+      <div class="panel-header">
+        <span>Test Basic Angle &theta;<sub>basic</sub> = (m / n)&pi;</span>
+        <span style="color:var(--purple-dark);">Adjust by &plusmn;2&pi;</span>
+      </div>
+      <div class="slider-row">
+        <label>Numerator m:</label>
+        <input type="range" min="-11" max="11" step="1" value="${state.basicNum}" oninput="state.basicNum=parseInt(this.value); renderPrincipalMode()" />
+        <span class="val-badge">${fmtSigned(state.basicNum)}</span>
+      </div>
+      <div class="slider-row" style="margin-bottom:4px;">
+        <label>Denominator n:</label>
+        <input type="range" min="1" max="6" step="1" value="${state.basicDen}" oninput="state.basicDen=parseInt(this.value); renderPrincipalMode()" />
+        <span class="val-badge">${state.basicDen}</span>
+      </div>
+      <div class="sub-pill-bar">
+        <button class="sub-pill" onclick="state.basicNum=5; state.basicDen=4; renderPrincipalMode()">5&pi;/4 &rarr; &minus;3&pi;/4</button>
+        <button class="sub-pill" onclick="state.basicNum=-4; state.basicDen=3; renderPrincipalMode()">&minus;4&pi;/3 &rarr; 2&pi;/3</button>
+        <button class="sub-pill" onclick="state.basicNum=7; state.basicDen=3; renderPrincipalMode()">7&pi;/3 &rarr; &pi;/3</button>
+        <button class="sub-pill" onclick="state.basicNum=-1; state.basicDen=1; renderPrincipalMode()">&minus;&pi; &rarr; +&pi;</button>
+      </div>
+    `;
+
+    const basicRad = (state.basicNum / state.basicDen) * Math.PI;
+    const basicStr = fmtPiMultiple(state.basicNum, state.basicDen);
+
+    let pNum = ((state.basicNum + state.basicDen) % (2 * state.basicDen) + 2 * state.basicDen) % (2 * state.basicDen) - state.basicDen;
+    if (pNum === -state.basicDen) pNum = state.basicDen;
+    const prinStr = fmtPiMultiple(pNum, state.basicDen);
+    const prinRad = (pNum / state.basicDen) * Math.PI;
+    const kShift = Math.round((prinRad - basicRad) / (2 * Math.PI));
+
+    const alreadyInRange = kShift === 0;
+
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">Principal Value Conversion</span>
+      <div class="gc-readout">
+        Basic Angle = ${basicStr} (${basicRad.toFixed(3)} rad) &rArr; Principal Arg = ${prinStr} (${prinRad.toFixed(3)} rad)
+      </div>
+    `;
+
+    document.getElementById("solutionBanner").innerHTML = alreadyInRange
+      ? `<strong>${basicStr}</strong> is already inside <strong>(&minus;&pi;, &pi;]</strong>, so <strong>arg(z) = ${prinStr}</strong>.`
+      : `Since <strong>${basicStr} &notin; (&minus;&pi;, &pi;]</strong>, add <strong>${kShift > 0 ? "+" + 2 * kShift + "π" : 2 * kShift + "π"}</strong> &rArr; Principal Argument = <strong>${prinStr}</strong>.`;
+
+    document.getElementById("rightHeading").textContent = "Unit Circle Terminal Ray & Principal Angle in (−π, π]";
+
+    const cx = 250, cy = 110, r = 74;
+    const tx = cx + r * Math.cos(prinRad);
+    const ty = cy - r * Math.sin(prinRad);
+
+    document.getElementById("visualStage").innerHTML = `
+      <svg width="500" height="220" viewBox="0 0 500 220">
+        <line x1="90" y1="${cy}" x2="410" y2="${cy}" stroke="#64748b" stroke-width="1.3"/>
+        <line x1="${cx}" y1="12" x2="${cx}" y2="208" stroke="#64748b" stroke-width="1.3"/>
+        <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#cbd5e1" stroke-width="1.6"/>
+        <line x1="${cx}" y1="${cy}" x2="${tx}" y2="${ty}" stroke="#7c3aed" stroke-width="2.6"/>
+        <circle cx="${tx}" cy="${ty}" r="5.5" fill="#7c3aed"/>
+        <text x="${tx + (Math.cos(prinRad) >= 0 ? 10 : -10)}" y="${ty + (Math.sin(prinRad) >= 0 ? -8 : 15)}"
+              text-anchor="${Math.cos(prinRad) >= 0 ? "start" : "end"}"
+              font-size="11" font-weight="bold" fill="#6d28d9">Principal θ = ${prinStr}</text>
+        <text x="${cx - r - 8}" y="${cy - 6}" text-anchor="end" font-size="9.5" font-weight="bold" fill="#0f766e">+π (included)</text>
+        <text x="${cx - r - 8}" y="${cy + 13}" text-anchor="end" font-size="9.5" font-weight="bold" fill="#e11d48">−π (excluded)</text>
+      </svg>
+    `;
+
+    document.getElementById("derivationBox").innerHTML = `
+      <strong>Step 1 (Check Interval):</strong> Does ${basicStr} satisfy &minus;&pi; &lt; &theta; &le; &pi;? <strong>${alreadyInRange ? "Yes!" : "No."}</strong><br>
+      <strong>Step 2 (2&pi; Adjustment):</strong> ${basicStr} ${kShift === 0 ? "+ 0" : (kShift > 0 ? `+ ${2 * kShift}π` : `− ${Math.abs(2 * kShift)}π`)} = <span class="re-hl">${prinStr}</span> &isin; (&minus;&pi;, &pi;].<br>
+      <strong>Exam Tip:</strong> Always give exact answers in terms of <strong>&pi;</strong> when special angles (&pi;/6, &pi;/4, &pi;/3, &pi;/2) appear; otherwise round to <strong>3 significant figures</strong> in radians.
+    `;
+
+    renderSharedFooter();
+  }
+
+  /* =====================================================================
+     SHARED TI-84 GUIDE & MISCONCEPTION ALERT
+     ===================================================================== */
+  function renderSharedFooter() {
+    document.getElementById("gcGuideGrid").innerHTML = `
+      <div class="step-pill">
+        <strong>1. Set RADIAN Mode</strong><br>
+        Press <strong>[MODE]</strong> and verify <strong>RADIAN</strong> is highlighted (9758 H2 Math always uses radians for <em>arg(z)</em>).
+      </div>
+      <div class="step-pill">
+        <strong>2. Modulus via abs(</strong><br>
+        Press <strong>[MATH] &rarr; [CPX] &rarr; 5:abs(</strong> (or <strong>[ALPHA] [WINDOW] &rarr; 1:abs(</strong>) to compute <em>|z|</em>.
+      </div>
+      <div class="step-pill">
+        <strong>3. Argument via angle(</strong><br>
+        Press <strong>[MATH] &rarr; [CPX] &rarr; 4:angle(</strong> to compute <em>arg(z)</em> directly in <strong>(&minus;&pi;, &pi;]</strong>.
+      </div>
+    `;
+
+    document.getElementById("misconceptionBox").innerHTML = `
+      <strong>9758 Exam Misconception Alert:</strong>
+      <ul style="margin:3px 0 0 0; padding-left:18px;">
+        <li><strong>Never blindly write arg(x + yi) = tan<sup>&minus;1</sup>(y/x):</strong> Always find the basic angle <strong>&alpha; = tan<sup>&minus;1</sup>|y/x|</strong> first and sketch the point. In Quadrant III (e.g., <em>&minus;1 &minus; i</em>), <em>&alpha; = tan<sup>&minus;1</sup>|&minus;1/&minus;1| = &pi;/4</em>, so <strong>arg(z) = &minus;(&pi; &minus; &alpha;) = &minus;3&pi;/4</strong>.</li>
+        <li><strong>Negative real numbers have arg(z) = &pi;, NOT &minus;&pi;:</strong> Because the principal range is <strong>&minus;&pi; &lt; arg(z) &le; &pi;</strong>, <em>arg(&minus;5) = &pi;</em>.</li>
+      </ul>
+    `;
+  }
+
+  /* =====================================================================
+     3-QUESTION 9758 EXAM CHECK
+     ===================================================================== */
+  const examQs = [
+    {
+      q: "Find the exact modulus and principal argument of z = −1 − √3 i.",
+      opts: [
+        "|z| = 2, arg(z) = −2π/3",
+        "|z| = 2, arg(z) = 4π/3",
+        "|z| = 2, arg(z) = π/3",
+        "|z| = 4, arg(z) = −2π/3"
+      ],
+      ans: 0,
+      exp: "|z| = √[(−1)² + (−√3)²] = 2. Since z is in Quadrant III with basic angle α = tan⁻¹|−√3/(−1)| = π/3, arg(z) = −(π − π/3) = −2π/3."
+    },
+    {
+      q: "Given that arg(z₁) = 3π/4 and arg(z₂) = 2π/3, what is the principal argument of z₁z₂?",
+      opts: [
+        "−7π/12",
+        "17π/12",
+        "7π/12",
+        "π/12"
+      ],
+      ans: 0,
+      exp: "arg(z₁) + arg(z₂) = 3π/4 + 2π/3 = 17π/12. Since 17π/12 > π, subtract 2π: 17π/12 − 24π/12 = −7π/12 ∈ (−π, π]."
+    },
+    {
+      q: "On an Argand diagram, points A and B represent complex numbers z₁ and z₂ respectively. What does |z₁ − z₂| represent geometrically?",
+      opts: [
+        "The distance AB between points A and B",
+        "The distance from the origin O to the midpoint of AB",
+        "The angle ∠AOB",
+        "The sum of distances OA + OB"
+      ],
+      ans: 0,
+      exp: "The complex number z₁ − z₂ corresponds to the displacement vector BA, so its modulus |z₁ − z₂| equals the length of line segment AB."
+    }
+  ];
+
+  let curQ = 0;
+
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").textContent = item.q;
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i}, this)">${String.fromCharCode(65 + i)}. ${o}</button>
+    `).join("");
+  }
+
+  function gradeExamQ(idx, btn) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  renderAll();
+  renderExamQ();
+</script>
+
+</body>
+</html>
