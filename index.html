@@ -2026,14 +2026,14 @@
             videoEmbedUrl: "",
             prereq: "Concept of discrete probability distributions, mean μ, variance σ², and standard deviation σ = √Var(X).",
             objectives: [
-              "Understand continuous random variables where probability equals area under a probability density curve y = f(x), so P(X = c) = 0 and P(a < X < b) = P(a ≤ X ≤ b).",
+              "Understand continuous random variables where probability equals area under a density curve, so P(X = c) = 0 and P(a < X < b) = P(a ≤ X ≤ b).",
               "Interpret X ~ N(μ, σ²) correctly, identifying μ as the axis of symmetry and σ² (NOT σ!) as the variance.",
-              "Describe bell-curve properties: symmetry about x = μ, total area = 1, points of inflection at x = μ ± σ, and the Empirical Rule (≈ 68%–95%–99.7%)."
+              "Describe bell-curve properties: symmetry about x = μ, total area = 1, and the Empirical Rule (≈ 68%–95%–99.7% within ±1σ, ±2σ, ±3σ)."
             ],
             prompts: [
-              "In Tab 1 (Discrete → Continuous Zoom), shrink histogram bin width Δx from 2.00 down to 0.05 to see why the probability around a single point x = c approaches 0 while interval area P(a < X < b) stays invariant.",
-              "In Tab 2 (N(μ, σ²) Shape & Notation Lab), increase σ₂ relative to σ₁ and observe how larger variance flattens the peak height f(μ) = 1/(σ√(2π)) while keeping total area fixed at 1.",
-              "Toggle 'Inflection Points (μ ± σ)' and '68–95–99.7% Bands' to verify how spread scales with σ."
+              "In Tab 1 (Discrete → Continuous Zoom), shrink histogram bin width Δx from 2.00 down to 0.10 to see why the probability around a single point x = c approaches 0 while interval area P(a < X < b) stays invariant.",
+              "In Tab 2 (N(μ, σ²) Shape & Notation Lab), increase σ₂ relative to σ₁ and observe how larger variance widens the spread while keeping total area fixed at 1.",
+              "Toggle '68–95–99.7% Bands' to verify how spread scales with standard deviation σ."
             ],
             pitfalls: [
               "Misreading N(μ, σ²) by entering the variance σ² instead of the standard deviation σ = √(σ²) into TI-84 normalcdf or invNorm (e.g., for X ~ N(50, 16), σ = 4, not 16!).",
@@ -2042,13 +2042,12 @@
             gcTip: "Whenever a question states X ~ N(μ, k), immediately write σ = √k beside your distribution statement before keying parameters into [2nd] [VARS] (DISTR).",
             workedQuestion: `
               The masses <em>X</em> grams of apples from an orchard are modelled by <em>X ~ N(180, 144)</em>.<br>
-              <strong>(i)</strong> State the mean and standard deviation of <em>X</em>, and write down the coordinates of the axis of symmetry and the x-coordinates of the points of inflection of the normal curve. [3]<br>
+              <strong>(i)</strong> State the mean and standard deviation of <em>X</em>, and write down the equation of the axis of symmetry of the normal curve. [2]<br>
               <strong>(ii)</strong> Explain why <em>P(X = 180) = 0</em>, and state the value of <em>P(168 &lt; X ≤ 192)</em> using the Empirical Rule (or a graphing calculator) to 3 significant figures. [2]
             `,
             workedSolution: `
               <strong>(i)</strong> Comparing <em>N(180, 144)</em> with <em>N(μ, σ²)</em>: mean <strong>μ = 180 g</strong>, variance <em>σ² = 144</em>, so standard deviation <strong>σ = √144 = 12 g</strong>.<br>
-              • Axis of symmetry: <strong>x = 180</strong>.<br>
-              • Points of inflection: <em>x = μ ± σ = 180 ± 12</em>, i.e., <strong>x = 168</strong> and <strong>x = 192</strong>.<br><br>
+              • Axis of symmetry: <strong>x = 180</strong>.<br><br>
               <strong>(ii)</strong> Because <em>X</em> is a continuous random variable, probability is represented by area under the density curve; a single point <em>x = 180</em> has zero width and therefore zero area, so <strong>P(X = 180) = 0</strong>.<br>
               Since <em>[168, 192] = [μ − σ, μ + σ]</em>, <em>P(168 &lt; X ≤ 192) = P(168 &lt; X &lt; 192) =</em> <strong>0.683</strong> (to 3 s.f.).
             `,
