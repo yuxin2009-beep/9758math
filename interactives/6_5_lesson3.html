@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 6.5 Lesson 3: Large-Sample z-Tests via CLT & Unknown Population Variance (s²)</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 540px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1000px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.76rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.48;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .coded-editor {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 13px;
+      margin-bottom: 11px;
+    }
+
+    .hyp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 8px;
+    }
+
+    .input-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 7px;
+      margin-bottom: 8px;
+    }
+
+    .input-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+      margin-bottom: 8px;
+    }
+
+    .field-box label {
+      display: block;
+      font-size: 0.71rem;
+      font-weight: 800;
+      color: #475569;
+      margin-bottom: 3px;
+    }
+
+    .field-box input {
+      width: 100%;
+      padding: 6px 8px;
+      border: 1px solid #94a3b8;
+      border-radius: 7px;
+      font-weight: 700;
+      font-size: 0.81rem;
+      color: #1e293b;
+    }
+
+    .field-box input:focus {
+      outline: none;
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .pill-select-group {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+      margin-bottom: 8px;
+    }
+
+    .pill-select-group.four-col {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .mini-pill {
+      padding: 6px 5px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+      text-align: center;
+      transition: 0.15s;
+    }
+
+    .mini-pill:hover {
+      border-color: var(--purple);
+      color: var(--purple-dark);
+    }
+
+    .mini-pill.active {
+      background: var(--purple-bg);
+      border-color: var(--purple);
+      color: var(--purple-dark);
+    }
+
+    /* TI-84 INPUT & OUTPUT DUAL SCREENS */
+    .gc-screen-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin-bottom: 11px;
+    }
+
+    .box-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .gc-dual-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    @media (max-width: 560px) {
+      .gc-dual-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .gc-lcd {
+      background: #f1f5f9;
+      border: 2px solid #475569;
+      border-radius: 8px;
+      padding: 7px 9px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.48;
+    }
+
+    .gc-lcd-bar {
+      background: #1e293b;
+      color: #f8fafc;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .gc-hl-black {
+      background: #0f172a;
+      color: #ffffff;
+      padding: 0 4px;
+      border-radius: 2px;
+    }
+
+    .gc-sigma-row {
+      background: #fef08a;
+      border: 1.5px solid #ca8a04;
+      color: #713f12;
+      padding: 1px 4px;
+      border-radius: 4px;
+      display: inline-block;
+      margin: 1px 0;
+    }
+
+    .sigma-alert-strip {
+      margin-top: 8px;
+      background: #fff1f2;
+      border: 1.5px solid #fb7185;
+      border-left: 4px solid #e11d48;
+      border-radius: 8px;
+      padding: 7px 10px;
+      font-size: 0.76rem;
+      line-height: 1.42;
+      color: #881337;
+    }
+
+    .solution-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.8rem;
+      font-weight: 700;
+      line-height: 1.48;
+    }
+
+    .solution-banner.reject {
+      background: var(--rose-bg);
+      border-color: #fda4af;
+      color: #881337;
+    }
+
+    .solution-banner.retain {
+      background: var(--teal-bg);
+      border-color: #5eead4;
+      color: #134e4a;
+    }
+
+    /* RIGHT PANEL */
+    .clt-statement-card {
+      background: #f5f3ff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 11px;
+      padding: 10px 13px;
+      font-size: 0.81rem;
+      line-height: 1.5;
+      color: #3b0764;
+      margin-bottom: 10px;
+    }
+
+    .clt-statement-card.warn {
+      background: #ffe4e6;
+      border-color: #fb7185;
+      color: #881337;
+    }
+
+    .legend-bar {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      font-size: 0.76rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      align-items: center;
+    }
+
+    .legend-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 3px;
+      display: inline-block;
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+
+    canvas {
+      width: 100%;
+      height: auto;
+      display: block;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+    }
+
+    .check-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.79rem;
+      margin-top: 10px;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .check-table th, .check-table td {
+      border: 1px solid #e2e8f0;
+      padding: 6px 9px;
+      text-align: left;
+    }
+
+    .check-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    .gc-guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .gc-guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .step-pill {
+      background: var(--blue-bg);
+      border: 1px solid #bae6fd;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.77rem;
+      line-height: 1.45;
+      color: #0c4a6e;
+    }
+
+    .misconception-box {
+      margin-top: 10px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 10px 13px;
+      font-size: 0.79rem;
+      line-height: 1.48;
+      color: #78350f;
+    }
+
+    .grader-card {
+      margin-top: 10px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 14px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 700px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Select a Large-Sample Singapore Scenario (Top-Left)</strong>
+        Pick one of the 4 non-Normal problems with unknown variance (GrabFood delivery times, SP Group electricity bills, NEA hawker waste, or Jurong East MRT wait times).
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Decode Coded Summaries &rarr; Unbiased s²</strong>
+        Edit <em>n</em>, shift constant <em>a</em>, <em>&Sigma;(x &minus; a)</em>, or <em>&Sigma;(x &minus; a)²</em>. Watch how <em>x&#772;</em> and unbiased <em>s² = [1/(n&minus;1)][&Sigma;(x&minus;a)² &minus; (&Sigma;(x&minus;a))²/n]</em> feed into the TI-84 <code>Z-Test</code> screen.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Check CLT Justification &amp; &sigma; = s Input Rule</strong>
+        Verify that <strong>s = &radic;s²</strong> is entered into the <strong>&sigma;</strong> field of TI-84 <code>[1: Z-Test]</code> (not <em>s²</em> and not <em>s/&radic;n</em>), and inspect the mandatory 9758 CLT wording.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        6.5 Lesson 3 &bull; Large-Sample z-Tests via CLT &amp; Unknown Population Variance (s²)
+      </div>
+
+      <!-- Singapore Large-Sample Scenario Presets -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="sc_grab" onclick="loadScenario('grab')">
+          1. GrabFood Delivery Times (n = 50)
+        </button>
+        <button class="tab-btn" id="sc_sp" onclick="loadScenario('sp')">
+          2. SP Group HDB Electricity (n = 60)
+        </button>
+        <button class="tab-btn" id="sc_nea" onclick="loadScenario('nea')">
+          3. NEA Hawker Food Waste (n = 40)
+        </button>
+        <button class="tab-btn" id="sc_mrt" onclick="loadScenario('mrt')">
+          4. Jurong East MRT Wait (n = 36)
+        </button>
+      </div>
+
+      <!-- Contextual Word Problem & Parameter Definition -->
+      <div class="context-box" id="contextBox"></div>
+
+      <!-- Editable Coded Summary Data & Hypothesis Controls -->
+      <div class="coded-editor">
+        <div class="hyp-header">
+          <span id="hypFormDisplay">H₀ : &mu; = 32 &nbsp;vs&nbsp; H₁ : &mu; &gt; 32</span>
+          <span id="tailBadge" style="color:var(--purple-dark);">CLT Large-Sample z-Test</span>
+        </div>
+
+        <div class="input-grid-3">
+          <div class="field-box">
+            <label>Claimed Mean &mu;₀</label>
+            <input type="number" id="in_mu0" step="any" value="32" oninput="updateModel()" />
+          </div>
+          <div class="field-box">
+            <label>Sample Size n (&ge; 30)</label>
+            <input type="number" id="in_n" min="5" step="1" value="50" oninput="updateModel()" />
+          </div>
+          <div class="field-box">
+            <label>Coding Shift a</label>
+            <input type="number" id="in_a" step="any" value="30" oninput="updateModel()" />
+          </div>
+        </div>
+
+        <div class="input-grid-2">
+          <div class="field-box">
+            <label>Coded Sum &Sigma;(x &minus; a)</label>
+            <input type="number" id="in_sumd" step="any" value="170" oninput="updateModel()" />
+          </div>
+          <div class="field-box">
+            <label>Coded Sum of Squares &Sigma;(x &minus; a)²</label>
+            <input type="number" id="in_sumd2" min="0" step="any" value="1570.25" oninput="updateModel()" />
+          </div>
+        </div>
+
+        <div class="pill-select-group">
+          <button class="mini-pill" id="tail_left" onclick="setTail('left')">Left-Tail (&mu; &lt; &mu;₀)</button>
+          <button class="mini-pill active" id="tail_right" onclick="setTail('right')">Right-Tail (&mu; &gt; &mu;₀)</button>
+          <button class="mini-pill" id="tail_two" onclick="setTail('two')">2-Tail (&mu; &ne; &mu;₀)</button>
+        </div>
+
+        <div class="pill-select-group four-col" style="margin-bottom:2px;">
+          <button class="mini-pill" id="alp_0.10" onclick="setAlpha(0.10)">&alpha; = 10%</button>
+          <button class="mini-pill" id="alp_0.05" onclick="setAlpha(0.05)">&alpha; = 5%</button>
+          <button class="mini-pill active" id="alp_0.02" onclick="setAlpha(0.02)">&alpha; = 2%</button>
+          <button class="mini-pill" id="alp_0.01" onclick="setAlpha(0.01)">&alpha; = 1%</button>
+        </div>
+      </div>
+
+      <!-- Simulated TI-84 Plus CE [1: Z-Test] INPUT & OUTPUT Screens -->
+      <div class="gc-screen-box" id="gcOutputBox"></div>
+
+      <!-- Examiner-Approved Contextual Conclusion Banner -->
+      <div class="solution-banner" id="solutionBanner"></div>
+    </div>
+
+    <!-- RIGHT CLT PIPELINE, VISUALIZATION, TABLE & EXAM CHECK -->
+    <div class="card">
+      <div style="font-size:1.02rem; font-weight:800; color:#1e293b; margin-bottom:6px;">
+        CLT Large-Sample Approximation Pipeline &amp; Sampling Distribution
+      </div>
+
+      <!-- Mandatory 9758 Examiner Justification Sentence -->
+      <div class="clt-statement-card" id="cltJustificationBox"></div>
+
+      <div class="legend-bar">
+        <span><span class="legend-dot" style="background:rgba(225,29,72,0.28); border:1px solid #e11d48;"></span>Critical Region (Area = &alpha;)</span>
+        <span><span class="legend-dot" style="background:rgba(139,92,246,0.34); border:1px solid #7c3aed;"></span>p-Value Tail Area</span>
+        <span><span class="legend-dot" style="background:#0f766e;"></span>Observed z_calc</span>
+      </div>
+
+      <canvas id="cltTestCanvas" width="840" height="215"></canvas>
+
+      <!-- Step-by-Step Coded Data -> Unbiased s² -> CLT Table -->
+      <table class="check-table" id="pipelineTable"></table>
+
+      <!-- 3-Step TI-84 Plus CE Keystroke Guide -->
+      <div class="gc-guide-grid">
+        <div class="step-pill">
+          <strong>Step 1: Decode x&#772; &amp; Unbiased s²</strong><br>
+          Compute <em>x&#772; = a + &Sigma;(x&minus;a)/n</em> and divide by <strong>n &minus; 1</strong> for <em>s²</em> (coding shift <em>a</em> does not affect <em>s²</em>).
+        </div>
+        <div class="step-pill">
+          <strong>Step 2: State CLT Approximation</strong><br>
+          Write: <em>"Since n &ge; 30 is sufficiently large, by CLT, X&#772; ~ N(&mu;₀, s²/n) <strong>approximately</strong>."</em>
+        </div>
+        <div class="step-pill">
+          <strong>Step 3: TI-84 [1: Z-Test] Input</strong><br>
+          Enter <strong>&sigma; = &radic;s²</strong> (or exact expression <code>&radic;(s²)</code>) in the <code>&sigma;:</code> row to avoid rounding error!
+        </div>
+      </div>
+
+      <!-- 9758 Exam Misconception Box -->
+      <div class="misconception-box">
+        <strong>9758 H2 Math Exam Misconception &amp; Calculator Traps:</strong>
+        <ul style="margin:3px 0 0 0; padding-left:18px;">
+          <li><strong>CRITICAL &sigma; INPUT TRAP:</strong> When population variance is unknown, enter the <strong>unbiased sample standard deviation s = &radic;s²</strong> into the <code>&sigma;:</code> row on the TI-84 <code>Z-Test</code> screen — <strong>NOT</strong> the variance <code>s²</code>, <strong>NOT</strong> the standard error <code>s/&radic;n</code>, and <strong>NOT</strong> the biased SD <code>&sigma;x</code>!</li>
+          <li><strong>Always divide by <em>n &minus; 1</em> for s²:</strong> Dividing by <em>n</em> gives a biased variance estimate and costs method/accuracy marks.</li>
+          <li><strong>Always include the word "approximately":</strong> When invoking CLT for a non-Normal population, omitting <em>"approximately"</em> in <em>X&#772; ~ N(&mu;₀, s²/n) approximately</em> is penalised in 9758 marking schemes.</li>
+        </ul>
+      </div>
+
+      <!-- Quick 9758 Large-Sample CLT z-Test Exam Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 Large-Sample CLT &amp; s² Check (<span id="qIdxLbl">1</span>/3)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.8rem; line-height:1.45; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  const scenarios = {
+    grab: {
+      unit: "min",
+      mu0: 32,
+      n: 50,
+      a: 30,
+      sumD: 170,
+      sumD2: 1570.25,
+      defaultTail: "right",
+      defaultAlpha: 0.02,
+      varDesc: "Let &mu; be the population mean GrabFood delivery time (in min). Distribution is unknown (non-Normal) and &sigma;² is unknown.",
+      story: "<strong>GrabFood Islandwide Delivery Audit:</strong> A platform claims a mean delivery time of <strong>32 min</strong>. A random sample of <strong>n = 50</strong> orders yields coded summaries <em>&Sigma;(x &minus; 30) = 170</em> and <em>&Sigma;(x &minus; 30)² = 1570.25</em>. Test at <strong>&alpha; = 2%</strong> if the mean delivery time <strong>exceeds 32 min</strong>.",
+      claimPhrase: "the mean delivery time exceeds 32 minutes"
+    },
+    sp: {
+      unit: "kWh",
+      mu0: 360,
+      n: 60,
+      a: 350,
+      sumD: 180,
+      sumD2: 53490,
+      defaultTail: "left",
+      defaultAlpha: 0.05,
+      varDesc: "Let &mu; be the population mean monthly electricity usage (in kWh) of 4-room HDB flats. Distribution &amp; &sigma;² are unknown.",
+      story: "<strong>SP Group 4-Room HDB Electricity Usage:</strong> Historical monthly consumption averaged <strong>360 kWh</strong>. A random sample of <strong>n = 60</strong> flats after a smart-meter campaign gives <em>&Sigma;(x &minus; 350) = 180</em> and <em>&Sigma;(x &minus; 350)² = 53490</em>. Test at <strong>&alpha; = 5%</strong> if mean consumption has <strong>decreased below 360 kWh</strong>.",
+      claimPhrase: "the mean monthly electricity consumption is less than 360 kWh"
+    },
+    nea: {
+      unit: "kg",
+      mu0: 18.0,
+      n: 40,
+      a: 18.0,
+      sumD: 56.0,
+      sumD2: 711.6,
+      defaultTail: "two",
+      defaultAlpha: 0.05,
+      varDesc: "Let &mu; be the population mean daily food waste (in kg) per hawker stall. Distribution &amp; &sigma;² are unknown.",
+      story: "<strong>NEA Hawker Centre Food Waste Audit:</strong> Stalls previously generated an average of <strong>18.0 kg</strong> of food waste daily. For <strong>n = 40</strong> randomly sampled stalls, <em>&Sigma;(x &minus; 18) = 56.0</em> and <em>&Sigma;(x &minus; 18)² = 711.6</em>. Test at <strong>&alpha; = 5%</strong> whether mean daily waste <strong>differs from 18.0 kg</strong>.",
+      claimPhrase: "the mean daily food waste per stall differs from 18.0 kg"
+    },
+    mrt: {
+      unit: "min",
+      mu0: 4.2,
+      n: 36,
+      a: 4.0,
+      sumD: 25.2,
+      sumD2: 131.04,
+      defaultTail: "right",
+      defaultAlpha: 0.01,
+      varDesc: "Let &mu; be the population mean morning peak waiting time (in min) at Jurong East MRT interchange. Distribution &amp; &sigma;² are unknown.",
+      story: "<strong>Jurong East MRT Interchange Wait Time:</strong> Commuter waiting times have a claimed mean of <strong>4.2 min</strong>. A random sample of <strong>n = 36</strong> commuters gives <em>&Sigma;(x &minus; 4) = 25.2</em> and <em>&Sigma;(x &minus; 4)² = 131.04</em>. Test at <strong>&alpha; = 1%</strong> whether the mean waiting time <strong>exceeds 4.2 min</strong>.",
+      claimPhrase: "the mean morning peak waiting time exceeds 4.2 minutes"
+    }
+  };
+
+  let curKey = "grab";
+  let curTail = "right";
+  let curAlpha = 0.02;
+
+  function fmt(n, dp = 3) {
+    if (Math.abs(n) < 1e-8) return "0";
+    return Number(n.toFixed(dp)).toString();
+  }
+
+  function normPDF(z) {
+    return Math.exp(-0.5 * z * z) / Math.sqrt(2 * Math.PI);
+  }
+
+  function erf(x) {
+    const sign = x >= 0 ? 1 : -1;
+    x = Math.abs(x);
+    const a1 = 0.254829592, a2 = -0.284496736, a3 = 1.421413741;
+    const a4 = -1.453152027, a5 = 1.061405429, p = 0.3275911;
+    const t = 1 / (1 + p * x);
+    const y = 1 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-x * x);
+    return sign * y;
+  }
+
+  function normCDF(z) {
+    return 0.5 * (1 + erf(z / Math.SQRT2));
+  }
+
+  function invNorm(p) {
+    const a = [-3.969683028665376e+01, 2.209460984245205e+02, -2.759285104469687e+02, 1.383577518672690e+02, -3.066479806614716e+01, 2.506628277459239e+00];
+    const b = [-5.447609879822406e+01, 1.615858368580409e+02, -1.556989798598866e+02, 6.680131188771972e+01, -1.328068155288572e+01];
+    const c = [-7.784894002430293e-03, -3.223964580411365e-01, -2.400758277161838e+00, -2.549732539343734e+00, 4.374664141464968e+00, 2.938163982698783e+00];
+    const d = [7.784695709041462e-03, 3.224671290700398e-01, 2.445134137142996e+00, 3.754408661907416e+00];
+    const pLow = 0.02425, pHigh = 1 - pLow;
+    let q, r;
+    if (p < pLow) {
+      q = Math.sqrt(-2 * Math.log(p));
+      return (((((c[0]*q + c[1])*q + c[2])*q + c[3])*q + c[4])*q + c[5]) / ((((d[0]*q + d[1])*q + d[2])*q + d[3])*q + 1);
+    } else if (p <= pHigh) {
+      q = p - 0.5;
+      r = q * q;
+      return (((((a[0]*r + a[1])*r + a[2])*r + a[3])*r + a[4])*r + a[5])*q / (((((b[0]*r + b[1])*r + b[2])*r + b[3])*r + b[4])*r + 1);
+    } else {
+      q = Math.sqrt(-2 * Math.log(1 - p));
+      return -(((((c[0]*q + c[1])*q + c[2])*q + c[3])*q + c[4])*q + c[5]) / ((((d[0]*q + d[1])*q + d[2])*q + d[3])*q + 1);
+    }
+  }
+
+  function loadScenario(key) {
+    curKey = key;
+    const sc = scenarios[key];
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("sc_" + key).classList.add("active");
+
+    document.getElementById("contextBox").innerHTML = `
+      <div>${sc.story}</div>
+      <div class="var-pill">${sc.varDesc}</div>
+    `;
+
+    document.getElementById("in_mu0").value = sc.mu0;
+    document.getElementById("in_n").value = sc.n;
+    document.getElementById("in_a").value = sc.a;
+    document.getElementById("in_sumd").value = sc.sumD;
+    document.getElementById("in_sumd2").value = sc.sumD2;
+
+    setTail(sc.defaultTail, false);
+    setAlpha(sc.defaultAlpha, false);
+    updateModel();
+  }
+
+  function setTail(t, refresh = true) {
+    curTail = t;
+    ["left", "right", "two"].forEach(k => {
+      document.getElementById("tail_" + k).classList.toggle("active", k === t);
+    });
+    if (refresh) updateModel();
+  }
+
+  function setAlpha(a, refresh = true) {
+    curAlpha = a;
+    [0.10, 0.05, 0.02, 0.01].forEach(v => {
+      document.getElementById("alp_" + v.toFixed(2)).classList.toggle("active", Math.abs(v - a) < 1e-6);
+    });
+    if (refresh) updateModel();
+  }
+
+  function updateModel() {
+    const sc = scenarios[curKey];
+    const mu0 = parseFloat(document.getElementById("in_mu0").value) || 0;
+    const n = Math.max(2, parseInt(document.getElementById("in_n").value, 10) || 30);
+    const a = parseFloat(document.getElementById("in_a").value) || 0;
+    const sumD = parseFloat(document.getElementById("in_sumd").value) || 0;
+    const sumD2 = Math.max(0, parseFloat(document.getElementById("in_sumd2").value) || 0);
+
+    // 1. Unbiased estimates from coded summaries
+    const xbar = a + sumD / n;
+    const ss = Math.max(1e-6, sumD2 - (sumD * sumD) / n);
+    const s2 = ss / (n - 1);
+    const s = Math.sqrt(s2);
+    const se = Math.sqrt(s2 / n);
+    const zCalc = (xbar - mu0) / se;
+    const pct = Math.round(curAlpha * 100);
+
+    let h1Sym, gcH1Label, zCrit, critRegStr, pVal, reject;
+    let optNeq = "&ne;&mu;₀", optLt = "&lt;&mu;₀", optGt = "&gt;&mu;₀";
+
+    if (curTail === "left") {
+      h1Sym = `&lt; ${mu0}`;
+      gcH1Label = `&mu; < ${mu0}`;
+      optLt = `<span class="gc-hl-black">&lt;&mu;₀</span>`;
+      zCrit = invNorm(curAlpha);
+      critRegStr = `z < ${zCrit.toFixed(3)}`;
+      pVal = normCDF(zCalc);
+      reject = zCalc < zCrit;
+    } else if (curTail === "right") {
+      h1Sym = `&gt; ${mu0}`;
+      gcH1Label = `&mu; > ${mu0}`;
+      optGt = `<span class="gc-hl-black">&gt;&mu;₀</span>`;
+      zCrit = invNorm(1 - curAlpha);
+      critRegStr = `z > +${zCrit.toFixed(3)}`;
+      pVal = 1 - normCDF(zCalc);
+      reject = zCalc > zCrit;
+    } else {
+      h1Sym = `&ne; ${mu0}`;
+      gcH1Label = `&mu; &ne; ${mu0}`;
+      optNeq = `<span class="gc-hl-black">&ne;&mu;₀</span>`;
+      zCrit = invNorm(1 - curAlpha / 2);
+      critRegStr = `z < &minus;${zCrit.toFixed(3)} or z > +${zCrit.toFixed(3)}`;
+      pVal = 2 * (1 - normCDF(Math.abs(zCalc)));
+      reject = Math.abs(zCalc) > zCrit;
+    }
+
+    document.getElementById("hypFormDisplay").innerHTML = `H₀ : &mu; = ${mu0} &nbsp;vs&nbsp; H₁ : &mu; ${h1Sym}`;
+    document.getElementById("tailBadge").textContent = `n = ${n} • α = ${pct}%`;
+
+    // TI-84 Dual Screens
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">TI-84 Plus CE &bull; [STAT] &rarr; [TESTS] &rarr; [1: Z-Test] Input vs. Output</span>
+      <div class="gc-dual-grid">
+        <div class="gc-lcd">
+          <div class="gc-lcd-bar"><span>Z-Test (INPUT)</span><span>Stats</span></div>
+          Inpt: Data &nbsp;<span class="gc-hl-black">Stats</span><br>
+          &mu;₀:${mu0}<br>
+          <span class="gc-sigma-row">&sigma;:&radic;(${fmt(s2, 4)}) &larr; s!</span><br>
+          x&#772;:${fmt(xbar, 4)}<br>
+          n:${n}<br>
+          &mu;:${optNeq} ${optLt} ${optGt}<br>
+          <span class="gc-hl-black">Calculate</span> &nbsp;Draw
+        </div>
+        <div class="gc-lcd">
+          <div class="gc-lcd-bar"><span>Z-Test (OUTPUT)</span><span>Result</span></div>
+          &nbsp;&nbsp;&mu; ${gcH1Label.replace('&mu; ', '')}<br>
+          z = ${zCalc >= 0 ? "+" : "&minus;"}${Math.abs(zCalc).toFixed(5)}<br>
+          p = ${pVal.toFixed(5)}<br>
+          <span style="color:#475569;">(3 s.f.: ${pVal.toPrecision(3)})</span><br>
+          x&#772; = ${fmt(xbar, 4)}<br>
+          n = ${n}
+        </div>
+      </div>
+      <div class="sigma-alert-strip">
+        <strong>CRITICAL &sigma; INPUT RULE:</strong> When &sigma;² is unknown, key in the <strong>unbiased sample SD s = &radic;s² = ${s.toFixed(4)}</strong> (or type <code>&radic;(${fmt(s2, 4)})</code> directly into the <code>&sigma;:</code> line). Do <strong>NOT</strong> enter variance <em>s² = ${fmt(s2, 4)}</em> and do <strong>NOT</strong> enter standard error <em>s/&radic;n = ${se.toFixed(4)}</em>!
+      </div>
+    `;
+
+    // Examiner-approved conclusion
+    const banner = document.getElementById("solutionBanner");
+    if (reject) {
+      banner.className = "solution-banner reject";
+      banner.innerHTML = `Examiner-Approved Conclusion (&alpha; = ${pct}%): Since p-value = ${pVal.toPrecision(3)} &le; ${curAlpha} (equivalently, z_calc = ${zCalc.toFixed(2)} lies in the critical region ${critRegStr}), we <strong>reject H₀</strong>. There is sufficient evidence at the ${pct}% level of significance to conclude that ${sc.claimPhrase}.`;
+    } else {
+      banner.className = "solution-banner retain";
+      banner.innerHTML = `Examiner-Approved Conclusion (&alpha; = ${pct}%): Since p-value = ${pVal.toPrecision(3)} &gt; ${curAlpha} (equivalently, z_calc = ${zCalc.toFixed(2)} is outside the critical region ${critRegStr}), we <strong>do not reject H₀</strong>. There is insufficient evidence at the ${pct}% level of significance to conclude that ${sc.claimPhrase}.`;
+    }
+
+    // Mandatory 9758 CLT Justification Box
+    const cltBox = document.getElementById("cltJustificationBox");
+    if (n >= 30) {
+      cltBox.className = "clt-statement-card";
+      cltBox.innerHTML = `<strong>Mandatory 9758 Examiner CLT Statement:</strong><br>
+      "Since <strong>n = ${n} &ge; 30</strong> is sufficiently large, by the <strong>Central Limit Theorem</strong>, under H₀, <strong>X&#772; ~ N(${mu0}, ${fmt(s2, 4)}/${n})</strong> <strong><u>approximately</u></strong>."`;
+    } else {
+      cltBox.className = "clt-statement-card warn";
+      cltBox.innerHTML = `<strong>Warning (n = ${n} &lt; 30):</strong> Sample size <em>n</em> is below 30! For a non-Normal population with unknown variance, CLT cannot be invoked unless <strong>n &ge; 30</strong>.`;
+    }
+
+    // Step-by-step coded data -> s² -> CLT table
+    document.getElementById("pipelineTable").innerHTML = `
+      <thead>
+        <tr>
+          <th>Pipeline Stage</th>
+          <th>9758 Formula &amp; Substitution</th>
+          <th>Calculated Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1. Sample Mean x&#772;</strong></td>
+          <td>x&#772; = a + &Sigma;(x &minus; a)/n = ${a} + (${sumD}/${n})</td>
+          <td><strong>${fmt(xbar, 4)} ${sc.unit}</strong></td>
+        </tr>
+        <tr>
+          <td><strong>2. Unbiased Variance s²</strong></td>
+          <td>s² = [1/(${n}&minus;1)][${sumD2} &minus; (${sumD})²/${n}] = ${fmt(ss, 3)} / ${n - 1}</td>
+          <td><strong>s² = ${fmt(s2, 4)}</strong> &nbsp;(s = ${s.toFixed(4)})</td>
+        </tr>
+        <tr>
+          <td><strong>3. Approx. Test Statistic</strong></td>
+          <td>z_calc = (${fmt(xbar, 4)} &minus; ${mu0}) / &radic;(${fmt(s2, 4)}/${n})</td>
+          <td><strong>z_calc = ${zCalc >= 0 ? "+" : "&minus;"}${Math.abs(zCalc).toFixed(3)}</strong></td>
+        </tr>
+        <tr>
+          <td><strong>4. p-Value &amp; Verdict</strong></td>
+          <td>p-value = ${pVal.toFixed(4)} &nbsp;vs.&nbsp; &alpha; = ${curAlpha}</td>
+          <td style="color:${reject ? "#e11d48" : "#0f766e"}; font-weight:800;">${reject ? "✓ Reject H₀" : "✗ Do Not Reject H₀"}</td>
+        </tr>
+      </tbody>
+    `;
+
+    drawCltCanvas(zCrit, zCalc);
+  }
+
+  function drawCltCanvas(zCrit, zCalc) {
+    const canvas = document.getElementById("cltTestCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const padL = 42, padR = 28, padT = 26, padB = 34;
+    const plotW = W - padL - padR;
+    const plotH = H - padT - padB;
+
+    const zMin = -3.8, zMax = 3.8;
+    const yMax = normPDF(0) * 1.16;
+    const toX = z => padL + ((z - zMin) / (zMax - zMin)) * plotW;
+    const toY = y => padT + plotH - (y / yMax) * plotH;
+
+    function shadeRegion(a, b, fillStyle) {
+      if (b <= a) return;
+      ctx.fillStyle = fillStyle;
+      ctx.beginPath();
+      ctx.moveTo(toX(a), toY(0));
+      for (let i = 0; i <= 140; i++) {
+        const z = a + (i / 140) * (b - a);
+        ctx.lineTo(toX(z), toY(normPDF(z)));
+      }
+      ctx.lineTo(toX(b), toY(0));
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    if (curTail === "left") shadeRegion(zMin, zCrit, "rgba(225, 29, 72, 0.25)");
+    else if (curTail === "right") shadeRegion(zCrit, zMax, "rgba(225, 29, 72, 0.25)");
+    else {
+      shadeRegion(zMin, -zCrit, "rgba(225, 29, 72, 0.25)");
+      shadeRegion(zCrit, zMax, "rgba(225, 29, 72, 0.25)");
+    }
+
+    const clampedZ = Math.max(zMin + 0.05, Math.min(zMax - 0.05, zCalc));
+    if (curTail === "left") shadeRegion(zMin, clampedZ, "rgba(139, 92, 246, 0.30)");
+    else if (curTail === "right") shadeRegion(clampedZ, zMax, "rgba(139, 92, 246, 0.30)");
+    else {
+      const absZ = Math.abs(clampedZ);
+      shadeRegion(zMin, -absZ, "rgba(139, 92, 246, 0.30)");
+      shadeRegion(absZ, zMax, "rgba(139, 92, 246, 0.30)");
+    }
+
+    ctx.strokeStyle = "#334155";
+    ctx.lineWidth = 2.4;
+    ctx.beginPath();
+    for (let i = 0; i <= 300; i++) {
+      const z = zMin + (i / 300) * (zMax - zMin);
+      const y = normPDF(z);
+      if (i === 0) ctx.moveTo(toX(z), toY(y));
+      else ctx.lineTo(toX(z), toY(y));
+    }
+    ctx.stroke();
+
+    const crits = curTail === "two" ? [-zCrit, zCrit] : [zCrit];
+    crits.forEach(cz => {
+      ctx.strokeStyle = "#e11d48";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(toX(cz), padT + 12);
+      ctx.lineTo(toX(cz), padT + plotH);
+      ctx.stroke();
+
+      ctx.fillStyle = "#e11d48";
+      ctx.font = "bold 10.5px Segoe UI, sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText(`z_crit=${cz.toFixed(2)}`, toX(cz), padT + plotH + 26);
+    });
+
+    ctx.strokeStyle = "#0f766e";
+    ctx.lineWidth = 2.6;
+    ctx.beginPath();
+    ctx.moveTo(toX(clampedZ), padT + 10);
+    ctx.lineTo(toX(clampedZ), padT + plotH);
+    ctx.stroke();
+
+    ctx.fillStyle = "#0f766e";
+    ctx.beginPath();
+    ctx.arc(toX(clampedZ), toY(normPDF(clampedZ)), 4.6, 0, 2 * Math.PI);
+    ctx.fill();
+
+    ctx.font = "bold 11px Segoe UI, sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(`z_calc = ${zCalc.toFixed(2)}`, toX(clampedZ), padT + 8);
+
+    ctx.strokeStyle = "#475569";
+    ctx.lineWidth = 1.3;
+    ctx.beginPath();
+    ctx.moveTo(padL, padT + plotH);
+    ctx.lineTo(W - padR, padT + plotH);
+    ctx.stroke();
+
+    ctx.fillStyle = "#334155";
+    ctx.font = "bold 10.5px Segoe UI, sans-serif";
+    for (let z = -3; z <= 3; z++) {
+      ctx.fillText(z.toString(), toX(z), padT + plotH + 14);
+    }
+  }
+
+  const examQs = [
+    {
+      q: "For n = 50 GrabFood orders, you compute unbiased sample variance s² = 20.25 min². What must you enter into the σ: row of TI-84 Plus CE [1: Z-Test]?",
+      opts: [
+        "4.5 (i.e. unbiased sample standard deviation s = √20.25)",
+        "20.25 (the unbiased sample variance s²)",
+        "0.636 (the standard error √(20.25/50))",
+        "4.455 (the biased sample standard deviation σx)"
+      ],
+      ans: 0,
+      exp: "Enter the unbiased sample standard deviation s = √s² = √20.25 = 4.5 into the σ: input line. The TI-84 automatically divides by √n = √50 when computing z."
+    },
+    {
+      q: "A sample of n = 60 flats yields Σ(x − 350) = 180 and Σ(x − 350)² = 53490. What is the unbiased estimate of the population variance s²?",
+      opts: [
+        "897.5 (dividing 52950 by n − 1 = 59)",
+        "882.5 (dividing 52950 by n = 60)",
+        "891.5 (dividing 53490 by 60)",
+        "1247.5 (adding 350 to 897.5)"
+      ],
+      ans: 0,
+      exp: "s² = (1/59)[53490 − 180²/60] = (1/59)[53490 − 540] = 52950 / 59 = 897.458 ≈ 897.5. Note that coding shift a = 350 does not affect s²."
+    },
+    {
+      q: "Which statement earns full justification marks in a 9758 H2 Math large-sample hypothesis test when the parent distribution is unknown?",
+      opts: [
+        "Since n = 50 ≥ 30 is sufficiently large, by the Central Limit Theorem, X̄ ~ N(32, s²/50) approximately.",
+        "Since n = 50 ≥ 30, by the Central Limit Theorem, X̄ ~ N(32, s²/50) exactly.",
+        "Since n = 50 ≥ 30, X ~ N(32, s²) approximately.",
+        "By the Central Limit Theorem, μ ~ N(32, s²/50) approximately."
+      ],
+      ans: 0,
+      exp: "You must state the large-sample condition (n ≥ 30), cite the Central Limit Theorem, apply it to X̄ (not X or μ), and include the keyword 'approximately'."
+    }
+  ];
+
+  let curQ = 0;
+
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").textContent = item.q;
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i}, this)">${String.fromCharCode(65 + i)}. ${o}</button>
+    `).join("");
+  }
+
+  function gradeExamQ(idx, btn) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  loadScenario("grab");
+  renderExamQ();
+</script>
+
+</body>
+</html>
