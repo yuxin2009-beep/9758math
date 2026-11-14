@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 3.3 Lesson 4: Relationship Between Two Planes, Angle &amp; Parallel Distance</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed #e2e8f0;
+      align-items: stretch;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 13px 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .guide-step-title {
+      color: #1e293b;
+      font-size: 0.84rem;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .guide-step-desc {
+      color: #475569;
+      font-size: 0.8rem;
+      line-height: 1.6;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 525px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 980px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .mode-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 6px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.74rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .slider-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 11px;
+    }
+
+    .slider-group {
+      background: #f8fafc;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .formula-box {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #3b0764;
+      font-size: 0.78rem;
+      line-height: 1.52;
+      margin-bottom: 9px;
+    }
+
+    .derivation-box {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-left: 4px solid var(--purple);
+      border-radius: 10px;
+      padding: 10px 13px;
+      color: #1e293b;
+      font-size: 0.77rem;
+      line-height: 1.54;
+      margin-bottom: 9px;
+    }
+
+    .working-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #134e4a;
+      font-size: 0.78rem;
+      line-height: 1.52;
+      margin-bottom: 9px;
+    }
+
+    .status-banner {
+      background: var(--blue-bg);
+      border: 1.5px solid #7dd3fc;
+      border-radius: 12px;
+      padding: 9px 13px;
+      color: #0c4a6e;
+      font-size: 0.78rem;
+      font-weight: 700;
+      line-height: 1.48;
+    }
+
+    .status-banner.parallel {
+      background: var(--teal-bg);
+      border-color: #5eead4;
+      color: #134e4a;
+    }
+
+    .status-banner.coincident {
+      background: var(--rose-bg);
+      border-color: #fda4af;
+      color: #881337;
+    }
+
+    .canvas-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .cam-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 7px 12px;
+      margin-bottom: 10px;
+    }
+
+    .cam-btn {
+      padding: 5px 10px;
+      border-radius: 7px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .cam-btn.active {
+      background: var(--teal);
+      color: #ffffff;
+      border-color: var(--teal);
+    }
+
+    .legend {
+      display: flex;
+      gap: 11px;
+      flex-wrap: wrap;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    canvas {
+      width: 100%;
+      height: 465px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      background: #ffffff;
+      display: block;
+      cursor: grab;
+    }
+
+    canvas:active {
+      cursor: grabbing;
+    }
+
+    .misconception-box {
+      margin-top: 12px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 0.8rem;
+      line-height: 1.52;
+      color: #78350f;
+    }
+
+    .vec-inline {
+      font-family: 'Segoe UI', monospace;
+      font-weight: 700;
+    }
+
+    .preset-row {
+      grid-column: span 2;
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .mini-btn {
+      flex: 1;
+      padding: 5px 8px;
+      border-radius: 7px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.73rem;
+      font-weight: 700;
+      color: #334155;
+      cursor: pointer;
+    }
+
+    .mini-btn:hover {
+      background: #f1f5f9;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" id="guideHeader">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive 3D Visual Lab</span>
+      </div>
+      <button type="button" class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <div class="guide-step-title">1. Switch Between the Three Two-Plane Topics</div>
+        <div class="guide-step-desc">Explore <strong>Relationship &amp; Line of Intersection</strong> (comparing the recommended <strong>GC Simultaneous Solver</strong> vs. <strong>n₁ × n₂</strong>), <strong>Acute Angle θ</strong>, and <strong>Parallel Plane Distance</strong>.</div>
+      </div>
+      <div class="guide-step-card">
+        <div class="guide-step-title">2. Orbit &amp; Inspect Normals n₁ and n₂</div>
+        <div class="guide-step-desc">Click and drag on the 3D canvas (or use the camera presets) to see how normals <strong>n₁</strong> and <strong>n₂</strong> form the same angle <em>θ</em> as planes <strong>Π₁</strong> and <strong>Π₂</strong>, and how <strong>n₁ × n₂</strong> points along the intersection line.</div>
+      </div>
+      <div class="guide-step-card">
+        <div class="guide-step-title">3. Test Intersecting, Parallel &amp; Coincident Cases</div>
+        <div class="guide-step-desc">Use the presets or adjust normals and constants <em>d₁, d₂</em> to compare <strong>Intersecting Planes</strong>, <strong>Distinct Parallel Planes</strong>, and <strong>Coincident Planes</strong>.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROLS & ALGEBRAIC BREAKDOWN -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        3.3 Lesson 4 &bull; Two Planes: Intersection, Angle &amp; Parallel Distance
+      </div>
+
+      <div class="mode-tabs">
+        <button type="button" class="tab-btn active" id="tab_rel">1. Relationship &amp; Line</button>
+        <button type="button" class="tab-btn" id="tab_angle">2. Acute Angle θ</button>
+        <button type="button" class="tab-btn" id="tab_pdist">3. Parallel Distance</button>
+      </div>
+
+      <div class="slider-grid" id="slidersWrap"></div>
+
+      <div class="formula-box" id="formulaBox"></div>
+      <div class="derivation-box" id="derivationBox"></div>
+      <div class="working-box" id="workingBox"></div>
+      <div class="status-banner" id="statusBanner"></div>
+    </div>
+
+    <!-- RIGHT 3D VISUALIZATION CANVAS -->
+    <div class="card">
+      <div class="canvas-header">
+        <strong style="font-size:1.02rem; color:#1e293b;" id="canvasTitle">Relationship Between Two Planes Π₁ &amp; Π₂ and Line of Intersection</strong>
+      </div>
+
+      <div class="cam-toolbar">
+        <div style="display:flex; gap:6px; flex-wrap:wrap;">
+          <button type="button" class="cam-btn active" id="btn_orbit">Auto-Rotate 3D: ON</button>
+          <button type="button" class="cam-btn" id="btn_iso">3D Isometric</button>
+          <button type="button" class="cam-btn" id="btn_xy">Top View (x-y)</button>
+          <button type="button" class="cam-btn" id="btn_xz">Front View (x-z)</button>
+        </div>
+        <div class="legend" id="legendWrap"></div>
+      </div>
+
+      <canvas id="twoPlanesCanvas" width="880" height="465"></canvas>
+
+      <div class="misconception-box">
+        <strong>9758 Exam Strategy &amp; Misconception Alert (Two Planes):</strong>
+        <ul style="margin:4px 0 0 0; padding-left:18px;">
+          <li><strong>Recommended Method for Line of Intersection (No Unknowns):</strong> When both planes have numerical coefficients, solve their Cartesian equations simultaneously using the <strong>GC (2 equations, 3 unknowns)</strong> and let the free variable (usually <em>z</em>) equal <em>λ</em>. It gives both the position and direction vectors in one step without risking sign errors in <strong>n₁ × n₂</strong>. Reserve <strong>d = n₁ × n₂</strong> for questions containing symbolic unknowns or when only the direction vector is needed.</li>
+          <li><strong>Acute Angle &amp; Equalized Normals:</strong> Always use modulus <strong>cos θ = |n₁ · n₂| / (|n₁||n₂|)</strong> for the acute angle between planes, and <strong>always scale one equation first</strong> so both parallel planes share the exact same normal <strong>n</strong> before applying <strong>|d₂ − d₁| / |n|</strong>.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    let guideOpen = true;
+    let mode = "rel";
+
+    let yaw = 0.62;
+    let pitch = 0.38;
+    let autoOrbit = true;
+    let isDragging = false;
+    let lastMouseX = 0;
+    let lastMouseY = 0;
+
+    // Plane 1: n1 . r = d1 ; Plane 2: n2 . r = d2
+    let st = {
+      n1x: 1, n1y: 0, n1z: 1, d1: 2,
+      n2x: 0, n2y: 1, n2z: 1, d2: 2
+    };
+
+    function fmtVec3(x, y, z) {
+      return "(" + x + ", " + y + ", " + z + ")";
+    }
+
+    function fmtNum(v) {
+      return Math.abs(v - Math.round(v)) < 1e-9 ? String(Math.round(v)) : v.toFixed(2);
+    }
+
+    function fmtVec3Dec(x, y, z) {
+      return "(" + fmtNum(x) + ", " + fmtNum(y) + ", " + fmtNum(z) + ")";
+    }
+
+    function fmtPlaneEq(nx, ny, nz, d) {
+      var parts = [];
+      function addTerm(coef, sym) {
+        if (coef === 0) return;
+        var absC = Math.abs(coef);
+        var cStr = absC === 1 ? "" : String(absC);
+        if (parts.length === 0) {
+          parts.push((coef < 0 ? "−" : "") + cStr + sym);
+        } else {
+          parts.push((coef < 0 ? " − " : " + ") + cStr + sym);
+        }
+      }
+      addTerm(nx, "x");
+      addTerm(ny, "y");
+      addTerm(nz, "z");
+      if (parts.length === 0) parts.push("0");
+      return parts.join("") + " = " + d;
+    }
+
+    function project3D(x, y, z, W, H) {
+      var cosY = Math.cos(yaw), sinY = Math.sin(yaw);
+      var cosP = Math.cos(pitch), sinP = Math.sin(pitch);
+
+      var rx = x * cosY - y * sinY;
+      var ry = x * sinY + y * cosY;
+
+      var sx = rx;
+      var sy = z * cosP - ry * sinP;
+
+      var scale = 34;
+      return {
+        px: W * 0.5 + sx * scale,
+        py: H * 0.54 - sy * scale
+      };
+    }
+
+    function setMode(m) {
+      mode = m;
+      ["rel", "angle", "pdist"].forEach(function (id) {
+        var btn = document.getElementById("tab_" + id);
+        if (btn) {
+          if (id === m) btn.classList.add("active");
+          else btn.classList.remove("active");
+        }
+      });
+      if (m === "pdist") {
+        var c = cross3(st.n1x, st.n1y, st.n1z, st.n2x, st.n2y, st.n2z);
+        if (Math.hypot(c.x, c.y, c.z) > 1e-6) {
+          st = { n1x: 1, n1y: -1, n1z: 2, d1: 4, n2x: 2, n2y: -2, n2z: 4, d2: -4 };
+          syncSliders();
+        }
+      }
+      updatePanels();
+    }
+
+    function renderSliders() {
+      var wrap = document.getElementById("slidersWrap");
+      wrap.innerHTML =
+        '<div class="slider-group">' +
+          '<div class="slider-header"><span>Plane Π₁ (n₁, d₁)</span><span id="lbl_pi1" style="color:var(--blue);">' + fmtPlaneEq(st.n1x, st.n1y, st.n1z, st.d1) + '</span></div>' +
+          '<input type="range" id="sl_n1x" min="-2" max="2" step="1" value="' + st.n1x + '" />' +
+          '<input type="range" id="sl_n1y" min="-2" max="2" step="1" value="' + st.n1y + '" style="margin-top:3px;" />' +
+          '<input type="range" id="sl_n1z" min="-2" max="2" step="1" value="' + st.n1z + '" style="margin-top:3px;" />' +
+          '<input type="range" id="sl_d1" min="-6" max="6" step="1" value="' + st.d1 + '" style="margin-top:3px;" />' +
+        '</div>' +
+        '<div class="slider-group">' +
+          '<div class="slider-header"><span>Plane Π₂ (n₂, d₂)</span><span id="lbl_pi2" style="color:var(--purple-dark);">' + fmtPlaneEq(st.n2x, st.n2y, st.n2z, st.d2) + '</span></div>' +
+          '<input type="range" id="sl_n2x" min="-2" max="2" step="1" value="' + st.n2x + '" />' +
+          '<input type="range" id="sl_n2y" min="-2" max="2" step="1" value="' + st.n2y + '" style="margin-top:3px;" />' +
+          '<input type="range" id="sl_n2z" min="-2" max="2" step="1" value="' + st.n2z + '" style="margin-top:3px;" />' +
+          '<input type="range" id="sl_d2" min="-6" max="6" step="1" value="' + st.d2 + '" style="margin-top:3px;" />' +
+        '</div>' +
+        '<div class="preset-row">' +
+          '<button type="button" class="mini-btn" id="pre_inter">Intersecting (Line)</button>' +
+          '<button type="button" class="mini-btn" id="pre_perp">Perpendicular (90°)</button>' +
+          '<button type="button" class="mini-btn" id="pre_par">Parallel (Scaled 2n)</button>' +
+          '<button type="button" class="mini-btn" id="pre_coinc">Coincident (Same Π)</button>' +
+        '</div>';
+
+      ["n1x", "n1y", "n1z", "d1", "n2x", "n2y", "n2z", "d2"].forEach(function (k) {
+        document.getElementById("sl_" + k).addEventListener("input", function () {
+          st[k] = parseInt(this.value, 10);
+          if (st.n1x === 0 && st.n1y === 0 && st.n1z === 0) st.n1z = 1;
+          if (st.n2x === 0 && st.n2y === 0 && st.n2z === 0) st.n2z = 1;
+          updatePanels();
+        });
+      });
+
+      document.getElementById("pre_inter").addEventListener("click", function () {
+        st = { n1x: 1, n1y: 0, n1z: 1, d1: 2, n2x: 0, n2y: 1, n2z: 1, d2: 2 };
+        syncSliders(); updatePanels();
+      });
+      document.getElementById("pre_perp").addEventListener("click", function () {
+        st = { n1x: 1, n1y: 0, n1z: 0, d1: 1, n2x: 0, n2y: 0, n2z: 1, d2: 1 };
+        syncSliders(); updatePanels();
+      });
+      document.getElementById("pre_par").addEventListener("click", function () {
+        st = { n1x: 1, n1y: -1, n1z: 2, d1: 4, n2x: 2, n2y: -2, n2z: 4, d2: -4 };
+        syncSliders(); updatePanels();
+      });
+      document.getElementById("pre_coinc").addEventListener("click", function () {
+        st = { n1x: 1, n1y: 1, n1z: 1, d1: 2, n2x: 2, n2y: 2, n2z: 2, d2: 4 };
+        syncSliders(); updatePanels();
+      });
+    }
+
+    function syncSliders() {
+      ["n1x", "n1y", "n1z", "d1", "n2x", "n2y", "n2z", "d2"].forEach(function (k) {
+        var el = document.getElementById("sl_" + k);
+        if (el) el.value = st[k];
+      });
+    }
+
+    function cross3(ax, ay, az, bx, by, bz) {
+      return {
+        x: ay * bz - az * by,
+        y: -(ax * bz - az * bx),
+        z: ax * by - ay * bx
+      };
+    }
+
+    // Mimics GC Simultaneous Equation Solver (2 eqns, 3 unknowns)
+    function solveGCParametric(dir) {
+      // Prefer setting z = lambda if dir.z != 0, else y = lambda if dir.y != 0, else x = lambda
+      if (Math.abs(dir.z) > 1e-9) {
+        var detXY = st.n1x * st.n2y - st.n1y * st.n2x;
+        var x0 = (st.d1 * st.n2y - st.d2 * st.n1y) / detXY;
+        var y0 = (st.n1x * st.d2 - st.n2x * st.d1) / detXY;
+        var dx = dir.x / dir.z;
+        var dy = dir.y / dir.z;
+        return {
+          paramVar: "z",
+          p0: { x: x0, y: y0, z: 0 },
+          dVec: { x: dx, y: dy, z: 1 },
+          eqLines: "x = " + fmtNum(x0) + " + (" + fmtNum(dx) + ")λ, &nbsp;y = " + fmtNum(y0) + " + (" + fmtNum(dy) + ")λ, &nbsp;z = λ"
+        };
+      } else if (Math.abs(dir.y) > 1e-9) {
+        var detXZ = st.n1x * st.n2z - st.n1z * st.n2x;
+        var x0 = (st.d1 * st.n2z - st.d2 * st.n1z) / detXZ;
+        var z0 = (st.n1x * st.d2 - st.n2x * st.d1) / detXZ;
+        var dx = dir.x / dir.y;
+        var dz = dir.z / dir.y;
+        return {
+          paramVar: "y",
+          p0: { x: x0, y: 0, z: z0 },
+          dVec: { x: dx, y: 1, z: dz },
+          eqLines: "x = " + fmtNum(x0) + " + (" + fmtNum(dx) + ")λ, &nbsp;y = λ, &nbsp;z = " + fmtNum(z0) + " + (" + fmtNum(dz) + ")λ"
+        };
+      } else {
+        var detYZ = st.n1y * st.n2z - st.n1z * st.n2y;
+        var y0 = (st.d1 * st.n2z - st.d2 * st.n1z) / detYZ;
+        var z0 = (st.n1y * st.d2 - st.n2y * st.d1) / detYZ;
+        var dy = dir.y / dir.x;
+        var dz = dir.z / dir.x;
+        return {
+          paramVar: "x",
+          p0: { x: 0, y: y0, z: z0 },
+          dVec: { x: 1, y: dy, z: dz },
+          eqLines: "x = λ, &nbsp;y = " + fmtNum(y0) + " + (" + fmtNum(dy) + ")λ, &nbsp;z = " + fmtNum(z0) + " + (" + fmtNum(dz) + ")λ"
+        };
+      }
+    }
+
+    function analyzePlanes() {
+      var dot = st.n1x * st.n2x + st.n1y * st.n2y + st.n1z * st.n2z;
+      var m1Sq = st.n1x * st.n1x + st.n1y * st.n1y + st.n1z * st.n1z;
+      var m2Sq = st.n2x * st.n2x + st.n2y * st.n2y + st.n2z * st.n2z;
+      var m1 = Math.sqrt(m1Sq);
+      var m2 = Math.sqrt(m2Sq);
+
+      var dir = cross3(st.n1x, st.n1y, st.n1z, st.n2x, st.n2y, st.n2z);
+      var dirMagSq = dir.x * dir.x + dir.y * dir.y + dir.z * dir.z;
+      var isParallel = dirMagSq < 1e-9;
+
+      var cosAcute = (m1 > 0 && m2 > 0) ? Math.min(1, Math.abs(dot) / (m1 * m2)) : 1;
+      var thetaDeg = Math.acos(cosAcute) * (180 / Math.PI);
+
+      var p1 = {
+        x: (st.d1 / m1Sq) * st.n1x,
+        y: (st.d1 / m1Sq) * st.n1y,
+        z: (st.d1 / m1Sq) * st.n1z
+      };
+
+      var p2 = {
+        x: (st.d2 / m2Sq) * st.n2x,
+        y: (st.d2 / m2Sq) * st.n2y,
+        z: (st.d2 / m2Sq) * st.n2z
+      };
+
+      var linePoint = null;
+      var gcSol = null;
+      var scaleK = 1;
+      var d2Scaled = st.d2;
+      var parDist = 0;
+      var isCoincident = false;
+
+      if (isParallel) {
+        scaleK = dot / m1Sq;
+        d2Scaled = st.d2 / scaleK;
+        parDist = Math.abs(d2Scaled - st.d1) / m1;
+        isCoincident = parDist < 1e-7;
+      } else {
+        var det = m1Sq * m2Sq - dot * dot;
+        var c1 = (st.d1 * m2Sq - st.d2 * dot) / det;
+        var c2 = (st.d2 * m1Sq - st.d1 * dot) / det;
+        linePoint = {
+          x: c1 * st.n1x + c2 * st.n2x,
+          y: c1 * st.n1y + c2 * st.n2y,
+          z: c1 * st.n1z + c2 * st.n2z
+        };
+        gcSol = solveGCParametric(dir);
+      }
+
+      return {
+        dot: dot,
+        m1Sq: m1Sq,
+        m2Sq: m2Sq,
+        m1: m1,
+        m2: m2,
+        dir: dir,
+        isParallel: isParallel,
+        isCoincident: isCoincident,
+        cosAcute: cosAcute,
+        thetaDeg: thetaDeg,
+        p1: p1,
+        p2: p2,
+        linePoint: linePoint,
+        gcSol: gcSol,
+        scaleK: scaleK,
+        d2Scaled: d2Scaled,
+        parDist: parDist
+      };
+    }
+
+    function updatePanels() {
+      document.getElementById("lbl_pi1").textContent = fmtPlaneEq(st.n1x, st.n1y, st.n1z, st.d1);
+      document.getElementById("lbl_pi2").textContent = fmtPlaneEq(st.n2x, st.n2y, st.n2z, st.d2);
+
+      var a = analyzePlanes();
+      var formulaBox = document.getElementById("formulaBox");
+      var derivBox = document.getElementById("derivationBox");
+      var workingBox = document.getElementById("workingBox");
+      var statusBanner = document.getElementById("statusBanner");
+      var titleEl = document.getElementById("canvasTitle");
+      var legendEl = document.getElementById("legendWrap");
+
+      statusBanner.classList.remove("parallel", "coincident");
+
+      var n1Str = fmtVec3(st.n1x, st.n1y, st.n1z);
+      var n2Str = fmtVec3(st.n2x, st.n2y, st.n2z);
+
+      if (mode === "rel") {
+        titleEl.textContent = "Relationship Between Two Planes Π₁ & Π₂ and Line of Intersection";
+        legendEl.innerHTML =
+          '<span class="legend-item"><span class="dot" style="background:#0284c7;"></span> Plane Π₁ (n₁)</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#8b5cf6;"></span> Plane Π₂ (n₂)</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#e11d48;"></span> Line l = Π₁ ∩ Π₂</span>';
+
+        formulaBox.innerHTML =
+          '<strong>3 Possible Geometric Relationships:</strong><br>' +
+          '1. <strong>Intersecting in a Line:</strong> <span class="vec-inline">n₁ × n₂ ≠ 0</span> (two non-parallel planes meet along line <em>l</em>)<br>' +
+          '2. <strong>Distinct Parallel Planes:</strong> <span class="vec-inline">n₂ = k n₁</span> but <span class="vec-inline">d₂ ≠ k d₁</span> (no intersection)<br>' +
+          '3. <strong>Coincident (Identical) Planes:</strong> <span class="vec-inline">n₂ = k n₁</span> and <span class="vec-inline">d₂ = k d₁</span>';
+
+        if (!a.isParallel) {
+          derivBox.innerHTML =
+            '<strong>Method A — Recommended GC Solver (When No Unknowns Exist):</strong><br>' +
+            'Solve Cartesian system <span class="vec-inline">{ ' + fmtPlaneEq(st.n1x, st.n1y, st.n1z, st.d1) + '; ' + fmtPlaneEq(st.n2x, st.n2y, st.n2z, st.d2) + ' }</span> in GC (2 eqns, 3 unknowns). Letting <span class="vec-inline">' + a.gcSol.paramVar + ' = λ</span>:<br>' +
+            '<span class="vec-inline">' + a.gcSol.eqLines + '</span><br>' +
+            '&rArr; <strong>l : r = ' + fmtVec3Dec(a.gcSol.p0.x, a.gcSol.p0.y, a.gcSol.p0.z) + ' + λ' + fmtVec3Dec(a.gcSol.dVec.x, a.gcSol.dVec.y, a.gcSol.dVec.z) + ', &nbsp;λ ∈ ℝ</strong>';
+
+          workingBox.innerHTML =
+            '<strong>Method B — Vector Cross Product (Required if Symbolic Unknowns Exist):</strong><br>' +
+            'Direction <span class="vec-inline">d = n₁ × n₂ = ' + fmtVec3(a.dir.x, a.dir.y, a.dir.z) + '</span> + common point <span class="vec-inline">A = ' + fmtVec3Dec(a.linePoint.x, a.linePoint.y, a.linePoint.z) + '</span><br>' +
+            '&rArr; <strong>l : r = ' + fmtVec3Dec(a.linePoint.x, a.linePoint.y, a.linePoint.z) + ' + μ' + fmtVec3(a.dir.x, a.dir.y, a.dir.z) + ', &nbsp;μ ∈ ℝ</strong> <em>(same line, different parametrization!)</em>';
+        } else {
+          derivBox.innerHTML =
+            '<strong>Why Direction of Intersection Line l is d = n₁ × n₂:</strong><br>' +
+            'When planes are non-parallel, line <em>l</em> lies in both planes so <span class="vec-inline">d ∥ (n₁ × n₂)</span>. Here <span class="vec-inline">n₁ × n₂ = (0, 0, 0)</span>, confirming the planes do not intersect in a single line.';
+
+          workingBox.innerHTML =
+            '<strong>Normal Proportionality Check:</strong><br>' +
+            '<span class="vec-inline">n₂ = (' + fmtNum(a.scaleK) + ') n₁</span>, while <span class="vec-inline">d₂ = ' + st.d2 + '</span> vs. <span class="vec-inline">k d₁ = ' + fmtNum(a.scaleK * st.d1) + '</span>.';
+        }
+
+      } else if (mode === "angle") {
+        titleEl.textContent = "Acute Angle θ Between Two Planes Π₁ and Π₂";
+        legendEl.innerHTML =
+          '<span class="legend-item"><span class="dot" style="background:#0284c7;"></span> Normal n₁</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#8b5cf6;"></span> Normal n₂</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#0f766e;"></span> Acute Angle θ</span>';
+
+        formulaBox.innerHTML =
+          '<strong>Acute Angle Formula Between Two Planes (0° &le; θ &le; 90°):</strong><br>' +
+          '<span class="vec-inline">cos θ = |n₁ · n₂| / (|n₁| |n₂|)</span>';
+
+        derivBox.innerHTML =
+          '<strong>Geometric Principle:</strong><br>' +
+          'Rotating a plane by angle <em>θ</em> rotates its perpendicular normal vector by the <strong>exact same angle θ</strong>. Taking the modulus <span class="vec-inline">|n₁ · n₂|</span> guarantees the acute angle.';
+
+        workingBox.innerHTML =
+          '<strong>Step-by-Step Angle Calculation:</strong><br>' +
+          '<span class="vec-inline">n₁ · n₂ = ' + n1Str + ' · ' + n2Str + ' = ' + a.dot + '</span><br>' +
+          '<span class="vec-inline">cos θ = |' + a.dot + '| / (√' + a.m1Sq + ' · √' + a.m2Sq + ') = ' + a.cosAcute.toFixed(4) + '</span> &rArr; <strong>θ = ' + a.thetaDeg.toFixed(1) + '°</strong>';
+
+      } else {
+        titleEl.textContent = "Perpendicular Distance Between Two Parallel Planes Π₁ and Π₂";
+        legendEl.innerHTML =
+          '<span class="legend-item"><span class="dot" style="background:#0284c7;"></span> Plane Π₁</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#8b5cf6;"></span> Plane Π₂</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#e11d48;"></span> Distance D</span>';
+
+        formulaBox.innerHTML =
+          '<strong>Perpendicular Distance Formula (when r · n = d₁ and r · n = d₂):</strong><br>' +
+          '<span class="vec-inline">Distance D = |d₂ − d₁| / |n|</span> (after equalizing normal vector <strong>n</strong>!)';
+
+        derivBox.innerHTML =
+          '<strong>Why |d₂ − d₁| / |n| works (Projection Proof):</strong><br>' +
+          'Take any point <em>A</em> on <em>Π₁</em> (<span class="vec-inline">a·n = d₁</span>) and any point <em>B</em> on <em>Π₂</em> (<span class="vec-inline">b·n = d₂</span>).<br>' +
+          'Projecting <strong>AB</strong> onto unit normal <strong>n̂</strong>: <span class="vec-inline">D = |(b − a)·n| / |n| = |d₂ − d₁| / |n|</span>.';
+
+        if (a.isParallel) {
+          workingBox.innerHTML =
+            '<strong>1. Equalize Normals to n = ' + n1Str + ' (divide Π₂ by ' + fmtNum(a.scaleK) + '):</strong><br>' +
+            '<span class="vec-inline">Π₁: r · ' + n1Str + ' = ' + st.d1 + '</span> &nbsp;|&nbsp; <span class="vec-inline">Π₂: r · ' + n1Str + ' = ' + fmtNum(a.d2Scaled) + '</span><br>' +
+            '<strong>2. Compute Distance:</strong> <span class="vec-inline">D = |' + fmtNum(a.d2Scaled) + ' − (' + st.d1 + ')| / √' + a.m1Sq + ' = ' + Math.abs(a.d2Scaled - st.d1).toFixed(2).replace(/\.00$/, "") + ' / √' + a.m1Sq + ' ≈ ' + a.parDist.toFixed(3) + ' units</span>';
+        } else {
+          workingBox.innerHTML =
+            '<strong>Planes Currently Intersect!</strong> Because <span class="vec-inline">n₁ × n₂ ≠ 0</span>, the planes meet along a line (minimum distance = <strong>0</strong>). Click <em>Parallel (Scaled 2n)</em> to test parallel planes.';
+        }
+      }
+
+      if (a.isCoincident) {
+        statusBanner.classList.add("coincident");
+        statusBanner.innerHTML = '<strong>COINCIDENT PLANES (Π₁ ≡ Π₂):</strong> Both equations represent the exact same plane in 3D space (θ = 0°, Distance = 0).';
+      } else if (a.isParallel) {
+        statusBanner.classList.add("parallel");
+        statusBanner.innerHTML = '<strong>DISTINCT PARALLEL PLANES (Π₁ ∥ Π₂):</strong> Normals are parallel (<span class="vec-inline">n₂ = ' + fmtNum(a.scaleK) + 'n₁</span>), θ = 0°, and perpendicular separation is <strong>D = ' + a.parDist.toFixed(2) + ' units</strong>.';
+      } else if (Math.abs(a.dot) < 1e-9) {
+        statusBanner.innerHTML = '<strong>PERPENDICULAR PLANES (Π₁ ⊥ Π₂):</strong> <span class="vec-inline">n₁ · n₂ = 0</span> &rArr; <strong>θ = 90°</strong>! They intersect orthogonally along line <em>l</em>.';
+      } else {
+        statusBanner.innerHTML = '<strong>INTERSECTING PLANES:</strong> Π₁ and Π₂ intersect along line <em>l</em> (direction <span class="vec-inline">' + fmtVec3(a.dir.x, a.dir.y, a.dir.z) + '</span>) at acute angle <strong>θ = ' + a.thetaDeg.toFixed(1) + '°</strong>.';
+      }
+    }
+
+    function drawArrow3D(ctx, p1, p2, color, width, dashed) {
+      var dx = p2.px - p1.px;
+      var dy = p2.py - p1.py;
+      var len = Math.hypot(dx, dy);
+      if (len < 2) return;
+      var angle = Math.atan2(dy, dx);
+      var headLen = 9;
+
+      ctx.save();
+      ctx.strokeStyle = color;
+      ctx.fillStyle = color;
+      ctx.lineWidth = width;
+      if (dashed) ctx.setLineDash([6, 4]);
+
+      ctx.beginPath();
+      ctx.moveTo(p1.px, p1.py);
+      ctx.lineTo(p2.px, p2.py);
+      ctx.stroke();
+
+      ctx.setLineDash([]);
+      ctx.beginPath();
+      ctx.moveTo(p2.px, p2.py);
+      ctx.lineTo(p2.px - headLen * Math.cos(angle - Math.PI / 6), p2.py - headLen * Math.sin(angle - Math.PI / 6));
+      ctx.lineTo(p2.px - headLen * Math.cos(angle + Math.PI / 6), p2.py - headLen * Math.sin(angle + Math.PI / 6));
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function getPlaneBasis(nx, ny, nz) {
+      var nLen = Math.hypot(nx, ny, nz);
+      var ux = nx / nLen, uy = ny / nLen, uz = nz / nLen;
+      var rx = Math.abs(ux) < 0.8 ? 1 : 0;
+      var ry = Math.abs(ux) < 0.8 ? 0 : 1;
+      var rz = 0;
+      var v1x = uy * rz - uz * ry;
+      var v1y = uz * rx - ux * rz;
+      var v1z = ux * ry - uy * rx;
+      var v1Len = Math.hypot(v1x, v1y, v1z);
+      v1x /= v1Len; v1y /= v1Len; v1z /= v1Len;
+      var v2x = uy * v1z - uz * v1y;
+      var v2y = uz * v1x - ux * v1z;
+      var v2z = ux * v1y - uy * v1x;
+      return {
+        u: { x: ux, y: uy, z: uz },
+        v1: { x: v1x, y: v1y, z: v1z },
+        v2: { x: v2x, y: v2y, z: v2z }
+      };
+    }
+
+    function drawPlanePatch(ctx, center, nx, ny, nz, d, fillCol, strokeCol, halfSize, W, H) {
+      var mSq = nx * nx + ny * ny + nz * nz;
+      var cx = Math.max(-2.2, Math.min(2.2, center.x));
+      var cy = Math.max(-2.2, Math.min(2.2, center.y));
+      var cz = Math.max(-2.2, Math.min(2.2, center.z));
+      var corr = (d - (cx * nx + cy * ny + cz * nz)) / mSq;
+      cx += corr * nx;
+      cy += corr * ny;
+      cz += corr * nz;
+
+      var b = getPlaneBasis(nx, ny, nz);
+      function pt(s, t) {
+        return project3D(
+          cx + s * b.v1.x + t * b.v2.x,
+          cy + s * b.v1.y + t * b.v2.y,
+          cz + s * b.v1.z + t * b.v2.z,
+          W, H
+        );
+      }
+
+      var c1 = pt(-halfSize, -halfSize);
+      var c2 = pt(halfSize, -halfSize);
+      var c3 = pt(halfSize, halfSize);
+      var c4 = pt(-halfSize, halfSize);
+
+      ctx.save();
+      ctx.fillStyle = fillCol;
+      ctx.strokeStyle = strokeCol;
+      ctx.lineWidth = 1.6;
+      ctx.beginPath();
+      ctx.moveTo(c1.px, c1.py);
+      ctx.lineTo(c2.px, c2.py);
+      ctx.lineTo(c3.px, c3.py);
+      ctx.lineTo(c4.px, c4.py);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+      ctx.restore();
+
+      return {
+        center3D: { x: cx, y: cy, z: cz },
+        cornerLabel: c3,
+        unitNormal: b.u
+      };
+    }
+
+    function renderFrame() {
+      if (autoOrbit && !isDragging) {
+        yaw += 0.0045;
+      }
+
+      var canvas = document.getElementById("twoPlanesCanvas");
+      if (!canvas) return;
+      var ctx = canvas.getContext("2d");
+      var W = canvas.width, H = canvas.height;
+      ctx.clearRect(0, 0, W, H);
+
+      // Floor x-y grid
+      ctx.strokeStyle = "#f1f5f9";
+      ctx.lineWidth = 1;
+      for (var g = -4; g <= 4; g++) {
+        var a1 = project3D(g, -4, 0, W, H), a2 = project3D(g, 4, 0, W, H);
+        ctx.beginPath(); ctx.moveTo(a1.px, a1.py); ctx.lineTo(a2.px, a2.py); ctx.stroke();
+        var b1 = project3D(-4, g, 0, W, H), b2 = project3D(4, g, 0, W, H);
+        ctx.beginPath(); ctx.moveTo(b1.px, b1.py); ctx.lineTo(b2.px, b2.py); ctx.stroke();
+      }
+
+      // Coordinate axes
+      var oPt = project3D(0, 0, 0, W, H);
+      var xN = project3D(-4.8, 0, 0, W, H), xP = project3D(5.0, 0, 0, W, H);
+      var yN = project3D(0, -4.8, 0, W, H), yP = project3D(0, 5.0, 0, W, H);
+      var zN = project3D(0, 0, -4.2, W, H), zP = project3D(0, 0, 4.8, W, H);
+
+      ctx.strokeStyle = "#cbd5e1";
+      ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      ctx.moveTo(xN.px, xN.py); ctx.lineTo(xP.px, xP.py);
+      ctx.moveTo(yN.px, yN.py); ctx.lineTo(yP.px, yP.py);
+      ctx.moveTo(zN.px, zN.py); ctx.lineTo(zP.px, zP.py);
+      ctx.stroke();
+
+      ctx.fillStyle = "#64748b";
+      ctx.font = "bold 12px Segoe UI, sans-serif";
+      ctx.fillText("+x", xP.px + 5, xP.py + 4);
+      ctx.fillText("+y", yP.px + 5, yP.py + 4);
+      ctx.fillText("+z", zP.px - 6, zP.py - 7);
+      ctx.fillText("O", oPt.px - 14, oPt.py + 15);
+
+      var a = analyzePlanes();
+      var anchor1 = a.isParallel ? a.p1 : a.linePoint;
+      var anchor2 = a.isParallel ? a.p2 : a.linePoint;
+
+      var patch1 = drawPlanePatch(
+        ctx, anchor1, st.n1x, st.n1y, st.n1z, st.d1,
+        "rgba(2, 132, 199, 0.14)", "#0284c7", 3.5, W, H
+      );
+      var patch2 = drawPlanePatch(
+        ctx, anchor2, st.n2x, st.n2y, st.n2z, st.d2,
+        "rgba(139, 92, 246, 0.14)", "#8b5cf6", 3.5, W, H
+      );
+
+      ctx.font = "bold 12px Segoe UI, sans-serif";
+      ctx.fillStyle = "#0284c7";
+      ctx.fillText("Π₁", patch1.cornerLabel.px + 6, patch1.cornerLabel.py);
+
+      ctx.fillStyle = "#7c3aed";
+      ctx.fillText("Π₂", patch2.cornerLabel.px + 6, patch2.cornerLabel.py + 14);
+
+      if (mode === "angle" && !a.isParallel) {
+        var pShared = project3D(patch1.center3D.x, patch1.center3D.y, patch1.center3D.z, W, H);
+        var tip1 = project3D(
+          patch1.center3D.x + 2.2 * patch1.unitNormal.x,
+          patch1.center3D.y + 2.2 * patch1.unitNormal.y,
+          patch1.center3D.z + 2.2 * patch1.unitNormal.z,
+          W, H
+        );
+        var tip2 = project3D(
+          patch1.center3D.x + 2.2 * patch2.unitNormal.x,
+          patch1.center3D.y + 2.2 * patch2.unitNormal.y,
+          patch1.center3D.z + 2.2 * patch2.unitNormal.z,
+          W, H
+        );
+        drawArrow3D(ctx, pShared, tip1, "#0284c7", 2.8, false);
+        drawArrow3D(ctx, pShared, tip2, "#8b5cf6", 2.8, false);
+        ctx.fillStyle = "#0284c7";
+        ctx.fillText("n₁", tip1.px + 6, tip1.py - 4);
+        ctx.fillStyle = "#7c3aed";
+        ctx.fillText("n₂", tip2.px + 6, tip2.py - 4);
+      } else {
+        var c1Pt = project3D(patch1.center3D.x, patch1.center3D.y, patch1.center3D.z, W, H);
+        var t1Pt = project3D(
+          patch1.center3D.x + 1.8 * patch1.unitNormal.x,
+          patch1.center3D.y + 1.8 * patch1.unitNormal.y,
+          patch1.center3D.z + 1.8 * patch1.unitNormal.z,
+          W, H
+        );
+        drawArrow3D(ctx, c1Pt, t1Pt, "#0284c7", 2.3, false);
+        ctx.fillStyle = "#0284c7";
+        ctx.fillText("n₁", t1Pt.px + 5, t1Pt.py - 4);
+
+        var c2Pt = project3D(patch2.center3D.x, patch2.center3D.y, patch2.center3D.z, W, H);
+        var t2Pt = project3D(
+          patch2.center3D.x + 1.8 * patch2.unitNormal.x,
+          patch2.center3D.y + 1.8 * patch2.unitNormal.y,
+          patch2.center3D.z + 1.8 * patch2.unitNormal.z,
+          W, H
+        );
+        drawArrow3D(ctx, c2Pt, t2Pt, "#8b5cf6", 2.3, false);
+        ctx.fillStyle = "#7c3aed";
+        ctx.fillText("n₂", t2Pt.px + 5, t2Pt.py - 4);
+      }
+
+      if (!a.isParallel) {
+        var dirLen = Math.hypot(a.dir.x, a.dir.y, a.dir.z);
+        var ux = a.dir.x / dirLen, uy = a.dir.y / dirLen, uz = a.dir.z / dirLen;
+        var pL1 = project3D(
+          patch1.center3D.x - 3.6 * ux,
+          patch1.center3D.y - 3.6 * uy,
+          patch1.center3D.z - 3.6 * uz,
+          W, H
+        );
+        var pL2 = project3D(
+          patch1.center3D.x + 3.6 * ux,
+          patch1.center3D.y + 3.6 * uy,
+          patch1.center3D.z + 3.6 * uz,
+          W, H
+        );
+        ctx.save();
+        ctx.strokeStyle = "#e11d48";
+        ctx.lineWidth = 3.0;
+        ctx.beginPath();
+        ctx.moveTo(pL1.px, pL1.py);
+        ctx.lineTo(pL2.px, pL2.py);
+        ctx.stroke();
+        ctx.restore();
+
+        ctx.fillStyle = "#be123c";
+        ctx.fillText("l = Π₁ ∩ Π₂", pL2.px + 6, pL2.py);
+      } else if (!a.isCoincident) {
+        var s1 = project3D(patch1.center3D.x, patch1.center3D.y, patch1.center3D.z, W, H);
+        var s2 = project3D(patch2.center3D.x, patch2.center3D.y, patch2.center3D.z, W, H);
+        ctx.save();
+        ctx.strokeStyle = "#e11d48";
+        ctx.lineWidth = 3.0;
+        ctx.setLineDash([5, 4]);
+        ctx.beginPath();
+        ctx.moveTo(s1.px, s1.py);
+        ctx.lineTo(s2.px, s2.py);
+        ctx.stroke();
+        ctx.restore();
+
+        var midX = 0.5 * (s1.px + s2.px);
+        var midY = 0.5 * (s1.py + s2.py);
+        ctx.fillStyle = "#be123c";
+        ctx.fillText("D = " + a.parDist.toFixed(2), midX + 8, midY);
+      }
+
+      requestAnimationFrame(renderFrame);
+    }
+
+    function init() {
+      document.getElementById("guideHeader").addEventListener("click", function () {
+        guideOpen = !guideOpen;
+        document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+        document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+      });
+
+      document.getElementById("tab_rel").addEventListener("click", function () { setMode("rel"); });
+      document.getElementById("tab_angle").addEventListener("click", function () { setMode("angle"); });
+      document.getElementById("tab_pdist").addEventListener("click", function () { setMode("pdist"); });
+
+      var btnOrbit = document.getElementById("btn_orbit");
+      btnOrbit.addEventListener("click", function () {
+        autoOrbit = !autoOrbit;
+        btnOrbit.classList.toggle("active", autoOrbit);
+        btnOrbit.textContent = autoOrbit ? "Auto-Rotate 3D: ON" : "Auto-Rotate 3D: OFF";
+      });
+
+      document.getElementById("btn_iso").addEventListener("click", function () {
+        autoOrbit = false; btnOrbit.classList.remove("active"); btnOrbit.textContent = "Auto-Rotate 3D: OFF";
+        yaw = 0.62; pitch = 0.38;
+      });
+      document.getElementById("btn_xy").addEventListener("click", function () {
+        autoOrbit = false; btnOrbit.classList.remove("active"); btnOrbit.textContent = "Auto-Rotate 3D: OFF";
+        yaw = 0.0; pitch = 1.54;
+      });
+      document.getElementById("btn_xz").addEventListener("click", function () {
+        autoOrbit = false; btnOrbit.classList.remove("active"); btnOrbit.textContent = "Auto-Rotate 3D: OFF";
+        yaw = 0.0; pitch = 0.04;
+      });
+
+      var canvas = document.getElementById("twoPlanesCanvas");
+      canvas.addEventListener("mousedown", function (e) {
+        isDragging = true;
+        lastMouseX = e.clientX;
+        lastMouseY = e.clientY;
+      });
+      window.addEventListener("mousemove", function (e) {
+        if (!isDragging) return;
+        yaw += (e.clientX - lastMouseX) * 0.01;
+        pitch = Math.max(-1.4, Math.min(1.55, pitch + (e.clientY - lastMouseY) * 0.01));
+        lastMouseX = e.clientX;
+        lastMouseY = e.clientY;
+      });
+      window.addEventListener("mouseup", function () {
+        isDragging = false;
+      });
+
+      renderSliders();
+      setMode("rel");
+      requestAnimationFrame(renderFrame);
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else {
+      init();
+    }
+  })();
+</script>
+
+</body>
+</html>
