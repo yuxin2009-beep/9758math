@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 3.3 Lesson 3: Foot of Perpendicular &amp; Distance from Point to Plane</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed #e2e8f0;
+      align-items: stretch;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 13px 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .guide-step-title {
+      color: #1e293b;
+      font-size: 0.84rem;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .guide-step-desc {
+      color: #475569;
+      font-size: 0.8rem;
+      line-height: 1.6;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 515px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 980px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .mode-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 6px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.74rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .slider-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 11px;
+    }
+
+    .slider-group {
+      background: #f8fafc;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.76rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .formula-box {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #3b0764;
+      font-size: 0.78rem;
+      line-height: 1.52;
+      margin-bottom: 9px;
+    }
+
+    .derivation-box {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-left: 4px solid var(--purple);
+      border-radius: 10px;
+      padding: 10px 13px;
+      color: #1e293b;
+      font-size: 0.77rem;
+      line-height: 1.54;
+      margin-bottom: 9px;
+    }
+
+    .working-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #134e4a;
+      font-size: 0.78rem;
+      line-height: 1.52;
+      margin-bottom: 9px;
+    }
+
+    .status-banner {
+      background: var(--blue-bg);
+      border: 1.5px solid #7dd3fc;
+      border-radius: 12px;
+      padding: 9px 13px;
+      color: #0c4a6e;
+      font-size: 0.78rem;
+      font-weight: 700;
+      line-height: 1.48;
+    }
+
+    .status-banner.onplane {
+      background: var(--teal-bg);
+      border-color: #5eead4;
+      color: #134e4a;
+    }
+
+    .status-banner.opp {
+      background: var(--rose-bg);
+      border-color: #fda4af;
+      color: #881337;
+    }
+
+    .canvas-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .cam-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 7px 12px;
+      margin-bottom: 10px;
+    }
+
+    .cam-btn {
+      padding: 5px 10px;
+      border-radius: 7px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .cam-btn.active {
+      background: var(--teal);
+      color: #ffffff;
+      border-color: var(--teal);
+    }
+
+    .legend {
+      display: flex;
+      gap: 11px;
+      flex-wrap: wrap;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    canvas {
+      width: 100%;
+      height: 465px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      background: #ffffff;
+      display: block;
+      cursor: grab;
+    }
+
+    canvas:active {
+      cursor: grabbing;
+    }
+
+    .misconception-box {
+      margin-top: 12px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 0.8rem;
+      line-height: 1.52;
+      color: #78350f;
+    }
+
+    .vec-inline {
+      font-family: 'Segoe UI', monospace;
+      font-weight: 700;
+    }
+
+    .preset-row {
+      grid-column: span 2;
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .mini-btn {
+      flex: 1;
+      padding: 5px 8px;
+      border-radius: 7px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.73rem;
+      font-weight: 700;
+      color: #334155;
+      cursor: pointer;
+    }
+
+    .mini-btn:hover {
+      background: #f1f5f9;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" id="guideHeader">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive 3D Visual Lab</span>
+      </div>
+      <button type="button" class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <div class="guide-step-title">1. Choose an Exam Method</div>
+        <div class="guide-step-desc">Switch between <strong>Foot of Perpendicular N</strong> (auxiliary normal line method), <strong>Direct Distance Formula</strong> (projection onto <em>n̂</em>), and <strong>Reflection Point P′</strong>.</div>
+      </div>
+      <div class="guide-step-card">
+        <div class="guide-step-title">2. Orbit &amp; Inspect the 3D Plane Π</div>
+        <div class="guide-step-desc">Click and drag on the 3D canvas (or use the camera presets) to verify that segment <strong>PN</strong> meets plane <strong>Π</strong> at <strong>90°</strong> along normal vector <strong>n</strong>.</div>
+      </div>
+      <div class="guide-step-card">
+        <div class="guide-step-title">3. Test Point P &amp; Plane Π Configurations</div>
+        <div class="guide-step-desc">Move point <strong>P</strong> or shift plane constant <strong>d</strong> (or test the <em>Point on Plane</em> and <em>Horizontal Plane</em> presets) to see how <em>λ</em>, <em>N</em>, and <em>|PN|</em> respond.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROLS & ALGEBRAIC BREAKDOWN -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        3.3 Lesson 3 &bull; Foot of Perpendicular &amp; Distance from Point to Plane
+      </div>
+
+      <div class="mode-tabs">
+        <button type="button" class="tab-btn active" id="tab_foot">1. Foot of ⊥ (N)</button>
+        <button type="button" class="tab-btn" id="tab_dist">2. Distance |PN|</button>
+        <button type="button" class="tab-btn" id="tab_refl">3. Reflection P′</button>
+      </div>
+
+      <div class="slider-grid" id="slidersWrap"></div>
+
+      <div class="formula-box" id="formulaBox"></div>
+      <div class="derivation-box" id="derivationBox"></div>
+      <div class="working-box" id="workingBox"></div>
+      <div class="status-banner" id="statusBanner"></div>
+    </div>
+
+    <!-- RIGHT 3D VISUALIZATION CANVAS -->
+    <div class="card">
+      <div class="canvas-header">
+        <strong style="font-size:1.02rem; color:#1e293b;" id="canvasTitle">3D Foot of Perpendicular N from Point P onto Plane Π</strong>
+      </div>
+
+      <div class="cam-toolbar">
+        <div style="display:flex; gap:6px; flex-wrap:wrap;">
+          <button type="button" class="cam-btn active" id="btn_orbit">Auto-Rotate 3D: ON</button>
+          <button type="button" class="cam-btn" id="btn_iso">3D Isometric</button>
+          <button type="button" class="cam-btn" id="btn_xy">Top View (x-y)</button>
+          <button type="button" class="cam-btn" id="btn_xz">Front View (x-z)</button>
+        </div>
+        <div class="legend" id="legendWrap"></div>
+      </div>
+
+      <canvas id="plane3dCanvas" width="880" height="465"></canvas>
+
+      <div class="misconception-box">
+        <strong>9758 Misconception Alert (Point-to-Plane Distance &amp; Foot of Perpendicular):</strong>
+        <ul style="margin:4px 0 0 0; padding-left:18px;">
+          <li><strong>Direction vector of auxiliary line PN is n, NOT a point on Π:</strong> Line <em>PN</em> passes through <em>P</em> and is perpendicular to <em>Π</em>, so it is <strong>parallel to the normal vector n</strong>: <strong>r = p + λn</strong>.</li>
+          <li><strong>Divide by |n| (NOT |n|²) for Distance, and ALWAYS take Modulus:</strong> Using scalar projection of <strong>AP</strong> onto <strong>n̂</strong> (where <em>A</em> is any point on <em>Π</em> with <em>a · n = d</em>), <strong>Distance = |AP · n̂| = |p · n − d| / |n|</strong>. Forgetting the modulus when <em>P</em> is on the opposite side of <em>Π</em> gives an invalid negative distance!</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    let guideOpen = true;
+    let mode = "foot";
+
+    let yaw = 0.65;
+    let pitch = 0.40;
+    let autoOrbit = true;
+    let isDragging = false;
+    let lastMouseX = 0;
+    let lastMouseY = 0;
+
+    // Point P = (px, py, pz) and Plane Pi: nx*x + ny*y + nz*z = d
+    let st = {
+      px: 3, py: 2, pz: 4,
+      nx: 1, ny: 1, nz: 2,
+      d: 4
+    };
+
+    function fmtVec3(x, y, z) {
+      return "(" + x + ", " + y + ", " + z + ")";
+    }
+
+    function fmtNum(v) {
+      return Math.abs(v - Math.round(v)) < 1e-9 ? String(Math.round(v)) : v.toFixed(2);
+    }
+
+    function fmtVec3Dec(x, y, z) {
+      return "(" + fmtNum(x) + ", " + fmtNum(y) + ", " + fmtNum(z) + ")";
+    }
+
+    function fmtPlaneEq(nx, ny, nz, d) {
+      var parts = [];
+      function addTerm(coef, sym) {
+        if (coef === 0) return;
+        var absC = Math.abs(coef);
+        var cStr = absC === 1 ? "" : String(absC);
+        if (parts.length === 0) {
+          parts.push((coef < 0 ? "−" : "") + cStr + sym);
+        } else {
+          parts.push((coef < 0 ? " − " : " + ") + cStr + sym);
+        }
+      }
+      addTerm(nx, "x");
+      addTerm(ny, "y");
+      addTerm(nz, "z");
+      if (parts.length === 0) parts.push("0");
+      return parts.join("") + " = " + d;
+    }
+
+    function project3D(x, y, z, W, H) {
+      var cosY = Math.cos(yaw), sinY = Math.sin(yaw);
+      var cosP = Math.cos(pitch), sinP = Math.sin(pitch);
+
+      var rx = x * cosY - y * sinY;
+      var ry = x * sinY + y * cosY;
+
+      var sx = rx;
+      var sy = z * cosP - ry * sinP;
+
+      var scale = 34;
+      return {
+        px: W * 0.5 + sx * scale,
+        py: H * 0.54 - sy * scale
+      };
+    }
+
+    function setMode(m) {
+      mode = m;
+      ["foot", "dist", "refl"].forEach(function (id) {
+        var btn = document.getElementById("tab_" + id);
+        if (btn) {
+          if (id === m) btn.classList.add("active");
+          else btn.classList.remove("active");
+        }
+      });
+      updatePanels();
+    }
+
+    function renderSliders() {
+      var wrap = document.getElementById("slidersWrap");
+      wrap.innerHTML =
+        '<div class="slider-group">' +
+          '<div class="slider-header"><span>Point P = (x, y, z)</span><span id="lbl_p" style="color:var(--blue);">' + fmtVec3(st.px, st.py, st.pz) + '</span></div>' +
+          '<input type="range" id="sl_px" min="-4" max="4" step="1" value="' + st.px + '" />' +
+          '<input type="range" id="sl_py" min="-4" max="4" step="1" value="' + st.py + '" style="margin-top:3px;" />' +
+          '<input type="range" id="sl_pz" min="-4" max="4" step="1" value="' + st.pz + '" style="margin-top:3px;" />' +
+        '</div>' +
+        '<div class="slider-group">' +
+          '<div class="slider-header"><span>Plane Π: n &amp; d</span><span id="lbl_pi" style="color:var(--purple-dark);">' + fmtPlaneEq(st.nx, st.ny, st.nz, st.d) + '</span></div>' +
+          '<input type="range" id="sl_nx" min="-2" max="2" step="1" value="' + st.nx + '" />' +
+          '<input type="range" id="sl_ny" min="-2" max="2" step="1" value="' + st.ny + '" style="margin-top:3px;" />' +
+          '<input type="range" id="sl_nz" min="-2" max="2" step="1" value="' + st.nz + '" style="margin-top:3px;" />' +
+          '<input type="range" id="sl_d" min="-6" max="6" step="1" value="' + st.d + '" style="margin-top:3px;" />' +
+        '</div>' +
+        '<div class="preset-row">' +
+          '<button type="button" class="mini-btn" id="pre_std">Standard Tilted Π</button>' +
+          '<button type="button" class="mini-btn" id="pre_on">Point P on Π (Dist = 0)</button>' +
+          '<button type="button" class="mini-btn" id="pre_horiz">Horizontal Plane z = 1</button>' +
+        '</div>';
+
+      ["px", "py", "pz", "nx", "ny", "nz", "d"].forEach(function (k) {
+        document.getElementById("sl_" + k).addEventListener("input", function () {
+          st[k] = parseInt(this.value, 10);
+          if (st.nx === 0 && st.ny === 0 && st.nz === 0) st.nz = 1;
+          updatePanels();
+        });
+      });
+
+      document.getElementById("pre_std").addEventListener("click", function () {
+        st = { px: 3, py: 2, pz: 4, nx: 1, ny: 1, nz: 2, d: 4 };
+        syncSliders(); updatePanels();
+      });
+      document.getElementById("pre_on").addEventListener("click", function () {
+        st = { px: 2, py: 0, pz: 1, nx: 1, ny: 1, nz: 2, d: 4 };
+        syncSliders(); updatePanels();
+      });
+      document.getElementById("pre_horiz").addEventListener("click", function () {
+        st = { px: 2, py: -2, pz: 4, nx: 0, ny: 0, nz: 1, d: 1 };
+        syncSliders(); updatePanels();
+      });
+    }
+
+    function syncSliders() {
+      ["px", "py", "pz", "nx", "ny", "nz", "d"].forEach(function (k) {
+        var el = document.getElementById("sl_" + k);
+        if (el) el.value = st[k];
+      });
+    }
+
+    function computeGeometry() {
+      var pDotN = st.px * st.nx + st.py * st.ny + st.pz * st.nz;
+      var nMagSq = st.nx * st.nx + st.ny * st.ny + st.nz * st.nz;
+      var nMag = Math.sqrt(nMagSq);
+
+      // Line PN: r = p + lambda * n; substitute into r . n = d => p.n + lambda*|n|^2 = d
+      var lambda = (st.d - pDotN) / nMagSq;
+
+      var nxPt = st.px + lambda * st.nx;
+      var nyPt = st.py + lambda * st.ny;
+      var nzPt = st.pz + lambda * st.nz;
+
+      // Reflection P': ON = 1/2 (OP + OP') => OP' = 2*ON - OP = p + 2*lambda*n
+      var rxPt = st.px + 2 * lambda * st.nx;
+      var ryPt = st.py + 2 * lambda * st.ny;
+      var rzPt = st.pz + 2 * lambda * st.nz;
+
+      var signedNum = pDotN - st.d;
+      var dist = Math.abs(signedNum) / nMag;
+
+      // Anchor point A on plane closest to origin: A = (d / |n|^2) * n
+      var ax = (st.d / nMagSq) * st.nx;
+      var ay = (st.d / nMagSq) * st.ny;
+      var az = (st.d / nMagSq) * st.nz;
+
+      return {
+        pDotN: pDotN,
+        nMagSq: nMagSq,
+        nMag: nMag,
+        lambda: lambda,
+        N: { x: nxPt, y: nyPt, z: nzPt },
+        R: { x: rxPt, y: ryPt, z: rzPt },
+        A: { x: ax, y: ay, z: az },
+        signedNum: signedNum,
+        dist: dist
+      };
+    }
+
+    function updatePanels() {
+      document.getElementById("lbl_p").textContent = fmtVec3(st.px, st.py, st.pz);
+      document.getElementById("lbl_pi").textContent = fmtPlaneEq(st.nx, st.ny, st.nz, st.d);
+
+      var g = computeGeometry();
+      var formulaBox = document.getElementById("formulaBox");
+      var derivBox = document.getElementById("derivationBox");
+      var workingBox = document.getElementById("workingBox");
+      var statusBanner = document.getElementById("statusBanner");
+      var titleEl = document.getElementById("canvasTitle");
+      var legendEl = document.getElementById("legendWrap");
+
+      statusBanner.classList.remove("onplane", "opp");
+
+      var pStr = fmtVec3(st.px, st.py, st.pz);
+      var nStr = fmtVec3(st.nx, st.ny, st.nz);
+      var footStr = fmtVec3Dec(g.N.x, g.N.y, g.N.z);
+      var reflStr = fmtVec3Dec(g.R.x, g.R.y, g.R.z);
+
+      if (mode === "foot") {
+        titleEl.textContent = "3D Foot of Perpendicular N from Point P onto Plane Π";
+        legendEl.innerHTML =
+          '<span class="legend-item"><span class="dot" style="background:#0284c7;"></span> Point P</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#e11d48;"></span> Foot N on Π</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#8b5cf6;"></span> Normal n</span>';
+
+        formulaBox.innerHTML =
+          '<strong>Step 1 — Auxiliary Line through P perpendicular to Π:</strong><br>' +
+          '<span class="vec-inline">l_PN : r = ' + pStr + ' + λ' + nStr + ', &nbsp;λ ∈ ℝ</span>';
+
+        derivBox.innerHTML =
+          '<strong>Step 2 — Intersect Line l_PN with Plane Π (r · n = ' + st.d + '):</strong><br>' +
+          '<span class="vec-inline">[' + pStr + ' + λ' + nStr + '] · ' + nStr + ' = ' + st.d + '</span><br>' +
+          '<span class="vec-inline">(' + g.pDotN + ') + ' + g.nMagSq + 'λ = ' + st.d + ' &rArr; λ = ' + (st.d - g.pDotN) + '/' + g.nMagSq + ' = ' + fmtNum(g.lambda) + '</span>';
+
+        workingBox.innerHTML =
+          '<strong>Step 3 — Substitute λ back into l_PN to obtain Foot N:</strong><br>' +
+          '<span class="vec-inline">ON = ' + pStr + ' + (' + fmtNum(g.lambda) + ')' + nStr + ' = ' + footStr + '</span><br>' +
+          '<strong>Verify N ∈ Π:</strong> <span class="vec-inline">ON · n = ' + st.d + '</span> (exact match!)';
+
+      } else if (mode === "dist") {
+        titleEl.textContent = "Perpendicular Distance from Point P to Plane Π via Projection";
+        legendEl.innerHTML =
+          '<span class="legend-item"><span class="dot" style="background:#0284c7;"></span> Point P</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#e11d48;"></span> Distance |PN|</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#0f766e;"></span> Anchor A ∈ Π</span>';
+
+        formulaBox.innerHTML =
+          '<strong>Direct Point-to-Plane Distance Formula:</strong><br>' +
+          '<span class="vec-inline">Distance |PN| = |AP · n̂| = |p · n − d| / |n|</span> (where <span class="vec-inline">a · n = d</span>)';
+
+        derivBox.innerHTML =
+          '<strong>Projection Derivation (Why |p · n − d| / |n| works):</strong><br>' +
+          'For any point <em>A</em> on <em>Π</em>, <span class="vec-inline">AP = p − a</span>. Projecting <strong>AP</strong> onto unit normal <strong>n̂ = n/|n|</strong>:<br>' +
+          '<span class="vec-inline">|AP · n̂| = |(p − a)·n| / |n| = |p·n − a·n| / |n| = |p·n − d| / |n|</span>.';
+
+        workingBox.innerHTML =
+          '<strong>Direct Substitution:</strong><br>' +
+          '<span class="vec-inline">p · n = (' + st.px + ')(' + st.nx + ') + (' + st.py + ')(' + st.ny + ') + (' + st.pz + ')(' + st.nz + ') = ' + g.pDotN + '</span><br>' +
+          '<span class="vec-inline">Distance = |' + g.pDotN + ' − (' + st.d + ')| / √' + g.nMagSq + ' = ' + Math.abs(g.signedNum) + ' / √' + g.nMagSq + ' ≈ ' + g.dist.toFixed(3) + ' units</span>';
+
+      } else {
+        titleEl.textContent = "Reflection (Mirror Image) P′ of Point P in Plane Π";
+        legendEl.innerHTML =
+          '<span class="legend-item"><span class="dot" style="background:#0284c7;"></span> Original P</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#e11d48;"></span> Midpoint Foot N</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#0f766e;"></span> Reflection P′</span>';
+
+        formulaBox.innerHTML =
+          '<strong>Midpoint Theorem for Plane Reflection:</strong><br>' +
+          'Foot of perpendicular <strong>N</strong> is the exact midpoint of <strong>PP′</strong>: <span class="vec-inline">ON = ½(OP + OP′)</span>';
+
+        derivBox.innerHTML =
+          '<strong>Vector Formula for Reflected Point P′:</strong><br>' +
+          '<span class="vec-inline">OP′ = 2(ON) − OP = p + 2λn</span> (travel twice the step <em>λn</em> from <em>P</em> through <em>N</em>!).';
+
+        workingBox.innerHTML =
+          '<strong>Foot N (λ = ' + fmtNum(g.lambda) + '):</strong> <span class="vec-inline">ON = ' + footStr + '</span><br>' +
+          '<strong>Reflected Point P′:</strong> <span class="vec-inline">OP′ = 2' + footStr + ' − ' + pStr + ' = ' + reflStr + '</span>';
+      }
+
+      if (Math.abs(g.signedNum) < 1e-9) {
+        statusBanner.classList.add("onplane");
+        statusBanner.innerHTML = '<strong>POINT P LIES ON PLANE Π (p · n = ' + st.d + '):</strong> λ = 0, so Foot <strong>N = P</strong>, Reflection <strong>P′ = P</strong>, and Distance <strong>|PN| = 0</strong>.';
+      } else if (g.signedNum > 0) {
+        statusBanner.innerHTML = '<strong>POSITIVE SIDE OF Π (p · n = ' + g.pDotN + ' &gt; ' + st.d + '):</strong> Point <strong>P</strong> lies on the side of <em>Π</em> pointed to by normal <strong>n</strong> (λ = ' + fmtNum(g.lambda) + ' &lt; 0, Distance = ' + g.dist.toFixed(2) + ').';
+      } else {
+        statusBanner.classList.add("opp");
+        statusBanner.innerHTML = '<strong>OPPOSITE SIDE OF Π (p · n = ' + g.pDotN + ' &lt; ' + st.d + '):</strong> Point <strong>P</strong> lies behind <em>Π</em> relative to normal <strong>n</strong> (λ = ' + fmtNum(g.lambda) + ' &gt; 0, Distance = ' + g.dist.toFixed(2) + ').';
+      }
+    }
+
+    function drawArrow3D(ctx, p1, p2, color, width, dashed) {
+      var dx = p2.px - p1.px;
+      var dy = p2.py - p1.py;
+      var len = Math.hypot(dx, dy);
+      if (len < 2) return;
+      var angle = Math.atan2(dy, dx);
+      var headLen = 9;
+
+      ctx.save();
+      ctx.strokeStyle = color;
+      ctx.fillStyle = color;
+      ctx.lineWidth = width;
+      if (dashed) ctx.setLineDash([6, 4]);
+
+      ctx.beginPath();
+      ctx.moveTo(p1.px, p1.py);
+      ctx.lineTo(p2.px, p2.py);
+      ctx.stroke();
+
+      ctx.setLineDash([]);
+      ctx.beginPath();
+      ctx.moveTo(p2.px, p2.py);
+      ctx.lineTo(p2.px - headLen * Math.cos(angle - Math.PI / 6), p2.py - headLen * Math.sin(angle - Math.PI / 6));
+      ctx.lineTo(p2.px - headLen * Math.cos(angle + Math.PI / 6), p2.py - headLen * Math.sin(angle + Math.PI / 6));
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function drawPoint3D(ctx, pt, color, radius) {
+      ctx.save();
+      ctx.fillStyle = color;
+      ctx.strokeStyle = "#ffffff";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(pt.px, pt.py, radius, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    function getPlaneBasis() {
+      var nLen = Math.hypot(st.nx, st.ny, st.nz);
+      var ux = st.nx / nLen, uy = st.ny / nLen, uz = st.nz / nLen;
+      // Pick reference vector not parallel to u
+      var rx = Math.abs(ux) < 0.8 ? 1 : 0;
+      var ry = Math.abs(ux) < 0.8 ? 0 : 1;
+      var rz = 0;
+      // v1 = u x r
+      var v1x = uy * rz - uz * ry;
+      var v1y = uz * rx - ux * rz;
+      var v1z = ux * ry - uy * rx;
+      var v1Len = Math.hypot(v1x, v1y, v1z);
+      v1x /= v1Len; v1y /= v1Len; v1z /= v1Len;
+      // v2 = u x v1
+      var v2x = uy * v1z - uz * v1y;
+      var v2y = uz * v1x - ux * v1z;
+      var v2z = ux * v1y - uy * v1x;
+      return {
+        u: { x: ux, y: uy, z: uz },
+        v1: { x: v1x, y: v1y, z: v1z },
+        v2: { x: v2x, y: v2y, z: v2z }
+      };
+    }
+
+    function renderFrame() {
+      if (autoOrbit && !isDragging) {
+        yaw += 0.0045;
+      }
+
+      var canvas = document.getElementById("plane3dCanvas");
+      if (!canvas) return;
+      var ctx = canvas.getContext("2d");
+      var W = canvas.width, H = canvas.height;
+      ctx.clearRect(0, 0, W, H);
+
+      // Floor x-y grid
+      ctx.strokeStyle = "#f1f5f9";
+      ctx.lineWidth = 1;
+      for (var g = -4; g <= 4; g++) {
+        var a1 = project3D(g, -4, 0, W, H), a2 = project3D(g, 4, 0, W, H);
+        ctx.beginPath(); ctx.moveTo(a1.px, a1.py); ctx.lineTo(a2.px, a2.py); ctx.stroke();
+        var b1 = project3D(-4, g, 0, W, H), b2 = project3D(4, g, 0, W, H);
+        ctx.beginPath(); ctx.moveTo(b1.px, b1.py); ctx.lineTo(b2.px, b2.py); ctx.stroke();
+      }
+
+      // Coordinate axes
+      var oPt = project3D(0, 0, 0, W, H);
+      var xN = project3D(-4.8, 0, 0, W, H), xP = project3D(5.0, 0, 0, W, H);
+      var yN = project3D(0, -4.8, 0, W, H), yP = project3D(0, 5.0, 0, W, H);
+      var zN = project3D(0, 0, -4.2, W, H), zP = project3D(0, 0, 4.8, W, H);
+
+      ctx.strokeStyle = "#cbd5e1";
+      ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      ctx.moveTo(xN.px, xN.py); ctx.lineTo(xP.px, xP.py);
+      ctx.moveTo(yN.px, yN.py); ctx.lineTo(yP.px, yP.py);
+      ctx.moveTo(zN.px, zN.py); ctx.lineTo(zP.px, zP.py);
+      ctx.stroke();
+
+      ctx.fillStyle = "#64748b";
+      ctx.font = "bold 12px Segoe UI, sans-serif";
+      ctx.fillText("+x", xP.px + 5, xP.py + 4);
+      ctx.fillText("+y", yP.px + 5, yP.py + 4);
+      ctx.fillText("+z", zP.px - 6, zP.py - 7);
+      ctx.fillText("O", oPt.px - 14, oPt.py + 15);
+
+      var geom = computeGeometry();
+      var basis = getPlaneBasis();
+
+      // Center plane patch around Foot N (clamped slightly so plane stays visible)
+      var cx = Math.max(-2.5, Math.min(2.5, geom.N.x));
+      var cy = Math.max(-2.5, Math.min(2.5, geom.N.y));
+      var cz = Math.max(-2.5, Math.min(2.5, geom.N.z));
+      // Project (cx,cy,cz) strictly onto plane so patch lies on Pi
+      var cDotN = cx * st.nx + cy * st.ny + cz * st.nz;
+      var cCorr = (st.d - cDotN) / geom.nMagSq;
+      cx += cCorr * st.nx;
+      cy += cCorr * st.ny;
+      cz += cCorr * st.nz;
+
+      var half = 3.8;
+      function planePt(s, t) {
+        return project3D(
+          cx + s * basis.v1.x + t * basis.v2.x,
+          cy + s * basis.v1.y + t * basis.v2.y,
+          cz + s * basis.v1.z + t * basis.v2.z,
+          W, H
+        );
+      }
+
+      var c1 = planePt(-half, -half);
+      var c2 = planePt(half, -half);
+      var c3 = planePt(half, half);
+      var c4 = planePt(-half, half);
+
+      // Draw translucent plane patch
+      ctx.save();
+      ctx.fillStyle = "rgba(139, 92, 246, 0.13)";
+      ctx.strokeStyle = "#8b5cf6";
+      ctx.lineWidth = 1.6;
+      ctx.beginPath();
+      ctx.moveTo(c1.px, c1.py);
+      ctx.lineTo(c2.px, c2.py);
+      ctx.lineTo(c3.px, c3.py);
+      ctx.lineTo(c4.px, c4.py);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      // Subtle plane grid lines
+      ctx.strokeStyle = "rgba(139, 92, 246, 0.22)";
+      ctx.lineWidth = 0.9;
+      for (var k = -2; k <= 2; k += 2) {
+        var g1 = planePt(k, -half), g2 = planePt(k, half);
+        ctx.beginPath(); ctx.moveTo(g1.px, g1.py); ctx.lineTo(g2.px, g2.py); ctx.stroke();
+        var h1 = planePt(-half, k), h2 = planePt(half, k);
+        ctx.beginPath(); ctx.moveTo(h1.px, h1.py); ctx.lineTo(h2.px, h2.py); ctx.stroke();
+      }
+      ctx.restore();
+
+      ctx.fillStyle = "#7c3aed";
+      ctx.font = "bold 12px Segoe UI, sans-serif";
+      ctx.fillText("Π: " + fmtPlaneEq(st.nx, st.ny, st.nz, st.d), c3.px + 6, c3.py);
+
+      // Normal vector arrow anchored on plane patch center
+      var pCenter = project3D(cx, cy, cz, W, H);
+      var pNormalTip = project3D(
+        cx + 1.9 * basis.u.x,
+        cy + 1.9 * basis.u.y,
+        cz + 1.9 * basis.u.z,
+        W, H
+      );
+      drawArrow3D(ctx, pCenter, pNormalTip, "#8b5cf6", 2.4, false);
+      ctx.fillStyle = "#7c3aed";
+      ctx.fillText("n" + fmtVec3(st.nx, st.ny, st.nz), pNormalTip.px + 6, pNormalTip.py - 5);
+
+      var pP = project3D(st.px, st.py, st.pz, W, H);
+      var pN = project3D(geom.N.x, geom.N.y, geom.N.z, W, H);
+
+      // If Distance mode, show anchor A on plane and vector AP
+      if (mode === "dist") {
+        var pA = project3D(geom.A.x, geom.A.y, geom.A.z, W, H);
+        drawPoint3D(ctx, pA, "#0f766e", 4.5);
+        drawArrow3D(ctx, pA, pP, "#0f766e", 2.0, true);
+        ctx.fillStyle = "#0f766e";
+        ctx.fillText("A ∈ Π", pA.px + 7, pA.py + 13);
+
+        ctx.save();
+        ctx.strokeStyle = "#94a3b8";
+        ctx.setLineDash([3, 3]);
+        ctx.beginPath();
+        ctx.moveTo(pA.px, pA.py);
+        ctx.lineTo(pN.px, pN.py);
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      // Auxiliary perpendicular segment PN
+      if (geom.dist > 0.04) {
+        ctx.save();
+        ctx.strokeStyle = "#e11d48";
+        ctx.lineWidth = 2.8;
+        ctx.setLineDash([6, 4]);
+        ctx.beginPath();
+        ctx.moveTo(pP.px, pP.py);
+        ctx.lineTo(pN.px, pN.py);
+        ctx.stroke();
+        ctx.restore();
+
+        // 3D right-angle marker at Foot N
+        var signDir = geom.signedNum >= 0 ? 1 : -1;
+        var sq = 0.42;
+        var r1 = project3D(
+          geom.N.x + signDir * sq * basis.u.x,
+          geom.N.y + signDir * sq * basis.u.y,
+          geom.N.z + signDir * sq * basis.u.z,
+          W, H
+        );
+        var r2 = project3D(
+          geom.N.x + signDir * sq * basis.u.x + sq * basis.v1.x,
+          geom.N.y + signDir * sq * basis.u.y + sq * basis.v1.y,
+          geom.N.z + signDir * sq * basis.u.z + sq * basis.v1.z,
+          W, H
+        );
+        var r3 = project3D(
+          geom.N.x + sq * basis.v1.x,
+          geom.N.y + sq * basis.v1.y,
+          geom.N.z + sq * basis.v1.z,
+          W, H
+        );
+        ctx.save();
+        ctx.strokeStyle = "#e11d48";
+        ctx.lineWidth = 1.6;
+        ctx.beginPath();
+        ctx.moveTo(r1.px, r1.py);
+        ctx.lineTo(r2.px, r2.py);
+        ctx.lineTo(r3.px, r3.py);
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      // If Reflection mode, draw N -> P' and point P'
+      if (mode === "refl" && geom.dist > 0.04) {
+        var pR = project3D(geom.R.x, geom.R.y, geom.R.z, W, H);
+        ctx.save();
+        ctx.strokeStyle = "#0f766e";
+        ctx.lineWidth = 2.6;
+        ctx.setLineDash([5, 4]);
+        ctx.beginPath();
+        ctx.moveTo(pN.px, pN.py);
+        ctx.lineTo(pR.px, pR.py);
+        ctx.stroke();
+        ctx.restore();
+
+        drawPoint3D(ctx, pR, "#0f766e", 5.5);
+        ctx.fillStyle = "#0f766e";
+        ctx.font = "bold 12px Segoe UI, sans-serif";
+        ctx.fillText("P′" + fmtVec3Dec(geom.R.x, geom.R.y, geom.R.z), pR.px + 8, pR.py + 14);
+      }
+
+      // Draw Foot N and Point P
+      drawPoint3D(ctx, pN, "#e11d48", 5.5);
+      drawPoint3D(ctx, pP, "#0284c7", 6.0);
+
+      ctx.fillStyle = "#0284c7";
+      ctx.font = "bold 12px Segoe UI, sans-serif";
+      ctx.fillText("P" + fmtVec3(st.px, st.py, st.pz), pP.px + 9, pP.py - 8);
+
+      ctx.fillStyle = "#be123c";
+      ctx.fillText("N" + fmtVec3Dec(geom.N.x, geom.N.y, geom.N.z), pN.px + 9, pN.py + 14);
+
+      requestAnimationFrame(renderFrame);
+    }
+
+    function init() {
+      document.getElementById("guideHeader").addEventListener("click", function () {
+        guideOpen = !guideOpen;
+        document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+        document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+      });
+
+      document.getElementById("tab_foot").addEventListener("click", function () { setMode("foot"); });
+      document.getElementById("tab_dist").addEventListener("click", function () { setMode("dist"); });
+      document.getElementById("tab_refl").addEventListener("click", function () { setMode("refl"); });
+
+      var btnOrbit = document.getElementById("btn_orbit");
+      btnOrbit.addEventListener("click", function () {
+        autoOrbit = !autoOrbit;
+        btnOrbit.classList.toggle("active", autoOrbit);
+        btnOrbit.textContent = autoOrbit ? "Auto-Rotate 3D: ON" : "Auto-Rotate 3D: OFF";
+      });
+
+      document.getElementById("btn_iso").addEventListener("click", function () {
+        autoOrbit = false; btnOrbit.classList.remove("active"); btnOrbit.textContent = "Auto-Rotate 3D: OFF";
+        yaw = 0.65; pitch = 0.40;
+      });
+      document.getElementById("btn_xy").addEventListener("click", function () {
+        autoOrbit = false; btnOrbit.classList.remove("active"); btnOrbit.textContent = "Auto-Rotate 3D: OFF";
+        yaw = 0.0; pitch = 1.54;
+      });
+      document.getElementById("btn_xz").addEventListener("click", function () {
+        autoOrbit = false; btnOrbit.classList.remove("active"); btnOrbit.textContent = "Auto-Rotate 3D: OFF";
+        yaw = 0.0; pitch = 0.04;
+      });
+
+      var canvas = document.getElementById("plane3dCanvas");
+      canvas.addEventListener("mousedown", function (e) {
+        isDragging = true;
+        lastMouseX = e.clientX;
+        lastMouseY = e.clientY;
+      });
+      window.addEventListener("mousemove", function (e) {
+        if (!isDragging) return;
+        yaw += (e.clientX - lastMouseX) * 0.01;
+        pitch = Math.max(-1.4, Math.min(1.55, pitch + (e.clientY - lastMouseY) * 0.01));
+        lastMouseX = e.clientX;
+        lastMouseY = e.clientY;
+      });
+      window.addEventListener("mouseup", function () {
+        isDragging = false;
+      });
+
+      renderSliders();
+      setMode("foot");
+      requestAnimationFrame(renderFrame);
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else {
+      init();
+    }
+  })();
+</script>
+
+</body>
+</html>

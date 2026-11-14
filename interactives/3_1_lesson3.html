@@ -115,20 +115,23 @@
       background: #f8fafc;
       border: 1px solid #e2e8f0;
       border-radius: 10px;
-      padding: 12px 14px;
-      font-size: 0.8rem;
-      line-height: 1.55;
-      color: #475569;
+      padding: 13px 15px;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
+      gap: 6px;
     }
 
-    .guide-step-card strong {
+    .guide-step-title {
       color: #1e293b;
-      display: block;
-      font-size: 0.83rem;
-      margin-bottom: 5px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .guide-step-desc {
+      color: #475569;
+      font-size: 0.8rem;
+      line-height: 1.6;
     }
 
     .app-container {
@@ -385,16 +388,16 @@
     </div>
     <div class="guide-steps" id="guideSteps">
       <div class="guide-step-card">
-        <strong>1. Select a Vector Product Mode</strong>
-        Switch between <em>Cross Product a × b</em>, <em>Properties &amp; Parallelism</em>, and <em>Area Applications</em> at the top-left to explore 3D cross products.
+        <div class="guide-step-title">1. Select a Vector Product Mode</div>
+        <div class="guide-step-desc">Switch between <strong>Cross Product a × b</strong>, <strong>Properties &amp; Parallelism</strong>, and <strong>Area Applications</strong> at the top-left to explore 3D cross products.</div>
       </div>
       <div class="guide-step-card">
-        <strong>2. Drag or Auto-Rotate the 3D Space</strong>
-        Click and drag on the 3D canvas (or toggle <em>Auto-Rotate 3D</em>) to verify that <strong>a × b</strong> is perpendicular to both <strong>a</strong> and <strong>b</strong> via the right-hand rule.
+        <div class="guide-step-title">2. Drag or Auto-Rotate the 3D Space</div>
+        <div class="guide-step-desc">Click and drag on the 3D canvas (or toggle <strong>Auto-Rotate 3D</strong>) to verify that <strong>a × b</strong> is perpendicular to both <strong>a</strong> and <strong>b</strong> via the right-hand rule.</div>
       </div>
       <div class="guide-step-card">
-        <strong>3. Compare Anti-Commutativity &amp; Areas</strong>
-        Use Mode 2 to visualize <strong>b × a = −(a × b)</strong>, or switch to Mode 3 to compute parallelogram area <strong>|a × b|</strong> and triangle area <strong>½|a × b|</strong>.
+        <div class="guide-step-title">3. Compare Anti-Commutativity &amp; Areas</div>
+        <div class="guide-step-desc">Use Mode 2 to visualize <strong>b × a = −(a × b)</strong>, or switch to Mode 3 to compute parallelogram area <strong>|a × b|</strong> and triangle area <strong>½|a × b|</strong>.</div>
       </div>
     </div>
   </div>

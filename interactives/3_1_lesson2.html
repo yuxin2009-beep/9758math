@@ -115,20 +115,23 @@
       background: #f8fafc;
       border: 1px solid #e2e8f0;
       border-radius: 10px;
-      padding: 12px 14px;
-      font-size: 0.8rem;
-      line-height: 1.55;
-      color: #475569;
+      padding: 13px 15px;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
+      gap: 6px;
     }
 
-    .guide-step-card strong {
+    .guide-step-title {
       color: #1e293b;
-      display: block;
-      font-size: 0.83rem;
-      margin-bottom: 5px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .guide-step-desc {
+      color: #475569;
+      font-size: 0.8rem;
+      line-height: 1.6;
     }
 
     .app-container {
@@ -391,16 +394,16 @@
     </div>
     <div class="guide-steps" id="guideSteps">
       <div class="guide-step-card">
-        <strong>1. Select a Dot Product Mode</strong>
-        Switch between <em>Angle &amp; Dot Product</em>, <em>Properties &amp; Perpendicularity</em>, and <em>Projection Lab</em> at the top-left to explore 3D scalar products.
+        <div class="guide-step-title">1. Select a Dot Product Mode</div>
+        <div class="guide-step-desc">Switch between <strong>Angle &amp; Dot Product</strong>, <strong>Properties &amp; Perpendicularity</strong>, and <strong>Projection Lab</strong> at the top-left to explore 3D scalar products.</div>
       </div>
       <div class="guide-step-card">
-        <strong>2. Drag or Auto-Rotate the 3D Space</strong>
-        Click and drag on the 3D canvas (or toggle <em>Auto-Rotate 3D</em>) to inspect the perpendicular drop-foot from vector <strong>a</strong> onto vector <strong>b</strong> from any viewpoint.
+        <div class="guide-step-title">2. Drag or Auto-Rotate the 3D Space</div>
+        <div class="guide-step-desc">Click and drag on the 3D canvas (or toggle <strong>Auto-Rotate 3D</strong>) to inspect the perpendicular drop-foot from vector <strong>a</strong> onto vector <strong>b</strong> from any viewpoint.</div>
       </div>
       <div class="guide-step-card">
-        <strong>3. Compare Scalar vs. Vector Projections</strong>
-        Adjust the 3D components of <strong>a</strong> and <strong>b</strong> (or use the Acute, Perpendicular, and Obtuse presets) to compare <em>|a · b̂|</em> against <em>(a · b̂)b̂</em>.
+        <div class="guide-step-title">3. Compare Scalar vs. Vector Projections</div>
+        <div class="guide-step-desc">Adjust the 3D components of <strong>a</strong> and <strong>b</strong> (or use the Acute, Perpendicular, and Obtuse presets) to compare <em>|a · b̂|</em> against <em>(a · b̂)b̂</em>.</div>
       </div>
     </div>
   </div>

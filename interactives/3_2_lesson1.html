@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>9758 H2 Math | 3.2 Lesson 1: Lines in 3D Space (Equations &amp; Relationships)</title>
+  <title>9758 H2 Math | 3.2 Lesson 1: Equation of a Line in 3D &amp; Point Membership</title>
   <style>
     :root {
       --bg: #fdfbf7;
@@ -115,20 +115,23 @@
       background: #f8fafc;
       border: 1px solid #e2e8f0;
       border-radius: 10px;
-      padding: 12px 14px;
-      font-size: 0.8rem;
-      line-height: 1.55;
-      color: #475569;
+      padding: 13px 15px;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
+      gap: 6px;
     }
 
-    .guide-step-card strong {
+    .guide-step-title {
       color: #1e293b;
-      display: block;
-      font-size: 0.83rem;
-      margin-bottom: 5px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .guide-step-desc {
+      color: #475569;
+      font-size: 0.8rem;
+      line-height: 1.6;
     }
 
     .app-container {
@@ -153,18 +156,18 @@
 
     .mode-tabs {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
       margin-bottom: 12px;
     }
 
     .tab-btn {
-      padding: 8px 6px;
+      padding: 9px 10px;
       border-radius: 10px;
       border: 1px solid #cbd5e1;
       background: #f8fafc;
       font-weight: 700;
-      font-size: 0.74rem;
+      font-size: 0.77rem;
       color: var(--text);
       cursor: pointer;
       transition: 0.15s;
@@ -250,22 +253,16 @@
       line-height: 1.48;
     }
 
-    .status-banner.skew {
-      background: var(--rose-bg);
-      border-color: #fda4af;
-      color: #881337;
-    }
-
-    .status-banner.intersect {
+    .status-banner.online {
       background: var(--teal-bg);
       border-color: #5eead4;
       color: #134e4a;
     }
 
-    .status-banner.parallel {
-      background: var(--amber-bg);
-      border-color: #fcd34d;
-      color: #78350f;
+    .status-banner.offline {
+      background: var(--rose-bg);
+      border-color: #fda4af;
+      color: #881337;
     }
 
     .canvas-header {
@@ -378,12 +375,6 @@
       text-align: center;
     }
 
-    .mini-btn.active {
-      background: var(--teal-bg);
-      border-color: var(--teal);
-      color: #134e4a;
-    }
-
     .mini-btn:hover {
       background: #f1f5f9;
     }
@@ -403,16 +394,16 @@
     </div>
     <div class="guide-steps" id="guideSteps">
       <div class="guide-step-card">
-        <strong>1. Choose a 3D Line Topic Mode</strong>
-        Switch between <em>1. Vector / Parametric / Cartesian Forms</em>, <em>2. Two-Line Relationships</em>, and <em>3. Angle &amp; Foot of Perpendicular</em> at the top-left.
+        <div class="guide-step-title">1. Switch Between the Two Core Topics</div>
+        <div class="guide-step-desc">Use the top-left tabs to explore <strong>1. Equation of a Line in Three Forms</strong> and <strong>2. Determining if a Point is on the Line</strong>.</div>
       </div>
       <div class="guide-step-card">
-        <strong>2. Drag or Auto-Rotate the 3D Canvas</strong>
-        Click and drag on the 3D space (or use the Isometric, Top, and Front camera buttons) to see why skew lines look like they cross in 2D yet never meet in 3D.
+        <div class="guide-step-title">2. Orbit or Snap the 3D Camera</div>
+        <div class="guide-step-desc">Click and drag anywhere on the 3D canvas—or toggle Isometric, Top View, and Front View—to inspect how point <em>P</em> sits relative to line <em>L</em> in 3D space.</div>
       </div>
       <div class="guide-step-card">
-        <strong>3. Compare Two-Line Cases &amp; Drop-Foot Distances</strong>
-        Test the 4 preset line pairs in Mode 2 (Intersecting, Skew, Parallel, Coincident) or slide parameter <em>λ</em> to trace point <em>R(λ)</em> along line <em>L₁</em>.
+        <div class="guide-step-title">3. Adjust Vectors &amp; Test Point Membership</div>
+        <div class="guide-step-desc">Slide anchor <strong>a</strong>, direction <strong>d</strong>, and parameter <em>λ</em> in Tab 1, or move test point <em>P</em> in Tab 2 to verify whether <em>λ<sub>x</sub> = λ<sub>y</sub> = λ<sub>z</sub></em>.</div>
       </div>
     </div>
   </div>
@@ -421,13 +412,12 @@
     <!-- LEFT CONTROLS & ALGEBRAIC BREAKDOWN -->
     <div class="card">
       <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
-        3.2 Lesson 1 &bull; Lines in 3D Space (Equations &amp; Relationships)
+        3.2 Lesson 1 &bull; Equation of a Line &amp; Point Membership in 3D
       </div>
 
       <div class="mode-tabs">
-        <button type="button" class="tab-btn active" id="tab_forms">1. Line Forms</button>
-        <button type="button" class="tab-btn" id="tab_rel">2. Line Pairs (3D)</button>
-        <button type="button" class="tab-btn" id="tab_dist">3. Angle &amp; Foot ⊥</button>
+        <button type="button" class="tab-btn active" id="tab_forms">1. Line in Three Forms</button>
+        <button type="button" class="tab-btn" id="tab_check">2. Is Point P on Line?</button>
       </div>
 
       <div class="slider-grid" id="slidersWrap"></div>
@@ -441,7 +431,7 @@
     <!-- RIGHT 3D VISUALIZATION CANVAS -->
     <div class="card">
       <div class="canvas-header">
-        <strong style="font-size:1.02rem; color:#1e293b;" id="canvasTitle">Vector Equation of a Line in 3D: r = a + λd</strong>
+        <strong style="font-size:1.02rem; color:#1e293b;" id="canvasTitle">Three Equivalent Forms of a Line L in 3D Space</strong>
       </div>
 
       <div class="cam-toolbar">
@@ -457,10 +447,10 @@
       <canvas id="line3dCanvas" width="880" height="455"></canvas>
 
       <div class="misconception-box">
-        <strong>9758 Misconception Alert (Lines in 3D Space):</strong>
+        <strong>9758 Misconception Alert (Line Equations &amp; Point Membership):</strong>
         <ul style="margin:4px 0 0 0; padding-left:18px;">
-          <li><strong>Use DIFFERENT parameters for two lines:</strong> When testing if <em>L₁</em> and <em>L₂</em> intersect, always write <strong>r = a₁ + λd₁</strong> and <strong>r = a₂ + μd₂</strong> (using distinct symbols <em>λ</em> and <em>μ</em>). Solving <em>x</em> and <em>y</em> gives unique <em>(λ, μ)</em>; you <strong>must</strong> substitute both into the <strong>3rd equation (z)</strong> to check consistency (consistent &rArr; intersecting; inconsistent &rArr; skew!).</li>
-          <li><strong>Cartesian form with a zero direction component:</strong> If <em>d = (2, 0, −3)</em> passes through <em>(1, 4, 5)</em>, do <strong>not</strong> divide by zero — write <strong>(x − 1)/2 = (z − 5)/(−3), &nbsp;y = 4</strong>. Also remember the acute angle between two lines uses <strong>cos θ = |d₁ · d₂| / (|d₁||d₂|)</strong>.</li>
+          <li><strong>All Three Coordinates Must Yield the Same λ:</strong> To prove point <em>P</em> lies on line <em>L</em>, equate <strong>OP = a + λd</strong> and check that <em>λ<sub>x</sub> = λ<sub>y</sub> = λ<sub>z</sub></em>. Matching only two coordinates means <em>P</em> shares a 2D shadow with <em>L</em>, not a 3D point!</li>
+          <li><strong>Cartesian Form with a Zero Direction Component:</strong> If <strong>d = (2, 0, −3)</strong> passes through <em>(1, 4, 5)</em>, never divide by zero—write <strong>(x − 1)/2 = (z − 5)/(−3), &nbsp;y = 4</strong>.</li>
         </ul>
       </div>
     </div>
@@ -471,7 +461,6 @@
   (function () {
     let guideOpen = true;
     let mode = "forms";
-    let relPreset = "intersect";
 
     let yaw = 0.62;
     let pitch = 0.42;
@@ -480,53 +469,15 @@
     let lastMouseX = 0;
     let lastMouseY = 0;
 
-    // Line L1 state: r = a1 + lambda * d1
+    // Line L state: r = a + lambda * d
     let l1 = {
-      ax: 1, ay: -1, az: 2,
+      ax: 1, ay: -1, az: 1,
       dx: 1, dy: 2, dz: -1,
-      lam: 1.5
+      lam: 1.0
     };
 
-    // Point P for Mode 3 (Foot of perpendicular & shortest distance from P to L1)
-    let ptP = { px: 4, py: 1, pz: 3 };
-
-    // Presets for Line L2 in Mode 2 (Two-Line Relationships)
-    const relPresets = {
-      intersect: {
-        label: "1. Intersecting Lines",
-        // L1: (1,-1,2) + lam(1,2,-1). At lam=1 => R=(2,1,1).
-        // L2: (4,0,3) + mu(2,-1,2). At mu=-1 => R=(2,1,1).
-        a2: [4, 0, 3],
-        d2: [2, -1, 2],
-        type: "intersect",
-        summary: "INTERSECTING LINES: Direction vectors are not parallel, and solving x & y gives (λ = 1, μ = −1), which satisfies the z-equation (1 = 1). Unique intersection at (2, 1, 1)!"
-      },
-      skew: {
-        label: "2. Skew Lines (Non-Coplanar)",
-        // L1: (1,-1,2) + lam(1,2,-1)
-        // L2: (4,0,1) + mu(2,-1,2) => same x,y solution (lam=1, mu=-1), but z_1(1)=1 != z_2(-1)=-1!
-        a2: [4, 0, 1],
-        d2: [2, -1, 2],
-        type: "skew",
-        summary: "SKEW LINES: Direction vectors are not parallel, and x & y yield (λ = 1, μ = −1), but substituting into z gives 1 ≠ −1 (inconsistent!). They never meet in 3D."
-      },
-      parallel: {
-        label: "3. Distinct Parallel Lines",
-        // L2: (-1, 1, 1) + mu(2, 4, -2). d2 = 2*d1, and (-1,1,1) is not on L1.
-        a2: [-1, 1, 1],
-        d2: [2, 4, -2],
-        type: "parallel",
-        summary: "DISTINCT PARALLEL LINES: d₂ = 2d₁ (parallel directions), and point A₂(−1, 1, 1) does not satisfy L₁’s equation (no common points)."
-      },
-      coincident: {
-        label: "4. Coincident (Identical) Lines",
-        // L2: (2, 1, 1) + mu(-1, -2, 1). d2 = -d1, and (2,1,1) lies on L1 (lam=1).
-        a2: [2, 1, 1],
-        d2: [-1, -2, 1],
-        type: "intersect",
-        summary: "COINCIDENT LINES: d₂ = −d₁ (parallel directions) AND point A₂(2, 1, 1) lies on L₁ (at λ = 1). Infinitely many common points!"
-      }
-    };
+    // Test Point P for Tab 2 (starts on line at lam = 1 => (2, 1, 0))
+    let ptP = { px: 2, py: 1, pz: 0 };
 
     function fmtVec3(x, y, z) {
       return "(" + Number(x.toFixed(2)) + ", " + Number(y.toFixed(2)) + ", " + Number(z.toFixed(2)) + ")";
@@ -551,7 +502,7 @@
 
     function setMode(m) {
       mode = m;
-      ["forms", "rel", "dist"].forEach(function (id) {
+      ["forms", "check"].forEach(function (id) {
         var btn = document.getElementById("tab_" + id);
         if (btn) {
           if (id === m) btn.classList.add("active");
@@ -580,7 +531,7 @@
             '<input type="range" id="sl_dz" min="-2" max="2" step="1" value="' + l1.dz + '" style="margin-top:3px;" />' +
           '</div>' +
           '<div class="slider-group" style="grid-column:span 2;">' +
-            '<div class="slider-header"><span>Scalar Parameter λ (Traces Point R along L₁)</span><span id="lbl_lam" style="color:var(--teal);">λ = ' + l1.lam.toFixed(1) + '</span></div>' +
+            '<div class="slider-header"><span>Scalar Parameter λ (Traces Point R along Line L)</span><span id="lbl_lam" style="color:var(--teal);">λ = ' + l1.lam.toFixed(1) + '</span></div>' +
             '<input type="range" id="sl_lam" min="-2.0" max="2.5" step="0.5" value="' + l1.lam + '" />' +
           '</div>';
 
@@ -596,35 +547,23 @@
           updatePanels();
         });
 
-      } else if (mode === "rel") {
-        // Lock L1 to standard reference for crisp 2-line comparison
-        l1.ax = 1; l1.ay = -1; l1.az = 2;
-        l1.dx = 1; l1.dy = 2; l1.dz = -1;
-
-        wrap.innerHTML =
-          '<div class="preset-row">' +
-            '<button type="button" class="mini-btn ' + (relPreset === "intersect" ? "active" : "") + '" id="rp_intersect">1. Intersecting Lines</button>' +
-            '<button type="button" class="mini-btn ' + (relPreset === "skew" ? "active" : "") + '" id="rp_skew">2. Skew Lines</button>' +
-            '<button type="button" class="mini-btn ' + (relPreset === "parallel" ? "active" : "") + '" id="rp_parallel">3. Distinct Parallel</button>' +
-            '<button type="button" class="mini-btn ' + (relPreset === "coincident" ? "active" : "") + '" id="rp_coincident">4. Coincident Lines</button>' +
-          '</div>';
-
-        ["intersect", "skew", "parallel", "coincident"].forEach(function (pid) {
-          document.getElementById("rp_" + pid).addEventListener("click", function () {
-            relPreset = pid;
-            renderSliders();
-            updatePanels();
-          });
-        });
-
       } else {
-        // Mode 3: Point P(px, py, pz) relative to L1
         wrap.innerHTML =
-          '<div class="slider-group" style="grid-column:span 2;">' +
-            '<div class="slider-header"><span>External Point P(x, y, z)</span><span id="lbl_P" style="color:var(--rose);">' + fmtVec3(ptP.px, ptP.py, ptP.pz) + '</span></div>' +
+          '<div class="slider-group">' +
+            '<div class="slider-header"><span>Test Point P(x, y, z)</span><span id="lbl_P" style="color:var(--rose);">' + fmtVec3(ptP.px, ptP.py, ptP.pz) + '</span></div>' +
             '<input type="range" id="sl_px" min="-3" max="4" step="1" value="' + ptP.px + '" />' +
             '<input type="range" id="sl_py" min="-3" max="4" step="1" value="' + ptP.py + '" style="margin-top:3px;" />' +
             '<input type="range" id="sl_pz" min="-2" max="4" step="1" value="' + ptP.pz + '" style="margin-top:3px;" />' +
+          '</div>' +
+          '<div class="slider-group">' +
+            '<div class="slider-header"><span>Line Direction d = (d₁, d₂, d₃)</span><span id="lbl_d" style="color:var(--blue);">' + fmtVec3(l1.dx, l1.dy, l1.dz) + '</span></div>' +
+            '<input type="range" id="sl_dx" min="-2" max="3" step="1" value="' + l1.dx + '" />' +
+            '<input type="range" id="sl_dy" min="-2" max="3" step="1" value="' + l1.dy + '" style="margin-top:3px;" />' +
+            '<input type="range" id="sl_dz" min="-2" max="2" step="1" value="' + l1.dz + '" style="margin-top:3px;" />' +
+          '</div>' +
+          '<div class="preset-row">' +
+            '<button type="button" class="mini-btn" id="chk_on">Place P ON Line L (λ = 1)</button>' +
+            '<button type="button" class="mini-btn" id="chk_off">Place P OFF Line L (z-mismatch)</button>' +
           '</div>';
 
         ["px", "py", "pz"].forEach(function (k) {
@@ -633,7 +572,40 @@
             updatePanels();
           });
         });
+
+        ["dx", "dy", "dz"].forEach(function (k) {
+          document.getElementById("sl_" + k).addEventListener("input", function () {
+            l1[k] = parseInt(this.value, 10);
+            if (l1.dx === 0 && l1.dy === 0 && l1.dz === 0) l1.dx = 1;
+            updatePanels();
+          });
+        });
+
+        document.getElementById("chk_on").addEventListener("click", function () {
+          l1.ax = 1; l1.ay = -1; l1.az = 1;
+          l1.dx = 1; l1.dy = 2; l1.dz = -1;
+          ptP = { px: 2, py: 1, pz: 0 };
+          syncCheckSliders(); updatePanels();
+        });
+
+        document.getElementById("chk_off").addEventListener("click", function () {
+          l1.ax = 1; l1.ay = -1; l1.az = 1;
+          l1.dx = 1; l1.dy = 2; l1.dz = -1;
+          ptP = { px: 2, py: 1, pz: 2 };
+          syncCheckSliders(); updatePanels();
+        });
       }
+    }
+
+    function syncCheckSliders() {
+      ["px", "py", "pz"].forEach(function (k) {
+        var el = document.getElementById("sl_" + k);
+        if (el) el.value = ptP[k];
+      });
+      ["dx", "dy", "dz"].forEach(function (k) {
+        var el = document.getElementById("sl_" + k);
+        if (el) el.value = l1[k];
+      });
     }
 
     function buildCartesianText(ax, ay, az, dx, dy, dz) {
@@ -657,6 +629,40 @@
       return res;
     }
 
+    function solveCoordLambda(pVal, aVal, dVal) {
+      if (dVal === 0) {
+        return Math.abs(pVal - aVal) < 1e-6 ? "any λ (0 = 0)" : "no λ (" + pVal + " ≠ " + aVal + ")";
+      }
+      var val = (pVal - aVal) / dVal;
+      return "λ = " + Number(val.toFixed(2));
+    }
+
+    function computePointCheck() {
+      var apx = ptP.px - l1.ax;
+      var apy = ptP.py - l1.ay;
+      var apz = ptP.pz - l1.az;
+
+      var dotAPd = apx * l1.dx + apy * l1.dy + apz * l1.dz;
+      var magDSq = l1.dx * l1.dx + l1.dy * l1.dy + l1.dz * l1.dz;
+      var lam = dotAPd / magDSq;
+
+      var nx = l1.ax + lam * l1.dx;
+      var ny = l1.ay + lam * l1.dy;
+      var nz = l1.az + lam * l1.dz;
+      var dist = Math.hypot(ptP.px - nx, ptP.py - ny, ptP.pz - nz);
+
+      var cx = apy * l1.dz - apz * l1.dy;
+      var cy = -(apx * l1.dz - apz * l1.dx);
+      var cz = apx * l1.dy - apy * l1.dx;
+
+      return {
+        apx: apx, apy: apy, apz: apz,
+        lam: lam, nx: nx, ny: ny, nz: nz, dist: dist,
+        cx: cx, cy: cy, cz: cz,
+        onLine: dist < 1e-6
+      };
+    }
+
     function updatePanels() {
       var formulaBox = document.getElementById("formulaBox");
       var derivBox = document.getElementById("derivationBox");
@@ -665,7 +671,7 @@
       var titleEl = document.getElementById("canvasTitle");
       var legendEl = document.getElementById("legendWrap");
 
-      statusBanner.classList.remove("skew", "intersect", "parallel");
+      statusBanner.classList.remove("online", "offline");
 
       if (mode === "forms") {
         document.getElementById("lbl_a").textContent = fmtVec3(l1.ax, l1.ay, l1.az);
@@ -676,7 +682,7 @@
         var ry = l1.ay + l1.lam * l1.dy;
         var rz = l1.az + l1.lam * l1.dz;
 
-        titleEl.textContent = "Three Equivalent Forms of a Line L₁ in 3D Space";
+        titleEl.textContent = "Three Equivalent Forms of a Line L in 3D Space";
         legendEl.innerHTML =
           '<span class="legend-item"><span class="dot" style="background:#0284c7;"></span> Position Vector a</span>' +
           '<span class="legend-item"><span class="dot" style="background:#8b5cf6;"></span> Direction Vector d</span>' +
@@ -698,85 +704,38 @@
 
         statusBanner.innerHTML = '<strong>GEOMETRIC MEANING:</strong> Vector <span class="vec-inline">a</span> anchors the line to a known point <em>A</em>, while scalar <span class="vec-inline">λ ∈ ℝ</span> scales direction vector <span class="vec-inline">d</span> forwards and backwards along the entire infinite line.';
 
-      } else if (mode === "rel") {
-        var rp = relPresets[relPreset];
-        titleEl.textContent = "Relationships Between Two Lines L₁ & L₂ in 3D Space";
-        legendEl.innerHTML =
-          '<span class="legend-item"><span class="dot" style="background:#0284c7;"></span> Line L₁ (λ)</span>' +
-          '<span class="legend-item"><span class="dot" style="background:#8b5cf6;"></span> Line L₂ (μ)</span>' +
-          '<span class="legend-item"><span class="dot" style="background:#e11d48;"></span> Intersection / Gap</span>';
-
-        formulaBox.innerHTML =
-          '<strong>Line L₁:</strong> <span class="vec-inline">r = (1, −1, 2) + λ(1, 2, −1), &nbsp;λ ∈ ℝ</span><br>' +
-          '<strong>Line L₂:</strong> <span class="vec-inline">r = ' + fmtVec3(rp.a2[0], rp.a2[1], rp.a2[2]) + ' + μ' + fmtVec3(rp.d2[0], rp.d2[1], rp.d2[2]) + ', &nbsp;μ ∈ ℝ</span>';
-
-        derivBox.innerHTML =
-          '<strong>9758 Two-Step Classification Algorithm:</strong><br>' +
-          '<strong>Step 1 (Direction Check):</strong> Is <span class="vec-inline">d₂ = k d₁</span>? If YES &rArr; Parallel or Coincident (check if <span class="vec-inline">A₂ ∈ L₁</span>).<br>' +
-          '<strong>Step 2 (System Consistency):</strong> If NO, solve <span class="vec-inline">x, y</span> equations for <span class="vec-inline">(λ, μ)</span>, then substitute into the <strong>3rd equation (z)</strong>: consistent &rArr; <strong>Intersecting</strong>; inconsistent &rArr; <strong>Skew</strong>.';
-
-        if (relPreset === "intersect") {
-          workingBox.innerHTML =
-            '<strong>Solving Components:</strong> <span class="vec-inline">1 + λ = 4 + 2μ</span> and <span class="vec-inline">−1 + 2λ = −μ</span> &rArr; <strong>λ = 1, μ = −1</strong>.<br>' +
-            '<strong>Check z-equation:</strong> <span class="vec-inline">LHS = 2 − (1) = 1</span>, <span class="vec-inline">RHS = 3 + 2(−1) = 1</span> (Consistent!).';
-          statusBanner.classList.add("intersect");
-        } else if (relPreset === "skew") {
-          workingBox.innerHTML =
-            '<strong>Solving Components:</strong> <span class="vec-inline">1 + λ = 4 + 2μ</span> and <span class="vec-inline">−1 + 2λ = −μ</span> &rArr; <strong>λ = 1, μ = −1</strong>.<br>' +
-            '<strong>Check z-equation:</strong> <span class="vec-inline">LHS = 2 − (1) = 1</span>, <span class="vec-inline">RHS = 1 + 2(−1) = −1</span> (<strong>1 ≠ −1</strong>, Inconsistent!).';
-          statusBanner.classList.add("skew");
-        } else if (relPreset === "parallel") {
-          workingBox.innerHTML =
-            '<strong>Direction Check:</strong> <span class="vec-inline">d₂ = (2, 4, −2) = 2(1, 2, −1) = 2d₁</span> (Parallel directions!).<br>' +
-            '<strong>Point Check:</strong> <span class="vec-inline">(−1, 1, 1) = (1, −1, 2) + λ(1, 2, −1)</span> &rArr; <span class="vec-inline">λ = −2</span> for x, but <span class="vec-inline">λ = 1</span> for y &amp; z (No common point).';
-          statusBanner.classList.add("parallel");
-        } else {
-          workingBox.innerHTML =
-            '<strong>Direction Check:</strong> <span class="vec-inline">d₂ = (−1, −2, 1) = −d₁</span> (Parallel directions!).<br>' +
-            '<strong>Point Check:</strong> <span class="vec-inline">(2, 1, 1) = (1, −1, 2) + λ(1, 2, −1)</span> holds at <strong>λ = 1</strong> across all 3 coordinates!';
-          statusBanner.classList.add("intersect");
-        }
-
-        statusBanner.innerHTML = '<strong>' + rp.summary + '</strong>';
-
       } else {
-        // Mode 3: Foot of perpendicular N from P to L1, and acute angle with L2
         document.getElementById("lbl_P").textContent = fmtVec3(ptP.px, ptP.py, ptP.pz);
+        document.getElementById("lbl_d").textContent = fmtVec3(l1.dx, l1.dy, l1.dz);
 
-        // Compute Foot N of perpendicular from P onto L1: r = a + lam*d
-        // PN . d = 0 => (a + lam*d - p) . d = 0 => lam = ((p - a) . d) / |d|^2
-        var apx = ptP.px - l1.ax, apy = ptP.py - l1.ay, apz = ptP.pz - l1.az;
-        var dotAPd = apx * l1.dx + apy * l1.dy + apz * l1.dz;
-        var magDSq = l1.dx * l1.dx + l1.dy * l1.dy + l1.dz * l1.dz;
-        var lamFoot = dotAPd / magDSq;
-
-        var nx = l1.ax + lamFoot * l1.dx;
-        var ny = l1.ay + lamFoot * l1.dy;
-        var nz = l1.az + lamFoot * l1.dz;
-        var distPN = Math.hypot(ptP.px - nx, ptP.py - ny, ptP.pz - nz);
-
-        titleEl.textContent = "Foot of Perpendicular N & Shortest Distance from Point P to Line L₁";
+        var chk = computePointCheck();
+        titleEl.textContent = "Determining Whether Point P Lies on Line L in 3D";
         legendEl.innerHTML =
-          '<span class="legend-item"><span class="dot" style="background:#0284c7;"></span> Line L₁</span>' +
-          '<span class="legend-item"><span class="dot" style="background:#e11d48;"></span> External Point P</span>' +
-          '<span class="legend-item"><span class="dot" style="background:#0f766e;"></span> Foot N (PN ⊥ d)</span>';
+          '<span class="legend-item"><span class="dot" style="background:#0284c7;"></span> Line L (Anchor A &amp; d)</span>' +
+          '<span class="legend-item"><span class="dot" style="background:' + (chk.onLine ? '#0f766e' : '#e11d48') + ';"></span> Test Point P</span>';
 
         formulaBox.innerHTML =
-          '<strong>Method 1 (Dot Product Condition PN · d = 0):</strong><br>' +
-          'Let <span class="vec-inline">ON = a + λd</span>. Since <span class="vec-inline">PN ⊥ d</span>, solve <span class="vec-inline">(ON − OP) · d = 0</span> for <span class="vec-inline">λ</span>.<br>' +
-          '<strong>Method 2 (Cross Product Distance):</strong> <span class="vec-inline">d_⊥ = |AP × d| / |d|</span>';
+          '<strong>Point-on-Line Criterion:</strong> Point <em>P</em> lies on <em>L: r = a + λd</em> if and only if there exists a <strong>single consistent scalar λ ∈ ℝ</strong> such that <span class="vec-inline">OP = a + λd</span>.';
 
         derivBox.innerHTML =
-          '<strong>Solving for λ at Foot N:</strong><br>' +
-          '<span class="vec-inline">AP = OP − OA = ' + fmtVec3(apx, apy, apz) + '</span>, &nbsp;<span class="vec-inline">d = ' + fmtVec3(l1.dx, l1.dy, l1.dz) + '</span><br>' +
-          '<span class="vec-inline">(AP + λd) · d = 0 &rArr; λ = (AP · d) / |d|² = ' + dotAPd + ' / ' + magDSq + ' = ' + lamFoot.toFixed(3) + '</span>';
+          '<strong>Component-by-Component Consistency Test:</strong><br>' +
+          'Equate <span class="vec-inline">' + fmtVec3(ptP.px, ptP.py, ptP.pz) + ' = ' + fmtVec3(l1.ax, l1.ay, l1.az) + ' + λ' + fmtVec3(l1.dx, l1.dy, l1.dz) + '</span>:<br>' +
+          '&bull; <strong>x-eqn:</strong> <span class="vec-inline">' + ptP.px + ' = ' + l1.ax + ' + (' + l1.dx + ')λ</span> &rArr; <strong>' + solveCoordLambda(ptP.px, l1.ax, l1.dx) + '</strong><br>' +
+          '&bull; <strong>y-eqn:</strong> <span class="vec-inline">' + ptP.py + ' = ' + l1.ay + ' + (' + l1.dy + ')λ</span> &rArr; <strong>' + solveCoordLambda(ptP.py, l1.ay, l1.dy) + '</strong><br>' +
+          '&bull; <strong>z-eqn:</strong> <span class="vec-inline">' + ptP.pz + ' = ' + l1.az + ' + (' + l1.dz + ')λ</span> &rArr; <strong>' + solveCoordLambda(ptP.pz, l1.az, l1.dz) + '</strong>';
 
         workingBox.innerHTML =
-          '<strong>Foot of Perpendicular N:</strong> <span class="vec-inline">ON = ' + fmtVec3(nx, ny, nz) + '</span><br>' +
-          '<strong>Shortest Distance |PN|:</strong> <span class="vec-inline">√[(' + (ptP.px - nx).toFixed(2) + ')² + (' + (ptP.py - ny).toFixed(2) + ')² + (' + (ptP.pz - nz).toFixed(2) + ')²] = <strong>' + distPN.toFixed(3) + ' units</strong></span>';
+          '<strong>Alternative Collinearity Test (AP ∥ d):</strong> <span class="vec-inline">AP = OP − OA = ' + fmtVec3(chk.apx, chk.apy, chk.apz) + '</span><br>' +
+          '<strong>Cross Product Check:</strong> <span class="vec-inline">AP × d = ' + fmtVec3(chk.cx, chk.cy, chk.cz) + '</span> ' +
+          (chk.onLine ? '(<strong>= 0</strong>, so <em>AP</em> is parallel to <em>d</em>!)' : '(<strong>≠ 0</strong>, so <em>AP</em> is NOT parallel to <em>d</em>!)');
 
-        statusBanner.classList.add("intersect");
-        statusBanner.innerHTML = '<strong>REFLECTION TIP:</strong> Once you find Foot <strong>N</strong>, the reflection <strong>P′</strong> of point <em>P</em> across line <em>L₁</em> is immediately given by the midpoint formula <strong>OP′ = 2 ON − OP</strong>!';
+        if (chk.onLine) {
+          statusBanner.classList.add("online");
+          statusBanner.innerHTML = '<strong>POINT P LIES ON LINE L:</strong> All three coordinate equations yield the exact same parameter <strong>λ = ' + Number(chk.lam.toFixed(2)) + '</strong> (and <span class="vec-inline">AP × d = 0</span>)!';
+        } else {
+          statusBanner.classList.add("offline");
+          statusBanner.innerHTML = '<strong>POINT P DOES NOT LIE ON LINE L:</strong> No single value of <em>λ</em> satisfies all three equations simultaneously (shortest gap to line = <strong>' + chk.dist.toFixed(3) + ' units</strong>).';
+        }
       }
     }
 
@@ -885,14 +844,13 @@
       ctx.fillText("+z", zP.px - 6, zP.py - 7);
       ctx.fillText("O", oPt.px - 14, oPt.py + 15);
 
-      // Always draw Line L1
-      drawInfiniteLine3D(ctx, l1.ax, l1.ay, l1.az, l1.dx, l1.dy, l1.dz, W, H, "#0284c7", "L₁");
+      // Draw Line L
+      drawInfiniteLine3D(ctx, l1.ax, l1.ay, l1.az, l1.dx, l1.dy, l1.dz, W, H, "#0284c7", "Line L");
 
       var pA1 = project3D(l1.ax, l1.ay, l1.az, W, H);
       drawDropLine(ctx, l1.ax, l1.ay, l1.az, W, H, "#0284c7");
 
       if (mode === "forms") {
-        // Draw position vector OA, direction vector d from A, and moving point R(lam)
         drawArrow3D(ctx, oPt, pA1, "#0284c7", 2.5, false);
         var pAd = project3D(l1.ax + l1.dx, l1.ay + l1.dy, l1.az + l1.dz, W, H);
         drawArrow3D(ctx, pA1, pAd, "#8b5cf6", 3.0, false);
@@ -912,70 +870,40 @@
         ctx.fillStyle = "#0f766e";
         ctx.fillText("R(λ=" + l1.lam.toFixed(1) + ") " + fmtVec3(rx, ry, rz), pR.px + 8, pR.py + 14);
 
-      } else if (mode === "rel") {
-        var rp = relPresets[relPreset];
-        drawInfiniteLine3D(ctx, rp.a2[0], rp.a2[1], rp.a2[2], rp.d2[0], rp.d2[1], rp.d2[2], W, H, "#8b5cf6", "L₂");
+      } else {
+        var chk = computePointCheck();
+        var pP = project3D(ptP.px, ptP.py, ptP.pz, W, H);
+        var pN = project3D(chk.nx, chk.ny, chk.nz, W, H);
 
-        if (relPreset === "intersect" || relPreset === "coincident") {
-          var pInt = project3D(2, 1, 1, W, H);
-          drawDropLine(ctx, 2, 1, 1, W, H, "#e11d48");
-          ctx.beginPath(); ctx.arc(pInt.px, pInt.py, 6.5, 0, Math.PI * 2); ctx.fillStyle = "#e11d48"; ctx.fill();
-          ctx.fillStyle = "#be123c"; ctx.font = "bold 12px Segoe UI, sans-serif";
-          ctx.fillText(relPreset === "intersect" ? "Intersection (2, 1, 1)" : "Common Point (2, 1, 1)", pInt.px + 9, pInt.py - 8);
-        } else if (relPreset === "skew") {
-          // Highlight vertical z-gap at (2, 1, 1) on L1 vs (2, 1, -1) on L2!
-          var pS1 = project3D(2, 1, 1, W, H);
-          var pS2 = project3D(2, 1, -1, W, H);
+        drawDropLine(ctx, ptP.px, ptP.py, ptP.pz, W, H, chk.onLine ? "#0f766e" : "#e11d48");
+
+        ctx.beginPath(); ctx.arc(pA1.px, pA1.py, 4.5, 0, Math.PI * 2); ctx.fillStyle = "#0284c7"; ctx.fill();
+        ctx.fillStyle = "#0369a1"; ctx.font = "bold 11px Segoe UI, sans-serif";
+        ctx.fillText("A" + fmtVec3(l1.ax, l1.ay, l1.az), pA1.px + 6, pA1.py - 6);
+
+        // Vector AP and direction d
+        drawArrow3D(ctx, pA1, pP, chk.onLine ? "#0f766e" : "#8b5cf6", 2.4, false);
+        var pAd2 = project3D(l1.ax + l1.dx, l1.ay + l1.dy, l1.az + l1.dz, W, H);
+        drawArrow3D(ctx, pA1, pAd2, "#0284c7", 3.0, false);
+
+        if (!chk.onLine) {
           ctx.save();
           ctx.strokeStyle = "#e11d48";
-          ctx.lineWidth = 2.4;
-          ctx.setLineDash([5, 4]);
+          ctx.lineWidth = 2.0;
+          ctx.setLineDash([4, 4]);
           ctx.beginPath();
-          ctx.moveTo(pS1.px, pS1.py);
-          ctx.lineTo(pS2.px, pS2.py);
+          ctx.moveTo(pP.px, pP.py);
+          ctx.lineTo(pN.px, pN.py);
           ctx.stroke();
           ctx.restore();
-
-          ctx.beginPath(); ctx.arc(pS1.px, pS1.py, 5.5, 0, Math.PI * 2); ctx.fillStyle = "#0284c7"; ctx.fill();
-          ctx.beginPath(); ctx.arc(pS2.px, pS2.py, 5.5, 0, Math.PI * 2); ctx.fillStyle = "#8b5cf6"; ctx.fill();
-          ctx.fillStyle = "#be123c"; ctx.font = "bold 11.5px Segoe UI, sans-serif";
-          ctx.fillText("z-gap: (2,1,1) vs (2,1,−1)", pS1.px + 8, (pS1.py + pS2.py) * 0.5);
         }
 
-      } else {
-        // Mode 3: Draw Point P, Foot N, and right-angled segment PN
-        var apx = ptP.px - l1.ax, apy = ptP.py - l1.ay, apz = ptP.pz - l1.az;
-        var dotAPd = apx * l1.dx + apy * l1.dy + apz * l1.dz;
-        var magDSq = l1.dx * l1.dx + l1.dy * l1.dy + l1.dz * l1.dz;
-        var lamFoot = dotAPd / magDSq;
-
-        var nx = l1.ax + lamFoot * l1.dx;
-        var ny = l1.ay + lamFoot * l1.dy;
-        var nz = l1.az + lamFoot * l1.dz;
-
-        var pP = project3D(ptP.px, ptP.py, ptP.pz, W, H);
-        var pN = project3D(nx, ny, nz, W, H);
-
-        drawDropLine(ctx, ptP.px, ptP.py, ptP.pz, W, H, "#e11d48");
-        drawDropLine(ctx, nx, ny, nz, W, H, "#0f766e");
-
-        ctx.save();
-        ctx.strokeStyle = "#e11d48";
-        ctx.lineWidth = 2.5;
-        ctx.setLineDash([5, 4]);
-        ctx.beginPath();
-        ctx.moveTo(pP.px, pP.py);
-        ctx.lineTo(pN.px, pN.py);
-        ctx.stroke();
-        ctx.restore();
-
-        ctx.beginPath(); ctx.arc(pP.px, pP.py, 6, 0, Math.PI * 2); ctx.fillStyle = "#e11d48"; ctx.fill();
-        ctx.fillStyle = "#be123c"; ctx.font = "bold 12px Segoe UI, sans-serif";
-        ctx.fillText("P" + fmtVec3(ptP.px, ptP.py, ptP.pz), pP.px + 8, pP.py - 8);
-
-        ctx.beginPath(); ctx.arc(pN.px, pN.py, 6, 0, Math.PI * 2); ctx.fillStyle = "#0f766e"; ctx.fill();
-        ctx.fillStyle = "#0f766e";
-        ctx.fillText("Foot N" + fmtVec3(nx, ny, nz), pN.px + 8, pN.py + 14);
+        ctx.beginPath(); ctx.arc(pP.px, pP.py, 6.5, 0, Math.PI * 2);
+        ctx.fillStyle = chk.onLine ? "#0f766e" : "#e11d48";
+        ctx.fill();
+        ctx.fillStyle = chk.onLine ? "#0f766e" : "#be123c";
+        ctx.font = "bold 12px Segoe UI, sans-serif";
+        ctx.fillText("P" + fmtVec3(ptP.px, ptP.py, ptP.pz) + (chk.onLine ? " (ON L)" : " (OFF L)"), pP.px + 8, pP.py - 8);
       }
 
       requestAnimationFrame(renderFrame);
@@ -989,8 +917,7 @@
       });
 
       document.getElementById("tab_forms").addEventListener("click", function () { setMode("forms"); });
-      document.getElementById("tab_rel").addEventListener("click", function () { setMode("rel"); });
-      document.getElementById("tab_dist").addEventListener("click", function () { setMode("dist"); });
+      document.getElementById("tab_check").addEventListener("click", function () { setMode("check"); });
 
       var btnOrbit = document.getElementById("btn_orbit");
       btnOrbit.addEventListener("click", function () {

@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 3.3 Lesson 2: Relationship &amp; Angle Between Line and Plane</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed #e2e8f0;
+      align-items: stretch;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 13px 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .guide-step-title {
+      color: #1e293b;
+      font-size: 0.84rem;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .guide-step-desc {
+      color: #475569;
+      font-size: 0.8rem;
+      line-height: 1.6;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 515px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 980px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .mode-tabs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 9px 10px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.77rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .slider-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 11px;
+    }
+
+    .slider-group {
+      background: #f8fafc;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.77rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .formula-box {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #3b0764;
+      font-size: 0.79rem;
+      line-height: 1.52;
+      margin-bottom: 9px;
+    }
+
+    .derivation-box {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-left: 4px solid var(--purple);
+      border-radius: 10px;
+      padding: 10px 13px;
+      color: #1e293b;
+      font-size: 0.78rem;
+      line-height: 1.54;
+      margin-bottom: 9px;
+    }
+
+    .working-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #134e4a;
+      font-size: 0.79rem;
+      line-height: 1.52;
+      margin-bottom: 9px;
+    }
+
+    .status-banner {
+      background: var(--blue-bg);
+      border: 1.5px solid #7dd3fc;
+      border-radius: 12px;
+      padding: 9px 13px;
+      color: #0c4a6e;
+      font-size: 0.79rem;
+      font-weight: 700;
+      line-height: 1.48;
+    }
+
+    .status-banner.intersect {
+      background: var(--teal-bg);
+      border-color: #5eead4;
+      color: #134e4a;
+    }
+
+    .status-banner.parallel {
+      background: var(--rose-bg);
+      border-color: #fda4af;
+      color: #881337;
+    }
+
+    .status-banner.contained {
+      background: var(--amber-bg);
+      border-color: #fcd34d;
+      color: #78350f;
+    }
+
+    .canvas-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .cam-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 7px 12px;
+      margin-bottom: 10px;
+    }
+
+    .cam-btn {
+      padding: 5px 10px;
+      border-radius: 7px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .cam-btn.active {
+      background: var(--teal);
+      color: #ffffff;
+      border-color: var(--teal);
+    }
+
+    .legend {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 0.76rem;
+      font-weight: 600;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    canvas {
+      width: 100%;
+      height: 455px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      background: #ffffff;
+      display: block;
+      cursor: grab;
+    }
+
+    canvas:active {
+      cursor: grabbing;
+    }
+
+    .misconception-box {
+      margin-top: 12px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 0.8rem;
+      line-height: 1.52;
+      color: #78350f;
+    }
+
+    .vec-inline {
+      font-family: 'Segoe UI', monospace;
+      font-weight: 700;
+    }
+
+    .preset-row {
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+
+    .mini-btn {
+      padding: 6px 8px;
+      border-radius: 7px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.73rem;
+      font-weight: 700;
+      color: #334155;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .mini-btn.active {
+      background: var(--teal-bg);
+      border-color: var(--teal);
+      color: #134e4a;
+    }
+
+    .mini-btn:hover {
+      background: #f1f5f9;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" id="guideHeader">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive 3D Visual Lab</span>
+      </div>
+      <button type="button" class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <div class="guide-step-title">1. Switch Between the Two Core Topics</div>
+        <div class="guide-step-desc">Use the top-left tabs to explore <strong>1. Relationship &amp; Intersection</strong> (solving for where a line meets a plane) and <strong>2. Angle Between Line &amp; Plane</strong> (computing the acute angle θ).</div>
+      </div>
+      <div class="guide-step-card">
+        <div class="guide-step-title">2. Orbit or Snap the 3D Camera</div>
+        <div class="guide-step-desc">Click and drag anywhere on the 3D canvas—or click Isometric, Top View, or Front View—to inspect how normal vector <strong>n</strong> stands perpendicular to plane Π.</div>
+      </div>
+      <div class="guide-step-card">
+        <div class="guide-step-title">3. Test Line Cases &amp; Direction Vectors</div>
+        <div class="guide-step-desc">Compare Intersecting, Parallel, and Contained lines in Tab 1, or adjust direction vector <strong>d</strong> in Tab 2 to observe how complementary angle α relates to θ.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROLS & ALGEBRAIC BREAKDOWN -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        3.3 Lesson 2 &bull; Relationship &amp; Angle Between Line and Plane in 3D
+      </div>
+
+      <div class="mode-tabs">
+        <button type="button" class="tab-btn active" id="tab_rel">1. Relationship &amp; Intersection</button>
+        <button type="button" class="tab-btn" id="tab_ang">2. Angle Between Line &amp; Plane</button>
+      </div>
+
+      <div class="slider-grid" id="slidersWrap"></div>
+
+      <div class="formula-box" id="formulaBox"></div>
+      <div class="derivation-box" id="derivationBox"></div>
+      <div class="working-box" id="workingBox"></div>
+      <div class="status-banner" id="statusBanner"></div>
+    </div>
+
+    <!-- RIGHT 3D VISUALIZATION CANVAS -->
+    <div class="card">
+      <div class="canvas-header">
+        <strong style="font-size:1.02rem; color:#1e293b;" id="canvasTitle">Three Possible Relationships Between a Line L and a Plane Π</strong>
+      </div>
+
+      <div class="cam-toolbar">
+        <div style="display:flex; gap:6px; flex-wrap:wrap;">
+          <button type="button" class="cam-btn active" id="btn_orbit">Auto-Rotate 3D: ON</button>
+          <button type="button" class="cam-btn" id="btn_iso">3D Isometric</button>
+          <button type="button" class="cam-btn" id="btn_xy">Top View (x-y)</button>
+          <button type="button" class="cam-btn" id="btn_xz">Front View (x-z)</button>
+        </div>
+        <div class="legend" id="legendWrap"></div>
+      </div>
+
+      <canvas id="linePlane3dCanvas" width="880" height="455"></canvas>
+
+      <div class="misconception-box">
+        <strong>9758 Misconception Alert (Line &amp; Plane Relationship &amp; Angle):</strong>
+        <ul style="margin:4px 0 0 0; padding-left:18px;">
+          <li><strong>Use sin θ (NOT cos θ) for the Angle Between a Line and a Plane:</strong> The dot product <span class="vec-inline">|d · n| / (|d||n|)</span> gives <span class="vec-inline">cos α</span>, where <em>α</em> is the acute angle between line direction <strong>d</strong> and plane <strong>normal n</strong>. Since normal <strong>n</strong> is perpendicular to the plane, the acute angle <em>θ</em> between the line and the plane is the complement <span class="vec-inline">θ = 90° − α</span>, so <strong>sin θ = |d · n| / (|d||n|)</strong>!</li>
+          <li><strong>Substituting r = a + λd into r · n = D Gives 0λ = k when d · n = 0:</strong> If <span class="vec-inline">d · n = 0</span>, the line is parallel to the plane. Check <span class="vec-inline">a · n</span>: if <span class="vec-inline">a · n ≠ D</span>, you get <span class="vec-inline">0λ = D − a · n ≠ 0</span> (<strong>no solution</strong> &rArr; strictly parallel); if <span class="vec-inline">a · n = D</span>, you get <span class="vec-inline">0λ = 0</span> (<strong>infinitely many solutions</strong> &rArr; line lies completely inside the plane).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    let guideOpen = true;
+    let mode = "rel";
+    let relCase = "intersect";
+
+    let yaw = 0.64;
+    let pitch = 0.42;
+    let autoOrbit = true;
+    let isDragging = false;
+    let lastMouseX = 0;
+    let lastMouseY = 0;
+
+    // Fixed Reference Plane Pi: x + y + 2z = 4  => n = (1, 1, 2), D = 4
+    const PL_N = [1, 1, 2];
+    const PL_D = 4;
+
+    // 3 Relationship Presets for Tab 1
+    const relCases = {
+      intersect: {
+        label: "1. Intersects at 1 Point",
+        a: [0, -1, 0],
+        d: [1, 2, 1],
+        cls: "intersect",
+        banner: "INTERSECTS AT UNIQUE POINT: Since d · n = 5 ≠ 0, solving (a + λd) · n = D gives unique λ = 1, yielding intersection point (1, 1, 1)!"
+      },
+      parallel: {
+        label: "2. Strictly Parallel",
+        a: [0, 0, 3],
+        d: [2, 0, -1],
+        cls: "parallel",
+        banner: "STRICTLY PARALLEL (NO INTERSECTION): Here d · n = 2(1) + 0(1) + (−1)(2) = 0, and anchor A(0, 0, 3) gives a · n = 6 ≠ 4 (0λ = −2, inconsistent!)."
+      },
+      contained: {
+        label: "3. Lies Inside Plane",
+        a: [2, 0, 1],
+        d: [2, 0, -1],
+        cls: "contained",
+        banner: "LINE LIES COMPLETELY IN PLANE Π: Here d · n = 0 AND anchor A(2, 0, 1) satisfies a · n = 2 + 0 + 2 = 4 = D (0λ = 0, satisfied for all λ ∈ ℝ!)."
+      }
+    };
+
+    // Interactive direction vector d for Tab 2 (line passing through P0 = (1, 1, 1) on Plane Pi)
+    let angD = { dx: 1, dy: 2, dz: 1 };
+
+    function fmtVec3(x, y, z) {
+      return "(" + Number(x.toFixed(2)) + ", " + Number(y.toFixed(2)) + ", " + Number(z.toFixed(2)) + ")";
+    }
+
+    function project3D(x, y, z, W, H) {
+      var cosY = Math.cos(yaw), sinY = Math.sin(yaw);
+      var cosP = Math.cos(pitch), sinP = Math.sin(pitch);
+
+      var rx = x * cosY - y * sinY;
+      var ry = x * sinY + y * cosY;
+
+      var sx = rx;
+      var sy = z * cosP - ry * sinP;
+
+      var scale = 34;
+      return {
+        px: W * 0.5 + sx * scale,
+        py: H * 0.54 - sy * scale
+      };
+    }
+
+    function setMode(m) {
+      mode = m;
+      ["rel", "ang"].forEach(function (id) {
+        var btn = document.getElementById("tab_" + id);
+        if (btn) {
+          if (id === m) btn.classList.add("active");
+          else btn.classList.remove("active");
+        }
+      });
+      renderSliders();
+      updatePanels();
+    }
+
+    function renderSliders() {
+      var wrap = document.getElementById("slidersWrap");
+
+      if (mode === "rel") {
+        wrap.innerHTML =
+          '<div class="preset-row">' +
+            '<button type="button" class="mini-btn ' + (relCase === "intersect" ? "active" : "") + '" id="rc_intersect">1. Intersects at 1 Point</button>' +
+            '<button type="button" class="mini-btn ' + (relCase === "parallel" ? "active" : "") + '" id="rc_parallel">2. Strictly Parallel</button>' +
+            '<button type="button" class="mini-btn ' + (relCase === "contained" ? "active" : "") + '" id="rc_contained">3. Lies Inside Plane</button>' +
+          '</div>';
+
+        ["intersect", "parallel", "contained"].forEach(function (cid) {
+          document.getElementById("rc_" + cid).addEventListener("click", function () {
+            relCase = cid;
+            renderSliders();
+            updatePanels();
+          });
+        });
+
+      } else {
+        // Tab 2: Adjust line direction vector d = (dx, dy, dz)
+        wrap.innerHTML =
+          '<div class="slider-group" style="grid-column:span 2;">' +
+            '<div class="slider-header"><span>Line Direction Vector d = (d₁, d₂, d₃)</span><span id="lbl_d" style="color:var(--blue);">' + fmtVec3(angD.dx, angD.dy, angD.dz) + '</span></div>' +
+            '<input type="range" id="sl_dx" min="-2" max="3" step="1" value="' + angD.dx + '" />' +
+            '<input type="range" id="sl_dy" min="-2" max="3" step="1" value="' + angD.dy + '" style="margin-top:3px;" />' +
+            '<input type="range" id="sl_dz" min="-2" max="3" step="1" value="' + angD.dz + '" style="margin-top:3px;" />' +
+          '</div>' +
+          '<div class="preset-row">' +
+            '<button type="button" class="mini-btn" id="ap_oblique">Oblique Line (d=(1,2,1))</button>' +
+            '<button type="button" class="mini-btn" id="ap_perp">Perpendicular (θ = 90°)</button>' +
+            '<button type="button" class="mini-btn" id="ap_par">Parallel (θ = 0°)</button>' +
+          '</div>';
+
+        ["dx", "dy", "dz"].forEach(function (k) {
+          document.getElementById("sl_" + k).addEventListener("input", function () {
+            angD[k] = parseInt(this.value, 10);
+            if (angD.dx === 0 && angD.dy === 0 && angD.dz === 0) angD.dz = 1;
+            updatePanels();
+          });
+        });
+
+        document.getElementById("ap_oblique").addEventListener("click", function () {
+          angD = { dx: 1, dy: 2, dz: 1 };
+          syncAngSliders(); updatePanels();
+        });
+        document.getElementById("ap_perp").addEventListener("click", function () {
+          angD = { dx: 1, dy: 1, dz: 2 };
+          syncAngSliders(); updatePanels();
+        });
+        document.getElementById("ap_par").addEventListener("click", function () {
+          angD = { dx: 2, dy: 0, dz: -1 };
+          syncAngSliders(); updatePanels();
+        });
+      }
+    }
+
+    function syncAngSliders() {
+      ["dx", "dy", "dz"].forEach(function (k) {
+        var el = document.getElementById("sl_" + k);
+        if (el) el.value = angD[k];
+      });
+    }
+
+    function updatePanels() {
+      var formulaBox = document.getElementById("formulaBox");
+      var derivBox = document.getElementById("derivationBox");
+      var workingBox = document.getElementById("workingBox");
+      var statusBanner = document.getElementById("statusBanner");
+      var titleEl = document.getElementById("canvasTitle");
+      var legendEl = document.getElementById("legendWrap");
+
+      statusBanner.classList.remove("intersect", "parallel", "contained");
+
+      if (mode === "rel") {
+        var rc = relCases[relCase];
+        var dDotN = rc.d[0] * PL_N[0] + rc.d[1] * PL_N[1] + rc.d[2] * PL_N[2];
+        var aDotN = rc.a[0] * PL_N[0] + rc.a[1] * PL_N[1] + rc.a[2] * PL_N[2];
+
+        titleEl.textContent = "Relationship & Intersection Between Line L and Plane Π";
+
+        legendEl.innerHTML =
+          '<span class="legend-item"><span class="dot" style="background:#0284c7;"></span> Plane Π (x+y+2z=4)</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#8b5cf6;"></span> Normal n(1,1,2)</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#0f766e;"></span> Line L</span>';
+
+        formulaBox.innerHTML =
+          '<strong>Line L:</strong> <span class="vec-inline">r = ' + fmtVec3(rc.a[0], rc.a[1], rc.a[2]) + ' + λ' + fmtVec3(rc.d[0], rc.d[1], rc.d[2]) + ', &nbsp;λ ∈ ℝ</span><br>' +
+          '<strong>Plane Π:</strong> <span class="vec-inline">r · (1, 1, 2) = 4</span> &nbsp;(Cartesian: <span class="vec-inline">x + y + 2z = 4</span>)';
+
+        derivBox.innerHTML =
+          '<strong>Substitute Line L into Plane Π:</strong><br>' +
+          '<span class="vec-inline">(a + λd) · n = D &rArr; (a · n) + λ(d · n) = D</span><br>' +
+          'Here <span class="vec-inline">a · n = ' + aDotN + '</span> and <span class="vec-inline">d · n = ' + dDotN + '</span> &rArr; <span class="vec-inline">' + aDotN + ' + (' + dDotN + ')λ = 4</span>.';
+
+        if (relCase === "intersect") {
+          var lam = (PL_D - aDotN) / dDotN;
+          var ix = rc.a[0] + lam * rc.d[0];
+          var iy = rc.a[1] + lam * rc.d[1];
+          var iz = rc.a[2] + lam * rc.d[2];
+          workingBox.innerHTML =
+            '<strong>Solve for λ:</strong> <span class="vec-inline">−1 + 5λ = 4 &rArr; 5λ = 5 &rArr; <strong>λ = ' + lam + '</strong></span><br>' +
+            '<strong>Intersection Point:</strong> <span class="vec-inline">r = ' + fmtVec3(rc.a[0], rc.a[1], rc.a[2]) + ' + 1' + fmtVec3(rc.d[0], rc.d[1], rc.d[2]) + ' = <strong>' + fmtVec3(ix, iy, iz) + '</strong></span>';
+        } else if (relCase === "parallel") {
+          workingBox.innerHTML =
+            '<strong>Linear Equation in λ:</strong> <span class="vec-inline">6 + 0λ = 4 &rArr; 0λ = −2</span> (<strong>Contradiction!</strong>)<br>' +
+            '<strong>Geometric Meaning:</strong> Line <em>L</em> is parallel to plane <em>Π</em> (<span class="vec-inline">d · n = 0</span>) at constant height above it.';
+        } else {
+          workingBox.innerHTML =
+            '<strong>Linear Equation in λ:</strong> <span class="vec-inline">4 + 0λ = 4 &rArr; 0λ = 0</span> (<strong>Identity for all λ ∈ ℝ!</strong>)<br>' +
+            '<strong>Geometric Meaning:</strong> Every point on line <em>L</em> satisfies <span class="vec-inline">x + y + 2z = 4</span>.';
+        }
+
+        statusBanner.classList.add(rc.cls);
+        statusBanner.innerHTML = '<strong>' + rc.banner + '</strong>';
+
+      } else {
+        // Tab 2: Acute Angle theta between Line L and Plane Pi
+        document.getElementById("lbl_d").textContent = fmtVec3(angD.dx, angD.dy, angD.dz);
+
+        var dot = angD.dx * PL_N[0] + angD.dy * PL_N[1] + angD.dz * PL_N[2];
+        var magDSq = angD.dx ** 2 + angD.dy ** 2 + angD.dz ** 2;
+        var magNSq = PL_N[0] ** 2 + PL_N[1] ** 2 + PL_N[2] ** 2; // 6
+
+        var sinTheta = Math.min(1, Math.abs(dot) / Math.sqrt(magDSq * magNSq));
+        var thetaDeg = Math.asin(sinTheta) * (180 / Math.PI);
+        var alphaDeg = 90 - thetaDeg;
+
+        titleEl.textContent = "Acute Angle θ Between Line L and Plane Π (via sin θ = |d · n| / |d||n|)";
+        legendEl.innerHTML =
+          '<span class="legend-item"><span class="dot" style="background:#0f766e;"></span> Line Direction d</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#8b5cf6;"></span> Plane Normal n</span>' +
+          '<span class="legend-item"><span class="dot" style="background:#e11d48;"></span> Projection on Π</span>';
+
+        formulaBox.innerHTML =
+          '<strong>Angle Formula Between Line L (dir d) and Plane Π (normal n):</strong><br>' +
+          '<span class="vec-inline">sin θ = cos(90° − θ) = |d · n| / (|d||n|)</span> &nbsp;(where <span class="vec-inline">0° &le; θ &le; 90°</span>)';
+
+        derivBox.innerHTML =
+          '<strong>Complementary Angle Relationship (θ + α = 90°):</strong><br>' +
+          '1. Angle between <span class="vec-inline">d = ' + fmtVec3(angD.dx, angD.dy, angD.dz) + '</span> and normal <span class="vec-inline">n = (1, 1, 2)</span> is <span class="vec-inline">α = cos⁻¹(|' + dot + '| / √' + (magDSq * magNSq) + ') = ' + alphaDeg.toFixed(1) + '°</span>.<br>' +
+          '2. Since normal <strong>n</strong> is perpendicular to plane <em>Π</em>, the angle between line <em>L</em> and plane <em>Π</em> is <span class="vec-inline">θ = 90° − ' + alphaDeg.toFixed(1) + '° = <strong>' + thetaDeg.toFixed(1) + '°</strong></span>.';
+
+        workingBox.innerHTML =
+          '<strong>Direct Sine Formula:</strong> <span class="vec-inline">sin θ = |' + dot + '| / (√' + magDSq + ' · √' + magNSq + ') = ' + sinTheta.toFixed(4) + '</span><br>' +
+          '<strong>Acute Angle Between Line L and Plane Π:</strong> <strong>θ = ' + thetaDeg.toFixed(1) + '°</strong>';
+
+        if (dot === 0) {
+          statusBanner.classList.add("contained");
+          statusBanner.innerHTML = '<strong>LINE PARALLEL TO PLANE (d · n = 0):</strong> Here <span class="vec-inline">α = 90°</span> (direction <strong>d</strong> is perpendicular to normal <strong>n</strong>), so the angle between the line and the plane is <strong>θ = 0°</strong>!';
+        } else if (Math.abs(thetaDeg - 90) < 0.05) {
+          statusBanner.classList.add("intersect");
+          statusBanner.innerHTML = '<strong>LINE PERPENDICULAR TO PLANE (d ∥ n):</strong> Here <span class="vec-inline">α = 0°</span> (direction <strong>d</strong> is parallel to normal <strong>n</strong>), so the line meets the plane at a right angle <strong>θ = 90°</strong>!';
+        } else {
+          statusBanner.innerHTML = '<strong>VISUAL CHECK:</strong> Look at the red orthogonal projection of vector <strong>d</strong> onto plane <em>Π</em> — the angle <em>θ</em> between <strong>d</strong> and its shadow on <em>Π</em> satisfies <span class="vec-inline">θ + α = 90°</span>!';
+        }
+      }
+    }
+
+    function drawArrow3D(ctx, p1, p2, color, width, dashed) {
+      var dx = p2.px - p1.px;
+      var dy = p2.py - p1.py;
+      var len = Math.hypot(dx, dy);
+      if (len < 2) return;
+      var angle = Math.atan2(dy, dx);
+      var headLen = 9;
+
+      ctx.save();
+      ctx.strokeStyle = color;
+      ctx.fillStyle = color;
+      ctx.lineWidth = width;
+      if (dashed) ctx.setLineDash([5, 4]);
+
+      ctx.beginPath();
+      ctx.moveTo(p1.px, p1.py);
+      ctx.lineTo(p2.px, p2.py);
+      ctx.stroke();
+
+      ctx.setLineDash([]);
+      ctx.beginPath();
+      ctx.moveTo(p2.px, p2.py);
+      ctx.lineTo(p2.px - headLen * Math.cos(angle - Math.PI / 6), p2.py - headLen * Math.sin(angle - Math.PI / 6));
+      ctx.lineTo(p2.px - headLen * Math.cos(angle + Math.PI / 6), p2.py - headLen * Math.sin(angle + Math.PI / 6));
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function drawPlanePatch(ctx, W, H) {
+      var magNSq = PL_N[0] ** 2 + PL_N[1] ** 2 + PL_N[2] ** 2; // 6
+      var t0 = PL_D / magNSq;
+      var cx = t0 * PL_N[0], cy = t0 * PL_N[1], cz = t0 * PL_N[2];
+
+      var ux = -PL_N[2], uy = 0, uz = PL_N[0];
+      var uLen = Math.hypot(ux, uy, uz);
+      ux /= uLen; uy /= uLen; uz /= uLen;
+
+      var vx = PL_N[1] * uz - PL_N[2] * uy;
+      var vy = PL_N[2] * ux - PL_N[0] * uz;
+      var vz = PL_N[0] * uy - PL_N[1] * ux;
+      var vLen = Math.hypot(vx, vy, vz);
+      vx /= vLen; vy /= vLen; vz /= vLen;
+
+      var half = 3.6;
+      var corners = [
+        [cx - half * ux - half * vx, cy - half * uy - half * vy, cz - half * uz - half * vz],
+        [cx + half * ux - half * vx, cy + half * uy - half * vy, cz + half * uz - half * vz],
+        [cx + half * ux + half * vx, cy + half * uy + half * vy, cz + half * uz + half * vz],
+        [cx - half * ux + half * vx, cy - half * uy + half * vy, cz - half * uz + half * vz]
+      ].map(function (pt) { return project3D(pt[0], pt[1], pt[2], W, H); });
+
+      ctx.save();
+      ctx.fillStyle = "rgba(2, 132, 199, 0.14)";
+      ctx.strokeStyle = "#0284c7";
+      ctx.lineWidth = 1.6;
+      ctx.beginPath();
+      ctx.moveTo(corners[0].px, corners[0].py);
+      ctx.lineTo(corners[1].px, corners[1].py);
+      ctx.lineTo(corners[2].px, corners[2].py);
+      ctx.lineTo(corners[3].px, corners[3].py);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.strokeStyle = "rgba(2, 132, 199, 0.18)";
+      ctx.lineWidth = 1;
+      for (var s = -2; s <= 2; s += 2) {
+        var g1 = project3D(cx + s * ux - half * vx, cy + s * uy - half * vy, cz + s * uz - half * vz, W, H);
+        var g2 = project3D(cx + s * ux + half * vx, cy + s * uy + half * vy, cz + s * uz + half * vz, W, H);
+        ctx.beginPath(); ctx.moveTo(g1.px, g1.py); ctx.lineTo(g2.px, g2.py); ctx.stroke();
+
+        var h1 = project3D(cx - half * ux + s * vx, cy - half * uy + s * vy, cz - half * uz + s * vz, W, H);
+        var h2 = project3D(cx + half * ux + s * vx, cy + half * uy + s * vy, cz + half * uz + s * vz, W, H);
+        ctx.beginPath(); ctx.moveTo(h1.px, h1.py); ctx.lineTo(h2.px, h2.py); ctx.stroke();
+      }
+
+      ctx.fillStyle = "#0369a1";
+      ctx.font = "bold 12px Segoe UI, sans-serif";
+      ctx.fillText("Π: x + y + 2z = 4", corners[2].px + 6, corners[2].py - 4);
+      ctx.restore();
+    }
+
+    function renderFrame() {
+      if (autoOrbit && !isDragging) {
+        yaw += 0.0045;
+      }
+
+      var canvas = document.getElementById("linePlane3dCanvas");
+      if (!canvas) return;
+      var ctx = canvas.getContext("2d");
+      var W = canvas.width, H = canvas.height;
+      ctx.clearRect(0, 0, W, H);
+
+      // 3D Floor Grid
+      ctx.strokeStyle = "#f1f5f9";
+      ctx.lineWidth = 1;
+      for (var g = -4; g <= 4; g++) {
+        var a1 = project3D(g, -4, 0, W, H), a2 = project3D(g, 4, 0, W, H);
+        ctx.beginPath(); ctx.moveTo(a1.px, a1.py); ctx.lineTo(a2.px, a2.py); ctx.stroke();
+        var b1 = project3D(-4, g, 0, W, H), b2 = project3D(4, g, 0, W, H);
+        ctx.beginPath(); ctx.moveTo(b1.px, b1.py); ctx.lineTo(b2.px, b2.py); ctx.stroke();
+      }
+
+      // 3D Axes
+      var oPt = project3D(0, 0, 0, W, H);
+      var xN = project3D(-4.8, 0, 0, W, H), xP = project3D(5.0, 0, 0, W, H);
+      var yN = project3D(0, -4.8, 0, W, H), yP = project3D(0, 5.0, 0, W, H);
+      var zN = project3D(0, 0, -4.0, W, H), zP = project3D(0, 0, 4.8, W, H);
+
+      ctx.strokeStyle = "#cbd5e1";
+      ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      ctx.moveTo(xN.px, xN.py); ctx.lineTo(xP.px, xP.py);
+      ctx.moveTo(yN.px, yN.py); ctx.lineTo(yP.px, yP.py);
+      ctx.moveTo(zN.px, zN.py); ctx.lineTo(zP.px, zP.py);
+      ctx.stroke();
+
+      ctx.fillStyle = "#64748b";
+      ctx.font = "bold 12px Segoe UI, sans-serif";
+      ctx.fillText("+x", xP.px + 5, xP.py + 4);
+      ctx.fillText("+y", yP.px + 5, yP.py + 4);
+      ctx.fillText("+z", zP.px - 6, zP.py - 7);
+      ctx.fillText("O", oPt.px - 14, oPt.py + 15);
+
+      drawPlanePatch(ctx, W, H);
+
+      if (mode === "rel") {
+        var rc = relCases[relCase];
+        var tMin = -1.6, tMax = 2.4;
+        var pL1 = project3D(rc.a[0] + tMin * rc.d[0], rc.a[1] + tMin * rc.d[1], rc.a[2] + tMin * rc.d[2], W, H);
+        var pL2 = project3D(rc.a[0] + tMax * rc.d[0], rc.a[1] + tMax * rc.d[1], rc.a[2] + tMax * rc.d[2], W, H);
+
+        ctx.save();
+        ctx.strokeStyle = "#0f766e";
+        ctx.lineWidth = 2.8;
+        ctx.beginPath();
+        ctx.moveTo(pL1.px, pL1.py);
+        ctx.lineTo(pL2.px, pL2.py);
+        ctx.stroke();
+        ctx.fillStyle = "#0f766e";
+        ctx.font = "bold 12px Segoe UI, sans-serif";
+        ctx.fillText("Line L", pL2.px + 6, pL2.py - 4);
+        ctx.restore();
+
+        // Draw Normal n at (1, 1, 1)
+        var pRef = project3D(1, 1, 1, W, H);
+        var nScale = 2.2 / Math.sqrt(6);
+        var pNormTip = project3D(1 + PL_N[0] * nScale, 1 + PL_N[1] * nScale, 1 + PL_N[2] * nScale, W, H);
+        drawArrow3D(ctx, pRef, pNormTip, "#8b5cf6", 2.8, false);
+        ctx.fillStyle = "#7c3aed"; ctx.font = "bold 11.5px Segoe UI, sans-serif";
+        ctx.fillText("n(1, 1, 2)", pNormTip.px + 6, pNormTip.py - 6);
+
+        if (relCase === "intersect") {
+          ctx.beginPath(); ctx.arc(pRef.px, pRef.py, 6.5, 0, Math.PI * 2); ctx.fillStyle = "#e11d48"; ctx.fill();
+          ctx.fillStyle = "#be123c"; ctx.font = "bold 12px Segoe UI, sans-serif";
+          ctx.fillText("Intersection (1, 1, 1)", pRef.px + 9, pRef.py + 14);
+        } else {
+          var pA = project3D(rc.a[0], rc.a[1], rc.a[2], W, H);
+          ctx.beginPath(); ctx.arc(pA.px, pA.py, 5.5, 0, Math.PI * 2); ctx.fillStyle = "#0f766e"; ctx.fill();
+          ctx.fillStyle = "#0f766e"; ctx.font = "bold 11.5px Segoe UI, sans-serif";
+          ctx.fillText("A" + fmtVec3(rc.a[0], rc.a[1], rc.a[2]), pA.px + 7, pA.py - 6);
+        }
+
+      } else {
+        // Tab 2: Line passing through M(1, 1, 1) on Plane Pi with direction angD
+        var mx = 1, my = 1, mz = 1;
+        var pM = project3D(mx, my, mz, W, H);
+
+        var pL1 = project3D(mx - 1.8 * angD.dx, my - 1.8 * angD.dy, mz - 1.8 * angD.dz, W, H);
+        var pL2 = project3D(mx + 1.8 * angD.dx, my + 1.8 * angD.dy, mz + 1.8 * angD.dz, W, H);
+        ctx.save();
+        ctx.strokeStyle = "#0f766e";
+        ctx.lineWidth = 2.4;
+        ctx.beginPath();
+        ctx.moveTo(pL1.px, pL1.py);
+        ctx.lineTo(pL2.px, pL2.py);
+        ctx.stroke();
+        ctx.restore();
+
+        // Unit normal n at M
+        var magN = Math.sqrt(6);
+        var pNormTip = project3D(mx + 2.2 * PL_N[0] / magN, my + 2.2 * PL_N[1] / magN, mz + 2.2 * PL_N[2] / magN, W, H);
+        drawArrow3D(ctx, pM, pNormTip, "#8b5cf6", 3.0, false);
+        ctx.fillStyle = "#7c3aed"; ctx.font = "bold 12px Segoe UI, sans-serif";
+        ctx.fillText("n (normal)", pNormTip.px + 6, pNormTip.py - 6);
+
+        // Scaled direction vector d at M
+        var magD = Math.hypot(angD.dx, angD.dy, angD.dz);
+        var dTipX = mx + 2.2 * angD.dx / magD;
+        var dTipY = my + 2.2 * angD.dy / magD;
+        var dTipZ = mz + 2.2 * angD.dz / magD;
+        var pDTip = project3D(dTipX, dTipY, dTipZ, W, H);
+        drawArrow3D(ctx, pM, pDTip, "#0f766e", 3.2, false);
+        ctx.fillStyle = "#0f766e";
+        ctx.fillText("d", pDTip.px + 6, pDTip.py - 6);
+
+        // Orthogonal projection of dTip onto Plane Pi
+        var dDotN = angD.dx * PL_N[0] + angD.dy * PL_N[1] + angD.dz * PL_N[2];
+        var comp = dDotN / 6;
+        var projDirX = angD.dx - comp * PL_N[0];
+        var projDirY = angD.dy - comp * PL_N[1];
+        var projDirZ = angD.dz - comp * PL_N[2];
+
+        var pShadowX = mx + 2.2 * projDirX / magD;
+        var pShadowY = my + 2.2 * projDirY / magD;
+        var pShadowZ = mz + 2.2 * projDirZ / magD;
+        var pShadow = project3D(pShadowX, pShadowY, pShadowZ, W, H);
+
+        if (Math.hypot(projDirX, projDirY, projDirZ) > 0.05) {
+          drawArrow3D(ctx, pM, pShadow, "#e11d48", 2.2, true);
+          ctx.save();
+          ctx.strokeStyle = "#94a3b8";
+          ctx.lineWidth = 1.4;
+          ctx.setLineDash([4, 4]);
+          ctx.beginPath();
+          ctx.moveTo(pDTip.px, pDTip.py);
+          ctx.lineTo(pShadow.px, pShadow.py);
+          ctx.stroke();
+          ctx.restore();
+
+          ctx.fillStyle = "#be123c"; ctx.font = "bold 11px Segoe UI, sans-serif";
+          ctx.fillText("Shadow on Π", pShadow.px + 6, pShadow.py + 12);
+        }
+
+        ctx.beginPath(); ctx.arc(pM.px, pM.py, 5.5, 0, Math.PI * 2); ctx.fillStyle = "#0284c7"; ctx.fill();
+      }
+
+      requestAnimationFrame(renderFrame);
+    }
+
+    function init() {
+      document.getElementById("guideHeader").addEventListener("click", function () {
+        guideOpen = !guideOpen;
+        document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+        document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+      });
+
+      document.getElementById("tab_rel").addEventListener("click", function () { setMode("rel"); });
+      document.getElementById("tab_ang").addEventListener("click", function () { setMode("ang"); });
+
+      var btnOrbit = document.getElementById("btn_orbit");
+      btnOrbit.addEventListener("click", function () {
+        autoOrbit = !autoOrbit;
+        btnOrbit.classList.toggle("active", autoOrbit);
+        btnOrbit.textContent = autoOrbit ? "Auto-Rotate 3D: ON" : "Auto-Rotate 3D: OFF";
+      });
+
+      document.getElementById("btn_iso").addEventListener("click", function () {
+        autoOrbit = false; btnOrbit.classList.remove("active"); btnOrbit.textContent = "Auto-Rotate 3D: OFF";
+        yaw = 0.64; pitch = 0.42;
+      });
+      document.getElementById("btn_xy").addEventListener("click", function () {
+        autoOrbit = false; btnOrbit.classList.remove("active"); btnOrbit.textContent = "Auto-Rotate 3D: OFF";
+        yaw = 0.0; pitch = 1.54;
+      });
+      document.getElementById("btn_xz").addEventListener("click", function () {
+        autoOrbit = false; btnOrbit.classList.remove("active"); btnOrbit.textContent = "Auto-Rotate 3D: OFF";
+        yaw = 0.0; pitch = 0.04;
+      });
+
+      var canvas = document.getElementById("linePlane3dCanvas");
+      canvas.addEventListener("mousedown", function (e) {
+        isDragging = true;
+        lastMouseX = e.clientX;
+        lastMouseY = e.clientY;
+      });
+      window.addEventListener("mousemove", function (e) {
+        if (!isDragging) return;
+        yaw += (e.clientX - lastMouseX) * 0.01;
+        pitch = Math.max(-1.4, Math.min(1.55, pitch + (e.clientY - lastMouseY) * 0.01));
+        lastMouseX = e.clientX;
+        lastMouseY = e.clientY;
+      });
+      window.addEventListener("mouseup", function () {
+        isDragging = false;
+      });
+
+      renderSliders();
+      updatePanels();
+      requestAnimationFrame(renderFrame);
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else {
+      init();
+    }
+  })();
+</script>
+
+</body>
+</html>

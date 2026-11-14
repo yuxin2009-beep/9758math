@@ -115,20 +115,23 @@
       background: #f8fafc;
       border: 1px solid #e2e8f0;
       border-radius: 10px;
-      padding: 12px 14px;
-      font-size: 0.8rem;
-      line-height: 1.55;
-      color: #475569;
+      padding: 13px 15px;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
+      gap: 6px;
     }
 
-    .guide-step-card strong {
+    .guide-step-title {
       color: #1e293b;
-      display: block;
-      font-size: 0.83rem;
-      margin-bottom: 5px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .guide-step-desc {
+      color: #475569;
+      font-size: 0.8rem;
+      line-height: 1.6;
     }
 
     .app-container {
@@ -391,16 +394,16 @@
     </div>
     <div class="guide-steps" id="guideSteps">
       <div class="guide-step-card">
-        <strong>1. Choose a Plane Concept Mode</strong>
-        Switch between <em>1. Three Plane Forms</em>, <em>2. Converting Forms</em>, and <em>3. Point on Plane Test</em> at the top-left to explore planes in 3D.
+        <div class="guide-step-title">1. Choose a Plane Concept Mode</div>
+        <div class="guide-step-desc">Switch between <strong>1. Three Plane Forms</strong>, <strong>2. Converting Forms</strong>, and <strong>3. Point on Plane?</strong> at the top-left to explore planes in 3D.</div>
       </div>
       <div class="guide-step-card">
-        <strong>2. Drag or Auto-Rotate the 3D Canvas</strong>
-        Click and drag on the 3D space (or use Isometric, Top, and Front views) to see how normal <strong>n = d₁ × d₂</strong> stands perpendicular to plane <em>Π</em>.
+        <div class="guide-step-title">2. Drag or Auto-Rotate the 3D Canvas</div>
+        <div class="guide-step-desc">Click and drag anywhere on the 3D space—or use Isometric, Top, and Front views—to see how normal <strong>n = d₁ × d₂</strong> stands perpendicular to plane Π.</div>
       </div>
       <div class="guide-step-card">
-        <strong>3. Adjust Parameters &amp; Test Point P</strong>
-        Slide parameters <em>(λ, μ)</em> to sweep point <em>R</em> across the plane, or move test point <em>P</em> to verify if <strong>OP · n = D</strong> holds.
+        <div class="guide-step-title">3. Adjust Parameters &amp; Test Point P</div>
+        <div class="guide-step-desc">Slide parameters <strong>(λ, μ)</strong> to sweep point <strong>R</strong> across the plane, or move test point <strong>P</strong> to verify if <strong>OP · n = D</strong> holds.</div>
       </div>
     </div>
   </div>

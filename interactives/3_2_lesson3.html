@@ -115,20 +115,23 @@
       background: #f8fafc;
       border: 1px solid #e2e8f0;
       border-radius: 10px;
-      padding: 12px 14px;
-      font-size: 0.8rem;
-      line-height: 1.55;
-      color: #475569;
+      padding: 13px 15px;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
+      gap: 6px;
     }
 
-    .guide-step-card strong {
+    .guide-step-title {
       color: #1e293b;
-      display: block;
-      font-size: 0.83rem;
-      margin-bottom: 5px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .guide-step-desc {
+      color: #475569;
+      font-size: 0.8rem;
+      line-height: 1.6;
     }
 
     .app-container {
@@ -153,18 +156,18 @@
 
     .mode-tabs {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
       margin-bottom: 12px;
     }
 
     .tab-btn {
-      padding: 8px 6px;
+      padding: 9px 10px;
       border-radius: 10px;
       border: 1px solid #cbd5e1;
       background: #f8fafc;
       font-weight: 700;
-      font-size: 0.74rem;
+      font-size: 0.77rem;
       color: var(--text);
       cursor: pointer;
       transition: 0.15s;
@@ -403,16 +406,16 @@
     </div>
     <div class="guide-steps" id="guideSteps">
       <div class="guide-step-card">
-        <strong>1. Select a Two-Line Topic Mode</strong>
-        Switch between <em>1. 4-Case Classification</em>, <em>2. Skew vs. Intersecting Check</em>, and <em>3. Acute Angle Between Lines</em> at the top-left.
+        <div class="guide-step-title">1. Switch Between the Two Core Topics</div>
+        <div class="guide-step-desc">Use the top-left tabs to explore <strong>1. Relationship Between Two Lines</strong> (4-case classification &amp; consistency check) and <strong>2. Acute Angle Between Lines</strong>.</div>
       </div>
       <div class="guide-step-card">
-        <strong>2. Drag or Auto-Rotate the 3D Space</strong>
-        Click and drag on the 3D canvas (or toggle Top View and Front View) to see how skew lines cross in a 2D projection yet have a vertical <em>z</em>-gap in 3D.
+        <div class="guide-step-title">2. Orbit or Snap the 3D Camera</div>
+        <div class="guide-step-desc">Click and drag anywhere on the 3D canvas—or toggle Top View and Front View—to see how skew lines appear to cross in 2D yet keep a vertical z-gap in 3D.</div>
       </div>
       <div class="guide-step-card">
-        <strong>3. Test Line Presets &amp; Direction Vectors</strong>
-        Compare the 4 relationship cases in Modes 1–2, or adjust direction vector <strong>d₂</strong> in Mode 3 to compute the acute angle <em>θ</em> via <em>|d₁ · d₂|</em>.
+        <div class="guide-step-title">3. Test Line Presets &amp; Direction Vectors</div>
+        <div class="guide-step-desc">Compare Intersecting, Skew, Parallel, and Coincident lines in Tab 1, or adjust direction vector <strong>d₂</strong> in Tab 2 to compute the acute angle θ via <strong>|d₁ · d₂|</strong>.</div>
       </div>
     </div>
   </div>
@@ -425,9 +428,8 @@
       </div>
 
       <div class="mode-tabs">
-        <button type="button" class="tab-btn active" id="tab_class">1. 4-Case Classifier</button>
-        <button type="button" class="tab-btn" id="tab_skew">2. Skew vs Intersect</button>
-        <button type="button" class="tab-btn" id="tab_angle">3. Acute Angle θ</button>
+        <button type="button" class="tab-btn active" id="tab_class">1. Relationship Between Two Lines</button>
+        <button type="button" class="tab-btn" id="tab_angle">2. Acute Angle Between Lines</button>
       </div>
 
       <div class="slider-grid" id="slidersWrap"></div>
@@ -484,7 +486,7 @@
     const L1_A = [1, -1, 2];
     const L1_D = [1, 2, -1];
 
-    // Interactive direction d2 for Mode 3 (Acute Angle between L1 and L2 passing through intersection (2,1,1))
+    // Interactive direction d2 for Tab 2 (Acute Angle between L1 and L2 passing through intersection (2,1,1))
     let angD2 = { dx: 2, dy: -1, dz: 2 };
 
     const relPresets = {
@@ -541,16 +543,13 @@
 
     function setMode(m) {
       mode = m;
-      ["class", "skew", "angle"].forEach(function (id) {
+      ["class", "angle"].forEach(function (id) {
         var btn = document.getElementById("tab_" + id);
         if (btn) {
           if (id === m) btn.classList.add("active");
           else btn.classList.remove("active");
         }
       });
-      if (m === "skew" && relPreset !== "skew" && relPreset !== "intersect") {
-        relPreset = "skew";
-      }
       renderSliders();
       updatePanels();
     }
@@ -558,7 +557,7 @@
     function renderSliders() {
       var wrap = document.getElementById("slidersWrap");
 
-      if (mode === "class" || mode === "skew") {
+      if (mode === "class") {
         wrap.innerHTML =
           '<div class="preset-row">' +
             '<button type="button" class="mini-btn ' + (relPreset === "intersect" ? "active" : "") + '" id="rp_intersect">1. Intersecting Lines</button>' +
@@ -576,7 +575,7 @@
         });
 
       } else {
-        // Mode 3: Adjust direction vector d2 of Line L2
+        // Tab 2: Adjust direction vector d2 of Line L2
         wrap.innerHTML =
           '<div class="slider-group" style="grid-column:span 2;">' +
             '<div class="slider-header"><span>Line L₂ Direction d₂ = (d₂x, d₂y, d₂z)</span><span id="lbl_d2" style="color:var(--purple-dark);">' + fmtVec3(angD2.dx, angD2.dy, angD2.dz) + '</span></div>' +
@@ -627,11 +626,9 @@
 
       statusBanner.classList.remove("skew", "intersect", "parallel");
 
-      if (mode === "class" || mode === "skew") {
+      if (mode === "class") {
         var rp = relPresets[relPreset];
-        titleEl.textContent = mode === "class"
-          ? "Four Possible Relationships Between Two Lines L₁ & L₂ in 3D"
-          : "Algebraic Consistency Check: Intersecting vs. Skew Lines";
+        titleEl.textContent = "Four Possible Relationships Between Two Lines L₁ & L₂ in 3D";
 
         legendEl.innerHTML =
           '<span class="legend-item"><span class="dot" style="background:#0284c7;"></span> Line L₁ (λ)</span>' +
@@ -672,7 +669,7 @@
         statusBanner.innerHTML = '<strong>' + rp.summary + '</strong>';
 
       } else {
-        // Mode 3: Acute Angle Between Two Lines L1 and L2
+        // Tab 2: Acute Angle Between Two Lines L1 and L2
         document.getElementById("lbl_d2").textContent = fmtVec3(angD2.dx, angD2.dy, angD2.dz);
 
         var dot = L1_D[0] * angD2.dx + L1_D[1] * angD2.dy + L1_D[2] * angD2.dz;
@@ -819,7 +816,7 @@
       // Draw Line L1
       drawInfiniteLine3D(ctx, L1_A[0], L1_A[1], L1_A[2], L1_D[0], L1_D[1], L1_D[2], W, H, "#0284c7", "L₁");
 
-      if (mode === "class" || mode === "skew") {
+      if (mode === "class") {
         var rp = relPresets[relPreset];
         drawInfiniteLine3D(ctx, rp.a2[0], rp.a2[1], rp.a2[2], rp.d2[0], rp.d2[1], rp.d2[2], W, H, "#8b5cf6", "L₂");
 
@@ -849,7 +846,7 @@
         }
 
       } else {
-        // Mode 3: Draw L2 passing through P0=(2, 1, 1) with direction angD2, and draw direction arrows d1, d2
+        // Tab 2: Draw L2 passing through P0=(2, 1, 1) with direction angD2, and draw direction arrows d1, d2
         var p0 = [2, 1, 1];
         drawInfiniteLine3D(ctx, p0[0], p0[1], p0[2], angD2.dx, angD2.dy, angD2.dz, W, H, "#8b5cf6", "L₂");
 
@@ -879,7 +876,6 @@
       });
 
       document.getElementById("tab_class").addEventListener("click", function () { setMode("class"); });
-      document.getElementById("tab_skew").addEventListener("click", function () { setMode("skew"); });
       document.getElementById("tab_angle").addEventListener("click", function () { setMode("angle"); });
 
       var btnOrbit = document.getElementById("btn_orbit");
