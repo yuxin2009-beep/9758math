@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>6.2 Lesson 4 | Independent Observations: X₁ + X₂ vs. 2X & Sample Mean X̄</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 16px 20px 28px 20px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    /* HEADER & MODE TABS */
+    .lab-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .lab-title-group h1 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge-9758 {
+      background: var(--purple);
+      color: #ffffff;
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .lab-title-group p {
+      margin: 3px 0 0 0;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .mode-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mode-btn {
+      padding: 8px 13px;
+      border-radius: 10px;
+      border: 1.5px solid #cbd5e1;
+      background: #ffffff;
+      color: var(--text);
+      font-size: 0.81rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mode-btn:hover {
+      border-color: var(--purple);
+      color: var(--purple-dark);
+    }
+
+    .mode-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.22);
+    }
+
+    /* WORKSPACE LAYOUT */
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    @media (max-width: 980px) {
+      .workspace-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 18px;
+      box-shadow: 0 3px 10px rgba(148, 163, 184, 0.06);
+      margin-bottom: 14px;
+    }
+
+    .card-kicker {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    /* PRESETS */
+    .preset-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 7px;
+      margin-bottom: 12px;
+    }
+
+    .preset-btn {
+      text-align: left;
+      padding: 8px 11px;
+      border-radius: 9px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #1e293b;
+      font-size: 0.79rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .preset-btn span {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .preset-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .preset-btn.active {
+      background: var(--purple-bg);
+      border-color: var(--purple-dark);
+      color: var(--purple-dark);
+    }
+
+    /* CONVOLUTION MATRIX */
+    table.conv-grid {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.77rem;
+      text-align: center;
+      margin-top: 6px;
+    }
+
+    table.conv-grid th,
+    table.conv-grid td {
+      border: 1px solid #cbd5e1;
+      padding: 6px 4px;
+    }
+
+    table.conv-grid th {
+      background: #f1f5f9;
+      color: #1e293b;
+      font-weight: 800;
+    }
+
+    table.conv-grid td {
+      cursor: pointer;
+      transition: 0.12s;
+      background: #ffffff;
+    }
+
+    table.conv-grid td:hover {
+      background: #faf5ff;
+    }
+
+    table.conv-grid td.hl-cell {
+      background: var(--amber-bg);
+      border-color: var(--amber);
+      color: #78350f;
+      font-weight: 700;
+    }
+
+    /* SUMMARY METRIC TILES */
+    .compare-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    @media (max-width: 720px) {
+      .compare-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .dist-summary-box {
+      border-radius: 12px;
+      padding: 12px 14px;
+      border: 1.5px solid #cbd5e1;
+    }
+
+    .dist-summary-box.teal {
+      background: var(--teal-bg);
+      border-color: #5eead4;
+    }
+
+    .dist-summary-box.purple {
+      background: var(--purple-bg);
+      border-color: #d8b4fe;
+    }
+
+    .dist-summary-title {
+      font-size: 0.83rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .mini-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      text-align: center;
+    }
+
+    .mini-stat-cell {
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 8px;
+      padding: 6px 4px;
+    }
+
+    .mini-stat-cell span {
+      display: block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .mini-stat-cell strong {
+      font-size: 0.92rem;
+      font-family: 'Consolas', 'Courier New', monospace;
+      color: #1e293b;
+    }
+
+    /* SVG & TABLES */
+    .svg-wrap {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 6px;
+      margin-bottom: 12px;
+    }
+
+    table.calc-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.81rem;
+      text-align: center;
+    }
+
+    table.calc-table th,
+    table.calc-table td {
+      border: 1px solid #cbd5e1;
+      padding: 6px 8px;
+    }
+
+    table.calc-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    table.calc-table tr.sum-row {
+      background: #f3e8ff;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    /* CALLOUTS & SLIDERS */
+    .trap-banner {
+      background: var(--rose-bg);
+      border-left: 4px solid var(--rose);
+      padding: 9px 12px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      color: #881337;
+      line-height: 1.45;
+      margin-top: 10px;
+    }
+
+    .insight-box {
+      background: #f0f9ff;
+      border-left: 4px solid var(--blue);
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 0.81rem;
+      color: #0c4a6e;
+      line-height: 1.5;
+      margin-top: 10px;
+    }
+
+    .control-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .val-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 0.82rem;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple-dark);
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: none;
+      background: var(--teal);
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    .btn-primary:hover {
+      background: #115e59;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="lab-header">
+    <div class="lab-title-group">
+      <h1>
+        <span class="badge-9758">6.2 Lesson 4</span>
+        Independent Observations: X₁ + X₂ vs. 2X &amp; Sample Mean X̄
+      </h1>
+      <p>Contrast summing independent observations against scaling a single observation, and explore sample mean variance shrinkage.</p>
+    </div>
+    <div class="mode-tabs">
+      <button class="mode-btn active" id="tab_sum2x" onclick="switchMode('sum2x')">
+        1. X₁ + X₂ vs. 2X
+      </button>
+      <button class="mode-btn" id="tab_diff" onclick="switchMode('diff')">
+        2. Difference X₁ − X₂ &amp; |X₁ − X₂|
+      </button>
+      <button class="mode-btn" id="tab_xbar" onclick="switchMode('xbar')">
+        3. Sample Mean X̄ (n Trials)
+      </button>
+    </div>
+  </header>
+
+  <div class="workspace-grid">
+    <!-- LEFT COLUMN: BASE DISTRIBUTION & JOINT OUTCOME GRID -->
+    <div>
+      <div class="card">
+        <span class="card-kicker" style="color:var(--purple-dark);">1. Select Single-Trial Variable X</span>
+        <div class="preset-grid">
+          <button class="preset-btn active" id="pre_spinner" onclick="selectPreset('spinner')">
+            Biased 3-Sided Spinner (9758 Worked Ex.)
+            <span>x ∈ {1, 2, 3}, P = {0.5, 0.3, 0.2} ⇒ E(X)=1.7, Var(X)=0.61</span>
+          </button>
+          <button class="preset-btn" id="pre_uniform3" onclick="selectPreset('uniform3')">
+            Fair 3-Sided Die
+            <span>x ∈ {1, 2, 3}, P = {1/3, 1/3, 1/3} ⇒ E(X)=2.0, Var(X)=2/3</span>
+          </button>
+          <button class="preset-btn" id="pre_scores" onclick="selectPreset('scores')">
+            Quiz Bonus Points
+            <span>x ∈ {0, 2, 5}, P = {0.4, 0.4, 0.2} ⇒ E(X)=1.8, Var(X)=3.36</span>
+          </button>
+        </div>
+
+        <div id="leftJointSection">
+          <span class="card-kicker" style="color:var(--blue);">2. Independent Joint Grid (Click a Cell to Highlight Value)</span>
+          <div id="jointMatrixWrap"></div>
+        </div>
+
+        <div id="leftXbarSection" style="display:none;">
+          <span class="card-kicker" style="color:var(--teal);">2. Sample Size n Control</span>
+          <div class="control-label-row">
+            <span>Number of Independent Observations <em>n</em>:</span>
+            <span class="val-pill" id="nDisplay">n = 4</span>
+          </div>
+          <input type="range" id="nSlider" min="1" max="50" step="1" value="4" oninput="onNChange(this.value)" />
+
+          <button class="btn-primary" onclick="simulateSamples()">
+            Simulate 1,000 Sample Means X̄ (size n)
+          </button>
+          <div id="xbarSimResult" style="margin-top:8px;"></div>
+        </div>
+
+        <div class="trap-banner">
+          <strong>Key 9758 Distinction:</strong><br>
+          • <strong>2X</strong> = doubling ONE trial ⇒ <em>Var(2X) = 2²Var(X) = 4Var(X)</em>.<br>
+          • <strong>X₁ + X₂</strong> = sum of TWO independent trials ⇒ <em>Var(X₁ + X₂) = Var(X) + Var(X) = 2Var(X)</em>.<br>
+          • <strong>X₁ − X₂</strong> = difference of TWO independent trials ⇒ <em>Var(X₁ − X₂) = Var(X) + (−1)²Var(X) = 2Var(X)</em> (variances ADD!).
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN: COMPARISON METRICS, CHARTS & TABLES -->
+    <div>
+      <!-- TOP METRICS -->
+      <div class="compare-cards" id="topCompareCards"></div>
+
+      <!-- VISUALIZATION CARD -->
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
+          <div>
+            <span class="card-kicker" style="color:var(--blue); margin-bottom:2px;" id="vizKicker">Probability Distribution Comparison</span>
+            <strong style="font-size:0.9rem; color:#1e293b;" id="vizHeadline">Compare T = X₁ + X₂ against 2X on the same horizontal scale</strong>
+          </div>
+        </div>
+
+        <div class="svg-wrap">
+          <svg id="mainSvg" viewBox="0 0 680 305" width="100%" height="auto"></svg>
+        </div>
+
+        <div style="overflow-x:auto;" id="bottomTableWrap"></div>
+        <div class="insight-box" id="bottomInsightBox"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentMode = "sum2x";
+    let currentPreset = "spinner";
+    let highlightedTarget = null;
+    let sampleN = 4;
+
+    const presets = {
+      spinner: [
+        { x: 1, p: 0.5 },
+        { x: 2, p: 0.3 },
+        { x: 3, p: 0.2 }
+      ],
+      uniform3: [
+        { x: 1, p: 1 / 3 },
+        { x: 2, p: 1 / 3 },
+        { x: 3, p: 1 / 3 }
+      ],
+      scores: [
+        { x: 0, p: 0.4 },
+        { x: 2, p: 0.4 },
+        { x: 5, p: 0.2 }
+      ]
+    };
+
+    function getBaseStats(dist) {
+      const mean = dist.reduce((a, b) => a + b.x * b.p, 0);
+      const ex2 = dist.reduce((a, b) => a + b.x * b.x * b.p, 0);
+      const variance = Math.max(0, ex2 - mean * mean);
+      const sd = Math.sqrt(variance);
+      return { mean, ex2, variance, sd };
+    }
+
+    function buildConvolution(dist, fn) {
+      const map = new Map();
+      for (const a of dist) {
+        for (const b of dist) {
+          const val = fn(a.x, b.x);
+          const prob = a.p * b.p;
+          map.set(val, (map.get(val) || 0) + prob);
+        }
+      }
+      return Array.from(map.entries())
+        .map(([x, p]) => ({ x, p }))
+        .sort((u, v) => u.x - v.x);
+    }
+
+    function switchMode(mode) {
+      currentMode = mode;
+      highlightedTarget = null;
+      ["sum2x", "diff", "xbar"].forEach(m => {
+        document.getElementById("tab_" + m).classList.toggle("active", m === mode);
+      });
+      document.getElementById("leftJointSection").style.display = mode === "xbar" ? "none" : "block";
+      document.getElementById("leftXbarSection").style.display = mode === "xbar" ? "block" : "none";
+      document.getElementById("xbarSimResult").innerHTML = "";
+      renderAll();
+    }
+
+    function selectPreset(key) {
+      currentPreset = key;
+      highlightedTarget = null;
+      ["spinner", "uniform3", "scores"].forEach(k => {
+        document.getElementById("pre_" + k).classList.toggle("active", k === key);
+      });
+      document.getElementById("xbarSimResult").innerHTML = "";
+      renderAll();
+    }
+
+    function onNChange(val) {
+      sampleN = parseInt(val, 10);
+      document.getElementById("nDisplay").textContent = `n = ${sampleN}`;
+      document.getElementById("xbarSimResult").innerHTML = "";
+      renderAll();
+    }
+
+    function toggleCellHighlight(val) {
+      highlightedTarget = highlightedTarget === val ? null : val;
+      renderAll();
+    }
+
+    function renderAll() {
+      const base = presets[currentPreset];
+      const bStats = getBaseStats(base);
+
+      if (currentMode === "sum2x") {
+        const sumDist = buildConvolution(base, (x1, x2) => x1 + x2);
+        const twoXDist = base.map(it => ({ x: 2 * it.x, p: it.p }));
+        const sStats = getBaseStats(sumDist);
+        const tStats = getBaseStats(twoXDist);
+
+        renderJointMatrix(base, (x1, x2) => x1 + x2, "X₁ + X₂");
+
+        document.getElementById("topCompareCards").innerHTML = `
+          <div class="dist-summary-box teal">
+            <span class="dist-summary-title" style="color:#115e59;">T = X₁ + X₂ (Two Independent Trials)</span>
+            <div class="mini-stats">
+              <div class="mini-stat-cell"><span>E(X₁ + X₂)</span><strong>${sStats.mean.toFixed(3)}</strong></div>
+              <div class="mini-stat-cell"><span>Var(X₁ + X₂)</span><strong>${sStats.variance.toFixed(3)}</strong></div>
+              <div class="mini-stat-cell"><span>Std Dev σ_T</span><strong>${sStats.sd.toFixed(3)}</strong></div>
+            </div>
+          </div>
+          <div class="dist-summary-box purple">
+            <span class="dist-summary-title" style="color:#6b21a8;">2X (Doubling One Single Trial)</span>
+            <div class="mini-stats">
+              <div class="mini-stat-cell"><span>E(2X)</span><strong>${tStats.mean.toFixed(3)}</strong></div>
+              <div class="mini-stat-cell"><span>Var(2X)</span><strong>${tStats.variance.toFixed(3)}</strong></div>
+              <div class="mini-stat-cell"><span>Std Dev σ_{2X}</span><strong>${tStats.sd.toFixed(3)}</strong></div>
+            </div>
+          </div>
+        `;
+
+        document.getElementById("vizKicker").textContent = "Side-by-Side Distribution Comparison";
+        document.getElementById("vizHeadline").textContent = `Same Mean (${sStats.mean.toFixed(2)}), but Var(2X) = 2 × Var(X₁ + X₂)!`;
+
+        renderDualDistributionSvg(sumDist, twoXDist, sStats, tStats, "T = X₁ + X₂ (Top)", "2X (Bottom)");
+        renderPmfsTable(sumDist, sStats, "T = X₁ + X₂");
+
+        document.getElementById("bottomInsightBox").innerHTML = `
+          <strong>Why is Var(X₁ + X₂) = ${sStats.variance.toFixed(3)} half of Var(2X) = ${tStats.variance.toFixed(3)}?</strong><br>
+          When taking two independent trials <em>X₁</em> and <em>X₂</em>, a high outcome on Trial 1 can pair with a low outcome on Trial 2 (clustering probability in the middle). Doubling a single trial (<em>2X</em>) forces both halves to take the exact same extreme value!
+        `;
+      } else if (currentMode === "diff") {
+        const diffDist = buildConvolution(base, (x1, x2) => x1 - x2);
+        const absDiffDist = buildConvolution(base, (x1, x2) => Math.abs(x1 - x2));
+        const dStats = getBaseStats(diffDist);
+        const aStats = getBaseStats(absDiffDist);
+
+        renderJointMatrix(base, (x1, x2) => Math.abs(x1 - x2), "|X₁ − X₂|");
+
+        document.getElementById("topCompareCards").innerHTML = `
+          <div class="dist-summary-box teal">
+            <span class="dist-summary-title" style="color:#115e59;">Signed Difference: X₁ − X₂</span>
+            <div class="mini-stats">
+              <div class="mini-stat-cell"><span>E(X₁ − X₂)</span><strong>${dStats.mean.toFixed(3)}</strong></div>
+              <div class="mini-stat-cell"><span>Var(X₁ − X₂)</span><strong>${dStats.variance.toFixed(3)}</strong></div>
+              <div class="mini-stat-cell"><span>Std Dev</span><strong>${dStats.sd.toFixed(3)}</strong></div>
+            </div>
+          </div>
+          <div class="dist-summary-box purple">
+            <span class="dist-summary-title" style="color:#6b21a8;">Absolute Difference: D = |X₁ − X₂|</span>
+            <div class="mini-stats">
+              <div class="mini-stat-cell"><span>E(|X₁ − X₂|)</span><strong>${aStats.mean.toFixed(3)}</strong></div>
+              <div class="mini-stat-cell"><span>Var(|X₁ − X₂|)</span><strong>${aStats.variance.toFixed(3)}</strong></div>
+              <div class="mini-stat-cell"><span>Std Dev</span><strong>${aStats.sd.toFixed(3)}</strong></div>
+            </div>
+          </div>
+        `;
+
+        document.getElementById("vizKicker").textContent = "Signed Difference vs. Absolute Difference";
+        document.getElementById("vizHeadline").textContent = `Var(X₁ − X₂) = Var(X₁) + Var(X₂) = 2Var(X) = ${dStats.variance.toFixed(3)} (Never 0!)`;
+
+        renderDualDistributionSvg(diffDist, absDiffDist, dStats, aStats, "X₁ − X₂ (Top)", "D = |X₁ − X₂| (Bottom)");
+        renderPmfsTable(absDiffDist, aStats, "D = |X₁ − X₂|");
+
+        document.getElementById("bottomInsightBox").innerHTML = `
+          <strong>Exam Tip for |X₁ − X₂|:</strong><br>
+          There is no shortcut formula for <em>E(|X₁ − X₂|)</em> or <em>Var(|X₁ − X₂|)</em> from <em>E(X)</em> alone—always construct the probability distribution table of <em>D = |X₁ − X₂|</em> from the <em>3 × 3</em> independent outcome grid first!
+        `;
+      } else {
+        // Sample Mean Xbar mode
+        const xbarMean = bStats.mean;
+        const xbarVar = bStats.variance / sampleN;
+        const xbarSD = bStats.sd / Math.sqrt(sampleN);
+
+        document.getElementById("topCompareCards").innerHTML = `
+          <div class="dist-summary-box teal">
+            <span class="dist-summary-title" style="color:#115e59;">Single Observation X (n = 1)</span>
+            <div class="mini-stats">
+              <div class="mini-stat-cell"><span>E(X) = μ</span><strong>${bStats.mean.toFixed(3)}</strong></div>
+              <div class="mini-stat-cell"><span>Var(X) = σ²</span><strong>${bStats.variance.toFixed(3)}</strong></div>
+              <div class="mini-stat-cell"><span>Std Dev σ</span><strong>${bStats.sd.toFixed(3)}</strong></div>
+            </div>
+          </div>
+          <div class="dist-summary-box purple">
+            <span class="dist-summary-title" style="color:#6b21a8;">Sample Mean X̄ (n = ${sampleN})</span>
+            <div class="mini-stats">
+              <div class="mini-stat-cell"><span>E(X̄) = μ</span><strong>${xbarMean.toFixed(3)}</strong></div>
+              <div class="mini-stat-cell"><span>Var(X̄) = σ²/n</span><strong>${xbarVar.toFixed(4)}</strong></div>
+              <div class="mini-stat-cell"><span>σ_X̄ = σ/√n</span><strong>${xbarSD.toFixed(4)}</strong></div>
+            </div>
+          </div>
+        `;
+
+        document.getElementById("vizKicker").textContent = "Variance Shrinkage Curve: Var(X̄) = σ² / n";
+        document.getElementById("vizHeadline").textContent = `As n increases to ${sampleN}, E(X̄) stays at ${xbarMean.toFixed(2)} while Var(X̄) shrinks by 1/${sampleN}`;
+
+        renderXbarShrinkageSvg(bStats, sampleN);
+        renderXbarTable(bStats, sampleN);
+
+        document.getElementById("bottomInsightBox").innerHTML = `
+          <strong>Derivation Used in 9758 Exams:</strong><br>
+          Since <em>X̄ = (1/n)(X₁ + X₂ + … + Xₙ)</em> for independent observations:<br>
+          • <em>E(X̄) = (1/n)[E(X₁) + … + E(Xₙ)] = (1/n)(nμ) =</em> <strong>μ</strong><br>
+          • <em>Var(X̄) = (1/n)²[Var(X₁) + … + Var(Xₙ)] = (1/n²)(nσ²) =</em> <strong>σ² / n</strong>
+        `;
+      }
+    }
+
+    function renderJointMatrix(base, fn, label) {
+      const wrap = document.getElementById("jointMatrixWrap");
+      let html = `<table class="conv-grid"><thead><tr><th>X₁ \\ X₂</th>`;
+      base.forEach(b => {
+        html += `<th>x₂ = ${b.x}<br><span style="font-weight:500; color:#64748b;">(${b.p.toFixed(2)})</span></th>`;
+      });
+      html += `</tr></thead><tbody>`;
+
+      base.forEach(a => {
+        html += `<tr><th>x₁ = ${a.x}<br><span style="font-weight:500; color:#64748b;">(${a.p.toFixed(2)})</span></th>`;
+        base.forEach(b => {
+          const val = fn(a.x, b.x);
+          const prob = a.p * b.p;
+          const hl = highlightedTarget === val ? "hl-cell" : "";
+          html += `<td class="${hl}" onclick="toggleCellHighlight(${val})">${label} = <strong>${val}</strong><br><span style="font-size:0.7rem;">p = ${prob.toFixed(3)}</span></td>`;
+        });
+        html += `</tr>`;
+      });
+      html += `</tbody></table>`;
+      html += `<div style="font-size:0.73rem; color:var(--muted); margin-top:4px;">Tip: Click any cell in the grid to highlight all pairs producing that same value.</div>`;
+      wrap.innerHTML = html;
+    }
+
+    function renderDualDistributionSvg(topDist, botDist, topStats, botStats, topTitle, botTitle) {
+      const svg = document.getElementById("mainSvg");
+      const W = 680, H = 305;
+      const padL = 48, padR = 28;
+      const plotW = W - padL - padR;
+
+      const allVals = [
+        ...topDist.map(d => d.x),
+        ...botDist.map(d => d.x),
+        topStats.mean - topStats.sd,
+        topStats.mean + topStats.sd,
+        botStats.mean - botStats.sd,
+        botStats.mean + botStats.sd
+      ];
+      const minX = Math.floor(Math.min(...allVals) - 1);
+      const maxX = Math.ceil(Math.max(...allVals) + 1);
+      const spanX = Math.max(1, maxX - minX);
+      const toSvgX = x => padL + ((x - minX) / spanX) * plotW;
+
+      const maxP = Math.max(0.5, ...topDist.map(d => d.p * 1.25), ...botDist.map(d => d.p * 1.25));
+      const topAxisY = 122;
+      const botAxisY = 262;
+      const maxBarH = 82;
+
+      let html = "";
+
+      for (let x = minX; x <= maxX; x++) {
+        const sx = toSvgX(x);
+        html += `<line x1="${sx}" y1="18" x2="${sx}" y2="285" stroke="#f1f5f9" stroke-width="1"/>`;
+        html += `<text x="${sx}" y="298" text-anchor="middle" font-size="10" fill="#64748b">${x}</text>`;
+      }
+
+      // Top Distribution
+      const tx1 = toSvgX(topStats.mean - topStats.sd);
+      const tx2 = toSvgX(topStats.mean + topStats.sd);
+      html += `<rect x="${tx1}" y="26" width="${Math.max(2, tx2 - tx1)}" height="${topAxisY - 26}" fill="#ccfbf1" fill-opacity="0.6" stroke="#0f766e" stroke-dasharray="3,3" stroke-width="1"/>`;
+      html += `<text x="${padL}" y="20" font-size="11" font-weight="bold" fill="#115e59">${topTitle}: Mean = ${topStats.mean.toFixed(2)}, σ = ${topStats.sd.toFixed(3)}</text>`;
+
+      const barW = Math.min(30, (plotW / spanX) * 0.55);
+      topDist.forEach(it => {
+        const cx = toSvgX(it.x);
+        const bh = (it.p / maxP) * maxBarH;
+        const isHl = highlightedTarget === it.x;
+        html += `
+          <rect x="${cx - barW / 2}" y="${topAxisY - bh}" width="${barW}" height="${bh}" rx="3" fill="${isHl ? '#f59e0b' : '#0f766e'}" fill-opacity="0.88"/>
+          <text x="${cx}" y="${topAxisY - bh - 4}" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#1e293b">${it.p.toFixed(2)}</text>
+        `;
+      });
+      html += `<line x1="${padL}" y1="${topAxisY}" x2="${W - padR}" y2="${topAxisY}" stroke="#334155" stroke-width="2"/>`;
+      const tMeanX = toSvgX(topStats.mean);
+      html += `<polygon points="${tMeanX},${topAxisY + 1} ${tMeanX - 7},${topAxisY + 13} ${tMeanX + 7},${topAxisY + 13}" fill="#0f766e"/>`;
+
+      // Bottom Distribution
+      const bx1 = toSvgX(botStats.mean - botStats.sd);
+      const bx2 = toSvgX(botStats.mean + botStats.sd);
+      html += `<rect x="${bx1}" y="166" width="${Math.max(2, bx2 - bx1)}" height="${botAxisY - 166}" fill="#f3e8ff" fill-opacity="0.65" stroke="#8b5cf6" stroke-dasharray="3,3" stroke-width="1"/>`;
+      html += `<text x="${padL}" y="160" font-size="11" font-weight="bold" fill="#6b21a8">${botTitle}: Mean = ${botStats.mean.toFixed(2)}, σ = ${botStats.sd.toFixed(3)}</text>`;
+
+      botDist.forEach(it => {
+        const cx = toSvgX(it.x);
+        const bh = (it.p / maxP) * maxBarH;
+        const isHl = highlightedTarget === it.x;
+        html += `
+          <rect x="${cx - barW / 2}" y="${botAxisY - bh}" width="${barW}" height="${bh}" rx="3" fill="${isHl ? '#f59e0b' : '#8b5cf6'}" fill-opacity="0.88"/>
+          <text x="${cx}" y="${botAxisY - bh - 4}" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#1e293b">${it.p.toFixed(2)}</text>
+        `;
+      });
+      html += `<line x1="${padL}" y1="${botAxisY}" x2="${W - padR}" y2="${botAxisY}" stroke="#334155" stroke-width="2"/>`;
+      const bMeanX = toSvgX(botStats.mean);
+      html += `<polygon points="${bMeanX},${botAxisY + 1} ${bMeanX - 7},${botAxisY + 13} ${bMeanX + 7},${botAxisY + 13}" fill="#7c3aed"/>`;
+
+      svg.innerHTML = html;
+    }
+
+    function renderPmfsTable(dist, stats, varName) {
+      const wrap = document.getElementById("bottomTableWrap");
+      const headers = dist.map(it => `<th style="${highlightedTarget === it.x ? 'background:#fef3c7; color:#78350f;' : ''}">${it.x}</th>`).join("");
+      const probs = dist.map(it => `<td style="${highlightedTarget === it.x ? 'background:#fef3c7; font-weight:700;' : ''}">${it.p.toFixed(4)}</td>`).join("");
+
+      wrap.innerHTML = `
+        <table class="calc-table">
+          <thead>
+            <tr>
+              <th>Value of ${varName}</th>
+              ${headers}
+              <th>Summary</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Probability</th>
+              ${probs}
+              <td><strong>E = ${stats.mean.toFixed(3)}, Var = ${stats.variance.toFixed(3)}</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      `;
+    }
+
+    function renderXbarShrinkageSvg(bStats, n) {
+      const svg = document.getElementById("mainSvg");
+      const W = 680, H = 305;
+      const padL = 58, padR = 28, padT = 26, padB = 44;
+      const plotW = W - padL - padR;
+      const plotH = H - padT - padB;
+
+      const maxN = 50;
+      const maxVar = bStats.variance * 1.12;
+      const toX = k => padL + ((k - 1) / (maxN - 1)) * plotW;
+      const toY = v => padT + ((maxVar - v) / maxVar) * plotH;
+
+      let html = "";
+      for (let i = 0; i <= 4; i++) {
+        const v = (maxVar * i) / 4;
+        const y = toY(v);
+        html += `<line x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}" stroke="#f1f5f9" stroke-width="1"/>`;
+        html += `<text x="${padL - 8}" y="${y + 4}" text-anchor="end" font-size="10" fill="#64748b">${v.toFixed(2)}</text>`;
+      }
+
+      // Curve points for Var(Xbar) = sigma^2 / k
+      let pathD = "";
+      for (let k = 1; k <= maxN; k++) {
+        const x = toX(k);
+        const y = toY(bStats.variance / k);
+        pathD += (k === 1 ? `M ${x} ${y}` : ` L ${x} ${y}`);
+      }
+
+      html += `<line x1="${padL}" y1="${padT}" x2="${padL}" y2="${H - padB}" stroke="#64748b" stroke-width="1.4"/>`;
+      html += `<line x1="${padL}" y1="${H - padB}" x2="${W - padR}" y2="${H - padB}" stroke="#334155" stroke-width="1.5"/>`;
+      html += `<path d="${pathD}" fill="none" stroke="#8b5cf6" stroke-width="2.6"/>`;
+
+      // Highlight active n
+      const curX = toX(n);
+      const curVar = bStats.variance / n;
+      const curY = toY(curVar);
+      html += `
+        <line x1="${curX}" y1="${curY}" x2="${curX}" y2="${H - padB}" stroke="#0f766e" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <circle cx="${curX}" cy="${curY}" r="6" fill="#0f766e" stroke="#ffffff" stroke-width="2"/>
+        <rect x="${Math.min(W - 190, curX + 10)}" y="${Math.max(padT + 4, curY - 26)}" width="175" height="24" rx="6" fill="#ccfbf1" stroke="#0f766e"/>
+        <text x="${Math.min(W - 102, curX + 97)}" y="${Math.max(padT + 20, curY - 10)}" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#134e4a">n = ${n}: Var(X̄) = ${curVar.toFixed(4)}</text>
+        <text x="${W / 2}" y="${H - 10}" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#334155">Sample Size n (Number of Independent Observations)</text>
+      `;
+
+      svg.innerHTML = html;
+    }
+
+    function renderXbarTable(bStats, n) {
+      const wrap = document.getElementById("bottomTableWrap");
+      const sampleSizes = [1, 2, 4, 10, 25, 50];
+      if (!sampleSizes.includes(n)) sampleSizes.push(n);
+      sampleSizes.sort((a, b) => a - b);
+
+      const cols = sampleSizes.map(k => `<th style="${k === n ? 'background:#f3e8ff; color:#6b21a8;' : ''}">n = ${k}</th>`).join("");
+      const means = sampleSizes.map(k => `<td style="${k === n ? 'background:#f3e8ff; font-weight:700;' : ''}">${bStats.mean.toFixed(3)}</td>`).join("");
+      const vars = sampleSizes.map(k => `<td style="${k === n ? 'background:#f3e8ff; font-weight:700;' : ''}">${(bStats.variance / k).toFixed(4)}</td>`).join("");
+      const sds = sampleSizes.map(k => `<td style="${k === n ? 'background:#f3e8ff; font-weight:700;' : ''}">${(bStats.sd / Math.sqrt(k)).toFixed(4)}</td>`).join("");
+
+      wrap.innerHTML = `
+        <table class="calc-table">
+          <thead>
+            <tr><th>Sample Size</th>${cols}</tr>
+          </thead>
+          <tbody>
+            <tr><th>Mean E(X̄) = μ</th>${means}</tr>
+            <tr><th>Var(X̄) = σ² / n</th>${vars}</tr>
+            <tr><th>Std Dev σ / √n</th>${sds}</tr>
+          </tbody>
+        </table>
+      `;
+    }
+
+    function simulateSamples() {
+      const base = presets[currentPreset];
+      const bStats = getBaseStats(base);
+      const cdf = [];
+      let acc = 0;
+      for (const it of base) {
+        acc += it.p;
+        cdf.push({ x: it.x, cum: acc });
+      }
+
+      const nSim = 1000;
+      let sumXbar = 0, sumXbarSq = 0;
+      for (let s = 0; s < nSim; s++) {
+        let trialSum = 0;
+        for (let i = 0; i < sampleN; i++) {
+          const r = Math.random();
+          const found = cdf.find(c => r <= c.cum) || cdf[cdf.length - 1];
+          trialSum += found.x;
+        }
+        const xbar = trialSum / sampleN;
+        sumXbar += xbar;
+        sumXbarSq += xbar * xbar;
+      }
+
+      const empMean = sumXbar / nSim;
+      const empVar = (sumXbarSq / nSim) - empMean * empMean;
+      document.getElementById("xbarSimResult").innerHTML = `
+        <div class="insight-box" style="margin-top:0;">
+          <strong>1,000 Simulated Sample Means (n = ${sampleN}):</strong><br>
+          Empirical Mean of X̄ = <strong>${empMean.toFixed(4)}</strong> (Theoretical = ${(bStats.mean).toFixed(4)})<br>
+          Empirical Var of X̄ = <strong>${empVar.toFixed(4)}</strong> (Theoretical = ${(bStats.variance / sampleN).toFixed(4)})
+        </div>
+      `;
+    }
+
+    // Initialize Lesson 4
+    selectPreset("spinner");
+  </script>
+</body>
+</html>
