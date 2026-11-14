@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>6.2 Lesson 3 | Linear Transformations E(aX + b), Var(aX + b) & Fair Games</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 16px 20px 28px 20px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    /* HEADER & MODE TABS */
+    .lab-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .lab-title-group h1 {
+      margin: 0;
+      font-size: 1.22rem;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge-9758 {
+      background: var(--purple);
+      color: #ffffff;
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .lab-title-group p {
+      margin: 3px 0 0 0;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .mode-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mode-btn {
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 1.5px solid #cbd5e1;
+      background: #ffffff;
+      color: var(--text);
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mode-btn:hover {
+      border-color: var(--purple);
+      color: var(--purple-dark);
+    }
+
+    .mode-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.22);
+    }
+
+    /* WORKSPACE GRID */
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: 375px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    @media (max-width: 980px) {
+      .workspace-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 18px;
+      box-shadow: 0 3px 10px rgba(148, 163, 184, 0.06);
+      margin-bottom: 14px;
+    }
+
+    .card-kicker {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    /* PRESETS */
+    .preset-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+      margin-bottom: 12px;
+    }
+
+    .preset-btn {
+      text-align: left;
+      padding: 8px 10px;
+      border-radius: 9px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #1e293b;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+      line-height: 1.3;
+    }
+
+    .preset-btn span {
+      display: block;
+      font-size: 0.71rem;
+      font-weight: 500;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .preset-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .preset-btn.active {
+      background: var(--purple-bg);
+      border-color: var(--purple-dark);
+      color: var(--purple-dark);
+    }
+
+    /* SLIDERS */
+    .control-group {
+      margin-bottom: 12px;
+    }
+
+    .control-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .val-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 0.82rem;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple-dark);
+      cursor: pointer;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .btn-primary {
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: none;
+      background: var(--teal);
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background: #115e59;
+    }
+
+    .btn-amber {
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: none;
+      background: var(--amber);
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-amber:hover {
+      background: #92400e;
+    }
+
+    /* RULE CALLOUTS */
+    .rule-box {
+      background: #faf5ff;
+      border-left: 4px solid var(--purple);
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 0.81rem;
+      line-height: 1.55;
+      color: #1e293b;
+      margin-top: 10px;
+    }
+
+    .trap-banner {
+      background: var(--rose-bg);
+      border-left: 4px solid var(--rose);
+      padding: 9px 12px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      color: #881337;
+      line-height: 1.45;
+      margin-top: 10px;
+    }
+
+    /* COMPARISON METRIC TILES */
+    .compare-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    @media (max-width: 720px) {
+      .compare-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .dist-summary-box {
+      border-radius: 12px;
+      padding: 12px 14px;
+      border: 1.5px solid #cbd5e1;
+      background: #f8fafc;
+    }
+
+    .dist-summary-box.orig {
+      background: var(--blue-bg);
+      border-color: #7dd3fc;
+    }
+
+    .dist-summary-box.trans {
+      background: var(--purple-bg);
+      border-color: #d8b4fe;
+    }
+
+    .dist-summary-title {
+      font-size: 0.82rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .mini-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      text-align: center;
+    }
+
+    .mini-stat-cell {
+      background: rgba(255, 255, 255, 0.82);
+      border-radius: 8px;
+      padding: 6px 4px;
+    }
+
+    .mini-stat-cell span {
+      display: block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .mini-stat-cell strong {
+      font-size: 0.92rem;
+      font-family: 'Consolas', 'Courier New', monospace;
+      color: #1e293b;
+    }
+
+    /* SVG & TABLES */
+    .svg-wrap {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 6px;
+      margin-bottom: 12px;
+    }
+
+    table.calc-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.81rem;
+      text-align: center;
+    }
+
+    table.calc-table th,
+    table.calc-table td {
+      border: 1px solid #cbd5e1;
+      padding: 6px 8px;
+    }
+
+    table.calc-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    table.calc-table tr.sum-row {
+      background: #f3e8ff;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    /* FAIR GAME STATUS BANNER */
+    .fair-status-box {
+      border-radius: 11px;
+      padding: 12px 14px;
+      font-size: 0.83rem;
+      line-height: 1.5;
+      border: 1.5px solid #cbd5e1;
+      margin-top: 10px;
+    }
+
+    .fair-status-box.fair {
+      background: var(--teal-bg);
+      border-color: #2dd4bf;
+      color: #134e4a;
+    }
+
+    .fair-status-box.house {
+      background: var(--amber-bg);
+      border-color: #fbbf24;
+      color: #78350f;
+    }
+
+    .fair-status-box.player {
+      background: var(--blue-bg);
+      border-color: #38bdf8;
+      color: #0c4a6e;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="lab-header">
+    <div class="lab-title-group">
+      <h1>
+        <span class="badge-9758">6.2 Lesson 3</span>
+        Linear Transformations &amp; Fair Games: E(aX + b) &amp; Var(aX + b)
+      </h1>
+      <p>Observe how scaling by a and shifting by b affect E(Y) and Var(Y), and solve fair-game entry fee problems.</p>
+    </div>
+    <div class="mode-tabs">
+      <button class="mode-btn active" id="tabTransform" onclick="switchMode('transform')">
+        1. Linear Transformation Lab (Y = aX + b)
+      </button>
+      <button class="mode-btn" id="tabFairGame" onclick="switchMode('fairGame')">
+        2. Fair Game &amp; Net Profit Explorer
+      </button>
+    </div>
+  </header>
+
+  <div class="workspace-grid">
+    <!-- LEFT COLUMN: CONTROLS -->
+    <div>
+      <!-- MODE 1 CONTROLS -->
+      <div id="controlsTransform">
+        <div class="card">
+          <span class="card-kicker" style="color:var(--purple-dark);">1. Base Distribution X</span>
+          <div style="font-size:0.8rem; color:#334155; background:#f8fafc; padding:8px 10px; border-radius:8px; border:1px solid #e2e8f0; margin-bottom:10px;">
+            <strong>Base Variable X:</strong> Outcomes <code>{1, 2, 4, 7}</code> with probabilities <code>{0.2, 0.3, 0.3, 0.2}</code><br>
+            <span style="color:var(--blue); font-weight:700;">E(X) = 3.40</span> &bull; <span style="color:var(--blue); font-weight:700;">Var(X) = 4.44</span> &bull; <span style="color:var(--blue); font-weight:700;">σ_X = 2.1071</span>
+          </div>
+
+          <span class="card-kicker" style="color:var(--purple-dark);">2. Quick 9758 Transformation Presets</span>
+          <div class="preset-grid">
+            <button class="preset-btn active" id="pre_shift" onclick="applyTransformPreset('shift', 1, 5)">
+              Pure Shift (a = 1)
+              <span>Y = X + 5 (Var unchanged!)</span>
+            </button>
+            <button class="preset-btn" id="pre_scale" onclick="applyTransformPreset('scale', 2, 0)">
+              Pure Scale (a = 2)
+              <span>Y = 2X (Var × 2² = 4)</span>
+            </button>
+            <button class="preset-btn" id="pre_neg" onclick="applyTransformPreset('neg', -2, 10)">
+              Negative Scale (a = −2)
+              <span>Y = 10 − 2X (Var × (−2)² = +4)</span>
+            </button>
+            <button class="preset-btn" id="pre_combo" onclick="applyTransformPreset('combo', 3, -4)">
+              Combined (a = 3, b = −4)
+              <span>Y = 3X − 4 (Var × 9)</span>
+            </button>
+          </div>
+
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Scale Multiplier <em>a</em>:</span>
+              <span class="val-pill" id="aDisplay">a = 1.0</span>
+            </div>
+            <input type="range" id="aSlider" min="-3" max="3" step="0.5" value="1" oninput="onTransformSlider()" />
+          </div>
+
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Constant Shift <em>b</em>:</span>
+              <span class="val-pill" id="bDisplay">b = +5.0</span>
+            </div>
+            <input type="range" id="bSlider" min="-10" max="15" step="1" value="5" oninput="onTransformSlider()" />
+          </div>
+
+          <div class="rule-box" id="transformAlgebraBox"></div>
+
+          <div class="trap-banner">
+            <strong>9758 Pitfall Check:</strong><br>
+            • Adding <em>b</em> shifts the location (mean), NOT the spread: <strong>Var(aX + b) = a²Var(X)</strong> (no + b!).<br>
+            • When <em>a &lt; 0</em>, variance stays positive because <strong>a² &gt; 0</strong>, and <strong>σ_Y = |a|σ_X</strong>.
+          </div>
+        </div>
+      </div>
+
+      <!-- MODE 2 CONTROLS -->
+      <div id="controlsFairGame" style="display:none;">
+        <div class="card">
+          <span class="card-kicker" style="color:var(--amber);">Carnival Game &amp; Payout Settings</span>
+          <div class="preset-grid">
+            <button class="preset-btn active" id="game_exam" onclick="loadGamePreset('exam')">
+              9758 Worked Example
+              <span>Payout $(3X + 1), E(X) = 4</span>
+            </button>
+            <button class="preset-btn" id="game_pasar" onclick="loadGamePreset('pasar')">
+              Pasar Malam Ring Toss
+              <span>Payout $(4X − 2), E(X) = 1.5</span>
+            </button>
+          </div>
+
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Entry Fee Paid by Player (<em>$c</em>):</span>
+              <span class="val-pill" id="feeDisplay">$10.00</span>
+            </div>
+            <input type="range" id="feeSlider" min="0" max="25" step="0.5" value="10" oninput="onFeeChange(this.value)" />
+          </div>
+
+          <div class="btn-row">
+            <button class="btn-primary" onclick="snapToFairFee()">
+              Snap to Exact Fair Fee c*
+            </button>
+            <button class="btn-amber" onclick="simulateGamePlays(500)">
+              Simulate 500 Plays
+            </button>
+          </div>
+
+          <div class="fair-status-box house" id="fairStatusBox"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN: COMPARISON CARDS, VISUALIZATION & VERIFICATION TABLE -->
+    <div>
+      <!-- TOP SIDE-BY-SIDE COMPARISON -->
+      <div class="compare-cards">
+        <div class="dist-summary-box orig">
+          <span class="dist-summary-title" style="color:#0369a1;" id="origBoxTitle">Original Variable X</span>
+          <div class="mini-stats">
+            <div class="mini-stat-cell">
+              <span>Mean E(X)</span>
+              <strong id="origMean">3.400</strong>
+            </div>
+            <div class="mini-stat-cell">
+              <span>Var(X)</span>
+              <strong id="origVar">4.440</strong>
+            </div>
+            <div class="mini-stat-cell">
+              <span>Std Dev σ_X</span>
+              <strong id="origSD">2.107</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="dist-summary-box trans">
+          <span class="dist-summary-title" style="color:#6b21a8;" id="transBoxTitle">Transformed Y = 1X + 5</span>
+          <div class="mini-stats">
+            <div class="mini-stat-cell">
+              <span id="transMeanLabel">Mean E(Y)</span>
+              <strong id="transMean">8.400</strong>
+            </div>
+            <div class="mini-stat-cell">
+              <span id="transVarLabel">Var(Y)</span>
+              <strong id="transVar">4.440</strong>
+            </div>
+            <div class="mini-stat-cell">
+              <span id="transSDLabel">Std Dev σ_Y</span>
+              <strong id="transSD">2.107</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DUAL NUMBER LINE VISUALIZER -->
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
+          <div>
+            <span class="card-kicker" style="color:var(--blue); margin-bottom:2px;">Side-by-Side Distribution Comparison on Shared Axis</span>
+            <strong style="font-size:0.9rem; color:#1e293b;" id="chartHeadline">Compare location (mean marker) and spread ([μ − σ, μ + σ] band)</strong>
+          </div>
+        </div>
+
+        <div class="svg-wrap">
+          <svg id="transformSvg" viewBox="0 0 680 310" width="100%" height="auto"></svg>
+        </div>
+
+        <div style="overflow-x:auto;" id="verificationTableWrap"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentMode = "transform";
+
+    // Base distribution X for Mode 1: E(X) = 3.4, E(X^2) = 16.0, Var(X) = 4.44
+    const baseDistX = [
+      { x: 1, p: 0.2 },
+      { x: 2, p: 0.3 },
+      { x: 4, p: 0.3 },
+      { x: 7, p: 0.2 }
+    ];
+
+    // Game presets for Mode 2
+    const gamePresets = {
+      exam: {
+        name: "9758 Worked Example: Payout $(3X + 1)",
+        a: 3,
+        b: 1,
+        // E(X) = 4, Var(X) = 3
+        dist: [
+          { x: 2, p: 0.25 },
+          { x: 3, p: 0.25 },
+          { x: 5, p: 0.25 },
+          { x: 6, p: 0.25 }
+        ],
+        defaultFee: 10
+      },
+      pasar: {
+        name: "Pasar Malam Ring Toss: Payout $(4X − 2)",
+        a: 4,
+        b: -2,
+        // E(X) = 1.5, Var(X) = 0.85
+        dist: [
+          { x: 0, p: 0.10 },
+          { x: 1, p: 0.45 },
+          { x: 2, p: 0.30 },
+          { x: 3, p: 0.15 }
+        ],
+        defaultFee: 5
+      }
+    };
+
+    let aVal = 1;
+    let bVal = 5;
+    let currentGameKey = "exam";
+    let entryFee = 10;
+    let simBannerHtml = "";
+
+    function computeStats(dist) {
+      const mean = dist.reduce((acc, it) => acc + it.x * it.p, 0);
+      const ex2 = dist.reduce((acc, it) => acc + it.x * it.x * it.p, 0);
+      const variance = Math.max(0, ex2 - mean * mean);
+      const sd = Math.sqrt(variance);
+      return { mean, ex2, variance, sd };
+    }
+
+    function switchMode(mode) {
+      currentMode = mode;
+      document.getElementById("tabTransform").classList.toggle("active", mode === "transform");
+      document.getElementById("tabFairGame").classList.toggle("active", mode === "fairGame");
+      document.getElementById("controlsTransform").style.display = mode === "transform" ? "block" : "none";
+      document.getElementById("controlsFairGame").style.display = mode === "fairGame" ? "block" : "none";
+      simBannerHtml = "";
+      renderAll();
+    }
+
+    function applyTransformPreset(key, a, b) {
+      document.querySelectorAll("#controlsTransform .preset-btn").forEach(btn => btn.classList.remove("active"));
+      document.getElementById("pre_" + key).classList.add("active");
+      aVal = a;
+      bVal = b;
+      document.getElementById("aSlider").value = a;
+      document.getElementById("bSlider").value = b;
+      renderAll();
+    }
+
+    function onTransformSlider() {
+      document.querySelectorAll("#controlsTransform .preset-btn").forEach(btn => btn.classList.remove("active"));
+      aVal = parseFloat(document.getElementById("aSlider").value);
+      bVal = parseFloat(document.getElementById("bSlider").value);
+      renderAll();
+    }
+
+    function loadGamePreset(key) {
+      currentGameKey = key;
+      document.querySelectorAll("#controlsFairGame .preset-btn").forEach(btn => btn.classList.remove("active"));
+      document.getElementById("game_" + key).classList.add("active");
+      const g = gamePresets[key];
+      entryFee = g.defaultFee;
+      document.getElementById("feeSlider").value = entryFee;
+      simBannerHtml = "";
+      renderAll();
+    }
+
+    function onFeeChange(val) {
+      entryFee = parseFloat(val);
+      simBannerHtml = "";
+      renderAll();
+    }
+
+    function snapToFairFee() {
+      const g = gamePresets[currentGameKey];
+      const baseStats = computeStats(g.dist);
+      const fairFee = g.a * baseStats.mean + g.b;
+      entryFee = Math.round(fairFee * 100) / 100;
+      document.getElementById("feeSlider").value = entryFee;
+      simBannerHtml = "";
+      renderAll();
+    }
+
+    function simulateGamePlays(nPlays) {
+      const g = gamePresets[currentGameKey];
+      const cdf = [];
+      let acc = 0;
+      for (const it of g.dist) {
+        acc += it.p;
+        cdf.push({ x: it.x, cum: acc });
+      }
+
+      let totalNet = 0;
+      for (let i = 0; i < nPlays; i++) {
+        const r = Math.random();
+        const found = cdf.find(c => r <= c.cum) || cdf[cdf.length - 1];
+        const payout = g.a * found.x + g.b;
+        totalNet += (payout - entryFee);
+      }
+
+      const avgNet = totalNet / nPlays;
+      const baseStats = computeStats(g.dist);
+      const theoNet = g.a * baseStats.mean + g.b - entryFee;
+
+      simBannerHtml = `
+        <div style="margin-top:8px; padding-top:8px; border-top:1px dashed currentColor; font-size:0.79rem;">
+          <strong>Simulation (${nPlays} plays):</strong> Total player net = <strong>$${totalNet.toFixed(2)}</strong> &bull;
+          Sample average net/play = <strong>$${avgNet.toFixed(3)}</strong> (Theoretical E(W) = <strong>$${theoNet.toFixed(3)}</strong>).
+        </div>
+      `;
+      renderAll();
+    }
+
+    function formatLinearExpr(a, b) {
+      const bSign = b >= 0 ? `+ ${b}` : `− ${Math.abs(b)}`;
+      return `${a}X ${bSign}`;
+    }
+
+    function renderAll() {
+      let origDist, transDist, effA, effB, origLabel, transLabel, transMeanLbl, transVarLbl, transSDLbl;
+
+      if (currentMode === "transform") {
+        origDist = baseDistX;
+        effA = aVal;
+        effB = bVal;
+        transDist = origDist.map(it => ({ x: effA * it.x + effB, p: it.p }));
+
+        document.getElementById("aDisplay").textContent = `a = ${effA.toFixed(1)}`;
+        document.getElementById("bDisplay").textContent = `b = ${effB >= 0 ? "+" : ""}${effB.toFixed(1)}`;
+
+        origLabel = "Original Variable X";
+        transLabel = `Transformed Y = ${formatLinearExpr(effA, effB)}`;
+        transMeanLbl = "Mean E(Y)";
+        transVarLbl = "Var(Y)";
+        transSDLbl = "Std Dev σ_Y";
+
+        const oStats = computeStats(origDist);
+        const tMean = effA * oStats.mean + effB;
+        const tVar = effA * effA * oStats.variance;
+        const tSD = Math.abs(effA) * oStats.sd;
+
+        document.getElementById("transformAlgebraBox").innerHTML = `
+          <strong>Step-by-Step Property Calculation:</strong><br>
+          • <strong>E(${formatLinearExpr(effA, effB)})</strong> = (${effA})(${oStats.mean.toFixed(2)}) + (${effB}) = <strong>${tMean.toFixed(3)}</strong><br>
+          • <strong>Var(${formatLinearExpr(effA, effB)})</strong> = (${effA})²(${oStats.variance.toFixed(2)}) = ${effA * effA} × ${oStats.variance.toFixed(2)} = <strong>${tVar.toFixed(3)}</strong><br>
+          • <strong>σ_Y</strong> = |${effA}| × ${oStats.sd.toFixed(3)} = <strong>${tSD.toFixed(3)}</strong>
+        `;
+      } else {
+        const g = gamePresets[currentGameKey];
+        origDist = g.dist;
+        effA = g.a;
+        effB = g.b - entryFee; // Net profit W = (aX + b) - c
+        transDist = origDist.map(it => ({ x: effA * it.x + effB, p: it.p }));
+
+        document.getElementById("feeDisplay").textContent = `$${entryFee.toFixed(2)}`;
+
+        origLabel = "Base Score X";
+        transLabel = `Net Profit W = (${g.a}X ${g.b >= 0 ? "+ " + g.b : "− " + Math.abs(g.b)}) − ${entryFee.toFixed(2)}`;
+        transMeanLbl = "E(Net Profit)";
+        transVarLbl = "Var(W)";
+        transSDLbl = "Std Dev σ_W";
+
+        const oStats = computeStats(origDist);
+        const expectedPayout = g.a * oStats.mean + g.b;
+        const expectedNet = expectedPayout - entryFee;
+
+        const statusBox = document.getElementById("fairStatusBox");
+        if (Math.abs(expectedNet) < 1e-4) {
+          statusBox.className = "fair-status-box fair";
+          statusBox.innerHTML = `
+            <strong>FAIR GAME! E(W) = $0.00</strong><br>
+            Expected Payout = ${g.a}(${oStats.mean.toFixed(2)}) ${g.b >= 0 ? "+ " + g.b : "− " + Math.abs(g.b)} = <strong>$${expectedPayout.toFixed(2)}</strong>.<br>
+            Since Entry Fee c = <strong>$${entryFee.toFixed(2)}</strong> equals Expected Payout, <em>E(W) = 0</em>!
+            ${simBannerHtml}
+          `;
+        } else if (expectedNet < 0) {
+          statusBox.className = "fair-status-box house";
+          statusBox.innerHTML = `
+            <strong>Unfavorable to Player (House Advantage)</strong><br>
+            Expected Payout = <strong>$${expectedPayout.toFixed(2)}</strong>, Entry Fee = <strong>$${entryFee.toFixed(2)}</strong>.<br>
+            Player's expected net profit per play: <strong>E(W) = −$${Math.abs(expectedNet).toFixed(2)}</strong> (Fair fee is <strong>$${expectedPayout.toFixed(2)}</strong>).
+            ${simBannerHtml}
+          `;
+        } else {
+          statusBox.className = "fair-status-box player";
+          statusBox.innerHTML = `
+            <strong>Favorable to Player (Positive Expected Profit)</strong><br>
+            Expected Payout = <strong>$${expectedPayout.toFixed(2)}</strong>, Entry Fee = <strong>$${entryFee.toFixed(2)}</strong>.<br>
+            Player's expected net profit per play: <strong>E(W) = +$${expectedNet.toFixed(2)}</strong> (Fair fee is <strong>$${expectedPayout.toFixed(2)}</strong>).
+            ${simBannerHtml}
+          `;
+        }
+      }
+
+      const oStats = computeStats(origDist);
+      const tStats = computeStats(transDist);
+
+      document.getElementById("origBoxTitle").textContent = origLabel;
+      document.getElementById("origMean").textContent = oStats.mean.toFixed(3);
+      document.getElementById("origVar").textContent = oStats.variance.toFixed(3);
+      document.getElementById("origSD").textContent = oStats.sd.toFixed(3);
+
+      document.getElementById("transBoxTitle").textContent = transLabel;
+      document.getElementById("transMeanLabel").textContent = transMeanLbl;
+      document.getElementById("transVarLabel").textContent = transVarLbl;
+      document.getElementById("transSDLbl") && (document.getElementById("transSDLbl").textContent = transSDLbl);
+      document.getElementById("transSDLabel").textContent = transSDLbl;
+      document.getElementById("transMean").textContent = tStats.mean.toFixed(3);
+      document.getElementById("transVar").textContent = tStats.variance.toFixed(3);
+      document.getElementById("transSD").textContent = tStats.sd.toFixed(3);
+
+      renderDualSvg(origDist, transDist, oStats, tStats);
+      renderVerificationTable(origDist, transDist, oStats, tStats);
+    }
+
+    function renderDualSvg(origDist, transDist, oStats, tStats) {
+      const svg = document.getElementById("transformSvg");
+      const W = 680, H = 310;
+      const padL = 48, padR = 28;
+      const plotW = W - padL - padR;
+
+      const allVals = [
+        ...origDist.map(d => d.x),
+        ...transDist.map(d => d.x),
+        oStats.mean - oStats.sd,
+        oStats.mean + oStats.sd,
+        tStats.mean - tStats.sd,
+        tStats.mean + tStats.sd
+      ];
+      const minX = Math.floor(Math.min(...allVals) - 1);
+      const maxX = Math.ceil(Math.max(...allVals) + 1);
+      const spanX = Math.max(1, maxX - minX);
+      const toSvgX = x => padL + ((x - minX) / spanX) * plotW;
+
+      const maxP = Math.max(0.45, ...origDist.map(d => d.p * 1.25));
+      const topAxisY = 122;
+      const botAxisY = 262;
+      const maxBarH = 82;
+
+      let html = "";
+
+      // Vertical gridlines across shared x-axis
+      const step = spanX > 24 ? 5 : (spanX > 12 ? 2 : 1);
+      for (let x = Math.ceil(minX / step) * step; x <= maxX; x += step) {
+        const sx = toSvgX(x);
+        html += `<line x1="${sx}" y1="18" x2="${sx}" y2="288" stroke="#f1f5f9" stroke-width="1"/>`;
+        html += `<text x="${sx}" y="299" text-anchor="middle" font-size="10" fill="#64748b">${x}</text>`;
+      }
+
+      // Zero reference line if visible
+      if (minX <= 0 && maxX >= 0) {
+        const zx = toSvgX(0);
+        html += `<line x1="${zx}" y1="18" x2="${zx}" y2="288" stroke="#cbd5e1" stroke-width="1.3" stroke-dasharray="4,4"/>`;
+      }
+
+      // --- TOP TRACK: ORIGINAL X ---
+      const ox1 = toSvgX(oStats.mean - oStats.sd);
+      const ox2 = toSvgX(oStats.mean + oStats.sd);
+      html += `<rect x="${ox1}" y="26" width="${Math.max(2, ox2 - ox1)}" height="${topAxisY - 26}" fill="#e0f2fe" fill-opacity="0.65" stroke="#0284c7" stroke-dasharray="3,3" stroke-width="1"/>`;
+      html += `<text x="${padL}" y="20" font-size="11" font-weight="bold" fill="#0369a1">Original Distribution X (Mean = ${oStats.mean.toFixed(2)}, σ = ${oStats.sd.toFixed(2)})</text>`;
+
+      const barW = Math.min(28, (plotW / spanX) * 0.55);
+      origDist.forEach(it => {
+        const cx = toSvgX(it.x);
+        const bh = (it.p / maxP) * maxBarH;
+        html += `
+          <rect x="${cx - barW / 2}" y="${topAxisY - bh}" width="${barW}" height="${bh}" rx="3" fill="#0284c7" fill-opacity="0.85"/>
+          <text x="${cx}" y="${topAxisY + 13}" text-anchor="middle" font-size="10" font-weight="bold" fill="#0c4a6e">${it.x}</text>
+        `;
+      });
+      html += `<line x1="${padL}" y1="${topAxisY}" x2="${W - padR}" y2="${topAxisY}" stroke="#334155" stroke-width="2"/>`;
+      const oMeanX = toSvgX(oStats.mean);
+      html += `<polygon points="${oMeanX},${topAxisY + 1} ${oMeanX - 8},${topAxisY + 14} ${oMeanX + 8},${topAxisY + 14}" fill="#0284c7"/>`;
+
+      // --- BOTTOM TRACK: TRANSFORMED Y ---
+      const tx1 = toSvgX(tStats.mean - tStats.sd);
+      const tx2 = toSvgX(tStats.mean + tStats.sd);
+      html += `<rect x="${tx1}" y="166" width="${Math.max(2, tx2 - tx1)}" height="${botAxisY - 166}" fill="#f3e8ff" fill-opacity="0.7" stroke="#8b5cf6" stroke-dasharray="3,3" stroke-width="1"/>`;
+      html += `<text x="${padL}" y="160" font-size="11" font-weight="bold" fill="#6b21a8">Transformed Distribution (Mean = ${tStats.mean.toFixed(2)}, σ = ${tStats.sd.toFixed(2)})</text>`;
+
+      transDist.forEach(it => {
+        const cx = toSvgX(it.x);
+        const bh = (it.p / maxP) * maxBarH;
+        html += `
+          <rect x="${cx - barW / 2}" y="${botAxisY - bh}" width="${barW}" height="${bh}" rx="3" fill="#8b5cf6" fill-opacity="0.88"/>
+          <text x="${cx}" y="${botAxisY + 13}" text-anchor="middle" font-size="10" font-weight="bold" fill="#4c1d95">${Number.isInteger(it.x) ? it.x : it.x.toFixed(1)}</text>
+        `;
+      });
+      html += `<line x1="${padL}" y1="${botAxisY}" x2="${W - padR}" y2="${botAxisY}" stroke="#334155" stroke-width="2"/>`;
+      const tMeanX = toSvgX(tStats.mean);
+      html += `<polygon points="${tMeanX},${botAxisY + 1} ${tMeanX - 8},${botAxisY + 14} ${tMeanX + 8},${botAxisY + 14}" fill="#7c3aed"/>`;
+
+      // Connector arrow from E(X) to E(Y)
+      html += `
+        <line x1="${oMeanX}" y1="${topAxisY + 16}" x2="${tMeanX}" y2="${botAxisY - maxBarH - 8}" stroke="#0f766e" stroke-width="1.6" stroke-dasharray="4,3"/>
+      `;
+
+      svg.innerHTML = html;
+    }
+
+    function renderVerificationTable(origDist, transDist, oStats, tStats) {
+      const wrap = document.getElementById("verificationTableWrap");
+      const rows = origDist.map((it, idx) => {
+        const yVal = transDist[idx].x;
+        return `
+          <tr>
+            <td><strong>${it.x}</strong></td>
+            <td><strong>${yVal.toFixed(2)}</strong></td>
+            <td>${it.p.toFixed(2)}</td>
+            <td>${(yVal * it.p).toFixed(3)}</td>
+            <td>${(yVal * yVal * it.p).toFixed(3)}</td>
+          </tr>
+        `;
+      }).join("");
+
+      wrap.innerHTML = `
+        <table class="calc-table">
+          <thead>
+            <tr>
+              <th>Original x</th>
+              <th>Transformed Value y</th>
+              <th>Probability p</th>
+              <th>y · p</th>
+              <th>y² · p</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows}
+            <tr class="sum-row">
+              <td colspan="3">Direct Table Sum Verification</td>
+              <td>Mean = ${tStats.mean.toFixed(3)}</td>
+              <td>E(Y²) = ${tStats.ex2.toFixed(3)} ⇒ Var = ${tStats.variance.toFixed(3)}</td>
+            </tr>
+          </tbody>
+        </table>
+      `;
+    }
+
+    // Initialize Lesson 3
+    applyTransformPreset("shift", 1, 5);
+  </script>
+</body>
+</html>
