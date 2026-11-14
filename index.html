@@ -44,7 +44,7 @@
 
     /* SIDEBAR NAVIGATION */
     .sidebar {
-      width: 310px;
+      width: 315px;
       background: #ffffff;
       border-right: 1px solid var(--border);
       display: flex;
@@ -104,12 +104,13 @@
       border: none;
       background: transparent;
       color: var(--text);
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       font-weight: 600;
       cursor: pointer;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 8px;
       transition: 0.15s;
       border-left: 3px solid transparent;
     }
@@ -133,6 +134,8 @@
       border-radius: 999px;
       background: var(--teal-bg);
       color: var(--teal);
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .status-pill.soon {
@@ -379,7 +382,7 @@
 
     .interactive-iframe {
       width: 100%;
-      height: 690px;
+      height: 720px;
       border: none;
       display: block;
       background: #fdfbf7;
@@ -446,7 +449,7 @@
       <p>Interactive Visual Labs &amp; Lesson Sequences</p>
     </div>
 
-    <div class="nav-group">Section A: Pure Mathematics</div>
+    <div class="nav-group">Topic 1: Functions &amp; Graphs</div>
     <button class="topic-btn active" id="nav_1.1" onclick="selectTopic('1.1')">
       <span>1.1 Functions</span>
       <span class="status-pill">5 Lessons</span>
@@ -459,14 +462,28 @@
       <span>1.3 Equations &amp; Inequalities</span>
       <span class="status-pill">3 Lessons</span>
     </button>
+
+    <div class="nav-group">Topic 2: Sequences &amp; Series</div>
     <button class="topic-btn" id="nav_2.1" onclick="selectTopic('2.1')">
       <span>2.1 Sequences &amp; Series</span>
-      <span class="status-pill soon">Planned</span>
+      <span class="status-pill">4 Lessons</span>
     </button>
+
+    <div class="nav-group">Topic 3: Vectors</div>
     <button class="topic-btn" id="nav_3.1" onclick="selectTopic('3.1')">
-      <span>3.1 Vectors</span>
-      <span class="status-pill soon">Planned</span>
+      <span>3.1 Basic Properties of Vectors</span>
+      <span class="status-pill">3 Lessons</span>
     </button>
+    <button class="topic-btn" id="nav_3.2" onclick="selectTopic('3.2')">
+      <span>3.2 Lines in 3D</span>
+      <span class="status-pill">3 Lessons</span>
+    </button>
+    <button class="topic-btn" id="nav_3.3" onclick="selectTopic('3.3')">
+      <span>3.3 Planes in 3D</span>
+      <span class="status-pill">4 Lessons</span>
+    </button>
+
+    <div class="nav-group">More Pure &amp; Statistics</div>
     <button class="topic-btn" id="nav_4.1" onclick="selectTopic('4.1')">
       <span>4.1 Complex Numbers</span>
       <span class="status-pill soon">Planned</span>
@@ -475,8 +492,6 @@
       <span>5.1–5.4 Calculus</span>
       <span class="status-pill soon">Planned</span>
     </button>
-
-    <div class="nav-group">Section B: Probability &amp; Statistics</div>
     <button class="topic-btn" id="nav_6.1" onclick="selectTopic('6.1')">
       <span>6.1–6.5 Probability &amp; Distributions</span>
       <span class="status-pill soon">Planned</span>
@@ -1009,6 +1024,422 @@
             exitAnswer: "We need (8 − k)/3 ≥ 1 ⇒ k ≤ 5 and 8 − k divisible by 3, giving <strong>k = 2</strong> (x = 5, y = 2) and <strong>k = 5</strong> (x = 3, y = 1)."
           }
         ]
+      },
+
+      "2.1": {
+        title: "2.1 Sequences and Series",
+        syllabusNotes: "Concepts of sequence and series for finite and infinite cases; sequence as function u_n = f(n); recurrence relations u_{n+1} = f(u_n); relationship between u_n and S_n (u_n = S_n − S_{n−1} for n ≥ 2); arithmetic progressions (AP) and geometric progressions (GP); sum to infinity of a convergent geometric series (|r| < 1); real-world applications of sequences and series.",
+        lessons: [
+          {
+            label: "Lesson 1: Sequence as a Function, u_n, S_n & Series",
+            file: "interactives/2_1_lesson1.html",
+            videoEmbedUrl: "",
+            prereq: "Function notation f(n) for positive integers n ∈ ℤ⁺ and basic algebraic simplification.",
+            objectives: [
+              "Understand a sequence as a function u_n = f(n) defined on positive integers n = 1, 2, 3, … and distinguish between a sequence {u_n} and its associated series S_n = u_1 + u_2 + … + u_n.",
+              "Classify the long-term behavior of sequences and series as convergent, divergent, or oscillating.",
+              "Derive the general term u_n from a given sum formula S_n using u_n = S_n − S_{n−1} for n ≥ 2, and check u_1 = S_1 separately."
+            ],
+            prompts: [
+              "Switch between Sequence u_n = f(n) and Partial Sums S_n to observe how individual terms behave versus cumulative sums.",
+              "In the S_n → u_n explorer, test a sum formula where S_0 ≠ 0 (such as S_n = 3n² − 2n + 4) to see why u_1 = S_1 must be evaluated separately from S_n − S_{n−1}."
+            ],
+            pitfalls: [
+              "Applying u_n = S_n − S_{n−1} blindly for n = 1 without checking whether S_1 − S_0 equals S_1 (whenever S_0 ≠ 0, the formula for u_n only holds for n ≥ 2!).",
+              "Confusing the n-th term u_n of a sequence with the sum of the first n terms S_n of the series."
+            ],
+            gcTip: "On the TI-84 Plus CE, press [MODE] and switch to SEQ mode, enter u(n) = f(n), and open [2nd] [GRAPH] (TABLE) to inspect u_n and cumulative sums.",
+            workedQuestion: `
+              The sum of the first <em>n</em> terms of a series is given by <em>S_n = 3n² − 2n + 4</em> for all integers <em>n ≥ 1</em>.<br>
+              <strong>(i)</strong> Find an expression for the <em>n</em>-th term <em>u_n</em> in terms of <em>n</em> for <em>n ≥ 2</em>, and state the value of <em>u₁</em>. [3]<br>
+              <strong>(ii)</strong> Explain whether the sequence is an arithmetic progression. [2]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> For <em>n ≥ 2</em>:<br>
+              <em>u_n = S_n − S_{n−1} = (3n² − 2n + 4) − [3(n − 1)² − 2(n − 1) + 4]</em><br>
+              <em>= (3n² − 2n + 4) − (3n² − 8n + 9) =</em> <strong>6n − 5</strong> (for <em>n ≥ 2</em>).<br>
+              For <em>n = 1</em>: <strong>u₁ = S₁ = 3(1)² − 2(1) + 4 = 5</strong> (note that 6(1) − 5 = 1 ≠ 5).<br><br>
+              <strong>(ii)</strong> Listing the first few terms gives <em>5, 7, 13, 19, …</em>. Since <em>u₂ − u₁ = 7 − 5 = 2</em> whereas <em>u₃ − u₂ = 13 − 7 = 6</em>, there is no common difference; hence the sequence is <strong>not an arithmetic progression</strong>.
+            `,
+            exitQuestion: "Given S_n = 2n² + 5n for n ≥ 1, find u_n for all n ≥ 1.",
+            exitAnswer: "u_n = S_n − S_{n−1} = (2n² + 5n) − [2(n − 1)² + 5(n − 1)] = 4n + 3. Since S_1 = 7 and 4(1) + 3 = 7, <strong>u_n = 4n + 3</strong> holds for all <strong>n ≥ 1</strong>."
+          },
+          {
+            label: "Lesson 2: Recurrence Relations",
+            file: "interactives/2_1_lesson2.html",
+            videoEmbedUrl: "",
+            prereq: "Iterative function evaluation f(u_n) and solving algebraic equations for fixed points.",
+            objectives: [
+              "Generate successive terms of a sequence defined inductively by a recurrence relation u_{n+1} = f(u_n) given an initial value u_1.",
+              "Analyze the behavior of linear and non-linear recurrence relations (monotonic convergence, damped oscillation, divergence, or periodic oscillation).",
+              "Determine the exact limit L of a convergent recurrence relation by taking n → ∞ so that u_{n+1} → L and u_n → L, giving L = f(L)."
+            ],
+            prompts: [
+              "Use the cobweb / staircase diagram for u_{n+1} = a u_n + b to watch how |a| < 1 pulls iterations toward the intersection of y = f(x) and y = x.",
+              "Test negative values of a (e.g., a = −0.7 vs. a = −1.2) to contrast damped oscillation against divergent oscillation."
+            ],
+            pitfalls: [
+              "Solving L = f(L) to claim a limit exists when |f′(L)| > 1 (e.g., u_{n+1} = 2u_n − 3 with u_1 = 4 diverges to +∞ even though L = 3 satisfies L = 2L − 3!).",
+              "Forgetting to check which root of a quadratic L = f(L) is valid based on the initial term u_1 and monotonicity of the sequence."
+            ],
+            gcTip: "On the TI-84 Plus CE home screen, key in the initial value u_1 and press [ENTER], then type the recurrence formula using [2nd] [(-)] (Ans) and press [ENTER] repeatedly to observe convergence.",
+            workedQuestion: `
+              A sequence <em>u₁, u₂, u₃, …</em> is defined by <em>u₁ = 2</em> and <em>u_{n+1} = √(3u_n + 4)</em> for all integers <em>n ≥ 1</em>.<br>
+              <strong>(i)</strong> Find the exact values of <em>u₂</em> and <em>u₃</em>, and use a graphing calculator to describe the behavior of the sequence as <em>n</em> increases. [3]<br>
+              <strong>(ii)</strong> Given that <em>u_n</em> converges to a limit <em>L</em> as <em>n → ∞</em>, find the exact value of <em>L</em>. [3]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> <em>u₂ = √(3(2) + 4) =</em> <strong>√10</strong> (≈ 3.162); <em>u₃ =</em> <strong>√(3√10 + 4)</strong> (≈ 3.672). From GC iteration, the sequence is <strong>strictly increasing and converges to 4</strong>.<br><br>
+              <strong>(ii)</strong> As <em>n → ∞</em>, <em>u_{n+1} → L</em> and <em>u_n → L</em>, so <em>L = √(3L + 4) ⇒ L² − 3L − 4 = 0 ⇒ (L − 4)(L + 1) = 0</em>.<br>
+              Since <em>u_n &gt; 0</em> for all <em>n ≥ 1</em>, we reject <em>L = −1</em>, giving <strong>L = 4</strong>.
+            `,
+            exitQuestion: "A sequence satisfies u_{n+1} = 0.6 u_n + 8 with u_1 = 5. Find the exact limit L as n → ∞.",
+            exitAnswer: "As n → ∞, L = 0.6L + 8 ⇒ 0.4L = 8 ⇒ <strong>L = 20</strong>."
+          },
+          {
+            label: "Lesson 3: Arithmetic & Geometric Progressions (AP & GP)",
+            file: "interactives/2_1_lesson3.html",
+            videoEmbedUrl: "",
+            prereq: "Linear and exponential functions, laws of indices, and solving inequalities in positive integers n.",
+            objectives: [
+              "Apply the AP formulas u_n = a + (n − 1)d and S_n = (n/2)[2a + (n − 1)d] = (n/2)(a + l), and prove a sequence is an AP by showing u_n − u_{n−1} = d (constant).",
+              "Apply the GP formulas u_n = ar^{n−1} and S_n = a(1 − r^n)/(1 − r) = a(r^n − 1)/(r − 1) (r ≠ 1), and prove a sequence is a GP by showing u_n / u_{n−1} = r (non-zero constant).",
+              "Solve combined AP–GP problems and determine the least/greatest positive integer n satisfying term or sum inequalities."
+            ],
+            prompts: [
+              "Toggle between AP (linear step d) and GP (multiplicative factor r) to compare how u_n and S_n grow or decay.",
+              "Observe how a decreasing AP (a > 0, d < 0) attains its maximum S_n right before u_n turns negative, and use logarithms to solve GP inequalities."
+            ],
+            pitfalls: [
+              "Proving a sequence is an AP or GP by checking only the first three numerical terms instead of proving u_n − u_{n−1} = constant or u_n / u_{n−1} = constant in general.",
+              "Forgetting to reverse the inequality sign when dividing by ln r for 0 < r < 1 (since ln r < 0)."
+            ],
+            gcTip: "Use [2nd] [GRAPH] (TABLE) on Y1 = S_n to verify the exact integer n where S_n crosses a threshold K.",
+            workedQuestion: `
+              <strong>(a)</strong> An arithmetic progression has first term <em>45</em> and common difference <em>−4</em>. Find the greatest value of <em>S_n</em>, the sum of the first <em>n</em> terms. [3]<br>
+              <strong>(b)</strong> The first, second, and fifth terms of a non-constant arithmetic progression are consecutive terms of a geometric progression. Find the common ratio of the geometric progression. [4]
+            `,
+            workedSolution: `
+              <strong>(a)</strong> Terms are positive while <em>u_n = 45 + (n − 1)(−4) &gt; 0 ⇒ 49 − 4n &gt; 0 ⇒ n &lt; 12.25</em>. Thus <em>S_n</em> is maximum at <strong>n = 12</strong>: <em>S₁₂ = (12/2)[2(45) + 11(−4)] = 6(46) =</em> <strong>276</strong>.<br><br>
+              <strong>(b)</strong> Let the AP have first term <em>a</em> and common difference <em>d ≠ 0</em>. Then <em>u₁ = a</em>, <em>u₂ = a + d</em>, and <em>u₅ = a + 4d</em>.<br>
+              Since they form a GP: <em>(a + d)² = a(a + 4d) ⇒ a² + 2ad + d² = a² + 4ad ⇒ d² = 2ad</em>.<br>
+              Since <em>d ≠ 0</em>, we get <em>d = 2a</em>. Hence the common ratio is <em>r = u₂ / u₁ = (a + 2a)/a =</em> <strong>3</strong>.
+            `,
+            exitQuestion: "The 3rd term of a GP is 12 and the 6th term is 96. Find the common ratio r and the sum of the first 5 terms.",
+            exitAnswer: "ar² = 12 and ar⁵ = 96 ⇒ r³ = 8 ⇒ <strong>r = 2</strong>, and a = 3. Thus S_5 = 3(2⁵ − 1)/(2 − 1) = <strong>93</strong>."
+          },
+          {
+            label: "Lesson 4: Sum to Infinity & Real-World Contexts",
+            file: "interactives/2_1_lesson4.html",
+            videoEmbedUrl: "",
+            prereq: "Geometric series formulas, convergence condition |r| < 1, and logarithms.",
+            objectives: [
+              "State the convergence condition |r| < 1 (i.e. −1 < r < 1) for a geometric series and compute its sum to infinity S_∞ = a / (1 − r).",
+              "Solve threshold problems such as finding the least integer n for which |S_∞ − S_n| < ε.",
+              "Model real-world contexts using APs, GPs, and recurrence relations (e.g., compound interest, loan repayments, bouncing balls, drug dosage in bloodstream, and geometric fractals)."
+            ],
+            prompts: [
+              "Explore the Sum to Infinity asymptote visualizer for |r| < 1 and watch how |S_∞ − S_n| = |a r^n / (1 − r)| shrinks below ε.",
+              "Switch between Real-World Modelling presets (Drug Dosage Recurrence, Loan Repayment / Savings Plan, and Bouncing Ball Total Distance) to connect recurrence relations and GPs."
+            ],
+            pitfalls: [
+              "Using S_∞ = a/(1 − r) without first checking and stating that |r| < 1.",
+              "Off-by-one errors in real-world contexts (e.g., whether interest is added before or after a deposit, or counting both downward and upward rebounds of a bouncing ball after the first drop)."
+            ],
+            gcTip: "For multi-period financial or dosage problems, verify your closed-form GP sum against step-by-step [Ans] iteration on your GC home screen.",
+            workedQuestion: `
+              A patient is prescribed a daily dose of <strong>80 mg</strong> of a medication taken once every 24 hours. Over each 24-hour period, the body eliminates <strong>60%</strong> of the drug present in the bloodstream (leaving <strong>40%</strong> remaining just before the next dose).<br>
+              <strong>(i)</strong> Find the amount of medication in the bloodstream immediately after the <em>n</em>-th dose is taken, giving your answer in simplest form. [3]<br>
+              <strong>(ii)</strong> Find the long-term upper limit (saturation level) of the medication in the bloodstream, and determine the least number of doses required for the amount immediately after a dose to exceed <strong>132 mg</strong>. [4]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> Immediately after the 1st dose: <em>A₁ = 80</em>.<br>
+              Immediately after the 2nd dose: <em>A₂ = 80(0.4) + 80</em>.<br>
+              Immediately after the <em>n</em>-th dose: <em>A_n = 80 + 80(0.4) + 80(0.4)² + … + 80(0.4)^{n−1}</em>.<br>
+              This is a GP with <em>a = 80</em>, <em>r = 0.4</em>, and <em>n</em> terms:<br>
+              <em>A_n = 80(1 − 0.4^n) / (1 − 0.4) =</em> <strong>(400/3)(1 − 0.4^n) mg</strong>.<br><br>
+              <strong>(ii)</strong> Since <em>|0.4| &lt; 1</em>, as <em>n → ∞</em>, <em>0.4^n → 0</em>, so the long-term saturation limit is <em>S_∞ =</em> <strong>400/3 mg</strong> (≈ 133.3 mg).<br>
+              We require <em>(400/3)(1 − 0.4^n) &gt; 132 ⇒ 1 − 0.4^n &gt; 396/400 = 0.99 ⇒ 0.4^n &lt; 0.01</em>.<br>
+              Taking logarithms (reversing inequality since <em>ln 0.4 &lt; 0</em>): <em>n &gt; ln(0.01) / ln(0.4) ≈ 5.026</em>. Hence the least number of doses is <strong>6</strong>.
+            `,
+            exitQuestion: "A ball is dropped from a height of 10 m and rebounds to 3/5 of its previous height on each bounce. Find the total vertical distance travelled by the ball before coming to rest.",
+            exitAnswer: "Total distance = 10 + 2 × [6 / (1 − 3/5)] = 10 + 2(15) = <strong>40 m</strong>."
+          }
+        ]
+      },
+
+      "3.1": {
+        title: "3.1 Basic Properties of Vectors in Two and Three Dimensions",
+        syllabusNotes: "Addition and subtraction of vectors, multiplication of a vector by a scalar, and their geometrical interpretations; position vectors, displacement vectors, magnitude of a vector, unit vectors; distance between two points; midpoint and Ratio Theorem; collinearity; scalar (dot) product and vector (cross) product, geometrical interpretations including angle between vectors, length of projection, and area of triangle/parallelogram.",
+        lessons: [
+          {
+            label: "Lesson 1: Position Vectors, Unit Vectors & Ratio Theorem",
+            file: "interactives/3_1_lesson1.html",
+            videoEmbedUrl: "",
+            prereq: "2D coordinate geometry, Pythagoras' theorem in 3D, and basic vector addition/subtraction (AB = OB − OA).",
+            objectives: [
+              "Compute displacement vectors AB = b − a, magnitudes |a| = √(x² + y² + z²), and unit vectors â = a / |a|.",
+              "Apply the Ratio Theorem: if P divides AB in the ratio λ : μ, then OP = (μa + λb) / (λ + μ).",
+              "Test collinearity of three points A, B, C by showing AB = k BC (or using the Ratio Theorem)."
+            ],
+            prompts: [
+              "Adjust the components of vectors a and b in 3D and observe how the unit vector â preserves direction with length exactly 1.",
+              "Vary the division ratio λ : μ in the Ratio Theorem explorer and contrast internal division (λ, μ > 0) with external division."
+            ],
+            pitfalls: [
+              "Swapping λ and μ in the Ratio Theorem formula: OP = (μa + λb)/(λ + μ), where μ multiplies a (the opposite endpoint!).",
+              "Showing AB = k CD without a shared point—collinearity requires a common point (e.g., AB = k BC)."
+            ],
+            gcTip: "On the TI-84 Plus CE, store column vectors as 3 × 1 matrices in [A] and [B] to verify linear combinations and norms quickly.",
+            workedQuestion: "Points A and B have position vectors <strong>a</strong> = 2<strong>i</strong> − <strong>j</strong> + 3<strong>k</strong> and <strong>b</strong> = 5<strong>i</strong> + 5<strong>j</strong> − 3<strong>k</strong>. Find the position vector of point P on AB produced such that AP : PB = 3 : 2, and find a unit vector parallel to AB.",
+            workedSolution: "Since P lies on AB produced with <em>AP : PB = 3 : 2</em>, P divides AB externally in the ratio <em>3 : −2</em>. By the Ratio Theorem, <strong>OP</strong> = (−2<strong>a</strong> + 3<strong>b</strong>)/(3 − 2) = −2(2, −1, 3) + 3(5, 5, −3) = <strong>(11, 17, −15)</strong>. Also <strong>AB</strong> = <strong>b</strong> − <strong>a</strong> = (3, 6, −6) with |<strong>AB</strong>| = √(9 + 36 + 36) = 9, so a unit vector parallel to AB is <strong>(1/3)(i + 2j − 2k)</strong>.",
+            exitQuestion: "Find the midpoint M of A(1, −4, 7) and B(5, 2, −1), and find |OM|.",
+            exitAnswer: "<strong>OM</strong> = ½(<strong>a</strong> + <strong>b</strong>) = <strong>(3, −1, 3)</strong>; |<strong>OM</strong>| = √(9 + 1 + 9) = <strong>√19</strong>."
+          },
+          {
+            label: "Lesson 2: Scalar (Dot) Product, Angle & Projection",
+            file: "interactives/3_1_lesson2.html",
+            videoEmbedUrl: "",
+            prereq: "Component form of vectors and cosine rule in a triangle.",
+            objectives: [
+              "Evaluate a · b = x₁x₂ + y₁y₂ + z₁z₂ = |a||b| cos θ and test orthogonality (a · b = 0 for non-zero a, b).",
+              "Find the angle θ between two vectors using cos θ = (a · b) / (|a||b|).",
+              "Compute the length of projection of a onto b using |a · b̂| = |a · b| / |b| and the projection vector (a · b̂)b̂."
+            ],
+            prompts: [
+              "Orbit the 3D view and watch the sign of a · b flip from positive (acute θ) to zero (90°) to negative (obtuse θ).",
+              "Compare the length of projection |a · b̂| against the vector projection (a · b̂)b̂."
+            ],
+            pitfalls: [
+              "Dividing by |b|² instead of |b| when finding the length of projection (length of projection divides by |b|; the projection vector divides by |b|² because b̂ = b/|b|).",
+              "Forgetting to take the modulus |a · b| / |b| when asked for the length of projection of an obtuse-angled vector."
+            ],
+            gcTip: "Use dotP([A], [B]) under [2nd] [MATRIX] > [MATH] on the TI-84 Plus CE to verify 3D dot products.",
+            workedQuestion: "Given <strong>a</strong> = (2, −1, 2) and <strong>b</strong> = (1, 4, −1), find the acute angle between <strong>a</strong> and <strong>b</strong>, and find the exact length of projection of <strong>a</strong> onto <strong>b</strong>.",
+            workedSolution: "<strong>a · b</strong> = 2(1) + (−1)(4) + 2(−1) = <strong>−4</strong>. Also |<strong>a</strong>| = √(4 + 1 + 4) = 3 and |<strong>b</strong>| = √(1 + 16 + 1) = √18 = 3√2. Since <strong>a · b</strong> &lt; 0, the angle between <strong>a</strong> and <strong>b</strong> is obtuse: cos θ = −4/(9√2) ⇒ θ = 108.3°, so the acute angle is 180° − 108.3° = <strong>71.7°</strong>. Length of projection = |<strong>a · b</strong>| / |<strong>b</strong>| = 4 / (3√2) = <strong>(2√2)/3</strong>.",
+            exitQuestion: "Find k if (3, k, −2) is perpendicular to (2, 1, 5).",
+            exitAnswer: "3(2) + k(1) + (−2)(5) = 0 ⇒ 6 + k − 10 = 0 ⇒ <strong>k = 4</strong>."
+          },
+          {
+            label: "Lesson 3: Vector (Cross) Product & Triangle Area",
+            file: "interactives/3_1_lesson3.html",
+            videoEmbedUrl: "",
+            prereq: "Determinants of 2 × 2 matrices and Right-Hand Grip Rule in 3D.",
+            objectives: [
+              "Compute a × b = (y₁z₂ − z₁y₂, −(x₁z₂ − z₁x₂), x₁y₂ − y₁x₂) and verify that a × b is perpendicular to both a and b.",
+              "Apply properties of cross product: anti-commutativity (b × a = −(a × b)) and parallelism test (a × b = 0).",
+              "Compute the area of triangle ABC using ½ |AB × AC| and area of a parallelogram using |AB × AD|."
+            ],
+            prompts: [
+              "Toggle between a × b and b × a in the 3D canvas to observe the Right-Hand Rule reversal.",
+              "Adjust points A, B, C to inspect the spanned triangle and see how ½|AB × AC| updates dynamically."
+            ],
+            pitfalls: [
+              "Forgetting the minus sign on the j-component when expanding the 3 × 3 determinant for a × b.",
+              "Writing a × b = 0 (scalar zero) instead of a × b = <strong>0</strong> (zero vector) when two vectors are parallel."
+            ],
+            gcTip: "Always check your manual cross product c = a × b by verifying that c · a = 0 and c · b = 0.",
+            workedQuestion: "Points A(1, 0, 2), B(3, 1, 1), and C(2, −2, 4) form a triangle. Find a vector perpendicular to plane ABC, and find the exact area of triangle ABC.",
+            workedSolution: "<strong>AB</strong> = (2, 1, −1) and <strong>AC</strong> = (1, −2, 2). Then <strong>AB × AC</strong> = (1(2) − (−1)(−2), −(2(2) − (−1)(1)), 2(−2) − 1(1)) = <strong>(0, −5, −5)</strong> (so (0, 1, 1) is also perpendicular to plane ABC). Area of △ABC = ½ |<strong>AB × AC</strong>| = ½ √(0² + (−5)² + (−5)²) = ½ √50 = <strong>(5√2)/2 units²</strong>.",
+            exitQuestion: "If |a| = 4, |b| = 5, and the angle between a and b is 30°, find |a × b|.",
+            exitAnswer: "|<strong>a × b</strong>| = |<strong>a</strong>||<strong>b</strong>| sin 30° = 4 × 5 × ½ = <strong>10</strong>."
+          }
+        ]
+      },
+
+      "3.2": {
+        title: "3.2 Vector, Parametric & Cartesian Equations of Lines",
+        syllabusNotes: "Vector, parametric and Cartesian equations of a line in three dimensions; finding the foot of the perpendicular from a point to a line and the shortest distance from a point to a line; determining whether two lines are parallel, coincident, intersecting or skew; finding the point of intersection and the acute angle between two lines.",
+        lessons: [
+          {
+            label: "Lesson 1: Vector, Parametric & Cartesian Equations of Lines",
+            file: "interactives/3_2_lesson1.html",
+            videoEmbedUrl: "",
+            prereq: "Position vectors and direction vectors in 3D.",
+            objectives: [
+              "Write the vector equation r = a + λd (λ ∈ ℝ) of a line passing through A with direction d.",
+              "Convert fluently between vector, parametric (x = x₀ + λd₁, y = y₀ + λd₂, z = z₀ + λd₃), and Cartesian forms.",
+              "Handle zero components in direction vectors properly when writing Cartesian equations (e.g., (x − 1)/2 = (y + 3)/5, z = 4)."
+            ],
+            prompts: [
+              "Switch between Vector, Parametric, and Cartesian tabs and watch how scrubbing parameter λ traces point R along the 3D line.",
+              "Click the 'Zero-Component Direction' preset to see why a zero denominator separates out as a constant coordinate equation."
+            ],
+            pitfalls: [
+              "Dividing by zero in Cartesian form (never write (z − 4)/0; write z = 4 separately).",
+              "Reading off the direction vector from (2 − x)/3 = (y + 1)/4 = z/5 without rewriting (2 − x)/3 as (x − 2)/(−3)."
+            ],
+            gcTip: "To test if a point P lies on line l, substitute its coordinates into the parametric equations and check if all three components yield the exact same value of λ.",
+            workedQuestion: "Find the vector and Cartesian equations of the line l passing through A(2, −1, 4) and B(5, −1, 0).",
+            workedSolution: "Direction vector <strong>d</strong> = <strong>AB</strong> = (5 − 2, −1 − (−1), 0 − 4) = <strong>(3, 0, −4)</strong>. Vector equation: <strong>l : r = (2, −1, 4) + λ(3, 0, −4), λ ∈ ℝ</strong>. Since the y-component of <strong>d</strong> is 0, y is constant at −1, giving Cartesian equation: <strong>(x − 2)/3 = (z − 4)/(−4), y = −1</strong>.",
+            exitQuestion: "State a point on and a direction vector of the line (1 − x)/2 = (y + 3)/5, z = 7.",
+            exitAnswer: "Point: <strong>(1, −3, 7)</strong>; Direction vector: <strong>(−2, 5, 0)</strong>."
+          },
+          {
+            label: "Lesson 2: Foot of Perpendicular & Distance from Point to Line",
+            file: "interactives/3_2_lesson2.html",
+            videoEmbedUrl: "",
+            prereq: "Parametric form of a line and orthogonality condition u · v = 0.",
+            objectives: [
+              "Find the foot of the perpendicular N from point P to line l by expressing ON = a + λd and solving PN · d = 0.",
+              "Find the reflection (mirror image) P′ of P in line l using midpoint property ON = ½(OP + OP′).",
+              "Compute the shortest distance from P to line l via |PN| as well as the direct cross-product formula |AP × d̂|."
+            ],
+            prompts: [
+              "Orbit the 3D line and verify that segment PN meets line l at a 90° right angle.",
+              "Compare the 'Foot N (PN · d = 0)' tab with the 'Direct Cross Product |AP × d̂|' tab to confirm both give the exact same shortest distance."
+            ],
+            pitfalls: [
+              "Setting ON · d = 0 instead of PN · d = 0 (PN = ON − OP must be perpendicular to d, not the position vector ON!).",
+              "Forgetting to divide by |d| when using |AP × d| / |d| for point-to-line distance."
+            ],
+            gcTip: "Once you find N, verify your algebra by checking that PN · d = 0 holds identically.",
+            workedQuestion: "Find the coordinates of the foot of the perpendicular N from P(4, 1, 3) to the line <em>l : r = (1, 2, −1) + λ(2, −1, 2)</em>, and hence find the shortest distance from P to l.",
+            workedSolution: "Since N lies on l, <strong>ON</strong> = (1 + 2λ, 2 − λ, −1 + 2λ) for some λ ∈ ℝ. Then <strong>PN</strong> = <strong>ON</strong> − <strong>OP</strong> = (2λ − 3, 1 − λ, 2λ − 4). Since PN ⊥ l, <strong>PN · d</strong> = 0 ⇒ 2(2λ − 3) − 1(1 − λ) + 2(2λ − 4) = 0 ⇒ 9λ − 15 = 0 ⇒ λ = 5/3. Thus <strong>N = (13/3, 1/3, 7/3)</strong>. Shortest distance = |<strong>PN</strong>| = |(1/3, −2/3, −2/3)| = <strong>1 unit</strong>.",
+            exitQuestion: "If N(2, 5, −1) is the foot of the perpendicular from P(0, 3, 4) to line l, find the reflection P′ of P in l.",
+            exitAnswer: "<strong>OP′</strong> = 2<strong>ON</strong> − <strong>OP</strong> = (4, 10, −2) − (0, 3, 4) = <strong>(4, 7, −6)</strong>."
+          },
+          {
+            label: "Lesson 3: Relationship & Acute Angle Between Two Lines",
+            file: "interactives/3_2_lesson3.html",
+            videoEmbedUrl: "",
+            prereq: "Solving systems of linear equations and acute angle dot-product formula.",
+            objectives: [
+              "Classify two 3D lines as parallel, coincident, intersecting, or skew.",
+              "Find the point of intersection of two non-parallel lines by solving two component equations for (λ, μ) and verifying consistency in the third equation.",
+              "Compute the acute angle θ between two lines using cos θ = |d₁ · d₂| / (|d₁||d₂|)."
+            ],
+            prompts: [
+              "Click through the four relationship presets (Intersecting, Skew, Parallel, Coincident) and orbit in 3D to see why non-parallel lines in 3D need not intersect.",
+              "Inspect the consistency check on the 3rd coordinate equation when testing Intersecting vs. Skew lines."
+            ],
+            pitfalls: [
+              "Using the same parameter symbol λ for both lines when equating r₁ = r₂ (always use distinct parameters λ and μ!).",
+              "Forgetting the modulus in cos θ = |d₁ · d₂| / (|d₁||d₂|) when asked for the acute angle between two lines."
+            ],
+            gcTip: "Use your GC Simultaneous Equation Solver on the first two equations to find λ and μ, then substitute into the third equation to verify intersection vs. skewness.",
+            workedQuestion: "Show that the lines <em>l₁ : r = (1, 2, 0) + λ(2, −1, 3)</em> and <em>l₂ : r = (4, 1, 5) + μ(1, 1, −2)</em> are skew, and find the acute angle between them.",
+            workedSolution: "First, (2, −1, 3) ≠ k(1, 1, −2), so l₁ and l₂ are not parallel. Equating x- and y-components: 1 + 2λ = 4 + μ and 2 − λ = 1 + μ ⇒ λ = 4/3, μ = −1/3. Checking z-component: LHS = 3(4/3) = 4, whereas RHS = 5 − 2(−1/3) = 17/3 ≠ 4. Since the system is inconsistent and the lines are not parallel, <strong>l₁ and l₂ are skew</strong>. Acute angle: cos θ = |2(1) + (−1)(1) + 3(−2)| / (√14 · √6) = 5 / √84 ⇒ <strong>θ = 56.9°</strong>.",
+            exitQuestion: "How do you distinguish parallel lines from coincident lines once you show d₁ = k d₂?",
+            exitAnswer: "Check if a point on l₁ satisfies the equation of l₂. If it does, they are <strong>coincident</strong>; otherwise, they are <strong>distinct parallel lines</strong>."
+          }
+        ]
+      },
+
+      "3.3": {
+        title: "3.3 Planes in Three Dimensions",
+        syllabusNotes: "Vector, scalar product and Cartesian equations of a plane; finding the relationship between a line and a plane, the point of intersection and the acute angle between a line and a plane; finding the foot of the perpendicular and perpendicular distance from a point to a plane; relationship between two planes, line of intersection (via GC or vector product), acute angle between two planes, and perpendicular distance between two parallel planes.",
+        lessons: [
+          {
+            label: "Lesson 1: Parametric, Scalar Product & Cartesian Equations",
+            file: "interactives/3_3_lesson1.html",
+            videoEmbedUrl: "",
+            prereq: "Vector cross product n = u × v and scalar dot product a · n.",
+            objectives: [
+              "Write the parametric vector equation of a plane r = a + λu + μv (λ, μ ∈ ℝ) given a point A and two non-parallel vectors u, v parallel to the plane.",
+              "Convert to scalar product form r · n = d (where n = u × v and d = a · n) and Cartesian form ax + by + cz = d.",
+              "Verify whether a given point lies on a plane and interpret d / |n| as the perpendicular distance from the origin O to the plane."
+            ],
+            prompts: [
+              "Switch between Parametric Form, Scalar Product Form, and Cartesian Form tabs to watch how n = u × v stands perpendicular to the plane.",
+              "Use the 'Origin Plane (d = 0)' preset to see when a plane passes directly through the origin O."
+            ],
+            pitfalls: [
+              "Using two parallel direction vectors u and v to define a plane (u and v must be non-parallel!).",
+              "Forgetting to compute d = a · n on the right-hand side of r · n = d."
+            ],
+            gcTip: "After finding n = u × v, verify n · u = 0 and n · v = 0 before computing d = a · n.",
+            workedQuestion: "Find the Cartesian equation of the plane Π containing the points A(1, 0, 2), B(2, 3, 1), and C(0, 1, 4).",
+            workedSolution: "Two non-parallel vectors in Π are <strong>AB</strong> = (1, 3, −1) and <strong>AC</strong> = (−1, 1, 2). Normal vector <strong>n</strong> = <strong>AB × AC</strong> = (6 − (−1), −(2 − 1), 1 − (−3)) = <strong>(7, −1, 4)</strong>. Then d = <strong>OA · n</strong> = 1(7) + 0(−1) + 2(4) = 15. Hence the Cartesian equation of Π is <strong>7x − y + 4z = 15</strong>.",
+            exitQuestion: "State a normal vector to the plane 3x − 2y + z = 8 and its perpendicular distance from the origin O.",
+            exitAnswer: "Normal vector <strong>n = (3, −2, 1)</strong>; distance from O = |8| / √(9 + 4 + 1) = <strong>8 / √14</strong>."
+          },
+          {
+            label: "Lesson 2: Line & Plane Intersection and Acute Angle",
+            file: "interactives/3_3_lesson2.html",
+            videoEmbedUrl: "",
+            prereq: "Line equation r = a + λd and plane equation r · n = p.",
+            objectives: [
+              "Classify the relationship between line l and plane Π by substituting r = a + λd into r · n = p.",
+              "Identify intersecting (d · n ≠ 0), strictly parallel (d · n = 0, a · n ≠ p), and line-lies-in-plane (d · n = 0, a · n = p) cases.",
+              "Compute the acute angle θ between line l and plane Π using sin θ = |d · n| / (|d||n|) (NOT cos θ!)."
+            ],
+            prompts: [
+              "Test the Intersecting, Parallel, and Line-in-Plane presets and observe why d · n = 0 means direction d is perpendicular to normal n (hence parallel to plane Π!).",
+              "Inspect the complementary angle diagram showing why angle φ between d and n satisfies θ = 90° − φ, giving sin θ = |d · n| / (|d||n|)."
+            ],
+            pitfalls: [
+              "Using cos θ = |d · n| / (|d||n|) instead of sin θ = |d · n| / (|d||n|) for the angle between a line and a plane!",
+              "Thinking d · n = 0 means the line is perpendicular to the plane—it actually means the line is PARALLEL to (or lies inside) the plane."
+            ],
+            gcTip: "Substitute the parametric coordinates of line l into the Cartesian equation of Π to solve a single linear equation for λ.",
+            workedQuestion: "Find the coordinates of the point of intersection between the line <em>l : r = (2, −1, 3) + λ(1, 2, −1)</em> and the plane <em>Π : 3x − y + 2z = 19</em>, and find the acute angle between l and Π.",
+            workedSolution: "Substitute (2 + λ, −1 + 2λ, 3 − λ) into Π: 3(2 + λ) − (−1 + 2λ) + 2(3 − λ) = 19 ⇒ 13 − λ = 19 ⇒ λ = −6. Intersection point is (2 − 6, −1 − 12, 3 + 6) = <strong>(−4, −13, 9)</strong>. Acute angle θ between l and Π: sin θ = |(1, 2, −1) · (3, −1, 2)| / (√6 · √14) = |3 − 2 − 2| / √84 = 1 / √84 ⇒ <strong>θ = 6.3°</strong>.",
+            exitQuestion: "Show that the line r = (1, 2, 1) + λ(2, 1, −1) is parallel to the plane x + 2y + 4z = 3 and does not lie in it.",
+            exitAnswer: "<strong>d · n</strong> = (2, 1, −1) · (1, 2, 4) = 2 + 2 − 4 = 0, so l ∥ Π. Also <strong>a · n</strong> = 1 + 4 + 4 = 9 ≠ 3, so l does not lie in Π."
+          },
+          {
+            label: "Lesson 3: Foot of Perpendicular & Distance from Point to Plane",
+            file: "interactives/3_3_lesson3.html",
+            videoEmbedUrl: "",
+            prereq: "Line equation r = p + λn and scalar projection onto unit normal n̂.",
+            objectives: [
+              "Find the foot of the perpendicular N from point P to plane Π by intersecting the auxiliary normal line l_PN : r = p + λn with r · n = d.",
+              "Find the reflection (mirror image) P′ of P in plane Π using ON = ½(OP + OP′) = p + 2λn.",
+              "Compute the shortest distance from P to plane Π directly via |AP · n̂| = |p · n − d| / |n|."
+            ],
+            prompts: [
+              "Orbit the 3D plane and verify that auxiliary segment PN follows normal vector n to meet Π at 90°.",
+              "Compare the 'Foot of ⊥ (N)' tab, 'Distance |PN|' tab, and 'Reflection P′' tab as you shift point P across both sides of plane Π."
+            ],
+            pitfalls: [
+              "Dividing by |n|² instead of |n| in the point-to-plane distance formula |p · n − d| / |n|.",
+              "Forgetting the modulus |p · n − d| when P lies on the opposite side of Π from normal n (which would yield a negative distance)."
+            ],
+            gcTip: "Always verify that your computed foot N satisfies the Cartesian equation of plane Π.",
+            workedQuestion: "Find the foot of the perpendicular N from P(3, 2, 4) to the plane <em>Π : x + y + 2z = 4</em>, and hence find the perpendicular distance from P to Π and the reflection P′ of P in Π.",
+            workedSolution: "Auxiliary line through P perpendicular to Π: <em>l_PN : r = (3, 2, 4) + λ(1, 1, 2)</em>. Substituting into Π: (3 + λ) + (2 + λ) + 2(4 + 2λ) = 4 ⇒ 13 + 6λ = 4 ⇒ λ = −3/2. Hence <strong>N = (3/2, 1/2, 1)</strong>. Distance |<strong>PN</strong>| = |−3/2| |(1, 1, 2)| = <strong>(3√6)/2 units</strong> (check: |3 + 2 + 8 − 4|/√6 = 9/√6 = 3√6/2). Reflection <strong>OP′</strong> = 2<strong>ON</strong> − <strong>OP</strong> = (3, 1, 2) − (3, 2, 4) = <strong>(0, −1, −2)</strong>.",
+            exitQuestion: "Using the direct formula, find the exact perpendicular distance from Q(2, −1, 3) to the plane 2x − y + 2z = 10.",
+            exitAnswer: "Distance = |2(2) − (−1) + 2(3) − 10| / √(4 + 1 + 4) = |11 − 10| / 3 = <strong>1/3 unit</strong>."
+          },
+          {
+            label: "Lesson 4: Relationship Between Two Planes, Angle & Parallel Distance",
+            file: "interactives/3_3_lesson4.html",
+            videoEmbedUrl: "",
+            prereq: "GC Simultaneous Equation Solver (2 equations, 3 unknowns) and vector cross product n₁ × n₂.",
+            objectives: [
+              "Classify two planes as intersecting in a line, distinct parallel, or coincident.",
+              "Find the vector equation of the line of intersection using the recommended GC Simultaneous Equation Solver (when no unknowns exist) or via direction d = n₁ × n₂ (when symbolic unknowns exist).",
+              "Compute the acute angle θ between two planes via cos θ = |n₁ · n₂| / (|n₁||n₂|), and perpendicular distance between parallel planes via |d₂ − d₁| / |n| after equalizing normals."
+            ],
+            prompts: [
+              "In Tab 1 (Relationship & Line), compare Method A (GC Simultaneous Solver) against Method B (n₁ × n₂) and confirm both parametrize the exact same red line of intersection.",
+              "Switch to Tab 2 (Acute Angle θ) and Tab 3 (Parallel Distance) using the 'Parallel (Scaled 2n)' preset to see why normals must be equalized before subtracting d₂ − d₁."
+            ],
+            pitfalls: [
+              "Using |d₂ − d₁| / |n| between two parallel planes BEFORE scaling one equation so both share the exact same normal vector n.",
+              "Forgetting the modulus in cos θ = |n₁ · n₂| / (|n₁||n₂|) when finding the acute angle between two planes."
+            ],
+            gcTip: "When both plane equations have no unknown constants, press [APPS] > [PlySmlt2] > [2: Simultaneous Eqn Solver] (2 Equations, 3 Unknowns) and let the free variable (usually z) equal λ to read off the intersection line directly!",
+            workedQuestion: `
+              Two planes have equations <em>Π₁ : 2x − y + 3z = 5</em> and <em>Π₂ : x + 2y − z = 4</em>.<br>
+              <strong>(i)</strong> Find a vector equation of the line of intersection <em>l</em> of <em>Π₁</em> and <em>Π₂</em>. [3]<br>
+              <strong>(ii)</strong> Find the acute angle between <em>Π₁</em> and <em>Π₂</em>. [2]<br>
+              <strong>(iii)</strong> A third plane <em>Π₃</em> has equation <em>4x − 2y + 6z = −11</em>. Find the exact perpendicular distance between <em>Π₁</em> and <em>Π₃</em>. [2]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> Using GC Simultaneous Equation Solver on <em>2x − y + 3z = 5</em> and <em>x + 2y − z = 4</em>, letting <em>z = λ</em> (<em>λ ∈ ℝ</em>):<br>
+              <em>x = 14/5 − λ</em>, &nbsp;<em>y = 3/5 + λ</em>, &nbsp;<em>z = λ</em>.<br>
+              Hence <strong>l : r = (14/5, 3/5, 0) + λ(−1, 1, 1), λ ∈ ℝ</strong>.<br>
+              <em>(Alternative via cross product: n₁ × n₂ = (−5, 5, 5) = −5(−1, 1, 1), passing through (14/5, 3/5, 0).)</em><br><br>
+              <strong>(ii)</strong> cos θ = |(2, −1, 3) · (1, 2, −1)| / (√14 · √6) = |2 − 2 − 3| / √84 = 3 / √84 ⇒ <strong>θ = 70.9°</strong>.<br><br>
+              <strong>(iii)</strong> Rewrite <em>Π₃</em> by dividing by 2 so both planes have normal <strong>n</strong> = (2, −1, 3): <em>2x − y + 3z = −11/2</em>.<br>
+              Perpendicular distance = |5 − (−11/2)| / √14 = (21/2) / √14 = <strong>(3√14)/4 units</strong>.
+            `,
+            exitQuestion: "Find the perpendicular distance between the parallel planes x + 2y − 2z = 3 and 2x + 4y − 4z = −12.",
+            exitAnswer: "Divide the second equation by 2 to get x + 2y − 2z = −6. Distance = |3 − (−6)| / √(1 + 4 + 4) = 9 / 3 = <strong>3 units</strong>."
+          }
+        ]
       }
     };
 
@@ -1043,7 +1474,7 @@
         main.innerHTML = `
           <div class="placeholder-banner">
             <h2 style="color:#1e293b; margin-top:0;">Topic ${currentTopic} Module Coming Soon</h2>
-            <p>Select <strong>1.1 Functions</strong>, <strong>1.2 Graphs &amp; Transformations</strong>, or <strong>1.3 Equations &amp; Inequalities</strong> from the sidebar to launch the interactive lessons.</p>
+            <p>Select <strong>1.1 Functions</strong>, <strong>1.2 Graphs &amp; Transformations</strong>, <strong>1.3 Equations &amp; Inequalities</strong>, <strong>2.1 Sequences &amp; Series</strong>, or any module under <strong>Topic 3: Vectors (3.1, 3.2, 3.3)</strong> from the sidebar to launch the interactive lessons.</p>
           </div>
         `;
         return;
