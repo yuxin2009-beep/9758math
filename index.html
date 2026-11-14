@@ -501,7 +501,11 @@
       <span class="status-pill">5 Lessons</span>
     </button>
     <button class="topic-btn" id="nav_6.2" onclick="selectTopic('6.2')">
-      <span>6.2–6.6 Distributions &amp; Inference</span>
+      <span>6.2 Discrete Random Variables</span>
+      <span class="status-pill">6 Lessons</span>
+    </button>
+    <button class="topic-btn" id="nav_6.3" onclick="selectTopic('6.3')">
+      <span>6.3–6.6 Distributions &amp; Inference</span>
       <span class="status-pill soon">Planned</span>
     </button>
   </aside>
@@ -1782,6 +1786,230 @@
             exitAnswer: "⁴C₂ / ⁹C₂ = 6 / 36 = <strong>1/6</strong>, and (4/9) × (3/8) = 12 / 72 = <strong>1/6</strong>."
           }
         ]
+      },
+
+      "6.2": {
+        title: "6.2 Discrete Random Variables",
+        syllabusNotes: "Concept of discrete random variables, probability distributions, expectations and variances; concept of binomial distribution B(n, p) as an example of a discrete probability distribution and use of B(n, p) as a probability model, including conditions under which the binomial distribution is a suitable model; use of mean and variance of binomial distribution (without proof). (Excludes finding cumulative distribution function of a discrete random variable.)",
+        lessons: [
+          {
+            label: "Lesson 1: Discrete Random Variables & Probability Distributions",
+            file: "interactives/6_2_lesson1.html",
+            videoEmbedUrl: "",
+            prereq: "Sample spaces, mutually exclusive events, and solving linear/quadratic equations.",
+            objectives: [
+              "Define a discrete random variable X (uppercase) and distinguish it from its numerical values x (lowercase).",
+              "Construct probability distribution tables or piecewise formulas P(X = x) from real-world experiments.",
+              "Apply 0 ≤ P(X = x) ≤ 1 and Σ P(X = x) = 1 to solve for an unknown constant k and compute compound event probabilities (such as P(X ≥ 2), P(1 < X ≤ 4), and mode)."
+            ],
+            prompts: [
+              "Switch between the Unknown Constant k Solver and GrabFood Order / Dice Difference distribution builders.",
+              "Adjust parameter k and watch the total probability bar Σ P(X = x) hit 1.0000 while verifying that every individual bar stays inside [0, 1].",
+              "Highlight compound events like P(1 ≤ X < 4) or P(|X − 2| ≤ 1) to see which discrete values x are included."
+            ],
+            pitfalls: [
+              "Forgetting to check 0 ≤ P(X = x) ≤ 1 for every individual outcome x after solving Σ P(X = x) = 1 (reject any root of k that produces a negative probability!).",
+              "Confusing strict (<, >) and inclusive (≤, ≥) inequalities for discrete variables—for example, P(1 < X ≤ 4) sums x = 2, 3, 4 (excluding x = 1)."
+            ],
+            gcTip: "Enter all possible values of X into L1 and their probabilities into L2 via [STAT] > [1: Edit]; check sum(L2) = 1 on the home screen via [2nd] [STAT] > [MATH] > [5: sum].",
+            workedQuestion: `
+              A discrete random variable <em>X</em> has probability distribution given by<br>
+              <em>P(X = x) = k(x² + 1)</em> for <em>x = 0, 1, 2, 3</em>, and <em>0</em> otherwise.<br>
+              <strong>(i)</strong> Find the exact value of the constant <em>k</em>. [2]<br>
+              <strong>(ii)</strong> State the mode of <em>X</em>, and find <em>P(1 ≤ X &lt; 3)</em> and <em>P(X² &gt; 2)</em>. [3]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> Using <em>Σ P(X = x) = 1</em>:<br>
+              <em>k(0² + 1) + k(1² + 1) + k(2² + 1) + k(3² + 1) = 1</em><br>
+              <em>k(1 + 2 + 5 + 10) = 1 ⇒ 18k = 1 ⇒</em> <strong>k = 1/18</strong> (every probability lies in [0, 1]).<br><br>
+              <strong>(ii)</strong> The probabilities are <em>P(X = 0) = 1/18</em>, <em>P(X = 1) = 2/18</em>, <em>P(X = 2) = 5/18</em>, <em>P(X = 3) = 10/18</em>.<br>
+              • Highest probability occurs at <em>x = 3</em>, so the mode is <strong>3</strong>.<br>
+              • <em>P(1 ≤ X &lt; 3) = P(X = 1) + P(X = 2) = 2/18 + 5/18 =</em> <strong>7/18</strong>.<br>
+              • <em>X² &gt; 2</em> holds for <em>x = 2, 3</em>: <em>P(X² &gt; 2) = 5/18 + 10/18 = 15/18 =</em> <strong>5/6</strong>.
+            `,
+            exitQuestion: "If P(X = x) = c(3 − x) for x = 0, 1, 2, find the exact value of c and P(X ≥ 1).",
+            exitAnswer: "c(3 + 2 + 1) = 1 ⇒ 6c = 1 ⇒ <strong>c = 1/6</strong>; P(X ≥ 1) = P(X = 1) + P(X = 2) = 2/6 + 1/6 = <strong>1/2</strong>."
+          },
+          {
+            label: "Lesson 2: Expectation E(X), Variance Var(X) & Standard Deviation",
+            file: "interactives/6_2_lesson2.html",
+            videoEmbedUrl: "",
+            prereq: "Probability distribution tables and sigma summation notation.",
+            objectives: [
+              "Calculate the expectation E(X) = Σ x P(X = x) and interpret it as the long-run theoretical mean of the distribution.",
+              "Compute E(X²) = Σ x² P(X = x) and apply the computational formula Var(X) = E(X²) − [E(X)]² and standard deviation σ = √Var(X).",
+              "Evaluate expectations of general functions E(g(X)) = Σ g(x) P(X = x), recognizing that E(X²) ≠ [E(X)]² in general."
+            ],
+            prompts: [
+              "Adjust individual outcome probabilities in the Distribution Builder and observe how E(X) shifts toward higher-probability values while σ measures spread around E(X).",
+              "Compare the definition formula Σ (x − μ)² P(X = x) side-by-side with the computational formula E(X²) − [E(X)]² to verify they produce the exact same variance."
+            ],
+            pitfalls: [
+              "Computing E(X²) as [E(X)]² instead of Σ x² P(X = x) (remember: Var(X) = E(X²) − [E(X)]² is positive precisely because E(X²) > [E(X)]² for any non-constant variable!).",
+              "Forgetting to take the square root of Var(X) when asked for standard deviation, or squaring σx prematurely on the TI-84 output screen."
+            ],
+            gcTip: "Enter X in L1 and P(X = x) in L2, then run [STAT] > [CALC] > [1: 1-Var Stats] with List: L1 and FreqList: L2. On the output screen, x̄ = E(X), σx = √Var(X), and Σx² = E(X²) (since ΣFreq = 1).",
+            workedQuestion: `
+              A discrete random variable <em>Y</em> has the probability distribution shown below:<br>
+              <em>y</em>: &nbsp;−1, &nbsp;0, &nbsp;2, &nbsp;4 &nbsp;with probabilities&nbsp; <em>0.2, &nbsp;0.3, &nbsp;0.4, &nbsp;0.1</em> respectively.<br>
+              <strong>(i)</strong> Find the exact values of <em>E(Y)</em>, <em>E(Y²)</em>, and <em>Var(Y)</em>. [3]<br>
+              <strong>(ii)</strong> Find <em>E(1 / (Y + 2))</em> and <em>P(Y &gt; E(Y))</em>. [3]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> <em>E(Y) = (−1)(0.2) + 0(0.3) + 2(0.4) + 4(0.1) = −0.2 + 0 + 0.8 + 0.4 =</em> <strong>1</strong>.<br>
+              <em>E(Y²) = (−1)²(0.2) + 0²(0.3) + 2²(0.4) + 4²(0.1) = 0.2 + 0 + 1.6 + 1.6 =</em> <strong>3.4</strong>.<br>
+              <em>Var(Y) = E(Y²) − [E(Y)]² = 3.4 − 1² =</em> <strong>2.4</strong> (or <em>12/5</em>).<br><br>
+              <strong>(ii)</strong> <em>E(1/(Y + 2)) = (1/1)(0.2) + (1/2)(0.3) + (1/4)(0.4) + (1/6)(0.1) = 0.2 + 0.15 + 0.1 + 1/60 =</em> <strong>7/15</strong>.<br>
+              Since <em>E(Y) = 1</em>, <em>P(Y &gt; 1) = P(Y = 2) + P(Y = 4) = 0.4 + 0.1 =</em> <strong>0.5</strong>.
+            `,
+            exitQuestion: "If E(X) = 3 and E(X²) = 13, find Var(X) and the exact standard deviation of X.",
+            exitAnswer: "Var(X) = 13 − 3² = <strong>4</strong>; standard deviation σ = √4 = <strong>2</strong>."
+          },
+          {
+            label: "Lesson 3: Linear Transformations & Fair Games: E(aX + b) & Var(aX + b)",
+            file: "interactives/6_2_lesson3.html",
+            videoEmbedUrl: "",
+            prereq: "Computation of E(X) and Var(X) for a discrete random variable.",
+            objectives: [
+              "Apply E(aX + b) = aE(X) + b and Var(aX + b) = a²Var(X) to transformed discrete random variables.",
+              "Explain why adding constant b shifts the mean by b without changing variance, while scaling by a multiplies variance by a² (always non-negative, even when a < 0).",
+              "Set up and solve fair-game conditions where E(Net Winnings) = 0."
+            ],
+            prompts: [
+              "Adjust multiplier a and constant shift b in the Linear Transformation Lab and watch how adding b translates the entire bar chart without altering spread.",
+              "Test negative multipliers such as a = −2 (e.g., Y = 10 − 2X) to confirm that Var(10 − 2X) = (−2)²Var(X) = +4Var(X) > 0.",
+              "Use the Carnival Game / GrabFood Surge Payout preset to solve for the fair entry fee c that makes E(Net Profit) = 0."
+            ],
+            pitfalls: [
+              "Writing Var(aX + b) = aVar(X) + b or Var(−X) = −Var(X): adding b adds 0 to variance, and scaling by a multiplies variance by a² (never negative!).",
+              "Forgetting to subtract the entry fee c when computing expected net profit in a game."
+            ],
+            gcTip: "To verify on the TI-84, define L3 = a*L1 + b and run 1-Var Stats L3, L2 to confirm x̄ = aE(X) + b and σx = |a|σ.",
+            workedQuestion: `
+              A discrete random variable <em>X</em> has mean <em>E(X) = 4</em> and variance <em>Var(X) = 3</em>.<br>
+              <strong>(i)</strong> Find <em>E(5 − 2X)</em> and <em>Var(5 − 2X)</em>. [2]<br>
+              <strong>(ii)</strong> A carnival game charges an entry fee of <em>$c</em> per play and pays out <em>$(3X + 1)</em>. Find the value of <em>c</em> for which the game is fair. [2]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> <em>E(5 − 2X) = 5 − 2E(X) = 5 − 2(4) =</em> <strong>−3</strong>.<br>
+              <em>Var(5 − 2X) = (−2)² Var(X) = 4(3) =</em> <strong>12</strong>.<br><br>
+              <strong>(ii)</strong> Net winnings per play <em>W = (3X + 1) − c</em>.<br>
+              For a fair game, <em>E(W) = 0 ⇒ 3E(X) + 1 − c = 0 ⇒ 3(4) + 1 − c = 0 ⇒</em> <strong>c = 13</strong> (i.e., $13).
+            `,
+            exitQuestion: "Given E(X) = 6 and Var(X) = 5, find E(3X − 4) and Var(3X − 4).",
+            exitAnswer: "E(3X − 4) = 3(6) − 4 = <strong>14</strong>; Var(3X − 4) = 3²(5) = <strong>45</strong>."
+          },
+          {
+            label: "Lesson 4: Independent Observations: X₁ + X₂ vs. 2X & Sample Mean X̄",
+            file: "interactives/6_2_lesson4.html",
+            videoEmbedUrl: "",
+            prereq: "Independent events P(A ∩ B) = P(A)P(B) and properties of E(aX + b) and Var(aX + b).",
+            objectives: [
+              "Construct the exact probability distribution table of X₁ + X₂ and |X₁ − X₂| for two independent observations of X.",
+              "Distinguish clearly between 2X (doubling a single trial: mean 2μ, variance 4σ²) and X₁ + X₂ (sum of two independent trials: mean 2μ, variance 2σ²).",
+              "Derive and apply E(X̄) = μ and Var(X̄) = σ² / n for the sample mean X̄ = (X₁ + … + Xₙ)/n of n independent observations."
+            ],
+            prompts: [
+              "Compare the distribution of 2X (doubling one spin/roll) against X₁ + X₂ (summing two independent spins/rolls) in the Convolution Grid.",
+              "Observe why 2X has twice the variance of X₁ + X₂: in X₁ + X₂, a high value on trial 1 can cancel out a low value on trial 2, whereas 2X doubles extreme outcomes!"
+            ],
+            pitfalls: [
+              "Confusing 2X with X₁ + X₂: 'twice the score of one roll' is 2X (Var = 4σ²), whereas 'the total score of two independent rolls' is X₁ + X₂ (Var = 2σ²).",
+              "Using Var(X₁ − X₂) = Var(X₁) − Var(X₂) = 0 instead of Var(X₁ − X₂) = Var(X₁) + (−1)²Var(X₂) = 2Var(X)."
+            ],
+            gcTip: "For n independent observations, remember Var(X₁ + … + Xₙ) = nVar(X) and Var(X̄) = Var((1/n)ΣXᵢ) = (1/n²)(nVar(X)) = Var(X)/n.",
+            workedQuestion: `
+              A biased 3-sided spinner lands on <em>1, 2, 3</em> with probabilities <em>0.5, 0.3, 0.2</em> respectively.<br>
+              <strong>(i)</strong> Find <em>E(X)</em> and <em>Var(X)</em> for a single spin <em>X</em>. [2]<br>
+              <strong>(ii)</strong> The spinner is spun twice independently, giving scores <em>X₁</em> and <em>X₂</em>. Construct the probability distribution of <em>T = X₁ + X₂</em>, and verify that <em>Var(T) = 2Var(X)</em>, contrasting this with <em>Var(2X)</em>. [4]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> <em>E(X) = 1(0.5) + 2(0.3) + 3(0.2) =</em> <strong>1.7</strong>; <em>E(X²) = 1(0.5) + 4(0.3) + 9(0.2) = 3.5</em>; <em>Var(X) = 3.5 − 1.7² =</em> <strong>0.61</strong>.<br><br>
+              <strong>(ii)</strong> Possible values of <em>T = X₁ + X₂</em>:<br>
+              • <em>P(T = 2) = 0.5² = 0.25</em><br>
+              • <em>P(T = 3) = 2(0.5)(0.3) = 0.30</em><br>
+              • <em>P(T = 4) = 2(0.5)(0.2) + 0.3² = 0.29</em><br>
+              • <em>P(T = 5) = 2(0.3)(0.2) = 0.12</em><br>
+              • <em>P(T = 6) = 0.2² = 0.04</em><br>
+              Computing from the table gives <em>E(T) = 3.4 = 2(1.7)</em> and <em>Var(T) = 1.22 =</em> <strong>2 × 0.61</strong>, whereas <em>Var(2X) = 2² Var(X) = 4(0.61) =</em> <strong>2.44</strong>.
+            `,
+            exitQuestion: "If X has mean 10 and variance 8, find the mean and variance of the sample mean X̄ of 4 independent observations of X.",
+            exitAnswer: "E(X̄) = <strong>10</strong>; Var(X̄) = 8 / 4 = <strong>2</strong>."
+          },
+          {
+            label: "Lesson 5: The Binomial Distribution B(n, p) & Modelling Conditions",
+            file: "interactives/6_2_lesson5.html",
+            videoEmbedUrl: "",
+            prereq: "Combinations ⁿCₓ, independent events, and complement rule P(A′) = 1 − P(A).",
+            objectives: [
+              "State and justify the four conditions required for X ~ B(n, p) to be a suitable model (fixed number of trials n, two mutually exclusive outcomes, constant probability of success p, independent trials).",
+              "Compute exact probabilities P(X = x) = ⁿCₓ pˣ(1 − p)ⁿ⁻ˣ and convert discrete inequalities such as P(X ≥ a), P(X > a), and P(a < X ≤ b) into cumulative P(X ≤ k) form.",
+              "Solve multi-stage and conditional binomial problems such as P(X ≥ 3 | X ≥ 1)."
+            ],
+            prompts: [
+              "Adjust n and p in the Binomial Bar Explorer to watch how skewness shifts from right-skewed (p < 0.5) to symmetric (p = 0.5) to left-skewed (p > 0.5).",
+              "Use the TI-84 Inequality Translator to practice converting P(X ≥ a), P(X > a), and P(a < X ≤ b) into 1 − binomcdf(...) and binomcdf(...) expressions.",
+              "Test real-world Singapore contexts (MRT doors, GrabFood deliveries, without-replacement draws) against the 4 Bernoulli conditions."
+            ],
+            pitfalls: [
+              "Writing P(X ≥ 4) = 1 − P(X ≤ 4) instead of 1 − P(X ≤ 3) (forgetting that X is discrete, so excluding 4 means keeping up to 3!).",
+              "Stating generic textbook binomial conditions without contextualising them to the problem scenario (always mention the specific trial and success event in context!)."
+            ],
+            gcTip: "Press [2nd] [VARS] (DISTR) > [A: binompdf(n, p, x)] for P(X = x) and [B: binomcdf(n, p, k)] for P(X ≤ k). Always convert strict inequalities to ≤ form first!",
+            workedQuestion: `
+              At a busy MRT station, <strong>15%</strong> of commuters tap their EZ-Link card unsuccessfully on the first attempt. A random sample of <strong>20</strong> commuters is observed.<br>
+              <strong>(i)</strong> State two conditions needed for the number of commuters <em>X</em> who tap unsuccessfully to be modelled by a binomial distribution. [2]<br>
+              <strong>(ii)</strong> Find the probability that <strong>at least 4</strong> commuters in the sample tap unsuccessfully. [2]<br>
+              <strong>(iii)</strong> Given that at least 1 commuter taps unsuccessfully, find the probability that at most 3 tap unsuccessfully. [3]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> 1. Whether each commuter taps unsuccessfully is <strong>independent</strong> of other commuters.<br>
+              2. Each commuter has a <strong>constant probability of 0.15</strong> of tapping unsuccessfully.<br><br>
+              <strong>(ii)</strong> <em>X ~ B(20, 0.15)</em>.<br>
+              <em>P(X ≥ 4) = 1 − P(X ≤ 3) = 1 − 0.64773 =</em> <strong>0.352</strong> (to 3 s.f.).<br><br>
+              <strong>(iii)</strong> <em>P(X ≤ 3 | X ≥ 1) = P(1 ≤ X ≤ 3) / P(X ≥ 1) = [P(X ≤ 3) − P(X = 0)] / [1 − P(X = 0)]</em><br>
+              <em>= (0.64773 − 0.03876) / (1 − 0.03876) = 0.60897 / 0.96124 =</em> <strong>0.634</strong> (to 3 s.f.).
+            `,
+            exitQuestion: "If X ~ B(12, 0.4), write down the exact TI-84 binomcdf expression for P(3 < X ≤ 8).",
+            exitAnswer: "3 < X ≤ 8 means X ∈ {4, 5, 6, 7, 8}, so <strong>binomcdf(12, 0.4, 8) − binomcdf(12, 0.4, 3)</strong>."
+          },
+          {
+            label: "Lesson 6: Binomial Mean, Variance, Mode & Unknown Parameters (n or p)",
+            file: "interactives/6_2_lesson6.html",
+            videoEmbedUrl: "",
+            prereq: "Binomial probability formula P(X = x) = ⁿCₓ pˣ(1 − p)ⁿ⁻ˣ, logarithms, and GC [TABLE].",
+            objectives: [
+              "Use E(X) = np and Var(X) = np(1 − p) (without proof) to determine unknown parameters n and p from given mean and variance values.",
+              "Find the most likely outcome (mode) of X ~ B(n, p) given known n and p, and find the exact range of values of p given a specified mode m using P(X = m) ≥ P(X = m − 1) and P(X = m) ≥ P(X = m + 1).",
+              "Solve inequalities involving unknown n (such as finding the least integer n for which P(X ≥ 1) > 0.99) using logarithms or a TI-84 [TABLE]."
+            ],
+            prompts: [
+              "Sweep p across [0, 1] in the Binomial Mode Explorer and watch the highlighted tallest bar jump from m to m + 1 whenever p crosses (m + 1)/(n + 1).",
+              "Use the 'Range of p Given Mode m' solver to derive the two adjacent-bar inequalities P(X = m) ≥ P(X = m − 1) and P(X = m) ≥ P(X = m + 1).",
+              "Switch to the 'Minimum Trials n Solver' to inspect straddling TI-84 [TABLE] rows around the threshold probability."
+            ],
+            pitfalls: [
+              "Using only one inequality when finding the range of p given mode m—you MUST check BOTH P(X = m) ≥ P(X = m − 1) AND P(X = m) ≥ P(X = m + 1) (unless m = 0 or m = n).",
+              "Forgetting to show two straddling table values (one below and one above the threshold) when solving for least/greatest integer n via a TI-84 [TABLE] in 9758 exams."
+            ],
+            gcTip: "To find the mode of X ~ B(n, p) on the TI-84, enter Y1 = binompdf(n, p, X) in [Y=] and view [2nd] [GRAPH] (TABLE) to locate the peak probability (noting bimodal ties when (n + 1)p is an integer).",
+            workedQuestion: `
+              <strong>(a)</strong> A binomial random variable <em>X ~ B(15, p)</em> has a unique mode at <em>X = 4</em>. By considering adjacent probabilities, find the range of possible values of <em>p</em>. [4]<br>
+              <strong>(b)</strong> Another random variable <em>Y ~ B(n, 0.25)</em> satisfies <em>P(Y ≥ 1) &gt; 0.99</em>. Find the least possible integer value of <em>n</em>. [3]
+            `,
+            workedSolution: `
+              <strong>(a)</strong> Since <em>X = 4</em> is the unique mode, <em>P(X = 4) &gt; P(X = 3)</em> and <em>P(X = 4) &gt; P(X = 5)</em>:<br>
+              • <em>¹⁵C₄ p⁴(1 − p)¹¹ &gt; ¹⁵C₃ p³(1 − p)¹² ⇒ 1365p &gt; 455(1 − p) ⇒ 3p &gt; 1 − p ⇒ p &gt; 1/4</em>.<br>
+              • <em>¹⁵C₄ p⁴(1 − p)¹¹ &gt; ¹⁵C₅ p⁵(1 − p)¹⁰ ⇒ 1365(1 − p) &gt; 3003p ⇒ 5(1 − p) &gt; 11p ⇒ p &lt; 5/16</em>.<br>
+              Combining both inequalities gives <strong>1/4 &lt; p &lt; 5/16</strong> (i.e. <em>0.25 &lt; p &lt; 0.3125</em>).<br><br>
+              <strong>(b)</strong> <em>P(Y ≥ 1) = 1 − P(Y = 0) = 1 − 0.75^n &gt; 0.99 ⇒ 0.75^n &lt; 0.01</em>.<br>
+              Taking logarithms (reversing inequality since <em>ln 0.75 &lt; 0</em>): <em>n &gt; ln(0.01) / ln(0.75) ≈ 16.008</em>.<br>
+              Hence the least integer value is <strong>n = 17</strong>.
+            `,
+            exitQuestion: "If X ~ B(n, p) has E(X) = 12 and Var(X) = 7.2, find the exact values of p and n.",
+            exitAnswer: "Var(X) / E(X) = np(1 − p) / (np) = 1 − p = 7.2 / 12 = 0.6 ⇒ <strong>p = 0.4</strong>, and n = 12 / 0.4 = <strong>30</strong>."
+          }
+        ]
       }
     };
 
@@ -1816,7 +2044,7 @@
         main.innerHTML = `
           <div class="placeholder-banner">
             <h2 style="color:#1e293b; margin-top:0;">Topic ${currentTopic} Module Coming Soon</h2>
-            <p>Select <strong>1.1 Functions</strong>, <strong>1.2 Graphs &amp; Transformations</strong>, <strong>1.3 Equations &amp; Inequalities</strong>, <strong>2.1 Sequences &amp; Series</strong>, any module under <strong>Topic 3: Vectors (3.1, 3.2, 3.3)</strong>, <strong>4.1 Complex Numbers</strong>, or <strong>6.1 Probability</strong> from the sidebar to launch the interactive lessons.</p>
+            <p>Select <strong>1.1 Functions</strong>, <strong>1.2 Graphs &amp; Transformations</strong>, <strong>1.3 Equations &amp; Inequalities</strong>, <strong>2.1 Sequences &amp; Series</strong>, any module under <strong>Topic 3: Vectors (3.1, 3.2, 3.3)</strong>, <strong>4.1 Complex Numbers</strong>, <strong>6.1 Probability</strong>, or <strong>6.2 Discrete Random Variables</strong> from the sidebar to launch the interactive lessons.</p>
           </div>
         `;
         return;
