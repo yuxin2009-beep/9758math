@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 6.6 Lesson 2: Method of Least Squares &amp; The Two Regression Lines</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --green: #15803d;
+      --green-bg: #dcfce7;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1450px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 585px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1080px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 11px;
+    }
+
+    @media (max-width: 560px) {
+      .preset-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .tab-btn {
+      padding: 8px 8px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.75rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.48;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.74rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .plot-editor {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 11px;
+    }
+
+    .eqn-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 7px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 315px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 9px;
+      cursor: grab;
+    }
+
+    canvas:active {
+      cursor: grabbing;
+    }
+
+    .legend-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 7px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .swatch {
+      width: 16px;
+      height: 3px;
+      border-radius: 2px;
+      display: inline-block;
+    }
+
+    /* TWO-ROW CHECKBOX CONTROLS */
+    .control-rows {
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .control-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      padding: 5px 6px;
+      border-radius: 8px;
+    }
+
+    .control-row.row-yonx {
+      background: #f0f9ff;
+      border: 1px solid #bae6fd;
+    }
+
+    .control-row.row-xony {
+      background: #fff1f2;
+      border: 1px solid #fecdd3;
+    }
+
+    @media (max-width: 560px) {
+      .control-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .toggle-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #1e293b;
+      cursor: pointer;
+    }
+
+    /* ADJUSTABLE TRIAL LINE PANEL */
+    .trial-box {
+      margin-top: 8px;
+      background: #f0fdf4;
+      border: 1.5px solid #86efac;
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-size: 0.76rem;
+      color: #14532d;
+    }
+
+    .trial-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .trial-controls {
+      margin-top: 7px;
+      padding-top: 7px;
+      border-top: 1px dashed #86efac;
+      display: none;
+    }
+
+    .slider-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    @media (max-width: 540px) {
+      .slider-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .slider-item label {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      font-size: 0.72rem;
+      margin-bottom: 2px;
+    }
+
+    .slider-item input[type="range"] {
+      width: 100%;
+      accent-color: #16a34a;
+      cursor: pointer;
+    }
+
+    .ssr-compare-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      background: #ffffff;
+      border: 1px solid #bbf7d0;
+      border-radius: 7px;
+      padding: 5px 8px;
+      font-size: 0.74rem;
+      font-weight: 700;
+    }
+
+    .solve-bar {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: none;
+      background: var(--purple-dark);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.78rem;
+      cursor: pointer;
+    }
+
+    .action-btn.secondary {
+      background: var(--blue-bg);
+      color: var(--blue);
+      border: 1px solid #bae6fd;
+    }
+
+    .gc-screen-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 10px 12px;
+      color: #134e4a;
+      font-size: 0.79rem;
+      line-height: 1.48;
+      margin-bottom: 11px;
+    }
+
+    .box-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .gc-readout-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    @media (max-width: 560px) {
+      .gc-readout-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .gc-readout {
+      background: #f1f5f9;
+      border: 2px solid #64748b;
+      border-radius: 8px;
+      padding: 7px 9px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.42;
+    }
+
+    /* GRADIENT & Y-INTERCEPT INTERPRETATION CARD */
+    .interp-card {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #3b0764;
+      font-size: 0.79rem;
+      line-height: 1.48;
+    }
+
+    .interp-card-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--purple-dark);
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    .interp-item {
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid #e9d5ff;
+      border-radius: 8px;
+      padding: 6px 9px;
+      margin-bottom: 5px;
+    }
+
+    .interp-item:last-child {
+      margin-bottom: 0;
+    }
+
+    /* RIGHT PANEL SECTIONS */
+    .theory-box {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 10px 13px;
+      margin-bottom: 10px;
+      font-size: 0.78rem;
+      line-height: 1.48;
+    }
+
+    .theory-box h4 {
+      margin: 0 0 5px 0;
+      font-size: 0.82rem;
+      color: #1e293b;
+    }
+
+    .concept-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .concept-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .concept-card {
+      border-radius: 11px;
+      padding: 9px 11px;
+      font-size: 0.77rem;
+      line-height: 1.45;
+    }
+
+    .concept-card.yonx {
+      background: #f0f9ff;
+      border: 1.5px solid #bae6fd;
+      color: #0c4a6e;
+    }
+
+    .concept-card.xony {
+      background: #fff1f2;
+      border: 1.5px solid #fecdd3;
+      color: #881337;
+    }
+
+    .concept-card h4 {
+      margin: 0 0 4px 0;
+      font-size: 0.81rem;
+    }
+
+    .gc-steps-box {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 9px 12px;
+      margin-bottom: 10px;
+      font-size: 0.77rem;
+      line-height: 1.45;
+    }
+
+    .gc-steps-title {
+      font-size: 0.74rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: #1e293b;
+      margin-bottom: 4px;
+    }
+
+    .table-scroll {
+      max-height: 175px;
+      overflow-y: auto;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .check-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.75rem;
+      background: #ffffff;
+    }
+
+    .check-table th, .check-table td {
+      border-bottom: 1px solid #e2e8f0;
+      border-right: 1px solid #e2e8f0;
+      padding: 5px 6px;
+      text-align: center;
+    }
+
+    .check-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+
+    .check-table tfoot td {
+      background: #fefce8;
+      font-weight: 800;
+      color: #1e293b;
+      border-top: 2px solid #cbd5e1;
+      position: sticky;
+      bottom: 0;
+      z-index: 2;
+    }
+
+    .misconception-box {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-size: 0.77rem;
+      line-height: 1.45;
+      color: #78350f;
+      margin-bottom: 10px;
+    }
+
+    .grader-card {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 10px 12px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 7px;
+    }
+
+    @media (max-width: 700px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 7px;
+      font-size: 0.76rem;
+      line-height: 1.45;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Least-Squares Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Toggle Both Regression Lines &amp; Squared Areas</strong>
+        Use Row 1 for <strong>y on x</strong> (vertical residuals &amp; squares) and Row 2 for <strong>x on y</strong> (horizontal residuals &amp; squares).
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Test Your Own Line ("Adjustable Trial Line")</strong>
+        Enable <em>Add Adjustable Trial Line</em>, drag its green handles or adjust its slope/intercept sliders, and verify that <strong>your line's &Sigma;e<sub>y</sub>&sup2; is always &ge; the Least-Squares minimum</strong>!
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Interpret Gradient &amp; y-Intercept in Context</strong>
+        Compare how the gradient (<em>b</em>) and <em>y</em>-intercept (<em>a</em>) are interpreted across the three scenarios—including when <em>x = 0</em> makes physical sense vs. when it does not.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        6.6 Lesson 2 &bull; Method of Least Squares &amp; The Two Regression Lines
+      </div>
+
+      <!-- Scenario Presets -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="sc_mutual" onclick="loadScenario('mutual')">
+          1. Math vs Physics (r &approx; 0.78)
+        </button>
+        <button class="tab-btn" id="sc_cafe" onclick="loadScenario('cafe')">
+          2. Tiong Bahru Café (x = 0 Trap)
+        </button>
+        <button class="tab-btn" id="sc_spring" onclick="loadScenario('spring')">
+          3. Spring Load (x = 0 Valid)
+        </button>
+      </div>
+
+      <!-- Contextual Word Problem & Variable Definition -->
+      <div class="context-box" id="contextBox"></div>
+
+      <!-- Interactive Scatter Plot & Two Regression Lines Canvas -->
+      <div class="plot-editor">
+        <div class="eqn-header">
+          <span>Interactive Least-Squares Plot (Drag Points)</span>
+          <span id="rHeader" style="color:var(--purple-dark);">r = 0.0000</span>
+        </div>
+        <canvas id="regCanvas"></canvas>
+
+        <!-- Line & Residual Legend -->
+        <div class="legend-strip">
+          <span class="legend-item"><span class="swatch" style="background:#0284c7;"></span> y on x (y = a + bx)</span>
+          <span class="legend-item"><span class="swatch" style="background:#e11d48;"></span> x on y (x = c + dy)</span>
+          <span class="legend-item"><span class="swatch" style="background:#16a34a;"></span> Your Trial Line</span>
+          <span class="legend-item" style="color:#0f766e;">&#9679; Centroid (x&#772;, y&#772;)</span>
+        </div>
+
+        <!-- TWO-ROW CHECKBOX LAYOUT (ALL UNCHECKED BY DEFAULT) -->
+        <div class="control-rows">
+          <!-- Row 1: y on x, vertical residuals, show squared areas -->
+          <div class="control-row row-yonx">
+            <label class="toggle-pill">
+              <input type="checkbox" id="chkYonX" onchange="drawCanvas()" />
+              y on x
+            </label>
+            <label class="toggle-pill">
+              <input type="checkbox" id="chkVertRes" onchange="drawCanvas()" />
+              Vertical Residuals
+            </label>
+            <label class="toggle-pill">
+              <input type="checkbox" id="chkVertSquares" onchange="drawCanvas()" />
+              Show Squared Areas
+            </label>
+          </div>
+
+          <!-- Row 2: x on y, horizontal residuals, show squared areas -->
+          <div class="control-row row-xony">
+            <label class="toggle-pill">
+              <input type="checkbox" id="chkXonY" onchange="drawCanvas()" />
+              x on y
+            </label>
+            <label class="toggle-pill">
+              <input type="checkbox" id="chkHorzRes" onchange="drawCanvas()" />
+              Horizontal Residuals
+            </label>
+            <label class="toggle-pill">
+              <input type="checkbox" id="chkHorzSquares" onchange="drawCanvas()" />
+              Show Squared Areas
+            </label>
+          </div>
+        </div>
+
+        <!-- ADJUSTABLE TRIAL LINE CHALLENGE (UNCHECKED BY DEFAULT) -->
+        <div class="trial-box">
+          <div class="trial-header">
+            <label class="toggle-pill" style="color:#14532d;">
+              <input type="checkbox" id="chkTrialLine" onchange="toggleTrialLine()" />
+              <strong>Add Adjustable Trial Line (Test Least Squares!)</strong>
+            </label>
+            <span id="trialEqnLabel" style="font-family:ui-monospace, monospace; font-weight:800; font-size:0.74rem; display:none;"></span>
+          </div>
+
+          <div class="trial-controls" id="trialControls">
+            <div class="slider-grid">
+              <div class="slider-item">
+                <label><span>Trial Gradient (m)</span><span id="trialMVal">0.00</span></label>
+                <input type="range" id="trialMSlider" step="0.01" oninput="onTrialSlider()" />
+              </div>
+              <div class="slider-item">
+                <label><span>Trial y-Intercept (c)</span><span id="trialCVal">0.00</span></label>
+                <input type="range" id="trialCSlider" step="0.1" oninput="onTrialSlider()" />
+              </div>
+            </div>
+            <div class="ssr-compare-bar" id="ssrCompareBar"></div>
+          </div>
+        </div>
+
+        <div class="solve-bar">
+          <button class="action-btn" onclick="addPoint()">+ Add Data Point</button>
+          <button class="action-btn secondary" onclick="resetCurrentScenario()">Reset Dataset</button>
+        </div>
+      </div>
+
+      <!-- Simulated GC Readouts for BOTH Regression Lines -->
+      <div class="gc-screen-box" id="gcOutputBox"></div>
+
+      <!-- Contextual Interpretation of Gradient & y-Intercept -->
+      <div class="interp-card" id="interpCard"></div>
+    </div>
+
+    <!-- RIGHT: THEORY (REGRESSION, LEAST SQUARES, SQUARING), GC WORKFLOW, RESIDUAL SUM TABLE & QUIZ -->
+    <div class="card">
+      <div style="font-size:1.02rem; font-weight:800; color:#1e293b; margin-bottom:8px;">
+        Meaning of Regression, Method of Least Squares &amp; Residual Sums
+      </div>
+
+      <!-- Meaning of Regression & Method of Least Squares -->
+      <div class="theory-box">
+        <h4>1. What Does "Regression" &amp; "Method of Least Squares" Mean?</h4>
+        <ul style="margin:0; padding-left:18px;">
+          <li><strong>Meaning of Regression:</strong> Finding a mathematical equation (a line of best fit) that models how the <strong>average value of a response variable</strong> changes with an explanatory variable so we can summarise the trend and make estimates.</li>
+          <li><strong>Residual (Error):</strong> For each point <em>(x<sub>i</sub>, y<sub>i</sub>)</em>, the <strong>vertical residual</strong> is <em>e<sub>y,i</sub> = y<sub>i</sub> &minus; y&#770;<sub>i</sub></em> (observed minus predicted <em>y</em>), and the <strong>horizontal residual</strong> is <em>e<sub>x,i</sub> = x<sub>i</sub> &minus; x&#770;<sub>i</sub></em>.</li>
+          <li><strong>Why Square the Residuals?</strong>
+            <ol style="margin:2px 0 0 0; padding-left:18px;">
+              <li>Points above the line give positive residuals and points below give negative residuals—simply adding &Sigma;<em>e<sub>i</sub></em> would <strong>cancel out to zero</strong> even for a terrible line.</li>
+              <li>Squaring (<em>e<sub>i</sub></em>&sup2;) makes every term <strong>non-negative</strong>, penalises large outliers more heavily than small errors, and produces a smooth function with a unique analytical minimum.</li>
+            </ol>
+          </li>
+          <li><strong>Method of Least Squares:</strong> Chooses the unique line that makes the <strong>sum of squared residuals</strong> as small as mathematically possible (try the green <em>Adjustable Trial Line</em> to verify no other line beats it!).</li>
+        </ul>
+      </div>
+
+      <!-- Comparison Cards: y on x vs x on y -->
+      <div class="concept-grid">
+        <div class="concept-card yonx">
+          <h4>Regression Line of <em>y</em> on <em>x</em>: &nbsp;<em>y = a + bx</em></h4>
+          <ul style="margin:0; padding-left:16px;">
+            <li><strong>Minimises:</strong> Sum of squared <strong>vertical</strong> residuals, &Sigma;(<em>y<sub>i</sub> &minus; y&#770;<sub>i</sub></em>)&sup2;.</li>
+            <li><strong>Use when:</strong> <em>x</em> is controlled, OR estimating <em>y</em> given <em>x</em> (both random).</li>
+            <li><strong>Gradient (<em>b</em>):</strong> Change in <em>y</em> per +1 unit of <em>x</em>.</li>
+            <li><strong><em>y</em>-intercept (<em>a</em>):</strong> Value of <em>y</em> when <em>x = 0</em> (check validity!).</li>
+          </ul>
+        </div>
+
+        <div class="concept-card xony">
+          <h4>Regression Line of <em>x</em> on <em>y</em>: &nbsp;<em>x = c + dy</em></h4>
+          <ul style="margin:0; padding-left:16px;">
+            <li><strong>Minimises:</strong> Sum of squared <strong>horizontal</strong> residuals, &Sigma;(<em>x<sub>i</sub> &minus; x&#770;<sub>i</sub></em>)&sup2;.</li>
+            <li><strong>Use when:</strong> <em>y</em> is controlled, OR estimating <em>x</em> given <em>y</em> (both random).</li>
+            <li><strong>Intersection:</strong> Both lines always meet at <strong>(x&#772;, y&#772;)</strong>.</li>
+            <li><strong>Coincidence:</strong> Identical lines only when <em>|r| = 1</em>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- TI-84 Plus CE Workflow for Both Lines -->
+      <div class="gc-steps-box">
+        <div class="gc-steps-title">TI-84 Plus CE Keystrokes (Store x in L1, y in L2)</div>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
+          <div>
+            <strong>For <em>y</em> on <em>x</em> (<em>y = a + bx</em>):</strong><br>
+            Press <strong>[STAT] &rarr; CALC &rarr; 8: LinReg(a+bx)</strong><br>
+            Set <code>Xlist: L1</code>, <code>Ylist: L2</code> &rarr; <strong>Calculate</strong>.
+          </div>
+          <div>
+            <strong>For <em>x</em> on <em>y</em> (<em>x = c + dy</em>):</strong><br>
+            Press <strong>[STAT] &rarr; CALC &rarr; 8: LinReg(a+bx)</strong><br>
+            Swap lists: <code>Xlist: L2</code>, <code>Ylist: L1</code> &rarr; write <strong><em>x</em> = [a] + [b]<em>y</em></strong>.
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Residual & Sum of Squares Inspection Table -->
+      <div class="table-scroll">
+        <table class="check-table" id="residualTable"></table>
+      </div>
+
+      <!-- 9758 Exam Alert on Gradient, y-Intercept & Line Selection -->
+      <div class="misconception-box">
+        <strong>9758 Exam Alert — Interpreting <em>y</em>-Intercept &amp; Choosing the Right Line:</strong>
+        <ul style="margin:3px 0 0 0; padding-left:18px;">
+          <li><strong>When does the <em>y</em>-intercept (<em>a</em>) NOT make practical sense?</strong> (1) When <strong><em>x = 0</em> is physically impossible or nonsensical</strong> in context (e.g., 0°C in tropical Singapore or a person with 0 cm height), (2) when it gives a <strong>negative value for a non-negative quantity</strong> (e.g., negative sales), or (3) when <strong><em>x = 0</em> lies far outside the observed data range</strong> (invalid extrapolation).</li>
+          <li><strong>Never rearrange <em>y = a + bx</em> to solve for <em>x</em> unless <em>x</em> is controlled!</strong> If both <em>x</em> and <em>y</em> are random, use <em>x = c + dy</em> to estimate <em>x</em> from <em>y</em>.</li>
+        </ul>
+      </div>
+
+      <!-- Quick 9758 Exam Concept Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 Least-Squares &amp; Interpretation Check (<span id="qIdxLbl">1</span>/3)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.8rem; line-height:1.45; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  const scenarios = {
+    mutual: {
+      xName: "Math x (marks)",
+      yName: "Physics y (marks)",
+      xMin: 35, xMax: 95, yMin: 35, yMax: 95,
+      varDesc: "x = H2 Math exam score (random); y = H2 Physics exam score (random) for 7 students.",
+      story: "<strong>Scenario 1 — Two Random Variables (Math vs. Physics Scores, r &approx; 0.78):</strong> Toggle the checkboxes below the plot to inspect <strong>y on x</strong> (vertical residuals) and <strong>x on y</strong> (horizontal residuals), or add your own adjustable trial line.",
+      points: [
+        { x: 45, y: 58 },
+        { x: 52, y: 46 },
+        { x: 60, y: 74 },
+        { x: 67, y: 57 },
+        { x: 75, y: 84 },
+        { x: 82, y: 68 },
+        { x: 89, y: 88 }
+      ],
+      interpret: (st) => `
+        <span class="interp-card-title">Contextual Interpretation of Gradient &amp; y-Intercept (y on x)</span>
+        <div class="interp-item">
+          <strong>Gradient (b = ${st.b.toFixed(3)}):</strong> On average, a student's H2 Physics score increases by <strong>${st.b.toFixed(2)} marks</strong> for every <strong>1-mark increase</strong> in their H2 Math score.
+        </div>
+        <div class="interp-item">
+          <strong>y-Intercept (a = ${st.a.toFixed(2)}):</strong> Represents the estimated Physics score (${st.a.toFixed(1)} marks) for a student scoring <strong>0 marks in Math</strong>. <em>Validity check:</em> Since observed Math scores lie between 45 and 89, predicting at <em>x = 0</em> is <strong>unreliable extrapolation</strong> far outside the data range.
+        </div>
+      `
+    },
+    cafe: {
+      xName: "Temp x (°C)",
+      yName: "Kopi y (×100)",
+      xMin: 25, xMax: 36, yMin: 1.0, yMax: 4.2,
+      varDesc: "x = daily average temperature (°C); y = daily iced coffee sales (hundreds of cups).",
+      story: "<strong>Scenario 2 — Tiong Bahru Café (Illustrating When y-Intercept Makes No Sense):</strong> Daily average temperature <em>x</em> (°C) and iced coffee sales <em>y</em> (hundreds of cups) over 7 days with moderate scatter (<em>r &approx; 0.88</em>).",
+      points: [
+        { x: 26.5, y: 1.5 },
+        { x: 28.0, y: 2.3 },
+        { x: 29.5, y: 1.9 },
+        { x: 31.0, y: 2.8 },
+        { x: 32.2, y: 2.5 },
+        { x: 33.5, y: 3.5 },
+        { x: 34.8, y: 3.4 }
+      ],
+      interpret: (st) => `
+        <span class="interp-card-title">Contextual Interpretation of Gradient &amp; y-Intercept (y on x)</span>
+        <div class="interp-item">
+          <strong>Gradient (b = ${st.b.toFixed(3)}):</strong> On average, daily iced coffee sales increase by <strong>${st.b.toFixed(3)} hundred cups (about ${(st.b * 100).toFixed(0)} cups)</strong> for every <strong>1°C increase</strong> in daily average temperature.
+        </div>
+        <div class="interp-item">
+          <strong>y-Intercept (a = ${st.a.toFixed(2)}):</strong> Gives <strong>${st.a.toFixed(2)} hundred cups</strong> when <em>x = 0°C</em>. <strong>Does NOT make practical sense:</strong> (1) Daily sales cannot be negative, (2) 0°C never occurs in Singapore, and (3) <em>x = 0</em> is far outside the observed range [26.5°C, 34.8°C].
+        </div>
+      `
+    },
+    spring: {
+      xName: "Load x (N)",
+      yName: "Length y (cm)",
+      xMin: 0, xMax: 12, yMin: 10, yMax: 36,
+      varDesc: "x = controlled mass load attached (N); y = measured spring length (cm).",
+      story: "<strong>Scenario 3 — Hooke's Law Spring Lab (Illustrating When y-Intercept IS Meaningful):</strong> Fixed loads <em>x</em> = 2, 4, 6, 8, 10 N are hung on a spring and total length <em>y</em> (cm) is measured. Because <em>x</em> is <strong>controlled</strong>, only <strong>y on x</strong> is valid.",
+      points: [
+        { x: 2, y: 15.8 },
+        { x: 4, y: 18.4 },
+        { x: 6, y: 23.2 },
+        { x: 8, y: 25.5 },
+        { x: 10, y: 30.6 }
+      ],
+      interpret: (st) => `
+        <span class="interp-card-title">Contextual Interpretation of Gradient &amp; y-Intercept (y on x)</span>
+        <div class="interp-item">
+          <strong>Gradient (b = ${st.b.toFixed(3)}):</strong> The spring extends by an estimated <strong>${st.b.toFixed(2)} cm</strong> for every additional <strong>1 N</strong> of load attached.
+        </div>
+        <div class="interp-item">
+          <strong>y-Intercept (a = ${st.a.toFixed(2)}):</strong> Represents <strong>${st.a.toFixed(2)} cm</strong> when load <em>x = 0 N</em>. <strong>Makes clear physical sense:</strong> It estimates the <strong>natural (unstretched) length</strong> of the spring when no weight is attached!
+        </div>
+      `
+    }
+  };
+
+  let curKey = "mutual";
+  let state = null;
+  let draggingIdx = -1;
+  let draggingHandle = null;
+  let trialLine = { m: 0, c: 0 };
+
+  const canvas = document.getElementById("regCanvas");
+  const ctx = canvas.getContext("2d");
+
+  function loadScenario(key) {
+    curKey = key;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("sc_" + key).classList.add("active");
+
+    const sc = scenarios[key];
+    state = {
+      xName: sc.xName,
+      yName: sc.yName,
+      xMin: sc.xMin,
+      xMax: sc.xMax,
+      yMin: sc.yMin,
+      yMax: sc.yMax,
+      points: sc.points.map(p => ({ ...p }))
+    };
+
+    document.getElementById("contextBox").innerHTML = `
+      <div>${sc.story}</div>
+      <div class="var-pill">${sc.varDesc}</div>
+    `;
+
+    initTrialLineDefaults();
+    updateAll();
+  }
+
+  function initTrialLineDefaults() {
+    const st = computeRegression();
+    const m0 = +(st.b * 0.65).toFixed(2);
+    const c0 = +(st.meanY - m0 * st.meanX + (state.yMax - state.yMin) * 0.08).toFixed(2);
+    trialLine = { m: m0, c: c0 };
+
+    const mSpan = Math.max(1.5, Math.abs(st.b) * 2.2);
+    const mSlider = document.getElementById("trialMSlider");
+    mSlider.min = (st.b - mSpan).toFixed(2);
+    mSlider.max = (st.b + mSpan).toFixed(2);
+    mSlider.step = Math.max(0.01, +(mSpan / 100).toFixed(3));
+    mSlider.value = trialLine.m;
+
+    const cSpan = (state.yMax - state.yMin) * 0.9;
+    const cSlider = document.getElementById("trialCSlider");
+    cSlider.min = (st.a - cSpan).toFixed(1);
+    cSlider.max = (st.a + cSpan).toFixed(1);
+    cSlider.step = Math.max(0.05, +(cSpan / 100).toFixed(2));
+    cSlider.value = trialLine.c;
+  }
+
+  function toggleTrialLine() {
+    const on = document.getElementById("chkTrialLine").checked;
+    document.getElementById("trialControls").style.display = on ? "block" : "none";
+    document.getElementById("trialEqnLabel").style.display = on ? "inline" : "none";
+    updateAll();
+  }
+
+  function onTrialSlider() {
+    trialLine.m = parseFloat(document.getElementById("trialMSlider").value);
+    trialLine.c = parseFloat(document.getElementById("trialCSlider").value);
+    updateAll();
+  }
+
+  function resetCurrentScenario() {
+    loadScenario(curKey);
+  }
+
+  function addPoint() {
+    const nx = +(state.xMin + 0.14 * (state.xMax - state.xMin) + Math.random() * 0.72 * (state.xMax - state.xMin)).toFixed(1);
+    const ny = +(state.yMin + 0.14 * (state.yMax - state.yMin) + Math.random() * 0.72 * (state.yMax - state.yMin)).toFixed(1);
+    state.points.push({ x: nx, y: ny });
+    updateAll();
+  }
+
+  function computeRegression() {
+    const pts = state.points;
+    const n = pts.length;
+    const meanX = pts.reduce((s, p) => s + p.x, 0) / n;
+    const meanY = pts.reduce((s, p) => s + p.y, 0) / n;
+
+    let sxx = 0, syy = 0, sxy = 0;
+    pts.forEach(p => {
+      const dx = p.x - meanX;
+      const dy = p.y - meanY;
+      sxx += dx * dx;
+      syy += dy * dy;
+      sxy += dx * dy;
+    });
+
+    const denom = Math.sqrt(sxx * syy);
+    const r = denom === 0 ? 0 : sxy / denom;
+
+    // y on x: y = a + b x
+    const b = sxx === 0 ? 0 : sxy / sxx;
+    const a = meanY - b * meanX;
+
+    // x on y: x = c + d y
+    const d = syy === 0 ? 0 : sxy / syy;
+    const c = meanX - d * meanY;
+
+    // Sum of squared residuals for least-squares lines & trial line
+    let ssrY = 0;
+    let ssrX = 0;
+    let ssrTrial = 0;
+    pts.forEach(p => {
+      const ey = p.y - (a + b * p.x);
+      const ex = p.x - (c + d * p.y);
+      const eTrial = p.y - (trialLine.c + trialLine.m * p.x);
+      ssrY += ey * ey;
+      ssrX += ex * ex;
+      ssrTrial += eTrial * eTrial;
+    });
+
+    // First and last points by x
+    let minIdx = 0, maxIdx = 0;
+    pts.forEach((p, idx) => {
+      if (p.x < pts[minIdx].x || (p.x === pts[minIdx].x && p.y < pts[minIdx].y)) minIdx = idx;
+      if (p.x > pts[maxIdx].x || (p.x === pts[maxIdx].x && p.y > pts[maxIdx].y)) maxIdx = idx;
+    });
+
+    return { n, meanX, meanY, r, a, b, c, d, ssrY, ssrX, ssrTrial, minIdx, maxIdx };
+  }
+
+  function formatSign(val, dec = 3) {
+    return val >= 0 ? `+ ${val.toFixed(dec)}` : `− ${Math.abs(val).toFixed(dec)}`;
+  }
+
+  function updateAll() {
+    const st = computeRegression();
+    const sc = scenarios[curKey];
+    const trialOn = document.getElementById("chkTrialLine").checked;
+
+    document.getElementById("rHeader").textContent = `r = ${st.r.toFixed(4)} | Centroid (${st.meanX.toFixed(1)}, ${st.meanY.toFixed(1)})`;
+
+    document.getElementById("trialMVal").textContent = trialLine.m.toFixed(2);
+    document.getElementById("trialCVal").textContent = trialLine.c.toFixed(2);
+    document.getElementById("trialEqnLabel").textContent = `y = ${trialLine.c.toFixed(2)} ${formatSign(trialLine.m, 2)}x`;
+    const diff = Math.max(0, st.ssrTrial - st.ssrY);
+    document.getElementById("ssrCompareBar").innerHTML = `
+      <span>Your Trial &Sigma;e<sub>y</sub>&sup2;: <strong style="color:#15803d;">${st.ssrTrial.toFixed(2)}</strong></span>
+      <span>Least-Squares Min &Sigma;e<sub>y</sub>&sup2;: <strong style="color:#0284c7;">${st.ssrY.toFixed(2)}</strong></span>
+      <span style="color:${diff < 0.01 ? '#15803d' : '#b45309'};">${diff < 0.01 ? 'Matched Minimum!' : `+${diff.toFixed(2)} larger`}</span>
+    `;
+
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">TI-84 Plus CE LinReg(a+bx) Outputs (3 s.f. in Exam)</span>
+      <div class="gc-readout-grid">
+        <div class="gc-readout">
+          <strong style="color:#0284c7;">y on x (Xlist: L1, Ylist: L2)</strong><br>
+          y = a + bx<br>
+          a = ${st.a.toFixed(4)}, &nbsp;b = ${st.b.toFixed(4)}<br>
+          &rArr; <strong>y = ${st.a.toPrecision(3)} ${formatSign(st.b, 3)}x</strong>
+        </div>
+        <div class="gc-readout">
+          <strong style="color:#e11d48;">x on y (Xlist: L2, Ylist: L1)</strong><br>
+          x = a + by<br>
+          a = ${st.c.toFixed(4)}, &nbsp;b = ${st.d.toFixed(4)}<br>
+          &rArr; <strong>x = ${st.c.toPrecision(3)} ${formatSign(st.d, 3)}y</strong>
+        </div>
+      </div>
+    `;
+
+    document.getElementById("interpCard").innerHTML = sc.interpret(st);
+
+    document.getElementById("residualTable").innerHTML = `
+      <thead>
+        <tr>
+          <th>Point (x<sub>i</sub>, y<sub>i</sub>)</th>
+          <th>Vert. Residual<br>e<sub>y</sub> = y<sub>i</sub> &minus; y&#770;<sub>i</sub></th>
+          <th>Squared Vert.<br>e<sub>y</sub>&sup2;</th>
+          <th>Horz. Residual<br>e<sub>x</sub> = x<sub>i</sub> &minus; x&#770;<sub>i</sub></th>
+          <th>Squared Horz.<br>e<sub>x</sub>&sup2;</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${state.points.map(p => {
+          const yHat = st.a + st.b * p.x;
+          const vRes = p.y - yHat;
+          const xHat = st.c + st.d * p.y;
+          const hRes = p.x - xHat;
+          return `
+            <tr>
+              <td><strong>(${p.x.toFixed(1)}, ${p.y.toFixed(1)})</strong></td>
+              <td style="color:#0284c7; font-weight:700;">${vRes >= 0 ? "+" : ""}${vRes.toFixed(2)}</td>
+              <td style="color:#0369a1;">${(vRes * vRes).toFixed(2)}</td>
+              <td style="color:#e11d48; font-weight:700;">${hRes >= 0 ? "+" : ""}${hRes.toFixed(2)}</td>
+              <td style="color:#be123c;">${(hRes * hRes).toFixed(2)}</td>
+            </tr>
+          `;
+        }).join("")}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td><strong>Least-Squares Min Sum</strong></td>
+          <td>&Sigma;e<sub>y</sub> = 0.00</td>
+          <td style="color:#0284c7;"><strong>&Sigma;e<sub>y</sub>&sup2; = ${st.ssrY.toFixed(2)}</strong></td>
+          <td>&Sigma;e<sub>x</sub> = 0.00</td>
+          <td style="color:#e11d48;"><strong>&Sigma;e<sub>x</sub>&sup2; = ${st.ssrX.toFixed(2)}</strong></td>
+        </tr>
+        ${trialOn ? `
+          <tr style="background:#dcfce7;">
+            <td colspan="2" style="color:#14532d;"><strong>Your Adjustable Trial Line Sum of Squares:</strong></td>
+            <td style="color:#15803d;"><strong>&Sigma;e<sub>y</sub>&sup2; = ${st.ssrTrial.toFixed(2)}</strong></td>
+            <td colspan="2" style="color:#14532d;">(${diff < 0.01 ? "Equals minimum" : `+${diff.toFixed(2)} above min`})</td>
+          </tr>
+        ` : ""}
+      </tfoot>
+    `;
+
+    drawCanvas();
+  }
+
+  function getBounds(w, h) {
+    return { left: 58, right: w - 24, top: 22, bottom: h - 42 };
+  }
+
+  function toPx(x, y, b) {
+    const px = b.left + ((x - state.xMin) / (state.xMax - state.xMin)) * (b.right - b.left);
+    const py = b.bottom - ((y - state.yMin) / (state.yMax - state.yMin)) * (b.bottom - b.top);
+    return { px, py };
+  }
+
+  function toData(px, py, b) {
+    const xr = Math.max(0, Math.min(1, (px - b.left) / (b.right - b.left)));
+    const yr = Math.max(0, Math.min(1, (b.bottom - py) / (b.bottom - b.top)));
+    return {
+      x: +(state.xMin + xr * (state.xMax - state.xMin)).toFixed(1),
+      y: +(state.yMin + yr * (state.yMax - state.yMin)).toFixed(1)
+    };
+  }
+
+  function drawClippedLine(p1, p2, b, color, dash = [], width = 2.3) {
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(b.left, b.top, b.right - b.left, b.bottom - b.top);
+    ctx.clip();
+
+    ctx.strokeStyle = color;
+    ctx.lineWidth = width;
+    ctx.setLineDash(dash);
+    ctx.beginPath();
+    ctx.moveTo(p1.px, p1.py);
+    ctx.lineTo(p2.px, p2.py);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function getTrialHandles(b) {
+    const xL = state.xMin + 0.12 * (state.xMax - state.xMin);
+    const xR = state.xMin + 0.88 * (state.xMax - state.xMin);
+    const yL = Math.max(state.yMin, Math.min(state.yMax, trialLine.c + trialLine.m * xL));
+    const yR = Math.max(state.yMin, Math.min(state.yMax, trialLine.c + trialLine.m * xR));
+    return {
+      leftData: { x: xL, y: yL },
+      rightData: { x: xR, y: yR },
+      leftPx: toPx(xL, yL, b),
+      rightPx: toPx(xR, yR, b)
+    };
+  }
+
+  function drawCanvas() {
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width === 0) return;
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    const w = rect.width;
+    const h = rect.height;
+    const b = getBounds(w, h);
+    const st = computeRegression();
+
+    ctx.clearRect(0, 0, w, h);
+
+    // Clean Axes (No grid lines & no intermediate tick marks)
+    ctx.strokeStyle = "#475569";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(b.left, b.top);
+    ctx.lineTo(b.left, b.bottom);
+    ctx.lineTo(b.right, b.bottom);
+    ctx.stroke();
+
+    // Origin O
+    ctx.fillStyle = "#475569";
+    ctx.font = "italic bold 11px Segoe UI, sans-serif";
+    ctx.textAlign = "right";
+    ctx.fillText("O", b.left - 6, b.bottom + 13);
+
+    // Axis Labels
+    ctx.fillStyle = "#334155";
+    ctx.font = "bold 11px Segoe UI, sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(state.xName, (b.left + b.right) / 2, h - 5);
+    ctx.save();
+    ctx.translate(14, (b.top + b.bottom) / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.fillText(state.yName, 0, 0);
+    ctx.restore();
+
+    // Dotted Projections to Axes for First & Last Points Only
+    [st.minIdx, st.maxIdx].forEach((idx, i) => {
+      const pt = state.points[idx];
+      const { px, py } = toPx(pt.x, pt.y, b);
+      const col = i === 0 ? "#0284c7" : "#7c3aed";
+
+      ctx.save();
+      ctx.setLineDash([4, 4]);
+      ctx.strokeStyle = col;
+      ctx.lineWidth = 1.2;
+      ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(px, b.bottom); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(b.left, py); ctx.stroke();
+      ctx.restore();
+
+      ctx.fillStyle = col;
+      ctx.font = "bold 10px Segoe UI, sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText(pt.x.toFixed(1), px, b.bottom + 14);
+      ctx.textAlign = "right";
+      ctx.fillText(pt.y.toFixed(1), b.left - 7, py + 3.5);
+    });
+
+    const showYonX = document.getElementById("chkYonX").checked;
+    const showVert = document.getElementById("chkVertRes").checked;
+    const showVertSq = document.getElementById("chkVertSquares").checked;
+
+    const showXonY = document.getElementById("chkXonY").checked;
+    const showHorz = document.getElementById("chkHorzRes").checked;
+    const showHorzSq = document.getElementById("chkHorzSquares").checked;
+
+    const showTrial = document.getElementById("chkTrialLine").checked;
+
+    // Vertical Residuals & Squared Areas (Blue)
+    if (showVert || showVertSq) {
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(b.left, b.top, b.right - b.left, b.bottom - b.top);
+      ctx.clip();
+
+      state.points.forEach(p => {
+        const yHat = st.a + st.b * p.x;
+        const pObs = toPx(p.x, p.y, b);
+        const pFit = toPx(p.x, yHat, b);
+        const dyPx = pFit.py - pObs.py;
+
+        if (showVertSq && Math.abs(dyPx) > 1) {
+          const side = Math.abs(dyPx);
+          const topY = Math.min(pObs.py, pFit.py);
+          ctx.fillStyle = "rgba(2, 132, 199, 0.14)";
+          ctx.strokeStyle = "rgba(2, 132, 199, 0.45)";
+          ctx.lineWidth = 1;
+          ctx.fillRect(pObs.px, topY, side, side);
+          ctx.strokeRect(pObs.px, topY, side, side);
+        }
+
+        if (showVert) {
+          ctx.strokeStyle = "#0284c7";
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(pObs.px, pObs.py);
+          ctx.lineTo(pFit.px, pFit.py);
+          ctx.stroke();
+        }
+      });
+      ctx.restore();
+    }
+
+    // Horizontal Residuals & Squared Areas (Rose)
+    if (showHorz || showHorzSq) {
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(b.left, b.top, b.right - b.left, b.bottom - b.top);
+      ctx.clip();
+
+      state.points.forEach(p => {
+        const xHat = st.c + st.d * p.y;
+        const pObs = toPx(p.x, p.y, b);
+        const pFit = toPx(xHat, p.y, b);
+        const dxPx = pFit.px - pObs.px;
+
+        if (showHorzSq && Math.abs(dxPx) > 1) {
+          const side = Math.abs(dxPx);
+          const leftX = Math.min(pObs.px, pFit.px);
+          ctx.fillStyle = "rgba(225, 29, 72, 0.14)";
+          ctx.strokeStyle = "rgba(225, 29, 72, 0.45)";
+          ctx.lineWidth = 1;
+          ctx.fillRect(leftX, pObs.py - side, side, side);
+          ctx.strokeRect(leftX, pObs.py - side, side, side);
+        }
+
+        if (showHorz) {
+          ctx.strokeStyle = "#e11d48";
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(pObs.px, pObs.py);
+          ctx.lineTo(pFit.px, pFit.py);
+          ctx.stroke();
+        }
+      });
+      ctx.restore();
+    }
+
+    // Line 1: Regression Line of y on x (y = a + bx)
+    if (showYonX) {
+      const y1P1 = toPx(state.xMin, st.a + st.b * state.xMin, b);
+      const y1P2 = toPx(state.xMax, st.a + st.b * state.xMax, b);
+      drawClippedLine(y1P1, y1P2, b, "#0284c7");
+    }
+
+    // Line 2: Regression Line of x on y (x = c + dy)
+    if (showXonY) {
+      const x2P1 = toPx(st.c + st.d * state.yMin, state.yMin, b);
+      const x2P2 = toPx(st.c + st.d * state.yMax, state.yMax, b);
+      drawClippedLine(x2P1, x2P2, b, "#e11d48", [7, 4]);
+    }
+
+    // Adjustable Trial Line + Vertical Residuals to Trial Line + Drag Handles
+    if (showTrial) {
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(b.left, b.top, b.right - b.left, b.bottom - b.top);
+      ctx.clip();
+
+      ctx.strokeStyle = "rgba(22, 163, 74, 0.65)";
+      ctx.lineWidth = 1.6;
+      ctx.setLineDash([3, 3]);
+      state.points.forEach(p => {
+        const yTrial = trialLine.c + trialLine.m * p.x;
+        const pObs = toPx(p.x, p.y, b);
+        const pTr = toPx(p.x, yTrial, b);
+        ctx.beginPath();
+        ctx.moveTo(pObs.px, pObs.py);
+        ctx.lineTo(pTr.px, pTr.py);
+        ctx.stroke();
+      });
+      ctx.restore();
+
+      const tP1 = toPx(state.xMin, trialLine.c + trialLine.m * state.xMin, b);
+      const tP2 = toPx(state.xMax, trialLine.c + trialLine.m * state.xMax, b);
+      drawClippedLine(tP1, tP2, b, "#16a34a", [], 2.6);
+
+      const handles = getTrialHandles(b);
+      [handles.leftPx, handles.rightPx].forEach(hp => {
+        ctx.fillStyle = "#16a34a";
+        ctx.strokeStyle = "#ffffff";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.rect(hp.px - 5.5, hp.py - 5.5, 11, 11);
+        ctx.fill();
+        ctx.stroke();
+      });
+    }
+
+    // Centroid Intersection Point (x̄, ȳ)
+    const cent = toPx(st.meanX, st.meanY, b);
+    ctx.fillStyle = "#0f766e";
+    ctx.strokeStyle = "#ffffff";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(cent.px, cent.py, 6, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.fillStyle = "#0f766e";
+    ctx.font = "bold 10.5px Segoe UI, sans-serif";
+    ctx.textAlign = "left";
+    ctx.fillText("(x̄, ȳ)", Math.min(b.right - 36, cent.px + 8), Math.max(b.top + 12, cent.py - 8));
+
+    // Data Points
+    state.points.forEach((p, idx) => {
+      const { px, py } = toPx(p.x, p.y, b);
+      ctx.fillStyle = idx === draggingIdx ? "#e11d48" : "#8b5cf6";
+      ctx.strokeStyle = "#ffffff";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(px, py, 5.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+    });
+  }
+
+  canvas.addEventListener("mousedown", e => {
+    const rect = canvas.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const my = e.clientY - rect.top;
+    const b = getBounds(rect.width, rect.height);
+
+    if (document.getElementById("chkTrialLine").checked) {
+      const handles = getTrialHandles(b);
+      if (Math.hypot(mx - handles.leftPx.px, my - handles.leftPx.py) <= 12) {
+        draggingHandle = "left";
+        return;
+      }
+      if (Math.hypot(mx - handles.rightPx.px, my - handles.rightPx.py) <= 12) {
+        draggingHandle = "right";
+        return;
+      }
+    }
+
+    draggingIdx = state.points.findIndex(p => {
+      const { px, py } = toPx(p.x, p.y, b);
+      return Math.hypot(mx - px, my - py) <= 12;
+    });
+  });
+
+  window.addEventListener("mousemove", e => {
+    if (draggingIdx === -1 && !draggingHandle) return;
+    const rect = canvas.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const my = e.clientY - rect.top;
+    const b = getBounds(rect.width, rect.height);
+
+    if (draggingHandle) {
+      const handles = getTrialHandles(b);
+      const dragged = toData(mx, my, b);
+      const fixed = draggingHandle === "left" ? handles.rightData : handles.leftData;
+      const dx = dragged.x - fixed.x;
+      if (Math.abs(dx) > 0.2) {
+        const newM = (dragged.y - fixed.y) / dx;
+        const newC = fixed.y - newM * fixed.x;
+        trialLine.m = +newM.toFixed(2);
+        trialLine.c = +newC.toFixed(2);
+        document.getElementById("trialMSlider").value = trialLine.m;
+        document.getElementById("trialCSlider").value = trialLine.c;
+        updateAll();
+      }
+      return;
+    }
+
+    state.points[draggingIdx] = toData(mx, my, b);
+    updateAll();
+  });
+
+  window.addEventListener("mouseup", () => {
+    if (draggingIdx !== -1 || draggingHandle) {
+      draggingIdx = -1;
+      draggingHandle = null;
+      drawCanvas();
+    }
+  });
+
+  window.addEventListener("resize", drawCanvas);
+
+  const examQs = [
+    {
+      q: "Why does the Method of Least Squares minimise the sum of SQUARED residuals Σ(yᵢ − ŷᵢ)² rather than the simple sum of residuals Σ(yᵢ − ŷᵢ)?",
+      opts: [
+        "Positive and negative residuals cancel out to zero in Σ(yᵢ − ŷᵢ), whereas squaring makes all errors non-negative and penalises large deviations",
+        "Because squaring always makes the correlation coefficient r equal to +1",
+        "Because the graphing calculator cannot compute negative numbers",
+        "Because squaring converts a curved relationship into a straight line"
+      ],
+      ans: 0,
+      exp: "Points above the line have positive residuals and points below have negative residuals, so Σ(yᵢ − ŷᵢ) = 0 for any line passing through (x̄, ȳ). Squaring avoids cancellation and penalises large errors."
+    },
+    {
+      q: "A regression line relating a student's height x (cm, between 155 and 185 cm) to mass y (kg) is y = −58.4 + 0.720x. Why does the y-intercept −58.4 NOT make practical sense?",
+      opts: [
+        "A height of x = 0 cm is physically impossible, mass cannot be negative (−58.4 kg), and x = 0 is far outside the data range",
+        "Because the gradient 0.720 is less than 1",
+        "Because height x is a controlled variable",
+        "Because the y-intercept should always equal the sample mean ȳ"
+      ],
+      ans: 0,
+      exp: "The y-intercept gives the estimated value of y when x = 0. Here x = 0 cm is physically impossible, yields a negative mass (−58.4 kg), and involves invalid extrapolation far below 155 cm."
+    },
+    {
+      q: "In an experiment, fixed volumes of water x (litres) are poured into a tank and the resulting water level y (cm) is measured. Which regression line should be used to estimate x when y = 45 cm?",
+      opts: [
+        "The regression line of y on x, because x is the controlled independent variable",
+        "The regression line of x on y, because we are estimating x from y",
+        "Either regression line, because both lines always have the exact same equation",
+        "Neither line, because interpolation is invalid when x is controlled"
+      ],
+      ans: 0,
+      exp: "When x is a controlled independent variable, only the regression line of y on x is physically valid—it must be used for estimating both y from x and x from y."
+    }
+  ];
+
+  let curQ = 0;
+
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").textContent = item.q;
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i}, this)">${String.fromCharCode(65 + i)}. ${o}</button>
+    `).join("");
+  }
+
+  function gradeExamQ(idx, btn) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  loadScenario("mutual");
+  renderExamQ();
+</script>
+
+</body>
+</html>
