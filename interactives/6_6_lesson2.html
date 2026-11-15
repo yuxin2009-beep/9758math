@@ -54,7 +54,7 @@
       background: #ffffff;
       border: 1.5px solid #c4b5fd;
       border-radius: 14px;
-      padding: 12px 18px;
+      padding: 14px 18px;
       margin-bottom: 16px;
       box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
     }
@@ -101,9 +101,9 @@
     .guide-steps {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 10px;
-      padding-top: 10px;
+      gap: 14px;
+      margin-top: 12px;
+      padding-top: 12px;
       border-top: 1px dashed #e2e8f0;
     }
 
@@ -117,15 +117,18 @@
       background: #f8fafc;
       border: 1px solid #e2e8f0;
       border-radius: 10px;
-      padding: 9px 11px;
-      font-size: 0.78rem;
-      line-height: 1.45;
+      padding: 12px 14px;
+      font-size: 0.8rem;
+      line-height: 1.58;
+      letter-spacing: 0.01em;
     }
 
-    .guide-step-card strong {
+    .guide-step-heading {
       color: #1e293b;
+      font-weight: 800;
       display: block;
-      margin-bottom: 2px;
+      margin-bottom: 6px;
+      font-size: 0.82rem;
     }
 
     .app-container {
@@ -474,16 +477,32 @@
       background: #f8fafc;
       border: 1.5px solid #cbd5e1;
       border-radius: 12px;
-      padding: 10px 13px;
-      margin-bottom: 10px;
-      font-size: 0.78rem;
-      line-height: 1.48;
+      padding: 12px 14px;
+      margin-bottom: 11px;
+      font-size: 0.79rem;
+      line-height: 1.52;
     }
 
     .theory-box h4 {
-      margin: 0 0 5px 0;
-      font-size: 0.82rem;
+      margin: 0 0 8px 0;
+      font-size: 0.84rem;
       color: #1e293b;
+    }
+
+    .theory-box ul {
+      margin: 0;
+      padding-left: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .theory-box ol {
+      margin: 5px 0 0 0;
+      padding-left: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
 
     .concept-grid {
@@ -669,16 +688,16 @@
     </div>
     <div class="guide-steps" id="guideSteps">
       <div class="guide-step-card">
-        <strong>1. Toggle Both Regression Lines &amp; Squared Areas</strong>
-        Use Row 1 for <strong>y on x</strong> (vertical residuals &amp; squares) and Row 2 for <strong>x on y</strong> (horizontal residuals &amp; squares).
+        <span class="guide-step-heading">1. Toggle Both Regression Lines &amp; Squared Areas</span>
+        Use the top blue row for the regression line of <strong><em>y</em> on <em>x</em></strong> (vertical residuals and squares) and the bottom red row for <strong><em>x</em> on <em>y</em></strong> (horizontal residuals and squares).
       </div>
       <div class="guide-step-card">
-        <strong>2. Test Your Own Line ("Adjustable Trial Line")</strong>
-        Enable <em>Add Adjustable Trial Line</em>, drag its green handles or adjust its slope/intercept sliders, and verify that <strong>your line's &Sigma;e<sub>y</sub>&sup2; is always &ge; the Least-Squares minimum</strong>!
+        <span class="guide-step-heading">2. Test Your Own Line ("Adjustable Trial Line")</span>
+        Tick <em>Add Adjustable Trial Line</em>, drag its green square handles or move the sliders, and check that your line's <strong>&Sigma;<em>e</em><sub><em>y</em></sub>&sup2;</strong> is always greater than or equal to the least-squares minimum.
       </div>
       <div class="guide-step-card">
-        <strong>3. Interpret Gradient &amp; y-Intercept in Context</strong>
-        Compare how the gradient (<em>b</em>) and <em>y</em>-intercept (<em>a</em>) are interpreted across the three scenarios—including when <em>x = 0</em> makes physical sense vs. when it does not.
+        <span class="guide-step-heading">3. Interpret Gradient &amp; <em>y</em>-Intercept in Context</span>
+        Compare how the gradient (<em>b</em>) and <em>y</em>-intercept (<em>a</em>) are interpreted across the three scenarios—including when <em>x = 0</em> makes physical sense versus when it does not.
       </div>
     </div>
   </div>
@@ -803,12 +822,12 @@
 
       <!-- Meaning of Regression & Method of Least Squares -->
       <div class="theory-box">
-        <h4>1. What Does "Regression" &amp; "Method of Least Squares" Mean?</h4>
-        <ul style="margin:0; padding-left:18px;">
+        <h4>What Does "Regression" &amp; "Method of Least Squares" Mean?</h4>
+        <ul>
           <li><strong>Meaning of Regression:</strong> Finding a mathematical equation (a line of best fit) that models how the <strong>average value of a response variable</strong> changes with an explanatory variable so we can summarise the trend and make estimates.</li>
           <li><strong>Residual (Error):</strong> For each point <em>(x<sub>i</sub>, y<sub>i</sub>)</em>, the <strong>vertical residual</strong> is <em>e<sub>y,i</sub> = y<sub>i</sub> &minus; y&#770;<sub>i</sub></em> (observed minus predicted <em>y</em>), and the <strong>horizontal residual</strong> is <em>e<sub>x,i</sub> = x<sub>i</sub> &minus; x&#770;<sub>i</sub></em>.</li>
           <li><strong>Why Square the Residuals?</strong>
-            <ol style="margin:2px 0 0 0; padding-left:18px;">
+            <ol>
               <li>Points above the line give positive residuals and points below give negative residuals—simply adding &Sigma;<em>e<sub>i</sub></em> would <strong>cancel out to zero</strong> even for a terrible line.</li>
               <li>Squaring (<em>e<sub>i</sub></em>&sup2;) makes every term <strong>non-negative</strong>, penalises large outliers more heavily than small errors, and produces a smooth function with a unique analytical minimum.</li>
             </ol>
