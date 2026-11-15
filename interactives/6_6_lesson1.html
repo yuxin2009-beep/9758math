@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 6.6 Lesson 1: Scatter Diagrams &amp; Product Moment Correlation Coefficient (r)</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 560px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1024px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.76rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.48;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .plot-editor {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 11px;
+    }
+
+    .eqn-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 7px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 305px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 9px;
+      cursor: grab;
+    }
+
+    canvas:active {
+      cursor: grabbing;
+    }
+
+    .trend-desc-box {
+      margin-top: 8px;
+      background: #f0f9ff;
+      border: 1px solid #bae6fd;
+      border-left: 4px solid var(--blue);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      color: #0c4a6e;
+    }
+
+    .trend-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 4px;
+    }
+
+    .trend-tag {
+      background: #ffffff;
+      border: 1px solid #7dd3fc;
+      color: #0369a1;
+      font-size: 0.69rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .toggle-strip {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    .toggle-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      padding: 4px 8px;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+
+    .solve-bar {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: none;
+      background: var(--purple-dark);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.78rem;
+      cursor: pointer;
+    }
+
+    .action-btn.secondary {
+      background: var(--blue-bg);
+      color: var(--blue);
+      border: 1px solid #bae6fd;
+    }
+
+    .gc-screen-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin-bottom: 11px;
+    }
+
+    .box-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .gc-readout-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 5px;
+    }
+
+    @media (max-width: 560px) {
+      .gc-readout-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .gc-readout {
+      background: #f1f5f9;
+      border: 2px solid #64748b;
+      border-radius: 8px;
+      padding: 7px 10px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.77rem;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.45;
+    }
+
+    .spectrum-wrap {
+      margin-top: 8px;
+      background: #ffffff;
+      border: 1px solid #99f6e4;
+      border-radius: 8px;
+      padding: 7px 10px;
+    }
+
+    .spectrum-bar {
+      position: relative;
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #e11d48 0%, #fda4af 30%, #e2e8f0 50%, #99f6e4 70%, #0f766e 100%);
+      border: 1px solid #cbd5e1;
+      margin-bottom: 4px;
+    }
+
+    .spectrum-marker {
+      position: absolute;
+      top: -4px;
+      width: 6px;
+      height: 16px;
+      background: #0f172a;
+      border: 2px solid #ffffff;
+      border-radius: 3px;
+      transform: translateX(-50%);
+      transition: left 0.12s ease-out;
+    }
+
+    .spectrum-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.69rem;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .solution-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.81rem;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    /* RIGHT PANEL SECTIONS */
+    .paper-guide-card {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 13px;
+      margin-bottom: 10px;
+    }
+
+    .paper-guide-title {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #1e293b;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .paper-checklist {
+      margin: 0;
+      padding-left: 18px;
+      font-size: 0.78rem;
+      line-height: 1.5;
+      color: #334155;
+    }
+
+    .paper-checklist li {
+      margin-bottom: 3px;
+    }
+
+    .table-scroll {
+      max-height: 135px;
+      overflow-y: auto;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+    }
+
+    .check-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.77rem;
+      background: #ffffff;
+    }
+
+    .check-table th, .check-table td {
+      border-bottom: 1px solid #e2e8f0;
+      border-right: 1px solid #e2e8f0;
+      padding: 5px 8px;
+      text-align: center;
+    }
+
+    .check-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+      position: sticky;
+      top: 0;
+    }
+
+    .gc-guide-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .gc-guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .step-pill {
+      background: var(--blue-bg);
+      border: 1px solid #bae6fd;
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-size: 0.76rem;
+      line-height: 1.44;
+      color: #0c4a6e;
+    }
+
+    .grader-card {
+      margin-top: 10px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 13px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 7px;
+    }
+
+    @media (max-width: 700px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.77rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 7px;
+      font-size: 0.77rem;
+      line-height: 1.45;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .misconception-box {
+      margin-top: 10px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Select a Bivariate Dataset (Top-Left)</strong>
+        Explore <em>1. Tiong Bahru Café</em> (+ linear), <em>2. PIE Traffic Speed</em> (&minus; linear), <em>3. Curved Quadratic</em> (<em>r &approx; 0</em> trap), or <em>4. Outlier Demo</em>.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Drag Points &amp; Inspect Axis Projections</strong>
+        Drag any data point on the clean exam-style scatter sketch (no grid or extra tick marks—only the <em>first and last points</em> marked on both axes) and read the live trend summary.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Master GC Stat Plot, 2-Var Stats &amp; LinReg</strong>
+        Follow the TI-84 Plus CE keystrokes on the right to enable <code>STAT DIAGNOSTICS: ON</code> via <code>[MODE]</code>, plot via <code>[ZOOM] &rarr; 9: ZoomStat</code>, find <code>(x&#772;, y&#772;)</code>, and read <em>r</em>.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        6.6 Lesson 1 &bull; Scatter Diagrams &amp; Product Moment Correlation (<em>r</em>)
+      </div>
+
+      <!-- Scenario Presets -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="sc_cafe" onclick="loadScenario('cafe')">
+          1. Tiong Bahru Café (+ Linear)
+        </button>
+        <button class="tab-btn" id="sc_traffic" onclick="loadScenario('traffic')">
+          2. PIE Traffic Speed (&minus; Linear)
+        </button>
+        <button class="tab-btn" id="sc_curved" onclick="loadScenario('curved')">
+          3. Curved Quadratic (r &approx; 0 Trap)
+        </button>
+        <button class="tab-btn" id="sc_outlier" onclick="loadScenario('outlier')">
+          4. Influential Outlier Demo
+        </button>
+      </div>
+
+      <!-- Contextual Word Problem & Variable Definition -->
+      <div class="context-box" id="contextBox"></div>
+
+      <!-- Interactive Scatter Plot Canvas -->
+      <div class="plot-editor">
+        <div class="eqn-header">
+          <span>Interactive Scatter Sketch (Drag Points)</span>
+          <span id="centroidHeader" style="color:var(--purple-dark);">Centroid: (x&#772;, y&#772;)</span>
+        </div>
+        <canvas id="scatterCanvas"></canvas>
+
+        <!-- Dynamic Scatter Diagram Trend Description -->
+        <div class="trend-desc-box" id="trendDescBox"></div>
+
+        <div class="toggle-strip">
+          <label class="toggle-pill">
+            <input type="checkbox" id="chkEndGuides" checked onchange="drawScatter()" />
+            Dotted Lines to Axes (First &amp; Last)
+          </label>
+          <label class="toggle-pill">
+            <input type="checkbox" id="chkCentroid" checked onchange="drawScatter()" />
+            Show Centroid (x&#772;, y&#772;)
+          </label>
+          <label class="toggle-pill">
+            <input type="checkbox" id="chkTrend" onchange="drawScatter()" />
+            Preview Linear Fit
+          </label>
+        </div>
+        <div class="solve-bar">
+          <button class="action-btn" onclick="addPoint()">+ Add Random Point</button>
+          <button class="action-btn secondary" onclick="resetCurrentScenario()">Reset Dataset</button>
+        </div>
+      </div>
+
+      <!-- Simulated GC Readouts: Centroid (2-Var Stats) & r (LinReg) -->
+      <div class="gc-screen-box" id="gcOutputBox"></div>
+
+      <!-- Contextual Conclusion Banner -->
+      <div class="solution-banner" id="solutionBanner"></div>
+    </div>
+
+    <!-- RIGHT: PAPER DRAWING GUIDE, DATA TABLE, GC WORKFLOW & QUIZ -->
+    <div class="card">
+      <div style="font-size:1.02rem; font-weight:800; color:#1e293b; margin-bottom:8px;">
+        How to Draw a Scatter Diagram on Paper &amp; GC Workflow
+      </div>
+
+      <!-- Paper Sketching Checklist -->
+      <div class="paper-guide-card">
+        <div class="paper-guide-title">
+          <span>9758 Paper Sketching Checklist (Full Marks Guide)</span>
+          <span style="background:var(--purple-bg); color:var(--purple-dark); padding:2px 8px; border-radius:999px; font-size:0.68rem;">Exam Standard</span>
+        </div>
+        <ol class="paper-checklist">
+          <li><strong>Draw Clean Axes &amp; Label Variables with Units:</strong> Sketch the horizontal and vertical axes, mark the origin <em>O</em>, and label both axes clearly (e.g., <em>x (°C)</em> and <em>y (hundreds of cups)</em>). No grid lines or crowded tick marks are needed on an exam sketch.</li>
+          <li><strong>Plot Clear Crosses (<code>×</code>) Reflecting the Relative Pattern:</strong> Space points accurately to show the overall linear or curved trend without joining them dot-to-dot.</li>
+          <li><strong>Show Only the First and Last Points on the Axes:</strong> Draw neat <strong>dotted lines</strong> from the <strong>first point</strong> (smallest <em>x</em>) and <strong>last point</strong> (largest <em>x</em>) to both axes, and label their numerical values directly on the axes (do <strong>not</strong> write coordinate pairs beside every dot).</li>
+          <li><strong>Mark the Centroid (x&#772;, y&#772;) When Asked:</strong> Plot (x&#772;, y&#772;) with a distinct symbol (e.g., circled cross) when drawing the regression line through (x&#772;, y&#772;).</li>
+        </ol>
+      </div>
+
+      <!-- Dataset Coordinate Table highlighting First & Last Points -->
+      <div class="table-scroll">
+        <table class="check-table" id="verificationTable"></table>
+      </div>
+
+      <!-- 4-Step TI-84 Plus CE Keystroke Guide -->
+      <div class="gc-guide-grid">
+        <div class="step-pill">
+          <strong>1. Turn STAT DIAGNOSTICS ON &amp; Enter Data</strong><br>
+          Press <strong>[MODE]</strong> &rarr; scroll down to <strong>STAT DIAGNOSTICS</strong> &rarr; select <strong>ON</strong>. Then press <strong>[STAT] &rarr; 1: Edit</strong> and enter <em>x</em> in <strong>L1</strong> and <em>y</em> in <strong>L2</strong>.
+        </div>
+        <div class="step-pill">
+          <strong>2. Plot Scatter Diagram on GC</strong><br>
+          Press <strong>[2nd] [Y=] (STAT PLOT) &rarr; 1: Plot1 &rarr; On</strong>, select the scatter icon (<code>Xlist: L1</code>, <code>Ylist: L2</code>), then press <strong>[ZOOM] &rarr; 9: ZoomStat</strong>.
+        </div>
+        <div class="step-pill">
+          <strong>3. Find Centroid (x&#772;, y&#772;)</strong><br>
+          Press <strong>[STAT] &rarr; CALC &rarr; 2: 2-Var Stats</strong> (<code>Xlist: L1</code>, <code>Ylist: L2</code>) &rarr; <strong>Calculate</strong>. Read <strong>x&#772;</strong> and scroll down for <strong>y&#772;</strong>.
+        </div>
+        <div class="step-pill">
+          <strong>4. Find Correlation <em>r</em></strong><br>
+          Press <strong>[STAT] &rarr; CALC &rarr; 4: LinReg(ax+b)</strong> (or <strong>8: LinReg(a+bx)</strong>) and read <strong>r</strong> at the bottom of the screen.
+        </div>
+      </div>
+
+      <div class="misconception-box">
+        <strong>9758 Exam Misconception Alert:</strong>
+        <ul style="margin:3px 0 0 0; padding-left:18px;">
+          <li><strong>Include all 3 keywords when interpreting <em>r</em>:</strong> Always state (1) <em>strength</em> (strong/moderate/weak), (2) <em>direction</em> (positive/negative), and (3) the word <strong>linear</strong> correlation in context between the two named variables.</li>
+          <li><strong><em>r &approx; 0</em> does NOT mean "no relationship":</strong> It means little or no <strong>linear</strong> correlation—a strong curved pattern can still give <em>r = 0</em>. Also, <strong>correlation does not imply causation</strong>!</li>
+        </ul>
+      </div>
+
+      <!-- Quick 9758 Correlation & Scatter Diagram Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 Scatter Diagram &amp; GC Workflow Check (<span id="qIdxLbl">1</span>/3)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.8rem; line-height:1.45; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  const scenarios = {
+    cafe: {
+      xName: "Temp x (°C)",
+      yName: "Kopi y (×100)",
+      xMin: 26, xMax: 35, yMin: 1.0, yMax: 4.0,
+      varDesc: "x = daily average temperature (°C); y = daily iced coffee sales (hundreds of cups).",
+      story: "<strong>Dataset 1 — Tiong Bahru Café:</strong> Daily average temperature <em>x</em> (°C) and iced coffee sales <em>y</em> (hundreds of cups) are recorded over 6 days.",
+      tags: ["Direction: Positive", "Form: Linear", "Spread: Tightly Clustered", "Outliers: None"],
+      trendDescription: "<strong>Scatter Diagram Visual Trend:</strong> As daily average temperature <em>x</em> increases from 27.5°C to 33.6°C, iced coffee sales <em>y</em> increase steadily from 1.8 to 3.3 hundred cups. The points lie tightly clustered along a straight upward band with no outliers, indicating a <strong>plausible strong positive linear relationship</strong>.",
+      points: [
+        { x: 27.5, y: 1.8 },
+        { x: 29.0, y: 2.1 },
+        { x: 30.2, y: 2.5 },
+        { x: 31.5, y: 2.7 },
+        { x: 32.8, y: 3.2 },
+        { x: 33.6, y: 3.3 }
+      ],
+      contextTemplate: (r) => r >= 0.85
+        ? `Contextual Conclusion: Since <strong>r = ${r.toFixed(4)}</strong> is close to +1, there is a <strong>strong, positive linear correlation</strong> between daily average temperature and iced coffee sales.`
+        : `Contextual Conclusion: With <strong>r = ${r.toFixed(4)}</strong>, dragging points away from the line has weakened the linear fit between temperature and iced coffee sales.`
+    },
+    traffic: {
+      xName: "Density x (veh/km)",
+      yName: "Speed y (km/h)",
+      xMin: 10, xMax: 80, yMin: 20, yMax: 95,
+      varDesc: "x = traffic density (vehicles per km); y = average PIE expressway speed (km/h).",
+      story: "<strong>Dataset 2 — PIE Expressway Traffic:</strong> LTA sensors record morning traffic density <em>x</em> (veh/km) and average speed <em>y</em> (km/h) across 7 intervals.",
+      tags: ["Direction: Negative", "Form: Linear", "Spread: Tightly Clustered", "Outliers: None"],
+      trendDescription: "<strong>Scatter Diagram Visual Trend:</strong> As traffic density <em>x</em> increases from 18 to 74 veh/km, average expressway speed <em>y</em> decreases steadily from 86 to 28 km/h. The points follow a narrow, straight downward trend with minimal scatter and no outliers, showing a <strong>plausible strong negative linear relationship</strong>.",
+      points: [
+        { x: 18, y: 86 },
+        { x: 26, y: 78 },
+        { x: 35, y: 69 },
+        { x: 48, y: 55 },
+        { x: 58, y: 44 },
+        { x: 67, y: 36 },
+        { x: 74, y: 28 }
+      ],
+      contextTemplate: (r) => r <= -0.85
+        ? `Contextual Conclusion: Since <strong>r = ${r.toFixed(4)}</strong> is close to −1, there is a <strong>strong, negative linear correlation</strong> between traffic density and expressway speed.`
+        : `Contextual Conclusion: With <strong>r = ${r.toFixed(4)}</strong>, moving points has altered the negative linear correlation between traffic density and speed.`
+    },
+    curved: {
+      xName: "Dosage x (mg)",
+      yName: "Yield y (units)",
+      xMin: 0, xMax: 10, yMin: 0, yMax: 10,
+      varDesc: "x = fertiliser dosage (mg); y = crop yield response (units).",
+      story: "<strong>Dataset 3 — Fertiliser Dosage vs. Crop Yield:</strong> Yield <em>y</em> is measured for 9 evenly spaced fertiliser dosages <em>x</em> from 1 mg to 9 mg.",
+      tags: ["Direction: Rises then Falls", "Form: Non-Linear (Curved)", "Spread: Exact Smooth Curve", "Outliers: None"],
+      trendDescription: "<strong>Scatter Diagram Visual Trend:</strong> As dosage <em>x</em> increases from 1 mg to 5 mg, crop yield <em>y</em> rises from 2.0 to a peak of 9.0 units, before falling symmetrically back to 2.0 units at 9 mg. The points form a clear <strong>concave-downward curve (non-linear)</strong>, so a straight-line model is <strong>not plausible</strong> despite <em>r = 0</em>.",
+      points: [
+        { x: 1, y: 2.0 },
+        { x: 2, y: 5.5 },
+        { x: 3, y: 7.8 },
+        { x: 4, y: 8.8 },
+        { x: 5, y: 9.0 },
+        { x: 6, y: 8.8 },
+        { x: 7, y: 7.8 },
+        { x: 8, y: 5.5 },
+        { x: 9, y: 2.0 }
+      ],
+      contextTemplate: (r) => `Contextual Conclusion: Although <strong>r = ${r.toFixed(4)}</strong> shows almost no <strong>linear</strong> correlation, the scatter diagram reveals a strong <strong>non-linear (curved)</strong> relationship.`
+    },
+    outlier: {
+      xName: "Study x (hrs/wk)",
+      yName: "Score y (marks)",
+      xMin: 0, xMax: 20, yMin: 20, yMax: 100,
+      varDesc: "x = weekly revision hours; y = statistics test score (marks).",
+      story: "<strong>Dataset 4 — Revision Hours vs. Test Score:</strong> Weekly revision hours <em>x</em> and test marks <em>y</em> are plotted for 7 students, including one anomalous point at <strong>x = 18, y = 30</strong>.",
+      tags: ["Direction: Mostly Positive", "Form: Linear + Outlier", "Spread: Tight Except 1 Point", "Outlier: x = 18, y = 30"],
+      trendDescription: "<strong>Scatter Diagram Visual Trend:</strong> For the first 6 students (<em>x</em> from 3 to 13 hrs/wk), test scores <em>y</em> increase steadily and linearly from 42 to 83 marks. However, the last point at <strong>x = 18, y = 30</strong> lies far below the main upward trend as an <strong>influential outlier</strong>, noticeably weakening the overall linear fit.",
+      points: [
+        { x: 3, y: 42 },
+        { x: 5, y: 51 },
+        { x: 7, y: 58 },
+        { x: 9, y: 67 },
+        { x: 11, y: 74 },
+        { x: 13, y: 83 },
+        { x: 18, y: 30 }
+      ],
+      contextTemplate: (r) => `Contextual Conclusion: Currently <strong>r = ${r.toFixed(4)}</strong>. Always draw a scatter diagram to spot outliers before summarising bivariate data with <em>r</em> alone.`
+    }
+  };
+
+  let curKey = "cafe";
+  let state = null;
+  let draggingIdx = -1;
+  let userModified = false;
+
+  const canvas = document.getElementById("scatterCanvas");
+  const ctx = canvas.getContext("2d");
+
+  function loadScenario(key) {
+    curKey = key;
+    userModified = false;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("sc_" + key).classList.add("active");
+
+    const sc = scenarios[key];
+    state = {
+      xName: sc.xName,
+      yName: sc.yName,
+      xMin: sc.xMin,
+      xMax: sc.xMax,
+      yMin: sc.yMin,
+      yMax: sc.yMax,
+      points: sc.points.map(p => ({ ...p }))
+    };
+
+    document.getElementById("contextBox").innerHTML = `
+      <div>${sc.story}</div>
+      <div class="var-pill">${sc.varDesc}</div>
+    `;
+
+    updateAll();
+  }
+
+  function resetCurrentScenario() {
+    loadScenario(curKey);
+  }
+
+  function addPoint() {
+    userModified = true;
+    const nx = +(state.xMin + 0.12 * (state.xMax - state.xMin) + Math.random() * 0.76 * (state.xMax - state.xMin)).toFixed(1);
+    const ny = +(state.yMin + 0.12 * (state.yMax - state.yMin) + Math.random() * 0.76 * (state.yMax - state.yMin)).toFixed(1);
+    state.points.push({ x: nx, y: ny });
+    updateAll();
+  }
+
+  function computeStats() {
+    const pts = state.points;
+    const n = pts.length;
+    const meanX = pts.reduce((s, p) => s + p.x, 0) / n;
+    const meanY = pts.reduce((s, p) => s + p.y, 0) / n;
+
+    let sxx = 0, syy = 0, sxy = 0;
+    pts.forEach(p => {
+      const dx = p.x - meanX;
+      const dy = p.y - meanY;
+      sxx += dx * dx;
+      syy += dy * dy;
+      sxy += dx * dy;
+    });
+
+    const denom = Math.sqrt(sxx * syy);
+    let r = denom === 0 ? 0 : sxy / denom;
+    if (Math.abs(r) < 1e-10) r = 0;
+    const b = sxx === 0 ? 0 : sxy / sxx;
+    const a = meanY - b * meanX;
+
+    // Identify first point (min x) and last point (max x)
+    let minIdx = 0, maxIdx = 0;
+    pts.forEach((p, idx) => {
+      if (p.x < pts[minIdx].x || (p.x === pts[minIdx].x && p.y < pts[minIdx].y)) minIdx = idx;
+      if (p.x > pts[maxIdx].x || (p.x === pts[maxIdx].x && p.y > pts[maxIdx].y)) maxIdx = idx;
+    });
+
+    return { n, meanX, meanY, r, a, b, minIdx, maxIdx };
+  }
+
+  function renderTrendDescription(st) {
+    const sc = scenarios[curKey];
+    const box = document.getElementById("trendDescBox");
+
+    if (!userModified) {
+      box.innerHTML = `
+        <div class="trend-tags">
+          ${sc.tags.map(t => `<span class="trend-tag">${t}</span>`).join("")}
+        </div>
+        <div>${sc.trendDescription}</div>
+      `;
+      return;
+    }
+
+    const absR = Math.abs(st.r);
+    const dir = st.r > 0.15 ? "Positive (Upward)" : st.r < -0.15 ? "Negative (Downward)" : "No Clear Linear Direction";
+    const strength = absR >= 0.85 ? "Strong / Tightly Clustered" : absR >= 0.5 ? "Moderate Scatter" : "Wide Scatter / Non-Linear";
+    const firstPt = state.points[st.minIdx];
+    const lastPt = state.points[st.maxIdx];
+
+    box.innerHTML = `
+      <div class="trend-tags">
+        <span class="trend-tag">Direction: ${dir}</span>
+        <span class="trend-tag">Spread: ${strength}</span>
+        <span class="trend-tag">Modified Plot (n = ${st.n})</span>
+      </div>
+      <div>
+        <strong>Scatter Diagram Visual Trend (Live Update):</strong> Across <em>x</em> from ${firstPt.x.toFixed(1)} to ${lastPt.x.toFixed(1)}, the points show a <strong>${strength.toLowerCase()}</strong> pattern with ${st.r > 0.15 ? "an upward" : st.r < -0.15 ? "a downward" : "no consistent linear"} trend (<em>r = ${st.r.toFixed(4)}</em>). Click <em>Reset Dataset</em> to restore the original textbook scenario.
+      </div>
+    `;
+  }
+
+  function updateAll() {
+    const st = computeStats();
+    const sc = scenarios[curKey];
+
+    document.getElementById("centroidHeader").textContent = `Centroid: (${st.meanX.toFixed(2)}, ${st.meanY.toFixed(2)})`;
+    renderTrendDescription(st);
+
+    const pct = ((st.r + 1) / 2) * 100;
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">TI-84 Plus CE Readouts (2-Var Stats &amp; LinReg)</span>
+      <div class="gc-readout-grid">
+        <div class="gc-readout">
+          <strong>2-Var Stats (Centroid)</strong><br>
+          x&#772; = ${st.meanX.toFixed(4)}<br>
+          y&#772; = ${st.meanY.toFixed(4)}<br>
+          n = ${st.n}
+        </div>
+        <div class="gc-readout">
+          <strong>LinReg(a+bx) (Correlation)</strong><br>
+          r = ${st.r.toFixed(4)}<br>
+          r² = ${(st.r * st.r).toFixed(4)}<br>
+          (STAT DIAGNOSTICS: ON)
+        </div>
+      </div>
+      <div class="spectrum-wrap">
+        <div class="spectrum-bar">
+          <div class="spectrum-marker" style="left:${Math.max(2, Math.min(98, pct))}%;"></div>
+        </div>
+        <div class="spectrum-labels">
+          <span>−1 (Perfect −)</span>
+          <span>0 (No Linear Fit)</span>
+          <span>+1 (Perfect +)</span>
+        </div>
+      </div>
+    `;
+
+    document.getElementById("solutionBanner").innerHTML = sc.contextTemplate(st.r);
+
+    document.getElementById("verificationTable").innerHTML = `
+      <thead>
+        <tr>
+          <th>Point</th>
+          <th>${state.xName}</th>
+          <th>${state.yName}</th>
+          <th>Paper Sketching Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${state.points.map((p, idx) => {
+          let role = "Plot neat × only";
+          let badgeStyle = "color:#64748b;";
+          if (idx === st.minIdx) {
+            role = `First Point (Min x) — Dotted lines to x = ${p.x.toFixed(1)}, y = ${p.y.toFixed(1)} on axes`;
+            badgeStyle = "color:#0284c7; font-weight:700;";
+          } else if (idx === st.maxIdx) {
+            role = `Last Point (Max x) — Dotted lines to x = ${p.x.toFixed(1)}, y = ${p.y.toFixed(1)} on axes`;
+            badgeStyle = "color:#7c3aed; font-weight:700;";
+          }
+          return `
+            <tr>
+              <td><strong>#${idx + 1}</strong></td>
+              <td>${p.x.toFixed(1)}</td>
+              <td>${p.y.toFixed(1)}</td>
+              <td style="${badgeStyle}">${role}</td>
+            </tr>
+          `;
+        }).join("")}
+      </tbody>
+    `;
+
+    drawScatter();
+  }
+
+  function getBounds(w, h) {
+    return { left: 58, right: w - 24, top: 22, bottom: h - 42 };
+  }
+
+  function toPx(x, y, b) {
+    const px = b.left + ((x - state.xMin) / (state.xMax - state.xMin)) * (b.right - b.left);
+    const py = b.bottom - ((y - state.yMin) / (state.yMax - state.yMin)) * (b.bottom - b.top);
+    return { px, py };
+  }
+
+  function toData(px, py, b) {
+    const xr = Math.max(0, Math.min(1, (px - b.left) / (b.right - b.left)));
+    const yr = Math.max(0, Math.min(1, (b.bottom - py) / (b.bottom - b.top)));
+    return {
+      x: +(state.xMin + xr * (state.xMax - state.xMin)).toFixed(1),
+      y: +(state.yMin + yr * (state.yMax - state.yMin)).toFixed(1)
+    };
+  }
+
+  function drawScatter() {
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width === 0) return;
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    const w = rect.width;
+    const h = rect.height;
+    const b = getBounds(w, h);
+    const st = computeStats();
+
+    ctx.clearRect(0, 0, w, h);
+
+    // Optional Linear Trend Line
+    if (document.getElementById("chkTrend").checked) {
+      const p1 = toPx(state.xMin, st.a + st.b * state.xMin, b);
+      const p2 = toPx(state.xMax, st.a + st.b * state.xMax, b);
+      ctx.save();
+      ctx.strokeStyle = "#0284c7";
+      ctx.lineWidth = 2;
+      ctx.setLineDash([6, 4]);
+      ctx.beginPath();
+      ctx.moveTo(p1.px, Math.max(b.top, Math.min(b.bottom, p1.py)));
+      ctx.lineTo(p2.px, Math.max(b.top, Math.min(b.bottom, p2.py)));
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    // Clean Axes (No grid lines & no intermediate tick marks)
+    ctx.strokeStyle = "#475569";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(b.left, b.top);
+    ctx.lineTo(b.left, b.bottom);
+    ctx.lineTo(b.right, b.bottom);
+    ctx.stroke();
+
+    // Origin label O
+    ctx.fillStyle = "#475569";
+    ctx.font = "italic bold 11px Segoe UI, sans-serif";
+    ctx.textAlign = "right";
+    ctx.fillText("O", b.left - 6, b.bottom + 13);
+
+    // Axis Titles
+    ctx.fillStyle = "#334155";
+    ctx.font = "bold 11px Segoe UI, sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(state.xName, (b.left + b.right) / 2, h - 5);
+    ctx.save();
+    ctx.translate(14, (b.top + b.bottom) / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.fillText(state.yName, 0, 0);
+    ctx.restore();
+
+    // Dotted Drop-Lines to Both Axes & Axis Markings ONLY for First and Last Points
+    if (document.getElementById("chkEndGuides").checked) {
+      const endpoints = [
+        { idx: st.minIdx, color: "#0284c7" },
+        { idx: st.maxIdx, color: "#7c3aed" }
+      ];
+
+      endpoints.forEach(ep => {
+        const pt = state.points[ep.idx];
+        const { px, py } = toPx(pt.x, pt.y, b);
+
+        ctx.save();
+        ctx.setLineDash([4, 4]);
+        ctx.strokeStyle = ep.color;
+        ctx.lineWidth = 1.4;
+
+        // Vertical dotted line to x-axis
+        ctx.beginPath();
+        ctx.moveTo(px, py);
+        ctx.lineTo(px, b.bottom);
+        ctx.stroke();
+
+        // Horizontal dotted line to y-axis
+        ctx.beginPath();
+        ctx.moveTo(px, py);
+        ctx.lineTo(b.left, py);
+        ctx.stroke();
+        ctx.restore();
+
+        // Axis value labels directly on the axes (only first and last points)
+        const xStr = pt.x.toFixed(1);
+        const yStr = pt.y.toFixed(1);
+
+        ctx.font = "bold 10.5px Segoe UI, sans-serif";
+        ctx.fillStyle = ep.color;
+
+        ctx.textAlign = "center";
+        ctx.fillText(xStr, px, b.bottom + 14);
+
+        ctx.textAlign = "right";
+        ctx.fillText(yStr, b.left - 7, py + 3.5);
+      });
+    }
+
+    // Centroid Marker (x̄, ȳ)
+    if (document.getElementById("chkCentroid").checked) {
+      const c = toPx(st.meanX, st.meanY, b);
+      ctx.save();
+      ctx.setLineDash([3, 3]);
+      ctx.strokeStyle = "rgba(15, 118, 110, 0.45)";
+      ctx.lineWidth = 1.1;
+      ctx.beginPath(); ctx.moveTo(c.px, b.top); ctx.lineTo(c.px, b.bottom); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(b.left, c.py); ctx.lineTo(b.right, c.py); ctx.stroke();
+      ctx.restore();
+
+      ctx.fillStyle = "#0f766e";
+      ctx.strokeStyle = "#ffffff";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(c.px, c.py, 5.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = "#0f766e";
+      ctx.font = "bold 10.5px Segoe UI, sans-serif";
+      ctx.textAlign = "left";
+      ctx.fillText(`(x̄, ȳ)`, Math.min(b.right - 38, c.px + 8), Math.max(b.top + 12, c.py - 7));
+    }
+
+    // Plot Data Points (no coordinate text attached to dots)
+    const showEndGuides = document.getElementById("chkEndGuides").checked;
+    state.points.forEach((p, idx) => {
+      const { px, py } = toPx(p.x, p.y, b);
+      const isFirst = idx === st.minIdx;
+      const isLast = idx === st.maxIdx;
+
+      let fillCol = "#8b5cf6";
+      if (idx === draggingIdx) fillCol = "#e11d48";
+      else if (showEndGuides && isFirst) fillCol = "#0284c7";
+      else if (showEndGuides && isLast) fillCol = "#7c3aed";
+
+      ctx.fillStyle = fillCol;
+      ctx.strokeStyle = "#ffffff";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(px, py, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+    });
+  }
+
+  canvas.addEventListener("mousedown", e => {
+    const rect = canvas.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const my = e.clientY - rect.top;
+    const b = getBounds(rect.width, rect.height);
+    draggingIdx = state.points.findIndex(p => {
+      const { px, py } = toPx(p.x, p.y, b);
+      return Math.hypot(mx - px, my - py) <= 12;
+    });
+  });
+
+  window.addEventListener("mousemove", e => {
+    if (draggingIdx === -1) return;
+    userModified = true;
+    const rect = canvas.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const my = e.clientY - rect.top;
+    const b = getBounds(rect.width, rect.height);
+    state.points[draggingIdx] = toData(mx, my, b);
+    updateAll();
+  });
+
+  window.addEventListener("mouseup", () => {
+    if (draggingIdx !== -1) {
+      draggingIdx = -1;
+      drawScatter();
+    }
+  });
+
+  window.addEventListener("resize", drawScatter);
+
+  const examQs = [
+    {
+      q: "On the TI-84 Plus CE, how do you enable the correlation coefficient r to appear automatically when running LinReg?",
+      opts: [
+        "Press [MODE] → scroll down to STAT DIAGNOSTICS → select ON",
+        "Press [ZOOM] → 9: ZoomStat",
+        "Press [STAT] → CALC → 1: 1-Var Stats",
+        "Press [WINDOW] and set Xscl = 1"
+      ],
+      ans: 0,
+      exp: "Setting STAT DIAGNOSTICS to ON in the [MODE] menu enables the TI-84 Plus CE to display r and r² alongside the regression coefficients."
+    },
+    {
+      q: "After entering x in L1 and y in L2 on the TI-84 Plus CE and turning Plot1 ON in [2nd] [Y=], which keystrokes auto-fit the viewing window to display the scatter diagram?",
+      opts: [
+        "[ZOOM] → 9: ZoomStat",
+        "[ZOOM] → 6: ZStandard",
+        "[STAT] → CALC → 2: 2-Var Stats",
+        "[MODE] → STAT DIAGNOSTICS → ON"
+      ],
+      ans: 0,
+      exp: "Pressing [ZOOM] → 9: ZoomStat automatically scales the GC viewing window to display all bivariate points stored in L1 and L2."
+    },
+    {
+      q: "When drawing a scatter diagram on paper in a 9758 exam, how should you indicate the positions of the first and last points?",
+      opts: [
+        "Draw dotted lines from the first and last points to both axes and mark their values on the axes",
+        "Write coordinate pairs (x, y) beside every single cross on the diagram",
+        "Draw a full grid and label every single tick mark along both axes",
+        "Connect the first and last points with a solid straight line"
+      ],
+      ans: 0,
+      exp: "Plot neat × crosses without cluttering the sketch with grid lines, extra tick marks, or coordinate pairs; project dotted lines from the first and last points to both axes and label only those values on the axes."
+    }
+  ];
+
+  let curQ = 0;
+
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").textContent = item.q;
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i}, this)">${String.fromCharCode(65 + i)}. ${o}</button>
+    `).join("");
+  }
+
+  function gradeExamQ(idx, btn) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  loadScenario("cafe");
+  renderExamQ();
+</script>
+
+</body>
+</html>
