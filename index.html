@@ -521,7 +521,7 @@
     </button>
     <button class="topic-btn" id="nav_5.3" onclick="selectTopic('5.3')">
       <span>5.3 Integration Techniques</span>
-      <span class="status-pill">2 Lessons</span>
+      <span class="status-pill">5 Lessons</span>
     </button>
     <button class="topic-btn" id="nav_5.4" onclick="selectTopic('5.4')">
       <span>5.4 Definite Integrals</span>
@@ -1954,6 +1954,169 @@
             `,
             exitQuestion: "Use Maclaurin series to evaluate lim_{x→0} (1 − cos 2x) / x².",
             exitAnswer: "1 − cos 2x = 1 − [1 − (2x)²/2! + ⋯] = 2x² − ⋯, so lim_{x→0} (2x² − ⋯)/x² = <strong>2</strong>."
+          }
+        ]
+      },
+      "5.3": {
+        title: "5.3 Integration Techniques",
+        lessons: [
+          {
+            label: "Lesson 1: Reverse Chain Rule & Recognising f'(x) Forms",
+            file: "interactives/5_3_lesson1.html",
+            videoEmbedUrl: "",
+            prereq: "Chain rule differentiation for powers, exponentials, logarithms, and trigonometric functions.",
+            objectives: [
+              "Recognise and integrate composite structures of the form f'(x)[f(x)]ⁿ (for n ≠ −1) and f'(x)/f(x) (n = −1).",
+              "Integrate exponential forms f'(x)e^{f(x)} and composite trigonometric forms by balancing missing constant multiples.",
+              "Perform algebraic long division or numerator manipulation before integrating improper rational functions."
+            ],
+            prompts: [
+              "In the Pattern-Spotter Lab, test why ∫ x/(x² + 4) dx uses ln(x² + 4) while ∫ x/(x² + 4)² dx uses the power rule −½(x² + 4)⁻¹.",
+              "Adjust the scaling constant k for ∫ x² e^{2x³} dx to match the exact derivative of the exponent."
+            ],
+            pitfalls: [
+              "Applying the power rule to [f(x)]⁻¹ (dividing by zero) instead of using ln|f(x)| + C.",
+              "Attempting to pull a variable x outside the integral sign (e.g., writing ∫ e^{x²} dx = (1/2x)e^{x²})—only constants can cross the integral sign!",
+              "Omitting modulus bars in ln|f(x)| when f(x) can take negative values."
+            ],
+            gcTip: "Differentiate your integrated answer using nDeriv(Y₁, X, X) on the TI-84 Plus CE and compare its graph or table against the original integrand Y₂.",
+            workedQuestion: `
+              Find the exact value of <em>&int;<sub>0</sub><sup>1</sup> <span class="frac"><span class="frac-num">3<em>x</em><sup>2</sup></span><span class="frac-den"><em>x</em><sup>3</sup> + 1</span></span> d<em>x</em></em> and determine <em>&int; (2<em>x</em> &minus; 1)e<sup><em>x</em><sup>2</sup> &minus; <em>x</em></sup> d<em>x</em></em>. [4]
+            `,
+            workedSolution: `
+              <strong>Part 1:</strong> Since <span class="frac"><span class="frac-num">d</span><span class="frac-den">d<em>x</em></span></span>(<em>x</em><sup>3</sup> + 1) = 3<em>x</em><sup>2</sup>, we have<br>
+              <em>&int;<sub>0</sub><sup>1</sup> <span class="frac"><span class="frac-num">3<em>x</em><sup>2</sup></span><span class="frac-den"><em>x</em><sup>3</sup> + 1</span></span> d<em>x</em> = [ln|<em>x</em><sup>3</sup> + 1|]<sub>0</sub><sup>1</sup> = ln 2 &minus; ln 1 =</em> <strong>ln 2</strong>.<br><br>
+              <strong>Part 2:</strong> Since <span class="frac"><span class="frac-num">d</span><span class="frac-den">d<em>x</em></span></span>(<em>x</em><sup>2</sup> &minus; <em>x</em>) = 2<em>x</em> &minus; 1, we have<br>
+              <em>&int; (2<em>x</em> &minus; 1)e<sup><em>x</em><sup>2</sup> &minus; <em>x</em></sup> d<em>x</em> =</em> <strong>e<sup><em>x</em><sup>2</sup> &minus; <em>x</em></sup> + <em>C</em></strong>.
+            `,
+            exitQuestion: "Why can we integrate ∫ x e^{x²} dx directly using reverse chain rule, whereas ∫ e^{x²} dx cannot be integrated in elementary terms?",
+            exitAnswer: "Because differentiating e^{x²} produces 2x e^{x²}; ∫ x e^{x²} dx supplies the required variable factor x (needing only a constant ½), whereas ∫ e^{x²} dx lacks the x factor."
+          },
+          {
+            label: "Lesson 2: Integrating sin²x, cos²x, tan²x & Trig Identities",
+            file: "interactives/5_3_lesson2.html",
+            videoEmbedUrl: "",
+            prereq: "Double-angle identities (cos 2A = 1 − 2sin²A = 2cos²A − 1) and Pythagorean identity (1 + tan²A = sec²A).",
+            objectives: [
+              "Rewrite sin²(ax) and cos²(ax) using double-angle identities before integrating.",
+              "Rewrite tan²(ax) and cot²(ax) using Pythagorean identities sec²(ax) − 1 and cosec²(ax) − 1.",
+              "Select between reverse chain rule (for sinⁿx cos x) and double-angle reduction (for even powers without an odd partner)."
+            ],
+            prompts: [
+              "Compare the Area-Matcher graph of y = sin²(2x) against its rewritten form ½(1 − cos 4x) to verify they are identical everywhere.",
+              "Switch to tan²(3x) and observe how replacing tan²(3x) with sec²(3x) − 1 converts an unintegrable square into a standard MF27 derivative."
+            ],
+            pitfalls: [
+              "Integrating sin²x as (1/3)sin³x—this fails because the derivative of sin³x is 3sin²x cos x, which requires a cos x factor.",
+              "Sign confusion in double-angle formulas: cos 2x = 1 − 2sin²x gives sin²x = ½(1 − cos 2x), whereas cos²x = ½(1 + cos 2x).",
+              "Forgetting to divide by the inner coefficient a when integrating cos(2ax) or sec²(ax)."
+            ],
+            gcTip: "Use fnInt(sin(X)², X, 0, π/2) on your GC to check definite trig integrals—remember to keep your GC in RADIAN mode.",
+            workedQuestion: `
+              Find <em>&int; (2 sin<sup>2</sup> 3<em>x</em> + tan<sup>2</sup> 2<em>x</em>) d<em>x</em></em>. [4]
+            `,
+            workedSolution: `
+              Using <em>2 sin<sup>2</sup> 3<em>x</em> = 1 &minus; cos 6<em>x</em></em> and <em>tan<sup>2</sup> 2<em>x</em> = sec<sup>2</sup> 2<em>x</em> &minus; 1</em>:<br>
+              <em>&int; (1 &minus; cos 6<em>x</em> + sec<sup>2</sup> 2<em>x</em> &minus; 1) d<em>x</em> = &int; (sec<sup>2</sup> 2<em>x</em> &minus; cos 6<em>x</em>) d<em>x</em></em><br>
+              = <strong>&frac12; tan 2<em>x</em> &minus; &frac16; sin 6<em>x</em> + <em>C</em></strong>.
+            `,
+            exitQuestion: "State the exact trigonometric identity used to rewrite (a) cos²(4x) and (b) tan²(4x) prior to integration.",
+            exitAnswer: "(a) cos²(4x) = <strong>½(1 + cos 8x)</strong>; (b) tan²(4x) = <strong>sec²(4x) − 1</strong>."
+          },
+          {
+            label: "Lesson 3: MF27 Standard Quadratic Forms & Completing the Square",
+            file: "interactives/5_3_lesson3.html",
+            videoEmbedUrl: "",
+            prereq: "MF27 standard integrals for 1/(a²+x²), 1/√(a²−x²), 1/(a²−x²), 1/(x²−a²), completing the square, and partial fractions.",
+            objectives: [
+              "Identify and apply the four MF27 quadratic denominator forms accurately, including coefficient scaling for (bx + c)² ± a².",
+              "Complete the square on general quadratics ax² + bx + c to reduce integrands to standard MF27 forms.",
+              "Split linear-over-quadratic integrands (px + q)/(ax² + bx + c) into a logarithmic f'(x)/f(x) part plus an MF27 constant-numerator part."
+            ],
+            prompts: [
+              "Compare 1/(9 − x²) and 1/(x² − 9) in the Form Classifier Lab to see why the numerator inside ln|...| flips between (3 + x)/(3 − x) and (x − 3)/(x + 3).",
+              "Use the Numerator-Splitter on (4x + 5)/(x² + 2x + 5) to separate 2(2x + 2) from the leftover constant 1."
+            ],
+            pitfalls: [
+              "Confusing 1/(a² − x²) with 1/(x² − a²), causing a sign error in the logarithm.",
+              "Forgetting to divide by the linear coefficient b when integrating 1/(a² + (bx + c)²).",
+              "Missing the 1/(2a) factor in front of ln|...| (which is present for 1/(a² − x²) and 1/(x² − a²), unlike 1/√(a² − x²) which has no 1/a factor!)."
+            ],
+            gcTip: "Always cross-check the sign and 1/(2a) factor directly against your MF27 formula booklet during practice.",
+            workedQuestion: `
+              Find <em>&int; <span class="frac"><span class="frac-num">2<em>x</em> + 7</span><span class="frac-den"><em>x</em><sup>2</sup> + 4<em>x</em> + 13</span></span> d<em>x</em></em>. [4]
+            `,
+            workedSolution: `
+              Since <span class="frac"><span class="frac-num">d</span><span class="frac-den">d<em>x</em></span></span>(<em>x</em><sup>2</sup> + 4<em>x</em> + 13) = 2<em>x</em> + 4, split the numerator:<br>
+              <em>&int; <span class="frac"><span class="frac-num">2<em>x</em> + 4</span><span class="frac-den"><em>x</em><sup>2</sup> + 4<em>x</em> + 13</span></span> d<em>x</em> + &int; <span class="frac"><span class="frac-num">3</span><span class="frac-den">(<em>x</em> + 2)<sup>2</sup> + 3<sup>2</sup></span></span> d<em>x</em></em><br>
+              = <strong>ln(<em>x</em><sup>2</sup> + 4<em>x</em> + 13) + tan<sup>&minus;1</sup>(<span class="frac"><span class="frac-num"><em>x</em> + 2</span><span class="frac-den">3</span></span>) + <em>C</em></strong>.
+            `,
+            exitQuestion: "Why does ∫ 1/(x² + 4x + 13) dx require completing the square instead of partial fractions?",
+            exitAnswer: "Because its discriminant Δ = 4² − 4(1)(13) = −36 < 0, so the quadratic has no real linear factors and reduces to (x + 2)² + 3² (an inverse tangent form)."
+          },
+          {
+            label: "Lesson 4: Integration by a Given Substitution",
+            file: "interactives/5_3_lesson4.html",
+            videoEmbedUrl: "",
+            prereq: "Implicit/parametric differentiation dx/du, trigonometric identities, and changing limits of definite integrals.",
+            objectives: [
+              "Transform an integral completely from x to u using a given substitution x = g(u) or u = h(x), including the differential dx.",
+              "Convert x-limits to u-limits accurately for definite integrals so back-substitution is unnecessary.",
+              "Use right-angled reference triangles to revert trigonometric substitutions back to x for indefinite integrals."
+            ],
+            prompts: [
+              "Step through the Substitution Transformer for ∫₀¹ √(1 − x²) dx using x = sin u and verify how [0, 1] maps to [0, π/2].",
+              "Inspect the right-triangle back-substitution helper to see why sin θ = x/2 implies cos θ = √(4 − x²)/2."
+            ],
+            pitfalls: [
+              "Replacing f(x) in terms of u while forgetting to replace dx with (dx/du) du.",
+              "Evaluating a u-antiderivative using the original x-limits without converting the limits first.",
+              "Leaving an indefinite integral in terms of u instead of substituting back in terms of x."
+            ],
+            gcTip: "For definite integrals, evaluate the original x-integral with fnInt on your GC and verify it matches your transformed u-integral.",
+            workedQuestion: `
+              Using the substitution <em>x</em> = 2 sin <em>&theta;</em>, find the exact value of <em>&int;<sub>0</sub><sup>&radic;3</sup> <span class="frac"><span class="frac-num"><em>x</em><sup>2</sup></span><span class="frac-den">&radic;(4 &minus; <em>x</em><sup>2</sup>)</span></span> d<em>x</em></em>. [5]
+            `,
+            workedSolution: `
+              <em>x</em> = 2 sin <em>&theta;</em> &rArr; <span class="frac"><span class="frac-num">d<em>x</em></span><span class="frac-den">d<em>&theta;</em></span></span> = 2 cos <em>&theta;</em>.<br>
+              Limits: when <em>x</em> = 0, <em>&theta;</em> = 0; when <em>x</em> = &radic;3, sin <em>&theta;</em> = &radic;3/2 &rArr; <em>&theta;</em> = &pi;/3.<br>
+              <em>&int;<sub>0</sub><sup>&pi;/3</sup> <span class="frac"><span class="frac-num">4 sin<sup>2</sup> <em>&theta;</em></span><span class="frac-den">2 cos <em>&theta;</em></span></span> (2 cos <em>&theta;</em> d<em>&theta;</em>) = &int;<sub>0</sub><sup>&pi;/3</sup> 4 sin<sup>2</sup> <em>&theta;</em> d<em>&theta;</em> = &int;<sub>0</sub><sup>&pi;/3</sup> 2(1 &minus; cos 2<em>&theta;</em>) d<em>&theta;</em></em><br>
+              = <em>[2<em>&theta;</em> &minus; sin 2<em>&theta;</em>]<sub>0</sub><sup>&pi;/3</sup> =</em> <strong><span class="frac"><span class="frac-num">2&pi;</span><span class="frac-den">3</span></span> &minus; <span class="frac"><span class="frac-num">&radic;3</span><span class="frac-den">2</span></span></strong>.
+            `,
+            exitQuestion: "When applying a substitution x = g(u) to ∫_a^b f(x) dx, what three components must be transformed?",
+            exitAnswer: "1. The integrand f(x) → f(g(u)); 2. The differential dx → g'(u) du; 3. The limits x = a, b → u-values satisfying g(u) = a, b."
+          },
+          {
+            label: "Lesson 5: Integration by Parts (LIATE, Standalone Logs & Cyclic Forms)",
+            file: "interactives/5_3_lesson5.html",
+            videoEmbedUrl: "",
+            prereq: "Product rule of differentiation and standard integrals of algebraic, exponential, and trigonometric functions.",
+            objectives: [
+              "Apply ∫ u (dv/dx) dx = uv − ∫ v (du/dx) dx using the LIATE priority heuristic to select u and dv/dx.",
+              "Integrate standalone logarithmic and inverse trigonometric functions (such as ln x and tan⁻¹ x) by setting dv/dx = 1.",
+              "Solve repeated and cyclic integration by parts problems (such as ∫ e^{ax} sin bx dx) by forming and solving an algebraic equation for I."
+            ],
+            prompts: [
+              "In the LIATE Choice Simulator, swap u and dv/dx on ∫ x e^{2x} dx to observe why choosing u = e^{2x} increases the power of x instead of reducing it.",
+              "Step through the Cyclic Solver for I = ∫ e^x cos x dx to see how the original integral reappears after two applications."
+            ],
+            pitfalls: [
+              "Choosing u = xⁿ when paired with ln x (since ∫ ln x dx is not immediately elementary—always choose u = ln x!).",
+              "Sign errors when distributing the minus sign across −∫ v (du/dx) dx during repeated integration by parts.",
+              "Forgetting to add the constant of integration + C after solving I = ... − I in cyclic problems."
+            ],
+            gcTip: "Check indefinite integration by parts results by verifying that d/dx(your answer) equals the integrand at two test points.",
+            workedQuestion: `
+              Find <em>&int; x ln <em>x</em> d<em>x</em></em> and <em>&int; tan<sup>&minus;1</sup> <em>x</em> d<em>x</em></em>. [5]
+            `,
+            workedSolution: `
+              <strong>1.</strong> Set <em>u = ln x</em> (<span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = 1/<em>x</em>) and <span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span> = <em>x</em> (<em>v</em> = &frac12;<em>x</em><sup>2</sup>):<br>
+              <em>&int; x ln <em>x</em> d<em>x</em> = &frac12;<em>x</em><sup>2</sup> ln <em>x</em> &minus; &int; &frac12;<em>x</em> d<em>x</em> =</em> <strong>&frac12;<em>x</em><sup>2</sup> ln <em>x</em> &minus; &frac14;<em>x</em><sup>2</sup> + <em>C</em></strong>.<br><br>
+              <strong>2.</strong> Set <em>u = tan<sup>&minus;1</sup> x</em> (<span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = <span class="frac"><span class="frac-num">1</span><span class="frac-den">1 + <em>x</em><sup>2</sup></span></span>) and <span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span> = 1 (<em>v = x</em>):<br>
+              <em>&int; tan<sup>&minus;1</sup> <em>x</em> d<em>x</em> = <em>x</em> tan<sup>&minus;1</sup> <em>x</em> &minus; &int; <span class="frac"><span class="frac-num"><em>x</em></span><span class="frac-den">1 + <em>x</em><sup>2</sup></span></span> d<em>x</em> =</em> <strong><em>x</em> tan<sup>&minus;1</sup> <em>x</em> &minus; &frac12; ln(1 + <em>x</em><sup>2</sup>) + <em>C</em></strong>.
+            `,
+            exitQuestion: "In ∫ x² ln x dx, why does LIATE instruct us to choose u = ln x rather than u = x²?",
+            exitAnswer: "Because differentiating ln x turns it into the simple algebraic fraction 1/x, whereas integrating ln x requires integration by parts itself."
           }
         ]
       },
