@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 6.6 Lesson 3: Interpolation, Extrapolation &amp; Model Reliability</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --green: #15803d;
+      --green-bg: #dcfce7;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1450px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 0.8rem;
+      line-height: 1.58;
+      letter-spacing: 0.01em;
+    }
+
+    .guide-step-heading {
+      color: #1e293b;
+      font-weight: 800;
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.82rem;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 585px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1080px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 11px;
+    }
+
+    @media (max-width: 560px) {
+      .preset-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .tab-btn {
+      padding: 8px 8px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.74rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.48;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.74rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .plot-editor {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 11px;
+    }
+
+    .eqn-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 7px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 315px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 9px;
+    }
+
+    .legend-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 7px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .swatch {
+      width: 16px;
+      height: 3px;
+      border-radius: 2px;
+      display: inline-block;
+    }
+
+    /* CHECKBOX CONTROLS (ALL OFF BY DEFAULT) */
+    .control-rows {
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .control-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      padding: 5px 6px;
+      border-radius: 8px;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+    }
+
+    @media (max-width: 560px) {
+      .control-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .toggle-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #1e293b;
+      cursor: pointer;
+    }
+
+    /* PREDICTION SIMULATOR PANEL */
+    .predict-box {
+      margin-top: 9px;
+      background: #f0f9ff;
+      border: 1.5px solid #7dd3fc;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.77rem;
+      color: #0c4a6e;
+    }
+
+    .predict-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .slider-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 7px;
+    }
+
+    .slider-wrap input[type="range"] {
+      flex: 1;
+      accent-color: #0284c7;
+      cursor: pointer;
+    }
+
+    .num-input {
+      width: 78px;
+      padding: 4px 7px;
+      border: 1.5px solid #0284c7;
+      border-radius: 7px;
+      font-weight: 800;
+      font-size: 0.78rem;
+      color: #0f172a;
+      text-align: center;
+      background: #ffffff;
+    }
+
+    .verdict-card {
+      border-radius: 9px;
+      padding: 8px 10px;
+      font-size: 0.78rem;
+      line-height: 1.46;
+      border: 1.5px solid;
+    }
+
+    .verdict-card.interp {
+      background: #dcfce7;
+      border-color: #4ade80;
+      color: #14532d;
+    }
+
+    .verdict-card.extrap-warn {
+      background: #fef3c7;
+      border-color: #fbbf24;
+      color: #78350f;
+    }
+
+    .verdict-card.extrap-danger {
+      background: #ffe4e6;
+      border-color: #fb7185;
+      color: #881337;
+    }
+
+    .verdict-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      margin-bottom: 4px;
+      background: rgba(255, 255, 255, 0.85);
+    }
+
+    /* GC RELIABILITY READOUT */
+    .gc-screen-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 10px 12px;
+      color: #134e4a;
+      font-size: 0.79rem;
+      line-height: 1.48;
+    }
+
+    .box-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .gc-readout-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    @media (max-width: 560px) {
+      .gc-readout-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .gc-readout {
+      background: #f1f5f9;
+      border: 2px solid #64748b;
+      border-radius: 8px;
+      padding: 7px 9px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.42;
+    }
+
+    /* RIGHT PANEL SECTIONS */
+    .concept-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .concept-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .concept-card {
+      border-radius: 11px;
+      padding: 9px 11px;
+      font-size: 0.77rem;
+      line-height: 1.46;
+    }
+
+    .concept-card.interp-box {
+      background: #f0fdf4;
+      border: 1.5px solid #86efac;
+      color: #14532d;
+    }
+
+    .concept-card.extrap-box {
+      background: #fff1f2;
+      border: 1.5px solid #fecdd3;
+      color: #881337;
+    }
+
+    .concept-card h4 {
+      margin: 0 0 4px 0;
+      font-size: 0.81rem;
+    }
+
+    .checklist-card {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 10px 13px;
+      margin-bottom: 10px;
+      font-size: 0.78rem;
+      line-height: 1.48;
+    }
+
+    .checklist-card h4 {
+      margin: 0 0 5px 0;
+      font-size: 0.82rem;
+      color: #1e293b;
+    }
+
+    .table-scroll {
+      max-height: 155px;
+      overflow-y: auto;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .check-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.75rem;
+      background: #ffffff;
+    }
+
+    .check-table th, .check-table td {
+      border-bottom: 1px solid #e2e8f0;
+      border-right: 1px solid #e2e8f0;
+      padding: 5px 7px;
+      text-align: center;
+    }
+
+    .check-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+
+    .misconception-box {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-size: 0.77rem;
+      line-height: 1.45;
+      color: #78350f;
+      margin-bottom: 10px;
+    }
+
+    .grader-card {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 10px 12px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 7px;
+    }
+
+    @media (max-width: 700px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 7px;
+      font-size: 0.76rem;
+      line-height: 1.45;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Reliability &amp; Prediction Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <span class="guide-step-heading">1. Slide or Type Any Target Value to Predict</span>
+        Drag the prediction slider or enter an <em>x</em>-value to test predictions inside and outside the observed data bounds <strong>[<em>x</em><sub>min</sub>, <em>x</em><sub>max</sub>]</strong> and compare <strong>interpolation</strong> against <strong>extrapolation</strong>.
+      </div>
+      <div class="guide-step-card">
+        <span class="guide-step-heading">2. Toggle Visual Overlays on the Scatter Plot</span>
+        Use the checkboxes below the plot (all off by default) to display the <em>Regression Line</em>, the bounded <em>Interpolation Zone</em>, or the <em>True Reality Curve</em> outside the sample range.
+      </div>
+      <div class="guide-step-card">
+        <span class="guide-step-heading">3. Write Full-Marks 9758 Reliability Explanations</span>
+        Compare the three real-world datasets—high |<em>r</em>| interpolation, weak |<em>r</em>| scatter, and non-linear breakdown—to master the exact phrasing needed for H2 Math exam questions.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        6.6 Lesson 3 &bull; Interpolation, Extrapolation &amp; Model Reliability
+      </div>
+
+      <!-- Scenario Presets -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="sc_cafe" onclick="loadScenario('cafe')">
+          1. Tiong Bahru Café (High |r|)
+        </button>
+        <button class="tab-btn" id="sc_weak" onclick="loadScenario('weak')">
+          2. Screen Time vs Sleep (Weak |r|)
+        </button>
+        <button class="tab-btn" id="sc_curve" onclick="loadScenario('curve')">
+          3. Runner Fatigue (Extrapolation Trap)
+        </button>
+      </div>
+
+      <!-- Contextual Word Problem & Variable Definition -->
+      <div class="context-box" id="contextBox"></div>
+
+      <!-- Interactive Scatter Plot & Prediction Canvas -->
+      <div class="plot-editor">
+        <div class="eqn-header">
+          <span>Interactive Prediction &amp; Reliability Plot</span>
+          <span id="rangeHeader" style="color:var(--purple-dark);">Data Bounds: x &isin; [27.5, 33.6], y &isin; [1.8, 3.3]</span>
+        </div>
+        <canvas id="relCanvas" width="530" height="315"></canvas>
+
+        <!-- Legend -->
+        <div class="legend-strip">
+          <span class="legend-item"><span class="swatch" style="background:#0284c7;"></span> Regression Line (y on x)</span>
+          <span class="legend-item"><span class="swatch" style="background:#16a34a; height:8px; opacity:0.35;"></span> Interpolation Zone [x, y]</span>
+          <span class="legend-item"><span class="swatch" style="background:#e11d48; border-top:2px dashed #e11d48; background:none;"></span> True Reality (Non-Linear)</span>
+        </div>
+
+        <!-- Checkboxes (ALL OFF BY DEFAULT) -->
+        <div class="control-rows">
+          <div class="control-row">
+            <label class="toggle-pill">
+              <input type="checkbox" id="chkRegLine" onchange="drawCanvas()" />
+              Regression Line
+            </label>
+            <label class="toggle-pill">
+              <input type="checkbox" id="chkInterpZone" onchange="drawCanvas()" />
+              Interpolation Zone
+            </label>
+            <label class="toggle-pill">
+              <input type="checkbox" id="chkTrueCurve" onchange="drawCanvas()" />
+              True Reality Curve
+            </label>
+          </div>
+        </div>
+
+        <!-- Live Prediction Simulator -->
+        <div class="predict-box">
+          <div class="predict-header">
+            <strong>Estimate y from Chosen x Value:</strong>
+            <span id="predEqnText" style="font-family:ui-monospace, monospace; font-weight:800; font-size:0.74rem;"></span>
+          </div>
+          <div class="slider-wrap">
+            <input type="range" id="predSlider" oninput="onPredSlider()" />
+            <input type="number" id="predNumInput" class="num-input" oninput="onPredNumber()" />
+          </div>
+          <div id="verdictBox"></div>
+        </div>
+      </div>
+
+      <!-- Simulated GC Readouts -->
+      <div class="gc-screen-box" id="gcOutputBox"></div>
+    </div>
+
+    <!-- RIGHT: INTERPOLATION VS EXTRAPOLATION, 4-FACTOR CHECKLIST, TABLE & QUIZ -->
+    <div class="card">
+      <div style="font-size:1.02rem; font-weight:800; color:#1e293b; margin-bottom:8px;">
+        Evaluating the Reliability of a Regression Estimate
+      </div>
+
+      <!-- Side-by-Side Comparison: Interpolation vs Extrapolation -->
+      <div class="concept-grid">
+        <div class="concept-card interp-box">
+          <h4>1. Interpolation (Inside Data Range)</h4>
+          <ul style="margin:0; padding-left:16px;">
+            <li><strong>Definition:</strong> Predicting <em>y</em> for an <em>x</em>-value lying <strong>within</strong> the observed interval [<em>x</em><sub>min</sub>, <em>x</em><sub>max</sub>] (or <em>x</em> for <em>y</em> within [<em>y</em><sub>min</sub>, <em>y</em><sub>max</sub>]).</li>
+            <li><strong>Reliability:</strong> Generally <strong>reliable</strong> <em>provided</em> the scatter diagram confirms a linear trend and |<em>r</em>| is close to 1.</li>
+          </ul>
+        </div>
+
+        <div class="concept-card extrap-box">
+          <h4>2. Extrapolation (Outside Data Range)</h4>
+          <ul style="margin:0; padding-left:16px;">
+            <li><strong>Definition:</strong> Predicting <em>y</em> for an <em>x</em>-value lying <strong>outside</strong> the observed range [<em>x</em><sub>min</sub>, <em>x</em><sub>max</sub>].</li>
+            <li><strong>Reliability:</strong> Generally <strong>unreliable</strong> because we cannot assume the linear relationship continues to hold beyond the observed data (physical limits, saturation, or curvature may occur).</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 4-Factor 9758 Reliability Checklist -->
+      <div class="checklist-card">
+        <h4>4-Point Checklist When Commenting on Reliability in 9758 Exams</h4>
+        <ol style="margin:0; padding-left:18px;">
+          <li><strong>Interpolation vs. Extrapolation:</strong> State clearly whether the given value lies <strong>within</strong> or <strong>outside</strong> the observed range of the data (quote the exact min and max values!).</li>
+          <li><strong>Strength of Linear Correlation (|<em>r</em>|):</strong> Check whether |<em>r</em>| is close to 1 (strong linear fit &rarr; small residuals) or weak (wide scatter &rarr; large prediction error even for interpolation!).</li>
+          <li><strong>Linearity &amp; Outliers on Scatter Diagram:</strong> Even if |<em>r</em>| is high, verify the scatter diagram shows no obvious curve or influential outlier distorting the line.</li>
+          <li><strong>Correct Regression Line Choice:</strong> Confirm <em>y</em> on <em>x</em> was used to estimate <em>y</em> from <em>x</em> (and <em>x</em> on <em>y</em> to estimate <em>x</em> from <em>y</em> when both are random, unless <em>x</em> is controlled).</li>
+        </ol>
+      </div>
+
+      <!-- Dataset Table Highlighting Observed Range -->
+      <div class="table-scroll">
+        <table class="check-table" id="dataTable"></table>
+      </div>
+
+      <!-- 9758 Exam Misconception Alert -->
+      <div class="misconception-box">
+        <strong>9758 Exam Misconception Alert:</strong>
+        <ul style="margin:3px 0 0 0; padding-left:18px;">
+          <li><strong>Interpolation is NOT automatically reliable!</strong> If |<em>r</em>| is weak (e.g., <em>r = 0.35</em> in Scenario 2), points are widely scattered around the line, so even an interpolated estimate is unreliable.</li>
+          <li><strong>High |<em>r</em>| does NOT make extrapolation safe!</strong> In Scenario 3, <em>r = 0.996</em> inside [10 km, 35 km], yet extrapolating to 60 km fails completely because human running pace drops sharply due to exhaustion.</li>
+        </ul>
+      </div>
+
+      <!-- Quick 9758 Reliability Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 Reliability &amp; Extrapolation Check (<span id="qIdxLbl">1</span>/3)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.8rem; line-height:1.45; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  const scenarios = {
+    cafe: {
+      xName: "Temp x (°C)",
+      yName: "Kopi y (×100)",
+      xUnit: "°C",
+      yUnit: "hundred cups",
+      xMin: 22, xMax: 42, yMin: 0.5, yMax: 5.5,
+      predMin: 23.0, predMax: 41.0, predStep: 0.1, predDefault: 31.0,
+      varDesc: "x = daily average temperature (°C); y = daily iced coffee sales (hundreds of cups).",
+      story: "<strong>Scenario 1 — Tiong Bahru Café (r = 0.9925, Observed x &isin; [27.5°C, 33.6°C]):</strong> Strong linear correlation inside the observed range. Slide <em>x</em> between 27.5°C and 33.6°C (reliable interpolation) vs. 39°C (unreliable extrapolation).",
+      points: [
+        { x: 27.5, y: 1.8 },
+        { x: 29.0, y: 2.1 },
+        { x: 30.2, y: 2.5 },
+        { x: 31.5, y: 2.7 },
+        { x: 32.8, y: 3.2 },
+        { x: 33.6, y: 3.3 }
+      ],
+      trueFn: (x, a, b) => x <= 34 ? (a + b * x) : (a + b * 34 + 0.08 * (x - 34)),
+      trueNote: "Above 34°C, sales level off due to café seating and espresso machine capacity.",
+      evaluate: (xVal, yHat, st, dataMin, dataMax) => {
+        const isInterp = xVal >= dataMin && xVal <= dataMax;
+        if (isInterp) {
+          return {
+            cls: "interp",
+            badge: "Interpolation • Reliable Estimate",
+            text: `At <strong>x = ${xVal.toFixed(1)}°C</strong>, estimated sales <strong>y&#770; = ${yHat.toFixed(2)} hundred cups</strong> (${(yHat * 100).toFixed(0)} cups). This estimate is <strong>reliable</strong> because <em>x = ${xVal.toFixed(1)}°C</em> lies <strong>within</strong> the observed range [${dataMin}°C, ${dataMax}°C] and <strong>r = ${st.r.toFixed(4)}</strong> is very close to 1.`
+          };
+        }
+        return {
+          cls: "extrap-warn",
+          badge: "Extrapolation • Unreliable Estimate",
+          text: `At <strong>x = ${xVal.toFixed(1)}°C</strong>, the line predicts <strong>y&#770; = ${yHat.toFixed(2)} hundred cups</strong>. This estimate is <strong>unreliable</strong> because <em>x = ${xVal.toFixed(1)}°C</em> lies <strong>outside</strong> the observed range [${dataMin}°C, ${dataMax}°C] (extrapolation), and we cannot assume the linear trend continues (e.g., café capacity limits).`
+        };
+      }
+    },
+    weak: {
+      xName: "Screen x (hrs)",
+      yName: "Sleep y (hrs)",
+      xUnit: "hrs",
+      yUnit: "hrs",
+      xMin: 0, xMax: 11, yMin: 3.5, yMax: 9.5,
+      predMin: 1.0, predMax: 10.0, predStep: 0.1, predDefault: 4.5,
+      varDesc: "x = daily evening screen time (hours); y = sleep duration (hours) for 8 students.",
+      story: "<strong>Scenario 2 — Weak Correlation Trap (r &approx; &minus;0.42, Observed x &isin; [1.5 hrs, 7.5 hrs]):</strong> Notice that even when <em>x</em> is <strong>inside</strong> [1.5, 7.5], the wide vertical scatter around the line makes predictions unreliable!",
+      points: [
+        { x: 1.5, y: 8.4 },
+        { x: 2.3, y: 6.1 },
+        { x: 3.2, y: 7.9 },
+        { x: 4.1, y: 5.5 },
+        { x: 5.0, y: 7.6 },
+        { x: 5.8, y: 5.2 },
+        { x: 6.6, y: 6.8 },
+        { x: 7.5, y: 5.0 }
+      ],
+      trueFn: (x, a, b) => a + b * x,
+      trueNote: "Wide individual variation causes large residuals across all screen-time levels.",
+      evaluate: (xVal, yHat, st, dataMin, dataMax) => {
+        const isInterp = xVal >= dataMin && xVal <= dataMax;
+        if (isInterp) {
+          return {
+            cls: "extrap-warn",
+            badge: "Interpolation • Still Unreliable (Weak |r|)",
+            text: `At <strong>x = ${xVal.toFixed(1)} hrs</strong>, estimated sleep is <strong>y&#770; = ${yHat.toFixed(2)} hrs</strong>. Although <em>x = ${xVal.toFixed(1)}</em> lies <strong>within</strong> [${dataMin}, ${dataMax}] (interpolation), the estimate is <strong>not reliable</strong> because <strong>r = ${st.r.toFixed(4)}</strong> indicates a <strong>weak linear correlation</strong> with wide scatter around the line.`
+          };
+        }
+        return {
+          cls: "extrap-danger",
+          badge: "Extrapolation + Weak |r| • Doubly Unreliable",
+          text: `At <strong>x = ${xVal.toFixed(1)} hrs</strong>, the line gives <strong>y&#770; = ${yHat.toFixed(2)} hrs</strong>. This is <strong>very unreliable</strong> both because <em>x = ${xVal.toFixed(1)}</em> is <strong>outside</strong> [${dataMin}, ${dataMax}] (extrapolation) AND because <strong>r = ${st.r.toFixed(4)}</strong> shows a weak linear correlation.`
+        };
+      }
+    },
+    curve: {
+      xName: "Distance x (km)",
+      yName: "Time y (mins)",
+      xUnit: "km",
+      yUnit: "mins",
+      xMin: 0, xMax: 65, yMin: 0, yMax: 420,
+      predMin: 5, predMax: 60, predStep: 1, predDefault: 50,
+      varDesc: "x = training run distance (km); y = total completion time (minutes) for a runner.",
+      story: "<strong>Scenario 3 — High |r| Extrapolation Trap (r = 0.996 inside [10 km, 35 km]):</strong> Inside 10–35 km, the runner holds a steady linear pace. Toggle <em>True Reality Curve</em> and slide <em>x</em> to 50–60 km to see how linear extrapolation severely underestimates fatigue!",
+      points: [
+        { x: 10, y: 50 },
+        { x: 15, y: 76 },
+        { x: 20, y: 101 },
+        { x: 25, y: 128 },
+        { x: 30, y: 154 },
+        { x: 35, y: 182 }
+      ],
+      trueFn: (x, a, b) => x <= 35 ? (a + b * x) : (a + b * x + 0.16 * Math.pow(x - 35, 2)),
+      trueNote: "Beyond 35 km (marathon wall), muscular fatigue slows pace dramatically (upward curve).",
+      evaluate: (xVal, yHat, st, dataMin, dataMax) => {
+        const isInterp = xVal >= dataMin && xVal <= dataMax;
+        if (isInterp) {
+          return {
+            cls: "interp",
+            badge: "Interpolation • Reliable Estimate",
+            text: `At <strong>x = ${xVal.toFixed(0)} km</strong>, estimated time is <strong>y&#770; = ${yHat.toFixed(1)} mins</strong>. This is <strong>reliable</strong> because <em>x = ${xVal.toFixed(0)} km</em> is <strong>within</strong> the observed range [${dataMin} km, ${dataMax} km] and <strong>r = ${st.r.toFixed(4)}</strong> is very close to 1.`
+          };
+        }
+        return {
+          cls: "extrap-danger",
+          badge: "Extrapolation Trap • Severely Unreliable",
+          text: `At <strong>x = ${xVal.toFixed(0)} km</strong>, the linear model predicts <strong>y&#770; = ${yHat.toFixed(1)} mins</strong>. Despite <strong>r = ${st.r.toFixed(4)}</strong>, this is <strong>unreliable</strong> because <em>x = ${xVal.toFixed(0)} km</em> lies <strong>outside</strong> [${dataMin} km, ${dataMax} km] (extrapolation)—fatigue causes pace to slow non-linearly at extreme distances!`
+        };
+      }
+    }
+  };
+
+  let curKey = "cafe";
+  let state = null;
+  let targetX = 31.0;
+
+  const canvas = document.getElementById("relCanvas");
+  const ctx = canvas.getContext("2d");
+
+  function loadScenario(key) {
+    curKey = key;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("sc_" + key).classList.add("active");
+
+    const sc = scenarios[key];
+    state = {
+      xName: sc.xName,
+      yName: sc.yName,
+      xMin: sc.xMin,
+      xMax: sc.xMax,
+      yMin: sc.yMin,
+      yMax: sc.yMax,
+      points: sc.points.map(p => ({ ...p }))
+    };
+
+    targetX = sc.predDefault;
+    const slider = document.getElementById("predSlider");
+    slider.min = sc.predMin;
+    slider.max = sc.predMax;
+    slider.step = sc.predStep;
+    slider.value = targetX;
+
+    const numIn = document.getElementById("predNumInput");
+    numIn.min = sc.predMin;
+    numIn.max = sc.predMax;
+    numIn.step = sc.predStep;
+    numIn.value = targetX;
+
+    document.getElementById("contextBox").innerHTML = `
+      <div>${sc.story}</div>
+      <div class="var-pill">${sc.varDesc}</div>
+    `;
+
+    updateAll();
+  }
+
+  function onPredSlider() {
+    targetX = parseFloat(document.getElementById("predSlider").value);
+    document.getElementById("predNumInput").value = targetX;
+    updateAll();
+  }
+
+  function onPredNumber() {
+    const sc = scenarios[curKey];
+    let val = parseFloat(document.getElementById("predNumInput").value);
+    if (isNaN(val)) return;
+    val = Math.max(sc.predMin, Math.min(sc.predMax, val));
+    targetX = val;
+    document.getElementById("predSlider").value = targetX;
+    updateAll();
+  }
+
+  function computeRegression() {
+    const pts = state.points;
+    const n = pts.length;
+    const meanX = pts.reduce((s, p) => s + p.x, 0) / n;
+    const meanY = pts.reduce((s, p) => s + p.y, 0) / n;
+
+    let sxx = 0, syy = 0, sxy = 0;
+    pts.forEach(p => {
+      const dx = p.x - meanX;
+      const dy = p.y - meanY;
+      sxx += dx * dx;
+      syy += dy * dy;
+      sxy += dx * dy;
+    });
+
+    const denom = Math.sqrt(sxx * syy);
+    const r = denom === 0 ? 0 : sxy / denom;
+    const b = sxx === 0 ? 0 : sxy / sxx;
+    const a = meanY - b * meanX;
+
+    let minXIdx = 0, maxXIdx = 0;
+    let minYIdx = 0, maxYIdx = 0;
+    pts.forEach((p, idx) => {
+      if (p.x < pts[minXIdx].x) minXIdx = idx;
+      if (p.x > pts[maxXIdx].x) maxXIdx = idx;
+      if (p.y < pts[minYIdx].y) minYIdx = idx;
+      if (p.y > pts[maxYIdx].y) maxYIdx = idx;
+    });
+
+    return {
+      n, meanX, meanY, r, a, b,
+      minXIdx, maxXIdx, minYIdx, maxYIdx,
+      dataMinX: pts[minXIdx].x,
+      dataMaxX: pts[maxXIdx].x,
+      dataMinY: pts[minYIdx].y,
+      dataMaxY: pts[maxYIdx].y
+    };
+  }
+
+  function formatSign(val, dec = 3) {
+    return val >= 0 ? `+ ${val.toFixed(dec)}` : `− ${Math.abs(val).toFixed(dec)}`;
+  }
+
+  function updateAll() {
+    const st = computeRegression();
+    const sc = scenarios[curKey];
+    const yHat = st.a + st.b * targetX;
+
+    document.getElementById("rangeHeader").textContent = `Data Bounds: x ∈ [${st.dataMinX}, ${st.dataMaxX}], y ∈ [${st.dataMinY}, ${st.dataMaxY}]`;
+    document.getElementById("predEqnText").textContent = `y = ${st.a.toPrecision(3)} ${formatSign(st.b, 3)}x`;
+
+    const verdict = sc.evaluate(targetX, yHat, st, st.dataMinX, st.dataMaxX);
+    document.getElementById("verdictBox").innerHTML = `
+      <div class="verdict-card ${verdict.cls}">
+        <span class="verdict-badge">${verdict.badge}</span>
+        <div>${verdict.text}</div>
+      </div>
+    `;
+
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">TI-84 Plus CE Regression &amp; Correlation Summary</span>
+      <div class="gc-readout-grid">
+        <div class="gc-readout">
+          <strong>LinReg(a+bx) (y on x)</strong><br>
+          a = ${st.a.toFixed(4)}<br>
+          b = ${st.b.toFixed(4)}<br>
+          r = ${st.r.toFixed(4)}
+        </div>
+        <div class="gc-readout">
+          <strong>Substitution Check</strong><br>
+          Given x = ${targetX}<br>
+          y&#770; = ${st.a.toFixed(4)} + (${st.b.toFixed(4)})(${targetX})<br>
+          <strong>y&#770; = ${yHat.toPrecision(3)} (3 s.f.)</strong>
+        </div>
+      </div>
+    `;
+
+    document.getElementById("dataTable").innerHTML = `
+      <thead>
+        <tr>
+          <th>Obs #</th>
+          <th>${state.xName}</th>
+          <th>${state.yName}</th>
+          <th>Boundary Role</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${state.points.map((p, idx) => {
+          const tags = [];
+          if (idx === st.minXIdx) tags.push(`x_min = ${p.x}`);
+          if (idx === st.maxXIdx) tags.push(`x_max = ${p.x}`);
+          if (idx === st.minYIdx) tags.push(`y_min = ${p.y}`);
+          if (idx === st.maxYIdx) tags.push(`y_max = ${p.y}`);
+
+          let role = "Interior point";
+          let style = "color:#64748b;";
+          if (tags.length > 0) {
+            role = `Bound (${tags.join(", ")})`;
+            style = (idx === st.minXIdx || idx === st.minYIdx)
+              ? "color:#0284c7; font-weight:700;"
+              : "color:#7c3aed; font-weight:700;";
+          }
+          return `
+            <tr>
+              <td><strong>#${idx + 1}</strong></td>
+              <td>${p.x}</td>
+              <td>${p.y}</td>
+              <td style="${style}">${role}</td>
+            </tr>
+          `;
+        }).join("")}
+      </tbody>
+    `;
+
+    drawCanvas();
+  }
+
+  function getBounds(w, h) {
+    return { left: 58, right: w - 24, top: 22, bottom: h - 42 };
+  }
+
+  function toPx(x, y, b) {
+    const px = b.left + ((x - state.xMin) / (state.xMax - state.xMin)) * (b.right - b.left);
+    const py = b.bottom - ((y - state.yMin) / (state.yMax - state.yMin)) * (b.bottom - b.top);
+    return { px, py };
+  }
+
+  function drawCanvas() {
+    if (!state || !state.points || state.points.length === 0) return;
+
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    const w = rect.width > 0 ? rect.width : 530;
+    const h = rect.height > 0 ? rect.height : 315;
+
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    const b = getBounds(w, h);
+    const st = computeRegression();
+    const sc = scenarios[curKey];
+
+    ctx.clearRect(0, 0, w, h);
+
+    const showRegLine = document.getElementById("chkRegLine").checked;
+    const showInterpZone = document.getElementById("chkInterpZone").checked;
+    const showTrueCurve = document.getElementById("chkTrueCurve").checked;
+
+    // 1. Optional Shaded Interpolation Zone bounded by [x_min, x_max] AND [y_min, y_max]
+    if (showInterpZone) {
+      const topLeft = toPx(st.dataMinX, st.dataMaxY, b);
+      const bottomRight = toPx(st.dataMaxX, st.dataMinY, b);
+      const boxX = topLeft.px;
+      const boxY = topLeft.py;
+      const boxW = Math.max(2, bottomRight.px - topLeft.px);
+      const boxH = Math.max(2, bottomRight.py - topLeft.py);
+
+      ctx.save();
+      ctx.fillStyle = "rgba(22, 163, 74, 0.14)";
+      ctx.fillRect(boxX, boxY, boxW, boxH);
+
+      ctx.strokeStyle = "rgba(22, 163, 74, 0.75)";
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([5, 4]);
+      ctx.strokeRect(boxX, boxY, boxW, boxH);
+
+      ctx.strokeStyle = "rgba(22, 163, 74, 0.35)";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(boxX, boxY + boxH); ctx.lineTo(boxX, b.bottom);
+      ctx.moveTo(boxX + boxW, boxY + boxH); ctx.lineTo(boxX + boxW, b.bottom);
+      ctx.moveTo(boxX, boxY); ctx.lineTo(b.left, boxY);
+      ctx.moveTo(boxX, boxY + boxH); ctx.lineTo(b.left, boxY + boxH);
+      ctx.stroke();
+
+      ctx.fillStyle = "#15803d";
+      ctx.font = "bold 9.5px Segoe UI, sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("INTERPOLATION ZONE", boxX + boxW / 2, Math.max(b.top + 11, boxY - 5));
+      ctx.restore();
+    }
+
+    // 2. Clean Axes (No grid lines & no intermediate tick marks)
+    ctx.strokeStyle = "#475569";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(b.left, b.top);
+    ctx.lineTo(b.left, b.bottom);
+    ctx.lineTo(b.right, b.bottom);
+    ctx.stroke();
+
+    // Origin O
+    ctx.fillStyle = "#475569";
+    ctx.font = "italic bold 11px Segoe UI, sans-serif";
+    ctx.textAlign = "right";
+    ctx.fillText("O", b.left - 6, b.bottom + 13);
+
+    // Axis Labels
+    ctx.fillStyle = "#334155";
+    ctx.font = "bold 11px Segoe UI, sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(state.xName, (b.left + b.right) / 2, h - 5);
+    ctx.save();
+    ctx.translate(14, (b.top + b.bottom) / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.fillText(state.yName, 0, 0);
+    ctx.restore();
+
+    // 3. Axis Tick Labels & Dotted Projections for Data Table x_min, x_max, y_min, y_max
+    const ptMinX = state.points[st.minXIdx];
+    const ptMaxX = state.points[st.maxXIdx];
+    const ptMinY = state.points[st.minYIdx];
+    const ptMaxY = state.points[st.maxYIdx];
+
+    const minXPx = toPx(ptMinX.x, ptMinX.y, b);
+    const maxXPx = toPx(ptMaxX.x, ptMaxX.y, b);
+    const minYPx = toPx(ptMinY.x, ptMinY.y, b);
+    const maxYPx = toPx(ptMaxY.x, ptMaxY.y, b);
+
+    ctx.save();
+    ctx.setLineDash([4, 4]);
+    ctx.lineWidth = 1.2;
+
+    ctx.strokeStyle = "#0284c7";
+    ctx.beginPath(); ctx.moveTo(minXPx.px, minXPx.py); ctx.lineTo(minXPx.px, b.bottom); ctx.stroke();
+    ctx.strokeStyle = "#7c3aed";
+    ctx.beginPath(); ctx.moveTo(maxXPx.px, maxXPx.py); ctx.lineTo(maxXPx.px, b.bottom); ctx.stroke();
+
+    ctx.strokeStyle = "#0284c7";
+    ctx.beginPath(); ctx.moveTo(minYPx.px, minYPx.py); ctx.lineTo(b.left, minYPx.py); ctx.stroke();
+    ctx.strokeStyle = "#7c3aed";
+    ctx.beginPath(); ctx.moveTo(maxYPx.px, maxYPx.py); ctx.lineTo(b.left, maxYPx.py); ctx.stroke();
+    ctx.restore();
+
+    ctx.font = "bold 10px Segoe UI, sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#0284c7";
+    ctx.fillText(String(st.dataMinX), minXPx.px, b.bottom + 14);
+    ctx.fillStyle = "#7c3aed";
+    ctx.fillText(String(st.dataMaxX), maxXPx.px, b.bottom + 14);
+
+    ctx.textAlign = "right";
+    ctx.fillStyle = "#0284c7";
+    ctx.fillText(String(st.dataMinY), b.left - 7, minYPx.py + 3.5);
+    ctx.fillStyle = "#7c3aed";
+    ctx.fillText(String(st.dataMaxY), b.left - 7, maxYPx.py + 3.5);
+
+    // 4. Optional True Underlying Curve (clipped to plot area)
+    if (showTrueCurve) {
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(b.left, b.top, b.right - b.left, b.bottom - b.top);
+      ctx.clip();
+
+      ctx.strokeStyle = "#e11d48";
+      ctx.lineWidth = 2.4;
+      ctx.setLineDash([6, 4]);
+      ctx.beginPath();
+      const steps = 100;
+      for (let i = 0; i <= steps; i++) {
+        const xv = state.xMin + (i / steps) * (state.xMax - state.xMin);
+        const yv = sc.trueFn(xv, st.a, st.b);
+        const pt = toPx(xv, yv, b);
+        if (i === 0) ctx.moveTo(pt.px, pt.py);
+        else ctx.lineTo(pt.px, pt.py);
+      }
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    // 5. Optional Regression Line (y = a + bx)
+    if (showRegLine) {
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(b.left, b.top, b.right - b.left, b.bottom - b.top);
+      ctx.clip();
+
+      const p1 = toPx(state.xMin, st.a + st.b * state.xMin, b);
+      const p2 = toPx(state.xMax, st.a + st.b * state.xMax, b);
+      ctx.strokeStyle = "#0284c7";
+      ctx.lineWidth = 2.4;
+      ctx.beginPath();
+      ctx.moveTo(p1.px, p1.py);
+      ctx.lineTo(p2.px, p2.py);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    // 6. Observed Data Points
+    state.points.forEach(p => {
+      const pt = toPx(p.x, p.y, b);
+      ctx.fillStyle = "#8b5cf6";
+      ctx.strokeStyle = "#ffffff";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(pt.px, pt.py, 5.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+    });
+
+    // 7. Live Prediction Crosshair (targetX, yHat)
+    const yHat = st.a + st.b * targetX;
+    const predPx = toPx(targetX, yHat, b);
+    const isInterp = targetX >= st.dataMinX && targetX <= st.dataMaxX;
+    const predColor = isInterp ? "#16a34a" : "#e11d48";
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(b.left, b.top, b.right - b.left, b.bottom - b.top);
+    ctx.clip();
+
+    ctx.setLineDash([3, 3]);
+    ctx.strokeStyle = predColor;
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    ctx.moveTo(predPx.px, b.bottom);
+    ctx.lineTo(predPx.px, predPx.py);
+    ctx.lineTo(b.left, predPx.py);
+    ctx.stroke();
+
+    ctx.fillStyle = predColor;
+    ctx.strokeStyle = "#ffffff";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(predPx.px, predPx.py, 6.5, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  window.addEventListener("resize", drawCanvas);
+  if (typeof ResizeObserver !== "undefined") {
+    new ResizeObserver(() => drawCanvas()).observe(canvas);
+  }
+
+  const examQs = [
+    {
+      q: "The daily temperature x (°C) recorded over 6 days ranged from 27.5°C to 33.6°C, with r = 0.9925. A student uses the regression line of y on x to estimate iced coffee sales y when x = 40°C. Comment on the reliability of this estimate.",
+      opts: [
+        "Unreliable, because x = 40°C lies outside the observed data range [27.5°C, 33.6°C] (extrapolation)",
+        "Reliable, because r = 0.9925 is very close to 1",
+        "Reliable, because x = 40°C is a positive temperature",
+        "Unreliable, because we must use the regression line of x on y instead"
+      ],
+      ans: 0,
+      exp: "Even when |r| is very close to 1, predicting at x = 40°C involves extrapolation outside [27.5°C, 33.6°C], where we cannot assume the linear trend continues to hold."
+    },
+    {
+      q: "For 8 students, evening screen time x (between 1.5 hrs and 7.5 hrs) and sleep duration y (hrs) give r = −0.42. A student estimates y when x = 4.5 hrs using y on x. Is this estimate reliable?",
+      opts: [
+        "Not reliable: although x = 4.5 lies within [1.5, 7.5] (interpolation), r = −0.42 indicates a weak linear correlation",
+        "Reliable, because x = 4.5 lies right in the middle of the observed range",
+        "Reliable, because r is negative",
+        "Not reliable, because x = 4.5 is an extrapolation"
+      ],
+      ans: 0,
+      exp: "Interpolation alone does not guarantee reliability—when |r| is weak (r = −0.42), the points are widely scattered around the regression line, resulting in large prediction errors."
+    },
+    {
+      q: "Which two conditions are BOTH required for a regression estimate of y given x = x₀ to be considered reliable in a 9758 H2 Math exam?",
+      opts: [
+        "x₀ lies within the observed range [x_min, x_max] (interpolation) AND |r| is close to 1 with a linear scatter pattern",
+        "x₀ is greater than x_max AND the y-intercept is positive",
+        "x₀ equals the sample mean x̄ AND r = 0",
+        "x is a controlled variable AND x₀ is far outside the observed data range"
+      ],
+      ans: 0,
+      exp: "For a reliable prediction, x₀ should lie within the observed data range (interpolation) AND the scatter diagram / correlation coefficient |r| close to 1 must confirm a strong linear fit."
+    }
+  ];
+
+  let curQ = 0;
+
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").textContent = item.q;
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i}, this)">${String.fromCharCode(65 + i)}. ${o}</button>
+    `).join("");
+  }
+
+  function gradeExamQ(idx, btn) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  loadScenario("cafe");
+  renderExamQ();
+</script>
+
+</body>
+</html>
