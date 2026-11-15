@@ -512,10 +512,29 @@
 
     <div class="nav-group">Topic 5: Calculus</div>
     <button class="topic-btn" id="nav_5.1" onclick="selectTopic('5.1')">
-      <span>5.1–5.5 Calculus</span>
-      <span class="status-pill soon">Planned</span>
+      <span>5.1 Differentiation</span>
+      <span class="status-pill">5 Lessons</span>
     </button>
-
+    <div class="nav-group">Topic 5: Calculus</div>
+    <button class="topic-btn" id="nav_5.2" onclick="selectTopic('5.2')">
+      <span>5.2 Maclaurin Series</span>
+      <span class="status-pill">3 Lessons</span>
+    </button>
+    <div class="nav-group">Topic 5: Calculus</div>
+    <button class="topic-btn" id="nav_5.3" onclick="selectTopic('5.3')">
+      <span>5.3 Integration Techniques</span>
+      <span class="status-pill">2 Lessons</span>
+    </button>
+    <div class="nav-group">Topic 5: Calculus</div>
+    <button class="topic-btn" id="nav_5.4" onclick="selectTopic('5.4')">
+      <span>5.4 Definite Integrals</span>
+      <span class="status-pill">3 Lessons</span>
+    </button>
+    <div class="nav-group">Topic 5: Calculus</div>
+    <button class="topic-btn" id="nav_5.5" onclick="selectTopic('5.5')">
+      <span>5.5 Differential Equations</span>
+      <span class="status-pill">3 Lessons</span>
+    </button>
     <div class="nav-group">Topic 6: Probability &amp; Statistics</div>
     <button class="topic-btn" id="nav_6.1" onclick="selectTopic('6.1')">
       <span>6.1 Probability</span>
@@ -1630,7 +1649,135 @@
           }
         ]
       },
-
+"5.1": {
+        title: "5.1 Differentiation",
+        syllabusNotes: "9758 H2 Math Scope: Graphical interpretation of f'(x) and f''(x); relating y = f'(x) to y = f(x); implicit and parametric differentiation; stationary points via first/second derivative tests; GC derivative & extrema workflows; tangents/normals; local maxima/minima and connected rates of change. (Excludes: non-stationary points of inflexion and finding second derivatives of parametric equations.)",
+        lessons: [
+          {
+            label: "Lesson 1: Graphical Interpretation of f'(x) & f''(x)",
+            file: "interactives/5_1_lesson1.html",
+            videoEmbedUrl: "",
+            prereq: "O-Level / H2 assumed knowledge of basic differentiation rules (power, product, quotient, chain) and standard derivatives (eˣ, ln x, trigonometric functions).",
+            objectives: [
+              "Interpret f'(x) > 0, f'(x) = 0, and f'(x) < 0 in terms of increasing, stationary, and decreasing behaviour of y = f(x).",
+              "Interpret f''(x) > 0 (concave upward) and f''(x) < 0 (concave downward) geometrically.",
+              "Sketch and deduce key features of y = f'(x) from y = f(x), and vice versa.",
+              "Use a Graphing Calculator (GC) to approximate f'(a) and locate local extrema."
+            ],
+            prompts: [
+              "Drag the tangent rider across a local maximum on y = f(x): observe how y = f'(x) crosses the x-axis from positive to negative.",
+              "Locate a stationary point of inflexion on y = f(x) and verify that y = f'(x) touches the x-axis without crossing it.",
+              "Switch to Challenge Mode: given only the graph of y = f'(x), identify all intervals where f(x) is concave upward (where f'(x) is strictly increasing)."
+            ],
+            pitfalls: [
+              "Confusing the turning points of y = f'(x) with the turning points of y = f(x): turning points of y = f'(x) correspond to where f''(x) = 0 (concavity changes), whereas x-intercepts of y = f'(x) give stationary points of y = f(x).",
+              "Assuming f'(a) = 0 guarantees a local maximum or minimum—always check whether f'(x) changes sign across x = a."
+            ],
+            gcTip: "On the TI-84 Plus CE, plot Y₁ = f(x), then press [2nd] [TRACE] (CALC) > 6: dy/dx, type the x-value, and press [ENTER] to evaluate f'(a) numerically. Use 3: minimum or 4: maximum on the same menu to find turning points.",
+            workedQuestion: "The graph of the gradient function y = f'(x) has x-intercepts at x = −2 and x = 3, a local minimum at (1, −4), and lies above the x-axis for x < −2 and x > 3. (a) State the x-coordinates and nature of all stationary points of y = f(x). (b) State the set of values of x for which y = f(x) is concave upward.",
+            workedSolution: "(a) At x = −2, f'(x) changes sign from positive to negative, so y = f(x) has a local maximum at x = −2. At x = 3, f'(x) changes sign from negative to positive, so y = f(x) has a local minimum at x = 3. (b) y = f(x) is concave upward when f''(x) > 0, which occurs where y = f'(x) is strictly increasing. Since (1, −4) is a local minimum of f'(x), f'(x) is increasing for x > 1. Hence y = f(x) is concave upward for x ∈ (1, ∞).",
+            exitQuestion: "If y = f'(x) has a local maximum at x = 2 and lies entirely below the x-axis for all real x, describe the behaviour and concavity of y = f(x) at x = 2.",
+            exitAnswer: "Since f'(x) < 0 everywhere, y = f(x) is strictly decreasing for all x (no stationary points). At x = 2, f''(2) = 0 and f'(x) changes from increasing (f'' > 0) to decreasing (f'' < 0), so y = f(x) changes from concave upward to concave downward at x = 2."
+          },
+          {
+            label: "Lesson 2: Implicit & Parametric Differentiation",
+            file: "interactives/5_1_lesson2.html",
+            videoEmbedUrl: "",
+            prereq: "Chain rule and product rule for functions of a single variable.",
+            objectives: [
+              "Differentiate curves defined implicitly by applying the chain rule: d/dx [g(y)] = g'(y) · dy/dx.",
+              "Find dy/dx in terms of parameter t for curves defined parametrically by x = f(t), y = g(t) using dy/dx = (dy/dt) / (dx/dt).",
+              "Identify values of t or (x, y) where gradients are zero (horizontal tangents) or undefined (vertical tangents)."
+            ],
+            prompts: [
+              "In the Implicit tab, click different branches of x³ + y³ = 6xy to see why dy/dx depends on both x and y.",
+              "In the Parametric tab, scrub parameter t along x = t² − 2t, y = t³ − 3t and watch the horizontal velocity vector (dx/dt) and vertical velocity vector (dy/dt) combine to form the tangent slope.",
+              "Find the exact t-values where dx/dt = 0 on the parametric curve and observe the vertical tangent line."
+            ],
+            pitfalls: [
+              "Forgetting the product rule on mixed terms like x²y (which differentiates to 2xy + x² dy/dx) or forgetting to differentiate constants on the RHS to 0.",
+              "9758 Syllabus Exclusion: Do NOT compute d²y/dx² for parametrically defined curves—it is explicitly excluded from the 9758 syllabus."
+            ],
+            gcTip: "To sketch a parametric curve on the TI-84 Plus CE, press [MODE], switch from FUNC to PARAM, enter X₁T and Y₁T, and adjust Tmin, Tmax, and Tstep in [WINDOW].",
+            workedQuestion: "(a) Find dy/dx in terms of x and y for the curve e^{2y} + x²y = 5. (b) A curve is defined parametrically by x = ln(2t + 1) and y = t / (2t + 1) for t > −1/2. Find dy/dx in terms of t.",
+            workedSolution: "(a) Differentiating implicitly with respect to x: 2e^{2y}(dy/dx) + [2xy + x²(dy/dx)] = 0. Grouping dy/dx terms: (2e^{2y} + x²)(dy/dx) = −2xy ⇒ dy/dx = −2xy / (2e^{2y} + x²). (b) dx/dt = 2 / (2t + 1) and dy/dt = [(2t + 1)(1) − t(2)] / (2t + 1)² = 1 / (2t + 1)². Therefore, dy/dx = [1 / (2t + 1)²] ÷ [2 / (2t + 1)] = 1 / [2(2t + 1)].",
+            exitQuestion: "Find dy/dx in terms of θ for the ellipse x = 3 cos θ, y = 2 sin θ, and state the values of θ ∈ [0, 2π) where the tangent is vertical.",
+            exitAnswer: "dx/dθ = −3 sin θ and dy/dθ = 2 cos θ, so dy/dx = −(2/3) cot θ. The tangent is vertical when dx/dθ = 0 (and dy/dθ ≠ 0), which occurs at θ = 0 and θ = π."
+          },
+          {
+            label: "Lesson 3: Tangents & Normals to Curves",
+            file: "interactives/5_1_lesson3.html",
+            videoEmbedUrl: "",
+            prereq: "Coordinate geometry of straight lines (y − y₁ = m(x − x₁)) and perpendicular gradients (m_T · m_N = −1).",
+            objectives: [
+              "Determine equations of tangents and normals to Cartesian, implicit, and parametric curves at a given point or parameter value.",
+              "Write equations of horizontal and vertical tangents/normals directly when dy/dx = 0 or dx/dt = 0.",
+              "Solve geometric problems involving intercepts, intersections, and triangle areas formed by tangents and normals."
+            ],
+            prompts: [
+              "Adjust parameter θ on the parametric ellipse x = a cos θ, y = b sin θ and inspect how the tangent (solid) and normal (dashed) intersect the coordinate axes at P and Q.",
+              "Move the point of tangency to a vertex where dx/dθ = 0 and verify that the tangent simplifies to x = ±a while the normal becomes y = 0."
+            ],
+            pitfalls: [
+              "Using the general gradient expression dy/dx = f'(t) as the gradient of the tangent without substituting the specific numerical value of t at the given point.",
+              "Attempting to compute m_N = −1 / m_T when m_T = 0: if the tangent is horizontal (y = y₀), the normal is vertical (x = x₀)."
+            ],
+            gcTip: "On the TI-84 Plus CE in FUNC mode, press [2nd] [PRGM] (DRAW) > 5: Tangent(, type the x-coordinate, and press [ENTER] to draw the tangent line and display its numerical equation y = mx + c.",
+            workedQuestion: "A curve has parametric equations x = t + 1/t, y = t − 1/t (t ≠ 0). Find the exact equation of the normal to the curve at the point P where t = 2.",
+            workedSolution: "At t = 2, P has coordinates x = 2 + 1/2 = 5/2 and y = 2 − 1/2 = 3/2. Differentiating: dx/dt = 1 − 1/t² and dy/dt = 1 + 1/t². At t = 2, dx/dt = 3/4 and dy/dt = 5/4, so m_T = (5/4)/(3/4) = 5/3. The gradient of the normal is m_N = −3/5. Equation of normal: y − 3/2 = −(3/5)(x − 5/2) ⇒ 10y − 15 = −6x + 15 ⇒ 3x + 5y = 15.",
+            exitQuestion: "Find the equation of the tangent to the curve x² + xy + y² = 7 at the point (2, 1).",
+            exitAnswer: "Differentiating implicitly: 2x + y + x(dy/dx) + 2y(dy/dx) = 0. At (2, 1): 4 + 1 + 2(dy/dx) + 2(dy/dx) = 0 ⇒ dy/dx = −5/4. Tangent equation: y − 1 = −(5/4)(x − 2), or 5x + 4y = 14."
+          },
+          {
+            label: "Lesson 4: Stationary Points & Derivative Tests",
+            file: "interactives/5_1_lesson4.html",
+            videoEmbedUrl: "",
+            prereq: "Solving algebraic/trigonometric equations f'(x) = 0 and computing second derivatives f''(x).",
+            objectives: [
+              "Find exact coordinates of stationary points by solving dy/dx = 0.",
+              "Classify stationary points as local maxima, local minima, or stationary points of inflexion using the Second Derivative Test or First Derivative Sign Test.",
+              "Recognise when the Second Derivative Test is inconclusive (f''(a) = 0) and apply the First Derivative Test."
+            ],
+            prompts: [
+              "Test y = x⁴ − 4x³ in the simulator: observe why f''(0) = 0 gives an inconclusive result for the Second Derivative Test at x = 0.",
+              "Switch to the First Derivative Sign Table around x = 0 and verify that dy/dx stays negative on both sides, confirming a stationary point of inflexion."
+            ],
+            pitfalls: [
+              "Concluding that f''(a) = 0 automatically means (a, f(a)) is a point of inflexion—for example, y = x⁴ has f''(0) = 0 yet (0, 0) is a local minimum.",
+              "9758 Syllabus Exclusion: Non-stationary points of inflexion (where f''(x) = 0 and concavity changes, but f'(x) ≠ 0) are excluded from the syllabus."
+            ],
+            gcTip: "To verify your analytical sign table, store Y₁ = f(x) and set Y₂ = nDeriv(Y₁, X, X) (found via [ALPHA] [WINDOW] > 3: nDeriv(), then inspect [2nd] [GRAPH] (TABLE) around x = a.",
+            workedQuestion: "Find the exact coordinates of all stationary points on the curve y = x³(x − 4) and determine the nature of each point.",
+            workedSolution: "dy/dx = 3x²(x − 4) + x³(1) = 4x³ − 12x² = 4x²(x − 3). Setting dy/dx = 0 gives x = 0 or x = 3. Second derivative: d²y/dx² = 12x² − 24x. At x = 3: y = 27(−1) = −27 and d²y/dx² = 12(9) − 72 = 36 > 0, so (3, −27) is a local minimum. At x = 0: y = 0 and d²y/dx² = 0 (inconclusive). Testing signs of dy/dx = 4x²(x − 3) near x = 0: for x = −0.1, dy/dx < 0; for x = 0.1, dy/dx < 0. Since dy/dx does not change sign, (0, 0) is a stationary point of inflexion.",
+            exitQuestion: "Find the stationary point of y = x e^{−2x} and use the second derivative test to determine its nature.",
+            exitAnswer: "dy/dx = e^{−2x}(1 − 2x) = 0 ⇒ x = 1/2, y = 1/(2e). d²y/dx² = e^{−2x}(4x − 4). At x = 1/2, d²y/dx² = −2e^{−1} < 0, so (1/2, 1/(2e)) is a local maximum."
+          },
+          {
+            label: "Lesson 5: Applied Optimisation & Connected Rates of Change",
+            file: "interactives/5_1_lesson5.html",
+            videoEmbedUrl: "",
+            prereq: "Mensuration formulae (cones, cylinders, spheres), similar triangles, chain rule, and stationary point tests.",
+            objectives: [
+              "Express a quantity to be maximised or minimised in terms of a single variable using geometric constraints.",
+              "Solve optimisation problems and rigorously justify that the stationary value gives a maximum or minimum.",
+              "Solve connected rates of change problems by linking time derivatives via the chain rule (e.g., dV/dt = dV/dh · dh/dt)."
+            ],
+            prompts: [
+              "In Optimisation Mode, adjust the cylinder radius r inside a fixed sphere of radius R and watch V(r) peak precisely where dV/dr = 0.",
+              "In Connected Rates Mode, run the conical tank simulation at constant dV/dt and observe why |dh/dt| accelerates sharply as water depth h approaches 0."
+            ],
+            pitfalls: [
+              "Optimisation: Forgetting to prove that the stationary point is indeed a maximum or minimum (using d²Q/dx² or the first derivative test)—this typically costs 1–2 marks in H2 exams.",
+              "Connected Rates: Substituting instantaneous numerical values (like h = 6) BEFORE differentiating the geometric equation."
+            ],
+            gcTip: "In optimisation problems with messy radical expressions, graph Y₁ = V(x) on your GC and use [2nd] [TRACE] > 4: maximum to double-check your exact surd answer numerically.",
+            workedQuestion: "An inverted right circular cone of semi-vertical angle 30° is filled with water at a constant rate of 12 cm³ s⁻¹. Find the exact rate at which the depth h of the water is increasing at the instant when h = 6 cm.",
+            workedSolution: "Let r be the water surface radius at depth h. By trigonometry, r = h tan 30° = h / √3. Volume of water: V = (1/3)πr²h = (1/3)π(h²/3)h = (π/9)h³. Differentiating with respect to h: dV/dh = (π/3)h². By the chain rule, dV/dt = (dV/dh)(dh/dt) ⇒ 12 = [(π/3)(6)²] (dh/dt) = 12π (dh/dt). Hence dh/dt = 1/π cm s⁻¹.",
+            exitQuestion: "The area A of a circular ink blot is increasing at a constant rate of 4 cm² s⁻¹. Find the exact rate at which its radius r is increasing when r = 5 cm.",
+            exitAnswer: "A = πr² ⇒ dA/dr = 2πr. Using dA/dt = (dA/dr)(dr/dt): 4 = 2π(5)(dr/dt) ⇒ dr/dt = 2/(5π) cm s⁻¹."
+          }
+        ]
+      },
       "6.1": {
         title: "6.1 Probability",
         syllabusNotes: "Addition and multiplication principles for counting; concepts of permutation (ⁿPᵣ) and combination (ⁿCᵣ); arrangements of objects in a line or in a circle, including cases involving repetition and restriction; addition and multiplication of probabilities; mutually exclusive events and independent events; use of tables of outcomes, Venn diagrams, tree diagrams, and permutations and combinations techniques to calculate probabilities; calculation of conditional probabilities in simple cases; use of P(A') = 1 − P(A), P(A ∪ B) = P(A) + P(B) − P(A ∩ B), and P(A|B) = P(A ∩ B) / P(B).",
