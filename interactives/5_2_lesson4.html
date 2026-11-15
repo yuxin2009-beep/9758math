@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5.2 Lesson 4 | Small-Angle Approximations, Error Analysis, Compound Angles & Triangles</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 16px 20px 28px 20px;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    /* CLEAN HTML STACKED FRACTIONS & MATH */
+    .math {
+      font-family: 'Cambria Math', 'Times New Roman', Georgia, serif;
+      font-size: 1.04em;
+    }
+
+    .frac {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      vertical-align: middle;
+      margin: 0 3px;
+      font-size: 0.88em;
+      line-height: 1.1;
+    }
+
+    .frac-num {
+      padding: 0 4px 2px 4px;
+      border-bottom: 1.4px solid currentColor;
+      text-align: center;
+    }
+
+    .frac-den {
+      padding: 2px 4px 0 4px;
+      text-align: center;
+    }
+
+    /* HEADER & NAVIGATION TABS */
+    .lab-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .lab-title-wrap h1 {
+      margin: 0;
+      font-size: 1.15rem;
+      color: #1e293b;
+    }
+
+    .lab-title-wrap p {
+      margin: 3px 0 0 0;
+      font-size: 0.81rem;
+      color: var(--muted);
+    }
+
+    .mode-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mode-btn {
+      padding: 8px 13px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: var(--text);
+      font-size: 0.81rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mode-btn:hover {
+      border-color: var(--purple);
+      color: var(--purple-dark);
+    }
+
+    .mode-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.22);
+    }
+
+    /* FOUNDATION BANNER (ALWAYS VISIBLE BEFORE EXPLORATION) */
+    .foundation-card {
+      background: var(--panel);
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.07);
+    }
+
+    .foundation-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 9px;
+    }
+
+    .radian-badge {
+      background: var(--rose-bg);
+      color: var(--rose);
+      border: 1px solid #fda4af;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 800;
+    }
+
+    .approx-trio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 9px;
+    }
+
+    @media (max-width: 820px) {
+      .approx-trio-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .approx-pill-card {
+      background: #f5f3ff;
+      border: 1px solid #ddd6fe;
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 0.86rem;
+      line-height: 1.55;
+      color: #1e293b;
+    }
+
+    .approx-main-eq {
+      font-size: 1.02rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .approx-origin-sub {
+      font-size: 0.77rem;
+      color: #475569;
+      margin-top: 2px;
+    }
+
+    .more-terms-note {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 7px 11px;
+      font-size: 0.8rem;
+      line-height: 1.55;
+      color: #334155;
+    }
+
+    /* PANELS */
+    .view-panel {
+      display: none;
+    }
+    .view-panel.active {
+      display: block;
+    }
+
+    /* WORKSPACE GRIDS */
+    .lab-grid {
+      display: grid;
+      grid-template-columns: 1.32fr 1.18fr;
+      gap: 16px;
+    }
+
+    .helper-grid {
+      display: grid;
+      grid-template-columns: 1.38fr 1.12fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 1000px) {
+      .lab-grid,
+      .helper-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 3px 10px rgba(148, 163, 184, 0.06);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .kicker {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--purple-dark);
+    }
+
+    /* ANGLE SLIDER & PRESET CONTROLS */
+    .slider-panel {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 11px 13px;
+      margin-bottom: 12px;
+    }
+
+    .slider-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 7px;
+    }
+
+    .angle-readout {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .rad-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      border: 1px solid #c4b5fd;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.84rem;
+    }
+
+    .deg-pill {
+      background: var(--blue-bg);
+      color: #0369a1;
+      border: 1px solid #7dd3fc;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.84rem;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .preset-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .action-btn {
+      padding: 5px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #1e293b;
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .action-btn:hover {
+      border-color: var(--purple);
+      color: var(--purple-dark);
+    }
+
+    .action-btn.primary {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .action-btn.primary:hover {
+      background: var(--purple-dark);
+    }
+
+    /* DEGREE INPUT BUG SIMULATOR BANNER */
+    .bug-simulator-box {
+      border-radius: 12px;
+      padding: 11px 13px;
+      margin-bottom: 12px;
+      border: 1.5px solid #5eead4;
+      background: var(--teal-bg);
+      color: #134e4a;
+      transition: 0.2s;
+    }
+
+    .bug-simulator-box.bug-active {
+      border-color: #fb7185;
+      background: var(--rose-bg);
+      color: #881337;
+    }
+
+    .bug-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 5px;
+    }
+
+    .bug-toggle-btn {
+      padding: 5px 11px;
+      border-radius: 8px;
+      border: 1.5px solid #0f766e;
+      background: #ffffff;
+      color: #0f766e;
+      font-size: 0.77rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .bug-simulator-box.bug-active .bug-toggle-btn {
+      border-color: #e11d48;
+      background: #e11d48;
+      color: #ffffff;
+    }
+
+    /* ERROR ANALYSIS TABLE */
+    .error-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+
+    .error-table th {
+      background: #f1f5f9;
+      color: #1e293b;
+      font-weight: 800;
+      text-align: left;
+      padding: 8px 8px;
+      border-bottom: 2px solid #cbd5e1;
+      font-size: 0.73rem;
+      text-transform: uppercase;
+    }
+
+    .error-table td {
+      padding: 8px 8px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+
+    .status-chip {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.73rem;
+      font-weight: 800;
+    }
+
+    .chip-ok {
+      background: var(--teal-bg);
+      color: var(--teal);
+      border: 1px solid #5eead4;
+    }
+
+    .chip-warn1 {
+      background: var(--amber-bg);
+      color: var(--amber);
+      border: 1px solid #fcd34d;
+    }
+
+    .chip-warn5 {
+      background: var(--rose-bg);
+      color: var(--rose);
+      border: 1px solid #fda4af;
+    }
+
+    .threshold-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 9px;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    /* CANVAS */
+    .canvas-wrap {
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+    }
+
+    .graph-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 11px;
+      margin-top: 9px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: #475569;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .swatch-line {
+      width: 15px;
+      height: 3px;
+      border-radius: 2px;
+      display: inline-block;
+    }
+
+    /* TAB 2 & TAB 3 SELECTORS AND STEP BOXES */
+    .expr-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .expr-pill {
+      padding: 6px 12px;
+      border-radius: 9px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #1e293b;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .expr-pill:hover {
+      border-color: var(--purple);
+      background: #f5f3ff;
+    }
+
+    .expr-pill.active {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      border-color: var(--purple);
+    }
+
+    .step-box {
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 10px 13px;
+      margin-bottom: 9px;
+      background: #f8fafc;
+      transition: 0.2s;
+    }
+
+    .step-box.active-step {
+      border-color: var(--purple);
+      background: #faf5ff;
+      box-shadow: 0 2px 8px rgba(139, 92, 246, 0.11);
+    }
+
+    .step-box.locked {
+      opacity: 0.38;
+      background: #f1f5f9;
+    }
+
+    .step-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+
+    .step-title {
+      font-size: 0.74rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--purple-dark);
+    }
+
+    .step-tag {
+      background: var(--blue-bg);
+      color: #0369a1;
+      font-size: 0.71rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+
+    .step-body {
+      font-size: 0.87rem;
+      line-height: 1.72;
+      color: #1e293b;
+    }
+
+    .final-result-banner {
+      background: #f5f3ff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 11px;
+      padding: 11px 14px;
+      margin-top: 10px;
+      font-size: 0.92rem;
+      line-height: 1.75;
+      color: #1e293b;
+    }
+
+    .num-check-card {
+      background: var(--teal-bg);
+      border: 1px solid #5eead4;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-top: 10px;
+      font-size: 0.84rem;
+      line-height: 1.65;
+      color: #134e4a;
+    }
+
+    .pitfall-card {
+      background: var(--amber-bg);
+      border: 1px solid #fcd34d;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 0.82rem;
+      line-height: 1.6;
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER & TABS -->
+  <div class="lab-header">
+    <div class="lab-title-wrap">
+      <h1>Small-Angle Approximations, Error Analysis, Compound Angles &amp; Triangles</h1>
+      <p>Master MF27 small-angle approximations in radians, test truncation accuracy, and solve compound-angle &amp; Sine/Cosine Rule problems</p>
+    </div>
+    <div class="mode-tabs">
+      <button class="mode-btn active" id="tabErrorBtn" onclick="switchMode('error')">
+        1. Angle Slider &amp; Degree Trap
+      </button>
+      <button class="mode-btn" id="tabCompoundBtn" onclick="switchMode('compound')">
+        2. Compound-Angle &amp; Limits
+      </button>
+      <button class="mode-btn" id="tabTriangleBtn" onclick="switchMode('triangle')">
+        3. Triangle Problems (Sine &amp; Cosine Rule)
+      </button>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       FOUNDATION CARD: FORMULAS, DERIVATION ORIGIN & MORE TERMS
+       ========================================================= -->
+  <div class="foundation-card">
+    <div class="foundation-top">
+      <span class="kicker">MF27 Small-Angle Approximations &amp; Their Maclaurin Origin</span>
+      <span class="radian-badge">Mandatory: Angle <em>x</em> MUST be in Radians!</span>
+    </div>
+
+    <div class="approx-trio-grid">
+      <div class="approx-pill-card">
+        <div class="approx-main-eq math">sin <em>x</em> &approx; <em>x</em></div>
+        <div class="approx-origin-sub">
+          Truncated from <span class="math">sin <em>x</em> = <em>x</em> &minus; <span class="frac"><span class="frac-num"><em>x</em>&sup3;</span><span class="frac-den">3!</span></span> + <span class="frac"><span class="frac-num"><em>x</em><sup>5</sup></span><span class="frac-den">5!</span></span> &minus; &ctdot;</span> (neglecting <span class="math"><em>x</em>&sup3;</span> and higher).
+        </div>
+      </div>
+
+      <div class="approx-pill-card">
+        <div class="approx-main-eq math">cos <em>x</em> &approx; 1 &minus; <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span><em>x</em>&sup2;</div>
+        <div class="approx-origin-sub">
+          Truncated from <span class="math">cos <em>x</em> = 1 &minus; <span class="frac"><span class="frac-num"><em>x</em>&sup2;</span><span class="frac-den">2!</span></span> + <span class="frac"><span class="frac-num"><em>x</em><sup>4</sup></span><span class="frac-den">4!</span></span> &minus; &ctdot;</span> (neglecting <span class="math"><em>x</em><sup>4</sup></span> and higher).
+        </div>
+      </div>
+
+      <div class="approx-pill-card">
+        <div class="approx-main-eq math">tan <em>x</em> &approx; <em>x</em></div>
+        <div class="approx-origin-sub">
+          Truncated from <span class="math">tan <em>x</em> = <em>x</em> + <span class="frac"><span class="frac-num">1</span><span class="frac-den">3</span></span><em>x</em>&sup3; + <span class="frac"><span class="frac-num">2</span><span class="frac-den">15</span></span><em>x</em><sup>5</sup> + &ctdot;</span> (or <span class="math"><span class="frac"><span class="frac-num">sin <em>x</em></span><span class="frac-den">cos <em>x</em></span></span> &approx; <span class="frac"><span class="frac-num"><em>x</em></span><span class="frac-den">1 &minus; &frac12;<em>x</em>&sup2;</span></span> &approx; <em>x</em></span>).
+        </div>
+      </div>
+    </div>
+
+    <div class="more-terms-note">
+      <strong>How to Get More Terms for Higher Accuracy:</strong> Simply retain the next term in each Maclaurin series! Specifically:
+      <span class="math"><strong>sin <em>x</em> &approx; <em>x</em> &minus; <span class="frac"><span class="frac-num"><em>x</em>&sup3;</span><span class="frac-den">6</span></span></strong></span>, &nbsp;
+      <span class="math"><strong>cos <em>x</em> &approx; 1 &minus; <span class="frac"><span class="frac-num"><em>x</em>&sup2;</span><span class="frac-den">2</span></span> + <span class="frac"><span class="frac-num"><em>x</em><sup>4</sup></span><span class="frac-den">24</span></span></strong></span>, &nbsp;and&nbsp;
+      <span class="math"><strong>tan <em>x</em> &approx; <em>x</em> + <span class="frac"><span class="frac-num"><em>x</em>&sup3;</span><span class="frac-den">3</span></span></strong></span> (found by expanding <span class="math"><em>x</em>(1 &minus; &frac12;<em>x</em>&sup2;)<sup>&minus;1</sup> &approx; <em>x</em>(1 + &frac12;<em>x</em>&sup2;)</span> or differentiating <span class="math">tan <em>x</em></span> thrice at <span class="math"><em>x</em> = 0</span>).
+    </div>
+  </div>
+
+  <!-- =========================================================
+       TAB 1: INTERACTIVE ANGLE SLIDER & RADIAN VS DEGREE TRAP
+       ========================================================= -->
+  <div class="view-panel active" id="errorPanel">
+    <div class="lab-grid">
+      <!-- LEFT: SLIDER, DEGREE BUG TOGGLE & ERROR TABLE -->
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker">Interactive Angle Slider (<span class="math" style="text-transform:none;">&theta;</span> in Radians &amp; Degrees)</span>
+        </div>
+
+        <div class="slider-panel">
+          <div class="slider-top">
+            <span style="font-size:0.83rem; font-weight:700; color:#1e293b;">Angle <span class="math"><em>&theta;</em></span>:</span>
+            <div class="angle-readout">
+              <span class="rad-pill math" id="radReadout">&theta; = 0.0873 rad</span>
+              <span class="deg-pill" id="degReadout">5.00&deg;</span>
+            </div>
+          </div>
+          <input type="range" id="thetaSlider" min="0.005" max="0.80" step="0.0025" value="0.087266" oninput="onSliderChange(this.value)" />
+          <div class="preset-row">
+            <button class="action-btn" onclick="setAngleDeg(2)">2&deg; (0.0349 rad)</button>
+            <button class="action-btn" onclick="setAngleDeg(5)">5&deg; (0.0873 rad)</button>
+            <button class="action-btn" onclick="setAngleRad(0.173)">1% tan Limit (0.173 rad)</button>
+            <button class="action-btn" onclick="setAngleRad(0.244)">1% sin Limit (0.244 rad)</button>
+            <button class="action-btn" onclick="setAngleDeg(30)">30&deg; (0.5236 rad)</button>
+          </div>
+        </div>
+
+        <!-- RADIAN VS DEGREE MODE TRAP SIMULATOR -->
+        <div class="bug-simulator-box" id="bugSimulatorBox">
+          <div class="bug-header">
+            <span style="font-size:0.81rem; font-weight:800;" id="bugTitle">
+              &#10003; Radian Mode Active (Correct MF27 Input)
+            </span>
+            <button class="bug-toggle-btn" id="bugToggleBtn" onclick="toggleDegreeBug()">
+              Simulate Degree Input Bug
+            </button>
+          </div>
+          <div style="font-size:0.81rem; line-height:1.55;" id="bugDescription"></div>
+        </div>
+
+        <!-- LIVE ERROR ANALYSIS TABLE -->
+        <table class="error-table">
+          <thead>
+            <tr>
+              <th>Function</th>
+              <th>Exact Value</th>
+              <th>Small-Angle Approx</th>
+              <th>Abs Error</th>
+              <th>Rel Error (%)</th>
+            </tr>
+          </thead>
+          <tbody id="errorTableBody"></tbody>
+        </table>
+
+        <div class="threshold-legend">
+          <span class="status-chip chip-ok">&#10003; &lt; 1% Error (High Accuracy)</span>
+          <span class="status-chip chip-warn1">&#9888; &gt; 1% Error Threshold</span>
+          <span class="status-chip chip-warn5">&#9888; &gt; 5% Error Threshold</span>
+        </div>
+      </div>
+
+      <!-- RIGHT: VISUAL COMPARISON & DEGREE TRAP PLOT -->
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker">Visual Curve Comparison &amp; Error Divergence</span>
+        </div>
+
+        <div class="canvas-wrap">
+          <canvas id="smallAngleCanvas" width="620" height="335"></canvas>
+        </div>
+
+        <div class="graph-legend">
+          <span class="legend-item">
+            <span class="swatch-line" style="background:#0284c7;"></span> <span class="math">tan <em>&theta;</em></span> vs <span class="math"><em>&theta;</em></span>
+          </span>
+          <span class="legend-item">
+            <span class="swatch-line" style="background:#0f766e;"></span> <span class="math">sin <em>&theta;</em></span> vs <span class="math"><em>&theta;</em></span>
+          </span>
+          <span class="legend-item">
+            <span class="swatch-line" style="background:#8b5cf6;"></span> <span class="math">cos <em>&theta;</em></span> vs <span class="math">1 &minus; &frac12;<em>&theta;</em>&sup2;</span>
+          </span>
+          <span class="legend-item">
+            <span class="swatch-line" style="background:#e11d48;"></span> Active Angle <span class="math"><em>&theta;</em></span>
+          </span>
+        </div>
+
+        <div style="margin-top:10px; background:#f8fafc; border:1px solid var(--border); border-radius:10px; padding:9px 11px; font-size:0.8rem; color:#475569; line-height:1.55;">
+          <strong>Why <span class="math">tan <em>&theta;</em></span> Exceeds 1% Error First:</strong>
+          Because <span class="math">tan <em>&theta;</em> = <em>&theta;</em> + <span class="frac"><span class="frac-num">1</span><span class="frac-den">3</span></span><em>&theta;</em>&sup3; + &ctdot;</span> has a neglected <span class="math"><em>&theta;</em>&sup3;</span> coefficient twice the size of <span class="math">sin <em>&theta;</em> = <em>&theta;</em> &minus; <span class="frac"><span class="frac-num">1</span><span class="frac-den">6</span></span><em>&theta;</em>&sup3; + &ctdot;</span>, <span class="math">tan <em>&theta;</em></span> crosses 1% error at <span class="math"><em>&theta;</em> &approx; 0.173 rad (9.9&deg;)</span> versus <span class="math">0.244 rad (14.0&deg;)</span> for <span class="math">sin <em>&theta;</em></span>.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       TAB 2: COMPOUND-ANGLE EXPANSION HELPER & LIMITS
+       ========================================================= -->
+  <div class="view-panel" id="compoundPanel">
+    <div class="helper-grid">
+      <!-- LEFT: STEP-BY-STEP COMPOUND-ANGLE EXPANSION SOLVER -->
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker">Compound-Angle &amp; Limit Step-by-Step Solver</span>
+          <div style="display:flex; gap:7px; flex-wrap:wrap;">
+            <button class="action-btn" onclick="setCompStep(0)">Reset (Step 1)</button>
+            <button class="action-btn primary" onclick="nextCompStep()">Next Step (+1)</button>
+            <button class="action-btn" onclick="setCompStep(2)">Reveal All</button>
+          </div>
+        </div>
+
+        <div class="expr-selector">
+          <button class="expr-pill active" id="ce_sinShift" onclick="selectCompound('sinShift')">
+            <span class="math">sin(<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">6</span></span> + <em>&theta;</em>)</span>
+          </button>
+          <button class="expr-pill" id="ce_cosShift" onclick="selectCompound('cosShift')">
+            <span class="math">cos(<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">3</span></span> &minus; <em>&theta;</em>)</span>
+          </button>
+          <button class="expr-pill" id="ce_tanShift" onclick="selectCompound('tanShift')">
+            <span class="math">tan(<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">4</span></span> + <em>&theta;</em>)</span>
+          </button>
+          <button class="expr-pill" id="ce_limit" onclick="selectCompound('limit')">
+            <span class="math">lim<sub><em>&theta;</em> &rarr; 0</sub> <span class="frac"><span class="frac-num">1 &minus; cos 2<em>&theta;</em></span><span class="frac-den"><em>&theta;</em> sin 3<em>&theta;</em></span></span></span>
+          </button>
+        </div>
+
+        <div id="compoundStepsContainer"></div>
+
+        <div class="final-result-banner" id="compoundFinalBanner"></div>
+      </div>
+
+      <!-- RIGHT: NUMERICAL VERIFICATION AT SMALL θ & EXAM GUARDRAILS -->
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker" style="color:var(--teal);">Numerical Verification &amp; Exam Guardrails</span>
+        </div>
+
+        <div class="pitfall-card">
+          <strong>Why You Must Expand Compound Angles First:</strong><br>
+          &bull; The approximation <span class="math">sin <em>u</em> &approx; <em>u</em></span> only holds when <span class="math"><em>u</em> &approx; 0</span>.<br>
+          &bull; In <span class="math">sin(<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">6</span></span> + <em>&theta;</em>)</span>, the argument <span class="math"><span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">6</span></span> + <em>&theta;</em></span> is near <span class="math"><span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">6</span></span> &approx; 0.5236</span>, <strong>not</strong> near <span class="math">0</span>!<br>
+          &bull; Expanding <span class="math">sin(<em>A</em> + <em>B</em>) = sin <em>A</em> cos <em>B</em> + cos <em>A</em> sin <em>B</em></span> isolates <span class="math">cos <em>&theta;</em></span> and <span class="math">sin <em>&theta;</em></span> whose arguments <em>are</em> near <span class="math">0</span>, allowing safe substitution of <span class="math">cos <em>&theta;</em> &approx; 1 &minus; &frac12;<em>&theta;</em>&sup2;</span> and <span class="math">sin <em>&theta;</em> &approx; <em>&theta;</em></span>.
+        </div>
+
+        <div class="num-check-card" id="compoundCheckCard"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       TAB 3: TRIANGLE PROBLEMS (SINE RULE & COSINE RULE)
+       ========================================================= -->
+  <div class="view-panel" id="trianglePanel">
+    <div class="helper-grid">
+      <!-- LEFT: STEP-BY-STEP TRIANGLE SOLVER -->
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker">H2 Math Triangle Applications: Sine Rule &amp; Cosine Rule</span>
+          <div style="display:flex; gap:7px; flex-wrap:wrap;">
+            <button class="action-btn" onclick="setTriStep(0)">Reset (Step 1)</button>
+            <button class="action-btn primary" onclick="nextTriStep()">Next Step (+1)</button>
+            <button class="action-btn" onclick="setTriStep(2)">Reveal All</button>
+          </div>
+        </div>
+
+        <div class="expr-selector">
+          <button class="expr-pill active" id="tr_sineRule" onclick="selectTriangle('sineRule')">
+            1. Sine Rule with Shifted Angle
+          </button>
+          <button class="expr-pill" id="tr_cosineRule" onclick="selectTriangle('cosineRule')">
+            2. Cosine Rule with Small Included Angle
+          </button>
+          <button class="expr-pill" id="tr_twoSmall" onclick="selectTriangle('twoSmall')">
+            3. Sine Rule with Two Small Angles (&theta; &amp; 2&theta;)
+          </button>
+        </div>
+
+        <div style="background:#f8fafc; border:1px solid var(--border); border-radius:10px; padding:9px 12px; margin-bottom:10px; font-size:0.85rem; line-height:1.6; color:#1e293b;" id="triProblemStatement"></div>
+
+        <div id="triStepsContainer"></div>
+
+        <div class="final-result-banner" id="triFinalBanner"></div>
+      </div>
+
+      <!-- RIGHT: SCALED TRIANGLE DIAGRAM & NUMERICAL TEST -->
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker" style="color:var(--teal);">Live Triangle Geometry &amp; Accuracy Test</span>
+        </div>
+
+        <div class="canvas-wrap">
+          <canvas id="triangleCanvas" width="600" height="275"></canvas>
+        </div>
+
+        <div class="num-check-card" id="triNumericalCheck"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let activeMode = "error";
+    let thetaRad = 0.0872664626; // 5 degrees
+    let degreeBug = false;
+    let currentCompound = "sinShift";
+    let compStep = 2;
+    let currentTriangle = "sineRule";
+    let triStep = 2;
+
+    const canvas = document.getElementById("smallAngleCanvas");
+    const ctx = canvas.getContext("2d");
+
+    const triCanvas = document.getElementById("triangleCanvas");
+    const triCtx = triCanvas.getContext("2d");
+
+    function frac(num, den) {
+      return `<span class="frac"><span class="frac-num">${num}</span><span class="frac-den">${den}</span></span>`;
+    }
+
+    function formatPct(pct) {
+      if (!Number.isFinite(pct)) return "∞%";
+      if (pct < 0.001 && pct > 0) return pct.toExponential(2) + "%";
+      if (pct >= 100) return pct.toFixed(1) + "%";
+      return pct.toFixed(3) + "%";
+    }
+
+    /* =========================================================
+       TAB 1: ERROR LAB & DEGREE BUG SIMULATOR
+       ========================================================= */
+    function renderErrorLab() {
+      const deg = (thetaRad * 180) / Math.PI;
+      document.getElementById("radReadout").innerHTML = `&theta; = ${thetaRad.toFixed(4)} rad`;
+      document.getElementById("degReadout").innerHTML = `${deg.toFixed(2)}&deg;`;
+
+      const bugBox = document.getElementById("bugSimulatorBox");
+      const bugTitle = document.getElementById("bugTitle");
+      const bugDesc = document.getElementById("bugDescription");
+      const bugBtn = document.getElementById("bugToggleBtn");
+
+      if (!degreeBug) {
+        bugBox.className = "bug-simulator-box";
+        bugTitle.innerHTML = "&#10003; Radian Mode Active (Correct MF27 Input)";
+        bugBtn.textContent = "Simulate Degree Input Bug";
+        bugDesc.innerHTML = `Using <span class="math"><em>&theta;</em> = ${deg.toFixed(2)}&deg; = <strong>${thetaRad.toFixed(4)} rad</strong></span> inside <span class="math">sin <em>&theta;</em> &approx; <em>&theta;</em></span> gives <span class="math"><strong>${thetaRad.toFixed(5)}</strong></span> vs exact <span class="math">sin(${deg.toFixed(2)}&deg;) = <strong>${Math.sin(thetaRad).toFixed(5)}</strong></span>.`;
+      } else {
+        const wrongSin = deg;
+        const exactSin = Math.sin(thetaRad);
+        const bugErrPct = (Math.abs(wrongSin - exactSin) / exactSin) * 100;
+        bugBox.className = "bug-simulator-box bug-active";
+        bugTitle.innerHTML = "&#9888; DEGREE INPUT BUG ACTIVE (Forgetting × π/180!)";
+        bugBtn.textContent = "Fix: Convert to Radians";
+        bugDesc.innerHTML = `Plugging <span class="math"><em>&theta;</em> = <strong>${deg.toFixed(2)}</strong></span> (degrees) directly into <span class="math">sin <em>&theta;</em> &approx; <em>&theta;</em></span> predicts <span class="math">sin(${deg.toFixed(2)}&deg;) &approx; <strong>${wrongSin.toFixed(2)}</strong></span> instead of <span class="math"><strong>${exactSin.toFixed(5)}</strong></span> — a catastrophic <strong>${bugErrPct.toFixed(0)}% error</strong>!`;
+      }
+
+      const u = degreeBug ? deg : thetaRad;
+      const items = [
+        { name: "sin <em>&theta;</em>", approxFormula: "<em>&theta;</em>", exact: Math.sin(thetaRad), approx: u },
+        { name: "cos <em>&theta;</em>", approxFormula: "1 &minus; &frac12;<em>&theta;</em>&sup2;", exact: Math.cos(thetaRad), approx: 1 - 0.5 * u * u },
+        { name: "tan <em>&theta;</em>", approxFormula: "<em>&theta;</em>", exact: Math.tan(thetaRad), approx: u }
+      ];
+
+      const tbody = document.getElementById("errorTableBody");
+      tbody.innerHTML = items.map(row => {
+        const absErr = Math.abs(row.exact - row.approx);
+        const relPct = Math.abs(row.exact) > 1e-12 ? (absErr / Math.abs(row.exact)) * 100 : 0;
+
+        let chipClass = "chip-ok";
+        let statusTag = "&lt; 1%";
+        if (relPct > 5) {
+          chipClass = "chip-warn5";
+          statusTag = "&gt; 5%";
+        } else if (relPct > 1) {
+          chipClass = "chip-warn1";
+          statusTag = "&gt; 1%";
+        }
+
+        return `
+          <tr>
+            <td><strong><span class="math">${row.name}</span></strong> <span style="color:var(--muted); font-size:0.76rem;">(&approx; <span class="math">${row.approxFormula}</span>)</span></td>
+            <td>${row.exact.toFixed(6)}</td>
+            <td style="font-weight:700; color:${degreeBug ? "#e11d48" : "#1e293b"};">${row.approx.toFixed(6)}</td>
+            <td>${absErr < 0.0001 && absErr > 0 ? absErr.toExponential(2) : absErr.toFixed(6)}</td>
+            <td><span class="status-chip ${chipClass}">${formatPct(relPct)} (${statusTag})</span></td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function drawSmallAngleGraph() {
+      const w = canvas.width;
+      const h = canvas.height;
+      ctx.clearRect(0, 0, w, h);
+
+      const xMin = 0, xMax = 0.85, yMin = 0, yMax = 1.25;
+      const padL = 44, padR = 18, padT = 18, padB = 30;
+
+      const toPxX = (x) => padL + ((x - xMin) / (xMax - xMin)) * (w - padL - padR);
+      const toPxY = (y) => (h - padB) - ((y - yMin) / (yMax - yMin)) * (h - padT - padB);
+
+      const px1PctTan = toPxX(0.173);
+      const px1PctSin = toPxX(0.244);
+
+      ctx.fillStyle = "rgba(16, 185, 129, 0.08)";
+      ctx.fillRect(padL, padT, px1PctTan - padL, h - padT - padB);
+
+      ctx.fillStyle = "rgba(245, 158, 11, 0.08)";
+      ctx.fillRect(px1PctTan, padT, px1PctSin - px1PctTan, h - padT - padB);
+
+      ctx.strokeStyle = "#e2e8f0";
+      ctx.lineWidth = 1;
+      for (let gx = 0; gx <= 0.8; gx += 0.1) {
+        const px = toPxX(gx);
+        ctx.beginPath(); ctx.moveTo(px, padT); ctx.lineTo(px, h - padB); ctx.stroke();
+        ctx.fillStyle = "#475569";
+        ctx.font = "11px Segoe UI, sans-serif";
+        ctx.fillText(gx.toFixed(1), px - 8, h - 11);
+      }
+      for (let gy = 0; gy <= 1.2; gy += 0.2) {
+        const py = toPxY(gy);
+        ctx.beginPath(); ctx.moveTo(padL, py); ctx.lineTo(w - padR, py); ctx.stroke();
+        ctx.fillStyle = "#475569";
+        ctx.font = "11px Segoe UI, sans-serif";
+        ctx.fillText(gy.toFixed(1), 12, py + 4);
+      }
+
+      ctx.strokeStyle = "#64748b";
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(padL, h - padB); ctx.lineTo(w - padR, h - padB);
+      ctx.moveTo(padL, padT); ctx.lineTo(padL, h - padB);
+      ctx.stroke();
+
+      function plotFn(fn, color, width, dash = []) {
+        ctx.save();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = width;
+        ctx.setLineDash(dash);
+        ctx.beginPath();
+        const N = 300;
+        for (let i = 0; i <= N; i++) {
+          const x = xMin + (i / N) * (xMax - xMin);
+          const y = fn(x);
+          const px = toPxX(x);
+          const py = toPxY(y);
+          if (i === 0) ctx.moveTo(px, py);
+          else ctx.lineTo(px, py);
+        }
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      plotFn((x) => Math.tan(x), "#0284c7", 2.4);
+      plotFn((x) => Math.sin(x), "#0f766e", 2.4);
+      plotFn((x) => x, "#334155", 1.8, [6, 4]);
+      plotFn((x) => Math.cos(x), "#8b5cf6", 2.4);
+      plotFn((x) => 1 - 0.5 * x * x, "#a855f7", 1.8, [5, 4]);
+
+      ctx.fillStyle = "#0f766e";
+      ctx.font = "bold 10.5px Segoe UI, sans-serif";
+      ctx.fillText("<1% error", padL + 8, padT + 14);
+
+      const pxTheta = toPxX(thetaRad);
+      ctx.save();
+      ctx.strokeStyle = "#e11d48";
+      ctx.lineWidth = 1.8;
+      ctx.setLineDash([4, 3]);
+      ctx.beginPath();
+      ctx.moveTo(pxTheta, padT);
+      ctx.lineTo(pxTheta, h - padB);
+      ctx.stroke();
+      ctx.restore();
+
+      const pts = [
+        { y: Math.tan(thetaRad), color: "#0284c7" },
+        { y: Math.sin(thetaRad), color: "#0f766e" },
+        { y: Math.cos(thetaRad), color: "#8b5cf6" },
+        { y: thetaRad, color: "#334155" }
+      ];
+      pts.forEach(pt => {
+        if (pt.y >= yMin && pt.y <= yMax) {
+          ctx.beginPath();
+          ctx.arc(pxTheta, toPxY(pt.y), 4, 0, Math.PI * 2);
+          ctx.fillStyle = pt.color;
+          ctx.fill();
+        }
+      });
+    }
+
+    /* =========================================================
+       TAB 2: COMPOUND-ANGLE EXPANSION HELPER & LIMITS
+       ========================================================= */
+    const COMPOUND_CASES = {
+      sinShift: {
+        steps: [
+          {
+            title: "Step 1: Expand Using Compound-Angle Identity",
+            tag: "sin(A + B)",
+            html: `<span class="math">sin(<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">6</span></span> + <em>&theta;</em>) = sin(<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">6</span></span>) cos <em>&theta;</em> + cos(<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">6</span></span>) sin <em>&theta;</em> = <strong><span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span> cos <em>&theta;</em> + <span class="frac"><span class="frac-num">&radic;3</span><span class="frac-den">2</span></span> sin <em>&theta;</em></strong></span>.`
+          },
+          {
+            title: "Step 2: Substitute Small-Angle Approximations (θ in Radians)",
+            tag: "Up to θ²",
+            html: `Substitute <span class="math">cos <em>&theta;</em> &approx; 1 &minus; <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span><em>&theta;</em>&sup2;</span> and <span class="math">sin <em>&theta;</em> &approx; <em>&theta;</em></span>:<br>
+                   <span class="math">sin(<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">6</span></span> + <em>&theta;</em>) &approx; <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span>(1 &minus; <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span><em>&theta;</em>&sup2;) + <span class="frac"><span class="frac-num">&radic;3</span><span class="frac-den">2</span></span>(<em>&theta;</em>)</span>.`
+          },
+          {
+            title: "Step 3: Simplify & Arrange in Ascending Powers of θ",
+            tag: "Quadratic Approx",
+            html: `<span class="math">sin(<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">6</span></span> + <em>&theta;</em>) &approx; <strong><span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span> + <span class="frac"><span class="frac-num">&radic;3</span><span class="frac-den">2</span></span><em>&theta;</em> &minus; <span class="frac"><span class="frac-num">1</span><span class="frac-den">4</span></span><em>&theta;</em>&sup2;</strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong>sin(<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">6</span></span> + <em>&theta;</em>) &approx; <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span> + <span class="frac"><span class="frac-num">&radic;3</span><span class="frac-den">2</span></span><em>&theta;</em> &minus; <span class="frac"><span class="frac-num">1</span><span class="frac-den">4</span></span><em>&theta;</em>&sup2;</strong></span>`,
+        checkHTML: `<strong>Application — Estimate <span class="math">sin 32&deg;</span>:</strong><br>
+                    Here <span class="math">32&deg; = 30&deg; + 2&deg;</span>, so <span class="math"><em>&theta;</em> = 2&deg; = <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">90</span></span> &approx; 0.034907 rad</span>.<br>
+                    &bull; <strong>Formula Approx:</strong> <span class="math">0.5 + <span class="frac"><span class="frac-num">&radic;3</span><span class="frac-den">2</span></span>(<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">90</span></span>) &minus; <span class="frac"><span class="frac-num">1</span><span class="frac-den">4</span></span>(<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">90</span></span>)&sup2; = <strong>0.529925</strong></span><br>
+                    &bull; <strong>Exact <span class="math">sin 32&deg;</span>:</strong> <span class="math"><strong>0.529919</strong></span> (accurate to 5 decimal places!)`
+      },
+
+      cosShift: {
+        steps: [
+          {
+            title: "Step 1: Expand Using Compound-Angle Identity",
+            tag: "cos(A − B)",
+            html: `<span class="math">cos(<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">3</span></span> &minus; <em>&theta;</em>) = cos(<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">3</span></span>) cos <em>&theta;</em> + sin(<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">3</span></span>) sin <em>&theta;</em> = <strong><span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span> cos <em>&theta;</em> + <span class="frac"><span class="frac-num">&radic;3</span><span class="frac-den">2</span></span> sin <em>&theta;</em></strong></span>.`
+          },
+          {
+            title: "Step 2: Substitute Small-Angle Approximations",
+            tag: "Up to θ²",
+            html: `Substitute <span class="math">cos <em>&theta;</em> &approx; 1 &minus; <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span><em>&theta;</em>&sup2;</span> and <span class="math">sin <em>&theta;</em> &approx; <em>&theta;</em></span>:<br>
+                   <span class="math">cos(<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">3</span></span> &minus; <em>&theta;</em>) &approx; <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span>(1 &minus; <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span><em>&theta;</em>&sup2;) + <span class="frac"><span class="frac-num">&radic;3</span><span class="frac-den">2</span></span><em>&theta;</em></span>.`
+          },
+          {
+            title: "Step 3: Simplify (Cofunction Identity Check!)",
+            tag: "Quadratic Approx",
+            html: `<span class="math">cos(<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">3</span></span> &minus; <em>&theta;</em>) &approx; <strong><span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span> + <span class="frac"><span class="frac-num">&radic;3</span><span class="frac-den">2</span></span><em>&theta;</em> &minus; <span class="frac"><span class="frac-num">1</span><span class="frac-den">4</span></span><em>&theta;</em>&sup2;</strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong>cos(<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">3</span></span> &minus; <em>&theta;</em>) &approx; <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span> + <span class="frac"><span class="frac-num">&radic;3</span><span class="frac-den">2</span></span><em>&theta;</em> &minus; <span class="frac"><span class="frac-num">1</span><span class="frac-den">4</span></span><em>&theta;</em>&sup2;</strong></span>`,
+        checkHTML: `<strong>Application — Estimate <span class="math">cos 58&deg;</span>:</strong><br>
+                    Here <span class="math">58&deg; = 60&deg; &minus; 2&deg;</span>, so <span class="math"><em>&theta;</em> = <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">90</span></span> rad</span>.<br>
+                    &bull; <strong>Formula Approx:</strong> <span class="math"><strong>0.529925</strong></span> &nbsp;|&nbsp; <strong>Exact <span class="math">cos 58&deg;</span>:</strong> <span class="math"><strong>0.529919</strong></span>.`
+      },
+
+      tanShift: {
+        steps: [
+          {
+            title: "Step 1: Expand Using Compound-Angle Identity for Tangent",
+            tag: "tan(A + B)",
+            html: `<span class="math">tan(<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">4</span></span> + <em>&theta;</em>) = <span class="frac"><span class="frac-num">tan(<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">4</span></span>) + tan <em>&theta;</em></span><span class="frac-den">1 &minus; tan(<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">4</span></span>) tan <em>&theta;</em></span></span> = <strong><span class="frac"><span class="frac-num">1 + tan <em>&theta;</em></span><span class="frac-den">1 &minus; tan <em>&theta;</em></span></span></strong></span>.`
+          },
+          {
+            title: "Step 2: Substitute tan θ ≈ θ & Rewrite Denominator",
+            tag: "Negative Binomial",
+            html: `<span class="math">tan(<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">4</span></span> + <em>&theta;</em>) &approx; <span class="frac"><span class="frac-num">1 + <em>&theta;</em></span><span class="frac-den">1 &minus; <em>&theta;</em></span></span> = (1 + <em>&theta;</em>)(1 &minus; <em>&theta;</em>)<sup>&minus;1</sup> &approx; (1 + <em>&theta;</em>)(1 + <em>&theta;</em> + <em>&theta;</em>&sup2;)</span>.`
+          },
+          {
+            title: "Step 3: Multiply Out Up to θ²",
+            tag: "Quadratic Approx",
+            html: `<span class="math">(1 + <em>&theta;</em>)(1 + <em>&theta;</em> + <em>&theta;</em>&sup2;) &approx; <strong>1 + 2<em>&theta;</em> + 2<em>&theta;</em>&sup2;</strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong>tan(<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">4</span></span> + <em>&theta;</em>) &approx; 1 + 2<em>&theta;</em> + 2<em>&theta;</em>&sup2;</strong></span>`,
+        checkHTML: `<strong>Application — Estimate <span class="math">tan 46&deg;</span>:</strong><br>
+                    Here <span class="math">46&deg; = 45&deg; + 1&deg;</span>, so <span class="math"><em>&theta;</em> = <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">180</span></span> &approx; 0.017453 rad</span>.<br>
+                    &bull; <strong>Formula Approx:</strong> <span class="math"><strong>1.035516</strong></span> &nbsp;|&nbsp; <strong>Exact <span class="math">tan 46&deg;</span>:</strong> <span class="math"><strong>1.035530</strong></span> (error &lt; 0.0014%).`
+      },
+
+      limit: {
+        steps: [
+          {
+            title: "Step 1: Identify Indeterminate Form 0/0",
+            tag: "Limit Check",
+            html: `As <span class="math"><em>&theta;</em> &rarr; 0</span>, numerator <span class="math">1 &minus; cos 0 = 0</span> and denominator <span class="math">0 &middot; sin 0 = 0</span>.<br>
+                   Replace each trigonometric function by its leading non-zero small-angle approximation.`
+          },
+          {
+            title: "Step 2: Substitute cos 2θ ≈ 1 − ½(2θ)² and sin 3θ ≈ 3θ",
+            tag: "Keep ½(2θ)²!",
+            html: `<span class="math"><span class="frac"><span class="frac-num">1 &minus; cos 2<em>&theta;</em></span><span class="frac-den"><em>&theta;</em> sin 3<em>&theta;</em></span></span> &approx; <span class="frac"><span class="frac-num">1 &minus; (1 &minus; 2<em>&theta;</em>&sup2;)</span><span class="frac-den"><em>&theta;</em>(3<em>&theta;</em>)</span></span> = <span class="frac"><span class="frac-num">2<em>&theta;</em>&sup2;</span><span class="frac-den">3<em>&theta;</em>&sup2;</span></span></span>.`
+          },
+          {
+            title: "Step 3: Cancel θ² & Take Limit as θ → 0",
+            tag: "Exact Limit",
+            html: `<span class="math">lim<sub><em>&theta;</em> &rarr; 0</sub> <span class="frac"><span class="frac-num">2<em>&theta;</em>&sup2;</span><span class="frac-den">3<em>&theta;</em>&sup2;</span></span> = <strong><span class="frac"><span class="frac-num">2</span><span class="frac-den">3</span></span></strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong>lim<sub><em>&theta;</em> &rarr; 0</sub> <span class="frac"><span class="frac-num">1 &minus; cos 2<em>&theta;</em></span><span class="frac-den"><em>&theta;</em> sin 3<em>&theta;</em></span></span> = <span class="frac"><span class="frac-num">2</span><span class="frac-den">3</span></span></strong></span>`,
+        checkHTML: `<strong>Numerical Convergence Table as <span class="math"><em>&theta;</em> &rarr; 0</span>:</strong><br>
+                    &bull; <span class="math"><em>&theta;</em> = 0.10 rad</span>: <span class="math"><span class="frac"><span class="frac-num">1 &minus; cos 0.2</span><span class="frac-den">0.1 sin 0.3</span></span> = <strong>0.67451</strong></span><br>
+                    &bull; <span class="math"><em>&theta;</em> = 0.01 rad</span>: <span class="math"><span class="frac"><span class="frac-num">1 &minus; cos 0.02</span><span class="frac-den">0.01 sin 0.03</span></span> = <strong>0.66674</strong></span> &rarr; Exact <span class="math"><span class="frac"><span class="frac-num">2</span><span class="frac-den">3</span></span> &approx; <strong>0.66667</strong></span>.`
+      }
+    };
+
+    function renderCompoundTab() {
+      const item = COMPOUND_CASES[currentCompound];
+      const container = document.getElementById("compoundStepsContainer");
+
+      container.innerHTML = item.steps.map((st, idx) => {
+        const unlocked = idx <= compStep;
+        const isCurrent = idx === compStep;
+        return `
+          <div class="step-box ${isCurrent ? "active-step" : ""} ${!unlocked ? "locked" : ""}">
+            <div class="step-head">
+              <span class="step-title">${st.title}</span>
+              <span class="step-tag math">${st.tag}</span>
+            </div>
+            <div class="step-body">
+              ${unlocked ? st.html : "<em>Click 'Next Step (+1)' to reveal this step...</em>"}
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      document.getElementById("compoundFinalBanner").innerHTML =
+        `<div class="kicker" style="margin-bottom:2px;">Final Small-Angle Result</div>` + item.finalHTML;
+      document.getElementById("compoundCheckCard").innerHTML = item.checkHTML;
+    }
+
+    /* =========================================================
+       TAB 3: TRIANGLE PROBLEMS (SINE RULE & COSINE RULE)
+       ========================================================= */
+    const TRIANGLE_CASES = {
+      sineRule: {
+        problemHTML: `<strong>Problem 1 (Sine Rule + Shifted Angle):</strong> In <span class="math">&triangle;<em>ABC</em></span>, <span class="math"><em>AC</em> = 10</span>, <span class="math">&ang;<em>ABC</em> = <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">6</span></span></span>, and <span class="math">&ang;<em>BAC</em> = <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">3</span></span> + <em>&theta;</em></span>, where <span class="math"><em>&theta;</em></span> is a small angle in radians. Show that <span class="math"><em>BC</em> &approx; 10&radic;3 + 10<em>&theta;</em> &minus; 5&radic;3<em>&theta;</em>&sup2;</span>.`,
+        steps: [
+          {
+            title: "Step 1: Apply the Sine Rule to △ABC",
+            tag: "Sine Rule",
+            html: `<span class="math"><span class="frac"><span class="frac-num"><em>BC</em></span><span class="frac-den">sin(<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">3</span></span> + <em>&theta;</em>)</span></span> = <span class="frac"><span class="frac-num">10</span><span class="frac-den">sin(<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">6</span></span>)</span></span> = <span class="frac"><span class="frac-num">10</span><span class="frac-den">&frac12;</span></span> = 20</span><br>
+                   Rearranging gives <span class="math"><strong><em>BC</em> = 20 sin(<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">3</span></span> + <em>&theta;</em>)</strong></span>.`
+          },
+          {
+            title: "Step 2: Expand sin(π/3 + θ) via Compound-Angle Formula",
+            tag: "sin(A + B)",
+            html: `<span class="math"><em>BC</em> = 20 [sin(<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">3</span></span>) cos <em>&theta;</em> + cos(<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">3</span></span>) sin <em>&theta;</em>] = 20 [<span class="frac"><span class="frac-num">&radic;3</span><span class="frac-den">2</span></span> cos <em>&theta;</em> + <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span> sin <em>&theta;</em>]</span>.`
+          },
+          {
+            title: "Step 3: Substitute cos θ ≈ 1 − ½θ² and sin θ ≈ θ",
+            tag: "Quadratic Result",
+            html: `<span class="math"><em>BC</em> &approx; 10&radic;3(1 &minus; <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span><em>&theta;</em>&sup2;) + 10(<em>&theta;</em>) = <strong>10&radic;3 + 10<em>&theta;</em> &minus; 5&radic;3<em>&theta;</em>&sup2;</strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong><em>BC</em> &approx; 10&radic;3 + 10<em>&theta;</em> &minus; 5&radic;3<em>&theta;</em>&sup2;</strong></span>`,
+        checkHTML: `<strong>Numerical Check at <span class="math"><em>&theta;</em> = 0.05 rad (2.86&deg;)</span>:</strong><br>
+                    &bull; <strong>Small-Angle Formula:</strong> <span class="math">10&radic;3 + 10(0.05) &minus; 5&radic;3(0.05)&sup2; = <strong>17.79886</strong></span><br>
+                    &bull; <strong>Exact Sine Rule <span class="math">20 sin(&pi;/3 + 0.05)</span>:</strong> <span class="math"><strong>17.79884</strong></span> (error = 0.0001%!).`
+      },
+
+      cosineRule: {
+        problemHTML: `<strong>Problem 2 (Cosine Rule + Small Included Angle):</strong> In <span class="math">&triangle;<em>ABC</em></span>, <span class="math"><em>AB</em> = 5</span>, <span class="math"><em>AC</em> = 4</span>, and <span class="math">&ang;<em>BAC</em> = <em>&theta;</em></span>, where <span class="math"><em>&theta;</em></span> is a small angle in radians. Show that <span class="math"><em>BC</em> &approx; 1 + 10<em>&theta;</em>&sup2;</span>.`,
+        steps: [
+          {
+            title: "Step 1: Apply the Cosine Rule for BC²",
+            tag: "Cosine Rule",
+            html: `<span class="math"><em>BC</em>&sup2; = <em>AB</em>&sup2; + <em>AC</em>&sup2; &minus; 2(<em>AB</em>)(<em>AC</em>) cos <em>&theta;</em> = 5&sup2; + 4&sup2; &minus; 2(5)(4) cos <em>&theta;</em> = <strong>41 &minus; 40 cos <em>&theta;</em></strong></span>.`
+          },
+          {
+            title: "Step 2: Substitute cos θ ≈ 1 − ½θ²",
+            tag: "Small-Angle cos θ",
+            html: `<span class="math"><em>BC</em>&sup2; &approx; 41 &minus; 40(1 &minus; <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span><em>&theta;</em>&sup2;) = 41 &minus; 40 + 20<em>&theta;</em>&sup2; = <strong>1 + 20<em>&theta;</em>&sup2;</strong></span>.`
+          },
+          {
+            title: "Step 3: Take Square Root & Apply Binomial (1 + u)^½ ≈ 1 + ½u",
+            tag: "Binomial Approx",
+            html: `<span class="math"><em>BC</em> &approx; (1 + 20<em>&theta;</em>&sup2;)<sup>&frac12;</sup> &approx; 1 + <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span>(20<em>&theta;</em>&sup2;) = <strong>1 + 10<em>&theta;</em>&sup2;</strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong><em>BC</em> &approx; 1 + 10<em>&theta;</em>&sup2;</strong></span>`,
+        checkHTML: `<strong>Numerical Check at <span class="math"><em>&theta;</em> = 0.05 rad (2.86&deg;)</span>:</strong><br>
+                    &bull; <strong>Small-Angle Formula:</strong> <span class="math">1 + 10(0.05)&sup2; = <strong>1.02500</strong></span><br>
+                    &bull; <strong>Exact Cosine Rule <span class="math">&radic;(41 &minus; 40 cos 0.05)</span>:</strong> <span class="math"><strong>1.02469</strong></span> (accurate to 3 sig. fig.!).`
+      },
+
+      twoSmall: {
+        problemHTML: `<strong>Problem 3 (Sine Rule with Two Small Angles):</strong> In <span class="math">&triangle;<em>ABC</em></span>, <span class="math"><em>AB</em> = 12</span>, <span class="math">&ang;<em>ACB</em> = <em>&theta;</em></span>, and <span class="math">&ang;<em>BAC</em> = 2<em>&theta;</em></span>, where <span class="math"><em>&theta;</em></span> is a small angle in radians. Find a quadratic approximation for <span class="math"><em>BC</em></span> in terms of <span class="math"><em>&theta;</em></span>.`,
+        steps: [
+          {
+            title: "Step 1: Apply the Sine Rule",
+            tag: "Sine Rule",
+            html: `<span class="math"><span class="frac"><span class="frac-num"><em>BC</em></span><span class="frac-den">sin 2<em>&theta;</em></span></span> = <span class="frac"><span class="frac-num">12</span><span class="frac-den">sin <em>&theta;</em></span></span> &rArr; <strong><em>BC</em> = <span class="frac"><span class="frac-num">12 sin 2<em>&theta;</em></span><span class="frac-den">sin <em>&theta;</em></span></span></strong></span>.`
+          },
+          {
+            title: "Step 2: Expand Numerator & Denominator Up to θ³ (Why?)",
+            tag: "Watch Division by θ!",
+            html: `Because we divide by <span class="math">sin <em>&theta;</em> &approx; <em>&theta;</em></span> (which drops powers by 1!), we keep <span class="math"><em>&theta;</em>&sup3;</span> terms:<br>
+                   <span class="math"><em>BC</em> &approx; <span class="frac"><span class="frac-num">12 [2<em>&theta;</em> &minus; <span class="frac"><span class="frac-num">(2<em>&theta;</em>)&sup3;</span><span class="frac-den">6</span></span>]</span><span class="frac-den"><em>&theta;</em> &minus; <span class="frac"><span class="frac-num"><em>&theta;</em>&sup3;</span><span class="frac-den">6</span></span></span></span> = <span class="frac"><span class="frac-num">24(1 &minus; <span class="frac"><span class="frac-num">2</span><span class="frac-den">3</span></span><em>&theta;</em>&sup2;)</span><span class="frac-den">1 &minus; <span class="frac"><span class="frac-num">1</span><span class="frac-den">6</span></span><em>&theta;</em>&sup2;</span></span></span>.`
+          },
+          {
+            title: "Step 3: Use Negative-Index Binomial Expansion",
+            tag: "Binomial Division",
+            html: `<span class="math"><em>BC</em> &approx; 24(1 &minus; <span class="frac"><span class="frac-num">2</span><span class="frac-den">3</span></span><em>&theta;</em>&sup2;)(1 + <span class="frac"><span class="frac-num">1</span><span class="frac-den">6</span></span><em>&theta;</em>&sup2;) &approx; 24(1 &minus; <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span><em>&theta;</em>&sup2;) = <strong>24 &minus; 12<em>&theta;</em>&sup2;</strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong><em>BC</em> &approx; 24 &minus; 12<em>&theta;</em>&sup2;</strong></span> (Notice the double-angle shortcut: <span class="math"><span class="frac"><span class="frac-num">12 sin 2<em>&theta;</em></span><span class="frac-den">sin <em>&theta;</em></span></span> = 24 cos <em>&theta;</em> &approx; 24(1 &minus; &frac12;<em>&theta;</em>&sup2;)</span>!).`,
+        checkHTML: `<strong>Numerical Check at <span class="math"><em>&theta;</em> = 0.08 rad (4.58&deg;)</span>:</strong><br>
+                    &bull; <strong>Small-Angle Formula:</strong> <span class="math">24 &minus; 12(0.08)&sup2; = <strong>23.92320</strong></span><br>
+                    &bull; <strong>Exact Sine Rule <span class="math">12 sin(0.16)/sin(0.08)</span>:</strong> <span class="math"><strong>23.92324</strong></span> (accurate to 4 decimal places!).`
+      }
+    };
+
+    function renderTriangleTab() {
+      const item = TRIANGLE_CASES[currentTriangle];
+      document.getElementById("triProblemStatement").innerHTML = item.problemHTML;
+
+      const container = document.getElementById("triStepsContainer");
+      container.innerHTML = item.steps.map((st, idx) => {
+        const unlocked = idx <= triStep;
+        const isCurrent = idx === triStep;
+        return `
+          <div class="step-box ${isCurrent ? "active-step" : ""} ${!unlocked ? "locked" : ""}">
+            <div class="step-head">
+              <span class="step-title">${st.title}</span>
+              <span class="step-tag math">${st.tag}</span>
+            </div>
+            <div class="step-body">
+              ${unlocked ? st.html : "<em>Click 'Next Step (+1)' to reveal this step...</em>"}
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      document.getElementById("triFinalBanner").innerHTML =
+        `<div class="kicker" style="margin-bottom:2px;">Resulting Approximation</div>` + item.finalHTML;
+      document.getElementById("triNumericalCheck").innerHTML = item.checkHTML;
+    }
+
+    function drawTriangleDiagram() {
+      const w = triCanvas.width;
+      const h = triCanvas.height;
+      triCtx.clearRect(0, 0, w, h);
+
+      triCtx.fillStyle = "#f8fafc";
+      triCtx.fillRect(0, 0, w, h);
+
+      let A, B, C, labelA, labelB, labelC, sideAB, sideAC, sideBC;
+
+      if (currentTriangle === "sineRule") {
+        A = { x: 130, y: 220 };
+        B = { x: 470, y: 220 };
+        C = { x: 255, y: 65 };
+        labelA = "A (π/3 + θ)";
+        labelB = "B (π/6)";
+        labelC = "C";
+        sideAB = "";
+        sideAC = "AC = 10";
+        sideBC = "BC ≈ 10√3 + 10θ − 5√3θ²";
+      } else if (currentTriangle === "cosineRule") {
+        A = { x: 95, y: 155 };
+        B = { x: 495, y: 95 };
+        C = { x: 435, y: 215 };
+        labelA = "A (θ small)";
+        labelB = "B";
+        labelC = "C";
+        sideAB = "AB = 5";
+        sideAC = "AC = 4";
+        sideBC = "BC ≈ 1 + 10θ²";
+      } else {
+        A = { x: 110, y: 215 };
+        B = { x: 310, y: 165 };
+        C = { x: 500, y: 215 };
+        labelA = "A (2θ)";
+        labelB = "B";
+        labelC = "C (θ)";
+        sideAB = "AB = 12";
+        sideAC = "";
+        sideBC = "BC ≈ 24 − 12θ²";
+      }
+
+      // Draw Triangle Fill & Stroke
+      triCtx.beginPath();
+      triCtx.moveTo(A.x, A.y);
+      triCtx.lineTo(B.x, B.y);
+      triCtx.lineTo(C.x, C.y);
+      triCtx.closePath();
+      triCtx.fillStyle = "rgba(139, 92, 246, 0.08)";
+      triCtx.fill();
+      triCtx.lineWidth = 2.4;
+      triCtx.strokeStyle = "#7c3aed";
+      triCtx.stroke();
+
+      // Highlight target side BC in Teal
+      triCtx.beginPath();
+      triCtx.moveTo(B.x, B.y);
+      triCtx.lineTo(C.x, C.y);
+      triCtx.lineWidth = 3.6;
+      triCtx.strokeStyle = "#0f766e";
+      triCtx.stroke();
+
+      // Vertices
+      [A, B, C].forEach(pt => {
+        triCtx.beginPath();
+        triCtx.arc(pt.x, pt.y, 4.5, 0, Math.PI * 2);
+        triCtx.fillStyle = "#1e293b";
+        triCtx.fill();
+      });
+
+      // Vertex Labels
+      triCtx.fillStyle = "#1e293b";
+      triCtx.font = "bold 12.5px Segoe UI, sans-serif";
+      triCtx.fillText(labelA, A.x - 35, A.y + 20);
+      triCtx.fillText(labelB, B.x + 8, B.y + 6);
+      triCtx.fillText(labelC, C.x - 10, C.y - 12);
+
+      // Side Labels
+      triCtx.font = "bold 12px Segoe UI, sans-serif";
+      triCtx.fillStyle = "#475569";
+      if (sideAB) triCtx.fillText(sideAB, (A.x + B.x) / 2 - 30, (A.y + B.y) / 2 - 12);
+      if (sideAC) triCtx.fillText(sideAC, (A.x + C.x) / 2 - 58, (A.y + C.y) / 2 - 4);
+
+      triCtx.fillStyle = "#0f766e";
+      triCtx.fillText(sideBC, (B.x + C.x) / 2 + 12, (B.y + C.y) / 2 - 6);
+    }
+
+    /* =========================================================
+       EVENT HANDLERS & NAVIGATION
+       ========================================================= */
+    function switchMode(mode) {
+      activeMode = mode;
+      document.getElementById("tabErrorBtn").classList.toggle("active", mode === "error");
+      document.getElementById("tabCompoundBtn").classList.toggle("active", mode === "compound");
+      document.getElementById("tabTriangleBtn").classList.toggle("active", mode === "triangle");
+
+      document.getElementById("errorPanel").classList.toggle("active", mode === "error");
+      document.getElementById("compoundPanel").classList.toggle("active", mode === "compound");
+      document.getElementById("trianglePanel").classList.toggle("active", mode === "triangle");
+
+      if (mode === "error") drawSmallAngleGraph();
+      if (mode === "triangle") drawTriangleDiagram();
+    }
+
+    function onSliderChange(val) {
+      thetaRad = parseFloat(val);
+      renderErrorLab();
+      drawSmallAngleGraph();
+    }
+
+    function setAngleDeg(degVal) {
+      thetaRad = (degVal * Math.PI) / 180;
+      document.getElementById("thetaSlider").value = thetaRad;
+      renderErrorLab();
+      drawSmallAngleGraph();
+    }
+
+    function setAngleRad(radVal) {
+      thetaRad = radVal;
+      document.getElementById("thetaSlider").value = thetaRad;
+      renderErrorLab();
+      drawSmallAngleGraph();
+    }
+
+    function toggleDegreeBug() {
+      degreeBug = !degreeBug;
+      renderErrorLab();
+    }
+
+    function selectCompound(key) {
+      currentCompound = key;
+      document.querySelectorAll("#compoundPanel .expr-pill").forEach(el => el.classList.remove("active"));
+      document.getElementById("ce_" + key).classList.add("active");
+      renderCompoundTab();
+    }
+
+    function setCompStep(s) {
+      compStep = s;
+      renderCompoundTab();
+    }
+
+    function nextCompStep() {
+      if (compStep < 2) {
+        compStep++;
+        renderCompoundTab();
+      }
+    }
+
+    function selectTriangle(key) {
+      currentTriangle = key;
+      document.querySelectorAll("#trianglePanel .expr-pill").forEach(el => el.classList.remove("active"));
+      document.getElementById("tr_" + key).classList.add("active");
+      renderTriangleTab();
+      drawTriangleDiagram();
+    }
+
+    function setTriStep(s) {
+      triStep = s;
+      renderTriangleTab();
+    }
+
+    function nextTriStep() {
+      if (triStep < 2) {
+        triStep++;
+        renderTriangleTab();
+      }
+    }
+
+    renderErrorLab();
+    drawSmallAngleGraph();
+    renderCompoundTab();
+    renderTriangleTab();
+    drawTriangleDiagram();
+  </script>
+</body>
+</html>
