@@ -529,7 +529,7 @@
     </button>
     <button class="topic-btn" id="nav_5.5" onclick="selectTopic('5.5')">
       <span>5.5 Differential Equations</span>
-      <span class="status-pill">3 Lessons</span>
+      <span class="status-pill">4 Lessons</span>
     </button>
     <div class="nav-group">Topic 6: Probability &amp; Statistics</div>
     <button class="topic-btn" id="nav_6.1" onclick="selectTopic('6.1')">
@@ -2281,6 +2281,144 @@
             `,
             exitQuestion: "If the curve y = e^x (for 0 ≤ x ≤ 1) and the line y = 1 are translated so that y = 1 becomes the new horizontal axis Y = 0, write down the integral for the volume of solid of revolution about y = 1.",
             exitAnswer: "Translating down by 1 unit gives Y = e^x − 1, so <strong>V = π ∫_0^1 (e^x − 1)² dx</strong>."
+          }
+        ]
+      },
+      "5.5": {
+        title: "5.5 Differential Equations",
+        syllabusNotes: "Solving for the general solutions and particular solutions of differential equations of the form dy/dx = f(x)g(y), including reducing a given differential equation to this form by means of a given substitution; formulating a differential equation from a problem situation; interpreting a differential equation and its solution in terms of a problem situation.",
+        lessons: [
+          {
+            label: "Lesson 1: General & Particular Solutions",
+            file: "interactives/5_5_lesson1.html",
+            videoEmbedUrl: "https://www.youtube.com/embed/p_di4Zn4wz4",
+            prereq: "Antiderivatives, family of curves, and laws of indices/logarithms.",
+            objectives: [
+              "Interpret a first-order differential equation dy/dx = f(x, y) geometrically by assigning a gradient at every point (x, y).",
+              "Distinguish between a general solution (containing an arbitrary constant C or A) and a particular solution determined by an initial condition y(x₀) = y₀.",
+              "Understand how additive constants (+C) shift curves vertically while multiplicative constants (A = ±e^C) scale curves vertically and absorb modulus signs."
+            ],
+            prompts: [
+              "Click anywhere on the canvas to drop an initial condition (x₀, y₀) and trace the unique particular solution curve.",
+              "Compare dy/dx = 2x (vertical translations y = x² + C) against dy/dx = 0.5y (vertical scalings y = A e^{0.5x}) and observe why y = 0 acts as an equilibrium barrier."
+            ],
+            pitfalls: [
+              "Omitting the arbitrary constant +C (or A) when asked for the general solution of a differential equation.",
+              "Writing y = e^{0.5x} + C instead of y = A e^{0.5x} (putting the arbitrary constant outside the exponential instead of inside the exponent before rewriting A = ±e^C)."
+            ],
+            gcTip: "Verify your particular solution Y₁ on the TI-84 Plus CE by checking that Y₁(x₀) = y₀ and nDeriv(Y₁, X, x₀) matches the differential equation's right-hand side at x₀.",
+            workedQuestion: `
+              <strong>(i)</strong> Find the general solution of the differential equation <span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = 2<em>y</em>, expressing <em>y</em> explicitly in terms of <em>x</em>. [3]<br>
+              <strong>(ii)</strong> Hence find the particular solution given that <em>y</em> = &minus;3 when <em>x</em> = 0. [2]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> Separating variables (for <em>y &ne; 0</em>):<br>
+              <em>&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>y</em></span></span> d<em>y</em> = &int; 2 d<em>x</em> &rArr; ln|<em>y</em>| = 2<em>x</em> + <em>C</em></em>.<br>
+              Exponentiating both sides: <em>|<em>y</em>| = e<sup>2<em>x</em> + <em>C</em></sup> = e<sup><em>C</em></sup> e<sup>2<em>x</em></sup></em>.<br>
+              Letting <em>A = &plusmn;e<sup>C</sup></em> (noting <em>y = 0</em> corresponds to <em>A = 0</em>), the general solution is <strong><em>y = A e<sup>2x</sup></em></strong>, where <em>A &isin; &reals;</em>.<br><br>
+              <strong>(ii)</strong> Substituting <em>x = 0, y = &minus;3</em>: <em>&minus;3 = A e<sup>0</sup> &rArr; A = &minus;3</em>.<br>
+              Hence the particular solution is <strong><em>y = &minus;3e<sup>2x</sup></em></strong>.
+            `,
+            exitQuestion: "Why can we replace ±e^C with a single real constant A (including A = 0) when solving dy/dx = ky?",
+            exitAnswer: "Because e^C > 0 takes all positive real values, ±e^C covers all non-zero real numbers, and y = 0 (A = 0) is also a trivial solution to dy/dx = ky."
+          },
+          {
+            label: "Lesson 2: Separable Differential Equations dy/dx = f(x)g(y)",
+            file: "interactives/5_5_lesson2.html",
+            videoEmbedUrl: "https://www.youtube.com/embed/6a1fLEToyvU",
+            prereq: "Integration techniques (reverse chain rule, partial fractions, trigonometric integrals) and logarithm laws.",
+            objectives: [
+              "Separate variables in dy/dx = f(x)g(y) into ∫ [1/g(y)] dy = ∫ f(x) dx cleanly.",
+              "Integrate rational expressions in y using partial fractions (such as logistic differential equations dP/dt = kP(M − P)).",
+              "Rearrange implicit logarithmic general solutions cleanly into explicit form y = F(x) when requested."
+            ],
+            prompts: [
+              "Step through the 4-stage Separation of Variables Solver across polynomial, trigonometric, and logistic partial-fraction presets.",
+              "Observe how partial fractions convert ∫ 1/[P(M − P)] dP into (1/M) ln|P / (M − P)| before solving for P(t)."
+            ],
+            pitfalls: [
+              "Attempting to separate additive equations like dy/dx = x + y by subtracting y (separation requires a PRODUCT f(x)g(y), never a sum!).",
+              "Sign error when integrating 1/(M − y) with respect to y: ∫ 1/(M − y) dy = −ln|M − y| + C (missing the minus sign from the inner derivative −1)."
+            ],
+            gcTip: "Use partial fractions check on your GC or verify your separated antiderivatives by differentiating both sides implicitly with respect to x.",
+            workedQuestion: `
+              Find the particular solution of the differential equation <span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = <em>y</em>(4 &minus; <em>y</em>) given that <em>y</em> = 1 when <em>x</em> = 0, expressing <em>y</em> explicitly in terms of <em>x</em>. [6]
+            `,
+            workedSolution: `
+              Separating variables: <em>&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>y</em>(4 &minus; <em>y</em>)</span></span> d<em>y</em> = &int; 1 d<em>x</em></em>.<br>
+              Using partial fractions: <em><span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>y</em>(4 &minus; <em>y</em>)</span></span> = <span class="frac"><span class="frac-num">1</span><span class="frac-den">4</span></span>(<span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>y</em></span></span> + <span class="frac"><span class="frac-num">1</span><span class="frac-den">4 &minus; <em>y</em></span></span>)</em>.<br>
+              Integrating both sides: <em><span class="frac"><span class="frac-num">1</span><span class="frac-den">4</span></span>(ln|<em>y</em>| &minus; ln|4 &minus; <em>y</em>|) = <em>x</em> + <em>C</em> &rArr; ln|<span class="frac"><span class="frac-num"><em>y</em></span><span class="frac-den">4 &minus; <em>y</em></span></span>| = 4<em>x</em> + 4<em>C</em></em>.<br>
+              Thus <em><span class="frac"><span class="frac-num"><em>y</em></span><span class="frac-den">4 &minus; <em>y</em></span></span> = A e<sup>4<em>x</em></sup></em>. Substituting <em>x = 0, y = 1</em> gives <em>A = <span class="frac"><span class="frac-num">1</span><span class="frac-den">3</span></span></em>.<br>
+              Rearranging for <em>y</em>: <em>3<em>y</em> = (4 &minus; <em>y</em>)e<sup>4<em>x</em></sup> &rArr; <em>y</em>(3 + e<sup>4<em>x</em></sup>) = 4e<sup>4<em>x</em></sup> &rArr;</em> <strong><em>y</em> = <span class="frac"><span class="frac-num">4e<sup>4<em>x</em></sup></span><span class="frac-den">3 + e<sup>4<em>x</em></sup></span></span></strong> (or <strong><span class="frac"><span class="frac-num">4</span><span class="frac-den">1 + 3e<sup>&minus;4<em>x</em></sup></span></span></strong>).
+            `,
+            exitQuestion: "Separate the variables for dy/dx = (1 + y²) e^{2x} and write down both integrals (do not evaluate).",
+            exitAnswer: "<strong>∫ 1/(1 + y²) dy = ∫ e^{2x} dx</strong>."
+          },
+          {
+            label: "Lesson 3: Reducing Differential Equations via a Given Substitution",
+            file: "interactives/5_5_lesson3.html",
+            videoEmbedUrl: "https://www.youtube.com/embed/P2LTAUO1TdA",
+            prereq: "Chain rule and product rule differentiation with respect to x, plus separable DEs from Lesson 2.",
+            objectives: [
+              "Differentiate a given substitution (such as u = ax + by, y = ux, or u = yⁿ) with respect to x to express dy/dx in terms of du/dx.",
+              "Substitute both y and dy/dx into the original differential equation and simplify algebraically to obtain a separable equation in u and x.",
+              "Solve the reduced separable equation for u and back-substitute to obtain the general or particular solution in terms of y and x."
+            ],
+            prompts: [
+              "Compare the coupled (x, y) slope field on the left against the decoupled (x, u) slope field on the right to see how a substitution aligns tangent slopes into separable columns.",
+              "Inspect the 3-step substitution template across linear substitutions (u = x + y), homogeneous substitutions (y = ux), and power substitutions (u = y²)."
+            ],
+            pitfalls: [
+              "Substituting u into the right-hand side of dy/dx without replacing dy/dx itself using the derivative of the substitution (e.g., forgetting that y = ux gives dy/dx = u + x(du/dx) by the Product Rule!).",
+              "Leaving the final answer in terms of u instead of back-substituting in terms of x and y."
+            ],
+            gcTip: "Always eliminate every occurrence of y and dy/dx before attempting to separate variables—if any y remains in your u-equation, pause and substitute for y again.",
+            workedQuestion: `
+              Use the substitution <em>u = x + y</em> to find the general solution of the differential equation <span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = (<em>x</em> + <em>y</em>)<sup>2</sup> &minus; 1, expressing <em>y</em> in terms of <em>x</em>. [5]
+            `,
+            workedSolution: `
+              Differentiating <em>u = x + y</em> with respect to <em>x</em> gives <span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = 1 + <span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> &rArr; <span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = <span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> &minus; 1.<br>
+              Substituting into the differential equation:<br>
+              <em><span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> &minus; 1 = u<sup>2</sup> &minus; 1 &rArr; <span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = u<sup>2</sup></em>.<br>
+              Separating variables: <em>&int; u<sup>&minus;2</sup> du = &int; 1 dx &rArr; &minus;<span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>u</em></span></span> = x + C &rArr; u = &minus;<span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>x</em> + <em>C</em></span></span></em>.<br>
+              Back-substituting <em>u = x + y</em> gives <strong><em>y = &minus;x &minus; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>x</em> + <em>C</em></span></span></em></strong> (noting <em>y = &minus;x</em> is also a solution).
+            `,
+            exitQuestion: "If y = ux where u is a function of x, write down dy/dx in terms of u, x, and du/dx.",
+            exitAnswer: "By the Product Rule, <strong>dy/dx = u + x(du/dx)</strong>."
+          },
+          {
+            label: "Lesson 4: Formulating & Interpreting Differential Equations in Context",
+            file: "interactives/5_5_lesson4.html",
+            videoEmbedUrl: "https://www.youtube.com/embed/7a5s0m2C0aI",
+            prereq: "Connected rates of change (dV/dt = dV/dh · dh/dt), proportionality constants k > 0, and limits as t → ∞.",
+            objectives: [
+              "Formulate differential equations from real-world descriptions involving proportional rates of increase (+k) or decrease (−k) and connected rates of change.",
+              "Solve initial-value context problems to determine exact model parameters and predict threshold times.",
+              "Interpret differential equations and their solutions in context, including equilibrium points (dy/dt = 0) and long-term limiting behavior as t → ∞."
+            ],
+            prompts: [
+              "Explore Newton's Law of Cooling, Logistic Epidemic/Population Growth, Chemical Mixing Tanks, and Conical Tank Drainage in the Modelling Lab.",
+              "Adjust rate constant k and initial value y(0) above and below the equilibrium level to observe how solutions approach the horizontal asymptote as t → ∞."
+            ],
+            pitfalls: [
+              "Using a positive sign +k when a quantity is decreasing, or introducing two different proportionality constants when a single constant k is specified.",
+              "Answering 'What happens in the long run?' with just a bare number instead of stating 'As t → ∞, e^{−kt} → 0, so the temperature approaches 25 °C (room temperature)' in context."
+            ],
+            gcTip: "Plot your contextual solution Y₁(t) on the TI-84 Plus CE and use [2nd] [TRACE] > [5: intersect] with Y₂ = threshold to verify exact crossing times.",
+            workedQuestion: `
+              A hot cup of coffee at an initial temperature of <strong>90 &deg;C</strong> is placed in a room kept at a constant temperature of <strong>25 &deg;C</strong>. According to Newton's Law of Cooling, the rate of decrease of the temperature <em>&theta;</em> (&deg;C) of the coffee at time <em>t</em> minutes is proportional to (<em>&theta;</em> &minus; 25).<br>
+              <strong>(i)</strong> Write down a differential equation relating <em>&theta;</em> and <em>t</em>, and show that <em>&theta;</em> = 25 + 65e<sup>&minus;<em>kt</em></sup>, where <em>k</em> is a positive constant. [4]<br>
+              <strong>(ii)</strong> Given that the temperature drops to <strong>64 &deg;C</strong> after <strong>5 minutes</strong>, find the exact value of <em>k</em> and explain what happens to the temperature of the coffee in the long run. [3]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> Since temperature decreases, <span class="frac"><span class="frac-num">d<em>&theta;</em></span><span class="frac-den">d<em>t</em></span></span> = &minus;<em>k</em>(<em>&theta;</em> &minus; 25), where <em>k &gt; 0</em>.<br>
+              Separating variables (for <em>&theta; &gt; 25</em>): <em>&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>&theta;</em> &minus; 25</span></span> d<em>&theta;</em> = &int; &minus;k dt &rArr; ln(<em>&theta;</em> &minus; 25) = &minus;kt + C &rArr; <em>&theta;</em> = 25 + A e<sup>&minus;kt</sup></em>.<br>
+              At <em>t = 0, &theta; = 90</em>: <em>90 = 25 + A &rArr; A = 65</em>, so <strong><em>&theta;</em> = 25 + 65e<sup>&minus;<em>kt</em></sup></strong>.<br><br>
+              <strong>(ii)</strong> At <em>t = 5, &theta; = 64</em>: <em>64 = 25 + 65e<sup>&minus;5k</sup> &rArr; e<sup>&minus;5k</sup> = <span class="frac"><span class="frac-num">39</span><span class="frac-den">65</span></span> = <span class="frac"><span class="frac-num">3</span><span class="frac-den">5</span></span> &rArr;</em> <strong><em>k</em> = <span class="frac"><span class="frac-num">1</span><span class="frac-den">5</span></span> ln(<span class="frac"><span class="frac-num">5</span><span class="frac-den">3</span></span>)</strong>.<br>
+              In the long run, as <em>t &rarr; &infin;</em>, since <em>k &gt; 0</em>, <em>e<sup>&minus;kt</sup> &rarr; 0</em>, so the temperature of the coffee <strong>approaches 25 &deg;C (the ambient room temperature)</strong>.
+            `,
+            exitQuestion: "The mass m grams of a radioactive substance decays at a rate proportional to its mass present at time t days. Write down the differential equation relating m and t.",
+            exitAnswer: "<strong>dm/dt = −km</strong>, where k is a positive constant."
           }
         ]
       },
