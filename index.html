@@ -2702,7 +2702,7 @@
               <span style="font-size:0.78rem; color:#6b21a8; font-weight:600;">Watch before exploring the interactive lab below</span>
             </div>
             <div class="video-frame-wrap">
-              <iframe src="${lesson.videoEmbedUrl}" title="${formatMathHTML(lesson.label)} Video" allowfullscreen></iframe>
+              <iframe src="${lesson.videoEmbedUrl}" title="${lesson.labe)} Video" allowfullscreen></iframe>
             </div>
           </section>
         `
@@ -2743,7 +2743,7 @@
               <strong>Prerequisite Check:</strong> ${formatMathHTML(lesson.prereq)}
             </div>
             <ul>
-              ${lesson.objectives.map(formatMathHTML(o) => `<li>${o}</li>`).join("")}
+              ${lesson.objectives.map(o => `<li>${formatMathHTML(o)}</li>`).join("")}
             </ul>
             <div class="gc-callout">
               <strong>TI-84 Plus CE / GC Tip:</strong> ${formatMathHTML(lesson.gcTip)}
@@ -2753,12 +2753,12 @@
           <div class="info-card">
             <span class="card-kicker" style="color:var(--teal);">Guided Exploration &amp; Misconception Watch</span>
             <ul>
-              ${lesson.prompts.map(formatMathHTML(p) => `<li>${p}</li>`).join("")}
+              ${lesson.prompts.map(p => `<li>${formatMathHTML(p)}</li>`).join("")}
             </ul>
             <div style="margin-top:8px; padding-top:8px; border-top:1px dashed #cbd5e1; font-size:0.82rem; color:#9f1239;">
               <strong>Common 9758 Pitfalls:</strong>
               <ul style="margin-top:4px;">
-                ${lesson.pitfalls.map(formatMathHTML(pit) => `<li>${pit}</li>`).join("")}
+                ${lesson.pitfalls.map(pit => `<li>${formatMathHTML(pit)}</li>`).join("")}
               </ul>
             </div>
           </div>
@@ -2777,7 +2777,7 @@
               Open Fullscreen Lab &#8599;
             </a>
           </div>
-          <iframe class="interactive-iframe" src="${lesson.file}" title="${formatMathHTML(lesson.label)}"></iframe>
+          <iframe class="interactive-iframe" src="${lesson.file}" title="${lesson.label}"></iframe>
         </div>
 
         <!-- EXAM WORKED EXAMPLE & EXIT TICKET -->
