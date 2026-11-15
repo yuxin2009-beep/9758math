@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 5.1 Lesson 3: Implicit & Parametric Differentiation</title>
+
+  <!-- MathJax 3 for crisp typeset mathematical notation -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.48;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 535px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1000px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .mode-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 7px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 9px 10px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.78rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.52;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.76rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .eqn-editor {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 11px;
+    }
+
+    .eqn-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 7px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    select {
+      width: 100%;
+      padding: 6px 8px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      font-size: 0.78rem;
+      font-weight: 600;
+      background: #f8fafc;
+      color: #1e293b;
+      margin-bottom: 8px;
+    }
+
+    .slider-row {
+      margin-bottom: 8px;
+    }
+
+    .slider-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 3px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple-dark);
+      cursor: pointer;
+    }
+
+    .solve-bar {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: none;
+      background: var(--purple-dark);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.77rem;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .action-btn.secondary {
+      background: var(--blue-bg);
+      color: var(--blue);
+      border: 1px solid #bae6fd;
+    }
+
+    .toggle-pill {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 6px;
+    }
+
+    .toggle-pill input {
+      accent-color: var(--purple-dark);
+      cursor: pointer;
+    }
+
+    .step-card {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      padding: 9px 11px;
+      margin-top: 8px;
+      font-size: 0.79rem;
+      line-height: 1.55;
+    }
+
+    .step-card .step-tag {
+      font-size: 0.69rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--purple-dark);
+      letter-spacing: 0.4px;
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .gc-screen-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin-bottom: 11px;
+    }
+
+    .box-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .gc-readout {
+      background: #f1f5f9;
+      border: 2px solid #64748b;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.79rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 5px;
+      line-height: 1.48;
+    }
+
+    .solution-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.8rem;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    /* RIGHT PANEL */
+    .canvas-box {
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 9px 11px;
+      margin-bottom: 10px;
+    }
+
+    .canvas-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 6px;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .legend-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    .leg-chip {
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+
+    canvas {
+      width: 100%;
+      height: 365px;
+      display: block;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      cursor: crosshair;
+      touch-action: none;
+    }
+
+    .gc-guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .gc-guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .step-pill {
+      background: var(--blue-bg);
+      border: 1px solid #bae6fd;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.77rem;
+      line-height: 1.48;
+      color: #0c4a6e;
+    }
+
+    .grader-card {
+      margin-top: 10px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 14px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 7px;
+    }
+
+    @media (max-width: 700px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      line-height: 1.48;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .misconception-box {
+      margin-top: 10px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-size: 0.78rem;
+      line-height: 1.48;
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Tab 1: Implicit Loop &amp; Locus Tracer</strong>
+        Click or drag anywhere near an implicit curve $F(x, y) = 0$ (including the Folium of Descartes and an inverse-tangent logarithmic spiral) to evaluate $\dfrac{\mathrm{d}y}{\mathrm{d}x}$ and highlight vertical tangents where the denominator vanishes.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Tab 2: Parametric Particle &amp; Velocity Vectors</strong>
+        Scrub parameter $t$ (or press <em>▶ Play Sweep</em>) to watch the horizontal velocity $\dfrac{\mathrm{d}x}{\mathrm{d}t}$ (teal) and vertical velocity $\dfrac{\mathrm{d}y}{\mathrm{d}t}$ (amber) combine to form the tangent slope $\dfrac{\mathrm{d}y}{\mathrm{d}x}$.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Check Analytical Derivations &amp; 9758 Quiz</strong>
+        Inspect the step-by-step Chain/Product/Implicit derivations on the left, review TI-84 Plus CE <code>PARAM</code> mode tips, and test your mastery with the 3-question exam check.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        5.1 Lesson 3 &bull; Implicit &amp; Parametric Differentiation
+      </div>
+
+      <!-- 2 Main Mode Tabs -->
+      <div class="mode-grid">
+        <button class="tab-btn active" id="tab_implicit" onclick="switchMode('implicit')">
+          Tab 1: Implicit Curves $F(x, y) = 0$
+        </button>
+        <button class="tab-btn" id="tab_parametric" onclick="switchMode('parametric')">
+          Tab 2: Parametric Particle $x(t), y(t)$
+        </button>
+      </div>
+
+      <!-- Contextual Explanation -->
+      <div class="context-box" id="contextBox"></div>
+
+      <!-- Curve & Parameter Controls -->
+      <div class="eqn-editor">
+        <div class="eqn-header">
+          <span id="editorHeader">Select Implicit Curve</span>
+          <span id="coordBadge" style="color:var(--purple-dark);">(2.00, 2.00)</span>
+        </div>
+
+        <select id="curveSelect" onchange="onCurveChange()"></select>
+
+        <!-- Implicit-Specific Controls -->
+        <div id="implicitControls">
+          <div style="font-size:0.76rem; color:var(--muted); margin-bottom:6px;">
+            Click or drag anywhere near the curve on the right canvas to snap $(x_0, y_0)$ and evaluate $\dfrac{\mathrm{d}y}{\mathrm{d}x}$.
+          </div>
+          <label class="toggle-pill">
+            <span>Highlight Vanishing Denominator (Vertical Tangents)</span>
+            <input type="checkbox" id="chkVertTang" checked onchange="drawAll()" />
+          </label>
+        </div>
+
+        <!-- Parametric-Specific Controls -->
+        <div id="parametricControls" style="display:none;">
+          <div class="slider-row">
+            <div class="slider-label">
+              <span>Parameter Value ($t$)</span>
+              <span id="tValLbl">0.50</span>
+            </div>
+            <input type="range" id="tSlider" min="-2.2" max="2.2" step="0.02" value="0.5" oninput="onTSlide(this.value)" />
+          </div>
+
+          <div class="solve-bar">
+            <button class="action-btn" id="playBtn" onclick="togglePlay()">▶ Play Sweep</button>
+            <button class="action-btn secondary" onclick="jumpToSpecialT()">Jump to Vertical/Horiz. Tangent</button>
+          </div>
+
+          <label class="toggle-pill">
+            <span>Show Component Velocity Arrows ($\frac{\mathrm{d}x}{\mathrm{d}t}$ &amp; $\frac{\mathrm{d}y}{\mathrm{d}t}$)</span>
+            <input type="checkbox" id="chkVectors" checked onchange="drawAll()" />
+          </label>
+        </div>
+
+        <!-- Step-by-Step Algebraic Differentiation -->
+        <div class="step-card" id="derivationCard"></div>
+      </div>
+
+      <!-- Live Derivative Evaluation Box -->
+      <div class="gc-screen-box" id="evalBox"></div>
+
+      <!-- Geometric Deduction Banner -->
+      <div class="solution-banner" id="solutionBanner"></div>
+    </div>
+
+    <!-- RIGHT CANVAS, GC GUIDE & EXAM CHECK -->
+    <div class="card">
+      <div class="canvas-box">
+        <div class="canvas-top-bar">
+          <span id="canvasHeading">Implicit Curve Locus &amp; Tangent Line</span>
+          <div class="legend-row" id="legendRow"></div>
+        </div>
+        <canvas id="labCanvas"></canvas>
+      </div>
+
+      <!-- 3-Step TI-84 Plus CE Keystroke Guide -->
+      <div class="gc-guide-grid">
+        <div class="step-pill">
+          <strong>1. Sketch Parametric Curves</strong><br>
+          Press <strong>[MODE]</strong>, highlight <strong>PARAM</strong>, and press <strong>[ENTER]</strong>. Enter <strong>X₁T</strong> and <strong>Y₁T</strong> in <strong>[Y=]</strong>.
+        </div>
+        <div class="step-pill">
+          <strong>2. Find Parametric Gradient</strong><br>
+          In <strong>PARAM</strong> mode, press <strong>[2nd] [TRACE] (CALC)</strong> to evaluate <strong>2: dy/dx</strong>, <strong>3: dy/dt</strong>, or <strong>4: dx/dt</strong> at any $t$.
+        </div>
+        <div class="step-pill">
+          <strong>3. Check Implicit Points</strong><br>
+          Rearrange for $y$ if possible, or verify your implicit $\frac{\mathrm{d}y}{\mathrm{d}x}$ by substituting $(x_0, y_0)$ and testing small $\Delta y / \Delta x$.
+        </div>
+      </div>
+
+      <!-- 9758 Misconception & Syllabus Exclusion Box -->
+      <div class="misconception-box">
+        <strong>9758 Syllabus Notes &amp; Common Pitfalls:</strong>
+        <ul style="margin:3px 0 0 0; padding-left:18px;">
+          <li><strong>Implicit Chain &amp; Product Rules:</strong> Every $y$-term requires $\dfrac{\mathrm{d}y}{\mathrm{d}x}$ by the chain rule—for example, $\dfrac{\mathrm{d}}{\mathrm{d}x}(x^2 y) = 2xy + x^2\dfrac{\mathrm{d}y}{\mathrm{d}x}$, and $\dfrac{\mathrm{d}}{\mathrm{d}x}\!\left[\tan^{-1}\!\left(\frac{y}{x}\right)\right] = \dfrac{1}{1 + (y/x)^2}\cdot\dfrac{x\frac{\mathrm{d}y}{\mathrm{d}x} - y}{x^2}$.</li>
+          <li><strong>9758 Syllabus Exclusion:</strong> Second derivatives $\dfrac{\mathrm{d}^2y}{\mathrm{d}x^2}$ of parametrically defined curves are <strong>excluded</strong> from the 9758 H2 Math syllabus.</li>
+        </ul>
+      </div>
+
+      <!-- Quick 9758 Exam Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 Implicit &amp; Parametric Check (<span id="qIdxLbl">1</span>/3)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.8rem; line-height:1.48; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function typesetMath(el) {
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      window.MathJax.typesetPromise(el ? [el] : undefined).catch(() => {});
+    }
+  }
+
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  const state = {
+    mode: "implicit",
+    impIdx: 0,
+    parIdx: 0,
+    pt: { x: 2.0, y: 2.0 },
+    impSamples: [],
+    t: 0.5,
+    playing: false,
+    dir: 1,
+    lastTime: null,
+    dragging: false,
+    specialIdx: 0
+  };
+
+  // ==========================================
+  // TAB 1: IMPLICIT CURVES F(x, y) = 0
+  // ==========================================
+  const implicitCurves = [
+    {
+      label: "1. Folium of Descartes: x³ + y³ = 6xy",
+      titleLatex: "Folium of Descartes: $x^3 + y^3 = 6xy$",
+      xMin: -4.8, xMax: 4.8, yMin: -4.8, yMax: 4.8,
+      defPt: { x: 3.0, y: 3.0 },
+      F: (x, y) => x * x * x + y * y * y - 6 * x * y,
+      Fx: (x, y) => 3 * x * x - 6 * y,
+      Fy: (x, y) => 3 * y * y - 6 * x,
+      dyExpr: "$\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = \\dfrac{2y - x^2}{y^2 - 2x}$",
+      vertCond: "Denominator $y^2 - 2x = 0 \\Rightarrow x = \\frac{1}{2}y^2$, giving vertical tangents at $(0, 0)$ and $(2\\sqrt[3]{2}, 2\\sqrt[3]{4}) \\approx (2.52, 3.17)$.",
+      vertPts: [
+        { x: 0, y: 0, lbl: "(0, 0)" },
+        { x: 2 * Math.cbrt(2), y: 2 * Math.cbrt(4), lbl: "(2.52, 3.17)" }
+      ],
+      steps: [
+        "Differentiate term-by-term w.r.t. $x$: $3x^2 + 3y^2\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 6y + 6x\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$.",
+        "Group $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$: $(3y^2 - 6x)\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 6y - 3x^2 \\Rightarrow \\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = \\dfrac{2y - x^2}{y^2 - 2x}$."
+      ]
+    },
+    {
+      label: "2. Inverse Trig Spiral: tan⁻¹(y/x) + ln√(x² + y²) = 1",
+      titleLatex: "Inverse Trig Implicit Curve: $\\tan^{-1}\\!\\left(\\dfrac{y}{x}\\right) + \\frac{1}{2}\\ln(x^2 + y^2) = 1$",
+      xMin: -3.5, xMax: 3.5, yMin: -3.5, yMax: 3.5,
+      defPt: { x: 1.0, y: 0.0 },
+      F: (x, y) => {
+        const r2 = x * x + y * y;
+        if (r2 < 1e-4) return NaN;
+        return Math.atan2(y, x) + 0.5 * Math.log(r2) - 1;
+      },
+      Fx: (x, y) => {
+        const r2 = x * x + y * y;
+        if (r2 < 1e-4) return NaN;
+        return (x - y) / r2;
+      },
+      Fy: (x, y) => {
+        const r2 = x * x + y * y;
+        if (r2 < 1e-4) return NaN;
+        return (x + y) / r2;
+      },
+      dyExpr: "$\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = \\dfrac{y - x}{x + y}$",
+      vertCond: "Denominator $x + y = 0 \\Rightarrow y = -x$, giving vertical tangents where the spiral crosses the line $y = -x$.",
+      vertPts: [], // Computed dynamically from F(x, -x) = 0
+      steps: [
+        "Differentiate $\\tan^{-1}\\!\\left(\\frac{y}{x}\\right)$: $\\dfrac{1}{1 + (y/x)^2}\\cdot\\dfrac{x\\frac{\\mathrm{d}y}{\\mathrm{d}x} - y}{x^2} = \\dfrac{x\\frac{\\mathrm{d}y}{\\mathrm{d}x} - y}{x^2 + y^2}$.",
+        "Add $\\frac{\\mathrm{d}}{\\mathrm{d}x}\\!\\left[\\frac{1}{2}\\ln(x^2+y^2)\\right] = \\dfrac{x + y\\frac{\\mathrm{d}y}{\\mathrm{d}x}}{x^2+y^2} = 0 \\Rightarrow (x + y)\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = y - x \\Rightarrow \\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = \\dfrac{y - x}{x + y}$."
+      ]
+    },
+    {
+      label: "3. Exponential-Product Curve: e^(2y) + x²y = 5",
+      titleLatex: "Exponential-Implicit Curve: $e^{2y} + x^2y = 5$",
+      xMin: -4.2, xMax: 4.2, yMin: -3.2, yMax: 2.2,
+      defPt: { x: 2.0, y: 0.0 },
+      F: (x, y) => Math.exp(2 * y) + x * x * y - 5,
+      Fx: (x, y) => 2 * x * y,
+      Fy: (x, y) => 2 * Math.exp(2 * y) + x * x,
+      dyExpr: "$\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = \\dfrac{-2xy}{2e^{2y} + x^2}$",
+      vertCond: "Since $2e^{2y} > 0$ and $x^2 \\ge 0$, the denominator $2e^{2y} + x^2 > 0$ everywhere — NO vertical tangents exist!",
+      vertPts: [],
+      steps: [
+        "Apply Chain Rule to $e^{2y}$ and Product Rule to $x^2y$: $2e^{2y}\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} + \\left(2xy + x^2\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}\\right) = 0$.",
+        "Factor out $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$: $(2e^{2y} + x^2)\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = -2xy \\Rightarrow \\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = -\\dfrac{2xy}{2e^{2y} + x^2}$."
+      ]
+    }
+  ];
+
+  // ==========================================
+  // TAB 2: PARAMETRIC CURVES x(t), y(t)
+  // ==========================================
+  const parametricCurves = [
+    {
+      label: "1. Polynomial Loop: x = t² − 2t,  y = t³ − 3t",
+      titleLatex: "Parametric Loop: $x = t^2 - 2t, \\quad y = t^3 - 3t$",
+      xMin: -2.2, xMax: 5.5, yMin: -4.5, yMax: 4.5,
+      tMin: -2.15, tMax: 2.35, defT: 0.4,
+      xFn: t => t * t - 2 * t,
+      yFn: t => t * t * t - 3 * t,
+      dxFn: t => 2 * t - 2,
+      dyFn: t => 3 * t * t - 3,
+      specialTs: [1.0, -1.0],
+      dyDxLatex: "$\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = \\dfrac{3(t^2 - 1)}{2(t - 1)} = \\dfrac{3}{2}(t + 1) \\quad (t \\neq 1)$",
+      steps: [
+        "Differentiate w.r.t. $t$: $\\dfrac{\\mathrm{d}x}{\\mathrm{d}t} = 2t - 2 = 2(t - 1)$ and $\\dfrac{\\mathrm{d}y}{\\mathrm{d}t} = 3t^2 - 3 = 3(t - 1)(t + 1)$.",
+        "Divide derivatives: $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = \\dfrac{\\mathrm{d}y/\\mathrm{d}t}{\\mathrm{d}x/\\mathrm{d}t} = \\dfrac{3(t - 1)(t + 1)}{2(t - 1)}$. At $t = 1$, $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = 0$ (vertical tangent)."
+      ]
+    },
+    {
+      label: "2. Inverse Trig & Log: x = tan⁻¹(t),  y = ln(1 + t²)",
+      titleLatex: "Inverse Trig Parametric: $x = \\tan^{-1}(t), \\quad y = \\ln(1 + t^2)$",
+      xMin: -2.0, xMax: 2.0, yMin: -0.6, yMax: 3.2,
+      tMin: -3.5, tMax: 3.5, defT: 1.0,
+      xFn: t => Math.atan(t),
+      yFn: t => Math.log(1 + t * t),
+      dxFn: t => 1 / (1 + t * t),
+      dyFn: t => (2 * t) / (1 + t * t),
+      specialTs: [0.0, 1.0, -1.0],
+      dyDxLatex: "$\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = \\dfrac{2t / (1 + t^2)}{1 / (1 + t^2)} = 2t$",
+      steps: [
+        "Standard & Chain Rules: $\\dfrac{\\mathrm{d}x}{\\mathrm{d}t} = \\dfrac{1}{1 + t^2}$ and $\\dfrac{\\mathrm{d}y}{\\mathrm{d}t} = \\dfrac{2t}{1 + t^2}$.",
+        "Ratio of velocities: $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = \\dfrac{2t}{1 + t^2} \\div \\dfrac{1}{1 + t^2} = 2t$. Horizontal tangent at $t = 0$."
+      ]
+    },
+    {
+      label: "3. Inverse Sine & Radical: x = 2 sin⁻¹(t),  y = 3√(1 − t²)",
+      titleLatex: "Inverse Sine Parametric: $x = 2\\sin^{-1}(t), \\quad y = 3\\sqrt{1 - t^2} \\quad (-1 < t < 1)$",
+      xMin: -3.6, xMax: 3.6, yMin: -0.6, yMax: 3.8,
+      tMin: -0.96, tMax: 0.96, defT: 0.5,
+      xFn: t => 2 * Math.asin(t),
+      yFn: t => 3 * Math.sqrt(Math.max(0, 1 - t * t)),
+      dxFn: t => 2 / Math.sqrt(Math.max(1e-4, 1 - t * t)),
+      dyFn: t => (-3 * t) / Math.sqrt(Math.max(1e-4, 1 - t * t)),
+      specialTs: [0.0, 0.6, -0.6],
+      dyDxLatex: "$\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = \\dfrac{-3t / \\sqrt{1 - t^2}}{2 / \\sqrt{1 - t^2}} = -\\dfrac{3}{2}t$",
+      steps: [
+        "Differentiate w.r.t. $t$: $\\dfrac{\\mathrm{d}x}{\\mathrm{d}t} = \\dfrac{2}{\\sqrt{1 - t^2}}$ and $\\dfrac{\\mathrm{d}y}{\\mathrm{d}t} = 3 \\cdot \\dfrac{-2t}{2\\sqrt{1 - t^2}} = \\dfrac{-3t}{\\sqrt{1 - t^2}}$.",
+        "Cancel $\\sqrt{1 - t^2}$: $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = -\\dfrac{3}{2}t$ for $-1 < t < 1$."
+      ]
+    }
+  ];
+
+  const canvas = document.getElementById("labCanvas");
+  const ctx = canvas.getContext("2d");
+
+  function fmt(n) {
+    if (isNaN(n)) return "Undefined";
+    if (!isFinite(n)) return n > 0 ? "+∞" : "−∞";
+    if (Math.abs(n) < 1e-6) return "0.00";
+    return n.toFixed(3);
+  }
+
+  // Sample implicit curve points via fine grid zero-crossings + Newton-Raphson projection
+  function buildImplicitSamples(curve) {
+    const pts = [];
+    const N = 130;
+    const dx = (curve.xMax - curve.xMin) / N;
+    const dy = (curve.yMax - curve.yMin) / N;
+
+    for (let i = 0; i < N; i++) {
+      for (let j = 0; j < N; j++) {
+        const x0 = curve.xMin + i * dx;
+        const y0 = curve.yMin + j * dy;
+        const f00 = curve.F(x0, y0);
+        const f10 = curve.F(x0 + dx, y0);
+        const f01 = curve.F(x0, y0 + dy);
+
+        if (!isNaN(f00) && !isNaN(f10) && f00 * f10 <= 0 && Math.abs(f00 - f10) < 12) {
+          const t = Math.abs(f00 - f10) < 1e-9 ? 0.5 : Math.abs(f00) / Math.abs(f00 - f10);
+          pts.push(refinePoint(curve, x0 + t * dx, y0));
+        }
+        if (!isNaN(f00) && !isNaN(f01) && f00 * f01 <= 0 && Math.abs(f00 - f01) < 12) {
+          const t = Math.abs(f00 - f01) < 1e-9 ? 0.5 : Math.abs(f00) / Math.abs(f00 - f01);
+          pts.push(refinePoint(curve, x0, y0 + t * dy));
+        }
+      }
+    }
+
+    // For Spiral Curve 2, find exact vertical tangents along y = -x
+    if (state.impIdx === 1) {
+      curve.vertPts = [];
+      [-1, 1].forEach(sgn => {
+        // Along y = -x, atan2(-x, x) = -pi/4 (for x > 0) or 3pi/4 (for x < 0)
+        const theta = sgn > 0 ? -Math.PI / 4 : (3 * Math.PI) / 4;
+        const r = Math.exp(1 - theta);
+        const vx = sgn * (r / Math.SQRT2);
+        const vy = -vx;
+        if (vx >= curve.xMin && vx <= curve.xMax && vy >= curve.yMin && vy <= curve.yMax) {
+          curve.vertPts.push({ x: vx, y: vy, lbl: `(${vx.toFixed(2)}, ${vy.toFixed(2)})` });
+        }
+      });
+    }
+
+    return pts.filter(p => p !== null);
+  }
+
+  function refinePoint(curve, x, y) {
+    let cx = x, cy = y;
+    for (let k = 0; k < 5; k++) {
+      const f = curve.F(cx, cy);
+      const fx = curve.Fx(cx, cy);
+      const fy = curve.Fy(cx, cy);
+      const denom = fx * fx + fy * fy;
+      if (isNaN(f) || denom < 1e-10) break;
+      cx -= (f * fx) / denom;
+      cy -= (f * fy) / denom;
+    }
+    if (isNaN(cx) || isNaN(cy)) return null;
+    return { x: cx, y: cy };
+  }
+
+  function switchMode(newMode) {
+    state.mode = newMode;
+    if (state.playing) togglePlay();
+
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("tab_" + newMode).classList.add("active");
+
+    const sel = document.getElementById("curveSelect");
+    if (newMode === "implicit") {
+      document.getElementById("editorHeader").textContent = "Select Implicit Curve";
+      document.getElementById("implicitControls").style.display = "block";
+      document.getElementById("parametricControls").style.display = "none";
+      sel.innerHTML = implicitCurves.map((c, i) => `<option value="${i}">${c.label}</option>`).join("");
+      sel.value = state.impIdx;
+    } else {
+      document.getElementById("editorHeader").textContent = "Select Parametric Curve";
+      document.getElementById("implicitControls").style.display = "none";
+      document.getElementById("parametricControls").style.display = "block";
+      sel.innerHTML = parametricCurves.map((c, i) => `<option value="${i}">${c.label}</option>`).join("");
+      sel.value = state.parIdx;
+    }
+
+    onCurveChange();
+  }
+
+  function onCurveChange() {
+    const idx = parseInt(document.getElementById("curveSelect").value, 10);
+    if (state.mode === "implicit") {
+      state.impIdx = idx;
+      const curve = implicitCurves[idx];
+      state.impSamples = buildImplicitSamples(curve);
+      state.pt = refinePoint(curve, curve.defPt.x, curve.defPt.y) || { ...curve.defPt };
+
+      document.getElementById("contextBox").innerHTML = `
+        <div><strong>Implicit Differentiation ($F(x, y) = 0$):</strong> Differentiate both sides with respect to $x$, treating $y$ as a function of $x$ via $\\dfrac{\\mathrm{d}}{\\mathrm{d}x}[g(y)] = g'(y)\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$.</div>
+        <div class="var-pill">Gradient Formula: ${curve.dyExpr}</div>
+      `;
+      document.getElementById("derivationCard").innerHTML = `
+        <span class="step-tag">Implicit Differentiation Steps</span>
+        <div><strong>Step 1:</strong> ${curve.steps[0]}</div>
+        <div><strong>Step 2:</strong> ${curve.steps[1]}</div>
+      `;
+      document.getElementById("solutionBanner").innerHTML = `Vertical Tangent Condition: ${curve.vertCond}`;
+      document.getElementById("legendRow").innerHTML = `
+        <span class="leg-chip" style="background:#f3e8ff; color:#6b21a8;">Curve $F(x, y) = 0$</span>
+        <span class="leg-chip" style="background:#ccfbf1; color:#0f766e;">Tangent at $(x_0, y_0)$</span>
+        <span class="leg-chip" style="background:#ffe4e6; color:#9f1239;">Vertical Tangent</span>
+      `;
+    } else {
+      state.parIdx = idx;
+      state.specialIdx = 0;
+      const curve = parametricCurves[idx];
+      const sl = document.getElementById("tSlider");
+      sl.min = curve.tMin;
+      sl.max = curve.tMax;
+      state.t = curve.defT;
+      sl.value = curve.defT;
+
+      document.getElementById("contextBox").innerHTML = `
+        <div><strong>Parametric Differentiation ($x = f(t), y = g(t)$):</strong> The tangent gradient equals the ratio of vertical velocity to horizontal velocity: $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = \\dfrac{\\mathrm{d}y/\\mathrm{d}t}{\\mathrm{d}x/\\mathrm{d}t}$ (for $\\dfrac{\\mathrm{d}x}{\\mathrm{d}t} \\neq 0$).</div>
+        <div class="var-pill">Gradient Formula: ${curve.dyDxLatex}</div>
+      `;
+      document.getElementById("derivationCard").innerHTML = `
+        <span class="step-tag">Parametric Differentiation Steps</span>
+        <div><strong>Step 1:</strong> ${curve.steps[0]}</div>
+        <div><strong>Step 2:</strong> ${curve.steps[1]}</div>
+      `;
+      document.getElementById("solutionBanner").innerHTML =
+        `Key Geometry: Horizontal tangent occurs where $\\dfrac{\\mathrm{d}y}{\\mathrm{d}t} = 0$ ($\\frac{\\mathrm{d}x}{\\mathrm{d}t} \\neq 0$); vertical tangent occurs where $\\dfrac{\\mathrm{d}x}{\\mathrm{d}t} = 0$ ($\\frac{\\mathrm{d}y}{\\mathrm{d}t} \\neq 0$).`;
+      document.getElementById("legendRow").innerHTML = `
+        <span class="leg-chip" style="background:#ccfbf1; color:#0f766e;">$\\mathrm{d}x/\\mathrm{d}t$ (Horizontal)</span>
+        <span class="leg-chip" style="background:#fef3c7; color:#b45309;">$\\mathrm{d}y/\\mathrm{d}t$ (Vertical)</span>
+        <span class="leg-chip" style="background:#f3e8ff; color:#6b21a8;">Tangent $\\mathrm{d}y/\\mathrm{d}x$</span>
+      `;
+    }
+
+    drawAll();
+    typesetMath();
+  }
+
+  function onTSlide(raw) {
+    state.t = parseFloat(raw);
+    drawAll();
+  }
+
+  function jumpToSpecialT() {
+    const curve = parametricCurves[state.parIdx];
+    const tTarget = curve.specialTs[state.specialIdx % curve.specialTs.length];
+    state.specialIdx++;
+    state.t = tTarget;
+    document.getElementById("tSlider").value = tTarget.toFixed(2);
+    drawAll();
+  }
+
+  function togglePlay() {
+    state.playing = !state.playing;
+    document.getElementById("playBtn").textContent = state.playing ? "❚❚ Pause Sweep" : "▶ Play Sweep";
+    if (state.playing) {
+      state.lastTime = performance.now();
+      requestAnimationFrame(animateParam);
+    }
+  }
+
+  function animateParam(now) {
+    if (!state.playing || state.mode !== "parametric") return;
+    const dt = Math.min((now - state.lastTime) / 1000, 0.05);
+    state.lastTime = now;
+
+    const curve = parametricCurves[state.parIdx];
+    const span = curve.tMax - curve.tMin;
+    let nt = state.t + state.dir * (span * 0.25) * dt;
+    if (nt >= curve.tMax) {
+      nt = curve.tMax;
+      state.dir = -1;
+    } else if (nt <= curve.tMin) {
+      nt = curve.tMin;
+      state.dir = 1;
+    }
+    state.t = nt;
+    document.getElementById("tSlider").value = nt.toFixed(2);
+    drawAll();
+    requestAnimationFrame(animateParam);
+  }
+
+  // Coordinate Transforms
+  function getBounds() {
+    return state.mode === "implicit" ? implicitCurves[state.impIdx] : parametricCurves[state.parIdx];
+  }
+
+  function toPxX(x, w, b) {
+    return ((x - b.xMin) / (b.xMax - b.xMin)) * w;
+  }
+
+  function toMathX(px, w, b) {
+    return b.xMin + (px / w) * (b.xMax - b.xMin);
+  }
+
+  function toPxY(y, h, b) {
+    return h - ((y - b.yMin) / (b.yMax - b.yMin)) * h;
+  }
+
+  function toMathY(py, h, b) {
+    return b.yMin + ((h - py) / h) * (b.yMax - b.yMin);
+  }
+
+  function resizeCanvas() {
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = Math.round(rect.width * dpr);
+    canvas.height = Math.round(rect.height * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    drawAll();
+  }
+
+  // Snap pointer click/drag to nearest point on implicit locus
+  function snapImplicitPoint(clientX, clientY) {
+    const curve = implicitCurves[state.impIdx];
+    const rect = canvas.getBoundingClientRect();
+    const mx = toMathX(clientX - rect.left, rect.width, curve);
+    const my = toMathY(clientY - rect.top, rect.height, curve);
+
+    let best = null;
+    let bestD2 = Infinity;
+    for (const p of state.impSamples) {
+      const d2 = (p.x - mx) * (p.x - mx) + (p.y - my) * (p.y - my);
+      if (d2 < bestD2) {
+        bestD2 = d2;
+        best = p;
+      }
+    }
+    if (best) {
+      state.pt = refinePoint(curve, best.x, best.y) || best;
+      drawAll();
+    }
+  }
+
+  canvas.addEventListener("pointerdown", e => {
+    if (state.mode === "implicit") {
+      state.dragging = true;
+      canvas.setPointerCapture(e.pointerId);
+      snapImplicitPoint(e.clientX, e.clientY);
+    }
+  });
+  canvas.addEventListener("pointermove", e => {
+    if (state.dragging && state.mode === "implicit") {
+      snapImplicitPoint(e.clientX, e.clientY);
+    }
+  });
+  canvas.addEventListener("pointerup", () => (state.dragging = false));
+  canvas.addEventListener("pointercancel", () => (state.dragging = false));
+
+  function drawGrid(w, h, b) {
+    ctx.clearRect(0, 0, w, h);
+
+    for (let gx = Math.ceil(b.xMin); gx <= Math.floor(b.xMax); gx++) {
+      const px = toPxX(gx, w, b);
+      ctx.strokeStyle = gx === 0 ? "#64748b" : "#f1f5f9";
+      ctx.lineWidth = gx === 0 ? 1.5 : 1;
+      ctx.beginPath();
+      ctx.moveTo(px, 0);
+      ctx.lineTo(px, h);
+      ctx.stroke();
+
+      if (gx !== 0) {
+        ctx.fillStyle = "#64748b";
+        ctx.font = "11px sans-serif";
+        const y0 = Math.min(Math.max(toPxY(0, h, b) + 13, 14), h - 4);
+        ctx.fillText(gx.toString(), px - 4, y0);
+      }
+    }
+
+    for (let gy = Math.ceil(b.yMin); gy <= Math.floor(b.yMax); gy++) {
+      const py = toPxY(gy, h, b);
+      ctx.strokeStyle = gy === 0 ? "#64748b" : "#f1f5f9";
+      ctx.lineWidth = gy === 0 ? 1.5 : 1;
+      ctx.beginPath();
+      ctx.moveTo(0, py);
+      ctx.lineTo(w, py);
+      ctx.stroke();
+
+      if (gy !== 0) {
+        ctx.fillStyle = "#64748b";
+        ctx.font = "11px sans-serif";
+        const x0 = Math.min(Math.max(toPxX(0, w, b) + 5, 6), w - 22);
+        ctx.fillText(gy.toString(), x0, py + 4);
+      }
+    }
+  }
+
+  function drawArrow(x1, y1, x2, y2, color, label) {
+    const dx = x2 - x1;
+    const dy = y2 - y1;
+    const len = Math.hypot(dx, dy);
+    if (len < 4) return;
+
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+    ctx.lineWidth = 2.6;
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+
+    const ang = Math.atan2(dy, dx);
+    const head = 8;
+    ctx.beginPath();
+    ctx.moveTo(x2, y2);
+    ctx.lineTo(x2 - head * Math.cos(ang - Math.PI / 6), y2 - head * Math.sin(ang - Math.PI / 6));
+    ctx.lineTo(x2 - head * Math.cos(ang + Math.PI / 6), y2 - head * Math.sin(ang + Math.PI / 6));
+    ctx.closePath();
+    ctx.fill();
+
+    if (label) {
+      ctx.font = "bold 12px sans-serif";
+      ctx.fillText(label, x2 + 6, y2 - 5);
+    }
+  }
+
+  function drawAll() {
+    const rect = canvas.getBoundingClientRect();
+    const w = rect.width;
+    const h = rect.height;
+    const b = getBounds();
+
+    drawGrid(w, h, b);
+    document.getElementById("canvasHeading").innerHTML = b.titleLatex;
+
+    if (state.mode === "implicit") {
+      // Marching Squares contour plot for F(x, y) = 0
+      const cols = 120;
+      const rows = 120;
+      const dx = (b.xMax - b.xMin) / cols;
+      const dy = (b.yMax - b.yMin) / rows;
+
+      ctx.strokeStyle = "#7c3aed";
+      ctx.lineWidth = 2.6;
+      ctx.beginPath();
+
+      for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+          const x0 = b.xMin + i * dx;
+          const y0 = b.yMin + j * dy;
+          const v00 = b.F(x0, y0);
+          const v10 = b.F(x0 + dx, y0);
+          const v11 = b.F(x0 + dx, y0 + dy);
+          const v01 = b.F(x0, y0 + dy);
+
+          if ([v00, v10, v11, v01].some(v => isNaN(v) || Math.abs(v) > 25)) continue;
+
+          const pts = [];
+          if (v00 * v10 <= 0) pts.push([x0 + (Math.abs(v00) / (Math.abs(v00 - v10) || 1)) * dx, y0]);
+          if (v10 * v11 <= 0) pts.push([x0 + dx, y0 + (Math.abs(v10) / (Math.abs(v10 - v11) || 1)) * dy]);
+          if (v01 * v11 <= 0) pts.push([x0 + (Math.abs(v01) / (Math.abs(v01 - v11) || 1)) * dx, y0 + dy]);
+          if (v00 * v01 <= 0) pts.push([x0, y0 + (Math.abs(v00) / (Math.abs(v00 - v01) || 1)) * dy]);
+
+          if (pts.length === 2) {
+            ctx.moveTo(toPxX(pts[0][0], w, b), toPxY(pts[0][1], h, b));
+            ctx.lineTo(toPxX(pts[1][0], w, b), toPxY(pts[1][1], h, b));
+          }
+        }
+      }
+      ctx.stroke();
+
+      // Highlight vertical tangents if checked
+      if (document.getElementById("chkVertTang").checked && b.vertPts) {
+        b.vertPts.forEach(vp => {
+          const vx = toPxX(vp.x, w, b);
+          const vy = toPxY(vp.y, h, b);
+
+          ctx.setLineDash([4, 4]);
+          ctx.strokeStyle = "#e11d48";
+          ctx.lineWidth = 1.6;
+          ctx.beginPath();
+          ctx.moveTo(vx, Math.max(0, vy - 55));
+          ctx.lineTo(vx, Math.min(h, vy + 55));
+          ctx.stroke();
+          ctx.setLineDash([]);
+
+          ctx.fillStyle = "#e11d48";
+          ctx.beginPath();
+          ctx.arc(vx, vy, 5.5, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.fillStyle = "#9f1239";
+          ctx.font = "bold 11px sans-serif";
+          ctx.fillText(`Vert. Tangent ${vp.lbl}`, Math.min(vx + 7, w - 135), Math.max(vy - 8, 16));
+        });
+      }
+
+      // Draw tangent at selected point state.pt
+      const { x, y } = state.pt;
+      const fx = b.Fx(x, y);
+      const fy = b.Fy(x, y);
+      const slope = Math.abs(fy) < 1e-4 ? Infinity : -fx / fy;
+
+      const px = toPxX(x, w, b);
+      const py = toPxY(y, h, b);
+
+      ctx.strokeStyle = "#0f766e";
+      ctx.lineWidth = 2.4;
+      ctx.beginPath();
+      if (!isFinite(slope) || Math.abs(slope) > 25) {
+        ctx.moveTo(px, 0);
+        ctx.lineTo(px, h);
+      } else {
+        const span = 1.4;
+        ctx.moveTo(toPxX(x - span, w, b), toPxY(y - slope * span, h, b));
+        ctx.lineTo(toPxX(x + span, w, b), toPxY(y + slope * span, h, b));
+      }
+      ctx.stroke();
+
+      ctx.fillStyle = "#0f766e";
+      ctx.beginPath();
+      ctx.arc(px, py, 6.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = "#fff";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      document.getElementById("coordBadge").textContent = `(${x.toFixed(2)}, ${y.toFixed(2)})`;
+      document.getElementById("evalBox").innerHTML = `
+        <span class="box-title">Live Implicit Gradient Evaluation at (x₀, y₀) = (${x.toFixed(2)}, ${y.toFixed(2)})</span>
+        <div class="gc-readout">
+          Numerator (−∂F/∂x) = ${fmt(-fx)} &nbsp;|&nbsp; Denominator (∂F/∂y) = ${fmt(fy)}<br>
+          dy/dx = ${!isFinite(slope) ? "Undefined (Vertical Tangent)" : fmt(slope)}
+        </div>
+      `;
+    } else {
+      // PARAMETRIC MODE
+      ctx.strokeStyle = "#1e293b";
+      ctx.lineWidth = 2.6;
+      ctx.beginPath();
+      const steps = 360;
+      for (let i = 0; i <= steps; i++) {
+        const t = b.tMin + (i / steps) * (b.tMax - b.tMin);
+        const px = toPxX(b.xFn(t), w, b);
+        const py = toPxY(b.yFn(t), h, b);
+        if (i === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+      ctx.stroke();
+
+      const t = state.t;
+      const x = b.xFn(t);
+      const y = b.yFn(t);
+      const dxdt = b.dxFn(t);
+      const dydt = b.dyFn(t);
+      const dydx = Math.abs(dxdt) < 1e-4 ? Infinity : dydt / dxdt;
+
+      const px = toPxX(x, w, b);
+      const py = toPxY(y, h, b);
+
+      // Tangent line
+      ctx.strokeStyle = "#7c3aed";
+      ctx.lineWidth = 2.3;
+      ctx.beginPath();
+      if (!isFinite(dydx) || Math.abs(dydx) > 30) {
+        ctx.moveTo(px, 0);
+        ctx.lineTo(px, h);
+      } else {
+        const span = 1.1;
+        ctx.moveTo(toPxX(x - span, w, b), toPxY(y - dydx * span, h, b));
+        ctx.lineTo(toPxX(x + span, w, b), toPxY(y + dydx * span, h, b));
+      }
+      ctx.stroke();
+
+      // Velocity arrows dx/dt and dy/dt
+      if (document.getElementById("chkVectors").checked) {
+        const scale = 0.35;
+        const vxPx = toPxX(x + dxdt * scale, w, b);
+        const vyPx = toPxY(y + dydt * scale, h, b);
+        drawArrow(px, py, vxPx, py, "#0f766e", `dx/dt = ${dxdt.toFixed(2)}`);
+        drawArrow(px, py, px, vyPx, "#d97706", `dy/dt = ${dydt.toFixed(2)}`);
+      }
+
+      // Particle dot
+      ctx.fillStyle = "#7c3aed";
+      ctx.beginPath();
+      ctx.arc(px, py, 6.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = "#fff";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      document.getElementById("tValLbl").textContent = t.toFixed(2);
+      document.getElementById("coordBadge").textContent = `t = ${t.toFixed(2)}`;
+      document.getElementById("evalBox").innerHTML = `
+        <span class="box-title">TI-84 Plus CE PARAM Mode Evaluation at t = ${t.toFixed(2)}</span>
+        <div class="gc-readout">
+          (x(t), y(t)) = (${x.toFixed(2)}, ${y.toFixed(2)})<br>
+          dx/dt = ${fmt(dxdt)} &nbsp;|&nbsp; dy/dt = ${fmt(dydt)} &nbsp;|&nbsp; dy/dx = ${!isFinite(dydx) ? "Undefined (Vertical)" : fmt(dydx)}
+        </div>
+      `;
+    }
+
+    typesetMath(document.getElementById("canvasHeading"));
+  }
+
+  // 3-Question 9758 Exam Check
+  const examQs = [
+    {
+      q: "Find $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$ in terms of $x$ and $y$ for the implicit curve $x^2 + 3xy - y^2 = 7$.",
+      opts: [
+        "$\\dfrac{2x + 3y}{2y - 3x}$",
+        "$\\dfrac{2x + 3}{2y}$",
+        "$\\dfrac{3x - 2y}{2x + 3y}$",
+        "$-\\dfrac{2x + 3y}{2y - 3x}$"
+      ],
+      ans: 0,
+      exp: "Differentiating implicitly w.r.t. $x$: $2x + \\left(3y + 3x\\frac{\\mathrm{d}y}{\\mathrm{d}x}\\right) - 2y\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 0 \\Rightarrow (2y - 3x)\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 2x + 3y \\Rightarrow \\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{2x + 3y}{2y - 3x}$."
+    },
+    {
+      q: "A curve is defined parametrically by $x = \\sin^{-1}(t)$ and $y = \\sqrt{1 - t^2}$ for $-1 < t < 1$. What is $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$ in terms of $t$?",
+      opts: [
+        "$-t$",
+        "$t$",
+        "$-\\dfrac{t}{1 - t^2}$",
+        "$\\dfrac{1}{1 - t^2}$"
+      ],
+      ans: 0,
+      exp: "$\\dfrac{\\mathrm{d}x}{\\mathrm{d}t} = \\dfrac{1}{\\sqrt{1 - t^2}}$ and $\\dfrac{\\mathrm{d}y}{\\mathrm{d}t} = \\dfrac{-t}{\\sqrt{1 - t^2}}$. Dividing gives $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = \\dfrac{\\mathrm{d}y/\\mathrm{d}t}{\\mathrm{d}x/\\mathrm{d}t} = -t$."
+    },
+    {
+      q: "For a parametrically defined curve $x = f(t), y = g(t)$, at which parameter values does a vertical tangent occur?",
+      opts: [
+        "Where $\\dfrac{\\mathrm{d}x}{\\mathrm{d}t} = 0$ and $\\dfrac{\\mathrm{d}y}{\\mathrm{d}t} \\neq 0$",
+        "Where $\\dfrac{\\mathrm{d}y}{\\mathrm{d}t} = 0$ and $\\dfrac{\\mathrm{d}x}{\\mathrm{d}t} \\neq 0$",
+        "Where both $\\dfrac{\\mathrm{d}x}{\\mathrm{d}t} = 0$ and $\\dfrac{\\mathrm{d}y}{\\mathrm{d}t} = 0$",
+        "Where $f(t) = 0$"
+      ],
+      ans: 0,
+      exp: "Since $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = \\dfrac{\\mathrm{d}y/\\mathrm{d}t}{\\mathrm{d}x/\\mathrm{d}t}$, the tangent becomes vertical (infinite slope) when the horizontal velocity $\\dfrac{\\mathrm{d}x}{\\mathrm{d}t} = 0$ while $\\dfrac{\\mathrm{d}y}{\\mathrm{d}t} \\neq 0$."
+    }
+  ];
+
+  let curQ = 0;
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").innerHTML = item.q;
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i})">${String.fromCharCode(65 + i)}. ${o}</button>
+    `).join("");
+    typesetMath(document.querySelector(".grader-card"));
+  }
+
+  function gradeExamQ(idx) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+    typesetMath(fb);
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  // Initialize
+  window.addEventListener("resize", resizeCanvas);
+  switchMode("implicit");
+  renderExamQ();
+  resizeCanvas();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 5.1 Lesson 4: Tangents & Normals to Curves</title>
+
+  <!-- MathJax 3 for crisp typeset mathematical notation -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.48;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 535px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1000px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 7px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.74rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.52;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .eqn-editor {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 11px;
+    }
+
+    .eqn-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 7px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .slider-row {
+      margin-bottom: 8px;
+    }
+
+    .slider-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 3px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple-dark);
+      cursor: pointer;
+    }
+
+    .solve-bar {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 7px 9px;
+      border-radius: 8px;
+      border: none;
+      background: var(--purple-dark);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.75rem;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .action-btn.secondary {
+      background: var(--blue-bg);
+      color: var(--blue);
+      border: 1px solid #bae6fd;
+    }
+
+    .action-btn.amber {
+      background: var(--amber-bg);
+      color: var(--amber);
+      border: 1px solid #fde68a;
+    }
+
+    .toggle-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .toggle-pill {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 6px 9px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .toggle-pill input {
+      accent-color: var(--purple-dark);
+      cursor: pointer;
+    }
+
+    .step-card {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      padding: 9px 11px;
+      margin-top: 8px;
+      font-size: 0.79rem;
+      line-height: 1.55;
+    }
+
+    .step-card .step-tag {
+      font-size: 0.69rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--purple-dark);
+      letter-spacing: 0.4px;
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .gc-screen-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin-bottom: 11px;
+    }
+
+    .box-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .gc-readout {
+      background: #f1f5f9;
+      border: 2px solid #64748b;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.79rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 5px;
+      line-height: 1.5;
+    }
+
+    .solution-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.8rem;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    .solution-banner.edge-alert {
+      background: var(--rose-bg);
+      border-color: #fda4af;
+      color: #9f1239;
+    }
+
+    /* RIGHT PANEL */
+    .canvas-box {
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 9px 11px;
+      margin-bottom: 10px;
+    }
+
+    .canvas-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 6px;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .legend-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    .leg-chip {
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+
+    canvas {
+      width: 100%;
+      height: 365px;
+      display: block;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      cursor: crosshair;
+      touch-action: none;
+    }
+
+    .gc-guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .gc-guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .step-pill {
+      background: var(--blue-bg);
+      border: 1px solid #bae6fd;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.77rem;
+      line-height: 1.48;
+      color: #0c4a6e;
+    }
+
+    .grader-card {
+      margin-top: 10px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 14px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 7px;
+    }
+
+    @media (max-width: 700px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      line-height: 1.48;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .misconception-box {
+      margin-top: 10px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-size: 0.78rem;
+      line-height: 1.48;
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Adjust Parameter or Click a Curve Point</strong>
+        Choose between a <em>Parametric Ellipse</em> ($x = a\cos\theta, y = b\sin\theta$), a <em>Parametric Reciprocal Curve</em> ($x = t + \frac{1}{t}, y = t - \frac{1}{t}$), or an <em>Implicit Hyperbola</em> ($\frac{x^2}{a^2} - \frac{y^2}{b^2} = 1$).
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Inspect Tangent, Normal &amp; Area of $\triangle OAB$</strong>
+        Watch the solid <strong>Tangent</strong> and dashed <strong>Normal</strong> update in real time (plotted on a 1:1 isotropic scale so perpendicularity is exact) along with their intercepts ($A, B$) and the area of $\triangle OAB$.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Test Horizontal &amp; Vertical Tangent Edge Cases</strong>
+        Click the quick-jump buttons to snap to vertices where $\dfrac{\mathrm{d}y}{\mathrm{d}x} = 0$ (horizontal tangent $y = y_0$; vertical normal $x = x_0$) or $\dfrac{\mathrm{d}x}{\mathrm{d}t} = 0$ (vertical tangent $x = x_0$; horizontal normal $y = y_0$).
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        5.1 Lesson 4 &bull; Tangents &amp; Normals to Curves
+      </div>
+
+      <!-- 3 Curve Presets -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="sc_ellipse" onclick="loadPreset('ellipse')">
+          1. Ellipse: $a\cos\theta, b\sin\theta$
+        </button>
+        <button class="tab-btn" id="sc_recip" onclick="loadPreset('recip')">
+          2. Reciprocal: $t + \frac{1}{t}, t - \frac{1}{t}$
+        </button>
+        <button class="tab-btn" id="sc_hyperbola" onclick="loadPreset('hyperbola')">
+          3. Hyperbola: $\frac{x^2}{a^2} - \frac{y^2}{b^2} = 1$
+        </button>
+      </div>
+
+      <!-- Contextual Description -->
+      <div class="context-box" id="contextBox"></div>
+
+      <!-- Interactive Controls -->
+      <div class="eqn-editor">
+        <div class="eqn-header">
+          <span id="editorHeader">Point of Tangency &amp; Shape Parameters</span>
+          <span id="ptBadge" style="color:var(--purple-dark);">P(2.83, 1.41)</span>
+        </div>
+
+        <div id="dynamicControls"></div>
+
+        <div class="toggle-strip">
+          <label class="toggle-pill">
+            <span>Shade $\triangle OAB$ (Tangent Intercepts)</span>
+            <input type="checkbox" id="chkTri" checked onchange="drawAll()" />
+          </label>
+          <label class="toggle-pill">
+            <span>Show Normal Intercepts</span>
+            <input type="checkbox" id="chkNormInt" onchange="drawAll()" />
+          </label>
+        </div>
+
+        <!-- Analytical Equations Card -->
+        <div class="step-card" id="derivationCard"></div>
+      </div>
+
+      <!-- Live Equations & Triangle Area Readout -->
+      <div class="gc-screen-box" id="readoutBox"></div>
+
+      <!-- Edge-Case & Geometric Summary Banner -->
+      <div class="solution-banner" id="solutionBanner"></div>
+    </div>
+
+    <!-- RIGHT CANVAS, GC GUIDE & EXAM CHECK -->
+    <div class="card">
+      <div class="canvas-box">
+        <div class="canvas-top-bar">
+          <span id="canvasHeading">Parametric Ellipse: $x = a\cos\theta, \quad y = b\sin\theta$</span>
+          <div class="legend-row">
+            <span class="leg-chip" style="background:#ccfbf1; color:#0f766e;">Tangent (Solid)</span>
+            <span class="leg-chip" style="background:#f3e8ff; color:#6b21a8;">Normal (Dashed)</span>
+            <span class="leg-chip" style="background:#fef3c7; color:#b45309;">$\triangle OAB$ Area</span>
+            <span class="leg-chip" style="background:#e0f2fe; color:#0284c7;">1:1 Equal Scale</span>
+          </div>
+        </div>
+        <canvas id="tnCanvas"></canvas>
+      </div>
+
+      <!-- 3-Step TI-84 Plus CE Keystroke Guide -->
+      <div class="gc-guide-grid">
+        <div class="step-pill">
+          <strong>1. Draw Tangent in FUNC Mode</strong><br>
+          Plot <strong>Y₁ = f(x)</strong>, press <strong>[2nd] [PRGM] (DRAW) &rarr; 5: Tangent(</strong>, type $x = x_0$, and press <strong>[ENTER]</strong>.
+        </div>
+        <div class="step-pill">
+          <strong>2. Gradient in PARAM Mode</strong><br>
+          Switch <strong>[MODE] &rarr; PARAM</strong>, enter <strong>X₁T, Y₁T</strong>, and press <strong>[2nd] [TRACE] &rarr; 2: dy/dx</strong> at $T = t_0$.
+        </div>
+        <div class="step-pill">
+          <strong>3. Normal Gradient $m_N$</strong><br>
+          Compute $m_N = -\dfrac{1}{m_T}$ when $m_T \neq 0$. If $m_T = 0$, the normal is $x = x_0$; if $m_T$ is undefined, the normal is $y = y_0$.
+        </div>
+      </div>
+
+      <!-- 9758 Misconception Alert Box -->
+      <div class="misconception-box">
+        <strong>9758 Exam Misconception Alert:</strong>
+        <ul style="margin:3px 0 0 0; padding-left:18px;">
+          <li><strong>Substitute $t = t_0$ BEFORE writing line equations:</strong> Never write $y - y_0 = f'(t)(x - x_0)$ with $t$ still inside the gradient—always substitute the numerical value $t = t_0$ into $\dfrac{\mathrm{d}y}{\mathrm{d}x}$ first.</li>
+          <li><strong>Never divide by zero for normals:</strong> When $\dfrac{\mathrm{d}y}{\mathrm{d}x} = 0$ (horizontal tangent $y = y_0$), do <em>not</em> write $m_N = -\frac{1}{0}$; state directly that the normal is the vertical line $x = x_0$.</li>
+        </ul>
+      </div>
+
+      <!-- Quick 9758 Exam Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 Tangents &amp; Normals Check (<span id="qIdxLbl">1</span>/3)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.8rem; line-height:1.48; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function typesetMath(el) {
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      window.MathJax.typesetPromise(el ? [el] : undefined).catch(() => {});
+    }
+  }
+
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  const state = {
+    preset: "ellipse",
+    theta: Math.PI / 4,
+    t: 2.0,
+    a: 4.0,
+    b: 2.5,
+    hypPt: { x: 5.0, y: 1.875 },
+    dragging: false
+  };
+
+  const canvas = document.getElementById("tnCanvas");
+  const ctx = canvas.getContext("2d");
+
+  function fmt(n, digits = 2) {
+    if (isNaN(n)) return "Undefined";
+    if (!isFinite(n)) return n > 0 ? "+∞" : "−∞";
+    if (Math.abs(n) < 1e-6) return "0.00";
+    return n.toFixed(digits);
+  }
+
+  function formatLineEqn(x0, y0, m) {
+    if (!isFinite(m) || Math.abs(m) > 1e4) {
+      return `x = ${fmt(x0)}`;
+    }
+    if (Math.abs(m) < 1e-4) {
+      return `y = ${fmt(y0)}`;
+    }
+    const c = y0 - m * x0;
+    const sign = c >= 0 ? "+" : "−";
+    return `y = ${m.toFixed(2)}x ${sign} ${Math.abs(c).toFixed(2)}`;
+  }
+
+  function loadPreset(key) {
+    state.preset = key;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("sc_" + key).classList.add("active");
+
+    const dyn = document.getElementById("dynamicControls");
+
+    if (key === "ellipse") {
+      state.a = 4.0;
+      state.b = 2.5;
+      state.theta = Math.PI / 4;
+      document.getElementById("contextBox").innerHTML = `
+        <div><strong>Parametric Ellipse:</strong> $x = a\\cos\\theta, \\; y = b\\sin\\theta$ ($0 \\le \\theta &lt; 2\\pi$). Here $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = -\\dfrac{b\\cos\\theta}{a\\sin\\theta} = -\\dfrac{b}{a}\\cot\\theta$.</div>
+        <div class="var-pill">Tangent: $\\dfrac{x\\cos\\theta}{a} + \\dfrac{y\\sin\\theta}{b} = 1$ &nbsp;|&nbsp; Intercepts: $A\\!\\left(\\dfrac{a}{\\cos\\theta}, 0\\right)$, $B\\!\\left(0, \\dfrac{b}{\\sin\\theta}\\right)$</div>
+      `;
+      dyn.innerHTML = `
+        <div class="slider-row">
+          <div class="slider-label">
+            <span>Parameter $\\theta$ (radians)</span>
+            <span id="lbl_theta">0.79 rad (45°)</span>
+          </div>
+          <input type="range" id="sl_theta" min="0" max="6.2832" step="0.01" value="${state.theta}" oninput="onParamChange()" />
+        </div>
+        <div class="slider-row">
+          <div class="slider-label">
+            <span>Horizontal Semi-Axis ($a$)</span>
+            <span id="lbl_a">4.00</span>
+          </div>
+          <input type="range" id="sl_a" min="2.0" max="5.0" step="0.25" value="4.0" oninput="onParamChange()" />
+        </div>
+        <div class="slider-row">
+          <div class="slider-label">
+            <span>Vertical Semi-Axis ($b$)</span>
+            <span id="lbl_b">2.50</span>
+          </div>
+          <input type="range" id="sl_b" min="1.5" max="4.0" step="0.25" value="2.5" oninput="onParamChange()" />
+        </div>
+        <div class="solve-bar">
+          <button class="action-btn secondary" onclick="setTheta(0)">$\\theta = 0$ (Vert. Tangent)</button>
+          <button class="action-btn secondary" onclick="setTheta(Math.PI/2)">$\\theta = \\frac{\\pi}{2}$ (Horiz. Tangent)</button>
+          <button class="action-btn amber" onclick="setTheta(Math.PI/4)">$\\theta = \\frac{\\pi}{4}$ (General)</button>
+        </div>
+      `;
+    } else if (key === "recip") {
+      state.t = 2.0;
+      document.getElementById("contextBox").innerHTML = `
+        <div><strong>Parametric Reciprocal Curve:</strong> $x = t + \\dfrac{1}{t}, \\; y = t - \\dfrac{1}{t}$ ($t &gt; 0$). Differentiating gives $\\dfrac{\\mathrm{d}x}{\\mathrm{d}t} = 1 - \\dfrac{1}{t^2}$ and $\\dfrac{\\mathrm{d}y}{\\mathrm{d}t} = 1 + \\dfrac{1}{t^2}$.</div>
+        <div class="var-pill">Gradient: $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = \\dfrac{t^2 + 1}{t^2 - 1}$ ($t \\neq 1$) &nbsp;|&nbsp; Vertical Tangent at $t = 1$ ($x = 2$)</div>
+      `;
+      dyn.innerHTML = `
+        <div class="slider-row">
+          <div class="slider-label">
+            <span>Parameter $t$ ($t &gt; 0$)</span>
+            <span id="lbl_t">2.00</span>
+          </div>
+          <input type="range" id="sl_t" min="0.35" max="3.2" step="0.01" value="2.0" oninput="onParamChange()" />
+        </div>
+        <div class="solve-bar">
+          <button class="action-btn secondary" onclick="setRecipT(1.0)">$t = 1$ (Vertical Tangent $x = 2$)</button>
+          <button class="action-btn amber" onclick="setRecipT(2.0)">$t = 2$ (Worked Example $P(\\frac{5}{2}, \\frac{3}{2})$)</button>
+        </div>
+      `;
+    } else if (key === "hyperbola") {
+      state.a = 3.0;
+      state.b = 2.0;
+      state.hypPt = { x: 3.0 * Math.cosh(0.8), y: 2.0 * Math.sinh(0.8) };
+      document.getElementById("contextBox").innerHTML = `
+        <div><strong>Implicit Hyperbola:</strong> $\\dfrac{x^2}{a^2} - \\dfrac{y^2}{b^2} = 1$. Differentiating implicitly gives $\\dfrac{2x}{a^2} - \\dfrac{2y}{b^2}\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 0 \\Rightarrow \\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = \\dfrac{b^2 x}{a^2 y}$ ($y \\neq 0$).</div>
+        <div class="var-pill">Click or drag on either branch &nbsp;|&nbsp; Vertices $(\\pm a, 0)$ have vertical tangents ($y = 0$)</div>
+      `;
+      dyn.innerHTML = `
+        <div class="slider-row">
+          <div class="slider-label">
+            <span>Transverse Semi-Axis ($a$)</span>
+            <span id="lbl_a">3.00</span>
+          </div>
+          <input type="range" id="sl_a" min="1.5" max="4.0" step="0.25" value="3.0" oninput="onParamChange()" />
+        </div>
+        <div class="slider-row">
+          <div class="slider-label">
+            <span>Conjugate Semi-Axis ($b$)</span>
+            <span id="lbl_b">2.00</span>
+          </div>
+          <input type="range" id="sl_b" min="1.5" max="3.5" step="0.25" value="2.0" oninput="onParamChange()" />
+        </div>
+        <div class="solve-bar">
+          <button class="action-btn secondary" onclick="snapHypVertex(1)">Right Vertex $(a, 0)$ (Vert. Tangent)</button>
+          <button class="action-btn secondary" onclick="snapHypVertex(-1)">Left Vertex $(-a, 0)$ (Vert. Tangent)</button>
+        </div>
+      `;
+    }
+
+    drawAll();
+    typesetMath();
+  }
+
+  function setTheta(val) {
+    state.theta = val;
+    document.getElementById("sl_theta").value = val;
+    drawAll();
+  }
+
+  function setRecipT(val) {
+    state.t = val;
+    document.getElementById("sl_t").value = val;
+    drawAll();
+  }
+
+  function snapHypVertex(sgn) {
+    state.hypPt = { x: sgn * state.a, y: 0 };
+    drawAll();
+  }
+
+  function onParamChange() {
+    if (state.preset === "ellipse") {
+      state.theta = parseFloat(document.getElementById("sl_theta").value);
+      state.a = parseFloat(document.getElementById("sl_a").value);
+      state.b = parseFloat(document.getElementById("sl_b").value);
+    } else if (state.preset === "recip") {
+      state.t = parseFloat(document.getElementById("sl_t").value);
+    } else if (state.preset === "hyperbola") {
+      const oldA = state.a;
+      const oldB = state.b;
+      state.a = parseFloat(document.getElementById("sl_a").value);
+      state.b = parseFloat(document.getElementById("sl_b").value);
+      state.hypPt.x = (state.hypPt.x / oldA) * state.a;
+      state.hypPt.y = (state.hypPt.y / oldB) * state.b;
+    }
+    drawAll();
+  }
+
+  function getGeometry() {
+    if (state.preset === "ellipse") {
+      const { a, b, theta } = state;
+      const x0 = a * Math.cos(theta);
+      const y0 = b * Math.sin(theta);
+      const dxdt = -a * Math.sin(theta);
+      const dydt = b * Math.cos(theta);
+
+      const isVert = Math.abs(dxdt) < 1e-3;
+      const isHoriz = Math.abs(dydt) < 1e-3;
+      const mT = isVert ? Infinity : isHoriz ? 0 : dydt / dxdt;
+      const mN = isHoriz ? Infinity : isVert ? 0 : -1 / mT;
+
+      return {
+        x0, y0, mT, mN, isVert, isHoriz,
+        view: { cx: 0, cy: 0, halfSpanY: 5.0 },
+        heading: "Parametric Ellipse: $x = a\\cos\\theta, \\quad y = b\\sin\\theta$",
+        step1: `At $\\theta = ${theta.toFixed(2)}\\text{ rad}$: $P(${x0.toFixed(2)}, ${y0.toFixed(2)})$, $\\dfrac{\\mathrm{d}x}{\\mathrm{d}\\theta} = ${dxdt.toFixed(2)}$, $\\dfrac{\\mathrm{d}y}{\\mathrm{d}\\theta} = ${dydt.toFixed(2)}$.`,
+        step2: isVert
+          ? `Edge Case ($\\frac{\\mathrm{d}x}{\\mathrm{d}\\theta} = 0$): Vertical tangent $x = ${x0.toFixed(2)}$; Horizontal normal $y = ${y0.toFixed(2)}$.`
+          : isHoriz
+          ? `Edge Case ($\\frac{\\mathrm{d}y}{\\mathrm{d}\\theta} = 0$): Horizontal tangent $y = ${y0.toFixed(2)}$; Vertical normal $x = ${x0.toFixed(2)}$.`
+          : `Gradients: $m_T = ${mT.toFixed(2)}$ and $m_N = -\\dfrac{1}{m_T} = ${mN.toFixed(2)}$.`
+      };
+    } else if (state.preset === "recip") {
+      const t = state.t;
+      const x0 = t + 1 / t;
+      const y0 = t - 1 / t;
+      const dxdt = 1 - 1 / (t * t);
+      const dydt = 1 + 1 / (t * t);
+
+      const isVert = Math.abs(dxdt) < 1e-3;
+      const isHoriz = false;
+      const mT = isVert ? Infinity : dydt / dxdt;
+      const mN = isVert ? 0 : -1 / mT;
+
+      return {
+        x0, y0, mT, mN, isVert, isHoriz,
+        view: { cx: 2.5, cy: 0, halfSpanY: 4.2 },
+        heading: "Parametric Reciprocal Curve: $x = t + \\dfrac{1}{t}, \\quad y = t - \\dfrac{1}{t}$",
+        step1: `At $t = ${t.toFixed(2)}$: $P(${x0.toFixed(2)}, ${y0.toFixed(2)})$, $\\dfrac{\\mathrm{d}x}{\\mathrm{d}t} = ${dxdt.toFixed(2)}$, $\\dfrac{\\mathrm{d}y}{\\mathrm{d}t} = ${dydt.toFixed(2)}$.`,
+        step2: isVert
+          ? `Edge Case ($t = 1 \\Rightarrow \\frac{\\mathrm{d}x}{\\mathrm{d}t} = 0$): Vertical tangent $x = 2.00$; Horizontal normal $y = 0.00$.`
+          : `Gradients: $m_T = \\dfrac{t^2 + 1}{t^2 - 1} = ${mT.toFixed(2)}$ and $m_N = -\\dfrac{t^2 - 1}{t^2 + 1} = ${mN.toFixed(2)}$.`
+      };
+    } else {
+      const { a, b } = state;
+      const { x: x0, y: y0 } = state.hypPt;
+      const isVert = Math.abs(y0) < 1e-2;
+      const isHoriz = false;
+      const mT = isVert ? Infinity : (b * b * x0) / (a * a * y0);
+      const mN = isVert ? 0 : -1 / mT;
+
+      return {
+        x0, y0, mT, mN, isVert, isHoriz,
+        view: { cx: 0, cy: 0, halfSpanY: 5.0 },
+        heading: "Implicit Hyperbola: $\\dfrac{x^2}{a^2} - \\dfrac{y^2}{b^2} = 1$",
+        step1: `At $P(${x0.toFixed(2)}, ${y0.toFixed(2)})$: $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = \\dfrac{b^2 x_0}{a^2 y_0}$.`,
+        step2: isVert
+          ? `Edge Case ($y_0 = 0$ at vertex): Denominator vanishes $\\Rightarrow$ Vertical tangent $x = ${x0.toFixed(2)}$; Horizontal normal $y = 0.00$.`
+          : `Gradients: $m_T = ${mT.toFixed(2)}$ and $m_N = -\\dfrac{a^2 y_0}{b^2 x_0} = ${mN.toFixed(2)}$.`
+      };
+    }
+  }
+
+  // Unified 1:1 Isotropic Coordinate System (Equal pixel-per-unit scale on both axes)
+  function getIsoMetrics(w, h, view) {
+    const scale = h / (2 * view.halfSpanY);
+    const halfSpanX = w / (2 * scale);
+    return {
+      scale,
+      xMin: view.cx - halfSpanX,
+      xMax: view.cx + halfSpanX,
+      yMin: view.cy - view.halfSpanY,
+      yMax: view.cy + view.halfSpanY,
+      cx: view.cx,
+      cy: view.cy
+    };
+  }
+
+  function toPxX(x, w, m) {
+    return w / 2 + (x - m.cx) * m.scale;
+  }
+  function toMathX(px, w, m) {
+    return m.cx + (px - w / 2) / m.scale;
+  }
+  function toPxY(y, h, m) {
+    return h / 2 - (y - m.cy) * m.scale;
+  }
+  function toMathY(py, h, m) {
+    return m.cy + (h / 2 - py) / m.scale;
+  }
+
+  function resizeCanvas() {
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = Math.round(rect.width * dpr);
+    canvas.height = Math.round(rect.height * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    drawAll();
+  }
+
+  function handlePointerSnap(clientX, clientY) {
+    const geom = getGeometry();
+    const rect = canvas.getBoundingClientRect();
+    const m = getIsoMetrics(rect.width, rect.height, geom.view);
+    const mx = toMathX(clientX - rect.left, rect.width, m);
+    const my = toMathY(clientY - rect.top, rect.height, m);
+
+    if (state.preset === "ellipse") {
+      let ang = Math.atan2(my / state.b, mx / state.a);
+      if (ang < 0) ang += 2 * Math.PI;
+      state.theta = ang;
+      document.getElementById("sl_theta").value = ang.toFixed(2);
+      drawAll();
+    } else if (state.preset === "hyperbola") {
+      const sgn = mx >= 0 ? 1 : -1;
+      const yClamped = Math.max(-4.5, Math.min(4.5, my));
+      const xExact = sgn * state.a * Math.sqrt(1 + (yClamped * yClamped) / (state.b * state.b));
+      state.hypPt = { x: xExact, y: yClamped };
+      drawAll();
+    }
+  }
+
+  canvas.addEventListener("pointerdown", e => {
+    if (state.preset === "ellipse" || state.preset === "hyperbola") {
+      state.dragging = true;
+      canvas.setPointerCapture(e.pointerId);
+      handlePointerSnap(e.clientX, e.clientY);
+    }
+  });
+  canvas.addEventListener("pointermove", e => {
+    if (state.dragging) handlePointerSnap(e.clientX, e.clientY);
+  });
+  canvas.addEventListener("pointerup", () => (state.dragging = false));
+  canvas.addEventListener("pointercancel", () => (state.dragging = false));
+
+  function drawGrid(w, h, m) {
+    ctx.clearRect(0, 0, w, h);
+
+    for (let gx = Math.ceil(m.xMin); gx <= Math.floor(m.xMax); gx++) {
+      const px = toPxX(gx, w, m);
+      ctx.strokeStyle = gx === 0 ? "#64748b" : "#f1f5f9";
+      ctx.lineWidth = gx === 0 ? 1.5 : 1;
+      ctx.beginPath();
+      ctx.moveTo(px, 0);
+      ctx.lineTo(px, h);
+      ctx.stroke();
+
+      if (gx !== 0) {
+        ctx.fillStyle = "#64748b";
+        ctx.font = "11px sans-serif";
+        const y0 = Math.min(Math.max(toPxY(0, h, m) + 13, 14), h - 4);
+        ctx.fillText(gx.toString(), px - 4, y0);
+      }
+    }
+
+    for (let gy = Math.ceil(m.yMin); gy <= Math.floor(m.yMax); gy++) {
+      const py = toPxY(gy, h, m);
+      ctx.strokeStyle = gy === 0 ? "#64748b" : "#f1f5f9";
+      ctx.lineWidth = gy === 0 ? 1.5 : 1;
+      ctx.beginPath();
+      ctx.moveTo(0, py);
+      ctx.lineTo(w, py);
+      ctx.stroke();
+
+      if (gy !== 0) {
+        ctx.fillStyle = "#64748b";
+        ctx.font = "11px sans-serif";
+        const x0 = Math.min(Math.max(toPxX(0, w, m) + 5, 6), w - 22);
+        ctx.fillText(gy.toString(), x0, py + 4);
+      }
+    }
+  }
+
+  function drawInfiniteLine(w, h, m, x0, y0, slope, color, dashed) {
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2.3;
+    if (dashed) ctx.setLineDash([6, 5]);
+    ctx.beginPath();
+
+    if (!isFinite(slope) || Math.abs(slope) > 1e4) {
+      const px = toPxX(x0, w, m);
+      ctx.moveTo(px, 0);
+      ctx.lineTo(px, h);
+    } else {
+      const y1 = y0 + slope * (m.xMin - x0);
+      const y2 = y0 + slope * (m.xMax - x0);
+      ctx.moveTo(toPxX(m.xMin, w, m), toPxY(y1, h, m));
+      ctx.lineTo(toPxX(m.xMax, w, m), toPxY(y2, h, m));
+    }
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawAll() {
+    const rect = canvas.getBoundingClientRect();
+    const w = rect.width;
+    const h = rect.height;
+    const geom = getGeometry();
+    const m = getIsoMetrics(w, h, geom.view);
+
+    drawGrid(w, h, m);
+    document.getElementById("canvasHeading").innerHTML = geom.heading;
+
+    // 1. Draw the base curve
+    ctx.strokeStyle = "#1e293b";
+    ctx.lineWidth = 2.6;
+
+    if (state.preset === "ellipse") {
+      ctx.beginPath();
+      for (let i = 0; i <= 240; i++) {
+        const th = (i / 240) * Math.PI * 2;
+        const px = toPxX(state.a * Math.cos(th), w, m);
+        const py = toPxY(state.b * Math.sin(th), h, m);
+        if (i === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+      ctx.stroke();
+    } else if (state.preset === "recip") {
+      ctx.beginPath();
+      for (let i = 0; i <= 280; i++) {
+        const t = 0.16 + (i / 280) * 6.0;
+        const px = toPxX(t + 1 / t, w, m);
+        const py = toPxY(t - 1 / t, h, m);
+        if (i === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+      ctx.stroke();
+    } else if (state.preset === "hyperbola") {
+      // Asymptotes y = ±(b/a)x
+      ctx.save();
+      ctx.setLineDash([4, 4]);
+      ctx.strokeStyle = "#94a3b8";
+      ctx.lineWidth = 1.2;
+      [1, -1].forEach(sgn => {
+        const slope = sgn * (state.b / state.a);
+        ctx.beginPath();
+        ctx.moveTo(toPxX(m.xMin, w, m), toPxY(slope * m.xMin, h, m));
+        ctx.lineTo(toPxX(m.xMax, w, m), toPxY(slope * m.xMax, h, m));
+        ctx.stroke();
+      });
+      ctx.restore();
+
+      // Right & Left branches
+      [1, -1].forEach(sgn => {
+        ctx.beginPath();
+        for (let i = 0; i <= 180; i++) {
+          const u = -1.7 + (i / 180) * 3.4;
+          const px = toPxX(sgn * state.a * Math.cosh(u), w, m);
+          const py = toPxY(state.b * Math.sinh(u), h, m);
+          if (i === 0) ctx.moveTo(px, py);
+          else ctx.lineTo(px, py);
+        }
+        ctx.stroke();
+      });
+    }
+
+    // 2. Calculate Tangent & Normal Intercepts and Triangle OAB Area
+    const { x0, y0, mT, mN, isVert, isHoriz } = geom;
+    let xIntT = NaN, yIntT = NaN, triArea = NaN;
+    let xIntN = NaN, yIntN = NaN;
+
+    if (!isVert && !isHoriz) {
+      yIntT = y0 - mT * x0;
+      xIntT = -yIntT / mT;
+      triArea = 0.5 * Math.abs(xIntT * yIntT);
+
+      yIntN = y0 - mN * x0;
+      xIntN = -yIntN / mN;
+    } else if (isVert) {
+      xIntT = x0;
+      yIntN = y0;
+    } else if (isHoriz) {
+      yIntT = y0;
+      xIntN = x0;
+    }
+
+    // 3. Shade Triangle OAB formed by Tangent & Coordinate Axes
+    if (document.getElementById("chkTri").checked && isFinite(triArea) && triArea > 0) {
+      const ox = toPxX(0, w, m);
+      const oy = toPxY(0, h, m);
+      const ax = toPxX(xIntT, w, m);
+      const by = toPxY(yIntT, h, m);
+
+      ctx.fillStyle = "rgba(251, 191, 36, 0.22)";
+      ctx.beginPath();
+      ctx.moveTo(ox, oy);
+      ctx.lineTo(ax, oy);
+      ctx.lineTo(ox, by);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    // 4. Draw Tangent (solid teal) & Normal (dashed purple)
+    drawInfiniteLine(w, h, m, x0, y0, mT, "#0f766e", false);
+    drawInfiniteLine(w, h, m, x0, y0, mN, "#7c3aed", true);
+
+    // 5. Plot Intercept Markers A and B
+    const ox = toPxX(0, w, m);
+    const oy = toPxY(0, h, m);
+    if (isFinite(xIntT) && xIntT >= m.xMin - 2 && xIntT <= m.xMax + 2) {
+      const ax = toPxX(xIntT, w, m);
+      ctx.fillStyle = "#b45309";
+      ctx.beginPath();
+      ctx.arc(ax, oy, 4.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.font = "bold 11px sans-serif";
+      ctx.fillText(`A(${xIntT.toFixed(2)}, 0)`, Math.min(Math.max(ax - 24, 6), w - 75), oy + 15);
+    }
+    if (isFinite(yIntT) && yIntT >= m.yMin - 2 && yIntT <= m.yMax + 2) {
+      const by = toPxY(yIntT, h, m);
+      ctx.fillStyle = "#b45309";
+      ctx.beginPath();
+      ctx.arc(ox, by, 4.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.font = "bold 11px sans-serif";
+      ctx.fillText(`B(0, ${yIntT.toFixed(2)})`, ox + 7, Math.min(Math.max(by - 5, 14), h - 6));
+    }
+
+    if (document.getElementById("chkNormInt").checked) {
+      if (isFinite(xIntN) && xIntN >= m.xMin - 2 && xIntN <= m.xMax + 2) {
+        const nax = toPxX(xIntN, w, m);
+        ctx.fillStyle = "#7c3aed";
+        ctx.beginPath();
+        ctx.arc(nax, oy, 4, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      if (isFinite(yIntN) && yIntN >= m.yMin - 2 && yIntN <= m.yMax + 2) {
+        const nby = toPxY(yIntN, h, m);
+        ctx.fillStyle = "#7c3aed";
+        ctx.beginPath();
+        ctx.arc(ox, nby, 4, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    // 6. Plot Point of Tangency P(x0, y0)
+    const px0 = toPxX(x0, w, m);
+    const py0 = toPxY(y0, h, m);
+    ctx.fillStyle = isVert || isHoriz ? "#e11d48" : "#0f766e";
+    ctx.beginPath();
+    ctx.arc(px0, py0, 6.5, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = "#fff";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    ctx.fillStyle = "#1e293b";
+    ctx.font = "bold 12px sans-serif";
+    ctx.fillText(`P(${x0.toFixed(2)}, ${y0.toFixed(2)})`, Math.min(px0 + 9, w - 95), Math.max(py0 - 9, 16));
+
+    // 7. Update Slider Labels & Left Readouts
+    if (document.getElementById("lbl_theta")) {
+      document.getElementById("lbl_theta").textContent = `${state.theta.toFixed(2)} rad (${Math.round((state.theta * 180) / Math.PI)}°)`;
+    }
+    if (document.getElementById("lbl_t")) {
+      document.getElementById("lbl_t").textContent = state.t.toFixed(2);
+    }
+    if (document.getElementById("lbl_a")) {
+      document.getElementById("lbl_a").textContent = state.a.toFixed(2);
+    }
+    if (document.getElementById("lbl_b")) {
+      document.getElementById("lbl_b").textContent = state.b.toFixed(2);
+    }
+
+    document.getElementById("ptBadge").textContent = `P(${x0.toFixed(2)}, ${y0.toFixed(2)})`;
+    document.getElementById("derivationCard").innerHTML = `
+      <span class="step-tag">Gradient &amp; Line Derivation at $P(x_0, y_0)$</span>
+      <div><strong>Point &amp; Derivatives:</strong> ${geom.step1}</div>
+      <div><strong>Slopes:</strong> ${geom.step2}</div>
+    `;
+
+    const tanEqnStr = formatLineEqn(x0, y0, mT);
+    const normEqnStr = formatLineEqn(x0, y0, mN);
+    const areaStr = isFinite(triArea) ? `${triArea.toFixed(2)} sq. units` : "No bounded △OAB (parallel to axis)";
+    const intAStr = isFinite(xIntT) ? `(${xIntT.toFixed(2)}, 0)` : "None";
+    const intBStr = isFinite(yIntT) ? `(0, ${yIntT.toFixed(2)})` : "None";
+
+    document.getElementById("readoutBox").innerHTML = `
+      <span class="box-title">Live Tangent, Normal &amp; Intercept Readout</span>
+      <div class="gc-readout">
+        Tangent: ${tanEqnStr} &nbsp;|&nbsp; Normal: ${normEqnStr}<br>
+        Tangent Axes Intercepts: A${intAStr}, B${intBStr}<br>
+        Area of △OAB = ½ |x_A · y_B| = ${areaStr}
+      </div>
+    `;
+
+    const banner = document.getElementById("solutionBanner");
+    if (isVert) {
+      banner.className = "solution-banner edge-alert";
+      banner.innerHTML = `Edge Case Active (Vertical Tangent): Since $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$ is undefined, the tangent is the vertical line $x = ${x0.toFixed(2)}$ and the normal is the horizontal line $y = ${y0.toFixed(2)}$.`;
+    } else if (isHoriz) {
+      banner.className = "solution-banner edge-alert";
+      banner.innerHTML = `Edge Case Active (Horizontal Tangent): Since $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 0$, the tangent is the horizontal line $y = ${y0.toFixed(2)}$ and the normal is the vertical line $x = ${x0.toFixed(2)}$.`;
+    } else {
+      banner.className = "solution-banner";
+      banner.innerHTML = `Perpendicularity Check: $m_T \\cdot m_N = (${mT.toFixed(2)})(${mN.toFixed(2)}) = -1.00$. Try jumping to a vertex to observe vertical/horizontal edge cases!`;
+    }
+
+    typesetMath(document.getElementById("derivationCard"));
+    typesetMath(document.getElementById("solutionBanner"));
+    typesetMath(document.getElementById("canvasHeading"));
+  }
+
+  // 3-Question 9758 Exam Check
+  const examQs = [
+    {
+      q: "Find the equation of the tangent to the parametric curve $x = 3\\cos\\theta$, $y = 2\\sin\\theta$ at the point where $\\theta = \\dfrac{\\pi}{2}$.",
+      opts: [
+        "$y = 2$",
+        "$x = 0$",
+        "$y = 3$",
+        "$x = 2$"
+      ],
+      ans: 0,
+      exp: "At $\\theta = \\frac{\\pi}{2}$, the point is $(3\\cos\\frac{\\pi}{2}, 2\\sin\\frac{\\pi}{2}) = (0, 2)$, and $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = -\\dfrac{2}{3}\\cot\\frac{\\pi}{2} = 0$. A horizontal tangent through $(0, 2)$ has equation $y = 2$."
+    },
+    {
+      q: "The tangent to a curve at $P(4, 3)$ has gradient $m_T = 0$. What is the equation of the normal to the curve at $P$?",
+      opts: [
+        "$x = 4$",
+        "$y = 3$",
+        "$y = -\\dfrac{1}{4}x + 3$",
+        "The normal does not exist"
+      ],
+      ans: 0,
+      exp: "When $m_T = 0$, the tangent is horizontal ($y = 3$). The line perpendicular to a horizontal line through $(4, 3)$ is the vertical line $x = 4$."
+    },
+    {
+      q: "A tangent line meets the $x$-axis at $A(6, 0)$ and the $y$-axis at $B(0, -4)$. What is the exact area of triangle $OAB$?",
+      opts: [
+        "$12$",
+        "$-12$",
+        "$24$",
+        "$10$"
+      ],
+      ans: 0,
+      exp: "Area of right triangle $OAB = \\dfrac{1}{2} \\times |OA| \\times |OB| = \\dfrac{1}{2} \\times 6 \\times 4 = 12$ square units (always take absolute lengths)."
+    }
+  ];
+
+  let curQ = 0;
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").innerHTML = item.q;
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i})">${String.fromCharCode(65 + i)}. ${o}</button>
+    `).join("");
+    typesetMath(document.querySelector(".grader-card"));
+  }
+
+  function gradeExamQ(idx) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+    typesetMath(fb);
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  // Initialize
+  window.addEventListener("resize", resizeCanvas);
+  loadPreset("ellipse");
+  renderExamQ();
+  resizeCanvas();
+</script>
+
+</body>
+</html>
