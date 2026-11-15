@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5.2 Lesson 3 | Standard Series Algebra & Validity Workbench</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 16px 20px 28px 20px;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    /* CLEAN HTML STACKED FRACTIONS & MATH */
+    .math {
+      font-family: 'Cambria Math', 'Times New Roman', Georgia, serif;
+      font-size: 1.04em;
+    }
+
+    .frac {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      vertical-align: middle;
+      margin: 0 3px;
+      font-size: 0.88em;
+      line-height: 1.1;
+    }
+
+    .frac-num {
+      padding: 0 4px 2px 4px;
+      border-bottom: 1.4px solid currentColor;
+      text-align: center;
+    }
+
+    .frac-den {
+      padding: 2px 4px 0 4px;
+      text-align: center;
+    }
+
+    /* HEADER */
+    .lab-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .lab-title-wrap h1 {
+      margin: 0;
+      font-size: 1.15rem;
+      color: #1e293b;
+    }
+
+    .lab-title-wrap p {
+      margin: 3px 0 0 0;
+      font-size: 0.81rem;
+      color: var(--muted);
+    }
+
+    .mode-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mode-btn {
+      padding: 8px 13px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: var(--text);
+      font-size: 0.81rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mode-btn:hover {
+      border-color: var(--purple);
+      color: var(--purple-dark);
+    }
+
+    .mode-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.22);
+    }
+
+    /* WORKED MODE SELECTOR BAR */
+    .expr-bar {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      box-shadow: 0 2px 8px rgba(148, 163, 184, 0.06);
+    }
+
+    .bar-label {
+      font-size: 0.74rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--muted);
+      margin-right: 2px;
+    }
+
+    .expr-pill {
+      padding: 6px 12px;
+      border-radius: 9px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #1e293b;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .expr-pill:hover {
+      border-color: var(--purple);
+      background: #f5f3ff;
+    }
+
+    .expr-pill.active {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      border-color: var(--purple);
+    }
+
+    .trunc-wrap {
+      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #f1f5f9;
+      padding: 4px 10px;
+      border-radius: 9px;
+      border: 1px solid #cbd5e1;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .trunc-btn {
+      padding: 4px 9px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: #475569;
+      font-size: 0.77rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .trunc-btn.active {
+      background: #ffffff;
+      color: var(--purple-dark);
+      border-color: #c4b5fd;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+
+    /* PANELS */
+    .view-panel {
+      display: none;
+    }
+    .view-panel.active {
+      display: block;
+    }
+
+    /* WORKSPACE GRID */
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: 1.38fr 1.12fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 1020px) {
+      .workspace-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 3px 10px rgba(148, 163, 184, 0.06);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .kicker {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--purple-dark);
+    }
+
+    /* TERM-BY-TERM MULTIPLICATION GRID */
+    .mult-legend {
+      display: flex;
+      gap: 10px;
+      font-size: 0.74rem;
+      font-weight: 700;
+    }
+
+    .pill-kept {
+      background: var(--teal-bg);
+      color: var(--teal);
+      border: 1px solid #5eead4;
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+
+    .pill-drop {
+      background: #f1f5f9;
+      color: #94a3b8;
+      border: 1px dashed #cbd5e1;
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+
+    .grid-scroll {
+      overflow-x: auto;
+      margin-top: 6px;
+    }
+
+    .mult-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 5px;
+      font-size: 0.84rem;
+      text-align: center;
+    }
+
+    .mult-table th {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 7px 6px;
+      color: #1e293b;
+      font-weight: 800;
+    }
+
+    .mult-table td {
+      border-radius: 8px;
+      padding: 8px 6px;
+      transition: 0.15s;
+      position: relative;
+    }
+
+    .cell-kept {
+      background: var(--teal-bg);
+      border: 1.5px solid #2dd4bf;
+      color: #115e59;
+      font-weight: 800;
+      box-shadow: 0 1px 4px rgba(15, 118, 110, 0.08);
+    }
+
+    .cell-kept:hover {
+      transform: translateY(-1px);
+      border-color: var(--teal);
+    }
+
+    .cell-discarded {
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      color: #94a3b8;
+      font-weight: 500;
+      opacity: 0.62;
+    }
+
+    .deg-tag {
+      display: block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      opacity: 0.8;
+      margin-top: 2px;
+    }
+
+    .step-summary-box {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 9px 12px;
+      margin-top: 10px;
+      font-size: 0.84rem;
+      line-height: 1.68;
+      color: #334155;
+    }
+
+    .final-series-box {
+      background: #f5f3ff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 11px;
+      padding: 11px 14px;
+      margin-top: 10px;
+      font-size: 0.93rem;
+      line-height: 1.8;
+      color: #1e293b;
+    }
+
+    /* VALIDITY NUMBER-LINE INTERSECTOR */
+    .numberline-wrap {
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      background: #ffffff;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+    }
+
+    .intersection-banner {
+      background: var(--teal-bg);
+      border: 1px solid #5eead4;
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 12px;
+      font-size: 0.83rem;
+      line-height: 1.6;
+      color: #134e4a;
+    }
+
+    .legend-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 8px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: #475569;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .swatch-line {
+      width: 16px;
+      height: 3px;
+      border-radius: 2px;
+      display: inline-block;
+    }
+
+    /* TAB 2: SOURCE SERIES + 3 DEDUCTIONS */
+    .source-series-banner {
+      background: #f5f3ff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 13px;
+      padding: 12px 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 2px 8px rgba(139, 92, 246, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .validity-chip {
+      background: var(--teal-bg);
+      border: 1px solid #5eead4;
+      color: var(--teal);
+      padding: 4px 11px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
+
+    .deduce-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 960px) {
+      .deduce-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .deduce-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 3px 10px rgba(148, 163, 184, 0.06);
+    }
+
+    .deduce-badge {
+      display: inline-block;
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+    }
+
+    .formula-highlight {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      padding: 9px 11px;
+      margin: 8px 0;
+      font-size: 0.88rem;
+      line-height: 1.75;
+    }
+
+    .pitfall-note {
+      margin-top: 14px;
+      background: var(--rose-bg);
+      border: 1px solid #fda4af;
+      border-radius: 12px;
+      padding: 11px 14px;
+      font-size: 0.82rem;
+      line-height: 1.55;
+      color: #881337;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER & TABS -->
+  <div class="lab-header">
+    <div class="lab-title-wrap">
+      <h1>Standard Series Algebra &amp; Validity Workbench</h1>
+      <p>Multiply and substitute MF27 standard series, filter out higher-order terms, and intersect intervals of convergence</p>
+    </div>
+    <div class="mode-tabs">
+      <button class="mode-btn active" id="tabWorkbenchBtn" onclick="switchMode('workbench')">
+        1. Multiplication Grid &amp; Validity Intersector
+      </button>
+      <button class="mode-btn" id="tabDeduceBtn" onclick="switchMode('deduce')">
+        2. Deductions: Tangent at <em>x</em> = 0, Differentiation &amp; Integration
+      </button>
+    </div>
+  </div>
+
+  <!-- WORKED MODE SELECTOR & DEGREE TRUNCATION FILTER -->
+  <div class="expr-bar">
+    <span class="bar-label">Worked Mode:</span>
+    <button class="expr-pill active" id="e_compLn" onclick="selectExpr('compLn')">
+      <span class="math">ln(1 + 2<em>x</em>)</span>
+    </button>
+    <button class="expr-pill" id="e_prodExpCos" onclick="selectExpr('prodExpCos')">
+      <span class="math"><em>e</em><sup>&minus;<em>x</em></sup> cos 2<em>x</em></span>
+    </button>
+    <button class="expr-pill" id="e_quotBinom" onclick="selectExpr('quotBinom')">
+      <span class="math"><span class="frac"><span class="frac-num">1 + <em>x</em></span><span class="frac-den">1 &minus; 2<em>x</em></span></span></span> <span style="font-size:0.72rem; color:var(--muted);">(Binomial + Product)</span>
+    </button>
+    <button class="expr-pill" id="e_compExpSin" onclick="selectExpr('compExpSin')">
+      <span class="math"><em>e</em><sup>sin <em>x</em></sup></span> <span style="font-size:0.72rem; color:var(--muted);">(Compound)</span>
+    </button>
+    <button class="expr-pill" id="e_logSplit" onclick="selectExpr('logSplit')">
+      <span class="math">ln<span class="frac"><span class="frac-num">1 + <em>x</em></span><span class="frac-den">1 &minus; <em>x</em></span></span></span>
+    </button>
+
+    <div class="trunc-wrap">
+      <span>Truncate:</span>
+      <button class="trunc-btn" id="deg2Btn" onclick="setTruncDeg(2)">Up to <span class="math"><em>x</em>&sup2;</span></button>
+      <button class="trunc-btn active" id="deg3Btn" onclick="setTruncDeg(3)">Up to <span class="math"><em>x</em>&sup3;</span></button>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       TAB 1: TERM-BY-TERM GRID + VALIDITY NUMBER-LINE INTERSECTOR
+       ========================================================= -->
+  <div class="view-panel active" id="workbenchPanel">
+    <div class="workspace-grid">
+      <!-- LEFT: TERM-BY-TERM MULTIPLICATION / EXPANSION GRID -->
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker" id="gridKicker">Term-by-Term Expansion Grid</span>
+          <div class="mult-legend">
+            <span class="pill-kept">&#10003; Kept (&le; <em>x</em><sup><span id="legKeptDeg">3</span></sup>)</span>
+            <span class="pill-drop">&times; Discarded (&gt; <em>x</em><sup><span id="legDropDeg">3</span></sup>)</span>
+          </div>
+        </div>
+
+        <div style="font-size:0.83rem; color:#475569; margin-bottom:6px;" id="gridSubtitle"></div>
+
+        <div class="grid-scroll" id="multGridContainer"></div>
+
+        <div class="step-summary-box" id="algebraStepsBox"></div>
+
+        <div class="final-series-box" id="finalSeriesBox"></div>
+      </div>
+
+      <!-- RIGHT: VALIDITY NUMBER-LINE INTERSECTOR + GRAPH -->
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker">Validity Number-Line Intersector</span>
+        </div>
+
+        <div class="numberline-wrap">
+          <canvas id="numberLineCanvas" width="600" height="158"></canvas>
+        </div>
+
+        <div class="intersection-banner" id="intersectionSummaryBox"></div>
+
+        <div class="card-header" style="margin-top:6px; margin-bottom:6px;">
+          <span class="kicker" style="color:var(--teal);">Visual Approximation Check</span>
+        </div>
+
+        <div class="numberline-wrap" style="margin-bottom:0;">
+          <canvas id="verifyCanvas" width="600" height="215"></canvas>
+        </div>
+
+        <div class="legend-row">
+          <span class="legend-item">
+            <span class="swatch-line" style="background:#0f172a;"></span> Exact Curve <span class="math"><em>y</em> = <em>f</em>(<em>x</em>)</span>
+          </span>
+          <span class="legend-item">
+            <span class="swatch-line" style="background:#0f766e;"></span> Tangent at <span class="math"><em>x</em> = 0</span>
+          </span>
+          <span class="legend-item">
+            <span class="swatch-line" style="background:#8b5cf6;"></span> Truncated <span class="math"><em>P<sub>n</sub></em>(<em>x</em>)</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       TAB 2: DEDUCTIONS (TANGENT AT x=0, DIFFERENTIATION, INTEGRATION)
+       ========================================================= -->
+  <div class="view-panel" id="deducePanel">
+    <!-- DERIVED SERIES FROM TAB 1 -->
+    <div class="source-series-banner" id="deduceSourceBanner"></div>
+
+    <!-- 3 DEDUCTION CARDS -->
+    <div class="deduce-grid" id="deduceGridContainer"></div>
+
+    <div class="pitfall-note">
+      <strong>9758 H2 Math Exam Checkpoints:</strong><br>
+      &bull; <strong>Check <span class="math"><em>u</em>(0) = 0</span> Before Compound Substitution:</strong> Standard MF27 series expand around <span class="math"><em>u</em> = 0</span>. Because <span class="math">sin 0 = 0</span>, substituting <span class="math"><em>u</em> = sin <em>x</em></span> into <span class="math"><em>e<sup>u</sup></em></span> is valid; by contrast, <span class="math"><em>e</em><sup>cos <em>x</em></sup></span> must first be rewritten as <span class="math"><em>e</em> &middot; <em>e</em><sup>cos <em>x</em> &minus; 1</sup></span>.<br>
+      &bull; <strong>Intersect Valid Domains:</strong> When multiplying or adding two series, the combined expansion is only valid on the <strong>intersection</strong> of their individual convergence intervals.
+    </div>
+  </div>
+
+  <script>
+    let activeMode = "workbench";
+    let currentExpr = "compLn";
+    let truncDeg = 3; // 2 or 3
+
+    const nlCanvas = document.getElementById("numberLineCanvas");
+    const nlCtx = nlCanvas.getContext("2d");
+
+    const vCanvas = document.getElementById("verifyCanvas");
+    const vCtx = vCanvas.getContext("2d");
+
+    function frac(num, den) {
+      return `<span class="frac"><span class="frac-num">${num}</span><span class="frac-den">${den}</span></span>`;
+    }
+
+    const EXPRS = {
+      compLn: {
+        titleHTML: "ln(1 + 2<em>x</em>)",
+        gridTitle: "Substitution Power Table: u = 2x in ln(1 + u)",
+        gridSubtitle: `Substitute <span class="math"><em>u</em> = 2<em>x</em></span> (noting <span class="math"><em>u</em>(0) = 0</span>) into <span class="math">ln(1 + <em>u</em>) = <em>u</em> &minus; ${frac("1", "2")}<em>u</em>&sup2; + ${frac("1", "3")}<em>u</em>&sup3; &minus; ${frac("1", "4")}<em>u</em><sup>4</sup> + &ctdot;</span>`,
+        colHeaders: ["Term 1 (u)", "Term 2 (−½u²)", "Term 3 (+⅓u³)", "Term 4 (−¼u⁴)"],
+        rows: [
+          {
+            label: "u = 2x",
+            cells: [
+              { html: "2<em>x</em>", deg: 1 },
+              { html: `&minus;${frac("1", "2")}(2<em>x</em>)&sup2; = &minus;2<em>x</em>&sup2;`, deg: 2 },
+              { html: `+${frac("1", "3")}(2<em>x</em>)&sup3; = +${frac("8", "3")}<em>x</em>&sup3;`, deg: 3 },
+              { html: `&minus;${frac("1", "4")}(2<em>x</em>)<sup>4</sup> = &minus;4<em>x</em><sup>4</sup>`, deg: 4 }
+            ]
+          }
+        ],
+        algebraSteps: `<strong>Substitution Check:</strong> Since <span class="math"><em>u</em>(0) = 2(0) = 0</span>, direct substitution into MF27's <span class="math">ln(1 + <em>u</em>)</span> series is valid.<br>
+                       <strong>Collecting Kept Terms:</strong> Sum all highlighted teal cells with degree &le; <span class="math"><em>n</em></span>.`,
+        series2HTML: `2<em>x</em> &minus; 2<em>x</em>&sup2;`,
+        series3HTML: `2<em>x</em> &minus; 2<em>x</em>&sup2; + ${frac("8", "3")}<em>x</em>&sup3;`,
+        validityPieces: [
+          { label: "MF27 ln(1 + u): −1 < 2x ≤ 1", left: -0.5, right: 0.5, leftClosed: false, rightClosed: true, color: "#0284c7" }
+        ],
+        intersectionText: `<strong>Exact Intersection:</strong> <span class="math">&minus;1 &lt; 2<em>x</em> &le; 1 &rArr; <strong>&minus;${frac("1", "2")} &lt; <em>x</em> &le; ${frac("1", "2")}</strong></span> (left endpoint open, right endpoint included).`,
+        validityBadge: `&minus;${frac("1", "2")} &lt; <em>x</em> &le; ${frac("1", "2")}`,
+        xMin: -0.9, xMax: 1.0, yMin: -2.2, yMax: 1.5,
+        wallLeft: -0.5, wallRight: 0.5,
+        tangentEq: "<em>y</em> = 2<em>x</em>",
+        tangentNote: "Linear term of ln(1 + 2x) gives the tangent line y = 2x at x = 0.",
+        diffTarget: `${frac("2", "1 + 2<em>x</em>")} = ${frac("d", "d<em>x</em>")}[ln(1 + 2<em>x</em>)]`,
+        diffSeries2: `2 &minus; 4<em>x</em> + &ctdot;`,
+        diffSeries3: `2 &minus; 4<em>x</em> + 8<em>x</em>&sup2; + &ctdot;`,
+        intTarget: `&int;<sub>0</sub><sup><em>x</em></sup> ln(1 + 2<em>t</em>) d<em>t</em>`,
+        intSeries2: `<em>x</em>&sup2; &minus; ${frac("2", "3")}<em>x</em>&sup3; + &ctdot;`,
+        intSeries3: `<em>x</em>&sup2; &minus; ${frac("2", "3")}<em>x</em>&sup3; + ${frac("2", "3")}<em>x</em><sup>4</sup> + &ctdot;`,
+        exactY: (x) => (1 + 2 * x > 0 ? Math.log(1 + 2 * x) : NaN),
+        polyY: (x, deg) => 2 * x - 2 * x * x + (deg >= 3 ? (8 / 3) * x * x * x : 0)
+      },
+
+      prodExpCos: {
+        titleHTML: "<em>e</em><sup>&minus;<em>x</em></sup> cos 2<em>x</em>",
+        gridTitle: "Term-by-Term Multiplication Grid: (e⁻ˣ) × (cos 2x)",
+        gridSubtitle: `Multiply <span class="math">(1 &minus; <em>x</em> + ${frac("1", "2")}<em>x</em>&sup2; &minus; ${frac("1", "6")}<em>x</em>&sup3;)</span> by <span class="math">(1 &minus; 2<em>x</em>&sup2;)</span> and filter out terms above target degree:`,
+        colHeaders: ["1", "−2x²"],
+        rows: [
+          {
+            label: "1",
+            cells: [
+              { html: "1", deg: 0 },
+              { html: "&minus;2<em>x</em>&sup2;", deg: 2 }
+            ]
+          },
+          {
+            label: "−x",
+            cells: [
+              { html: "&minus;<em>x</em>", deg: 1 },
+              { html: "+2<em>x</em>&sup3;", deg: 3 }
+            ]
+          },
+          {
+            label: `+${frac("1", "2")}x²`,
+            cells: [
+              { html: `+${frac("1", "2")}<em>x</em>&sup2;`, deg: 2 },
+              { html: "&minus;<em>x</em><sup>4</sup>", deg: 4 }
+            ]
+          },
+          {
+            label: `−${frac("1", "6")}x³`,
+            cells: [
+              { html: `&minus;${frac("1", "6")}<em>x</em>&sup3;`, deg: 3 },
+              { html: `+${frac("1", "3")}<em>x</em><sup>5</sup>`, deg: 5 }
+            ]
+          }
+        ],
+        algebraSteps: `<strong>Collecting Like Powers from Teal Cells:</strong><br>
+                       &bull; <span class="math"><em>x</em>&sup2;</span> terms: <span class="math">&minus;2<em>x</em>&sup2; + ${frac("1", "2")}<em>x</em>&sup2; = &minus;${frac("3", "2")}<em>x</em>&sup2;</span> &nbsp;|&nbsp; <span class="math"><em>x</em>&sup3;</span> terms (if kept): <span class="math">2<em>x</em>&sup3; &minus; ${frac("1", "6")}<em>x</em>&sup3; = +${frac("11", "6")}<em>x</em>&sup3;</span>.`,
+        series2HTML: `1 &minus; <em>x</em> &minus; ${frac("3", "2")}<em>x</em>&sup2;`,
+        series3HTML: `1 &minus; <em>x</em> &minus; ${frac("3", "2")}<em>x</em>&sup2; + ${frac("11", "6")}<em>x</em>&sup3;`,
+        validityPieces: [
+          { label: "Factor 1: e⁻ˣ valid for all x ∈ ℝ", left: -Infinity, right: Infinity, leftClosed: false, rightClosed: false, color: "#0284c7" },
+          { label: "Factor 2: cos 2x valid for all x ∈ ℝ", left: -Infinity, right: Infinity, leftClosed: false, rightClosed: false, color: "#7c3aed" }
+        ],
+        intersectionText: `<strong>Exact Intersection:</strong> <span class="math">&Ropf; &cap; &Ropf; = <strong>all <em>x</em> &isin; &Ropf;</strong></span> (valid for every real number <span class="math"><em>x</em></span>).`,
+        validityBadge: `all <em>x</em> &isin; &Ropf;`,
+        xMin: -1.4, xMax: 1.4, yMin: -1.6, yMax: 1.8,
+        wallLeft: null, wallRight: null,
+        tangentEq: "<em>y</em> = 1 &minus; <em>x</em>",
+        tangentNote: "Linear terms 1 − x give the tangent line to y = e⁻ˣ cos 2x at x = 0.",
+        diffTarget: `${frac("d", "d<em>x</em>")}(<em>e</em><sup>&minus;<em>x</em></sup> cos 2<em>x</em>)`,
+        diffSeries2: `&minus;1 &minus; 3<em>x</em> + &ctdot;`,
+        diffSeries3: `&minus;1 &minus; 3<em>x</em> + ${frac("11", "2")}<em>x</em>&sup2; + &ctdot;`,
+        intTarget: `&int;<sub>0</sub><sup><em>x</em></sup> <em>e</em><sup>&minus;<em>t</em></sup> cos 2<em>t</em> d<em>t</em>`,
+        intSeries2: `<em>x</em> &minus; ${frac("1", "2")}<em>x</em>&sup2; &minus; ${frac("1", "2")}<em>x</em>&sup3; + &ctdot;`,
+        intSeries3: `<em>x</em> &minus; ${frac("1", "2")}<em>x</em>&sup2; &minus; ${frac("1", "2")}<em>x</em>&sup3; + ${frac("11", "24")}<em>x</em><sup>4</sup> + &ctdot;`,
+        exactY: (x) => Math.exp(-x) * Math.cos(2 * x),
+        polyY: (x, deg) => 1 - x - 1.5 * x * x + (deg >= 3 ? (11 / 6) * x * x * x : 0)
+      },
+
+      quotBinom: {
+        titleHTML: `${frac("1 + <em>x</em>", "1 &minus; 2<em>x</em>")}`,
+        gridTitle: "Binomial + Product Grid: (1 + x) × (1 − 2x)⁻¹",
+        gridSubtitle: `First expand <span class="math">(1 &minus; 2<em>x</em>)<sup>&minus;1</sup> = 1 + 2<em>x</em> + 4<em>x</em>&sup2; + 8<em>x</em>&sup3; + &ctdot;</span>, then multiply by <span class="math">(1 + <em>x</em>)</span>:`,
+        colHeaders: ["1", "+2x", "+4x²", "+8x³"],
+        rows: [
+          {
+            label: "1",
+            cells: [
+              { html: "1", deg: 0 },
+              { html: "+2<em>x</em>", deg: 1 },
+              { html: "+4<em>x</em>&sup2;", deg: 2 },
+              { html: "+8<em>x</em>&sup3;", deg: 3 }
+            ]
+          },
+          {
+            label: "+x",
+            cells: [
+              { html: "+<em>x</em>", deg: 1 },
+              { html: "+2<em>x</em>&sup2;", deg: 2 },
+              { html: "+4<em>x</em>&sup3;", deg: 3 },
+              { html: "+8<em>x</em><sup>4</sup>", deg: 4 }
+            ]
+          }
+        ],
+        algebraSteps: `<strong>Collecting Like Powers from Teal Cells:</strong><br>
+                       &bull; <span class="math"><em>x</em></span>: <span class="math">2<em>x</em> + <em>x</em> = 3<em>x</em></span> &nbsp;|&nbsp; <span class="math"><em>x</em>&sup2;</span>: <span class="math">4<em>x</em>&sup2; + 2<em>x</em>&sup2; = 6<em>x</em>&sup2;</span> &nbsp;|&nbsp; <span class="math"><em>x</em>&sup3;</span> (if kept): <span class="math">8<em>x</em>&sup3; + 4<em>x</em>&sup3; = 12<em>x</em>&sup3;</span>.`,
+        series2HTML: `1 + 3<em>x</em> + 6<em>x</em>&sup2;`,
+        series3HTML: `1 + 3<em>x</em> + 6<em>x</em>&sup2; + 12<em>x</em>&sup3;`,
+        validityPieces: [
+          { label: "Numerator (1 + x): valid for all x ∈ ℝ", left: -Infinity, right: Infinity, leftClosed: false, rightClosed: false, color: "#0284c7" },
+          { label: "Binomial (1 − 2x)⁻¹: |−2x| < 1 ⇒ −½ < x < ½", left: -0.5, right: 0.5, leftClosed: false, rightClosed: false, color: "#7c3aed" }
+        ],
+        intersectionText: `<strong>Exact Intersection:</strong> <span class="math">&Ropf; &cap; (&minus;${frac("1", "2")}, ${frac("1", "2")}) = <strong>&minus;${frac("1", "2")} &lt; <em>x</em> &lt; ${frac("1", "2")}</strong></span> (both endpoints excluded).`,
+        validityBadge: `&minus;${frac("1", "2")} &lt; <em>x</em> &lt; ${frac("1", "2")}`,
+        xMin: -0.85, xMax: 0.85, yMin: -1.5, yMax: 4.5,
+        wallLeft: -0.5, wallRight: 0.5,
+        tangentEq: "<em>y</em> = 1 + 3<em>x</em>",
+        tangentNote: "Linear terms 1 + 3x give the tangent line to y = (1 + x)/(1 − 2x) at x = 0.",
+        diffTarget: `${frac("3", "(1 &minus; 2<em>x</em>)&sup2;")} = ${frac("d", "d<em>x</em>")}(${frac("1 + <em>x</em>", "1 &minus; 2<em>x</em>")})`,
+        diffSeries2: `3 + 12<em>x</em> + &ctdot;`,
+        diffSeries3: `3 + 12<em>x</em> + 36<em>x</em>&sup2; + &ctdot;`,
+        intTarget: `&int;<sub>0</sub><sup><em>x</em></sup> ${frac("1 + <em>t</em>", "1 &minus; 2<em>t</em>")} d<em>t</em>`,
+        intSeries2: `<em>x</em> + ${frac("3", "2")}<em>x</em>&sup2; + 2<em>x</em>&sup3; + &ctdot;`,
+        intSeries3: `<em>x</em> + ${frac("3", "2")}<em>x</em>&sup2; + 2<em>x</em>&sup3; + 3<em>x</em><sup>4</sup> + &ctdot;`,
+        exactY: (x) => (Math.abs(1 - 2 * x) > 1e-4 ? (1 + x) / (1 - 2 * x) : NaN),
+        polyY: (x, deg) => 1 + 3 * x + 6 * x * x + (deg >= 3 ? 12 * x * x * x : 0)
+      },
+
+      compExpSin: {
+        titleHTML: "<em>e</em><sup>sin <em>x</em></sup>",
+        gridTitle: "Compound Substitution Grid: u = sin x in eᵘ",
+        gridSubtitle: `Substitute <span class="math"><em>u</em> = sin <em>x</em> = <em>x</em> &minus; ${frac("1", "6")}<em>x</em>&sup3; + &ctdot;</span> (valid since <span class="math"><em>u</em>(0) = 0</span>) into <span class="math"><em>e<sup>u</sup></em> = 1 + <em>u</em> + ${frac("1", "2")}<em>u</em>&sup2; + ${frac("1", "6")}<em>u</em>&sup3; + &ctdot;</span>:`,
+        colHeaders: ["x⁰ Term", "x¹ Term", "x² Term", "x³ Term", "≥ x⁴ Terms"],
+        rows: [
+          {
+            label: "1",
+            cells: [
+              { html: "1", deg: 0 },
+              { html: "0", deg: 1 },
+              { html: "0", deg: 2 },
+              { html: "0", deg: 3 },
+              { html: "0", deg: 4 }
+            ]
+          },
+          {
+            label: "+u",
+            cells: [
+              { html: "0", deg: 0 },
+              { html: "+<em>x</em>", deg: 1 },
+              { html: "0", deg: 2 },
+              { html: `&minus;${frac("1", "6")}<em>x</em>&sup3;`, deg: 3 },
+              { html: `+${frac("1", "120")}<em>x</em><sup>5</sup>`, deg: 5 }
+            ]
+          },
+          {
+            label: `+${frac("1", "2")}u²`,
+            cells: [
+              { html: "0", deg: 0 },
+              { html: "0", deg: 1 },
+              { html: `+${frac("1", "2")}<em>x</em>&sup2;`, deg: 2 },
+              { html: "0", deg: 3 },
+              { html: `&minus;${frac("1", "6")}<em>x</em><sup>4</sup>`, deg: 4 }
+            ]
+          },
+          {
+            label: `+${frac("1", "6")}u³`,
+            cells: [
+              { html: "0", deg: 0 },
+              { html: "0", deg: 1 },
+              { html: "0", deg: 2 },
+              { html: `+${frac("1", "6")}<em>x</em>&sup3;`, deg: 3 },
+              { html: `&minus;${frac("1", "12")}<em>x</em><sup>5</sup>`, deg: 5 }
+            ]
+          }
+        ],
+        algebraSteps: `<strong>Remarkable Cancellation in <span class="math"><em>x</em>&sup3;</span>:</strong> Notice how <span class="math">&minus;${frac("1", "6")}<em>x</em>&sup3;</span> from <span class="math"><em>u</em></span> and <span class="math">+${frac("1", "6")}<em>x</em>&sup3;</span> from <span class="math">${frac("1", "6")}<em>u</em>&sup3;</span> cancel completely (<span class="math">0<em>x</em>&sup3;</span>)!`,
+        series2HTML: `1 + <em>x</em> + ${frac("1", "2")}<em>x</em>&sup2;`,
+        series3HTML: `1 + <em>x</em> + ${frac("1", "2")}<em>x</em>&sup2; + 0<em>x</em>&sup3;`,
+        validityPieces: [
+          { label: "Inner u = sin x: valid for all x ∈ ℝ", left: -Infinity, right: Infinity, leftClosed: false, rightClosed: false, color: "#0284c7" },
+          { label: "Outer eᵘ: valid for all u ∈ ℝ", left: -Infinity, right: Infinity, leftClosed: false, rightClosed: false, color: "#7c3aed" }
+        ],
+        intersectionText: `<strong>Exact Intersection:</strong> Since <span class="math">sin <em>x</em></span> and <span class="math"><em>e<sup>u</sup></em></span> both converge everywhere, <span class="math"><em>e</em><sup>sin <em>x</em></sup></span> is valid for <strong>all <span class="math"><em>x</em> &isin; &Ropf;</span></strong>.`,
+        validityBadge: `all <em>x</em> &isin; &Ropf;`,
+        xMin: -1.6, xMax: 1.6, yMin: -0.4, yMax: 3.1,
+        wallLeft: null, wallRight: null,
+        tangentEq: "<em>y</em> = 1 + <em>x</em>",
+        tangentNote: "Near x = 0, sin x ≈ x, so eˢⁱⁿ ˣ shares the exact same tangent y = 1 + x as eˣ!",
+        diffTarget: `(cos <em>x</em>)<em>e</em><sup>sin <em>x</em></sup> = ${frac("d", "d<em>x</em>")}(<em>e</em><sup>sin <em>x</em></sup>)`,
+        diffSeries2: `1 + <em>x</em> + &ctdot;`,
+        diffSeries3: `1 + <em>x</em> + 0<em>x</em>&sup2; + &ctdot;`,
+        intTarget: `&int;<sub>0</sub><sup><em>x</em></sup> <em>e</em><sup>sin <em>t</em></sup> d<em>t</em>`,
+        intSeries2: `<em>x</em> + ${frac("1", "2")}<em>x</em>&sup2; + ${frac("1", "6")}<em>x</em>&sup3; + &ctdot;`,
+        intSeries3: `<em>x</em> + ${frac("1", "2")}<em>x</em>&sup2; + ${frac("1", "6")}<em>x</em>&sup3; + 0<em>x</em><sup>4</sup> + &ctdot;`,
+        exactY: (x) => Math.exp(Math.sin(x)),
+        polyY: (x, deg) => 1 + x + 0.5 * x * x
+      },
+
+      logSplit: {
+        titleHTML: `ln<span class="frac"><span class="frac-num">1 + <em>x</em></span><span class="frac-den">1 &minus; <em>x</em></span></span>`,
+        gridTitle: "Logarithmic Split Grid: ln(1 + x) − ln(1 − x)",
+        gridSubtitle: `Split via <span class="math">ln(<em>A</em>/<em>B</em>) = ln <em>A</em> &minus; ln <em>B</em></span> and align powers column-by-column:`,
+        colHeaders: ["x¹ Term", "x² Term", "x³ Term", "x⁴ Term"],
+        rows: [
+          {
+            label: "+ln(1 + x)",
+            cells: [
+              { html: "+<em>x</em>", deg: 1 },
+              { html: `&minus;${frac("1", "2")}<em>x</em>&sup2;`, deg: 2 },
+              { html: `+${frac("1", "3")}<em>x</em>&sup3;`, deg: 3 },
+              { html: `&minus;${frac("1", "4")}<em>x</em><sup>4</sup>`, deg: 4 }
+            ]
+          },
+          {
+            label: "−ln(1 − x)",
+            cells: [
+              { html: "+<em>x</em>", deg: 1 },
+              { html: `+${frac("1", "2")}<em>x</em>&sup2;`, deg: 2 },
+              { html: `+${frac("1", "3")}<em>x</em>&sup3;`, deg: 3 },
+              { html: `+${frac("1", "4")}<em>x</em><sup>4</sup>`, deg: 4 }
+            ]
+          }
+        ],
+        algebraSteps: `<strong>Odd-Function Symmetry Cancellation:</strong> All even powers (<span class="math"><em>x</em>&sup2;, <em>x</em><sup>4</sup>, &hellip;</span>) cancel to <span class="math">0</span>, while odd powers double!`,
+        series2HTML: `2<em>x</em> + 0<em>x</em>&sup2;`,
+        series3HTML: `2<em>x</em> + ${frac("2", "3")}<em>x</em>&sup3;`,
+        validityPieces: [
+          { label: "Piece 1: ln(1 + x) ⇒ −1 < x ≤ 1", left: -1, right: 1, leftClosed: false, rightClosed: true, color: "#0284c7" },
+          { label: "Piece 2: ln(1 − x) ⇒ −1 ≤ x < 1", left: -1, right: 1, leftClosed: true, rightClosed: false, color: "#7c3aed" }
+        ],
+        intersectionText: `<strong>Exact Intersection:</strong> <span class="math">(&minus;1, 1] &cap; [&minus;1, 1) = <strong>&minus;1 &lt; <em>x</em> &lt; 1</strong></span> (both endpoints excluded because <span class="math">x = 1</span> fails piece 2 and <span class="math">x = &minus;1</span> fails piece 1!).`,
+        validityBadge: `&minus;1 &lt; <em>x</em> &lt; 1`,
+        xMin: -1.35, xMax: 1.35, yMin: -3.0, yMax: 3.0,
+        wallLeft: -1, wallRight: 1,
+        tangentEq: "<em>y</em> = 2<em>x</em>",
+        tangentNote: "Because the x² coefficient is 0, y = 2x is an inflectional tangent at (0, 0)!",
+        diffTarget: `${frac("2", "1 &minus; <em>x</em>&sup2;")} = ${frac("d", "d<em>x</em>")}(ln${frac("1 + <em>x</em>", "1 &minus; <em>x</em>")})`,
+        diffSeries2: `2 + 0<em>x</em> + &ctdot;`,
+        diffSeries3: `2 + 2<em>x</em>&sup2; + &ctdot;`,
+        intTarget: `&int;<sub>0</sub><sup><em>x</em></sup> ln<span class="frac"><span class="frac-num">1 + <em>t</em></span><span class="frac-den">1 &minus; <em>t</em></span></span> d<em>t</em>`,
+        intSeries2: `<em>x</em>&sup2; + &ctdot;`,
+        intSeries3: `<em>x</em>&sup2; + ${frac("1", "6")}<em>x</em><sup>4</sup> + &ctdot;`,
+        exactY: (x) => (x > -1 && x < 1 ? Math.log((1 + x) / (1 - x)) : NaN),
+        polyY: (x, deg) => 2 * x + (deg >= 3 ? (2 / 3) * x * x * x : 0)
+      }
+    };
+
+    function renderGridAndSteps() {
+      const item = EXPRS[currentExpr];
+      document.getElementById("gridKicker").textContent = item.gridTitle;
+      document.getElementById("gridSubtitle").innerHTML = item.gridSubtitle;
+      document.getElementById("legKeptDeg").textContent = truncDeg;
+      document.getElementById("legDropDeg").textContent = truncDeg;
+
+      let tableHTML = `<table class="mult-table"><thead><tr><th>&times;</th>`;
+      item.colHeaders.forEach(ch => {
+        tableHTML += `<th class="math">${ch}</th>`;
+      });
+      tableHTML += `</tr></thead><tbody>`;
+
+      item.rows.forEach(row => {
+        tableHTML += `<tr><th class="math">${row.label}</th>`;
+        row.cells.forEach(cell => {
+          const kept = cell.deg <= truncDeg;
+          tableHTML += `
+            <td class="${kept ? "cell-kept" : "cell-discarded"}">
+              <span class="math">${cell.html}</span>
+              <span class="deg-tag">${kept ? `deg ${cell.deg} (kept)` : `deg ${cell.deg} (> ${truncDeg})`}</span>
+            </td>
+          `;
+        });
+        tableHTML += `</tr>`;
+      });
+      tableHTML += `</tbody></table>`;
+
+      document.getElementById("multGridContainer").innerHTML = tableHTML;
+      document.getElementById("algebraStepsBox").innerHTML = item.algebraSteps;
+
+      const seriesStr = truncDeg === 2 ? item.series2HTML : item.series3HTML;
+      document.getElementById("finalSeriesBox").innerHTML = `
+        <div class="kicker" style="margin-bottom:2px;">Assembled Maclaurin Series (Up to <em>x</em><sup>${truncDeg}</sup>)</div>
+        <span class="math"><strong>${item.titleHTML} = ${seriesStr} + &ctdot;</strong></span>
+        <span style="margin-left:10px; font-size:0.82rem; color:var(--teal); font-weight:700;">
+          (Valid for <span class="math">${item.validityBadge}</span>)
+        </span>
+      `;
+    }
+
+    function drawNumberLine() {
+      const item = EXPRS[currentExpr];
+      const w = nlCanvas.width;
+      const h = nlCanvas.height;
+      nlCtx.clearRect(0, 0, w, h);
+
+      const xMin = -1.6;
+      const xMax = 1.6;
+      const padL = 42;
+      const padR = 42;
+      const toPx = (x) => padL + ((x - xMin) / (xMax - xMin)) * (w - padL - padR);
+
+      // Subtle background
+      nlCtx.fillStyle = "#f8fafc";
+      nlCtx.fillRect(0, 0, w, h);
+
+      // Vertical reference ticks
+      const ticks = [-1.5, -1, -0.5, 0, 0.5, 1, 1.5];
+      ticks.forEach(t => {
+        const px = toPx(t);
+        nlCtx.strokeStyle = t === 0 ? "#94a3b8" : "#e2e8f0";
+        nlCtx.lineWidth = t === 0 ? 1.4 : 1;
+        nlCtx.beginPath();
+        nlCtx.moveTo(px, 14);
+        nlCtx.lineTo(px, h - 22);
+        nlCtx.stroke();
+
+        nlCtx.fillStyle = "#475569";
+        nlCtx.font = "bold 11px Segoe UI, sans-serif";
+        const label = t === -0.5 ? "−½" : (t === 0.5 ? "½" : t.toString());
+        nlCtx.fillText(label, px - (label.length * 3.5), h - 7);
+      });
+
+      function drawIntervalBar(y, left, right, leftClosed, rightClosed, color, label, isResult = false) {
+        const pxL = left === -Infinity ? 16 : toPx(left);
+        const pxR = right === Infinity ? w - 16 : toPx(right);
+
+        nlCtx.save();
+        nlCtx.strokeStyle = color;
+        nlCtx.lineWidth = isResult ? 5 : 3.5;
+        nlCtx.beginPath();
+        nlCtx.moveTo(pxL, y);
+        nlCtx.lineTo(pxR, y);
+        nlCtx.stroke();
+
+        // Arrows if infinite
+        if (left === -Infinity) {
+          nlCtx.beginPath();
+          nlCtx.moveTo(pxL + 7, y - 4);
+          nlCtx.lineTo(pxL, y);
+          nlCtx.lineTo(pxL + 7, y + 4);
+          nlCtx.stroke();
+        } else {
+          nlCtx.beginPath();
+          nlCtx.arc(pxL, y, 4.5, 0, Math.PI * 2);
+          nlCtx.fillStyle = leftClosed ? color : "#ffffff";
+          nlCtx.fill();
+          nlCtx.lineWidth = 2;
+          nlCtx.stroke();
+        }
+
+        if (right === Infinity) {
+          nlCtx.beginPath();
+          nlCtx.moveTo(pxR - 7, y - 4);
+          nlCtx.lineTo(pxR, y);
+          nlCtx.lineTo(pxR - 7, y + 4);
+          nlCtx.stroke();
+        } else {
+          nlCtx.beginPath();
+          nlCtx.arc(pxR, y, 4.5, 0, Math.PI * 2);
+          nlCtx.fillStyle = rightClosed ? color : "#ffffff";
+          nlCtx.fill();
+          nlCtx.lineWidth = 2;
+          nlCtx.stroke();
+        }
+
+        nlCtx.fillStyle = color;
+        nlCtx.font = isResult ? "bold 11.5px Segoe UI, sans-serif" : "600 11px Segoe UI, sans-serif";
+        nlCtx.fillText(label, 22, y - 8);
+        nlCtx.restore();
+      }
+
+      // Draw each piece
+      let curY = 26;
+      item.validityPieces.forEach(p => {
+        drawIntervalBar(curY, p.left, p.right, p.leftClosed, p.rightClosed, p.color, p.label, false);
+        curY += 36;
+      });
+
+      // Compute exact intersection
+      let intL = -Infinity;
+      let intR = Infinity;
+      let intLClosed = true;
+      let intRClosed = true;
+
+      item.validityPieces.forEach(p => {
+        if (p.left > intL) {
+          intL = p.left;
+          intLClosed = p.leftClosed;
+        } else if (p.left === intL) {
+          intLClosed = intLClosed && p.leftClosed;
+        }
+        if (p.right < intR) {
+          intR = p.right;
+          intRClosed = p.rightClosed;
+        } else if (p.right === intR) {
+          intRClosed = intRClosed && p.rightClosed;
+        }
+      });
+
+      const resY = item.validityPieces.length === 1 ? 78 : 108;
+      drawIntervalBar(resY, intL, intR, intLClosed, intRClosed, "#0f766e", "Intersection (Combined Range of Validity)", true);
+
+      document.getElementById("intersectionSummaryBox").innerHTML = item.intersectionText;
+    }
+
+    function drawGraph() {
+      const item = EXPRS[currentExpr];
+      const w = vCanvas.width;
+      const h = vCanvas.height;
+      vCtx.clearRect(0, 0, w, h);
+
+      const toPxX = (x) => ((x - item.xMin) / (item.xMax - item.xMin)) * w;
+      const toPxY = (y) => h - ((y - item.yMin) / (item.yMax - item.yMin)) * h;
+
+      // Convergence Shading
+      if (item.wallLeft === null) {
+        vCtx.fillStyle = "rgba(16, 185, 129, 0.08)";
+        vCtx.fillRect(0, 0, w, h);
+      } else {
+        const pxL = toPxX(item.wallLeft);
+        const pxR = toPxX(item.wallRight);
+        vCtx.fillStyle = "rgba(244, 63, 94, 0.10)";
+        vCtx.fillRect(0, 0, pxL, h);
+        vCtx.fillStyle = "rgba(16, 185, 129, 0.10)";
+        vCtx.fillRect(pxL, 0, pxR - pxL, h);
+        vCtx.fillStyle = "rgba(244, 63, 94, 0.10)";
+        vCtx.fillRect(pxR, 0, w - pxR, h);
+
+        vCtx.save();
+        vCtx.strokeStyle = "#e11d48";
+        vCtx.lineWidth = 1.4;
+        vCtx.setLineDash([5, 4]);
+        vCtx.beginPath();
+        vCtx.moveTo(pxL, 0); vCtx.lineTo(pxL, h);
+        vCtx.moveTo(pxR, 0); vCtx.lineTo(pxR, h);
+        vCtx.stroke();
+        vCtx.restore();
+      }
+
+      // Grid
+      vCtx.strokeStyle = "#e2e8f0";
+      vCtx.lineWidth = 1;
+      for (let gx = Math.ceil(item.xMin * 2) / 2; gx <= item.xMax; gx += 0.5) {
+        const px = toPxX(gx);
+        vCtx.beginPath(); vCtx.moveTo(px, 0); vCtx.lineTo(px, h); vCtx.stroke();
+      }
+      for (let gy = Math.ceil(item.yMin); gy <= Math.floor(item.yMax); gy++) {
+        const py = toPxY(gy);
+        vCtx.beginPath(); vCtx.moveTo(0, py); vCtx.lineTo(w, py); vCtx.stroke();
+      }
+
+      // Axes
+      const ox = toPxX(0);
+      const oy = toPxY(0);
+      vCtx.strokeStyle = "#64748b";
+      vCtx.lineWidth = 1.4;
+      vCtx.beginPath();
+      vCtx.moveTo(0, oy); vCtx.lineTo(w, oy);
+      vCtx.moveTo(ox, 0); vCtx.lineTo(ox, h);
+      vCtx.stroke();
+
+      function plotCurve(fn, color, width, dash = []) {
+        vCtx.save();
+        vCtx.strokeStyle = color;
+        vCtx.lineWidth = width;
+        vCtx.setLineDash(dash);
+        vCtx.beginPath();
+        let started = false;
+        const N = 420;
+        for (let i = 0; i <= N; i++) {
+          const x = item.xMin + (i / N) * (item.xMax - item.xMin);
+          const y = fn(x);
+          if (!Number.isFinite(y) || y < item.yMin - 1 || y > item.yMax + 1) {
+            started = false;
+            continue;
+          }
+          const px = toPxX(x);
+          const py = toPxY(y);
+          if (!started) { vCtx.moveTo(px, py); started = true; }
+          else { vCtx.lineTo(px, py); }
+        }
+        vCtx.stroke();
+        vCtx.restore();
+      }
+
+      plotCurve(item.exactY, "#0f172a", 2.5);
+
+      const y0 = item.polyY(0, 1);
+      const slope0 = (item.polyY(0.001, 1) - y0) / 0.001;
+      plotCurve((x) => y0 + slope0 * x, "#0f766e", 1.8, [6, 4]);
+
+      plotCurve((x) => item.polyY(x, truncDeg), "#8b5cf6", 2.5);
+
+      vCtx.beginPath();
+      vCtx.arc(ox, toPxY(y0), 4.5, 0, Math.PI * 2);
+      vCtx.fillStyle = "#7c3aed";
+      vCtx.fill();
+    }
+
+    function renderDeduceTab() {
+      const item = EXPRS[currentExpr];
+      const seriesStr = truncDeg === 2 ? item.series2HTML : item.series3HTML;
+      const diffStr = truncDeg === 2 ? item.diffSeries2 : item.diffSeries3;
+      const intStr = truncDeg === 2 ? item.intSeries2 : item.intSeries3;
+
+      document.getElementById("deduceSourceBanner").innerHTML = `
+        <div>
+          <div class="kicker" style="margin-bottom:2px;">Derived Maclaurin Series from Tab 1 (Up to <em>x</em><sup>${truncDeg}</sup>)</div>
+          <span class="math" style="font-size:0.96rem;"><strong>${item.titleHTML} = ${seriesStr} + &ctdot;</strong></span>
+        </div>
+        <div class="validity-chip math">Valid for ${item.validityBadge}</div>
+      `;
+
+      document.getElementById("deduceGridContainer").innerHTML = `
+        <div class="deduce-card">
+          <span class="deduce-badge" style="background:var(--teal-bg); color:var(--teal);">Deduction 1: Equation of Tangent at <em>x</em> = 0</span>
+          <div style="font-size:0.83rem; color:#334155;">
+            Reading off the constant and <span class="math"><em>x</em></span>-terms from the expansion above gives the tangent line <span class="math"><em>y</em> = <em>f</em>(0) + <em>f</em>&prime;(0)<em>x</em></span>:
+          </div>
+          <div class="formula-highlight math">
+            <strong>${item.tangentEq}</strong>
+          </div>
+          <div style="font-size:0.79rem; color:#475569;">${item.tangentNote}</div>
+        </div>
+
+        <div class="deduce-card">
+          <span class="deduce-badge" style="background:var(--blue-bg); color:#0369a1;">Deduction 2: Term-by-Term Differentiation</span>
+          <div style="font-size:0.83rem; color:#334155;">
+            Differentiating <span class="math">${item.titleHTML}</span> term-by-term yields the expansion for <span class="math">${item.diffTarget}</span> up to <span class="math"><em>x</em><sup>${truncDeg - 1}</sup></span>:
+          </div>
+          <div class="formula-highlight math">
+            <strong>${diffStr}</strong>
+          </div>
+          <div style="font-size:0.79rem; color:#475569;">Differentiating reduces the highest known power from <span class="math"><em>x</em><sup>${truncDeg}</sup></span> to <span class="math"><em>x</em><sup>${truncDeg - 1}</sup></span>.</div>
+        </div>
+
+        <div class="deduce-card">
+          <span class="deduce-badge" style="background:var(--purple-bg); color:var(--purple-dark);">Deduction 3: Term-by-Term Integration</span>
+          <div style="font-size:0.83rem; color:#334155;">
+            Integrating from <span class="math">0</span> to <span class="math"><em>x</em></span> gives the Maclaurin series for <span class="math">${item.intTarget}</span> up to <span class="math"><em>x</em><sup>${truncDeg + 1}</sup></span>:
+          </div>
+          <div class="formula-highlight math">
+            <strong>${intStr}</strong>
+          </div>
+          <div style="font-size:0.79rem; color:#475569;">Integrating raises the highest known power from <span class="math"><em>x</em><sup>${truncDeg}</sup></span> to <span class="math"><em>x</em><sup>${truncDeg + 1}</sup></span>.</div>
+        </div>
+      `;
+    }
+
+    function refreshAll() {
+      renderGridAndSteps();
+      drawNumberLine();
+      drawGraph();
+      renderDeduceTab();
+    }
+
+    function switchMode(mode) {
+      activeMode = mode;
+      document.getElementById("tabWorkbenchBtn").classList.toggle("active", mode === "workbench");
+      document.getElementById("tabDeduceBtn").classList.toggle("active", mode === "deduce");
+      document.getElementById("workbenchPanel").classList.toggle("active", mode === "workbench");
+      document.getElementById("deducePanel").classList.toggle("active", mode === "deduce");
+      if (mode === "workbench") {
+        drawNumberLine();
+        drawGraph();
+      }
+    }
+
+    function selectExpr(key) {
+      currentExpr = key;
+      document.querySelectorAll(".expr-pill").forEach(el => el.classList.remove("active"));
+      document.getElementById("e_" + key).classList.add("active");
+      refreshAll();
+    }
+
+    function setTruncDeg(d) {
+      truncDeg = d;
+      document.getElementById("deg2Btn").classList.toggle("active", d === 2);
+      document.getElementById("deg3Btn").classList.toggle("active", d === 3);
+      refreshAll();
+    }
+
+    refreshAll();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5.2 Lesson 1 | Formula Derivation, Tangent at x = 0, Standard Series & Convergence</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 16px 20px 28px 20px;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    /* CLEAN HTML STACKED FRACTION & MATH NOTATION */
+    .math {
+      font-family: 'Cambria Math', 'Times New Roman', Georgia, serif;
+      font-size: 1.04em;
+    }
+
+    .frac {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      vertical-align: middle;
+      margin: 0 3px;
+      font-size: 0.88em;
+      line-height: 1.1;
+    }
+
+    .frac-num {
+      padding: 0 4px 2px 4px;
+      border-bottom: 1.4px solid currentColor;
+      text-align: center;
+    }
+
+    .frac-den {
+      padding: 2px 4px 0 4px;
+      text-align: center;
+    }
+
+    /* TOP HEADER & NAVIGATION TABS */
+    .lab-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .lab-title-wrap h1 {
+      margin: 0;
+      font-size: 1.15rem;
+      color: #1e293b;
+    }
+
+    .lab-title-wrap p {
+      margin: 3px 0 0 0;
+      font-size: 0.81rem;
+      color: var(--muted);
+    }
+
+    .mode-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mode-btn {
+      padding: 8px 13px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: var(--text);
+      font-size: 0.81rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mode-btn:hover {
+      border-color: var(--purple);
+      color: var(--purple-dark);
+    }
+
+    .mode-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.22);
+    }
+
+    /* FUNCTION SELECTOR BAR */
+    .fn-bar {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      box-shadow: 0 2px 8px rgba(148, 163, 184, 0.06);
+    }
+
+    .fn-bar-label {
+      font-size: 0.74rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--muted);
+      margin-right: 4px;
+    }
+
+    .fn-pill {
+      padding: 6px 13px;
+      border-radius: 9px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #1e293b;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .fn-pill:hover {
+      border-color: var(--purple);
+      background: #f5f3ff;
+    }
+
+    .fn-pill.active {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      border-color: var(--purple);
+    }
+
+    .binom-n-wrap {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      margin-left: auto;
+      background: var(--amber-bg);
+      border: 1px solid #fcd34d;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 0.81rem;
+      font-weight: 700;
+      color: var(--amber);
+    }
+
+    .binom-n-wrap.visible {
+      display: inline-flex;
+    }
+
+    .binom-n-wrap select {
+      border: 1px solid #f59e0b;
+      border-radius: 6px;
+      padding: 2px 6px;
+      font-weight: 700;
+      color: #1e293b;
+      background: #ffffff;
+    }
+
+    /* VIEW PANELS */
+    .view-panel {
+      display: none;
+    }
+    .view-panel.active {
+      display: block;
+    }
+
+    /* CARDS & GRIDS */
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: 1.48fr 1.02fr;
+      gap: 16px;
+    }
+
+    .derive-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 16px;
+    }
+
+    .improve-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 980px) {
+      .workspace-grid,
+      .derive-grid,
+      .improve-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 3px 10px rgba(148, 163, 184, 0.06);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .kicker {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--purple-dark);
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .action-btn {
+      padding: 6px 11px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #1e293b;
+      font-size: 0.77rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .action-btn:hover {
+      border-color: var(--purple);
+      color: var(--purple-dark);
+    }
+
+    .action-btn.primary {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .action-btn.primary:hover {
+      background: var(--purple-dark);
+    }
+
+    /* DERIVATION STEPS (TAB 1) */
+    .proof-step {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 9px 12px;
+      margin-bottom: 8px;
+      background: #f8fafc;
+      font-size: 0.85rem;
+      line-height: 1.65;
+      transition: 0.2s;
+    }
+
+    .proof-step.active-step {
+      border-color: var(--purple);
+      background: #faf5ff;
+      box-shadow: 0 2px 8px rgba(139, 92, 246, 0.11);
+    }
+
+    .proof-step.locked {
+      opacity: 0.36;
+    }
+
+    .proof-step-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 3px;
+    }
+
+    .proof-tag {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--purple-dark);
+    }
+
+    .proof-result-pill {
+      background: var(--blue-bg);
+      color: #0369a1;
+      font-weight: 800;
+      padding: 2px 9px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+    }
+
+    .formula-banner {
+      background: #f5f3ff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 11px;
+      padding: 11px 13px;
+      margin-top: 10px;
+      font-size: 0.9rem;
+      line-height: 1.85;
+      color: #1e293b;
+    }
+
+    .tangent-formula-banner {
+      background: var(--blue-bg);
+      border: 1.5px solid #7dd3fc;
+      border-radius: 11px;
+      padding: 11px 13px;
+      margin-top: 10px;
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: #0c4a6e;
+    }
+
+    .tangent-deduction-box {
+      background: var(--teal-bg);
+      border: 1px solid #5eead4;
+      border-radius: 11px;
+      padding: 11px 13px;
+      margin-top: 10px;
+      font-size: 0.84rem;
+      line-height: 1.65;
+      color: #134e4a;
+    }
+
+    .tangent-eq-highlight {
+      display: inline-block;
+      background: #ffffff;
+      border: 1px solid #14b8a6;
+      color: #0f766e;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 8px;
+      margin-top: 6px;
+      font-size: 0.95rem;
+    }
+
+    /* TABLES */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.83rem;
+      margin-top: 8px;
+    }
+
+    .data-table th {
+      background: #f1f5f9;
+      color: #1e293b;
+      font-weight: 800;
+      text-align: left;
+      padding: 8px 9px;
+      border-bottom: 2px solid #cbd5e1;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+    }
+
+    .data-table td {
+      padding: 8px 9px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+
+    .data-table tr.highlight-row {
+      background: #f5f3ff;
+      font-weight: 700;
+    }
+
+    .data-table tr.locked-row {
+      opacity: 0.34;
+    }
+
+    /* GRAPH & MORPH CONTROLS (TAB 2) */
+    .canvas-wrap {
+      position: relative;
+      width: 100%;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 390px;
+      cursor: ew-resize;
+    }
+
+    .legend-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 9px;
+      font-size: 0.77rem;
+      color: #475569;
+      align-items: center;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 600;
+    }
+
+    .swatch-line {
+      width: 17px;
+      height: 3px;
+      border-radius: 2px;
+      display: inline-block;
+    }
+
+    .swatch-box {
+      width: 13px;
+      height: 13px;
+      border-radius: 3px;
+      display: inline-block;
+    }
+
+    .control-group {
+      margin-bottom: 11px;
+      padding: 10px 12px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .control-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      font-size: 0.83rem;
+      font-weight: 700;
+      color: #1e293b;
+    }
+
+    .badge-val {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      padding: 2px 9px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.8rem;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .poly-box {
+      background: #f5f3ff;
+      border: 1px solid #ddd6fe;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 0.88rem;
+      line-height: 1.8;
+      color: #1e293b;
+      margin-bottom: 10px;
+      overflow-x: auto;
+    }
+
+    .validity-box {
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 0.81rem;
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    .validity-box.inside {
+      background: var(--teal-bg);
+      border: 1px solid #5eead4;
+      color: #134e4a;
+    }
+
+    .validity-box.outside {
+      background: var(--rose-bg);
+      border: 1px solid #fda4af;
+      color: #881337;
+    }
+
+    .probe-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 7px;
+      margin-top: 8px;
+    }
+
+    .metric-tile {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 7px 6px;
+      text-align: center;
+    }
+
+    .metric-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .metric-num {
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-top: 2px;
+    }
+
+    .lever-badge {
+      display: inline-block;
+      background: var(--blue-bg);
+      color: #0369a1;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 999px;
+      margin-bottom: 6px;
+    }
+
+    .takeaway-banner {
+      margin-top: 12px;
+      background: var(--amber-bg);
+      border: 1px solid #fcd34d;
+      border-radius: 12px;
+      padding: 11px 13px;
+      font-size: 0.82rem;
+      line-height: 1.55;
+      color: #78350f;
+    }
+
+    .mf27-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 9px;
+      margin-top: 10px;
+    }
+
+    .mf27-card {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.83rem;
+      line-height: 1.7;
+    }
+
+    .mf27-card strong {
+      color: var(--purple-dark);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER & TABS -->
+  <div class="lab-header">
+    <div class="lab-title-wrap">
+      <h1>Derivation of Maclaurin Formula, Tangent at <em>x</em> = 0, Standard Series &amp; Convergence</h1>
+      <p>Derive the general Maclaurin expansion from first principles, deduce the tangent at <em>x</em> = 0, and test approximation accuracy</p>
+    </div>
+    <div class="mode-tabs">
+      <button class="mode-btn active" id="tabDeriveBtn" onclick="switchMode('derive')">
+        1. Derive Formula &amp; Tangent at <em>x</em> = 0
+      </button>
+      <button class="mode-btn" id="tabMorphBtn" onclick="switchMode('morph')">
+        2. Polynomial Morph &amp; Convergence Wall
+      </button>
+      <button class="mode-btn" id="tabImproveBtn" onclick="switchMode('improve')">
+        3. How to Improve Approximation
+      </button>
+    </div>
+  </div>
+
+  <!-- SHARED MF27 FUNCTION SELECTOR -->
+  <div class="fn-bar">
+    <span class="fn-bar-label">Select Function <span class="math"><em>f</em>(<em>x</em>)</span>:</span>
+    <button class="fn-pill active" id="fn_exp" onclick="selectFunction('exp')"><span class="math"><em>e</em><sup><em>x</em></sup></span></button>
+    <button class="fn-pill" id="fn_sin" onclick="selectFunction('sin')"><span class="math">sin <em>x</em></span></button>
+    <button class="fn-pill" id="fn_cos" onclick="selectFunction('cos')"><span class="math">cos <em>x</em></span></button>
+    <button class="fn-pill" id="fn_ln" onclick="selectFunction('ln')"><span class="math">ln(1 + <em>x</em>)</span></button>
+    <button class="fn-pill" id="fn_binom" onclick="selectFunction('binom')"><span class="math">(1 + <em>x</em>)<sup><em>n</em></sup></span></button>
+
+    <div class="binom-n-wrap" id="binomNWrap">
+      <label for="binomNSelect">Exponent <span class="math"><em>n</em></span> =</label>
+      <select id="binomNSelect" onchange="updateBinomN()">
+        <option value="-1">&minus;1 &nbsp;[1 / (1 + x)]</option>
+        <option value="-2">&minus;2 &nbsp;[1 / (1 + x)&sup2;]</option>
+        <option value="0.5">&frac12; &nbsp;[&radic;(1 + x)]</option>
+        <option value="-0.5">&minus;&frac12; &nbsp;[1 / &radic;(1 + x)]</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       TAB 1: DERIVE MACLAURIN FORMULA & TANGENT AT x = 0
+       ========================================================= -->
+  <div class="view-panel active" id="derivePanel">
+    <div class="derive-grid">
+      <!-- LEFT: FIRST-PRINCIPLES PROOF OF a_k = f^(k)(0) / k! + TANGENT DERIVATION -->
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker">Part A: First-Principles Derivation of the Maclaurin Formula</span>
+          <div class="btn-row" style="margin-top:0;">
+            <button class="action-btn" onclick="setProofStep(0)">Reset (<em>k</em> = 0)</button>
+            <button class="action-btn primary" onclick="nextProofStep()">Differentiate &amp; Set <em>x</em> = 0 (+1)</button>
+            <button class="action-btn" onclick="setProofStep(4)">Reveal Full Proof</button>
+          </div>
+        </div>
+
+        <div style="font-size:0.84rem; color:#334155; margin-bottom:9px; background:#f8fafc; padding:8px 11px; border-radius:9px; border:1px solid var(--border);">
+          <strong>Goal:</strong> Suppose <span class="math"><em>f</em>(<em>x</em>) = <em>a</em><sub>0</sub> + <em>a</em><sub>1</sub><em>x</em> + <em>a</em><sub>2</sub><em>x</em>&sup2; + <em>a</em><sub>3</sub><em>x</em>&sup3; + <em>a</em><sub>4</sub><em>x</em><sup>4</sup> + &ctdot;</span> around <span class="math"><em>x</em> = 0</span>. How do we find each coefficient <span class="math"><em>a<sub>k</sub></em></span>?
+        </div>
+
+        <div id="proofStepsContainer"></div>
+
+        <!-- GENERAL MACLAURIN SERIES FORMULA -->
+        <div class="formula-banner">
+          <div class="kicker" style="margin-bottom:3px;">General Maclaurin Series Formula</div>
+          <span class="math">
+            <strong><em>f</em>(<em>x</em>) = <em>f</em>(0) + <em>f</em>&prime;(0)<em>x</em> +
+            <span class="frac"><span class="frac-num"><em>f</em>&Prime;(0)</span><span class="frac-den">2!</span></span><em>x</em>&sup2; +
+            <span class="frac"><span class="frac-num"><em>f</em>&prime;&prime;&prime;(0)</span><span class="frac-den">3!</span></span><em>x</em>&sup3; + &ctdot; +
+            <span class="frac"><span class="frac-num"><em>f</em><sup>(<em>k</em>)</sup>(0)</span><span class="frac-den"><em>k</em>!</span></span><em>x<sup>k</sup></em> + &ctdot;</strong>
+          </span>
+        </div>
+
+        <!-- DERIVATION OF EQUATION OF TANGENT AT x = 0 -->
+        <div class="tangent-formula-banner">
+          <div class="kicker" style="color:#0369a1; margin-bottom:4px;">
+            Derivation: Equation of Tangent to <em>y</em> = <em>f</em>(<em>x</em>) at <em>x</em> = 0
+          </div>
+          <div>
+            <strong>1. From Coordinate Geometry:</strong> At <span class="math"><em>x</em> = 0</span>, the point of contact is <span class="math">(0, <em>f</em>(0))</span> and the gradient is <span class="math"><em>m</em> = <em>f</em>&prime;(0)</span>:
+            <div style="margin:3px 0 5px 12px;" class="math">
+              <em>y</em> &minus; <em>y</em><sub>1</sub> = <em>m</em>(<em>x</em> &minus; <em>x</em><sub>1</sub>) &nbsp;&rArr;&nbsp;
+              <em>y</em> &minus; <em>f</em>(0) = <em>f</em>&prime;(0)(<em>x</em> &minus; 0) &nbsp;&rArr;&nbsp;
+              <strong><em>y</em> = <em>f</em>(0) + <em>f</em>&prime;(0)<em>x</em></strong>
+            </div>
+            <strong>2. From the Maclaurin Series:</strong> For very small <span class="math">|<em>x</em>|</span>, neglecting <span class="math"><em>x</em>&sup2;</span> and higher powers leaves the linear approximation <span class="math"><em>P</em><sub>1</sub>(<em>x</em>)</span>:
+            <div style="margin:3px 0 0 12px;" class="math">
+              <strong><em>y</em> = <em>f</em>(0) + <em>f</em>&prime;(0)<em>x</em></strong> &nbsp;(the first two terms of the Maclaurin expansion!)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: APPLY TO SELECTED f(x) + DEDUCE TANGENT AT x = 0 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker">Part B: Apply Formula &amp; Deduce Tangent at <em>x</em> = 0</span>
+        </div>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Order <span class="math"><em>k</em></span></th>
+              <th><span class="math"><em>f</em><sup>(<em>k</em>)</sup>(<em>x</em>)</span></th>
+              <th><span class="math"><em>f</em><sup>(<em>k</em>)</sup>(0)</span></th>
+              <th>Coeff <span class="math"><span class="frac"><span class="frac-num"><em>f</em><sup>(<em>k</em>)</sup>(0)</span><span class="frac-den"><em>k</em>!</span></span></span></th>
+            </tr>
+          </thead>
+          <tbody id="applyTableBody"></tbody>
+        </table>
+
+        <div class="poly-box" style="margin-top:10px; margin-bottom:0;" id="derivedSeriesOutput"></div>
+
+        <!-- DEDUCE EQUATION OF TANGENT AT x = 0 FOR SELECTED f(x) -->
+        <div class="tangent-deduction-box">
+          <div class="kicker" style="color:var(--teal); margin-bottom:4px;">
+            Applied Tangent Equation at <em>x</em> = 0 for Selected <em>f</em>(<em>x</em>)
+          </div>
+          Reading off the constant and <span class="math"><em>x</em></span>-terms (<span class="math"><em>y</em> = <em>f</em>(0) + <em>f</em>&prime;(0)<em>x</em></span>) directly from the Maclaurin series above gives:
+          <div>
+            <span class="tangent-eq-highlight math" id="tangentEqOutput">y = 1 + x</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MF27 STANDARD SERIES SUMMARY -->
+    <div class="card" style="margin-top:14px;">
+      <span class="kicker" style="color:var(--teal);">MF27 Standard Maclaurin Series &amp; Intervals of Convergence</span>
+      <div class="mf27-grid">
+        <div class="mf27-card">
+          <span class="math"><strong><em>e<sup>x</sup></em></strong> = 1 + <em>x</em> + <span class="frac"><span class="frac-num"><em>x</em>&sup2;</span><span class="frac-den">2!</span></span> + <span class="frac"><span class="frac-num"><em>x</em>&sup3;</span><span class="frac-den">3!</span></span> + &ctdot;</span> &nbsp;(<strong>all <span class="math"><em>x</em> &isin; &Ropf;</span></strong>)
+        </div>
+        <div class="mf27-card">
+          <span class="math"><strong>sin <em>x</em></strong> = <em>x</em> &minus; <span class="frac"><span class="frac-num"><em>x</em>&sup3;</span><span class="frac-den">3!</span></span> + <span class="frac"><span class="frac-num"><em>x</em><sup>5</sup></span><span class="frac-den">5!</span></span> &minus; &ctdot;</span> &nbsp;(<strong>all <span class="math"><em>x</em> &isin; &Ropf;</span></strong>)
+        </div>
+        <div class="mf27-card">
+          <span class="math"><strong>cos <em>x</em></strong> = 1 &minus; <span class="frac"><span class="frac-num"><em>x</em>&sup2;</span><span class="frac-den">2!</span></span> + <span class="frac"><span class="frac-num"><em>x</em><sup>4</sup></span><span class="frac-den">4!</span></span> &minus; &ctdot;</span> &nbsp;(<strong>all <span class="math"><em>x</em> &isin; &Ropf;</span></strong>)
+        </div>
+        <div class="mf27-card">
+          <span class="math"><strong>ln(1 + <em>x</em>)</strong> = <em>x</em> &minus; <span class="frac"><span class="frac-num"><em>x</em>&sup2;</span><span class="frac-den">2</span></span> + <span class="frac"><span class="frac-num"><em>x</em>&sup3;</span><span class="frac-den">3</span></span> &minus; &ctdot;</span> &nbsp;(<strong>&minus;1 &lt; <span class="math"><em>x</em></span> &le; 1</strong>)
+        </div>
+        <div class="mf27-card">
+          <span class="math"><strong>(1 + <em>x</em>)<sup><em>n</em></sup></strong> = 1 + <em>nx</em> + <span class="frac"><span class="frac-num"><em>n</em>(<em>n</em> &minus; 1)</span><span class="frac-den">2!</span></span><em>x</em>&sup2; + &ctdot;</span> &nbsp;(<strong>&minus;1 &lt; <span class="math"><em>x</em></span> &lt; 1</strong>)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       TAB 2: POLYNOMIAL MORPH & CONVERGENCE WALL
+       ========================================================= -->
+  <div class="view-panel" id="morphPanel">
+    <div class="workspace-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker">Visual Wrapping, Tangent at <em>x</em> = 0 &amp; Convergence Domain</span>
+          <label style="font-size:0.78rem; font-weight:700; color:#0f766e; cursor:pointer; display:inline-flex; align-items:center; gap:5px;">
+            <input type="checkbox" id="showTangentToggle" checked onchange="drawGraph()" />
+            Show Tangent Line <span class="math"><em>y</em> = <em>f</em>(0) + <em>f</em>&prime;(0)<em>x</em></span>
+          </label>
+        </div>
+        <div class="canvas-wrap">
+          <canvas id="graphCanvas" width="760" height="390"></canvas>
+        </div>
+        <div class="legend-bar">
+          <span class="legend-item">
+            <span class="swatch-line" style="background:#0f172a;"></span> True Curve <span class="math"><em>y</em> = <em>f</em>(<em>x</em>)</span>
+          </span>
+          <span class="legend-item">
+            <span class="swatch-line" style="background:#0f766e;"></span> Tangent at <span class="math"><em>x</em> = 0</span>
+          </span>
+          <span class="legend-item">
+            <span class="swatch-line" style="background:#8b5cf6;"></span> Maclaurin <span class="math"><em>P<sub>k</sub></em>(<em>x</em>)</span>
+          </span>
+          <span class="legend-item">
+            <span class="swatch-box" style="background:rgba(16, 185, 129, 0.14); border:1px solid #10b981;"></span> Valid Region
+          </span>
+          <span class="legend-item">
+            <span class="swatch-box" style="background:rgba(244, 63, 94, 0.12); border:1px dashed #e11d48;"></span> Divergence Zone
+          </span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker">Degree Scrubber &amp; Error Diagnostics</span>
+        </div>
+
+        <div class="control-group">
+          <div class="control-top">
+            <span>Polynomial Degree <span class="math"><em>k</em></span></span>
+            <span class="badge-val" id="degBadge">k = 3</span>
+          </div>
+          <input type="range" id="degSlider" min="0" max="12" value="3" oninput="onDegreeChange(this.value)" />
+          <div class="btn-row">
+            <button class="action-btn" onclick="stepDegree(-1)">&minus;1 Degree</button>
+            <button class="action-btn" onclick="stepDegree(1)">+1 Degree</button>
+            <button class="action-btn primary" id="animBtn" onclick="toggleAnimate()">&#9654; Animate Wrap (0 &rarr; 12)</button>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <div class="control-top">
+            <span>Evaluation Point <span class="math"><em>x</em><sub>0</sub></span></span>
+            <span class="badge-val" id="probeBadge">x<sub>0</sub> = 0.60</span>
+          </div>
+          <input type="range" id="probeSlider" min="-2.4" max="2.8" step="0.05" value="0.6" oninput="onProbeChange(this.value)" />
+          <div class="btn-row">
+            <button class="action-btn" onclick="setProbe(0.20)">Close (<span class="math"><em>x</em> = 0.20</span>)</button>
+            <button class="action-btn" onclick="setProbe(0.80)">Near Edge (<span class="math"><em>x</em> = 0.80</span>)</button>
+            <button class="action-btn" onclick="setProbe(1.50)">Outside (<span class="math"><em>x</em> = 1.50</span>)</button>
+          </div>
+        </div>
+
+        <div class="kicker" style="margin-bottom:5px;">Maclaurin Polynomial <span class="math"><em>P<sub>k</sub></em>(<em>x</em>)</span></div>
+        <div class="poly-box" id="polyFormulaBox"></div>
+
+        <div class="validity-box inside" id="validityBox">
+          <div id="validityStatusText"></div>
+          <div class="probe-metrics">
+            <div class="metric-tile">
+              <div class="metric-label">Exact <span class="math"><em>f</em>(<em>x</em><sub>0</sub>)</span></div>
+              <div class="metric-num" id="exactVal">1.822119</div>
+            </div>
+            <div class="metric-tile">
+              <div class="metric-label">Approx <span class="math"><em>P<sub>k</sub></em>(<em>x</em><sub>0</sub>)</span></div>
+              <div class="metric-num" id="approxVal">1.816000</div>
+            </div>
+            <div class="metric-tile">
+              <div class="metric-label">Abs Error |<span class="math"><em>E<sub>k</sub></em></span>|</div>
+              <div class="metric-num" id="errorVal">0.006119</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       TAB 3: HOW TO IMPROVE APPROXIMATION
+       ========================================================= -->
+  <div class="view-panel" id="improvePanel">
+    <div class="improve-grid">
+      <div class="card">
+        <span class="lever-badge">Lever 1: Include Higher-Degree Terms (Increase <em>k</em>)</span>
+        <div style="font-size:0.84rem; color:#334155; margin-bottom:8px;">
+          At fixed valid <span class="math"><em>x</em><sub>0</sub> = <strong id="lever1XLabel">0.50</strong></span>, adding more terms matches higher derivatives (<span class="math"><em>f</em>&prime;(0), <em>f</em>&Prime;(0), <em>f</em>&prime;&prime;&prime;(0), &hellip;</span>) at <span class="math"><em>x</em> = 0</span>, driving the remainder <span class="math">|<em>f</em>(<em>x</em><sub>0</sub>) &minus; <em>P<sub>k</sub></em>(<em>x</em><sub>0</sub>)| &rarr; 0</span>.
+        </div>
+        <div class="btn-row" style="margin-bottom:8px;">
+          <button class="action-btn" onclick="setImproveX(0.2)">Set <span class="math"><em>x</em><sub>0</sub> = 0.2</span></button>
+          <button class="action-btn" onclick="setImproveX(0.5)">Set <span class="math"><em>x</em><sub>0</sub> = 0.5</span></button>
+          <button class="action-btn" onclick="setImproveX(0.9)">Set <span class="math"><em>x</em><sub>0</sub> = 0.9</span></button>
+          <button class="action-btn" onclick="setImproveX(1.4)">Test Outside (<span class="math"><em>x</em><sub>0</sub> = 1.4</span>)</button>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Degree <span class="math"><em>k</em></span></th>
+              <th>Approx <span class="math"><em>P<sub>k</sub></em>(<em>x</em><sub>0</sub>)</span></th>
+              <th>Abs Error <span class="math">|<em>f</em>(<em>x</em><sub>0</sub>) &minus; <em>P<sub>k</sub></em>(<em>x</em><sub>0</sub>)|</span></th>
+              <th>Percentage Error</th>
+            </tr>
+          </thead>
+          <tbody id="lever1TableBody"></tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <span class="lever-badge" style="background:var(--teal-bg); color:var(--teal);">Lever 2: Keep |<em>x</em>| Small (Closer to Centre <em>x</em> = 0)</span>
+        <div style="font-size:0.84rem; color:#334155; margin-bottom:8px;">
+          For a fixed cubic polynomial <span class="math"><em>P</em><sub>3</sub>(<em>x</em>)</span>, the neglected remainder is proportional to <span class="math"><em>x</em><sup>4</sup></span>. Halving <span class="math">|<em>x</em>|</span> cuts the truncation error by roughly <span class="math">(1/2)<sup>4</sup> = 1/16</span>!
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Distance <span class="math"><em>x</em></span></th>
+              <th>Exact <span class="math"><em>f</em>(<em>x</em>)</span></th>
+              <th>Cubic <span class="math"><em>P</em><sub>3</sub>(<em>x</em>)</span></th>
+              <th>Abs Error <span class="math">|<em>E</em><sub>3</sub>(<em>x</em>)|</span></th>
+            </tr>
+          </thead>
+          <tbody id="lever2TableBody"></tbody>
+        </table>
+
+        <div class="takeaway-banner">
+          <strong>Key Exam Principle (9758 H2 Math):</strong><br>
+          1. A Maclaurin approximation <span class="math"><em>P<sub>k</sub></em>(<em>x</em>)</span> is only valid when <span class="math"><em>x</em></span> lies <strong>inside the interval of convergence</strong>.<br>
+          2. Inside the valid interval, accuracy improves dramatically when <strong>(a)</strong> <span class="math">|<em>x</em>|</span> is small (closer to <span class="math"><em>x</em> = 0</span>), or <strong>(b)</strong> more higher-order terms are included.<br>
+          3. Outside the interval of convergence (e.g. <span class="math"><em>x</em> = 1.4</span> for <span class="math">ln(1 + <em>x</em>)</span>), adding more terms makes the approximation <strong>diverge</strong>!
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let activeMode = "derive";
+    let currentFn = "exp";
+    let binomN = -1;
+    let proofStep = 4;
+    let degree = 3;
+    let probeX = 0.6;
+    let improveX = 0.5;
+    let animTimer = null;
+    let isDragging = false;
+
+    const canvas = document.getElementById("graphCanvas");
+    const ctx = canvas.getContext("2d");
+
+    const X_MIN = -2.6;
+    const X_MAX = 3.0;
+    const Y_MIN = -2.8;
+    const Y_MAX = 4.2;
+
+    function frac(num, den) {
+      return `<span class="frac"><span class="frac-num">${num}</span><span class="frac-den">${den}</span></span>`;
+    }
+
+    function factorial(k) {
+      let res = 1;
+      for (let i = 2; i <= k; i++) res *= i;
+      return res;
+    }
+
+    function gcd(a, b) {
+      a = Math.abs(a);
+      b = Math.abs(b);
+      while (b !== 0) {
+        const t = b;
+        b = a % b;
+        a = t;
+      }
+      return a || 1;
+    }
+
+    const PROOF_STEPS = [
+      {
+        tag: "Order k = 0 (Constant Term)",
+        badge: "a₀ = f(0)",
+        html: `Set <span class="math"><em>x</em> = 0</span> directly in <span class="math"><em>f</em>(<em>x</em>) = <em>a</em><sub>0</sub> + <em>a</em><sub>1</sub><em>x</em> + <em>a</em><sub>2</sub><em>x</em>&sup2; + <em>a</em><sub>3</sub><em>x</em>&sup3; + &ctdot;</span>:<br>
+               <span class="math"><em>f</em>(0) = <em>a</em><sub>0</sub> + 0 + 0 + &ctdot; &rArr; <strong><em>a</em><sub>0</sub> = <em>f</em>(0)</strong></span>.`
+      },
+      {
+        tag: "Order k = 1 (Differentiate Once)",
+        badge: "a₁ = f′(0)",
+        html: `Differentiate once: <span class="math"><em>f</em>&prime;(<em>x</em>) = <em>a</em><sub>1</sub> + 2<em>a</em><sub>2</sub><em>x</em> + 3<em>a</em><sub>3</sub><em>x</em>&sup2; + 4<em>a</em><sub>4</sub><em>x</em>&sup3; + &ctdot;</span><br>
+               Set <span class="math"><em>x</em> = 0</span>: <span class="math"><em>f</em>&prime;(0) = <em>a</em><sub>1</sub> &rArr; <strong><em>a</em><sub>1</sub> = <em>f</em>&prime;(0)</strong></span>.`
+      },
+      {
+        tag: "Order k = 2 (Differentiate Twice)",
+        badge: `a₂ = ${frac("f″(0)", "2!")}`,
+        html: `Differentiate twice: <span class="math"><em>f</em>&Prime;(<em>x</em>) = 2&middot;1<em>a</em><sub>2</sub> + 3&middot;2<em>a</em><sub>3</sub><em>x</em> + 4&middot;3<em>a</em><sub>4</sub><em>x</em>&sup2; + &ctdot;</span><br>
+               Set <span class="math"><em>x</em> = 0</span>: <span class="math"><em>f</em>&Prime;(0) = 2!<em>a</em><sub>2</sub> &rArr; <strong><em>a</em><sub>2</sub> = ${frac("<em>f</em>&Prime;(0)", "2!")}</strong></span>.`
+      },
+      {
+        tag: "Order k = 3 (Differentiate Thrice)",
+        badge: `a₃ = ${frac("f‴(0)", "3!")}`,
+        html: `Differentiate thrice: <span class="math"><em>f</em>&prime;&prime;&prime;(<em>x</em>) = 3&middot;2&middot;1<em>a</em><sub>3</sub> + 4&middot;3&middot;2<em>a</em><sub>4</sub><em>x</em> + &ctdot;</span><br>
+               Set <span class="math"><em>x</em> = 0</span>: <span class="math"><em>f</em>&prime;&prime;&prime;(0) = 3!<em>a</em><sub>3</sub> &rArr; <strong><em>a</em><sub>3</sub> = ${frac("<em>f</em>&prime;&prime;&prime;(0)", "3!")}</strong></span>.`
+      },
+      {
+        tag: "General Order k (Differentiate k Times)",
+        badge: `aₖ = ${frac("f⁽ᵏ⁾(0)", "k!")}`,
+        html: `Differentiating <span class="math"><em>a<sub>k</sub>x<sup>k</sup></em></span> <span class="math"><em>k</em></span> times brings down <span class="math"><em>k</em>(<em>k</em> &minus; 1)&ctdot;2&middot;1 = <em>k</em>!</span>:<br>
+               <span class="math"><em>f</em><sup>(<em>k</em>)</sup>(0) = <em>k</em>!<em>a<sub>k</sub></em> &rArr; <strong><em>a<sub>k</sub></em> = ${frac("<em>f</em><sup>(<em>k</em>)</sup>(0)", "<em>k</em>!")}</strong></span>.`
+      }
+    ];
+
+    function getCoeff(fn, k, nVal) {
+      if (fn === "exp") return 1 / factorial(k);
+      if (fn === "sin") {
+        if (k % 2 === 0) return 0;
+        const m = (k - 1) / 2;
+        return ((m % 2 === 0) ? 1 : -1) / factorial(k);
+      }
+      if (fn === "cos") {
+        if (k % 2 === 1) return 0;
+        const m = k / 2;
+        return ((m % 2 === 0) ? 1 : -1) / factorial(k);
+      }
+      if (fn === "ln") {
+        if (k === 0) return 0;
+        return ((k % 2 === 1) ? 1 : -1) / k;
+      }
+      if (fn === "binom") {
+        if (k === 0) return 1;
+        let prod = 1;
+        for (let j = 0; j < k; j++) prod *= (nVal - j);
+        return prod / factorial(k);
+      }
+      return 0;
+    }
+
+    function evalExact(fn, x, nVal) {
+      if (fn === "exp") return Math.exp(x);
+      if (fn === "sin") return Math.sin(x);
+      if (fn === "cos") return Math.cos(x);
+      if (fn === "ln") return x <= -1 ? NaN : Math.log(1 + x);
+      if (fn === "binom") return x <= -1 ? NaN : Math.pow(1 + x, nVal);
+      return NaN;
+    }
+
+    function evalPoly(fn, x, deg, nVal) {
+      let sum = 0;
+      for (let k = 0; k <= deg; k++) {
+        sum += getCoeff(fn, k, nVal) * Math.pow(x, k);
+      }
+      return sum;
+    }
+
+    function isValidX(fn, x) {
+      if (fn === "exp" || fn === "sin" || fn === "cos") return true;
+      if (fn === "ln") return x > -1 && x <= 1.000001;
+      if (fn === "binom") return x > -1 && x < 1;
+      return false;
+    }
+
+    function buildPolyHTML(fn, deg, nVal) {
+      const terms = [];
+      for (let k = 0; k <= deg; k++) {
+        const c = getCoeff(fn, k, nVal);
+        if (Math.abs(c) < 1e-12) continue;
+        const isNeg = c < 0;
+        const signStr = terms.length === 0 ? (isNeg ? "&minus;" : "") : (isNeg ? " &minus; " : " + ");
+        const xPow = k === 0 ? "" : (k === 1 ? "<em>x</em>" : `<em>x</em><sup>${k}</sup>`);
+
+        let magStr = "";
+        if (fn === "exp" || fn === "sin" || fn === "cos") {
+          magStr = (k === 0 || k === 1) ? (k === 0 ? "1" : "") : frac("1", `${k}!`);
+        } else if (fn === "ln") {
+          magStr = k === 1 ? "" : frac("1", `${k}`);
+        } else if (fn === "binom") {
+          if (k === 0) magStr = "1";
+          else if (nVal === -1) magStr = "";
+          else if (nVal === -2) magStr = `${k + 1}`;
+          else if (nVal === 0.5 || nVal === -0.5) {
+            let num = 1;
+            let den = 1;
+            const twoN = Math.round(nVal * 2);
+            for (let j = 0; j < k; j++) {
+              num *= Math.abs(twoN - 2 * j);
+              den *= 2 * (j + 1);
+            }
+            const g = gcd(num, den);
+            const rn = num / g;
+            const rd = den / g;
+            magStr = rd === 1 ? (rn === 1 && k > 0 ? "" : `${rn}`) : frac(rn, rd);
+          }
+        }
+        if (k === 0 && magStr === "") magStr = "1";
+        terms.push(`${signStr}${magStr}${xPow}`);
+      }
+      if (terms.length === 0) return `<span class="math"><em>P<sub>${deg}</sub></em>(<em>x</em>) = 0</span>`;
+      return `<span class="math"><em>P<sub>${deg}</sub></em>(<em>x</em>) = ${terms.join("")}</span>`;
+    }
+
+    function getTangentEquationHTML(fn, nVal) {
+      if (fn === "exp") return "<em>y</em> = 1 + <em>x</em>";
+      if (fn === "sin") return "<em>y</em> = <em>x</em>";
+      if (fn === "cos") return "<em>y</em> = 1";
+      if (fn === "ln") return "<em>y</em> = <em>x</em>";
+      if (fn === "binom") {
+        if (nVal === -1) return "<em>y</em> = 1 &minus; <em>x</em>";
+        if (nVal === -2) return "<em>y</em> = 1 &minus; 2<em>x</em>";
+        if (nVal === 0.5) return `<em>y</em> = 1 + ${frac("1", "2")}<em>x</em>`;
+        if (nVal === -0.5) return `<em>y</em> = 1 &minus; ${frac("1", "2")}<em>x</em>`;
+      }
+      return "";
+    }
+
+    function getDerivativeRows(fn, nVal) {
+      if (fn === "exp") {
+        return [
+          { k: 0, dk: "<em>e<sup>x</sup></em>", val0: "1", coeff: "1" },
+          { k: 1, dk: "<em>e<sup>x</sup></em>", val0: "1", coeff: "1" },
+          { k: 2, dk: "<em>e<sup>x</sup></em>", val0: "1", coeff: frac("1", "2!") },
+          { k: 3, dk: "<em>e<sup>x</sup></em>", val0: "1", coeff: frac("1", "3!") },
+          { k: 4, dk: "<em>e<sup>x</sup></em>", val0: "1", coeff: frac("1", "4!") }
+        ];
+      }
+      if (fn === "sin") {
+        return [
+          { k: 0, dk: "sin <em>x</em>", val0: "0", coeff: "0" },
+          { k: 1, dk: "cos <em>x</em>", val0: "1", coeff: "1" },
+          { k: 2, dk: "&minus;sin <em>x</em>", val0: "0", coeff: "0" },
+          { k: 3, dk: "&minus;cos <em>x</em>", val0: "&minus;1", coeff: `&minus;${frac("1", "3!")}` },
+          { k: 4, dk: "sin <em>x</em>", val0: "0", coeff: "0" }
+        ];
+      }
+      if (fn === "cos") {
+        return [
+          { k: 0, dk: "cos <em>x</em>", val0: "1", coeff: "1" },
+          { k: 1, dk: "&minus;sin <em>x</em>", val0: "0", coeff: "0" },
+          { k: 2, dk: "&minus;cos <em>x</em>", val0: "&minus;1", coeff: `&minus;${frac("1", "2!")}` },
+          { k: 3, dk: "sin <em>x</em>", val0: "0", coeff: "0" },
+          { k: 4, dk: "cos <em>x</em>", val0: "1", coeff: frac("1", "4!") }
+        ];
+      }
+      if (fn === "ln") {
+        return [
+          { k: 0, dk: "ln(1 + <em>x</em>)", val0: "0", coeff: "0" },
+          { k: 1, dk: "(1 + <em>x</em>)<sup>&minus;1</sup>", val0: "1", coeff: "1" },
+          { k: 2, dk: "&minus;(1 + <em>x</em>)<sup>&minus;2</sup>", val0: "&minus;1", coeff: `&minus;${frac("1", "2")}` },
+          { k: 3, dk: "2!(1 + <em>x</em>)<sup>&minus;3</sup>", val0: "2", coeff: frac("1", "3") },
+          { k: 4, dk: "&minus;3!(1 + <em>x</em>)<sup>&minus;4</sup>", val0: "&minus;6", coeff: `&minus;${frac("1", "4")}` }
+        ];
+      }
+      const rows = [];
+      for (let k = 0; k <= 4; k++) {
+        let dkStr = "";
+        if (k === 0) dkStr = `(1 + <em>x</em>)<sup>${nVal}</sup>`;
+        else {
+          const factors = [];
+          for (let j = 0; j < k; j++) {
+            const f = nVal - j;
+            factors.push(f < 0 ? `(${f})` : `${f}`);
+          }
+          dkStr = `${factors.join("&middot;")}(1 + <em>x</em>)<sup>${nVal - k}</sup>`;
+        }
+        const c = getCoeff("binom", k, nVal);
+        const f0 = c * factorial(k);
+        const f0Str = Number.isInteger(f0) ? `${f0}` : f0.toFixed(4).replace(/\.?0+$/, "");
+        const coeffStr = Number.isInteger(c) ? `${c}` : c.toFixed(4).replace(/\.?0+$/, "");
+        rows.push({ k, dk: dkStr, val0: f0Str, coeff: coeffStr });
+      }
+      return rows;
+    }
+
+    function renderDeriveTab() {
+      const proofContainer = document.getElementById("proofStepsContainer");
+      proofContainer.innerHTML = PROOF_STEPS.map((st, idx) => {
+        const unlocked = idx <= proofStep;
+        const isCurrent = idx === proofStep;
+        return `
+          <div class="proof-step ${isCurrent ? "active-step" : ""} ${!unlocked ? "locked" : ""}">
+            <div class="proof-step-head">
+              <span class="proof-tag">${st.tag}</span>
+              <span class="proof-result-pill math">${unlocked ? st.badge : "?"}</span>
+            </div>
+            <div>${unlocked ? st.html : "<em>Click 'Differentiate & Set x = 0 (+1)' to reveal...</em>"}</div>
+          </div>
+        `;
+      }).join("");
+
+      const rows = getDerivativeRows(currentFn, binomN);
+      const tbody = document.getElementById("applyTableBody");
+      tbody.innerHTML = rows.map(r => {
+        const unlocked = r.k <= proofStep;
+        return `
+          <tr class="${r.k === proofStep ? "highlight-row" : ""} ${!unlocked ? "locked-row" : ""}">
+            <td><strong><span class="math"><em>k</em> = ${r.k}</span></strong></td>
+            <td><span class="math">${unlocked ? r.dk : "—"}</span></td>
+            <td><span class="math">${unlocked ? r.val0 : "?"}</span></td>
+            <td><span class="math"><strong>${unlocked ? r.coeff : "?"}</strong></span></td>
+          </tr>
+        `;
+      }).join("");
+
+      document.getElementById("derivedSeriesOutput").innerHTML =
+        `<strong>Resulting Maclaurin Series:</strong> ` + buildPolyHTML(currentFn, Math.max(1, proofStep), binomN) + ` <span class="math">+ &ctdot;</span>`;
+      document.getElementById("tangentEqOutput").innerHTML = getTangentEquationHTML(currentFn, binomN);
+    }
+
+    function toPxX(x) {
+      return ((x - X_MIN) / (X_MAX - X_MIN)) * canvas.width;
+    }
+    function toPxY(y) {
+      return canvas.height - ((y - Y_MIN) / (Y_MAX - Y_MIN)) * canvas.height;
+    }
+    function toWorldX(px) {
+      return X_MIN + (px / canvas.width) * (X_MAX - X_MIN);
+    }
+
+    function drawGraph() {
+      const w = canvas.width;
+      const h = canvas.height;
+      ctx.clearRect(0, 0, w, h);
+
+      const hasWall = currentFn === "ln" || currentFn === "binom";
+      if (!hasWall) {
+        ctx.fillStyle = "rgba(16, 185, 129, 0.08)";
+        ctx.fillRect(0, 0, w, h);
+      } else {
+        const pxLeftWall = toPxX(-1);
+        const pxRightWall = toPxX(1);
+
+        ctx.fillStyle = "rgba(244, 63, 94, 0.11)";
+        ctx.fillRect(0, 0, pxLeftWall, h);
+
+        ctx.fillStyle = "rgba(16, 185, 129, 0.11)";
+        ctx.fillRect(pxLeftWall, 0, pxRightWall - pxLeftWall, h);
+
+        ctx.fillStyle = "rgba(244, 63, 94, 0.11)";
+        ctx.fillRect(pxRightWall, 0, w - pxRightWall, h);
+
+        ctx.save();
+        ctx.strokeStyle = "#e11d48";
+        ctx.lineWidth = 1.6;
+        ctx.setLineDash([6, 5]);
+        ctx.beginPath();
+        ctx.moveTo(pxLeftWall, 0);
+        ctx.lineTo(pxLeftWall, h);
+        ctx.moveTo(pxRightWall, 0);
+        ctx.lineTo(pxRightWall, h);
+        ctx.stroke();
+        ctx.restore();
+
+        ctx.fillStyle = "#be123c";
+        ctx.font = "bold 11px Segoe UI, sans-serif";
+        ctx.fillText("x = −1 (Wall)", pxLeftWall - 68, 18);
+        ctx.fillText(currentFn === "ln" ? "x = 1 (Included)" : "x = 1 (Wall)", pxRightWall + 6, 18);
+      }
+
+      // Grid
+      ctx.strokeStyle = "#e2e8f0";
+      ctx.lineWidth = 1;
+      for (let gx = Math.ceil(X_MIN); gx <= Math.floor(X_MAX); gx++) {
+        const px = toPxX(gx);
+        ctx.beginPath(); ctx.moveTo(px, 0); ctx.lineTo(px, h); ctx.stroke();
+      }
+      for (let gy = Math.ceil(Y_MIN); gy <= Math.floor(Y_MAX); gy++) {
+        const py = toPxY(gy);
+        ctx.beginPath(); ctx.moveTo(0, py); ctx.lineTo(w, py); ctx.stroke();
+      }
+
+      // Axes
+      const originX = toPxX(0);
+      const originY = toPxY(0);
+      ctx.strokeStyle = "#64748b";
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(0, originY); ctx.lineTo(w, originY);
+      ctx.moveTo(originX, 0); ctx.lineTo(originX, h);
+      ctx.stroke();
+
+      ctx.fillStyle = "#475569";
+      ctx.font = "11px Segoe UI, sans-serif";
+      for (let gx = -2; gx <= 2; gx++) {
+        if (gx !== 0) ctx.fillText(gx.toString(), toPxX(gx) - 4, originY + 14);
+      }
+      for (let gy = -2; gy <= 4; gy++) {
+        if (gy !== 0) ctx.fillText(gy.toString(), originX + 6, toPxY(gy) + 4);
+      }
+      ctx.fillText("O", originX - 13, originY + 14);
+
+      const steps = 600;
+
+      // True Function y = f(x)
+      ctx.strokeStyle = "#0f172a";
+      ctx.lineWidth = 2.6;
+      ctx.beginPath();
+      let started = false;
+      for (let i = 0; i <= steps; i++) {
+        const x = X_MIN + (i / steps) * (X_MAX - X_MIN);
+        const y = evalExact(currentFn, x, binomN);
+        if (!Number.isFinite(y) || y < Y_MIN - 2 || y > Y_MAX + 2) {
+          started = false;
+          continue;
+        }
+        const px = toPxX(x);
+        const py = toPxY(y);
+        if (!started) { ctx.moveTo(px, py); started = true; }
+        else { ctx.lineTo(px, py); }
+      }
+      ctx.stroke();
+
+      // Tangent Line at x = 0: y = f(0) + f'(0)x
+      if (document.getElementById("showTangentToggle").checked) {
+        ctx.save();
+        ctx.strokeStyle = "#0f766e";
+        ctx.lineWidth = 2;
+        ctx.setLineDash([6, 4]);
+        ctx.beginPath();
+        const t0 = evalPoly(currentFn, X_MIN, 1, binomN);
+        const t1 = evalPoly(currentFn, X_MAX, 1, binomN);
+        ctx.moveTo(toPxX(X_MIN), toPxY(t0));
+        ctx.lineTo(toPxX(X_MAX), toPxY(t1));
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      // Maclaurin Polynomial y = P_k(x)
+      ctx.strokeStyle = "#8b5cf6";
+      ctx.lineWidth = 2.6;
+      ctx.beginPath();
+      started = false;
+      for (let i = 0; i <= steps; i++) {
+        const x = X_MIN + (i / steps) * (X_MAX - X_MIN);
+        const y = evalPoly(currentFn, x, degree, binomN);
+        if (!Number.isFinite(y) || y < Y_MIN - 3 || y > Y_MAX + 3) {
+          started = false;
+          continue;
+        }
+        const px = toPxX(x);
+        const py = toPxY(y);
+        if (!started) { ctx.moveTo(px, py); started = true; }
+        else { ctx.lineTo(px, py); }
+      }
+      ctx.stroke();
+
+      if (hasWall) {
+        const yAt1 = evalExact(currentFn, 1, binomN);
+        if (Number.isFinite(yAt1)) {
+          ctx.beginPath();
+          ctx.arc(toPxX(1), toPxY(yAt1), 4.5, 0, Math.PI * 2);
+          if (currentFn === "ln") {
+            ctx.fillStyle = "#0f766e";
+            ctx.fill();
+          } else {
+            ctx.fillStyle = "#ffffff";
+            ctx.fill();
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = "#e11d48";
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Centre point (0, f(0))
+      const y0 = evalExact(currentFn, 0, binomN);
+      ctx.beginPath();
+      ctx.arc(originX, toPxY(y0), 4.8, 0, Math.PI * 2);
+      ctx.fillStyle = "#7c3aed";
+      ctx.fill();
+
+      // Probe line & error segment
+      const pxProbe = toPxX(probeX);
+      const exactY = evalExact(currentFn, probeX, binomN);
+      const polyY = evalPoly(currentFn, probeX, degree, binomN);
+
+      ctx.save();
+      ctx.strokeStyle = "#0284c7";
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([4, 3]);
+      ctx.beginPath();
+      ctx.moveTo(pxProbe, 0);
+      ctx.lineTo(pxProbe, h);
+      ctx.stroke();
+      ctx.restore();
+
+      if (Number.isFinite(exactY) && Number.isFinite(polyY)) {
+        const pyExact = Math.max(4, Math.min(h - 4, toPxY(exactY)));
+        const pyPoly = Math.max(4, Math.min(h - 4, toPxY(polyY)));
+
+        ctx.strokeStyle = "#f59e0b";
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(pxProbe, pyExact);
+        ctx.lineTo(pxProbe, pyPoly);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(pxProbe, pyExact, 4.5, 0, Math.PI * 2);
+        ctx.fillStyle = "#0f172a";
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(pxProbe, pyPoly, 4.5, 0, Math.PI * 2);
+        ctx.fillStyle = "#8b5cf6";
+        ctx.fill();
+      }
+    }
+
+    function updateDiagnostics() {
+      document.getElementById("degBadge").innerHTML = `<span class="math"><em>k</em> = ${degree}</span>`;
+      document.getElementById("probeBadge").innerHTML = `<span class="math"><em>x</em><sub>0</sub> = ${probeX.toFixed(2)}</span>`;
+      document.getElementById("polyFormulaBox").innerHTML = buildPolyHTML(currentFn, degree, binomN);
+
+      const exactY = evalExact(currentFn, probeX, binomN);
+      const polyY = evalPoly(currentFn, probeX, degree, binomN);
+      const valid = isValidX(currentFn, probeX);
+      const vBox = document.getElementById("validityBox");
+      const vText = document.getElementById("validityStatusText");
+
+      const domainMap = {
+        exp: "all <span class='math'><em>x</em> &isin; &Ropf;</span>",
+        sin: "all <span class='math'><em>x</em> &isin; &Ropf;</span>",
+        cos: "all <span class='math'><em>x</em> &isin; &Ropf;</span>",
+        ln: "<strong>&minus;1 &lt; <span class='math'><em>x</em></span> &le; 1</strong>",
+        binom: "<strong>&minus;1 &lt; <span class='math'><em>x</em></span> &lt; 1</strong>"
+      };
+
+      if (valid) {
+        vBox.className = "validity-box inside";
+        vText.innerHTML = `<strong>&#10003; Inside Interval of Convergence (${domainMap[currentFn]}):</strong> Increasing degree <span class="math"><em>k</em></span> or moving <span class="math"><em>x</em><sub>0</sub></span> closer to 0 drives <span class="math">|<em>E<sub>k</sub></em>| &rarr; 0</span>.`;
+      } else {
+        vBox.className = "validity-box outside";
+        vText.innerHTML = `<strong>&#9888; Outside Interval of Convergence (${domainMap[currentFn]}):</strong> Series diverges at <span class="math"><em>x</em><sub>0</sub> = ${probeX.toFixed(2)}</span>—increasing <span class="math"><em>k</em></span> makes <span class="math"><em>P<sub>k</sub></em>(<em>x</em><sub>0</sub>)</span> diverge!`;
+      }
+
+      document.getElementById("exactVal").textContent = Number.isFinite(exactY) ? exactY.toFixed(6) : "Undefined";
+      document.getElementById("approxVal").textContent = Number.isFinite(polyY) ? polyY.toFixed(6) : "Overflow";
+      if (Number.isFinite(exactY) && Number.isFinite(polyY)) {
+        const err = Math.abs(exactY - polyY);
+        document.getElementById("errorVal").textContent = err < 0.0001 && err > 0 ? err.toExponential(2) : err.toFixed(6);
+      } else {
+        document.getElementById("errorVal").textContent = "—";
+      }
+    }
+
+    function renderImproveTab() {
+      document.getElementById("lever1XLabel").textContent = improveX.toFixed(2);
+      const exact1 = evalExact(currentFn, improveX, binomN);
+      const valid1 = isValidX(currentFn, improveX);
+      const degreesToShow = [1, 2, 3, 5, 8];
+
+      const body1 = document.getElementById("lever1TableBody");
+      body1.innerHTML = degreesToShow.map(k => {
+        const pk = evalPoly(currentFn, improveX, k, binomN);
+        const err = Math.abs(exact1 - pk);
+        const pct = Math.abs(exact1) > 1e-9 ? (err / Math.abs(exact1)) * 100 : 0;
+        const errStr = err < 0.0001 && err > 0 ? err.toExponential(2) : err.toFixed(6);
+        const pctStr = pct < 0.001 && pct > 0 ? pct.toExponential(2) + "%" : pct.toFixed(3) + "%";
+        return `
+          <tr class="${!valid1 ? "highlight-row" : ""}">
+            <td><strong><span class="math"><em>k</em> = ${k}</span></strong></td>
+            <td>${pk.toFixed(6)}</td>
+            <td style="color:${valid1 ? "#0f766e" : "#e11d48"}; font-weight:700;">${errStr}</td>
+            <td>${pctStr}</td>
+          </tr>
+        `;
+      }).join("");
+
+      const distances = [0.8, 0.4, 0.2, 0.1, 0.05];
+      const body2 = document.getElementById("lever2TableBody");
+      body2.innerHTML = distances.map(xVal => {
+        const ex = evalExact(currentFn, xVal, binomN);
+        const p3 = evalPoly(currentFn, xVal, 3, binomN);
+        const err = Math.abs(ex - p3);
+        const errStr = err < 0.0001 && err > 0 ? err.toExponential(2) : err.toFixed(6);
+        return `
+          <tr>
+            <td><strong><span class="math"><em>x</em> = ${xVal.toFixed(2)}</span></strong></td>
+            <td>${ex.toFixed(6)}</td>
+            <td>${p3.toFixed(6)}</td>
+            <td style="color:#0f766e; font-weight:700;">${errStr}</td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function refreshAll() {
+      renderDeriveTab();
+      drawGraph();
+      updateDiagnostics();
+      renderImproveTab();
+    }
+
+    function switchMode(mode) {
+      activeMode = mode;
+      document.getElementById("tabDeriveBtn").classList.toggle("active", mode === "derive");
+      document.getElementById("tabMorphBtn").classList.toggle("active", mode === "morph");
+      document.getElementById("tabImproveBtn").classList.toggle("active", mode === "improve");
+
+      document.getElementById("derivePanel").classList.toggle("active", mode === "derive");
+      document.getElementById("morphPanel").classList.toggle("active", mode === "morph");
+      document.getElementById("improvePanel").classList.toggle("active", mode === "improve");
+
+      if (mode === "morph") drawGraph();
+    }
+
+    function selectFunction(fn) {
+      currentFn = fn;
+      document.querySelectorAll(".fn-pill").forEach(el => el.classList.remove("active"));
+      document.getElementById("fn_" + fn).classList.add("active");
+      document.getElementById("binomNWrap").classList.toggle("visible", fn === "binom");
+      refreshAll();
+    }
+
+    function updateBinomN() {
+      binomN = parseFloat(document.getElementById("binomNSelect").value);
+      refreshAll();
+    }
+
+    function setProofStep(s) {
+      proofStep = s;
+      renderDeriveTab();
+    }
+
+    function nextProofStep() {
+      if (proofStep < 4) {
+        proofStep++;
+        renderDeriveTab();
+      }
+    }
+
+    function onDegreeChange(val) {
+      degree = parseInt(val, 10);
+      refreshAll();
+    }
+
+    function stepDegree(delta) {
+      degree = Math.max(0, Math.min(12, degree + delta));
+      document.getElementById("degSlider").value = degree;
+      refreshAll();
+    }
+
+    function onProbeChange(val) {
+      probeX = parseFloat(val);
+      refreshAll();
+    }
+
+    function setProbe(xVal) {
+      probeX = xVal;
+      document.getElementById("probeSlider").value = xVal;
+      refreshAll();
+    }
+
+    function setImproveX(xVal) {
+      improveX = xVal;
+      renderImproveTab();
+    }
+
+    function toggleAnimate() {
+      const btn = document.getElementById("animBtn");
+      if (animTimer) {
+        clearInterval(animTimer);
+        animTimer = null;
+        btn.innerHTML = "&#9654; Animate Wrap (0 &rarr; 12)";
+        return;
+      }
+      degree = 0;
+      document.getElementById("degSlider").value = 0;
+      refreshAll();
+      btn.innerHTML = "&#9724; Stop Animation";
+      animTimer = setInterval(() => {
+        if (degree >= 12) {
+          clearInterval(animTimer);
+          animTimer = null;
+          btn.innerHTML = "&#9654; Animate Wrap (0 &rarr; 12)";
+          return;
+        }
+        degree++;
+        document.getElementById("degSlider").value = degree;
+        refreshAll();
+      }, 550);
+    }
+
+    function updateProbeFromEvent(e) {
+      const rect = canvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const scaleX = canvas.width / rect.width;
+      const px = (clientX - rect.left) * scaleX;
+      const wx = Math.max(-2.4, Math.min(2.8, toWorldX(px)));
+      probeX = Math.round(wx * 20) / 20;
+      document.getElementById("probeSlider").value = probeX;
+      refreshAll();
+    }
+
+    canvas.addEventListener("mousedown", (e) => {
+      isDragging = true;
+      updateProbeFromEvent(e);
+    });
+    window.addEventListener("mousemove", (e) => {
+      if (isDragging) updateProbeFromEvent(e);
+    });
+    window.addEventListener("mouseup", () => {
+      isDragging = false;
+    });
+    canvas.addEventListener("touchstart", (e) => {
+      isDragging = true;
+      updateProbeFromEvent(e);
+    }, { passive: true });
+    canvas.addEventListener("touchmove", (e) => {
+      if (isDragging) updateProbeFromEvent(e);
+    }, { passive: true });
+    canvas.addEventListener("touchend", () => {
+      isDragging = false;
+    });
+
+    refreshAll();
+  </script>
+</body>
+</html>

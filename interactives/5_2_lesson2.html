@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5.2 Lesson 2 | Implicit Maclaurin Cascade & Curve Osculator</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 16px 20px 28px 20px;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    /* CLEAN HTML MATH & STACKED FRACTIONS */
+    .math {
+      font-family: 'Cambria Math', 'Times New Roman', Georgia, serif;
+      font-size: 1.04em;
+    }
+
+    .frac {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      vertical-align: middle;
+      margin: 0 3px;
+      font-size: 0.88em;
+      line-height: 1.1;
+    }
+
+    .frac-num {
+      padding: 0 4px 2px 4px;
+      border-bottom: 1.4px solid currentColor;
+      text-align: center;
+    }
+
+    .frac-den {
+      padding: 2px 4px 0 4px;
+      text-align: center;
+    }
+
+    /* HEADER */
+    .lab-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .lab-title-wrap h1 {
+      margin: 0;
+      font-size: 1.16rem;
+      color: #1e293b;
+    }
+
+    .lab-title-wrap p {
+      margin: 3px 0 0 0;
+      font-size: 0.81rem;
+      color: var(--muted);
+    }
+
+    .mode-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mode-btn {
+      padding: 8px 13px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: var(--text);
+      font-size: 0.81rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mode-btn:hover {
+      border-color: var(--purple);
+      color: var(--purple-dark);
+    }
+
+    .mode-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.22);
+    }
+
+    /* CURVE SELECTOR BAR */
+    .curve-bar {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      box-shadow: 0 2px 8px rgba(148, 163, 184, 0.06);
+    }
+
+    .bar-label {
+      font-size: 0.74rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--muted);
+      margin-right: 4px;
+    }
+
+    .curve-pill {
+      padding: 6px 13px;
+      border-radius: 9px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #1e293b;
+      font-size: 0.86rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .curve-pill:hover {
+      border-color: var(--purple);
+      background: #f5f3ff;
+    }
+
+    .curve-pill.active {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      border-color: var(--purple);
+    }
+
+    /* MAIN GRID */
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 1.15fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 980px) {
+      .workspace-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 3px 10px rgba(148, 163, 184, 0.06);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .kicker {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--purple-dark);
+    }
+
+    /* CASCADE PIPELINE STEPS */
+    .cascade-controls {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      padding: 6px 11px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #1e293b;
+      font-size: 0.77rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .action-btn:hover {
+      border-color: var(--purple);
+      color: var(--purple-dark);
+    }
+
+    .action-btn.primary {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .action-btn.primary:hover {
+      background: var(--purple-dark);
+    }
+
+    .step-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .step-card {
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 10px 13px;
+      background: #f8fafc;
+      transition: 0.2s;
+    }
+
+    .step-card.active-step {
+      border-color: var(--purple);
+      background: #faf5ff;
+      box-shadow: 0 2px 8px rgba(139, 92, 246, 0.12);
+    }
+
+    .step-card.locked {
+      opacity: 0.42;
+      background: #f1f5f9;
+    }
+
+    .step-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+
+    .step-num {
+      font-size: 0.74rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: var(--purple-dark);
+    }
+
+    .val-badge {
+      background: var(--teal-bg);
+      color: var(--teal);
+      border: 1px solid #5eead4;
+      padding: 2px 9px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
+
+    .step-body {
+      font-size: 0.87rem;
+      line-height: 1.65;
+      color: #1e293b;
+    }
+
+    .rule-tag {
+      display: inline-block;
+      background: var(--amber-bg);
+      color: var(--amber);
+      font-size: 0.71rem;
+      font-weight: 700;
+      padding: 1px 7px;
+      border-radius: 6px;
+      margin-left: 6px;
+    }
+
+    /* ASSEMBLED MACLAURIN BOX */
+    .assembled-box {
+      margin-top: 12px;
+      background: #f5f3ff;
+      border: 1px solid #ddd6fe;
+      border-radius: 11px;
+      padding: 11px 13px;
+      font-size: 0.9rem;
+      line-height: 1.75;
+      color: #1e293b;
+    }
+
+    /* TAB 2 SOURCE SERIES REFERENCE BANNER */
+    .source-series-banner {
+      background: #f5f3ff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 13px;
+      padding: 12px 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 2px 8px rgba(139, 92, 246, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .source-series-main {
+      font-size: 0.95rem;
+      color: #1e293b;
+      line-height: 1.75;
+    }
+
+    .source-deriv-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .deriv-chip {
+      background: #ffffff;
+      border: 1px solid #ddd6fe;
+      color: #4c1d95;
+      padding: 3px 9px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    /* GRAPH & OVERLAY CONTROLS */
+    .canvas-wrap {
+      position: relative;
+      width: 100%;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 365px;
+    }
+
+    .overlay-toggles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+      padding: 8px 10px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.79rem;
+      font-weight: 700;
+    }
+
+    .toggle-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .swatch-line {
+      width: 16px;
+      height: 3px;
+      border-radius: 2px;
+      display: inline-block;
+    }
+
+    /* DEDUCTION & TANGENT CARDS (TAB 2) */
+    .view-panel {
+      display: none;
+    }
+    .view-panel.active {
+      display: block;
+    }
+
+    .deduce-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 960px) {
+      .deduce-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .deduce-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 3px 10px rgba(148, 163, 184, 0.06);
+    }
+
+    .deduce-badge {
+      display: inline-block;
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+    }
+
+    .formula-highlight {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      padding: 9px 11px;
+      margin: 8px 0;
+      font-size: 0.88rem;
+      line-height: 1.75;
+    }
+
+    .pitfall-note {
+      margin-top: 14px;
+      background: var(--rose-bg);
+      border: 1px solid #fda4af;
+      border-radius: 12px;
+      padding: 11px 14px;
+      font-size: 0.82rem;
+      line-height: 1.55;
+      color: #881337;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER & MODE SWITCH -->
+  <div class="lab-header">
+    <div class="lab-title-wrap">
+      <h1>Implicit Maclaurin Cascade &amp; Curve Osculator</h1>
+      <p>Derive Maclaurin series by repeated implicit differentiation at <em>x</em> = 0, visualize osculating polynomials, and deduce tangent &amp; calculus series</p>
+    </div>
+    <div class="mode-tabs">
+      <button class="mode-btn active" id="tabCascadeBtn" onclick="switchMode('cascade')">
+        1. Implicit Cascade &amp; Osculating Overlay
+      </button>
+      <button class="mode-btn" id="tabDeduceBtn" onclick="switchMode('deduce')">
+        2. Deductions: Tangent at <em>x</em> = 0, Differentiation &amp; Integration
+      </button>
+    </div>
+  </div>
+
+  <!-- IMPLICIT CURVE SELECTOR -->
+  <div class="curve-bar">
+    <span class="bar-label">Select Implicit Locus <span class="math"><em>F</em>(<em>x</em>, <em>y</em>) = 0</span>:</span>
+    <button class="curve-pill active" id="c_circle" onclick="selectCurve('circle')">
+      <span class="math"><em>x</em>&sup2; + <em>y</em>&sup2; = 4 &nbsp;(<em>y</em> &gt; 0)</span>
+    </button>
+    <button class="curve-pill" id="c_expy" onclick="selectCurve('expy')">
+      <span class="math"><em>e<sup>y</sup></em> + <em>xy</em> = <em>e</em></span>
+    </button>
+    <button class="curve-pill" id="c_sqrtSin" onclick="selectCurve('sqrtSin')">
+      <span class="math"><em>y</em>&sup2; = 1 + sin <em>x</em> &nbsp;(<em>y</em> &gt; 0)</span>
+    </button>
+    <button class="curve-pill" id="c_tan" onclick="selectCurve('tan')">
+      <span class="math"><em>y</em> = tan <em>x</em> &nbsp;[<em>y</em>&prime; = 1 + <em>y</em>&sup2;]</span>
+    </button>
+  </div>
+
+  <!-- =========================================================
+       TAB 1: CASCADE EVALUATION PIPELINE + LIVE OSCULATOR GRAPH
+       ========================================================= -->
+  <div class="view-panel active" id="cascadePanel">
+    <div class="workspace-grid">
+      <!-- LEFT: 4-STEP CASCADE EVALUATION PIPELINE -->
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker">Repeated Implicit Differentiation Pipeline at <em>x</em> = 0</span>
+          <div class="cascade-controls">
+            <button class="action-btn" onclick="setStep(0)">Reset (Step 1)</button>
+            <button class="action-btn primary" onclick="nextStep()">Next Step (+1)</button>
+            <button class="action-btn" onclick="setStep(3)">Reveal All (Steps 1&ndash;4)</button>
+          </div>
+        </div>
+
+        <div class="step-list" id="stepListContainer"></div>
+
+        <div class="assembled-box" id="assembledSeriesBox"></div>
+      </div>
+
+      <!-- RIGHT: LIVE VISUAL OVERLAY -->
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker">Live Visual Overlay: Implicit Branch vs. Osculating Polynomials</span>
+          <span style="font-size:0.75rem; color:var(--muted); font-weight:600;">
+            Hugging near <span class="math">(0, <em>y</em>(0))</span>
+          </span>
+        </div>
+
+        <div class="canvas-wrap">
+          <canvas id="osculatorCanvas" width="660" height="365"></canvas>
+        </div>
+
+        <div class="overlay-toggles">
+          <label class="toggle-label">
+            <input type="checkbox" id="chkExact" checked onchange="drawOsculator()" />
+            <span class="swatch-line" style="background:#0f172a;"></span>
+            Exact Implicit Locus <span class="math"><em>F</em>(<em>x</em>, <em>y</em>) = 0</span>
+          </label>
+          <label class="toggle-label">
+            <input type="checkbox" id="chkTangent" checked onchange="drawOsculator()" />
+            <span class="swatch-line" style="background:#0f766e;"></span>
+            Linear Tangent <span class="math"><em>P</em><sub>1</sub>(<em>x</em>)</span>
+          </label>
+          <label class="toggle-label">
+            <input type="checkbox" id="chkQuad" checked onchange="drawOsculator()" />
+            <span class="swatch-line" style="background:#0284c7;"></span>
+            Quadratic <span class="math"><em>P</em><sub>2</sub>(<em>x</em>)</span>
+          </label>
+          <label class="toggle-label">
+            <input type="checkbox" id="chkCubic" checked onchange="drawOsculator()" />
+            <span class="swatch-line" style="background:#8b5cf6;"></span>
+            Cubic <span class="math"><em>P</em><sub>3</sub>(<em>x</em>)</span>
+          </label>
+        </div>
+
+        <div style="margin-top:10px; font-size:0.8rem; color:#475569; line-height:1.5; background:#f8fafc; padding:9px 11px; border-radius:9px; border:1px solid var(--border);">
+          <strong>Geometric Insight:</strong> Notice how <span class="math"><em>P</em><sub>1</sub>(<em>x</em>)</span> matches value &amp; slope (tangent), <span class="math"><em>P</em><sub>2</sub>(<em>x</em>)</span> matches curvature (osculating parabola), and <span class="math"><em>P</em><sub>3</sub>(<em>x</em>)</span> hugs the implicit branch across a wider neighbourhood around <span class="math"><em>x</em> = 0</span>!
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       TAB 2: DEDUCTIONS (TANGENT AT x=0, DIFFERENTIATION, INTEGRATION)
+       ========================================================= -->
+  <div class="view-panel" id="deducePanel">
+    <!-- DERIVED MACLAURIN SERIES FROM TAB 1 -->
+    <div class="source-series-banner" id="deduceSourceSeriesBanner"></div>
+
+    <!-- 3 DEDUCTIONS -->
+    <div class="deduce-grid" id="deduceGridContainer"></div>
+
+    <div class="pitfall-note">
+      <strong>9758 H2 Math Exam Checkpoints:</strong><br>
+      &bull; <strong>Dividing by <span class="math"><em>k</em>!</span>:</strong> A very common slip is forgetting <span class="math">3! = 6</span> when assembling the <span class="math"><em>x</em>&sup3;</span> coefficient <span class="math"><span class="frac"><span class="frac-num"><em>y</em>&prime;&prime;&prime;(0)</span><span class="frac-den">3!</span></span></span>.<br>
+      &bull; <strong>Constant of Integration:</strong> Whenever you deduce an integral series <span class="math">&int; <em>f</em>(<em>x</em>) d<em>x</em></span>, always determine <span class="math">+ <em>C</em></span> by substituting <span class="math"><em>x</em> = 0</span> (for <span class="math">&int;<sub>0</sub><sup><em>x</em></sup> <em>f</em>(<em>t</em>) d<em>t</em></span>, the constant term is <span class="math">0</span>).
+    </div>
+  </div>
+
+  <script>
+    let activeMode = "cascade";
+    let currentCurve = "circle";
+    let currentStep = 3; // 0..3 corresponding to Steps 1..4
+
+    const canvas = document.getElementById("osculatorCanvas");
+    const ctx = canvas.getContext("2d");
+
+    function frac(num, den) {
+      return `<span class="frac"><span class="frac-num">${num}</span><span class="frac-den">${den}</span></span>`;
+    }
+
+    const CURVES = {
+      circle: {
+        name: "x² + y² = 4 (y > 0)",
+        locusHTML: "<em>x</em>&sup2; + <em>y</em>&sup2; = 4 &nbsp;(<em>y</em> &gt; 0)",
+        xMin: -2.6, xMax: 2.6, yMin: -0.6, yMax: 2.8,
+        y0: 2, y1: 0, y2: -0.5, y3: 0,
+        a0: 2, a1: 0, a2: -0.25, a3: 0,
+        p1HTML: "2",
+        p2HTML: `2 &minus; ${frac("1", "4")}<em>x</em>&sup2;`,
+        p3HTML: `2 &minus; ${frac("1", "4")}<em>x</em>&sup2; + 0<em>x</em>&sup3;`,
+        steps: [
+          {
+            title: "Step 1: Set <em>x</em> = 0 &amp; Solve for <em>y</em>(0)",
+            rule: "Initial Point",
+            badge: "<em>y</em>(0) = 2",
+            html: `Substitute <span class="math"><em>x</em> = 0</span> into <span class="math"><em>x</em>&sup2; + <em>y</em>&sup2; = 4</span>:<br>
+                   <span class="math">0&sup2; + [<em>y</em>(0)]&sup2; = 4 &rArr; <em>y</em>(0) = <strong>2</strong></span> (since <span class="math"><em>y</em> &gt; 0</span>).`
+          },
+          {
+            title: "Step 2: Differentiate Once &amp; Solve for <em>y</em>&prime;(0)",
+            rule: "Chain Rule",
+            badge: "<em>y</em>&prime;(0) = 0",
+            html: `Differentiate implicitly w.r.t. <span class="math"><em>x</em></span>: <span class="math">2<em>x</em> + 2<em>y</em><em>y</em>&prime; = 0 &rArr; <strong><em>x</em> + <em>y</em><em>y</em>&prime; = 0</strong></span>.<br>
+                   At <span class="math"><em>x</em> = 0, <em>y</em> = 2</span>: <span class="math">0 + 2<em>y</em>&prime;(0) = 0 &rArr; <em>y</em>&prime;(0) = <strong>0</strong></span>.`
+          },
+          {
+            title: "Step 3: Differentiate Twice &amp; Solve for <em>y</em>&Prime;(0)",
+            rule: "Product Rule on y·y′",
+            badge: `<em>y</em>&Prime;(0) = &minus;${frac("1", "2")}`,
+            html: `Differentiate <span class="math"><em>x</em> + <em>y</em><em>y</em>&prime; = 0</span> again:<br>
+                   <span class="math">1 + (<em>y</em>&prime;)&sup2; + <em>y</em><em>y</em>&Prime; = 0</span>.<br>
+                   Plug in <span class="math"><em>y</em>(0) = 2, <em>y</em>&prime;(0) = 0</span>: <span class="math">1 + 0 + 2<em>y</em>&Prime;(0) = 0 &rArr; <em>y</em>&Prime;(0) = <strong>&minus;${frac("1", "2")}</strong></span>.`
+          },
+          {
+            title: "Step 4: Differentiate Thrice &amp; Solve for <em>y</em>&prime;&prime;&prime;(0)",
+            rule: "Product &amp; Chain Rule",
+            badge: "<em>y</em>&prime;&prime;&prime;(0) = 0",
+            html: `Differentiate <span class="math">1 + (<em>y</em>&prime;)&sup2; + <em>y</em><em>y</em>&Prime; = 0</span>:<br>
+                   <span class="math">2<em>y</em>&prime;<em>y</em>&Prime; + <em>y</em>&prime;<em>y</em>&Prime; + <em>y</em><em>y</em>&prime;&prime;&prime; = 0 &rArr; 3<em>y</em>&prime;<em>y</em>&Prime; + <em>y</em><em>y</em>&prime;&prime;&prime; = 0</span>.<br>
+                   Plug in <span class="math"><em>y</em>(0) = 2, <em>y</em>&prime;(0) = 0, <em>y</em>&Prime;(0) = &minus;${frac("1", "2")}</span>: <span class="math">0 + 2<em>y</em>&prime;&prime;&prime;(0) = 0 &rArr; <em>y</em>&prime;&prime;&prime;(0) = <strong>0</strong></span>.`
+          }
+        ],
+        tangentEq: "<em>y</em> = 2",
+        tangentNote: "Horizontal tangent at the top vertex (0, 2) of the semicircle.",
+        diffTarget: `${frac("d<em>y</em>", "d<em>x</em>")} = &minus;${frac("<em>x</em>", "<em>y</em>")}`,
+        diffSeries: `${frac("d<em>y</em>", "d<em>x</em>")} = &minus;${frac("1", "2")}<em>x</em> + 0<em>x</em>&sup2; + &ctdot;`,
+        intTarget: `&int;<sub>0</sub><sup><em>x</em></sup> &radic;(4 &minus; <em>t</em>&sup2;) d<em>t</em>`,
+        intSeries: `2<em>x</em> &minus; ${frac("1", "12")}<em>x</em>&sup3; + &ctdot;`,
+        exactY: (x) => (Math.abs(x) <= 2 ? Math.sqrt(4 - x * x) : NaN)
+      },
+
+      expy: {
+        name: "eʸ + xy = e",
+        locusHTML: "<em>e<sup>y</sup></em> + <em>xy</em> = <em>e</em>",
+        xMin: -2.2, xMax: 2.2, yMin: -0.8, yMax: 2.4,
+        y0: 1, y1: -1 / Math.E, y2: (2 - Math.E) / (Math.E * Math.E), y3: (6 * Math.E - 9) / (Math.E * Math.E * Math.E),
+        a0: 1, a1: -1 / Math.E, a2: (2 - Math.E) / (2 * Math.E * Math.E), a3: (6 * Math.E - 9) / (6 * Math.E * Math.E * Math.E),
+        p1HTML: `1 &minus; ${frac("1", "<em>e</em>")}<em>x</em>`,
+        p2HTML: `1 &minus; ${frac("1", "<em>e</em>")}<em>x</em> + ${frac("2 &minus; <em>e</em>", "2<em>e</em>&sup2;")}<em>x</em>&sup2;`,
+        p3HTML: `1 &minus; ${frac("1", "<em>e</em>")}<em>x</em> + ${frac("2 &minus; <em>e</em>", "2<em>e</em>&sup2;")}<em>x</em>&sup2; + ${frac("2<em>e</em> &minus; 3", "2<em>e</em>&sup3;")}<em>x</em>&sup3;`,
+        steps: [
+          {
+            title: "Step 1: Set <em>x</em> = 0 &amp; Solve for <em>y</em>(0)",
+            rule: "Initial Point",
+            badge: "<em>y</em>(0) = 1",
+            html: `Substitute <span class="math"><em>x</em> = 0</span> into <span class="math"><em>e<sup>y</sup></em> + <em>xy</em> = <em>e</em></span>:<br>
+                   <span class="math"><em>e</em><sup><em>y</em>(0)</sup> + 0 = <em>e</em> &rArr; <em>y</em>(0) = <strong>1</strong></span>.`
+          },
+          {
+            title: "Step 2: Differentiate Once &amp; Solve for <em>y</em>&prime;(0)",
+            rule: "Chain + Product Rule",
+            badge: `<em>y</em>&prime;(0) = &minus;${frac("1", "<em>e</em>")}`,
+            html: `Differentiate implicitly w.r.t. <span class="math"><em>x</em></span>:<br>
+                   <span class="math"><em>e<sup>y</sup></em><em>y</em>&prime; + <em>y</em> + <em>x</em><em>y</em>&prime; = 0</span>.<br>
+                   At <span class="math"><em>x</em> = 0, <em>y</em> = 1</span>: <span class="math"><em>e</em><sup>1</sup><em>y</em>&prime;(0) + 1 + 0 = 0 &rArr; <em>y</em>&prime;(0) = <strong>&minus;${frac("1", "<em>e</em>")}</strong></span>.`
+          },
+          {
+            title: "Step 3: Differentiate Twice &amp; Solve for <em>y</em>&Prime;(0)",
+            rule: "Product Rule Twice",
+            badge: `<em>y</em>&Prime;(0) = ${frac("2 &minus; <em>e</em>", "<em>e</em>&sup2;")}`,
+            html: `Differentiate <span class="math"><em>e<sup>y</sup></em><em>y</em>&prime; + <em>y</em> + <em>x</em><em>y</em>&prime; = 0</span> again:<br>
+                   <span class="math"><em>e<sup>y</sup></em>(<em>y</em>&prime;)&sup2; + <em>e<sup>y</sup></em><em>y</em>&Prime; + 2<em>y</em>&prime; + <em>x</em><em>y</em>&Prime; = 0</span>.<br>
+                   Plug in <span class="math"><em>x</em> = 0, <em>y</em> = 1, <em>y</em>&prime; = &minus;${frac("1", "<em>e</em>")}</span>: <span class="math"><em>e</em>(${frac("1", "<em>e</em>&sup2;")}) + <em>e</em><em>y</em>&Prime;(0) &minus; ${frac("2", "<em>e</em>")} = 0 &rArr; <em>y</em>&Prime;(0) = <strong>${frac("2 &minus; <em>e</em>", "<em>e</em>&sup2;")}</strong></span>.`
+          },
+          {
+            title: "Step 4: Differentiate Thrice &amp; Solve for <em>y</em>&prime;&prime;&prime;(0)",
+            rule: "Higher Product Rule",
+            badge: `<em>y</em>&prime;&prime;&prime;(0) = ${frac("6<em>e</em> &minus; 9", "<em>e</em>&sup3;")}`,
+            html: `Differentiate once more and set <span class="math"><em>x</em> = 0</span>:<br>
+                   <span class="math"><em>e<sup>y</sup></em>(<em>y</em>&prime;)&sup3; + 3<em>e<sup>y</sup></em><em>y</em>&prime;<em>y</em>&Prime; + <em>e<sup>y</sup></em><em>y</em>&prime;&prime;&prime; + 3<em>y</em>&Prime; + <em>x</em><em>y</em>&prime;&prime;&prime; = 0</span>.<br>
+                   Substituting <span class="math"><em>y</em>(0), <em>y</em>&prime;(0), <em>y</em>&Prime;(0)</span> yields <span class="math"><em>y</em>&prime;&prime;&prime;(0) = <strong>${frac("6<em>e</em> &minus; 9", "<em>e</em>&sup3;")}</strong></span> (so <span class="math">${frac("<em>y</em>&prime;&prime;&prime;(0)", "3!")} = ${frac("2<em>e</em> &minus; 3", "2<em>e</em>&sup3;")}</span>).`
+          }
+        ],
+        tangentEq: `<em>y</em> = 1 &minus; ${frac("1", "<em>e</em>")}<em>x</em>`,
+        tangentNote: "Directly obtained from the first two terms P₁(x) = y(0) + y′(0)x.",
+        diffTarget: `${frac("d<em>y</em>", "d<em>x</em>")} = &minus;${frac("<em>y</em>", "<em>e<sup>y</sup></em> + <em>x</em>")}`,
+        diffSeries: `${frac("d<em>y</em>", "d<em>x</em>")} = &minus;${frac("1", "<em>e</em>")} + ${frac("2 &minus; <em>e</em>", "<em>e</em>&sup2;")}<em>x</em> + ${frac("6<em>e</em> &minus; 9", "2<em>e</em>&sup3;")}<em>x</em>&sup2; + &ctdot;`,
+        intTarget: `&int;<sub>0</sub><sup><em>x</em></sup> <em>y</em>(<em>t</em>) d<em>t</em>`,
+        intSeries: `<em>x</em> &minus; ${frac("1", "2<em>e</em>")}<em>x</em>&sup2; + ${frac("2 &minus; <em>e</em>", "6<em>e</em>&sup2;")}<em>x</em>&sup3; + &ctdot;`,
+        exactY: (x) => {
+          let y = 1 - x / Math.E;
+          for (let i = 0; i < 18; i++) {
+            const f = Math.exp(y) + x * y - Math.E;
+            const df = Math.exp(y) + x;
+            if (Math.abs(df) < 1e-9) return NaN;
+            y -= f / df;
+          }
+          return Math.abs(Math.exp(y) + x * y - Math.E) < 1e-5 ? y : NaN;
+        }
+      },
+
+      sqrtSin: {
+        name: "y² = 1 + sin x (y > 0)",
+        locusHTML: "<em>y</em>&sup2; = 1 + sin <em>x</em> &nbsp;(<em>y</em> &gt; 0)",
+        xMin: -1.4, xMax: 2.4, yMin: -0.4, yMax: 2.2,
+        y0: 1, y1: 0.5, y2: -0.25, y3: -0.125,
+        a0: 1, a1: 0.5, a2: -0.125, a3: -1 / 48,
+        p1HTML: `1 + ${frac("1", "2")}<em>x</em>`,
+        p2HTML: `1 + ${frac("1", "2")}<em>x</em> &minus; ${frac("1", "8")}<em>x</em>&sup2;`,
+        p3HTML: `1 + ${frac("1", "2")}<em>x</em> &minus; ${frac("1", "8")}<em>x</em>&sup2; &minus; ${frac("1", "48")}<em>x</em>&sup3;`,
+        steps: [
+          {
+            title: "Step 1: Set <em>x</em> = 0 &amp; Solve for <em>y</em>(0)",
+            rule: "Initial Point",
+            badge: "<em>y</em>(0) = 1",
+            html: `Substitute <span class="math"><em>x</em> = 0</span> into <span class="math"><em>y</em>&sup2; = 1 + sin <em>x</em></span>:<br>
+                   <span class="math">[<em>y</em>(0)]&sup2; = 1 + sin 0 = 1 &rArr; <em>y</em>(0) = <strong>1</strong></span> (since <span class="math"><em>y</em> &gt; 0</span>).`
+          },
+          {
+            title: "Step 2: Differentiate Once &amp; Solve for <em>y</em>&prime;(0)",
+            rule: "Avoids Square-Root Quotient",
+            badge: `<em>y</em>&prime;(0) = ${frac("1", "2")}`,
+            html: `Differentiate <span class="math"><em>y</em>&sup2; = 1 + sin <em>x</em></span> implicitly:<br>
+                   <span class="math">2<em>y</em><em>y</em>&prime; = cos <em>x</em></span>.<br>
+                   At <span class="math"><em>x</em> = 0, <em>y</em> = 1</span>: <span class="math">2(1)<em>y</em>&prime;(0) = cos 0 = 1 &rArr; <em>y</em>&prime;(0) = <strong>${frac("1", "2")}</strong></span>.`
+          },
+          {
+            title: "Step 3: Differentiate Twice &amp; Solve for <em>y</em>&Prime;(0)",
+            rule: "Product Rule",
+            badge: `<em>y</em>&Prime;(0) = &minus;${frac("1", "4")}`,
+            html: `Differentiate <span class="math">2<em>y</em><em>y</em>&prime; = cos <em>x</em></span> w.r.t. <span class="math"><em>x</em></span>:<br>
+                   <span class="math">2(<em>y</em>&prime;)&sup2; + 2<em>y</em><em>y</em>&Prime; = &minus;sin <em>x</em></span>.<br>
+                   Plug in <span class="math"><em>x</em> = 0, <em>y</em> = 1, <em>y</em>&prime; = ${frac("1", "2")}</span>: <span class="math">2(${frac("1", "4")}) + 2(1)<em>y</em>&Prime;(0) = 0 &rArr; <em>y</em>&Prime;(0) = <strong>&minus;${frac("1", "4")}</strong></span>.`
+          },
+          {
+            title: "Step 4: Differentiate Thrice &amp; Solve for <em>y</em>&prime;&prime;&prime;(0)",
+            rule: "Chain + Product Rule",
+            badge: `<em>y</em>&prime;&prime;&prime;(0) = &minus;${frac("1", "8")}`,
+            html: `Differentiate <span class="math">2(<em>y</em>&prime;)&sup2; + 2<em>y</em><em>y</em>&Prime; = &minus;sin <em>x</em></span>:<br>
+                   <span class="math">6<em>y</em>&prime;<em>y</em>&Prime; + 2<em>y</em><em>y</em>&prime;&prime;&prime; = &minus;cos <em>x</em></span>.<br>
+                   Plug in <span class="math"><em>y</em> = 1, <em>y</em>&prime; = ${frac("1", "2")}, <em>y</em>&Prime; = &minus;${frac("1", "4")}</span>: <span class="math">6(${frac("1", "2")})(&minus;${frac("1", "4")}) + 2<em>y</em>&prime;&prime;&prime;(0) = &minus;1 &rArr; <em>y</em>&prime;&prime;&prime;(0) = <strong>&minus;${frac("1", "8")}</strong></span>.`
+          }
+        ],
+        tangentEq: `<em>y</em> = 1 + ${frac("1", "2")}<em>x</em>`,
+        tangentNote: "Tangent line to y = √(1 + sin x) at the point (0, 1).",
+        diffTarget: `${frac("cos <em>x</em>", "2&radic;(1 + sin <em>x</em>)")}`,
+        diffSeries: `${frac("1", "2")} &minus; ${frac("1", "4")}<em>x</em> &minus; ${frac("1", "16")}<em>x</em>&sup2; + &ctdot;`,
+        intTarget: `&int;<sub>0</sub><sup><em>x</em></sup> &radic;(1 + sin <em>t</em>) d<em>t</em>`,
+        intSeries: `<em>x</em> + ${frac("1", "4")}<em>x</em>&sup2; &minus; ${frac("1", "24")}<em>x</em>&sup3; &minus; ${frac("1", "192")}<em>x</em><sup>4</sup> + &ctdot;`,
+        exactY: (x) => (1 + Math.sin(x) >= 0 ? Math.sqrt(1 + Math.sin(x)) : NaN)
+      },
+
+      tan: {
+        name: "y = tan x [y′ = 1 + y²]",
+        locusHTML: "<em>y</em> = tan <em>x</em> &nbsp;[<em>y</em>&prime; = 1 + <em>y</em>&sup2;]",
+        xMin: -1.35, xMax: 1.35, yMin: -2.6, yMax: 2.6,
+        y0: 0, y1: 1, y2: 0, y3: 2,
+        a0: 0, a1: 1, a2: 0, a3: 1 / 3,
+        p1HTML: `<em>x</em>`,
+        p2HTML: `<em>x</em> + 0<em>x</em>&sup2;`,
+        p3HTML: `<em>x</em> + ${frac("1", "3")}<em>x</em>&sup3;`,
+        steps: [
+          {
+            title: "Step 1: Set <em>x</em> = 0 &amp; Solve for <em>y</em>(0)",
+            rule: "Initial Point",
+            badge: "<em>y</em>(0) = 0",
+            html: `Substitute <span class="math"><em>x</em> = 0</span> into <span class="math"><em>y</em> = tan <em>x</em></span>:<br>
+                   <span class="math"><em>y</em>(0) = tan 0 = <strong>0</strong></span>.`
+          },
+          {
+            title: "Step 2: First Derivative Relation &amp; <em>y</em>&prime;(0)",
+            rule: "sec²x = 1 + tan²x",
+            badge: "<em>y</em>&prime;(0) = 1",
+            html: `<span class="math"><em>y</em>&prime; = sec&sup2; <em>x</em> = <strong>1 + <em>y</em>&sup2;</strong></span>.<br>
+                   At <span class="math"><em>x</em> = 0, <em>y</em> = 0</span>: <span class="math"><em>y</em>&prime;(0) = 1 + 0&sup2; = <strong>1</strong></span>.`
+          },
+          {
+            title: "Step 3: Differentiate Twice &amp; Solve for <em>y</em>&Prime;(0)",
+            rule: "Chain Rule on 1 + y²",
+            badge: "<em>y</em>&Prime;(0) = 0",
+            html: `Differentiate <span class="math"><em>y</em>&prime; = 1 + <em>y</em>&sup2;</span> w.r.t. <span class="math"><em>x</em></span>:<br>
+                   <span class="math"><em>y</em>&Prime; = <strong>2<em>y</em><em>y</em>&prime;</strong></span>.<br>
+                   Plug in <span class="math"><em>y</em>(0) = 0, <em>y</em>&prime;(0) = 1</span>: <span class="math"><em>y</em>&Prime;(0) = 2(0)(1) = <strong>0</strong></span>.`
+          },
+          {
+            title: "Step 4: Differentiate Thrice &amp; Solve for <em>y</em>&prime;&prime;&prime;(0)",
+            rule: "Product Rule on 2y·y′",
+            badge: "<em>y</em>&prime;&prime;&prime;(0) = 2",
+            html: `Differentiate <span class="math"><em>y</em>&Prime; = 2<em>y</em><em>y</em>&prime;</span> w.r.t. <span class="math"><em>x</em></span>:<br>
+                   <span class="math"><em>y</em>&prime;&prime;&prime; = <strong>2(<em>y</em>&prime;)&sup2; + 2<em>y</em><em>y</em>&Prime;</strong></span>.<br>
+                   Plug in <span class="math"><em>y</em>(0) = 0, <em>y</em>&prime;(0) = 1, <em>y</em>&Prime;(0) = 0</span>: <span class="math"><em>y</em>&prime;&prime;&prime;(0) = 2(1)&sup2; + 2(0)(0) = <strong>2</strong></span>.`
+          }
+        ],
+        tangentEq: "<em>y</em> = <em>x</em>",
+        tangentNote: "Matches the classic small-angle tangent approximation tan x ≈ x near x = 0!",
+        diffTarget: `sec&sup2; <em>x</em> = ${frac("d", "d<em>x</em>")}(tan <em>x</em>)`,
+        diffSeries: `sec&sup2; <em>x</em> = 1 + <em>x</em>&sup2; + &ctdot;`,
+        intTarget: `ln(sec <em>x</em>) = &int;<sub>0</sub><sup><em>x</em></sup> tan <em>t</em> d<em>t</em>`,
+        intSeries: `ln(sec <em>x</em>) = ${frac("1", "2")}<em>x</em>&sup2; + ${frac("1", "12")}<em>x</em><sup>4</sup> + &ctdot;`,
+        exactY: (x) => (Math.abs(x) < 1.48 ? Math.tan(x) : NaN)
+      }
+    };
+
+    function renderCascade() {
+      const c = CURVES[currentCurve];
+      const container = document.getElementById("stepListContainer");
+      container.innerHTML = c.steps.map((st, idx) => {
+        const unlocked = idx <= currentStep;
+        const isCurrent = idx === currentStep;
+        return `
+          <div class="step-card ${isCurrent ? "active-step" : ""} ${!unlocked ? "locked" : ""}">
+            <div class="step-head">
+              <span class="step-num">${st.title} <span class="rule-tag">${st.rule}</span></span>
+              <span class="val-badge math">${unlocked ? st.badge : "?"}</span>
+            </div>
+            <div class="step-body">
+              ${unlocked ? st.html : "<em>Click 'Next Step (+1)' to differentiate and evaluate at x = 0...</em>"}
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      const box = document.getElementById("assembledSeriesBox");
+      if (currentStep === 0) {
+        box.innerHTML = `<strong>Zeroth-Order Constant <span class="math"><em>P</em><sub>0</sub>(<em>x</em>)</span>:</strong> <span class="math"><em>y</em> &approx; ${c.a0}</span>`;
+      } else if (currentStep === 1) {
+        box.innerHTML = `<strong>Linear Tangent Approximation <span class="math"><em>P</em><sub>1</sub>(<em>x</em>)</span>:</strong> <span class="math"><em>y</em> &approx; ${c.p1HTML}</span>`;
+      } else if (currentStep === 2) {
+        box.innerHTML = `<strong>Quadratic Osculating Polynomial <span class="math"><em>P</em><sub>2</sub>(<em>x</em>)</span>:</strong> <span class="math"><em>y</em> &approx; ${c.p2HTML}</span>`;
+      } else {
+        box.innerHTML = `<strong>Cubic Maclaurin Expansion <span class="math"><em>P</em><sub>3</sub>(<em>x</em>)</span>:</strong> <span class="math"><em>y</em> = ${c.p3HTML} + &ctdot;</span>`;
+      }
+    }
+
+    function renderDeductions() {
+      const c = CURVES[currentCurve];
+
+      // Top reference box showing the Maclaurin series derived in Tab 1
+      const sourceBanner = document.getElementById("deduceSourceSeriesBanner");
+      sourceBanner.innerHTML = `
+        <div class="source-series-main">
+          <div class="kicker" style="margin-bottom:2px;">Derived Maclaurin Series from Tab 1 &mdash; <span class="math" style="text-transform:none;">${c.locusHTML}</span></div>
+          <span class="math"><strong><em>y</em> = ${c.p3HTML} + &ctdot;</strong></span>
+        </div>
+        <div class="source-deriv-pills math">
+          <span class="deriv-chip">${c.steps[0].badge}</span>
+          <span class="deriv-chip">${c.steps[1].badge}</span>
+          <span class="deriv-chip">${c.steps[2].badge}</span>
+          <span class="deriv-chip">${c.steps[3].badge}</span>
+        </div>
+      `;
+
+      const grid = document.getElementById("deduceGridContainer");
+      grid.innerHTML = `
+        <div class="deduce-card">
+          <span class="deduce-badge" style="background:var(--teal-bg); color:var(--teal);">Deduction 1: Equation of Tangent at <em>x</em> = 0</span>
+          <div style="font-size:0.83rem; color:#334155;">
+            Truncating the Maclaurin series above after the linear <span class="math"><em>x</em></span>-term gives the exact tangent line <span class="math"><em>y</em> = <em>y</em>(0) + <em>y</em>&prime;(0)<em>x</em></span> at <span class="math">(0, <em>y</em>(0))</span>:
+          </div>
+          <div class="formula-highlight math">
+            <strong>${c.tangentEq}</strong>
+          </div>
+          <div style="font-size:0.79rem; color:#475569;">${c.tangentNote}</div>
+        </div>
+
+        <div class="deduce-card">
+          <span class="deduce-badge" style="background:var(--blue-bg); color:#0369a1;">Deduction 2: Term-by-Term Differentiation</span>
+          <div style="font-size:0.83rem; color:#334155;">
+            Differentiating <span class="math"><em>y</em> = <em>P</em><sub>3</sub>(<em>x</em>) + &ctdot;</span> term-by-term yields the Maclaurin series for <span class="math">${c.diffTarget}</span> up to <span class="math"><em>x</em>&sup2;</span>:
+          </div>
+          <div class="formula-highlight math">
+            <strong>${c.diffSeries}</strong>
+          </div>
+          <div style="font-size:0.79rem; color:#475569;">Note: Differentiating a series up to <span class="math"><em>x</em><sup>3</sup></span> produces a derivative series valid up to <span class="math"><em>x</em><sup>2</sup></span>.</div>
+        </div>
+
+        <div class="deduce-card">
+          <span class="deduce-badge" style="background:var(--purple-bg); color:var(--purple-dark);">Deduction 3: Term-by-Term Integration</span>
+          <div style="font-size:0.83rem; color:#334155;">
+            Integrating <span class="math"><em>y</em> = <em>P</em><sub>3</sub>(<em>t</em>) + &ctdot;</span> from <span class="math">0</span> to <span class="math"><em>x</em></span> yields the Maclaurin series for <span class="math">${c.intTarget}</span> up to <span class="math"><em>x</em><sup>4</sup></span>:
+          </div>
+          <div class="formula-highlight math">
+            <strong>${c.intSeries}</strong>
+          </div>
+          <div style="font-size:0.79rem; color:#475569;">Integrating increases the degree of accuracy by +1 (from <span class="math"><em>x</em><sup>3</sup></span> to <span class="math"><em>x</em><sup>4</sup></span>).</div>
+        </div>
+      `;
+    }
+
+    function drawOsculator() {
+      const c = CURVES[currentCurve];
+      const w = canvas.width;
+      const h = canvas.height;
+      ctx.clearRect(0, 0, w, h);
+
+      const toPxX = (x) => ((x - c.xMin) / (c.xMax - c.xMin)) * w;
+      const toPxY = (y) => h - ((y - c.yMin) / (c.yMax - c.yMin)) * h;
+
+      // Subtle Grid
+      ctx.strokeStyle = "#e2e8f0";
+      ctx.lineWidth = 1;
+      for (let gx = Math.ceil(c.xMin); gx <= Math.floor(c.xMax); gx++) {
+        const px = toPxX(gx);
+        ctx.beginPath(); ctx.moveTo(px, 0); ctx.lineTo(px, h); ctx.stroke();
+      }
+      for (let gy = Math.ceil(c.yMin); gy <= Math.floor(c.yMax); gy++) {
+        const py = toPxY(gy);
+        ctx.beginPath(); ctx.moveTo(0, py); ctx.lineTo(w, py); ctx.stroke();
+      }
+
+      // Axes
+      const ox = toPxX(0);
+      const oy = toPxY(0);
+      ctx.strokeStyle = "#64748b";
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(0, oy); ctx.lineTo(w, oy);
+      ctx.moveTo(ox, 0); ctx.lineTo(ox, h);
+      ctx.stroke();
+
+      ctx.fillStyle = "#475569";
+      ctx.font = "11px Segoe UI, sans-serif";
+      for (let gx = Math.ceil(c.xMin); gx <= Math.floor(c.xMax); gx++) {
+        if (gx !== 0) ctx.fillText(gx.toString(), toPxX(gx) - 4, oy + 14);
+      }
+      for (let gy = Math.ceil(c.yMin); gy <= Math.floor(c.yMax); gy++) {
+        if (gy !== 0) ctx.fillText(gy.toString(), ox + 6, toPxY(gy) + 4);
+      }
+
+      function plotFn(evalFn, color, width, dash = []) {
+        ctx.save();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = width;
+        ctx.setLineDash(dash);
+        ctx.beginPath();
+        let started = false;
+        const N = 500;
+        for (let i = 0; i <= N; i++) {
+          const x = c.xMin + (i / N) * (c.xMax - c.xMin);
+          const y = evalFn(x);
+          if (!Number.isFinite(y) || y < c.yMin - 1 || y > c.yMax + 1) {
+            started = false;
+            continue;
+          }
+          const px = toPxX(x);
+          const py = toPxY(y);
+          if (!started) { ctx.moveTo(px, py); started = true; }
+          else { ctx.lineTo(px, py); }
+        }
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      // 1. Exact Implicit Branch
+      if (document.getElementById("chkExact").checked) {
+        plotFn(c.exactY, "#0f172a", 2.8);
+      }
+
+      // 2. Linear Tangent P1(x)
+      if (document.getElementById("chkTangent").checked) {
+        plotFn((x) => c.a0 + c.a1 * x, "#0f766e", 2, [6, 4]);
+      }
+
+      // 3. Quadratic P2(x)
+      if (document.getElementById("chkQuad").checked) {
+        plotFn((x) => c.a0 + c.a1 * x + c.a2 * x * x, "#0284c7", 2.2, [3, 3]);
+      }
+
+      // 4. Cubic P3(x)
+      if (document.getElementById("chkCubic").checked) {
+        plotFn((x) => c.a0 + c.a1 * x + c.a2 * x * x + c.a3 * x * x * x, "#8b5cf6", 2.6);
+      }
+
+      // Anchor dot at (0, y(0))
+      ctx.beginPath();
+      ctx.arc(ox, toPxY(c.y0), 5, 0, Math.PI * 2);
+      ctx.fillStyle = "#7c3aed";
+      ctx.fill();
+      ctx.fillStyle = "#1e293b";
+      ctx.font = "bold 12px Segoe UI, sans-serif";
+      ctx.fillText(`(0, ${c.y0})`, ox + 8, toPxY(c.y0) - 8);
+    }
+
+    function refreshAll() {
+      renderCascade();
+      renderDeductions();
+      drawOsculator();
+    }
+
+    function switchMode(mode) {
+      activeMode = mode;
+      document.getElementById("tabCascadeBtn").classList.toggle("active", mode === "cascade");
+      document.getElementById("tabDeduceBtn").classList.toggle("active", mode === "deduce");
+      document.getElementById("cascadePanel").classList.toggle("active", mode === "cascade");
+      document.getElementById("deducePanel").classList.toggle("active", mode === "deduce");
+      if (mode === "cascade") drawOsculator();
+    }
+
+    function selectCurve(key) {
+      currentCurve = key;
+      document.querySelectorAll(".curve-pill").forEach(el => el.classList.remove("active"));
+      document.getElementById("c_" + key).classList.add("active");
+      refreshAll();
+    }
+
+    function setStep(s) {
+      currentStep = s;
+      renderCascade();
+    }
+
+    function nextStep() {
+      if (currentStep < 3) {
+        currentStep++;
+        renderCascade();
+      }
+    }
+
+    refreshAll();
+  </script>
+</body>
+</html>
