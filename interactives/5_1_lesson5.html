@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 5.1 Lesson 5: Stationary Points & First/Second Derivative Tests</title>
+
+  <!-- MathJax 3 for crisp typeset mathematical notation -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.48;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 545px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1000px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 8px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.75rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.52;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .step-box {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 11px;
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 7px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .slider-row {
+      margin-bottom: 8px;
+    }
+
+    .slider-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 3px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple-dark);
+      cursor: pointer;
+    }
+
+    /* Number Line Visual in Step 1 */
+    .numline-wrap {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 8px 10px;
+      margin-top: 6px;
+    }
+
+    .root-chips {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+
+    .root-chip {
+      padding: 5px 10px;
+      border-radius: 8px;
+      border: 1.5px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: #1e293b;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .root-chip.selected {
+      border-color: var(--purple-dark);
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+    }
+
+    /* Step 2 Test Toggle */
+    .test-toggle-bar {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-bottom: 9px;
+    }
+
+    .test-btn {
+      padding: 7px 8px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .test-btn.active {
+      background: var(--teal);
+      color: #ffffff;
+      border-color: #115e59;
+    }
+
+    /* Sign Table Styling */
+    .sign-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+      text-align: center;
+      margin-top: 6px;
+      background: #ffffff;
+    }
+
+    .sign-table th, .sign-table td {
+      border: 1px solid #cbd5e1;
+      padding: 6px 8px;
+    }
+
+    .sign-table th {
+      background: #f1f5f9;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    .sign-pos {
+      color: var(--teal);
+      font-weight: 800;
+      background: #f0fdfa;
+    }
+
+    .sign-neg {
+      color: var(--rose);
+      font-weight: 800;
+      background: #fff1f2;
+    }
+
+    .sign-zero {
+      color: var(--purple-dark);
+      font-weight: 800;
+      background: #faf5ff;
+    }
+
+    .verdict-box {
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.79rem;
+      line-height: 1.5;
+      margin-top: 8px;
+    }
+
+    .verdict-ok {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      color: #134e4a;
+    }
+
+    .verdict-warn {
+      background: var(--amber-bg);
+      border: 1.5px solid #fcd34d;
+      color: #78350f;
+    }
+
+    .solution-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.8rem;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    /* RIGHT PANEL */
+    .canvas-box {
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 9px 11px;
+      margin-bottom: 10px;
+    }
+
+    .canvas-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 6px;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .legend-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    .leg-chip {
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+
+    canvas {
+      width: 100%;
+      height: 350px;
+      display: block;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      cursor: pointer;
+    }
+
+    .gc-guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .gc-guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .step-pill {
+      background: var(--blue-bg);
+      border: 1px solid #bae6fd;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.77rem;
+      line-height: 1.48;
+      color: #0c4a6e;
+    }
+
+    .misconception-box {
+      margin-top: 10px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-size: 0.78rem;
+      line-height: 1.48;
+      color: #78350f;
+    }
+
+    .grader-card {
+      margin-top: 10px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 14px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 7px;
+    }
+
+    @media (max-width: 700px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      line-height: 1.48;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Step 1: Solve $f'(x) = 0$ &amp; Pin Roots</strong>
+        Select a function model and adjust its parameter (if applicable) to see $f'(x)$ factored and each stationary value $x = c$ pinned onto the number line and graph.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Step 2: Compare Derivative Tests</strong>
+        Click any pinned stationary point chip (or click the marker on the graph), then toggle between the <em>Second Derivative Test</em> ($f''(c)$) and the <em>First Derivative Sign Table</em> ($c^-$ vs. $c^+$).
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Handle Inconclusive $f''(c) = 0$ Cases</strong>
+        Inspect $f(x) = x^4 - 4x^3$ at $x = 0$ to see why $f''(0) = 0$ is inconclusive and how the First Derivative Sign Table confirms a <strong>stationary point of inflexion</strong>.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        5.1 Lesson 5 &bull; Stationary Points &amp; Derivative Tests
+      </div>
+
+      <!-- 4 Function Presets -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="sc_quartic" onclick="loadPreset('quartic')">
+          1. $f(x) = x^4 - 4x^3$ (Inflexion)
+        </button>
+        <button class="tab-btn" id="sc_cubic" onclick="loadPreset('cubic')">
+          2. $f(x) = x^3 - 3kx^2 + 4$
+        </button>
+        <button class="tab-btn" id="sc_exp" onclick="loadPreset('exp')">
+          3. $f(x) = x^2 e^{-x}$
+        </button>
+        <button class="tab-btn" id="sc_rational" onclick="loadPreset('rational')">
+          4. $f(x) = x + \dfrac{k}{x}$ ($x \neq 0$)
+        </button>
+      </div>
+
+      <!-- Contextual Description -->
+      <div class="context-box" id="contextBox"></div>
+
+      <!-- STEP 1: SOLVE f'(x) = 0 & NUMBER LINE -->
+      <div class="step-box">
+        <div class="step-header">
+          <span>Step 1: Solve $f'(x) = 0$ &amp; Pin Stationary Points</span>
+          <span id="rootCountBadge" style="color:var(--purple-dark);">2 Stationary Points</span>
+        </div>
+
+        <div id="paramControlArea"></div>
+
+        <div id="step1Math" style="font-size:0.79rem; line-height:1.52; color:#1e293b;"></div>
+
+        <!-- Number Line & Clickable Stationary Point Selector -->
+        <div class="numline-wrap">
+          <div style="font-size:0.72rem; font-weight:700; color:var(--muted); margin-bottom:4px;">
+            Click a pinned stationary point $x = c$ to inspect its nature:
+          </div>
+          <div class="root-chips" id="rootChips"></div>
+        </div>
+      </div>
+
+      <!-- STEP 2: FIRST VS SECOND DERIVATIVE TEST -->
+      <div class="step-box">
+        <div class="step-header">
+          <span>Step 2: Classify Nature at Selected Point</span>
+          <span id="selectedPtBadge" style="color:var(--teal);">(0.00, 0.00)</span>
+        </div>
+
+        <div class="test-toggle-bar">
+          <button class="test-btn active" id="btnTest2" onclick="setTestMode('second')">
+            Second Derivative Test ($f''(c)$)
+          </button>
+          <button class="test-btn" id="btnTest1" onclick="setTestMode('first')">
+            First Derivative Sign Table ($c^-, c^+$)
+          </button>
+        </div>
+
+        <div id="testResultArea"></div>
+      </div>
+
+      <!-- 9758 Scope Summary Banner -->
+      <div class="solution-banner" id="scopeBanner">
+        9758 Syllabus Scope: Focuses exclusively on stationary points ($f'(c) = 0$: local maxima, local minima, and stationary points of inflexion). Non-stationary points of inflexion are excluded.
+      </div>
+    </div>
+
+    <!-- RIGHT CANVAS, GC GUIDE & EXAM CHECK -->
+    <div class="card">
+      <div class="canvas-box">
+        <div class="canvas-top-bar">
+          <span id="canvasHeading">Curve $y = x^4 - 4x^3$ &amp; Pinned Stationary Points</span>
+          <div class="legend-row">
+            <span class="leg-chip" style="background:#ffe4e6; color:#9f1239;">Local Max</span>
+            <span class="leg-chip" style="background:#ccfbf1; color:#0f766e;">Local Min</span>
+            <span class="leg-chip" style="background:#f3e8ff; color:#6b21a8;">Stat. Inflexion</span>
+          </div>
+        </div>
+        <canvas id="statCanvas"></canvas>
+      </div>
+
+      <!-- 3-Step TI-84 Plus CE Keystroke Guide -->
+      <div class="gc-guide-grid">
+        <div class="step-pill">
+          <strong>1. Locate Extrema on GC</strong><br>
+          Plot <strong>Y₁ = f(x)</strong>, press <strong>[2nd] [TRACE] (CALC) &rarr; 3: minimum</strong> or <strong>4: maximum</strong>, set Left/Right Bounds, and press <strong>[ENTER]</strong>.
+        </div>
+        <div class="step-pill">
+          <strong>2. Spot Stationary Inflexions</strong><br>
+          GC <code>minimum</code>/<code>maximum</code> will <strong>not</strong> detect stationary inflexions! Graph <strong>Y₂ = nDeriv(Y₁, X, X)</strong> and check where $Y_2$ touches the $x$-axis.
+        </div>
+        <div class="step-pill">
+          <strong>3. Verify $f''(c)$ Numerically</strong><br>
+          Use <strong>[MATH] &rarr; 8: nDeriv(Y₂, X, c)</strong> to verify the sign of $f''(c)$ quickly after algebraic differentiation.
+        </div>
+      </div>
+
+      <!-- 9758 Misconception & Syllabus Scope Box -->
+      <div class="misconception-box">
+        <strong>9758 Exam Presentation &amp; Scope Rules:</strong>
+        <ul style="margin:3px 0 0 0; padding-left:18px;">
+          <li><strong>When $f''(c) = 0$:</strong> Never conclude "stationary point of inflexion" solely from $f''(c) = 0$ (for example, $y = x^4$ has $f''(0) = 0$ but is a local minimum!). You <strong>must</strong> fall back on the First Derivative Sign Table.</li>
+          <li><strong>9758 Syllabus Exclusion:</strong> Non-stationary points of inflexion (where $f''(c) = 0$ with sign change in $f''$, but $f'(c) \neq 0$) are <strong>not required</strong> in the 9758 H2 Math syllabus.</li>
+        </ul>
+      </div>
+
+      <!-- Quick 9758 Exam Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 Stationary Points Check (<span id="qIdxLbl">1</span>/3)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.8rem; line-height:1.48; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function typesetMath(el) {
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      window.MathJax.typesetPromise(el ? [el] : undefined).catch(() => {});
+    }
+  }
+
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  const state = {
+    preset: "quartic",
+    k: 1.0,
+    selectedRootIdx: 0,
+    testMode: "second" // "second" or "first"
+  };
+
+  const canvas = document.getElementById("statCanvas");
+  const ctx = canvas.getContext("2d");
+
+  function fmt(n, d = 2) {
+    if (isNaN(n)) return "Undefined";
+    if (Math.abs(n) < 1e-6) return "0.00";
+    return n.toFixed(d);
+  }
+
+  function getModel() {
+    const k = state.k;
+    if (state.preset === "quartic") {
+      return {
+        heading: "Curve $y = x^4 - 4x^3$ &amp; Pinned Stationary Points",
+        context: "<strong>Quartic with Stationary Point of Inflexion:</strong> $f(x) = x^4 - 4x^3$. Notice that $x = 0$ is a repeated root of $f'(x) = 4x^2(x - 3) = 0$, making $f''(0) = 0$ inconclusive.",
+        pill: "Key Insight: When $f''(c) = 0$, switch to the First Derivative Sign Table!",
+        hasParam: false,
+        fn: x => Math.pow(x, 4) - 4 * Math.pow(x, 3),
+        df: x => 4 * x * x * (x - 3),
+        ddf: x => 12 * x * (x - 2),
+        factoredLatex: "$f'(x) = 4x^3 - 12x^2 = 4x^2(x - 3) = 0 \\implies x = 0 \\text{ or } x = 3$",
+        secondLatex: "$f''(x) = 12x^2 - 24x = 12x(x - 2)$",
+        xMin: -2.2, xMax: 4.5, yMin: -32, yMax: 12,
+        vAsymp: null,
+        roots: [
+          { x: 0, label: "x = 0", nature: "Stationary Point of Inflexion", code: "inflex", delta: 0.3 },
+          { x: 3, label: "x = 3", nature: "Local Minimum", code: "min", delta: 0.3 }
+        ]
+      };
+    } else if (state.preset === "cubic") {
+      return {
+        heading: `Cubic $y = x^3 - ${(3 * k).toFixed(2)}x^2 + 4$ ($k = ${k.toFixed(2)}$)`,
+        context: "<strong>Parametric Cubic Family:</strong> $f(x) = x^3 - 3kx^2 + 4$ ($k &gt; 0$). Factoring $f'(x) = 3x(x - 2k) = 0$ yields two distinct stationary points at $x = 0$ and $x = 2k$.",
+        pill: "Observe how $f''(0) = -6k < 0$ (local max) and $f''(2k) = 6k > 0$ (local min).",
+        hasParam: true,
+        paramMin: 0.5, paramMax: 1.75, paramStep: 0.25,
+        fn: x => x * x * x - 3 * k * x * x + 4,
+        df: x => 3 * x * (x - 2 * k),
+        ddf: x => 6 * x - 6 * k,
+        factoredLatex: `$f'(x) = 3x^2 - ${(6 * k).toFixed(2)}x = 3x(x - ${(2 * k).toFixed(2)}) = 0 \\implies x = 0 \\text{ or } x = ${(2 * k).toFixed(2)}$`,
+        secondLatex: `$f''(x) = 6x - ${(6 * k).toFixed(2)}$`,
+        xMin: -2.2, xMax: 4.8, yMin: -12, yMax: 10,
+        vAsymp: null,
+        roots: [
+          { x: 0, label: "x = 0", nature: "Local Maximum", code: "max", delta: 0.25 },
+          { x: 2 * k, label: `x = ${(2 * k).toFixed(2)}`, nature: "Local Minimum", code: "min", delta: 0.25 }
+        ]
+      };
+    } else if (state.preset === "exp") {
+      return {
+        heading: "Exponential-Polynomial Product: $y = x^2 e^{-x}$",
+        context: "<strong>Exponential Product Curve:</strong> $f(x) = x^2 e^{-x}$. By the Product Rule, $f'(x) = x(2 - x)e^{-x}$. Since $e^{-x} &gt; 0$ for all $x \\in \\mathbb{R}$, stationary points occur solely where $x(2 - x) = 0$.",
+        pill: "Exam Tip: Always state '$e^{-x} > 0$ for all $x \\in \\mathbb{R}$' before dividing out $e^{-x}$!",
+        hasParam: false,
+        fn: x => x * x * Math.exp(-x),
+        df: x => x * (2 - x) * Math.exp(-x),
+        ddf: x => (x * x - 4 * x + 2) * Math.exp(-x),
+        factoredLatex: "$f'(x) = 2xe^{-x} - x^2e^{-x} = x(2 - x)e^{-x} = 0 \\implies x = 0 \\text{ or } x = 2 \\; (e^{-x} > 0)$",
+        secondLatex: "$f''(x) = (x^2 - 4x + 2)e^{-x}$",
+        xMin: -1.6, xMax: 5.5, yMin: -0.3, yMax: 1.2,
+        vAsymp: null,
+        roots: [
+          { x: 0, label: "x = 0", nature: "Local Minimum", code: "min", delta: 0.25 },
+          { x: 2, label: "x = 2", nature: "Local Maximum", code: "max", delta: 0.25 }
+        ]
+      };
+    } else {
+      const rk = Math.sqrt(k);
+      return {
+        heading: `Rational Curve: $y = x + \\dfrac{${k.toFixed(2)}}{x}$ ($x \\neq 0$)`,
+        context: `<strong>Rational Curve with Asymptote at $x = 0$:</strong> $f(x) = x + \\dfrac{k}{x}$ ($k = ${k.toFixed(2)} &gt; 0$). Note that $x = 0$ is a vertical asymptote (not in domain), while $f'(x) = 1 - \\dfrac{k}{x^2} = 0$ gives $x = \\pm\\sqrt{k}$.`,
+        pill: "Trap Alert: Never cross $x = 0$ without marking it undefined in a sign table!",
+        hasParam: true,
+        paramMin: 0.5, paramMax: 4.0, paramStep: 0.25,
+        fn: x => (Math.abs(x) < 0.05 ? NaN : x + k / x),
+        df: x => (Math.abs(x) < 0.05 ? NaN : 1 - k / (x * x)),
+        ddf: x => (Math.abs(x) < 0.05 ? NaN : (2 * k) / (x * x * x)),
+        factoredLatex: `$f'(x) = 1 - \\dfrac{${k.toFixed(2)}}{x^2} = \\dfrac{x^2 - ${k.toFixed(2)}}{x^2} = 0 \\implies x = -${rk.toFixed(2)} \\text{ or } x = ${rk.toFixed(2)}$`,
+        secondLatex: `$f''(x) = \\dfrac{${(2 * k).toFixed(2)}}{x^3}$`,
+        xMin: -4.5, xMax: 4.5, yMin: -6.5, yMax: 6.5,
+        vAsymp: 0,
+        roots: [
+          { x: -rk, label: `x = −${rk.toFixed(2)}`, nature: "Local Maximum", code: "max", delta: 0.25 },
+          { x: rk, label: `x = ${rk.toFixed(2)}`, nature: "Local Minimum", code: "min", delta: 0.25 }
+        ]
+      };
+    }
+  }
+
+  function loadPreset(key) {
+    state.preset = key;
+    state.selectedRootIdx = 0;
+    if (key === "cubic") state.k = 1.0;
+    if (key === "rational") state.k = 2.0;
+
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("sc_" + key).classList.add("active");
+
+    updateUI();
+  }
+
+  function setTestMode(mode) {
+    state.testMode = mode;
+    document.getElementById("btnTest2").classList.toggle("active", mode === "second");
+    document.getElementById("btnTest1").classList.toggle("active", mode === "first");
+    updateUI();
+  }
+
+  function selectRoot(idx) {
+    state.selectedRootIdx = idx;
+    updateUI();
+  }
+
+  function onParamSlide(val) {
+    state.k = parseFloat(val);
+    updateUI();
+  }
+
+  function updateUI() {
+    const m = getModel();
+    const root = m.roots[state.selectedRootIdx] || m.roots[0];
+    const yVal = m.fn(root.x);
+
+    document.getElementById("contextBox").innerHTML = `
+      <div>${m.context}</div>
+      <div class="var-pill">${m.pill}</div>
+    `;
+
+    const paramArea = document.getElementById("paramControlArea");
+    if (m.hasParam) {
+      paramArea.innerHTML = `
+        <div class="slider-row">
+          <div class="slider-label">
+            <span>Parameter ($k &gt; 0$)</span>
+            <span>${state.k.toFixed(2)}</span>
+          </div>
+          <input type="range" min="${m.paramMin}" max="${m.paramMax}" step="${m.paramStep}" value="${state.k}" oninput="onParamSlide(this.value)" />
+        </div>
+      `;
+    } else {
+      paramArea.innerHTML = "";
+    }
+
+    document.getElementById("step1Math").innerHTML = `
+      <div><strong>First Derivative:</strong> ${m.factoredLatex}</div>
+    `;
+    document.getElementById("rootCountBadge").textContent = `${m.roots.length} Stationary Points`;
+
+    // Render clickable stationary point chips
+    document.getElementById("rootChips").innerHTML = m.roots.map((r, i) => `
+      <button class="root-chip ${i === state.selectedRootIdx ? "selected" : ""}" onclick="selectRoot(${i})">
+        ${r.label} &nbsp;(${fmt(r.x)}, ${fmt(m.fn(r.x))})
+      </button>
+    `).join("");
+
+    document.getElementById("selectedPtBadge").textContent = `(${fmt(root.x)}, ${fmt(yVal)})`;
+
+    // Step 2: Render Second Derivative Test OR First Derivative Sign Table
+    const testArea = document.getElementById("testResultArea");
+    if (state.testMode === "second") {
+      const d2Val = m.ddf(root.x);
+      const isInconclusive = Math.abs(d2Val) < 1e-4;
+
+      if (isInconclusive) {
+        testArea.innerHTML = `
+          <div style="font-size:0.79rem; line-height:1.5;">
+            <div><strong>Second Derivative:</strong> ${m.secondLatex}</div>
+            <div>At $x = ${fmt(root.x)}$: $f''(${fmt(root.x)}) = 0.00$.</div>
+          </div>
+          <div class="verdict-box verdict-warn">
+            <strong>Test Inconclusive ($f''(${fmt(root.x)}) = 0$):</strong> A zero second derivative cannot distinguish between a local maximum, local minimum, or stationary point of inflexion. Click <strong>First Derivative Sign Table ($c^-, c^+$)</strong> above to classify this point!
+          </div>
+        `;
+      } else {
+        const signStr = d2Val > 0 ? "&gt; 0" : "&lt; 0";
+        const shapeStr = d2Val > 0 ? "concave up ($\\cup$)" : "concave down ($\\cap$)";
+        testArea.innerHTML = `
+          <div style="font-size:0.79rem; line-height:1.5;">
+            <div><strong>Second Derivative:</strong> ${m.secondLatex}</div>
+            <div>At $x = ${fmt(root.x)}$: $f''(${fmt(root.x)}) = ${fmt(d2Val)} ${signStr}$ (${shapeStr}).</div>
+          </div>
+          <div class="verdict-box verdict-ok">
+            <strong>Conclusion:</strong> Since $f'(${fmt(root.x)}) = 0$ and $f''(${fmt(root.x)}) ${signStr}$, $(${fmt(root.x)}, ${fmt(yVal)})$ is a <strong>${root.nature}</strong>.
+          </div>
+        `;
+      }
+    } else {
+      // First Derivative Sign Table around root.x
+      const xL = root.x - root.delta;
+      const xR = root.x + root.delta;
+      const dfL = m.df(xL);
+      const dfR = m.df(xR);
+
+      const sgnL = dfL > 0 ? "+" : "−";
+      const sgnR = dfR > 0 ? "+" : "−";
+      const clsL = dfL > 0 ? "sign-pos" : "sign-neg";
+      const clsR = dfR > 0 ? "sign-pos" : "sign-neg";
+      const arrL = dfL > 0 ? "↗" : "↘";
+      const arrR = dfR > 0 ? "↗" : "↘";
+
+      testArea.innerHTML = `
+        <table class="sign-table">
+          <thead>
+            <tr>
+              <th>$x$</th>
+              <th>${fmt(root.x)}⁻ &nbsp;(e.g. ${fmt(xL)})</th>
+              <th>${fmt(root.x)}</th>
+              <th>${fmt(root.x)}⁺ &nbsp;(e.g. ${fmt(xR)})</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>$f'(x)$ value</strong></td>
+              <td>${fmt(dfL)}</td>
+              <td>$0$</td>
+              <td>${fmt(dfR)}</td>
+            </tr>
+            <tr>
+              <td><strong>Sign of $f'(x)$</strong></td>
+              <td class="${clsL}">${sgnL}</td>
+              <td class="sign-zero">0</td>
+              <td class="${clsR}">${sgnR}</td>
+            </tr>
+            <tr>
+              <td><strong>Tangent</strong></td>
+              <td>${arrL}</td>
+              <td>—</td>
+              <td>${arrR}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="verdict-box verdict-ok">
+          <strong>Sign Table Conclusion:</strong> Since $f'(x)$ changes as $(${sgnL}, 0, ${sgnR})$ across $x = ${fmt(root.x)}$, $(${fmt(root.x)}, ${fmt(yVal)})$ is a <strong>${root.nature}</strong>.
+        </div>
+      `;
+    }
+
+    drawGraph(m);
+    typesetMath();
+  }
+
+  // ==========================================
+  // CANVAS PLOTTING & CLICKABLE STATIONARY POINTS
+  // ==========================================
+  function toPxX(x, w, m) {
+    return ((x - m.xMin) / (m.xMax - m.xMin)) * w;
+  }
+  function toPxY(y, h, m) {
+    return h - ((y - m.yMin) / (m.yMax - m.yMin)) * h;
+  }
+
+  function resizeCanvas() {
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = Math.round(rect.width * dpr);
+    canvas.height = Math.round(rect.height * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    drawGraph(getModel());
+  }
+
+  canvas.addEventListener("pointerdown", e => {
+    const rect = canvas.getBoundingClientRect();
+    const px = e.clientX - rect.left;
+    const py = e.clientY - rect.top;
+    const m = getModel();
+
+    let bestIdx = -1;
+    let bestDist = 28;
+    m.roots.forEach((r, idx) => {
+      const rx = toPxX(r.x, rect.width, m);
+      const ry = toPxY(m.fn(r.x), rect.height, m);
+      const d = Math.hypot(px - rx, py - ry);
+      if (d < bestDist) {
+        bestDist = d;
+        bestIdx = idx;
+      }
+    });
+
+    if (bestIdx !== -1) {
+      selectRoot(bestIdx);
+    }
+  });
+
+  function drawGraph(m) {
+    const rect = canvas.getBoundingClientRect();
+    const w = rect.width;
+    const h = rect.height;
+
+    ctx.clearRect(0, 0, w, h);
+    document.getElementById("canvasHeading").innerHTML = m.heading;
+
+    // Grid lines
+    for (let gx = Math.ceil(m.xMin); gx <= Math.floor(m.xMax); gx++) {
+      const px = toPxX(gx, w, m);
+      ctx.strokeStyle = gx === 0 ? "#64748b" : "#f1f5f9";
+      ctx.lineWidth = gx === 0 ? 1.5 : 1;
+      ctx.beginPath();
+      ctx.moveTo(px, 0);
+      ctx.lineTo(px, h);
+      ctx.stroke();
+
+      if (gx !== 0) {
+        ctx.fillStyle = "#64748b";
+        ctx.font = "11px sans-serif";
+        const y0 = Math.min(Math.max(toPxY(0, h, m) + 13, 14), h - 4);
+        ctx.fillText(gx.toString(), px - 4, y0);
+      }
+    }
+
+    const ySpan = m.yMax - m.yMin;
+    const yStep = ySpan > 25 ? 5 : ySpan > 10 ? 2 : ySpan > 3 ? 1 : 0.25;
+    for (let gy = Math.ceil(m.yMin / yStep) * yStep; gy <= m.yMax; gy += yStep) {
+      const py = toPxY(gy, h, m);
+      const isAxis = Math.abs(gy) < 1e-6;
+      ctx.strokeStyle = isAxis ? "#64748b" : "#f1f5f9";
+      ctx.lineWidth = isAxis ? 1.5 : 1;
+      ctx.beginPath();
+      ctx.moveTo(0, py);
+      ctx.lineTo(w, py);
+      ctx.stroke();
+
+      if (!isAxis) {
+        ctx.fillStyle = "#64748b";
+        ctx.font = "11px sans-serif";
+        const x0 = Math.min(Math.max(toPxX(0, w, m) + 5, 6), w - 28);
+        ctx.fillText(yStep < 1 ? gy.toFixed(2) : gy.toString(), x0, py + 4);
+      }
+    }
+
+    // Vertical asymptote if present
+    if (m.vAsymp !== null) {
+      const ax = toPxX(m.vAsymp, w, m);
+      ctx.save();
+      ctx.setLineDash([5, 5]);
+      ctx.strokeStyle = "#e11d48";
+      ctx.lineWidth = 1.6;
+      ctx.beginPath();
+      ctx.moveTo(ax, 0);
+      ctx.lineTo(ax, h);
+      ctx.stroke();
+      ctx.restore();
+      ctx.fillStyle = "#be123c";
+      ctx.font = "bold 11px sans-serif";
+      ctx.fillText(`Asymp. x = ${m.vAsymp}`, ax + 5, 16);
+    }
+
+    // Plot curve y = f(x)
+    ctx.strokeStyle = "#1e293b";
+    ctx.lineWidth = 2.6;
+    ctx.beginPath();
+    let started = false;
+    const steps = 420;
+    for (let i = 0; i <= steps; i++) {
+      const x = m.xMin + (i / steps) * (m.xMax - m.xMin);
+      const y = m.fn(x);
+      if (isNaN(y) || y < m.yMin - 15 || y > m.yMax + 15) {
+        started = false;
+        continue;
+      }
+      const px = toPxX(x, w, m);
+      const py = toPxY(y, h, m);
+      if (!started) {
+        ctx.moveTo(px, py);
+        started = true;
+      } else {
+        ctx.lineTo(px, py);
+      }
+    }
+    ctx.stroke();
+
+    // Plot pinned stationary points and horizontal tangents
+    m.roots.forEach((r, idx) => {
+      const rx = toPxX(r.x, w, m);
+      const ryVal = m.fn(r.x);
+      const ry = toPxY(ryVal, h, m);
+      const isSel = idx === state.selectedRootIdx;
+
+      const color = r.code === "max" ? "#e11d48" : r.code === "min" ? "#0f766e" : "#7c3aed";
+
+      // Horizontal tangent segment
+      ctx.strokeStyle = color;
+      ctx.lineWidth = isSel ? 2.5 : 1.7;
+      ctx.beginPath();
+      ctx.moveTo(rx - 32, ry);
+      ctx.lineTo(rx + 32, ry);
+      ctx.stroke();
+
+      // Highlight halo for selected stationary point
+      if (isSel) {
+        ctx.fillStyle = "rgba(139, 92, 246, 0.22)";
+        ctx.beginPath();
+        ctx.arc(rx, ry, 13, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Marker dot
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.arc(rx, ry, isSel ? 7 : 5.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = "#ffffff";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Label
+      ctx.fillStyle = "#1e293b";
+      ctx.font = isSel ? "bold 12px sans-serif" : "11px sans-serif";
+      const lblY = r.code === "min" ? Math.min(ry + 18, h - 8) : Math.max(ry - 11, 16);
+      ctx.fillText(`${r.nature} (${fmt(r.x)}, ${fmt(ryVal)})`, Math.min(Math.max(rx - 45, 8), w - 175), lblY);
+    });
+
+    typesetMath(document.getElementById("canvasHeading"));
+  }
+
+  // 3-Question 9758 Exam Check
+  const examQs = [
+    {
+      q: "For a twice-differentiable function $f$, suppose $f'(2) = 0$ and $f''(2) = 0$. Which statement is valid in 9758 H2 Math?",
+      opts: [
+        "The Second Derivative Test is inconclusive; use the First Derivative Sign Table around $x = 2$",
+        "The point at $x = 2$ must be a stationary point of inflexion",
+        "The point at $x = 2$ must be a local minimum",
+        "There is no stationary point at $x = 2$"
+      ],
+      ans: 0,
+      exp: "When $f''(c) = 0$, the Second Derivative Test is inconclusive (for instance, $f(x) = x^4$ has a local minimum at $x = 0$ even though $f''(0) = 0$). Always use the First Derivative Sign Table."
+    },
+    {
+      q: "Given $f(x) = x^2 e^{-x}$, find the $x$-coordinates of all stationary points.",
+      opts: [
+        "$x = 0$ and $x = 2$",
+        "$x = 0$ only",
+        "$x = 2$ only",
+        "$x = 0$ and $x = -2$"
+      ],
+      ans: 0,
+      exp: "$f'(x) = 2xe^{-x} - x^2e^{-x} = x(2 - x)e^{-x} = 0$. Since $e^{-x} > 0$ for all $x \\in \\mathbb{R}$, we obtain $x = 0$ or $x = 2$."
+    },
+    {
+      q: "Using the First Derivative Sign Table, if $f'(c) = 0$ with $f'(c^-) < 0$ and $f'(c^+) < 0$, what is the nature of the stationary point at $x = c$?",
+      opts: [
+        "Stationary point of inflexion",
+        "Local minimum",
+        "Local maximum",
+        "Vertical asymptote"
+      ],
+      ans: 0,
+      exp: "Because $f'(x)$ does not change sign across $x = c$ (negative before and negative after), the curve decreases, flattens horizontally at $x = c$, and continues decreasing—a stationary point of inflexion."
+    }
+  ];
+
+  let curQ = 0;
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").innerHTML = item.q;
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i})">${String.fromCharCode(65 + i)}. ${o}</button>
+    `).join("");
+    typesetMath(document.querySelector(".grader-card"));
+  }
+
+  function gradeExamQ(idx) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+    typesetMath(fb);
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  // Initialize
+  window.addEventListener("resize", resizeCanvas);
+  loadPreset("quartic");
+  renderExamQ();
+  resizeCanvas();
+</script>
+
+</body>
+</html>
