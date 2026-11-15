@@ -2252,41 +2252,36 @@
             exitAnswer: "Rotating the rectangular strip of height r = f(x) and thickness h = δx through 360° forms a thin right circular cylinder of volume <strong>δV ≈ πr²h = π[f(x)]² δx</strong>."
           },
           {
-            label: "Lesson 5: Volume of Revolution About Shifted Lines (y = k & x = k)",
+            label: "Lesson 5: Volume of Solid of Revolution About Shifted Lines (y = k & x = k via Translation)",
             file: "interactives/5_4_lesson5.html",
             videoEmbedUrl: "",
-            prereq: "Washer method about coordinate axes and perpendicular distance |y − k| or |x − k|.",
+            prereq: "Disc method about coordinate axes (π∫ y² dx and π∫ x² dy) and graph translations.",
             objectives: [
-              "Set up disc and washer volumes about any horizontal line y = k using perpendicular radii R(x) = |y − k| and integrating with respect to x.",
-              "Set up disc and washer volumes about any vertical line x = k using perpendicular radii R(y) = |x − k| and integrating with respect to y.",
-              "Determine R_outer and R_inner accurately when the shifted axis lies above/right versus below/left of the region."
+              "Translate a curve and its shifted rotation axis y = k (or x = k) by −k units so the axis of revolution coincides with the x-axis (or y-axis).",
+              "Set up single-curve disc volumes about any horizontal line y = k using V = π ∫_a^b (f(x) − k)² dx.",
+              "Set up single-curve disc volumes about any vertical line x = k using V = π ∫_c^d (g(y) − k)² dy."
             ],
             prompts: [
-              "Drag the horizontal axis slider y = k from y = 5 (above the region) to y = −1 (below the region) and observe how R_outer and R_inner swap roles.",
-              "Switch to Vertical Line x = k mode and verify that rotating around x = k requires rewriting boundaries in the form x = g(y) and integrating with respect to y."
+              "Click 'Animate Shift −k → Axis' to watch the curve y = f(x) and line y = k translate vertically onto Y = f(x) − k and Y = 0 (the x-axis).",
+              "Drag the Shifted Axis k slider across positive and negative values to verify that (y − k)² = (k − y)² always equals the squared disc radius."
             ],
             pitfalls: [
-              "Using y + k instead of |y − k| when k is negative (e.g., distance from y = x² to y = −2 is x² − (−2) = x² + 2, whereas distance from y = x² to y = 5 is 5 − x²).",
-              "Integrating with respect to x when rotating about a vertical line x = k (using the disc/washer method, rotation about a vertical axis MUST be integrated with respect to y!)."
+              "Writing (y + k)² instead of (y − k)² when k is negative (e.g., translating y = −2 to the axis adds +2, giving y − (−2) = y + 2).",
+              "Integrating with respect to x when rotating about a vertical line x = k (rotating about a vertical axis requires expressing x = g(y) and integrating with respect to y)."
             ],
-            gcTip: "Sketch the region and draw a dashed axis line y = k (or x = k) first; draw two perpendicular segments from the axis to the farther boundary (R_outer) and nearer boundary (R_inner) before writing the integral.",
+            gcTip: "Translate the curve mentally first: shift y = f(x) and y = k down by k so the new radius is Y = f(x) − k, then evaluate π * fnInt((Y₁ − k)², X, a, b).",
             workedQuestion: `
-              The region <em>R</em> is bounded by the curve <em>y = x<sup>2</sup></em> and the line <em>y = 2x</em> for <em>0 &le; x &le; 2</em>. Find the exact volume of the solid generated when <em>R</em> is rotated through <em>360&deg;</em> about:<br>
-              <strong>(i)</strong> the horizontal line <em>y = 5</em>, [4]<br>
-              <strong>(ii)</strong> the vertical line <em>x = &minus;1</em>. [4]
+              <strong>(i)</strong> The region bounded by the curve <em>y = &radic;x</em>, the line <em>y = 2</em>, and the <em>y</em>-axis is rotated through <em>360&deg;</em> about the horizontal line <em>y = 2</em>. By translating the region onto the <em>x</em>-axis, find the exact volume of the solid formed. [3]<br>
+              <strong>(ii)</strong> The region bounded by the curve <em>y = x<sup>2</sup></em>, the line <em>x = &minus;1</em>, and the lines <em>y = 0</em> and <em>y = 4</em> (for <em>x &ge; 0</em>) is rotated through <em>360&deg;</em> about the vertical line <em>x = &minus;1</em>. Find the exact volume of the solid formed. [4]
             `,
             workedSolution: `
-              <strong>(i) About y = 5</strong> (lies above <em>R</em>, so <em>y = x<sup>2</sup></em> is farther and <em>y = 2x</em> is nearer):<br>
-              <em>R<sub>outer</sub> = 5 &minus; x<sup>2</sup></em>, &nbsp;<em>R<sub>inner</sub> = 5 &minus; 2x</em>.<br>
-              <em>V = &pi; &int;<sub>0</sub><sup>2</sup> [ (5 &minus; x<sup>2</sup>)<sup>2</sup> &minus; (5 &minus; 2x)<sup>2</sup> ] dx = &pi; &int;<sub>0</sub><sup>2</sup> (x<sup>4</sup> &minus; 14x<sup>2</sup> + 20x) dx</em><br>
-              = <em>&pi; [<span class="frac"><span class="frac-num">1</span><span class="frac-den">5</span></span>x<sup>5</sup> &minus; <span class="frac"><span class="frac-num">14</span><span class="frac-den">3</span></span>x<sup>3</sup> + 10x<sup>2</sup>]<sub>0</sub><sup>2</sup> = &pi; (<span class="frac"><span class="frac-num">32</span><span class="frac-den">5</span></span> &minus; <span class="frac"><span class="frac-num">112</span><span class="frac-den">3</span></span> + 40) =</em> <strong><span class="frac"><span class="frac-num">136&pi;</span><span class="frac-den">15</span></span> units<sup>3</sup></strong>.<br><br>
-              <strong>(ii) About x = &minus;1</strong> (integrate wrt <em>y</em> from <em>0</em> to <em>4</em>; <em>x = &radic;y</em> is farther, <em>x = &frac12;y</em> is nearer):<br>
-              <em>R<sub>outer</sub> = &radic;y &minus; (&minus;1) = &radic;y + 1</em>, &nbsp;<em>R<sub>inner</sub> = &frac12;y + 1</em>.<br>
-              <em>V = &pi; &int;<sub>0</sub><sup>4</sup> [ (&radic;y + 1)<sup>2</sup> &minus; (&frac12;y + 1)<sup>2</sup> ] dy = &pi; &int;<sub>0</sub><sup>4</sup> (2&radic;y &minus; &frac14;y<sup>2</sup>) dy</em><br>
-              = <em>&pi; [<span class="frac"><span class="frac-num">4</span><span class="frac-den">3</span></span>y<sup>3/2</sup> &minus; <span class="frac"><span class="frac-num">1</span><span class="frac-den">12</span></span>y<sup>3</sup>]<sub>0</sub><sup>4</sup> = &pi; (<span class="frac"><span class="frac-num">32</span><span class="frac-den">3</span></span> &minus; <span class="frac"><span class="frac-num">16</span><span class="frac-den">3</span></span>) =</em> <strong><span class="frac"><span class="frac-num">16&pi;</span><span class="frac-den">3</span></span> units<sup>3</sup></strong>.
+              <strong>(i) Translate down by 2 units</strong> (<em>Y = y &minus; 2</em>, so <em>y = 2 &rArr; Y = 0</em>):<br>
+              <em>V = &pi; &int;<sub>0</sub><sup>4</sup> (&radic;x &minus; 2)<sup>2</sup> dx = &pi; &int;<sub>0</sub><sup>4</sup> (x &minus; 4&radic;x + 4) dx = &pi; [&frac12;x<sup>2</sup> &minus; <span class="frac"><span class="frac-num">8</span><span class="frac-den">3</span></span>x<sup>3/2</sup> + 4x]<sub>0</sub><sup>4</sup> = &pi;(8 &minus; <span class="frac"><span class="frac-num">64</span><span class="frac-den">3</span></span> + 16) =</em> <strong><span class="frac"><span class="frac-num">8&pi;</span><span class="frac-den">3</span></span> units<sup>3</sup></strong>.<br><br>
+              <strong>(ii) Translate right by 1 unit</strong> (<em>X = x &minus; (&minus;1) = x + 1</em>, so <em>x = &minus;1 &rArr; X = 0</em>; curve <em>x = &radic;y</em>):<br>
+              <em>V = &pi; &int;<sub>0</sub><sup>4</sup> (&radic;y + 1)<sup>2</sup> dy = &pi; &int;<sub>0</sub><sup>4</sup> (y + 2&radic;y + 1) dy = &pi; [&frac12;y<sup>2</sup> + <span class="frac"><span class="frac-num">4</span><span class="frac-den">3</span></span>y<sup>3/2</sup> + y]<sub>0</sub><sup>4</sup> = &pi;(8 + <span class="frac"><span class="frac-num">32</span><span class="frac-den">3</span></span> + 4) =</em> <strong><span class="frac"><span class="frac-num">68&pi;</span><span class="frac-den">3</span></span> units<sup>3</sup></strong>.
             `,
-            exitQuestion: "A region bounded by y = √x, y = 0, and x = 4 is rotated 360° about the line y = −2. State the outer and inner radii in terms of x.",
-            exitAnswer: "Axis y = −2 lies below the region: <strong>R_outer = √x − (−2) = √x + 2</strong> and <strong>R_inner = 0 − (−2) = 2</strong>."
+            exitQuestion: "If the curve y = e^x (for 0 ≤ x ≤ 1) and the line y = 1 are translated so that y = 1 becomes the new horizontal axis Y = 0, write down the integral for the volume of solid of revolution about y = 1.",
+            exitAnswer: "Translating down by 1 unit gives Y = e^x − 1, so <strong>V = π ∫_0^1 (e^x − 1)² dx</strong>."
           }
         ]
       },
