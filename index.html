@@ -517,7 +517,7 @@
     </button>
     <button class="topic-btn" id="nav_5.2" onclick="selectTopic('5.2')">
       <span>5.2 Maclaurin Series</span>
-      <span class="status-pill">3 Lessons</span>
+      <span class="status-pill">4 Lessons</span>
     </button>
     <button class="topic-btn" id="nav_5.3" onclick="selectTopic('5.3')">
       <span>5.3 Integration Techniques</span>
@@ -1798,6 +1798,119 @@
             workedSolution: "Let r be the water surface radius at depth h. By trigonometry, r = h tan 30° = h / √3. Volume of water: V = (1/3)πr²h = (1/3)π(h²/3)h = (π/9)h³. Differentiating with respect to h: dV/dh = (π/3)h². By the chain rule, dV/dt = (dV/dh)(dh/dt) ⇒ 12 = [(π/3)(6)²] (dh/dt) = 12π (dh/dt). Hence dh/dt = 1/π cm s⁻¹.",
             exitQuestion: "The area A of a circular ink blot is increasing at a constant rate of 4 cm² s⁻¹. Find the exact rate at which its radius r is increasing when r = 5 cm.",
             exitAnswer: "A = πr² ⇒ dA/dr = 2πr. Using dA/dt = (dA/dr)(dr/dt): 4 = 2π(5)(dr/dt) ⇒ dr/dt = 2/(5π) cm s⁻¹."
+          }
+        ]
+      },
+      "5.2": {
+        title: "5.2 Maclaurin Series",
+        syllabusNotes: "Derivation of the Maclaurin series of a function from repeated differentiation at x = 0; standard Maclaurin series expansions from MF27 for (1 + x)ⁿ, eˣ, sin x, cos x, and ln(1 + x) along with their ranges of validity; use of standard series to expand related functions (including composite, product, quotient, and trigonometric small-angle approximations); use of differentiation and integration to obtain new series expansions.",
+        lessons: [
+          {
+            label: "Lesson 1: Derivation of Maclaurin Series from First Principles",
+            file: "interactives/5_2_lesson1.html",
+            videoEmbedUrl: "",
+            prereq: "Repeated differentiation (Product, Quotient, and Chain Rules) and factorial notation n!.",
+            objectives: [
+              "Derive the Maclaurin series f(x) = f(0) + f'(0)x + [f''(0)/2!]x² + [f'''(0)/3!]x³ + ⋯ by matching derivatives at x = 0.",
+              "Compute successive derivatives f'(0), f''(0), f'''(0) efficiently using implicit differentiation or differential relations (such as y' = 1 + y² for tan x) rather than brute-force quotient rules.",
+              "Appreciate how higher-degree Taylor/Maclaurin polynomials improve local polynomial approximation around x = 0."
+            ],
+            prompts: [
+              "In the Polynomial Approximation Lab, increase the degree n from 1 to 7 for y = eˣ, y = sin x, and y = ln(1 + x) to observe how the polynomial hugs the curve near x = 0.",
+              "Compare deriving the series for y = tan x up to x³ using direct quotient-rule differentiation vs. using y' = sec²x = 1 + y²."
+            ],
+            pitfalls: [
+              "Forgetting to divide the k-th derivative f⁽ᵏ⁾(0) by k! (especially for k ≥ 3, e.g. dividing by 3 instead of 3! = 6).",
+              "Substituting x = 0 BEFORE differentiating f(x) (you must differentiate f(x) first, then evaluate at x = 0!)."
+            ],
+            gcTip: "Plot Y₁ = f(x) and Y₂ = your Maclaurin polynomial P₃(x) on the TI-84 Plus CE; zoom in near x = 0 to verify they share identical value, slope, and curvature at (0, f(0)).",
+            workedQuestion: `
+              <strong>(i)</strong> Given that <em>y = ln(1 + sin x)</em>, show that <em>dy/dx = cos x / (1 + sin x)</em> and <em>d²y/dx² = −1 / (1 + sin x)</em>. [3]<br>
+              <strong>(ii)</strong> By further differentiation, find the Maclaurin series for <em>ln(1 + sin x)</em> up to and including the term in <em>x³</em>. [3]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> Differentiating with respect to <em>x</em>:<br>
+              <em>dy/dx = cos x / (1 + sin x)</em>.<br>
+              Using the quotient rule:<br>
+              <em>d²y/dx² = [(1 + sin x)(−sin x) − cos x(cos x)] / (1 + sin x)² = (−sin x − sin²x − cos²x) / (1 + sin x)² = −(1 + sin x) / (1 + sin x)² =</em> <strong>−1 / (1 + sin x)</strong>.<br><br>
+              <strong>(ii)</strong> Differentiating again:<br>
+              <em>d³y/dx³ = d/dx [−(1 + sin x)⁻¹] = (1 + sin x)⁻² cos x = cos x / (1 + sin x)²</em>.<br>
+              Evaluating at <em>x = 0</em>: <em>y(0) = ln 1 = 0</em>, <em>y'(0) = 1</em>, <em>y''(0) = −1</em>, <em>y'''(0) = 1</em>.<br>
+              Hence <em>ln(1 + sin x) = 0 + 1x + (−1/2!)x² + (1/3!)x³ + ⋯ =</em> <strong>x − ½x² + ⅙x³ + ⋯</strong>.
+            `,
+            exitQuestion: "If f(0) = 2, f'(0) = −3, f''(0) = 4, and f'''(0) = −12, write down the Maclaurin expansion of f(x) up to the x³ term.",
+            exitAnswer: "f(x) = 2 − 3x + (4/2!)x² + (−12/3!)x³ + ⋯ = <strong>2 − 3x + 2x² − 2x³ + ⋯</strong>."
+          },
+          {
+            label: "Lesson 2: Standard MF27 Series, Substitutions & Range of Validity",
+            file: "interactives/5_2_lesson2.html",
+            videoEmbedUrl: "",
+            prereq: "MF27 standard series formulas, algebraic binomial expansion (a + bx)ⁿ = aⁿ(1 + (b/a)x)ⁿ, and laws of logarithms.",
+            objectives: [
+              "Apply the five MF27 standard Maclaurin series—(1 + x)ⁿ, eˣ, sin x, cos x, and ln(1 + x)—and state their exact ranges of validity.",
+              "Expand composite and rational functions (such as e^{2x} cos 3x, ln[(1 + 2x)/(1 − x)], and 1/√(4 − x)) by substitution, algebraic multiplication, and partial fractions.",
+              "Determine the combined range of validity of a series expansion by taking the intersection of the validity intervals of all constituent expansions."
+            ],
+            prompts: [
+              "In the MF27 Expansion Studio, compare expanding (2 − 3x)⁻² by factoring out 2⁻² first vs. trying to apply (1 + u)ⁿ directly without a leading 1.",
+              "Use the Validity Interval Overlap Explorer on ln[(1 + 2x)/(1 − x)] = ln(1 + 2x) − ln(1 − x) to see why −½ < x < ½ is stricter than −1 < x ≤ 1."
+            ],
+            pitfalls: [
+              "Forgetting to factor out aⁿ before applying the binomial series to (a + bx)ⁿ when a ≠ 1 (e.g., (4 − x)^{−1/2} = 4^{−1/2}(1 − x/4)^{−1/2} = ½(1 − x/4)^{−1/2}).",
+              "Writing wrong boundary inequalities for ln(1 + u): the validity of ln(1 + u) is −1 < u ≤ 1 (strictly greater than −1, inclusive of +1!), whereas (1 + u)ⁿ (for non-positive-integer n) requires −1 < u < 1."
+            ],
+            gcTip: "Verify your simplified polynomial expansion P₃(x) against the original function f(x) by evaluating f(0.05) − P₃(0.05) on your GC home screen—the error should be tiny (around 10⁻⁵)!",
+            workedQuestion: `
+              <strong>(i)</strong> Express <em>f(x) = ln[(1 + 2x) / (1 − x)]</em> in terms of <em>ln(1 + 2x)</em> and <em>ln(1 − x)</em>, and hence expand <em>f(x)</em> in ascending powers of <em>x</em> up to and including the term in <em>x³</em>. [4]<br>
+              <strong>(ii)</strong> State the range of values of <em>x</em> for which this expansion is valid. [2]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> Using laws of logarithms, <em>f(x) = ln(1 + 2x) − ln(1 − x)</em>.<br>
+              Using <em>ln(1 + u) = u − u²/2 + u³/3 − ⋯</em>:<br>
+              • <em>ln(1 + 2x) = 2x − (2x)²/2 + (2x)³/3 − ⋯ = 2x − 2x² + (8/3)x³ − ⋯</em> (valid for <em>−1 &lt; 2x ≤ 1 ⇔ −½ &lt; x ≤ ½</em>).<br>
+              • <em>ln(1 − x) = (−x) − (−x)²/2 + (−x)³/3 − ⋯ = −x − ½x² − ⅓x³ − ⋯</em> (valid for <em>−1 &lt; −x ≤ 1 ⇔ −1 ≤ x &lt; 1</em>).<br>
+              Subtracting gives:<br>
+              <em>f(x) = (2x − 2x² + (8/3)x³) − (−x − ½x² − ⅓x³) + ⋯ =</em> <strong>3x − (3/2)x² + 3x³ + ⋯</strong>.<br><br>
+              <strong>(ii)</strong> Taking the intersection of <em>−½ &lt; x ≤ ½</em> and <em>−1 ≤ x &lt; 1</em> gives <strong>−½ &lt; x ≤ ½</strong>.
+            `,
+            exitQuestion: "Find the first three non-zero terms in the Maclaurin expansion of 1 / (2 + x) and state its range of validity.",
+            exitAnswer: "(2 + x)⁻¹ = ½(1 + x/2)⁻¹ = ½[1 − (x/2) + (x/2)² − ⋯] = <strong>½ − ¼x + ⅛x² − ⋯</strong>, valid for |x/2| < 1 ⇔ <strong>−2 < x < 2</strong>."
+          },
+          {
+            label: "Lesson 3: Small-Angle Approximations, Differentiation/Integration of Series & Synthesis",
+            file: "interactives/5_2_lesson3.html",
+            videoEmbedUrl: "",
+            prereq: "Radian measure, compound angle identities (sin(A + B), cos(A + B)), and basic differentiation/integration of polynomials.",
+            objectives: [
+              "Apply small-angle approximations (sin θ ≈ θ, cos θ ≈ 1 − ½θ², tan θ ≈ θ for small θ in radians) to simplify trigonometric expressions in geometry and mechanics contexts.",
+              "Obtain new Maclaurin series by differentiating or integrating a known series term-by-term (e.g., integrating 1/(1 + x²) to obtain tan⁻¹x, or differentiating (1 − x)⁻¹).",
+              "Synthesize multi-part 9758 exam problems combining trigonometric identities, binomial/exponential expansions, and error/approximation analysis."
+            ],
+            prompts: [
+              "In the Small-Angle Trigonometry Lab, expand sin(π/6 + θ) by first rewriting via sin(A + B) = sin A cos B + cos A sin B (since θ is small, NOT π/6 + θ!).",
+              "Use the Term-by-Term Calculus Builder to watch integrating 1/(1 + x²) = 1 − x² + x⁴ − ⋯ from 0 to x generate the Gregory–Leibniz series for tan⁻¹x."
+            ],
+            pitfalls: [
+              "Substituting sin(π/3 + x) ≈ π/3 + x when x is small—π/3 + x is NOT small! You MUST expand sin(π/3 + x) = sin(π/3)cos x + cos(π/3)sin x first before replacing cos x and sin x.",
+              "Forgetting that small-angle approximations hold ONLY when angles are measured in radians (never degrees!)."
+            ],
+            gcTip: "Always ensure your TI-84 Plus CE is in RADIAN mode when checking small-angle trigonometric approximations numerically.",
+            workedQuestion: `
+              <strong>(a)</strong> Given that <em>x</em> is sufficiently small for <em>x⁴</em> and higher powers to be neglected, show that <em>cos(π/3 + x) ≈ ½ − (√3/2)x − ¼x² + (√3/12)x³</em>. [4]<br>
+              <strong>(b)</strong> By writing down the Maclaurin expansion of <em>1 / (1 + x²)</em> up to <em>x⁴</em> and integrating with respect to <em>x</em>, find the Maclaurin series for <em>tan⁻¹ x</em> up to and including the term in <em>x⁵</em>. [3]
+            `,
+            workedSolution: `
+              <strong>(a)</strong> Using the compound angle formula:<br>
+              <em>cos(π/3 + x) = cos(π/3) cos x − sin(π/3) sin x = ½ cos x − (√3/2) sin x</em>.<br>
+              Substituting <em>cos x ≈ 1 − x²/2!</em> and <em>sin x ≈ x − x³/3!</em>:<br>
+              <em>cos(π/3 + x) ≈ ½(1 − ½x²) − (√3/2)(x − ⅙x³) =</em> <strong>½ − (√3/2)x − ¼x² + (√3/12)x³</strong>.<br><br>
+              <strong>(b)</strong> Replacing <em>x</em> with <em>x²</em> in <em>(1 + u)⁻¹ = 1 − u + u² − ⋯</em> gives:<br>
+              <em>1 / (1 + x²) = 1 − x² + x⁴ − ⋯</em>.<br>
+              Integrating both sides with respect to <em>x</em> from <em>0</em> to <em>x</em> (noting <em>tan⁻¹ 0 = 0</em>):<br>
+              <em>tan⁻¹ x = ∫₀ˣ (1 − t² + t⁴ − ⋯) dt =</em> <strong>x − ⅓x³ + ⅕x⁵ − ⋯</strong>.
+            `,
+            exitQuestion: "If θ is small (in radians), simplify (1 − cos 2θ) / (θ sin 3θ) up to a constant approximation.",
+            exitAnswer: "1 − cos 2θ ≈ 1 − [1 − ½(2θ)²] = 2θ², and θ sin 3θ ≈ θ(3θ) = 3θ². Ratio ≈ 2θ² / (3θ²) = <strong>2/3</strong>."
           }
         ]
       },
