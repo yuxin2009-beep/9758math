@@ -488,16 +488,13 @@
     </div>
   </div>
 
-  function sqrt(expr) {
-  return `<span class="sqrt"><svg class="sqrt-hook" viewBox="0 0 12 20" preserveAspectRatio="none" aria-hidden="true"><path d="M 0.5 11.5 L 3.2 11.5 L 6.2 19 L 11.8 0.8" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sqrt-rad">${expr}</span></span>`;
-}
   <!-- =========================================================
        MF27 QUADRATIC REFERENCE BANNER (ALL 4 FORMULAS)
        ========================================================= -->
   <div class="foundation-card">
     <div class="foundation-top">
       <span class="kicker">MF27 Standard Quadratic Integrals (Divide by <span class="math" style="text-transform:none;"><em>p</em></span> when <span class="math" style="text-transform:none;"><em>u</em> = <em>px</em> + <em>q</em></span>)</span>
-      <span class="rule-badge">Watch Signs &amp; &radic; Carefully: One Sign Flips tan&sup1; &harr; ln!</span>
+      <span class="rule-badge">Watch Signs &amp; &radic; Carefully: One Sign Flips tan<sup>&minus;1</sup> &harr; ln!</span>
     </div>
 
     <div class="mf27-quad-grid">
@@ -507,7 +504,7 @@
       </div>
 
       <div class="q-card teal-card">
-        <div class="q-eq math">&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="sqrt">&radic;<span class="sqrt-rad"><em>a</em>&sup2; &minus; <em>x</em>&sup2;</span></span></span></span> d<em>x</em> = sin<sup>&minus;1</sup>(<span class="frac"><span class="frac-num"><em>x</em></span><span class="frac-den"><em>a</em></span></span>) + <em>C</em></div>
+        <div class="q-eq math">&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="sqrt"><svg class="sqrt-hook" viewBox="0 0 12 20" preserveAspectRatio="none"><path d="M 0.5 11.5 L 3.2 11.5 L 6.2 19 L 11.8 0.8" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sqrt-rad"><em>a</em>&sup2; &minus; <em>x</em>&sup2;</span></span></span></span> d<em>x</em> = sin<sup>&minus;1</sup>(<span class="frac"><span class="frac-num"><em>x</em></span><span class="frac-den"><em>a</em></span></span>) + <em>C</em></div>
         <div class="q-sub"><strong>With &radic;</strong>, <span class="math"><em>a</em>&sup2; &minus; <em>x</em>&sup2;</span> &rarr; <span class="math">sin<sup>&minus;1</sup></span> (<strong>no</strong> <span class="math"><span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>a</em></span></span></span> in front!).</div>
       </div>
 
@@ -546,7 +543,7 @@
             2. <span class="math">&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>x</em>&sup2; + 4<em>x</em> + 13</span></span> d<em>x</em></span>
           </button>
           <button class="expr-pill" id="qd_ctsSin" onclick="selectQuad('ctsSin')">
-            3. <span class="math">&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="sqrt">&radic;<span class="sqrt-rad">5 &minus; 4<em>x</em> &minus; <em>x</em>&sup2;</span></span></span></span> d<em>x</em></span>
+            3. <span class="math">&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="sqrt"><svg class="sqrt-hook" viewBox="0 0 12 20" preserveAspectRatio="none"><path d="M 0.5 11.5 L 3.2 11.5 L 6.2 19 L 11.8 0.8" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sqrt-rad">5 &minus; 4<em>x</em> &minus; <em>x</em>&sup2;</span></span></span></span> d<em>x</em></span>
           </button>
           <button class="expr-pill" id="qd_ctsLn" onclick="selectQuad('ctsLn')">
             4. <span class="math">&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>x</em>&sup2; &minus; 6<em>x</em> + 5</span></span> d<em>x</em></span>
@@ -609,10 +606,10 @@
             1. <span class="math">&int; <span class="frac"><span class="frac-num">4<em>x</em> + 5</span><span class="frac-den"><em>x</em>&sup2; + 2<em>x</em> + 5</span></span> d<em>x</em></span>
           </button>
           <button class="expr-pill" id="sp_sqrtSin" onclick="selectSplit('sqrtSin')">
-            2. <span class="math">&int; <span class="frac"><span class="frac-num">2<em>x</em> + 3</span><span class="frac-den"><span class="sqrt">&radic;<span class="sqrt-rad">4 &minus; <em>x</em>&sup2;</span></span></span></span> d<em>x</em></span>
+            2. <span class="math">&int; <span class="frac"><span class="frac-num">2<em>x</em> + 3</span><span class="frac-den"><span class="sqrt"><svg class="sqrt-hook" viewBox="0 0 12 20" preserveAspectRatio="none"><path d="M 0.5 11.5 L 3.2 11.5 L 6.2 19 L 11.8 0.8" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sqrt-rad">4 &minus; <em>x</em>&sup2;</span></span></span></span> d<em>x</em></span>
           </button>
           <button class="expr-pill" id="sp_sqrtCts" onclick="selectSplit('sqrtCts')">
-            3. <span class="math">&int; <span class="frac"><span class="frac-num">3<em>x</em> &minus; 1</span><span class="frac-den"><span class="sqrt">&radic;<span class="sqrt-rad">8 &minus; 2<em>x</em> &minus; <em>x</em>&sup2;</span></span></span></span> d<em>x</em></span>
+            3. <span class="math">&int; <span class="frac"><span class="frac-num">3<em>x</em> &minus; 1</span><span class="frac-den"><span class="sqrt"><svg class="sqrt-hook" viewBox="0 0 12 20" preserveAspectRatio="none"><path d="M 0.5 11.5 L 3.2 11.5 L 6.2 19 L 11.8 0.8" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sqrt-rad">8 &minus; 2<em>x</em> &minus; <em>x</em>&sup2;</span></span></span></span> d<em>x</em></span>
           </button>
         </div>
 
@@ -634,13 +631,13 @@
         </div>
 
         <div class="info-card">
-          <strong>Case B: Denominator With Square Root (<span class="math"><span class="frac"><span class="frac-num"><em>Ax</em> + <em>B</em></span><span class="frac-den"><span class="sqrt">&radic;<span class="sqrt-rad">f(<em>x</em>)</span></span></span></span></span>)</strong><br>
+          <strong>Case B: Denominator With Square Root (<span class="math"><span class="frac"><span class="frac-num"><em>Ax</em> + <em>B</em></span><span class="frac-den"><span class="sqrt"><svg class="sqrt-hook" viewBox="0 0 12 20" preserveAspectRatio="none"><path d="M 0.5 11.5 L 3.2 11.5 L 6.2 19 L 11.8 0.8" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sqrt-rad">f(<em>x</em>)</span></span></span></span></span>)</strong><br>
           1. Write <span class="math"><em>Ax</em> + <em>B</em> = <strong><em>k</em> &middot; f&prime;(<em>x</em>)</strong> + <strong><em>R</em></strong></span>.<br>
           2. First part uses power rule <span class="math"><em>n</em> = &minus;&frac12;</span>:<br>
           <div style="text-align:center; margin:4px 0;" class="math">
-            <em>k</em> &int; f&prime;(<em>x</em>)[f(<em>x</em>)]<sup>&minus;&frac12;</sup> d<em>x</em> = <em>k</em> &middot; <span class="frac"><span class="frac-num">[f(<em>x</em>)]<sup>&frac12;</sup></span><span class="frac-den">&frac12;</span></span> = <strong>2<em>k</em><span class="sqrt">&radic;<span class="sqrt-rad">f(<em>x</em>)</span></span></strong>
+            <em>k</em> &int; f&prime;(<em>x</em>)[f(<em>x</em>)]<sup>&minus;&frac12;</sup> d<em>x</em> = <em>k</em> &middot; <span class="frac"><span class="frac-num">[f(<em>x</em>)]<sup>&frac12;</sup></span><span class="frac-den">&frac12;</span></span> = <strong>2<em>k</em><span class="sqrt"><svg class="sqrt-hook" viewBox="0 0 12 20" preserveAspectRatio="none"><path d="M 0.5 11.5 L 3.2 11.5 L 6.2 19 L 11.8 0.8" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sqrt-rad">f(<em>x</em>)</span></span></strong>
           </div>
-          3. Second part <span class="math"><em>R</em> &int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="sqrt">&radic;<span class="sqrt-rad"><em>a</em>&sup2; &minus; <em>u</em>&sup2;</span></span></span></span> d<em>x</em></span> integrates to <strong><span class="math"><em>R</em> sin<sup>&minus;1</sup>(<span class="frac"><span class="frac-num"><em>u</em></span><span class="frac-den"><em>a</em></span></span>)</span></strong>!
+          3. Second part <span class="math"><em>R</em> &int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="sqrt"><svg class="sqrt-hook" viewBox="0 0 12 20" preserveAspectRatio="none"><path d="M 0.5 11.5 L 3.2 11.5 L 6.2 19 L 11.8 0.8" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sqrt-rad"><em>a</em>&sup2; &minus; <em>u</em>&sup2;</span></span></span></span> d<em>x</em></span> integrates to <strong><span class="math"><em>R</em> sin<sup>&minus;1</sup>(<span class="frac"><span class="frac-num"><em>u</em></span><span class="frac-den"><em>a</em></span></span>)</span></strong>!
         </div>
       </div>
     </div>
@@ -721,7 +718,7 @@
     }
 
     function sqrt(expr) {
-      return `<span class="sqrt">&radic;<span class="sqrt-rad">${expr}</span></span>`;
+      return `<span class="sqrt"><svg class="sqrt-hook" viewBox="0 0 12 20" preserveAspectRatio="none" aria-hidden="true"><path d="M 0.5 11.5 L 3.2 11.5 L 6.2 19 L 11.8 0.8" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sqrt-rad">${expr}</span></span>`;
     }
 
     /* =========================================================
@@ -1046,7 +1043,7 @@
                    &bull; Equate coefficients of <span class="math"><em>x</em></span>: <span class="math"><strong><em>A</em> = 3</strong></span>.`
           },
           {
-            title: "Step 3: Integrate (First Term &rarr; ln, Second Term &rarr; Power Rule n = −2)",
+            title: "Step 3: Integrate (First Term → ln, Second Term → Power Rule n = −2)",
             html: `<span class="math">&int; (<span class="frac"><span class="frac-num">3</span><span class="frac-den"><em>x</em> + 1</span></span> + 2(<em>x</em> + 1)<sup>&minus;2</sup>) d<em>x</em> = <strong>3 ln|<em>x</em> + 1| &minus; <span class="frac"><span class="frac-num">2</span><span class="frac-den"><em>x</em> + 1</span></span> + <em>C</em></strong></span>.`
           }
         ],

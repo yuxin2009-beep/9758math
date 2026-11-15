@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5.3 Lesson 5 | Integration by Parts (Derivation, LIATE, Standalone &amp; Cyclic)</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 16px 20px 28px 20px;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .math {
+      font-family: 'Cambria Math', 'Times New Roman', Georgia, serif;
+      font-size: 1.06em;
+    }
+
+    .frac {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      vertical-align: middle;
+      margin: 0 3px;
+      font-size: 0.88em;
+      line-height: 1.1;
+    }
+
+    .frac-num {
+      padding: 0 4px 2px 4px;
+      border-bottom: 1.4px solid currentColor;
+      text-align: center;
+    }
+
+    .frac-den {
+      padding: 2px 4px 0 4px;
+      text-align: center;
+    }
+
+    /* SEAMLESS SVG SQUARE ROOT SYMBOL */
+    .sqrt {
+      display: inline-flex;
+      align-items: stretch;
+      vertical-align: baseline;
+      margin: 0 2px;
+    }
+
+    .sqrt-hook {
+      width: 0.62em;
+      height: 1.16em;
+      flex-shrink: 0;
+      overflow: visible;
+      align-self: stretch;
+    }
+
+    .sqrt-rad {
+      border-top: 1.45px solid currentColor;
+      padding: 0 3px 0 1px;
+      line-height: 1.14;
+      display: inline-block;
+    }
+
+    /* HEADER & TABS */
+    .lab-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .lab-title-wrap h1 {
+      margin: 0;
+      font-size: 1.15rem;
+      color: #1e293b;
+    }
+
+    .lab-title-wrap p {
+      margin: 3px 0 0 0;
+      font-size: 0.81rem;
+      color: var(--muted);
+    }
+
+    .mode-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mode-btn {
+      padding: 8px 13px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: var(--text);
+      font-size: 0.81rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mode-btn:hover {
+      border-color: var(--purple);
+      color: var(--purple-dark);
+    }
+
+    .mode-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.22);
+    }
+
+    /* DERIVATION & LIATE FOUNDATION BANNER */
+    .foundation-card {
+      background: var(--panel);
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.07);
+    }
+
+    .foundation-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 9px;
+    }
+
+    .kicker {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--purple-dark);
+    }
+
+    .rule-badge {
+      background: var(--amber-bg);
+      color: var(--amber);
+      border: 1px solid #fcd34d;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 800;
+    }
+
+    .derivation-liate-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 1.25fr;
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    @media (max-width: 960px) {
+      .derivation-liate-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .derivation-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 9px 13px;
+      font-size: 0.84rem;
+      line-height: 1.65;
+      color: #1e293b;
+    }
+
+    .derivation-step {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .derivation-tag {
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 6px;
+      background: #e2e8f0;
+      color: #334155;
+      flex-shrink: 0;
+    }
+
+    .derivation-final {
+      margin-top: 6px;
+      padding: 6px 10px;
+      border-radius: 8px;
+      background: #f5f3ff;
+      border: 1px solid #c4b5fd;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .liate-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .liate-strip {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+    }
+
+    @media (max-width: 640px) {
+      .liate-strip {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .liate-chip {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      padding: 7px 6px;
+      text-align: center;
+      font-size: 0.75rem;
+      line-height: 1.35;
+    }
+
+    .liate-chip.top-u {
+      background: var(--purple-bg);
+      border-color: #c4b5fd;
+    }
+
+    .liate-chip.bot-dv {
+      background: var(--teal-bg);
+      border-color: #5eead4;
+    }
+
+    .liate-letter {
+      font-size: 1rem;
+      font-weight: 900;
+      display: block;
+      color: var(--purple-dark);
+    }
+
+    .liate-chip.bot-dv .liate-letter {
+      color: var(--teal);
+    }
+
+    .liate-caption {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 7px 10px;
+      font-size: 0.79rem;
+      line-height: 1.48;
+      color: #334155;
+    }
+
+    /* PANELS & GRIDS */
+    .view-panel {
+      display: none;
+    }
+    .view-panel.active {
+      display: block;
+    }
+
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: 1.38fr 1.12fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 980px) {
+      .workspace-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 3px 10px rgba(148, 163, 184, 0.06);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    /* PILLS */
+    .fn-pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 11px;
+    }
+
+    .expr-pill {
+      padding: 6px 12px;
+      border-radius: 9px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #1e293b;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .expr-pill:hover {
+      border-color: var(--purple);
+      background: #f5f3ff;
+    }
+
+    .expr-pill.active {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      border-color: var(--purple);
+    }
+
+    /* ANATOMIZER & STEP BOXES */
+    .anatomy-stage {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 11px;
+    }
+
+    .big-integral {
+      font-size: 1.24rem;
+      font-weight: 700;
+      color: #1e293b;
+      text-align: center;
+      margin-bottom: 9px;
+    }
+
+    .hl-u {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      border: 1px solid #c4b5fd;
+      padding: 1px 6px;
+      border-radius: 6px;
+    }
+
+    .hl-dv {
+      background: var(--teal-bg);
+      color: #115e59;
+      border: 1px solid #5eead4;
+      padding: 1px 6px;
+      border-radius: 6px;
+    }
+
+    .anatomy-breakdown {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    @media (max-width: 620px) {
+      .anatomy-breakdown {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .part-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 7px 10px;
+      font-size: 0.82rem;
+      line-height: 1.55;
+    }
+
+    .part-label {
+      font-size: 0.69rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+      display: block;
+    }
+
+    .step-box {
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 10px 13px;
+      margin-bottom: 9px;
+      background: #f8fafc;
+    }
+
+    .step-box.active-step {
+      border-color: var(--purple);
+      background: #faf5ff;
+      box-shadow: 0 2px 8px rgba(139, 92, 246, 0.1);
+    }
+
+    .step-box.locked {
+      opacity: 0.38;
+      background: #f1f5f9;
+    }
+
+    .answer-stage {
+      background: #f5f3ff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 11px;
+      padding: 11px 14px;
+      font-size: 0.92rem;
+      line-height: 1.78;
+      color: #1e293b;
+    }
+
+    .action-btn {
+      padding: 5px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #1e293b;
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .action-btn.primary {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .info-card {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 10px 13px;
+      font-size: 0.82rem;
+      line-height: 1.66;
+      color: #334155;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER & 3 TABS -->
+  <div class="lab-header">
+    <div class="lab-title-wrap">
+      <h1>Integration by Parts (Derivation, LIATE, Standalone &amp; Cyclic)</h1>
+      <p>Derive the formula from the Product Rule, choose <span class="math"><em>u</em></span> via <strong>LIATE</strong>, and evaluate standard, standalone, and cyclic indefinite integrals</p>
+    </div>
+    <div class="mode-tabs">
+      <button class="mode-btn active" id="tabLiateBtn" onclick="switchMode('liate')">
+        1. LIATE &amp; Standard Products
+      </button>
+      <button class="mode-btn" id="tabStandBtn" onclick="switchMode('stand')">
+        2. Standalone <span class="math">ln <em>x</em></span> &amp; Inverse Trig
+      </button>
+      <button class="mode-btn" id="tabCyclicBtn" onclick="switchMode('cyclic')">
+        3. Cyclic (Boomerang) Integrals
+      </button>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       PRODUCT RULE DERIVATION & LIATE PRIORITY BANNER
+       ========================================================= -->
+  <div class="foundation-card">
+    <div class="foundation-top">
+      <span class="kicker">Derivation from Product Rule &amp; LIATE Choice Hierarchy</span>
+      <span class="rule-badge">Choose u Earliest in LIATE (Differentiate u &bull; Integrate dv/dx)</span>
+    </div>
+
+    <div class="derivation-liate-grid">
+      <!-- LEFT: STEP-BY-STEP PRODUCT RULE DERIVATION -->
+      <div class="derivation-box">
+        <div class="derivation-step">
+          <span class="derivation-tag">1. Product Rule</span>
+          <span class="math"><span class="frac"><span class="frac-num">d</span><span class="frac-den">d<em>x</em></span></span>(<em>uv</em>) = <em>u</em> <span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span> + <em>v</em> <span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span></span>
+        </div>
+        <div class="derivation-step">
+          <span class="derivation-tag">2. Integrate wrt x</span>
+          <span class="math"><em>uv</em> = &int; <em>u</em> <span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span> d<em>x</em> + &int; <em>v</em> <span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> d<em>x</em></span>
+        </div>
+        <div class="derivation-final math">
+          3. Rearrange (MF27): &nbsp; &int; <span class="hl-u"><em>u</em></span> <span class="hl-dv"><span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span></span> d<em>x</em> = <em>u</em><em>v</em> &minus; &int; <em>v</em> <span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> d<em>x</em>
+        </div>
+      </div>
+
+      <!-- RIGHT: LIATE HIERARCHY -->
+      <div class="liate-panel">
+        <div class="liate-strip">
+          <div class="liate-chip top-u">
+            <span class="liate-letter">L</span>
+            <strong>Logarithmic</strong><br><span class="math">ln <em>x</em></span>
+          </div>
+          <div class="liate-chip top-u">
+            <span class="liate-letter">I</span>
+            <strong>Inverse Trig</strong><br><span class="math">sin<sup>&minus;1</sup> <em>x</em>, tan<sup>&minus;1</sup> <em>x</em></span>
+          </div>
+          <div class="liate-chip">
+            <span class="liate-letter" style="color:#1e293b;">A</span>
+            <strong>Algebraic</strong><br><span class="math"><em>x</em>, <em>x</em>&sup2;, <em>x</em><sup><em>n</em></sup></span>
+          </div>
+          <div class="liate-chip bot-dv">
+            <span class="liate-letter">T</span>
+            <strong>Trigonometric</strong><br><span class="math">sin <em>x</em>, cos <em>x</em>, sec&sup2; <em>x</em></span>
+          </div>
+          <div class="liate-chip bot-dv">
+            <span class="liate-letter">E</span>
+            <strong>Exponential</strong><br><span class="math">e<sup><em>ax</em></sup>, e<sup><em>x</em></sup></span>
+          </div>
+        </div>
+
+        <div class="liate-caption">
+          <strong>Why LIATE works:</strong> Functions on the left (<strong>L, I</strong>) simplify dramatically when <em>differentiated</em> (losing their log/inverse-trig form), whereas functions on the right (<strong>T, E</strong>) stay equally easy when <em>integrated</em>.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       TAB 1: LIATE & STANDARD PRODUCTS
+       ========================================================= -->
+  <div class="view-panel active" id="liatePanel">
+    <div class="workspace-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker">Tab 1: LIATE Selector &amp; Step-by-Step Integration by Parts</span>
+          <div style="display:flex; gap:6px;">
+            <button class="action-btn" onclick="setLiateStep(0)">Step 1</button>
+            <button class="action-btn primary" onclick="nextLiateStep()">Next Step (+1)</button>
+            <button class="action-btn" onclick="setLiateStep(2)">Reveal All</button>
+          </div>
+        </div>
+
+        <div class="fn-pills" id="liatePillsContainer"></div>
+
+        <div class="anatomy-stage">
+          <div class="big-integral math" id="liateBigHTML"></div>
+          <div class="anatomy-breakdown" id="liateAnatomyGrid"></div>
+        </div>
+
+        <div id="liateStepsContainer"></div>
+
+        <div class="answer-stage" id="liateFinalBanner"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker" style="color:var(--teal);">LIATE Strategy &amp; Repeated-Pass Insights</span>
+        </div>
+
+        <div class="info-card" id="liateStrategyBox"></div>
+
+        <div class="info-card">
+          <strong>How to Check Whether Your Choice of <span class="math"><em>u</em></span> Was Right:</strong><br>
+          Look at the new integral <span class="math">&int; <em>v</em> <span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> d<em>x</em></span> generated after Step 1:<br>
+          &bull; If the power of <span class="math"><em>x</em></span> <strong>dropped</strong> (e.g., <span class="math"><em>x</em>&sup2; &rarr; <em>x</em> &rarr; 1</span>), you are on the right track.<br>
+          &bull; If the power of <span class="math"><em>x</em></span> <strong>increased</strong> (e.g., choosing <span class="math"><span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span> = <em>x</em> &rArr; <em>v</em> = <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span><em>x</em>&sup2;</span> alongside <span class="math"><em>u</em> = e<sup>2<em>x</em></sup></span>), swap <span class="math"><em>u</em></span> and <span class="math"><span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span></span> immediately!
+        </div>
+
+        <div style="background:var(--amber-bg); border:1px solid #fcd34d; border-radius:10px; padding:9px 12px; color:#78350f; font-size:0.81rem; line-height:1.55;">
+          <strong>Bracket Discipline on Pass 2:</strong><br>
+          When applying Integration by Parts a second time (such as <span class="math">&int; <em>x</em>&sup2; sin <em>x</em> d<em>x</em></span>), always wrap the second <span class="math"><em>uv</em> &minus; &int; <em>v</em> <span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> d<em>x</em></span> inside square brackets <span class="math">[ &hellip; ]</span> so minus signs distribute accurately.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       TAB 2: STANDALONE ln x & INVERSE TRIG (dv/dx = 1)
+       ========================================================= -->
+  <div class="view-panel" id="standPanel">
+    <div class="workspace-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker">Tab 2: Standalone <span class="math" style="text-transform:none;">ln <em>x</em></span> &amp; Inverse Trig via Implicit <span class="math" style="text-transform:none;"><span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span> = 1</span></span>
+          <div style="display:flex; gap:6px;">
+            <button class="action-btn" onclick="setStandStep(0)">Step 1</button>
+            <button class="action-btn primary" onclick="nextStandStep()">Next Step (+1)</button>
+            <button class="action-btn" onclick="setStandStep(2)">Reveal All</button>
+          </div>
+        </div>
+
+        <div class="fn-pills" id="standPillsContainer"></div>
+
+        <div id="standStepsContainer"></div>
+
+        <div class="answer-stage" id="standFinalBanner"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker" style="color:var(--blue);">Why "Multiply by 1" Unlocks L &amp; I Functions</span>
+        </div>
+
+        <div class="info-card">
+          <strong>1. Neither <span class="math">ln <em>x</em></span> nor <span class="math">sin<sup>&minus;1</sup> <em>x</em></span> / <span class="math">tan<sup>&minus;1</sup> <em>x</em></span> is in MF27 directly:</strong><br>
+          Both sit at the very top of <strong>LIATE</strong> (<span class="math"><strong>L</strong></span> and <span class="math"><strong>I</strong></span>) because their <em>derivatives</em> are clean algebraic functions:<br>
+          &bull; <span class="math"><span class="frac"><span class="frac-num">d</span><span class="frac-den">d<em>x</em></span></span>(ln <em>x</em>) = <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>x</em></span></span></span><br>
+          &bull; <span class="math"><span class="frac"><span class="frac-num">d</span><span class="frac-den">d<em>x</em></span></span>(tan<sup>&minus;1</sup> <em>x</em>) = <span class="frac"><span class="frac-num">1</span><span class="frac-den">1 + <em>x</em>&sup2;</span></span></span><br>
+          &bull; <span class="math"><span class="frac"><span class="frac-num">d</span><span class="frac-den">d<em>x</em></span></span>(sin<sup>&minus;1</sup> <em>x</em>) = <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="sqrt"><svg class="sqrt-hook" viewBox="0 0 12 20" preserveAspectRatio="none"><path d="M 0.5 11.5 L 3.2 11.5 L 6.2 19 L 11.8 0.8" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sqrt-rad">1 &minus; <em>x</em>&sup2;</span></span></span></span></span>
+        </div>
+
+        <div class="info-card">
+          <strong>2. Treat <span class="math">1</span> as the Algebraic Factor (<span class="math"><span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span> = 1 &rArr; <em>v</em> = <em>x</em></span>):</strong><br>
+          Rewriting <span class="math">&int; f(<em>x</em>) d<em>x</em> = &int; f(<em>x</em>) &middot; <strong>1</strong> d<em>x</em></span> converts the leftover integral <span class="math">&int; <em>v</em> <span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> d<em>x</em></span> into an algebraic fraction <span class="math">&int; <span class="frac"><span class="frac-num"><em>x</em></span><span class="frac-den">1 + <em>x</em>&sup2;</span></span> d<em>x</em></span> or <span class="math">&int; <span class="frac"><span class="frac-num"><em>x</em></span><span class="frac-den"><span class="sqrt"><svg class="sqrt-hook" viewBox="0 0 12 20" preserveAspectRatio="none"><path d="M 0.5 11.5 L 3.2 11.5 L 6.2 19 L 11.8 0.8" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sqrt-rad">1 &minus; <em>x</em>&sup2;</span></span></span></span> d<em>x</em></span> that integrates immediately!
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       TAB 3: CYCLIC (BOOMERANG) INTEGRALS
+       ========================================================= -->
+  <div class="view-panel" id="cyclicPanel">
+    <div class="workspace-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker">Tab 3: Cyclic Integration by Parts (<span class="math" style="text-transform:none;"><em>I</em> = &int; e<sup><em>ax</em></sup> sin <em>bx</em> d<em>x</em></span> &amp; <span class="math" style="text-transform:none;">&int; e<sup><em>ax</em></sup> cos <em>bx</em> d<em>x</em></span>)</span>
+          <div style="display:flex; gap:6px;">
+            <button class="action-btn" onclick="setCyclicStep(0)">Step 1</button>
+            <button class="action-btn primary" onclick="nextCyclicStep()">Next Step (+1)</button>
+            <button class="action-btn" onclick="setCyclicStep(3)">Reveal All</button>
+          </div>
+        </div>
+
+        <div class="fn-pills" id="cyclicPillsContainer"></div>
+
+        <div id="cyclicStepsContainer"></div>
+
+        <div class="answer-stage" id="cyclicFinalBanner"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker" style="color:var(--rose);">Golden Rules for Cyclic ("Boomerang") Integrals</span>
+        </div>
+
+        <div class="info-card">
+          <strong>Rule 1: Name the Target Integral <span class="math"><em>I</em></span> at the Very Start:</strong><br>
+          Neither <span class="math">e<sup><em>ax</em></sup></span> nor <span class="math">sin <em>bx</em> / cos <em>bx</em></span> ever terminates when differentiated. Naming <span class="math"><em>I</em> = &int; e<sup><em>ax</em></sup> sin <em>bx</em> d<em>x</em></span> lets you solve algebraically once <span class="math"><em>I</em></span> reappears after two rounds!
+        </div>
+
+        <div class="info-card">
+          <strong>Rule 2: Stay Consistent Between Pass 1 &amp; Pass 2!</strong><br>
+          If you choose <strong>T</strong> (<span class="math">sin <em>bx</em></span>) as <span class="math"><em>u</em></span> in Pass 1, you <strong>MUST</strong> also choose <strong>T</strong> (<span class="math">cos <em>bx</em></span>) as <span class="math"><em>u</em></span> in Pass 2.<br>
+          <em>Trap:</em> Switching to <span class="math"><em>u</em> = e<sup><em>ax</em></sup></span> in Pass 2 simply reverses Pass 1 and gives the useless identity <span class="math"><em>I</em> = <em>I</em></span>!
+        </div>
+
+        <div style="background:var(--amber-bg); border:1px solid #fcd34d; border-radius:10px; padding:9px 12px; color:#78350f; font-size:0.81rem; line-height:1.55;">
+          <strong>Don't Forget <span class="math">+ <em>C</em></span> After Dividing by the Coefficient of <span class="math"><em>I</em></span>:</strong><br>
+          When solving <span class="math"><span class="frac"><span class="frac-num">5</span><span class="frac-den">4</span></span><em>I</em> = &hellip;</span>, append <strong><span class="math">+ <em>C</em></span></strong> at the end of the final expression for <span class="math"><em>I</em></span>.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let activeMode = "liate";
+
+    let currentLiate = "xe2x";
+    let liateStep = 2;
+
+    let currentStand = "lnx";
+    let standStep = 2;
+
+    let currentCyclic = "e2xSin";
+    let cyclicStep = 3;
+
+    function frac(num, den) {
+      return `<span class="frac"><span class="frac-num">${num}</span><span class="frac-den">${den}</span></span>`;
+    }
+
+    function sqrt(expr) {
+      return `<span class="sqrt"><svg class="sqrt-hook" viewBox="0 0 12 20" preserveAspectRatio="none" aria-hidden="true"><path d="M 0.5 11.5 L 3.2 11.5 L 6.2 19 L 11.8 0.8" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sqrt-rad">${expr}</span></span>`;
+    }
+
+    /* =========================================================
+       TAB 1: LIATE & STANDARD PRODUCTS
+       ========================================================= */
+    const LIATE_CASES = {
+      xe2x: {
+        pillHTML: `1. <span class="math">&int; <em>x</em> e<sup>2<em>x</em></sup> d<em>x</em></span>`,
+        bigHTML: `&int; <span class="hl-u"><em>x</em></span> <span class="hl-dv">e<sup>2<em>x</em></sup></span> d<em>x</em>`,
+        uChoiceHTML: `<em>u</em> = <em>x</em> &nbsp;(<strong>A</strong> comes before <strong>E</strong>)`,
+        dvChoiceHTML: `<span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span> = e<sup>2<em>x</em></sup> &rArr; <em>v</em> = ${frac("1", "2")}e<sup>2<em>x</em></sup>`,
+        steps: [
+          {
+            titleHTML: `Step 1: Assign <span class="math" style="text-transform:none;"><em>u</em></span> (Differentiate) &amp; <span class="math" style="text-transform:none;"><span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span></span> (Integrate) via LIATE`,
+            html: `<span class="math"><em>u</em> = <em>x</em> &rArr; <span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = 1</span>, &nbsp; <span class="math"><span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span> = e<sup>2<em>x</em></sup> &rArr; <em>v</em> = ${frac("1", "2")}e<sup>2<em>x</em></sup></span>.`
+          },
+          {
+            titleHTML: `Step 2: Apply <span class="math" style="text-transform:none;"><em>uv</em> &minus; &int; <em>v</em> <span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> d<em>x</em></span>`,
+            html: `<span class="math"><em>x</em>(${frac("1", "2")}e<sup>2<em>x</em></sup>) &minus; &int; ${frac("1", "2")}e<sup>2<em>x</em></sup>(1) d<em>x</em> = ${frac("1", "2")}<em>x</em>e<sup>2<em>x</em></sup> &minus; ${frac("1", "4")}e<sup>2<em>x</em></sup> + <em>C</em></span>.`
+          },
+          {
+            titleHTML: `Step 3: Factor Out Common Exponential <span class="math" style="text-transform:none;">${frac("1", "4")}e<sup>2<em>x</em></sup></span>`,
+            html: `<span class="math"><strong>${frac("1", "4")}e<sup>2<em>x</em></sup>(2<em>x</em> &minus; 1) + <em>C</em></strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong>${frac("1", "4")}e<sup>2<em>x</em></sup>(2<em>x</em> &minus; 1) + <em>C</em></strong></span>`,
+        strategyNote: `<strong>Why <span class="math"><em>u</em> = <em>x</em></span> and <span class="math"><span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span> = e<sup>2<em>x</em></sup></span>:</strong><br>Differentiating <span class="math"><em>x</em></span> reduces it to the constant <span class="math">1</span>, turning <span class="math">&int; <em>v</em> <span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> d<em>x</em></span> into a pure exponential integral <span class="math">${frac("1", "2")} &int; e<sup>2<em>x</em></sup> d<em>x</em></span>.`
+      },
+
+      x2sinx: {
+        pillHTML: `2. <span class="math">&int; <em>x</em>&sup2; sin <em>x</em> d<em>x</em></span> (2-Stage)`,
+        bigHTML: `&int; <span class="hl-u"><em>x</em>&sup2;</span> <span class="hl-dv">sin <em>x</em></span> d<em>x</em>`,
+        uChoiceHTML: `<em>u</em> = <em>x</em>&sup2; &nbsp;(<strong>A</strong> comes before <strong>T</strong>)`,
+        dvChoiceHTML: `<span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span> = sin <em>x</em> &rArr; <em>v</em> = &minus;cos <em>x</em>`,
+        steps: [
+          {
+            titleHTML: `Step 1: First Integration by Parts (<span class="math" style="text-transform:none;"><em>u</em> = <em>x</em>&sup2;</span>, <span class="math" style="text-transform:none;"><span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span> = sin <em>x</em></span>)`,
+            html: `<span class="math">&int; <em>x</em>&sup2; sin <em>x</em> d<em>x</em> = &minus;<em>x</em>&sup2; cos <em>x</em> &minus; &int; (&minus;cos <em>x</em>)(2<em>x</em>) d<em>x</em> = <strong>&minus;<em>x</em>&sup2; cos <em>x</em> + 2 &int; <em>x</em> cos <em>x</em> d<em>x</em></strong></span>.`
+          },
+          {
+            titleHTML: `Step 2: Second Integration by Parts on <span class="math" style="text-transform:none;">&int; <em>x</em> cos <em>x</em> d<em>x</em></span>`,
+            html: `With <span class="math"><em>u</em> = <em>x</em></span> and <span class="math"><span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span> = cos <em>x</em></span>:<br>
+                   <span class="math">&minus;<em>x</em>&sup2; cos <em>x</em> + 2 [ <em>x</em> sin <em>x</em> &minus; &int; sin <em>x</em> d<em>x</em> ]</span>.`
+          },
+          {
+            titleHTML: `Step 3: Complete Final Integral &amp; Group Terms`,
+            html: `<span class="math"><strong>&minus;<em>x</em>&sup2; cos <em>x</em> + 2<em>x</em> sin <em>x</em> + 2 cos <em>x</em> + <em>C</em></strong></span> (or <span class="math">(2 &minus; <em>x</em>&sup2;) cos <em>x</em> + 2<em>x</em> sin <em>x</em> + <em>C</em></span>).`
+          }
+        ],
+        finalHTML: `<span class="math"><strong>(2 &minus; <em>x</em>&sup2;) cos <em>x</em> + 2<em>x</em> sin <em>x</em> + <em>C</em></strong></span>`,
+        strategyNote: `<strong>Why Two Passes Are Needed (<span class="math"><em>x</em>&sup2; &rarr; 2<em>x</em> &rarr; 2</span>):</strong><br>Because the algebraic factor has degree <span class="math">2</span>, each pass lowers the exponent by <span class="math">1</span> until only a pure trigonometric integral <span class="math">&int; sin <em>x</em> d<em>x</em></span> remains.`
+      },
+
+      x2lnx: {
+        pillHTML: `3. <span class="math">&int; <em>x</em>&sup2; ln <em>x</em> d<em>x</em></span> (LIATE Priority!)`,
+        bigHTML: `&int; <span class="hl-dv"><em>x</em>&sup2;</span> <span class="hl-u">ln <em>x</em></span> d<em>x</em>`,
+        uChoiceHTML: `<em>u</em> = ln <em>x</em> &nbsp;(<strong>L</strong> beats <strong>A</strong>!)`,
+        dvChoiceHTML: `<span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span> = <em>x</em>&sup2; &rArr; <em>v</em> = ${frac("1", "3")}<em>x</em><sup>3</sup>`,
+        steps: [
+          {
+            titleHTML: `Step 1: Override Left-to-Right Order Using LIATE (<span class="math" style="text-transform:none;"><em>u</em> = ln <em>x</em></span>)`,
+            html: `Because <strong>L</strong> precedes <strong>A</strong>, set <span class="math"><em>u</em> = ln <em>x</em> &rArr; <span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = ${frac("1", "<em>x</em>")}</span> and <span class="math"><span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span> = <em>x</em>&sup2; &rArr; <em>v</em> = ${frac("1", "3")}<em>x</em><sup>3</sup></span>.`
+          },
+          {
+            titleHTML: `Step 2: Apply MF27 Formula &amp; Cancel <span class="math" style="text-transform:none;"><em>x</em><sup>3</sup> &middot; ${frac("1", "<em>x</em>")} = <em>x</em>&sup2;</span>`,
+            html: `<span class="math">${frac("1", "3")}<em>x</em><sup>3</sup> ln <em>x</em> &minus; &int; ${frac("1", "3")}<em>x</em><sup>3</sup> &middot; ${frac("1", "<em>x</em>")} d<em>x</em> = ${frac("1", "3")}<em>x</em><sup>3</sup> ln <em>x</em> &minus; ${frac("1", "3")} &int; <em>x</em>&sup2; d<em>x</em></span>.`
+          },
+          {
+            titleHTML: `Step 3: Integrate Remaining Power Term`,
+            html: `<span class="math"><strong>${frac("1", "3")}<em>x</em><sup>3</sup> ln <em>x</em> &minus; ${frac("1", "9")}<em>x</em><sup>3</sup> + <em>C</em></strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong>${frac("1", "3")}<em>x</em><sup>3</sup> ln <em>x</em> &minus; ${frac("1", "9")}<em>x</em><sup>3</sup> + <em>C</em></strong></span>`,
+        strategyNote: `<strong>Why <strong>L</strong> Overrides <strong>A</strong> Even Though <span class="math"><em>x</em>&sup2;</span> Appears First:</strong><br>Integrating <span class="math"><em>x</em>&sup2;</span> gives <span class="math">${frac("1", "3")}<em>x</em><sup>3</sup></span>, which multiplies cleanly with <span class="math"><span class="frac"><span class="frac-num">d</span><span class="frac-den">d<em>x</em></span></span>(ln <em>x</em>) = ${frac("1", "<em>x</em>")}</span> to eliminate the logarithm completely.`
+      },
+
+      xsec2x: {
+        pillHTML: `4. <span class="math">&int; <em>x</em> sec&sup2; <em>x</em> d<em>x</em></span>`,
+        bigHTML: `&int; <span class="hl-u"><em>x</em></span> <span class="hl-dv">sec&sup2; <em>x</em></span> d<em>x</em>`,
+        uChoiceHTML: `<em>u</em> = <em>x</em> &nbsp;(<strong>A</strong> comes before <strong>T</strong>)`,
+        dvChoiceHTML: `<span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span> = sec&sup2; <em>x</em> &rArr; <em>v</em> = tan <em>x</em>`,
+        steps: [
+          {
+            titleHTML: `Step 1: Assign <span class="math" style="text-transform:none;"><em>u</em> = <em>x</em></span> and <span class="math" style="text-transform:none;"><span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span> = sec&sup2; <em>x</em></span>`,
+            html: `<span class="math"><em>u</em> = <em>x</em> &rArr; <span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = 1</span>, &nbsp; <span class="math"><span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span> = sec&sup2; <em>x</em> &rArr; <em>v</em> = tan <em>x</em></span>.`
+          },
+          {
+            titleHTML: `Step 2: Apply MF27 Formula`,
+            html: `<span class="math"><em>x</em> tan <em>x</em> &minus; &int; tan <em>x</em> d<em>x</em></span>.`
+          },
+          {
+            titleHTML: `Step 3: Use MF27 <span class="math" style="text-transform:none;">&int; tan <em>x</em> d<em>x</em> = ln|sec <em>x</em>|</span>`,
+            html: `<span class="math"><strong><em>x</em> tan <em>x</em> &minus; ln|sec <em>x</em>| + <em>C</em></strong></span> (or <span class="math"><em>x</em> tan <em>x</em> + ln|cos <em>x</em>| + <em>C</em></span>).`
+          }
+        ],
+        finalHTML: `<span class="math"><strong><em>x</em> tan <em>x</em> &minus; ln|sec <em>x</em>| + <em>C</em></strong></span>`,
+        strategyNote: `<strong>Recognising Standard Derivatives Inside <span class="math"><span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span></span>:</strong><br>Because <span class="math">sec&sup2; <em>x</em></span> is the exact derivative of <span class="math">tan <em>x</em></span>, choosing <span class="math"><span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span> = sec&sup2; <em>x</em></span> immediately yields <span class="math"><em>v</em> = tan <em>x</em></span>.`
+      }
+    };
+
+    function renderLiatePills() {
+      document.getElementById("liatePillsContainer").innerHTML = Object.keys(LIATE_CASES).map(key => `
+        <button class="expr-pill ${key === currentLiate ? "active" : ""}" onclick="selectLiate('${key}')">
+          ${LIATE_CASES[key].pillHTML}
+        </button>
+      `).join("");
+    }
+
+    function renderLiateTab() {
+      const item = LIATE_CASES[currentLiate];
+      document.getElementById("liateBigHTML").innerHTML = item.bigHTML;
+      document.getElementById("liateAnatomyGrid").innerHTML = `
+        <div class="part-box">
+          <span class="part-label" style="color:var(--purple-dark);">Differentiate (<span class="math" style="text-transform:none;"><em>u</em></span>)</span>
+          <span class="math"><strong>${item.uChoiceHTML}</strong></span>
+        </div>
+        <div class="part-box">
+          <span class="part-label" style="color:var(--teal);">Integrate (<span class="math" style="text-transform:none;"><span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span></span>)</span>
+          <span class="math"><strong>${item.dvChoiceHTML}</strong></span>
+        </div>
+      `;
+
+      document.getElementById("liateStepsContainer").innerHTML = item.steps.map((st, idx) => {
+        const unlocked = idx <= liateStep;
+        return `
+          <div class="step-box ${idx === liateStep ? "active-step" : ""} ${!unlocked ? "locked" : ""}">
+            <div class="kicker" style="margin-bottom:3px;">${st.titleHTML}</div>
+            <div style="font-size:0.85rem; line-height:1.7;">
+              ${unlocked ? st.html : "<em>Click 'Next Step (+1)' to reveal...</em>"}
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      document.getElementById("liateFinalBanner").innerHTML =
+        `<div class="kicker" style="margin-bottom:2px;">Final Integrated Result</div>` + item.finalHTML;
+
+      document.getElementById("liateStrategyBox").innerHTML = item.strategyNote;
+    }
+
+    /* =========================================================
+       TAB 2: STANDALONE ln x & INVERSE TRIG (dv/dx = 1)
+       ========================================================= */
+    const STAND_CASES = {
+      lnx: {
+        pillHTML: `1. <span class="math">&int; ln <em>x</em> d<em>x</em></span>`,
+        steps: [
+          {
+            titleHTML: `Step 1: Rewrite as <span class="math" style="text-transform:none;">&int; (ln <em>x</em>) &middot; 1 d<em>x</em></span> (<span class="math" style="text-transform:none;"><em>u</em> = ln <em>x</em></span>, <span class="math" style="text-transform:none;"><span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span> = 1</span>)`,
+            html: `<span class="math"><em>u</em> = ln <em>x</em> &rArr; <span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = ${frac("1", "<em>x</em>")}</span>, &nbsp; <span class="math"><span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span> = 1 &rArr; <em>v</em> = <em>x</em></span>.`
+          },
+          {
+            titleHTML: `Step 2: Apply MF27 Integration by Parts Formula`,
+            html: `<span class="math"><em>x</em> ln <em>x</em> &minus; &int; <em>x</em> &middot; ${frac("1", "<em>x</em>")} d<em>x</em> = <em>x</em> ln <em>x</em> &minus; &int; 1 d<em>x</em></span>.`
+          },
+          {
+            titleHTML: `Step 3: Finish Integration`,
+            html: `<span class="math"><strong><em>x</em> ln <em>x</em> &minus; <em>x</em> + <em>C</em></strong></span> (defined for <span class="math"><em>x</em> &gt; 0</span>).`
+          }
+        ],
+        finalHTML: `<span class="math"><strong><em>x</em> ln <em>x</em> &minus; <em>x</em> + <em>C</em></strong></span>`
+      },
+
+      atanx: {
+        pillHTML: `2. <span class="math">&int; tan<sup>&minus;1</sup> <em>x</em> d<em>x</em></span>`,
+        steps: [
+          {
+            titleHTML: `Step 1: Set <span class="math" style="text-transform:none;"><em>u</em> = tan<sup>&minus;1</sup> <em>x</em></span> and <span class="math" style="text-transform:none;"><span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span> = 1</span>`,
+            html: `<span class="math"><em>u</em> = tan<sup>&minus;1</sup> <em>x</em> &rArr; <span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = ${frac("1", "1 + <em>x</em>&sup2;")}</span>, &nbsp; <span class="math"><span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span> = 1 &rArr; <em>v</em> = <em>x</em></span>.`
+          },
+          {
+            titleHTML: `Step 2: Apply MF27 Formula &amp; Spot <span class="math" style="text-transform:none;">${frac("f&prime;(<em>x</em>)", "f(<em>x</em>)")}</span> in the Second Integral`,
+            html: `<span class="math"><em>x</em> tan<sup>&minus;1</sup> <em>x</em> &minus; &int; <span class="frac"><span class="frac-num"><em>x</em></span><span class="frac-den">1 + <em>x</em>&sup2;</span></span> d<em>x</em> = <em>x</em> tan<sup>&minus;1</sup> <em>x</em> &minus; ${frac("1", "2")} &int; <span class="frac"><span class="frac-num">2<em>x</em></span><span class="frac-den">1 + <em>x</em>&sup2;</span></span> d<em>x</em></span>.`
+          },
+          {
+            titleHTML: `Step 3: Integrate <span class="math" style="text-transform:none;">${frac("2<em>x</em>", "1 + <em>x</em>&sup2;")}</span> to <span class="math" style="text-transform:none;">ln(1 + <em>x</em>&sup2;)</span>`,
+            html: `<span class="math"><strong><em>x</em> tan<sup>&minus;1</sup> <em>x</em> &minus; ${frac("1", "2")} ln(1 + <em>x</em>&sup2;) + <em>C</em></strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong><em>x</em> tan<sup>&minus;1</sup> <em>x</em> &minus; ${frac("1", "2")} ln(1 + <em>x</em>&sup2;) + <em>C</em></strong></span>`
+      },
+
+      asinx: {
+        pillHTML: `3. <span class="math">&int; sin<sup>&minus;1</sup> <em>x</em> d<em>x</em></span>`,
+        steps: [
+          {
+            titleHTML: `Step 1: Set <span class="math" style="text-transform:none;"><em>u</em> = sin<sup>&minus;1</sup> <em>x</em></span> and <span class="math" style="text-transform:none;"><span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span> = 1</span>`,
+            html: `<span class="math"><em>u</em> = sin<sup>&minus;1</sup> <em>x</em> &rArr; <span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = ${frac("1", sqrt("1 &minus; <em>x</em>&sup2;"))}</span>, &nbsp; <span class="math"><span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span> = 1 &rArr; <em>v</em> = <em>x</em></span>.`
+          },
+          {
+            titleHTML: `Step 2: Apply MF27 Formula &amp; Rewrite <span class="math" style="text-transform:none;"><em>x</em> = &minus;${frac("1", "2")}(&minus;2<em>x</em>)</span>`,
+            html: `<span class="math"><em>x</em> sin<sup>&minus;1</sup> <em>x</em> &minus; &int; <span class="frac"><span class="frac-num"><em>x</em></span><span class="frac-den">${sqrt("1 &minus; <em>x</em>&sup2;")}</span></span> d<em>x</em> = <em>x</em> sin<sup>&minus;1</sup> <em>x</em> + ${frac("1", "2")} &int; (&minus;2<em>x</em>)(1 &minus; <em>x</em>&sup2;)<sup>&minus;&frac12;</sup> d<em>x</em></span>.`
+          },
+          {
+            titleHTML: `Step 3: Apply Reverse Chain Rule (<span class="math" style="text-transform:none;"><em>n</em> = &minus;&frac12;</span>)`,
+            html: `<span class="math"><strong><em>x</em> sin<sup>&minus;1</sup> <em>x</em> + ${sqrt("1 &minus; <em>x</em>&sup2;")} + <em>C</em></strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong><em>x</em> sin<sup>&minus;1</sup> <em>x</em> + ${sqrt("1 &minus; <em>x</em>&sup2;")} + <em>C</em></strong></span>`
+      },
+
+      lnx2: {
+        pillHTML: `4. <span class="math">&int; (ln <em>x</em>)&sup2; d<em>x</em></span>`,
+        steps: [
+          {
+            titleHTML: `Step 1: Pass 1 with <span class="math" style="text-transform:none;"><em>u</em> = (ln <em>x</em>)&sup2;</span> and <span class="math" style="text-transform:none;"><span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span> = 1</span>`,
+            html: `<span class="math"><span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = 2(ln <em>x</em>) &middot; ${frac("1", "<em>x</em>")}</span>, &nbsp; <span class="math"><em>v</em> = <em>x</em></span>:<br>
+                   <span class="math">&int; (ln <em>x</em>)&sup2; d<em>x</em> = <em>x</em>(ln <em>x</em>)&sup2; &minus; &int; <em>x</em> &middot; ${frac("2 ln <em>x</em>", "<em>x</em>")} d<em>x</em> = <strong><em>x</em>(ln <em>x</em>)&sup2; &minus; 2 &int; ln <em>x</em> d<em>x</em></strong></span>.`
+          },
+          {
+            titleHTML: `Step 2: Substitute Result of <span class="math" style="text-transform:none;">&int; ln <em>x</em> d<em>x</em> = <em>x</em> ln <em>x</em> &minus; <em>x</em></span>`,
+            html: `<span class="math"><em>x</em>(ln <em>x</em>)&sup2; &minus; 2(<em>x</em> ln <em>x</em> &minus; <em>x</em>) + <em>C</em></span>.`
+          },
+          {
+            titleHTML: `Step 3: Expand &amp; Simplify`,
+            html: `<span class="math"><strong><em>x</em>(ln <em>x</em>)&sup2; &minus; 2<em>x</em> ln <em>x</em> + 2<em>x</em> + <em>C</em></strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong><em>x</em>(ln <em>x</em>)&sup2; &minus; 2<em>x</em> ln <em>x</em> + 2<em>x</em> + <em>C</em></strong></span>`
+      }
+    };
+
+    function renderStandPills() {
+      document.getElementById("standPillsContainer").innerHTML = Object.keys(STAND_CASES).map(key => `
+        <button class="expr-pill ${key === currentStand ? "active" : ""}" onclick="selectStand('${key}')">
+          ${STAND_CASES[key].pillHTML}
+        </button>
+      `).join("");
+    }
+
+    function renderStandTab() {
+      const item = STAND_CASES[currentStand];
+      document.getElementById("standStepsContainer").innerHTML = item.steps.map((st, idx) => {
+        const unlocked = idx <= standStep;
+        return `
+          <div class="step-box ${idx === standStep ? "active-step" : ""} ${!unlocked ? "locked" : ""}">
+            <div class="kicker" style="margin-bottom:3px;">${st.titleHTML}</div>
+            <div style="font-size:0.85rem; line-height:1.7;">
+              ${unlocked ? st.html : "<em>Click 'Next Step (+1)' to reveal...</em>"}
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      document.getElementById("standFinalBanner").innerHTML =
+        `<div class="kicker" style="margin-bottom:2px;">Final Integrated Result</div>` + item.finalHTML;
+    }
+
+    /* =========================================================
+       TAB 3: CYCLIC (BOOMERANG) INTEGRALS
+       ========================================================= */
+    const CYCLIC_CASES = {
+      e2xSin: {
+        pillHTML: `1. <span class="math"><em>I</em> = &int; e<sup>2<em>x</em></sup> sin <em>x</em> d<em>x</em></span>`,
+        steps: [
+          {
+            titleHTML: `Step 1: Define <span class="math" style="text-transform:none;"><em>I</em></span> &amp; Perform Pass 1 (<span class="math" style="text-transform:none;"><em>u</em> = sin <em>x</em></span>, <span class="math" style="text-transform:none;"><span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span> = e<sup>2<em>x</em></sup></span>)`,
+            html: `<span class="math"><em>I</em> = ${frac("1", "2")}e<sup>2<em>x</em></sup> sin <em>x</em> &minus; &int; ${frac("1", "2")}e<sup>2<em>x</em></sup> cos <em>x</em> d<em>x</em> = <strong>${frac("1", "2")}e<sup>2<em>x</em></sup> sin <em>x</em> &minus; ${frac("1", "2")} &int; e<sup>2<em>x</em></sup> cos <em>x</em> d<em>x</em></strong></span>.`
+          },
+          {
+            titleHTML: `Step 2: Perform Pass 2 Consistently (<span class="math" style="text-transform:none;"><em>u</em> = cos <em>x</em></span>, <span class="math" style="text-transform:none;"><span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span> = e<sup>2<em>x</em></sup></span>)`,
+            html: `<span class="math"><em>I</em> = ${frac("1", "2")}e<sup>2<em>x</em></sup> sin <em>x</em> &minus; ${frac("1", "2")} [ ${frac("1", "2")}e<sup>2<em>x</em></sup> cos <em>x</em> &minus; &int; ${frac("1", "2")}e<sup>2<em>x</em></sup>(&minus;sin <em>x</em>) d<em>x</em> ]</span><br>
+                   <span class="math"><em>I</em> = ${frac("1", "2")}e<sup>2<em>x</em></sup> sin <em>x</em> &minus; ${frac("1", "4")}e<sup>2<em>x</em></sup> cos <em>x</em> &minus; <strong>${frac("1", "4")}<em>I</em></strong></span>.`
+          },
+          {
+            titleHTML: `Step 3: Collect Both <span class="math" style="text-transform:none;"><em>I</em></span> Terms on the Left-Hand Side`,
+            html: `<span class="math"><em>I</em> + ${frac("1", "4")}<em>I</em> = ${frac("5", "4")}<em>I</em> = ${frac("1", "4")}e<sup>2<em>x</em></sup>(2 sin <em>x</em> &minus; cos <em>x</em>)</span>.`
+          },
+          {
+            titleHTML: `Step 4: Multiply Both Sides by <span class="math" style="text-transform:none;">${frac("4", "5")}</span> and Append <span class="math" style="text-transform:none;">+ <em>C</em></span>`,
+            html: `<span class="math"><strong><em>I</em> = ${frac("1", "5")}e<sup>2<em>x</em></sup>(2 sin <em>x</em> &minus; cos <em>x</em>) + <em>C</em></strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong>&int; e<sup>2<em>x</em></sup> sin <em>x</em> d<em>x</em> = ${frac("1", "5")}e<sup>2<em>x</em></sup>(2 sin <em>x</em> &minus; cos <em>x</em>) + <em>C</em></strong></span>`
+      },
+
+      emxCos3x: {
+        pillHTML: `2. <span class="math"><em>I</em> = &int; e<sup>&minus;<em>x</em></sup> cos 3<em>x</em> d<em>x</em></span>`,
+        steps: [
+          {
+            titleHTML: `Step 1: Define <span class="math" style="text-transform:none;"><em>I</em></span> &amp; Perform Pass 1 (<span class="math" style="text-transform:none;"><em>u</em> = cos 3<em>x</em></span>, <span class="math" style="text-transform:none;"><span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span> = e<sup>&minus;<em>x</em></sup></span>)`,
+            html: `<span class="math"><em>I</em> = &minus;e<sup>&minus;<em>x</em></sup> cos 3<em>x</em> &minus; &int; (&minus;e<sup>&minus;<em>x</em></sup>)(&minus;3 sin 3<em>x</em>) d<em>x</em> = <strong>&minus;e<sup>&minus;<em>x</em></sup> cos 3<em>x</em> &minus; 3 &int; e<sup>&minus;<em>x</em></sup> sin 3<em>x</em> d<em>x</em></strong></span>.`
+          },
+          {
+            titleHTML: `Step 2: Perform Pass 2 Consistently (<span class="math" style="text-transform:none;"><em>u</em> = sin 3<em>x</em></span>, <span class="math" style="text-transform:none;"><span class="frac"><span class="frac-num">d<em>v</em></span><span class="frac-den">d<em>x</em></span></span> = e<sup>&minus;<em>x</em></sup></span>)`,
+            html: `<span class="math"><em>I</em> = &minus;e<sup>&minus;<em>x</em></sup> cos 3<em>x</em> &minus; 3 [ &minus;e<sup>&minus;<em>x</em></sup> sin 3<em>x</em> &minus; &int; (&minus;e<sup>&minus;<em>x</em></sup>)(3 cos 3<em>x</em>) d<em>x</em> ]</span><br>
+                   <span class="math"><em>I</em> = &minus;e<sup>&minus;<em>x</em></sup> cos 3<em>x</em> + 3e<sup>&minus;<em>x</em></sup> sin 3<em>x</em> &minus; <strong>9<em>I</em></strong></span>.`
+          },
+          {
+            titleHTML: `Step 3: Collect <span class="math" style="text-transform:none;"><em>I</em> + 9<em>I</em> = 10<em>I</em></span> on the Left-Hand Side`,
+            html: `<span class="math">10<em>I</em> = e<sup>&minus;<em>x</em></sup>(3 sin 3<em>x</em> &minus; cos 3<em>x</em>)</span>.`
+          },
+          {
+            titleHTML: `Step 4: Divide by <span class="math" style="text-transform:none;">10</span> and Append <span class="math" style="text-transform:none;">+ <em>C</em></span>`,
+            html: `<span class="math"><strong><em>I</em> = ${frac("1", "10")}e<sup>&minus;<em>x</em></sup>(3 sin 3<em>x</em> &minus; cos 3<em>x</em>) + <em>C</em></strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong>&int; e<sup>&minus;<em>x</em></sup> cos 3<em>x</em> d<em>x</em> = ${frac("1", "10")}e<sup>&minus;<em>x</em></sup>(3 sin 3<em>x</em> &minus; cos 3<em>x</em>) + <em>C</em></strong></span>`
+      }
+    };
+
+    function renderCyclicPills() {
+      document.getElementById("cyclicPillsContainer").innerHTML = Object.keys(CYCLIC_CASES).map(key => `
+        <button class="expr-pill ${key === currentCyclic ? "active" : ""}" onclick="selectCyclic('${key}')">
+          ${CYCLIC_CASES[key].pillHTML}
+        </button>
+      `).join("");
+    }
+
+    function renderCyclicTab() {
+      const item = CYCLIC_CASES[currentCyclic];
+      document.getElementById("cyclicStepsContainer").innerHTML = item.steps.map((st, idx) => {
+        const unlocked = idx <= cyclicStep;
+        return `
+          <div class="step-box ${idx === cyclicStep ? "active-step" : ""} ${!unlocked ? "locked" : ""}">
+            <div class="kicker" style="margin-bottom:3px;">${st.titleHTML}</div>
+            <div style="font-size:0.85rem; line-height:1.7;">
+              ${unlocked ? st.html : "<em>Click 'Next Step (+1)' to reveal...</em>"}
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      document.getElementById("cyclicFinalBanner").innerHTML =
+        `<div class="kicker" style="margin-bottom:2px;">Final Integrated Result</div>` + item.finalHTML;
+    }
+
+    /* =========================================================
+       NAVIGATION & EVENTS
+       ========================================================= */
+    function switchMode(mode) {
+      activeMode = mode;
+      document.getElementById("tabLiateBtn").classList.toggle("active", mode === "liate");
+      document.getElementById("tabStandBtn").classList.toggle("active", mode === "stand");
+      document.getElementById("tabCyclicBtn").classList.toggle("active", mode === "cyclic");
+
+      document.getElementById("liatePanel").classList.toggle("active", mode === "liate");
+      document.getElementById("standPanel").classList.toggle("active", mode === "stand");
+      document.getElementById("cyclicPanel").classList.toggle("active", mode === "cyclic");
+    }
+
+    function selectLiate(key) {
+      currentLiate = key;
+      renderLiatePills();
+      renderLiateTab();
+    }
+
+    function setLiateStep(s) { liateStep = s; renderLiateTab(); }
+    function nextLiateStep() { if (liateStep < 2) { liateStep++; renderLiateTab(); } }
+
+    function selectStand(key) {
+      currentStand = key;
+      renderStandPills();
+      renderStandTab();
+    }
+
+    function setStandStep(s) { standStep = s; renderStandTab(); }
+    function nextStandStep() { if (standStep < 2) { standStep++; renderStandTab(); } }
+
+    function selectCyclic(key) {
+      currentCyclic = key;
+      renderCyclicPills();
+      renderCyclicTab();
+    }
+
+    function setCyclicStep(s) { cyclicStep = s; renderCyclicTab(); }
+    function nextCyclicStep() { if (cyclicStep < 3) { cyclicStep++; renderCyclicTab(); } }
+
+    renderLiatePills();
+    renderLiateTab();
+    renderStandPills();
+    renderStandTab();
+    renderCyclicPills();
+    renderCyclicTab();
+  </script>
+</body>
+</html>
