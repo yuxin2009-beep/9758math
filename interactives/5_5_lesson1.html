@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 5.5 Lesson 1: Visualising Differential Equations — General &amp; Particular Solutions</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 500px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1040px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 7px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 9px 10px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.78rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+      line-height: 1.35;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.48;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .control-panel {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 13px;
+      margin-bottom: 11px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .slider-row {
+      display: grid;
+      grid-template-columns: 110px 1fr 56px;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .slider-row input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple-dark);
+      cursor: pointer;
+    }
+
+    .val-badge {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 3px 6px;
+      text-align: center;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.78rem;
+      color: #0f172a;
+    }
+
+    .action-bar {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .action-btn {
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: none;
+      background: var(--purple-dark);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.76rem;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .action-btn:hover {
+      opacity: 0.92;
+    }
+
+    .action-btn.secondary {
+      background: var(--blue-bg);
+      color: var(--blue);
+      border: 1px solid #bae6fd;
+    }
+
+    .action-btn.ghost {
+      background: #f8fafc;
+      color: var(--text);
+      border: 1px solid #cbd5e1;
+    }
+
+    .action-btn.active-toggle {
+      background: var(--teal);
+      color: #ffffff;
+      border: 1px solid #0f766e;
+    }
+
+    .algebra-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin-bottom: 11px;
+    }
+
+    .box-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .math-readout {
+      background: #f8fafc;
+      border: 1.5px solid #64748b;
+      border-radius: 8px;
+      padding: 8px 11px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 5px;
+      line-height: 1.5;
+    }
+
+    .solution-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.8rem;
+      font-weight: 700;
+      line-height: 1.48;
+    }
+
+    /* CANVAS STAGE */
+    .canvas-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .legend-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: #475569;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .swatch {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      display: inline-block;
+    }
+
+    .canvas-wrap {
+      position: relative;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 360px;
+      cursor: crosshair;
+    }
+
+    .canvas-overlay-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 5px 9px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: #1e293b;
+      pointer-events: none;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+    }
+
+    .check-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.77rem;
+      margin-top: 10px;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .check-table th, .check-table td {
+      border: 1px solid #e2e8f0;
+      padding: 6px 8px;
+      text-align: left;
+    }
+
+    .check-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    .misconception-box {
+      margin-top: 11px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-size: 0.78rem;
+      line-height: 1.46;
+      color: #78350f;
+    }
+
+    .grader-card {
+      margin-top: 11px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 13px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 7px;
+    }
+
+    @media (max-width: 720px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.77rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 7px;
+      font-size: 0.77rem;
+      line-height: 1.44;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Slope Field &amp; Particle Lab (20 Mins)</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Switch Between the Two Differential Equations</strong>
+        Compare <em>dy/dx = 2x</em> (purely <em>x</em>-dependent, vertical shifts <em>y = x² + C</em>) against <em>dy/dx = 0.5y</em> (purely <em>y</em>-dependent, vertical scalings <em>y = Ae<sup>0.5x</sup></em>).
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Click on the Canvas to Drop Particles</strong>
+        Click anywhere on the slope field to place an initial condition <em>(x₀, y₀)</em>. Watch particles flow along tangent segments and trace unique particular solution curves.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Probe the y = 0 Equilibrium Barrier</strong>
+        In <em>dy/dx = 0.5y</em>, drop particles above (<em>y₀ &gt; 0</em>), on (<em>y₀ = 0</em>), and below (<em>y₀ &lt; 0</em>) the <em>x</em>-axis to see why solution curves never cross <em>y = 0</em> when <em>A</em> changes sign.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL & ALGEBRA PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        5.5 Lesson 1 &bull; Visualising Differential Equations
+      </div>
+
+      <!-- Model Selector Tabs -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="mode_shift" onclick="setMode('shift')">
+          1. dy/dx = 2x<br><span style="font-size:0.71rem; font-weight:600;">Vertical Translations: y = x² + C</span>
+        </button>
+        <button class="tab-btn" id="mode_scale" onclick="setMode('scale')">
+          2. dy/dx = 0.5y<br><span style="font-size:0.71rem; font-weight:600;">Vertical Scalings: y = A e<sup>0.5x</sup></span>
+        </button>
+      </div>
+
+      <!-- Geometric & Algebraic Description -->
+      <div class="context-box" id="contextBox"></div>
+
+      <!-- Interactive Parameter & Particle Controls -->
+      <div class="control-panel">
+        <div class="panel-header">
+          <span>Active Particular Solution Controls</span>
+          <span id="activeIcBadge" style="color:var(--purple-dark);">IC: (1.0, 2.0)</span>
+        </div>
+
+        <div class="slider-row">
+          <span id="constLabel">Constant C:</span>
+          <input type="range" id="constSlider" min="-4" max="4" step="0.25" value="1" oninput="updateConstantFromSlider(this.value)" />
+          <span class="val-badge" id="constValDisplay">1.00</span>
+        </div>
+
+        <div class="action-bar">
+          <button class="action-btn" id="familyBtn" onclick="toggleFamily()">Show Family of Curves: ON</button>
+          <button class="action-btn secondary" id="particleAnimBtn" onclick="toggleParticles()">Pause Particle Flow</button>
+          <button class="action-btn ghost" onclick="seedSignComparison()">Seed y₀ &gt; 0, = 0, &lt; 0</button>
+          <button class="action-btn ghost" onclick="clearParticles()">Clear Dropped Particles</button>
+        </div>
+      </div>
+
+      <!-- Step-by-Step Integration & Constant Transformation -->
+      <div class="algebra-box" id="algebraBox"></div>
+
+      <!-- Equilibrium Barrier & Transformation Insight Banner -->
+      <div class="solution-banner" id="insightBanner"></div>
+    </div>
+
+    <!-- RIGHT SLOPE FIELD CANVAS, PARTICLE TABLE & EXAM CHECK -->
+    <div class="card">
+      <div class="canvas-header">
+        <div style="font-size:1.02rem; font-weight:800; color:#1e293b;" id="canvasTitle">
+          Slope Field &amp; Particle Flow: dy/dx = 2x
+        </div>
+        <div class="legend-row">
+          <div class="legend-item"><span class="swatch" style="background:#94a3b8;"></span>Tangent Field</div>
+          <div class="legend-item"><span class="swatch" style="background:#cbd5e1; border:1px dashed #64748b;"></span>General Family</div>
+          <div class="legend-item"><span class="swatch" style="background:#7c3aed;"></span>Selected Curve</div>
+          <div class="legend-item"><span class="swatch" style="background:#e11d48; border-radius:50%;"></span>Dropped Particles</div>
+        </div>
+      </div>
+
+      <div class="canvas-wrap">
+        <canvas id="slopeCanvas" width="760" height="360"></canvas>
+        <div class="canvas-overlay-badge" id="hoverReadout">
+          Hover or click canvas to drop a particle &bull; (x, y) = (0.00, 0.00), dy/dx = 0.00
+        </div>
+      </div>
+
+      <!-- Dropped Particles & Particular Solutions Log -->
+      <table class="check-table" id="particleTable"></table>
+
+      <!-- 9758 Exam Misconception Alert -->
+      <div class="misconception-box" id="misconceptionBox"></div>
+
+      <!-- Quick 9758 Concept Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 Concept Check: General vs Particular Solutions (<span id="qIdxLbl">1</span>/3)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.79rem; line-height:1.45; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  const canvas = document.getElementById("slopeCanvas");
+  const ctx = canvas.getContext("2d");
+
+  const X_MIN = -4, X_MAX = 4;
+  const Y_MIN = -4, Y_MAX = 4;
+
+  let mode = "shift"; // "shift" => dy/dx = 2x, "scale" => dy/dx = 0.5y
+  let showFamily = true;
+  let animateFlow = true;
+
+  // Primary selected initial condition & parameter
+  let selectedIC = { x0: 1.0, y0: 2.0, param: 1.0 };
+
+  // List of dropped particles { id, x0, y0, x, y, param, color, trail: [] }
+  let particles = [];
+  let particleCounter = 1;
+
+  const palette = ["#e11d48", "#0284c7", "#0f766e", "#d97706", "#9333ea", "#16a34a"];
+
+  function fmt(n) {
+    if (Math.abs(n) < 1e-6) return "0";
+    return Number.isInteger(n) ? n.toString() : n.toFixed(2).replace(/\.00$/, "").replace(/(\.\d)0$/, "$1");
+  }
+
+  function dydx(x, y) {
+    return mode === "shift" ? 2 * x : 0.5 * y;
+  }
+
+  function computeParamFromIC(x0, y0) {
+    if (mode === "shift") {
+      // y = x^2 + C => C = y0 - x0^2
+      return y0 - x0 * x0;
+    } else {
+      // y = A e^(0.5x) => A = y0 * e^(-0.5 x0)
+      return Math.abs(y0) < 0.06 ? 0 : y0 * Math.exp(-0.5 * x0);
+    }
+  }
+
+  function evalCurve(x, param) {
+    if (mode === "shift") {
+      return x * x + param;
+    } else {
+      return param * Math.exp(0.5 * x);
+    }
+  }
+
+  function toCanvasX(x) {
+    return ((x - X_MIN) / (X_MAX - X_MIN)) * canvas.width;
+  }
+
+  function toCanvasY(y) {
+    return canvas.height - ((y - Y_MIN) / (Y_MAX - Y_MIN)) * canvas.height;
+  }
+
+  function toMathX(px) {
+    return X_MIN + (px / canvas.width) * (X_MAX - X_MIN);
+  }
+
+  function toMathY(py) {
+    return Y_MAX - (py / canvas.height) * (Y_MAX - Y_MIN);
+  }
+
+  function setMode(newMode) {
+    mode = newMode;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("mode_" + mode).classList.add("active");
+
+    const slider = document.getElementById("constSlider");
+    if (mode === "shift") {
+      document.getElementById("constLabel").textContent = "Constant C:";
+      slider.min = "-4";
+      slider.max = "3.5";
+      slider.step = "0.25";
+      selectedIC = { x0: 1.0, y0: 2.0, param: 1.0 };
+      slider.value = "1";
+    } else {
+      document.getElementById("constLabel").textContent = "Constant A:";
+      slider.min = "-3";
+      slider.max = "3";
+      slider.step = "0.25";
+      selectedIC = { x0: 0.0, y0: 1.0, param: 1.0 };
+      slider.value = "1";
+    }
+
+    particles = [];
+    particleCounter = 1;
+    dropParticle(selectedIC.x0, selectedIC.y0, true);
+    seedSignComparison();
+    updateUI();
+  }
+
+  function updateConstantFromSlider(val) {
+    const p = parseFloat(val);
+    if (mode === "shift") {
+      selectedIC = { x0: 0, y0: p, param: p };
+    } else {
+      selectedIC = { x0: 0, y0: p, param: p };
+    }
+    updateUI();
+  }
+
+  function toggleFamily() {
+    showFamily = !showFamily;
+    const btn = document.getElementById("familyBtn");
+    btn.textContent = `Show Family of Curves: ${showFamily ? "ON" : "OFF"}`;
+    btn.classList.toggle("active-toggle", showFamily);
+  }
+
+  function toggleParticles() {
+    animateFlow = !animateFlow;
+    document.getElementById("particleAnimBtn").textContent = animateFlow ? "Pause Particle Flow" : "Resume Particle Flow";
+  }
+
+  function clearParticles() {
+    particles = [];
+    particleCounter = 1;
+    updateUI();
+  }
+
+  function seedSignComparison() {
+    particles = [];
+    particleCounter = 1;
+    if (mode === "shift") {
+      dropParticle(-1.0, 2.5, false); // C = 1.5
+      dropParticle(0.0, 0.0, false);  // C = 0
+      dropParticle(1.2, -0.56, false); // C = -2
+    } else {
+      dropParticle(-1.5, 0.7, false);  // A > 0 (upper half-plane)
+      dropParticle(-1.5, 0.0, false);  // A = 0 (equilibrium barrier y = 0)
+      dropParticle(-1.5, -0.7, false); // A < 0 (lower half-plane)
+    }
+    updateUI();
+  }
+
+  function dropParticle(x0, y0, makePrimary = true) {
+    // Snap very close to y = 0 in scale mode so students can easily test the equilibrium barrier
+    if (mode === "scale" && Math.abs(y0) < 0.14) {
+      y0 = 0;
+    }
+    const param = computeParamFromIC(x0, y0);
+    const color = palette[(particleCounter - 1) % palette.length];
+
+    if (makePrimary) {
+      selectedIC = { x0, y0, param };
+      const slider = document.getElementById("constSlider");
+      const clamped = Math.max(parseFloat(slider.min), Math.min(parseFloat(slider.max), param));
+      slider.value = clamped.toFixed(2);
+    }
+
+    particles.push({
+      id: particleCounter++,
+      x0,
+      y0,
+      x: x0,
+      y: y0,
+      param,
+      color,
+      trail: [{ x: x0, y: y0 }]
+    });
+
+    if (particles.length > 6) {
+      particles.shift();
+    }
+  }
+
+  canvas.addEventListener("mousemove", (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    const mx = toMathX((e.clientX - rect.left) * scaleX);
+    const my = toMathY((e.clientY - rect.top) * scaleY);
+    const slope = dydx(mx, my);
+    document.getElementById("hoverReadout").textContent =
+      `Click to drop particle • (x, y) = (${mx.toFixed(2)}, ${my.toFixed(2)}), dy/dx = ${slope.toFixed(2)}`;
+  });
+
+  canvas.addEventListener("click", (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    const mx = toMathX((e.clientX - rect.left) * scaleX);
+    const my = toMathY((e.clientY - rect.top) * scaleY);
+    dropParticle(mx, my, true);
+    updateUI();
+  });
+
+  function updateUI() {
+    document.getElementById("constValDisplay").textContent = fmt(selectedIC.param);
+    document.getElementById("activeIcBadge").textContent =
+      `IC: (${fmt(selectedIC.x0)}, ${fmt(selectedIC.y0)})`;
+
+    const contextBox = document.getElementById("contextBox");
+    const algebraBox = document.getElementById("algebraBox");
+    const insightBanner = document.getElementById("insightBanner");
+    const miscBox = document.getElementById("misconceptionBox");
+
+    if (mode === "shift") {
+      document.getElementById("canvasTitle").textContent =
+        "Slope Field & Particle Flow: dy/dx = 2x (Purely x-Dependent)";
+
+      contextBox.innerHTML = `
+        <div><strong>Geometric Structure of dy/dx = 2x:</strong> The gradient depends <em>only on x</em>. Along any vertical line <em>x = k</em>, all tangent segments are parallel with identical slope <em>2k</em>.</div>
+        <div class="var-pill">General Solution: y = x² + C &nbsp;(Vertical Translations)</div>
+      `;
+
+      algebraBox.innerHTML = `
+        <span class="box-title">Integration &amp; Particular Solution Derivation</span>
+        <div class="math-readout">
+          1. Direct Integration: y = &int; 2x dx = x² + C &nbsp;(C &isin; &reals;)<br>
+          2. Apply IC (${fmt(selectedIC.x0)}, ${fmt(selectedIC.y0)}): ${fmt(selectedIC.y0)} = (${fmt(selectedIC.x0)})² + C &rArr; C = ${fmt(selectedIC.param)}<br>
+          3. Particular Solution: <strong>y = x² ${selectedIC.param >= 0 ? "+ " + fmt(selectedIC.param) : "− " + fmt(Math.abs(selectedIC.param))}</strong>
+        </div>
+      `;
+
+      insightBanner.innerHTML = `
+        <strong>Why Additive Constant (+C) Gives Vertical Translations:</strong> Changing <em>C</em> shifts every point on <em>y = x²</em> vertically by <em>C</em> units. Unlike <em>dy/dx = 0.5y</em>, there is <strong>no horizontal equilibrium barrier</strong>—curves freely cross the <em>x</em>-axis whenever <em>C &lt; 0</em>.
+      `;
+
+      miscBox.innerHTML = `
+        <strong>9758 Exam Alert (General vs Particular Solutions):</strong>
+        <ul style="margin:3px 0 0 0; padding-left:18px;">
+          <li><strong>General Solution:</strong> Must include an arbitrary constant (<em>+ C</em>) representing the entire infinite family of curves.</li>
+          <li><strong>Particular Solution:</strong> Uses a given initial condition <em>y(x₀) = y₀</em> to lock in one specific numerical value of <em>C</em>.</li>
+        </ul>
+      `;
+    } else {
+      document.getElementById("canvasTitle").textContent =
+        "Slope Field & Particle Flow: dy/dx = 0.5y (Autonomous / y-Dependent)";
+
+      contextBox.innerHTML = `
+        <div><strong>Geometric Structure of dy/dx = 0.5y:</strong> The gradient depends <em>only on y</em>. Along any horizontal line <em>y = k</em>, all tangent segments have identical slope <em>0.5k</em>.</div>
+        <div class="var-pill">General Solution: y = A e<sup>0.5x</sup> &nbsp;(Vertical Scalings, A = &plusmn;e<sup>C</sup>)</div>
+      `;
+
+      const A = selectedIC.param;
+      algebraBox.innerHTML = `
+        <span class="box-title">Separation of Variables &amp; Multiplicative Constant A</span>
+        <div class="math-readout">
+          1. Separate: &int; (1/y) dy = &int; 0.5 dx &rArr; ln|y| = 0.5x + C<br>
+          2. Exponentiate: |y| = e<sup>C</sup> e<sup>0.5x</sup> &rArr; y = A e<sup>0.5x</sup> (A = &plusmn;e<sup>C</sup> or 0)<br>
+          3. Apply IC (${fmt(selectedIC.x0)}, ${fmt(selectedIC.y0)}): A = ${fmt(A)} &rArr; <strong>y = ${fmt(A)}e<sup>0.5x</sup></strong>
+        </div>
+      `;
+
+      insightBanner.innerHTML = `
+        <strong>Why y = 0 Acts as an Equilibrium Barrier:</strong> At <em>y = 0</em>, <em>dy/dx = 0.5(0) = 0</em> everywhere, making the <em>x</em>-axis a constant equilibrium solution (<em>A = 0</em>). Because <em>e<sup>0.5x</sup> &gt; 0</em> for all real <em>x</em>, the sign of <em>y</em> is permanently fixed by the sign of <em>A</em>: particles with <em>A &gt; 0</em> stay strictly above <em>y = 0</em>, while particles with <em>A &lt; 0</em> stay strictly below <em>y = 0</em>.
+      `;
+
+      miscBox.innerHTML = `
+        <strong>9758 Exam Alert (Handling Modulus &amp; Exponential Constants):</strong>
+        <ul style="margin:3px 0 0 0; padding-left:18px;">
+          <li><strong>Never write <em>y = e<sup>0.5x</sup> + C</em>:</strong> When exponentiating <em>ln|y| = 0.5x + C</em>, <em>C</em> is inside the exponent: <em>e<sup>0.5x + C</sup> = e<sup>C</sup>e<sup>0.5x</sup></em>.</li>
+          <li><strong>Replacing <em>&plusmn;e<sup>C</sup></em> with <em>A</em>:</strong> Since <em>e<sup>C</sup> &gt; 0</em>, <em>&plusmn;e<sup>C</sup></em> covers all non-zero real numbers, and including <em>A = 0</em> recovers the trivial equilibrium solution <em>y = 0</em>.</li>
+        </ul>
+      `;
+    }
+
+    renderParticleTable();
+  }
+
+  function renderParticleTable() {
+    const tbl = document.getElementById("particleTable");
+    const paramName = mode === "shift" ? "C" : "A";
+    tbl.innerHTML = `
+      <thead>
+        <tr>
+          <th>Particle</th>
+          <th>Initial Condition (x₀, y₀)</th>
+          <th>Constant (${paramName})</th>
+          <th>Particular Solution</th>
+          <th>Region / Behaviour</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${particles.map(p => {
+          const eqStr = mode === "shift"
+            ? `y = x² ${p.param >= 0 ? "+ " + fmt(p.param) : "− " + fmt(Math.abs(p.param))}`
+            : `y = ${fmt(p.param)}e<sup>0.5x</sup>`;
+          let region = "";
+          if (mode === "shift") {
+            region = p.param < 0 ? "Crosses y = 0 twice" : (Math.abs(p.param) < 1e-5 ? "Tangent to y = 0" : "Strictly y > 0");
+          } else {
+            region = p.param > 1e-5 ? "A > 0 (Trapped above y = 0)" : (p.param < -1e-5 ? "A < 0 (Trapped below y = 0)" : "A = 0 (Equilibrium barrier y = 0)");
+          }
+          return `
+            <tr>
+              <td><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${p.color};margin-right:5px;"></span><strong>P${p.id}</strong></td>
+              <td>(${fmt(p.x0)}, ${fmt(p.y0)})</td>
+              <td><strong>${paramName} = ${fmt(p.param)}</strong></td>
+              <td><strong>${eqStr}</strong></td>
+              <td style="color:#475569;">${region}</td>
+            </tr>
+          `;
+        }).join("")}
+      </tbody>
+    `;
+  }
+
+  function drawGridAndAxes() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Highlight equilibrium line y = 0 in scale mode
+    if (mode === "scale") {
+      const yZeroPx = toCanvasY(0);
+      ctx.fillStyle = "rgba(15, 118, 110, 0.08)";
+      ctx.fillRect(0, yZeroPx - 6, canvas.width, 12);
+    }
+
+    // Grid lines
+    ctx.strokeStyle = "#f1f5f9";
+    ctx.lineWidth = 1;
+    for (let x = X_MIN; x <= X_MAX; x += 1) {
+      const px = toCanvasX(x);
+      ctx.beginPath();
+      ctx.moveTo(px, 0);
+      ctx.lineTo(px, canvas.height);
+      ctx.stroke();
+    }
+    for (let y = Y_MIN; y <= Y_MAX; y += 1) {
+      const py = toCanvasY(y);
+      ctx.beginPath();
+      ctx.moveTo(0, py);
+      ctx.lineTo(canvas.width, py);
+      ctx.stroke();
+    }
+
+    // Axes
+    const xAxisY = toCanvasY(0);
+    const yAxisX = toCanvasX(0);
+    ctx.strokeStyle = mode === "scale" ? "#0f766e" : "#64748b";
+    ctx.lineWidth = mode === "scale" ? 2.2 : 1.5;
+
+    ctx.beginPath();
+    ctx.moveTo(0, xAxisY);
+    ctx.lineTo(canvas.width, xAxisY);
+    ctx.stroke();
+
+    ctx.strokeStyle = "#64748b";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(yAxisX, 0);
+    ctx.lineTo(yAxisX, canvas.height);
+    ctx.stroke();
+
+    // Axis ticks & labels
+    ctx.fillStyle = "#475569";
+    ctx.font = "600 11px 'Segoe UI', sans-serif";
+    for (let x = X_MIN + 1; x <= X_MAX - 1; x += 1) {
+      if (x !== 0) ctx.fillText(x.toString(), toCanvasX(x) - 5, xAxisY + 14);
+    }
+    for (let y = Y_MIN + 1; y <= Y_MAX - 1; y += 1) {
+      if (y !== 0) ctx.fillText(y.toString(), yAxisX + 6, toCanvasY(y) + 4);
+    }
+
+    if (mode === "scale") {
+      ctx.fillStyle = "#0f766e";
+      ctx.font = "800 11px 'Segoe UI', sans-serif";
+      ctx.fillText("Equilibrium Barrier: y = 0 (A = 0)", canvas.width - 195, xAxisY - 8);
+    }
+  }
+
+  function drawSlopeField() {
+    const stepX = 0.4;
+    const stepY = 0.4;
+    const segLenPx = 15;
+
+    ctx.strokeStyle = "#94a3b8";
+    ctx.lineWidth = 1.4;
+
+    for (let x = X_MIN + 0.2; x <= X_MAX - 0.2; x += stepX) {
+      for (let y = Y_MIN + 0.2; y <= Y_MAX - 0.2; y += stepY) {
+        const m = dydx(x, y);
+        // Convert math slope to pixel slope (accounting for aspect ratio)
+        const scaleX = canvas.width / (X_MAX - X_MIN);
+        const scaleY = canvas.height / (Y_MAX - Y_MIN);
+        const angle = Math.atan2(-m * scaleY, scaleX);
+
+        const cx = toCanvasX(x);
+        const cy = toCanvasY(y);
+        const dx = (segLenPx / 2) * Math.cos(angle);
+        const dy = (segLenPx / 2) * Math.sin(angle);
+
+        ctx.beginPath();
+        ctx.moveTo(cx - dx, cy - dy);
+        ctx.lineTo(cx + dx, cy + dy);
+        ctx.stroke();
+      }
+    }
+  }
+
+  function plotCurve(param, strokeStyle, lineWidth, dashed = false) {
+    ctx.save();
+    ctx.strokeStyle = strokeStyle;
+    ctx.lineWidth = lineWidth;
+    if (dashed) ctx.setLineDash([5, 5]);
+
+    ctx.beginPath();
+    let started = false;
+    for (let x = X_MIN; x <= X_MAX; x += 0.04) {
+      const y = evalCurve(x, param);
+      if (y >= Y_MIN - 1 && y <= Y_MAX + 1) {
+        const px = toCanvasX(x);
+        const py = toCanvasY(y);
+        if (!started) {
+          ctx.moveTo(px, py);
+          started = true;
+        } else {
+          ctx.lineTo(px, py);
+        }
+      } else {
+        started = false;
+      }
+    }
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawCurvesAndParticles() {
+    // 1. General Solution Family
+    if (showFamily) {
+      const familyParams = mode === "shift"
+        ? [-3, -2, -1, 0, 1, 2, 3]
+        : [-2.5, -1.5, -0.75, -0.3, 0.3, 0.75, 1.5, 2.5];
+      familyParams.forEach(p => plotCurve(p, "#cbd5e1", 1.3, true));
+    }
+
+    // 2. Particular Solution Curves for Dropped Particles
+    particles.forEach(p => {
+      plotCurve(p.param, p.color, 2.2, false);
+    });
+
+    // 3. Primary Slider / Selected Particular Solution
+    plotCurve(selectedIC.param, "#7c3aed", 3.0, false);
+
+    // Draw IC anchor dot for selectedIC
+    ctx.fillStyle = "#7c3aed";
+    ctx.beginPath();
+    ctx.arc(toCanvasX(selectedIC.x0), toCanvasY(selectedIC.y0), 5.5, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = "#ffffff";
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    // 4. Update & Draw Flowing Particles
+    particles.forEach(p => {
+      if (animateFlow) {
+        p.x += 0.018;
+        if (p.x > X_MAX) {
+          p.x = X_MIN;
+          p.trail = [];
+        }
+        p.y = evalCurve(p.x, p.param);
+        if (p.y > Y_MAX + 0.5 || p.y < Y_MIN - 0.5) {
+          p.x = X_MIN;
+          p.y = evalCurve(p.x, p.param);
+          p.trail = [];
+        }
+        p.trail.push({ x: p.x, y: p.y });
+        if (p.trail.length > 26) p.trail.shift();
+      }
+
+      // Draw glowing particle trail
+      if (p.trail.length > 1) {
+        ctx.strokeStyle = p.color;
+        ctx.lineWidth = 4;
+        ctx.globalAlpha = 0.35;
+        ctx.beginPath();
+        p.trail.forEach((pt, idx) => {
+          const px = toCanvasX(pt.x);
+          const py = toCanvasY(pt.y);
+          if (idx === 0) ctx.moveTo(px, py);
+          else ctx.lineTo(px, py);
+        });
+        ctx.stroke();
+        ctx.globalAlpha = 1.0;
+      }
+
+      // Draw initial drop pin
+      ctx.fillStyle = "#ffffff";
+      ctx.strokeStyle = p.color;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(toCanvasX(p.x0), toCanvasY(p.y0), 4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+
+      // Draw moving particle
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.arc(toCanvasX(p.x), toCanvasY(p.y), 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = "#ffffff";
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+    });
+  }
+
+  function renderLoop() {
+    drawGridAndAxes();
+    drawSlopeField();
+    drawCurvesAndParticles();
+    requestAnimationFrame(renderLoop);
+  }
+
+  // 9758 EXAM CONCEPT CHECK QUESTIONS
+  const examQs = [
+    {
+      q: "Why do solution curves to dy/dx = 0.5y never cross the line y = 0?",
+      opts: [
+        "Because y = 0 is an equilibrium solution (dy/dx = 0) and y = A e^{0.5x} keeps the sign of A for all x ∈ ℝ",
+        "Because e^{0.5x} is undefined when x = 0",
+        "Because dy/dx = 0.5y only has solutions for y > 0",
+        "Because integrating 1/y gives ln(y), which forces A > 0"
+      ],
+      ans: 0,
+      exp: "Since e^{0.5x} > 0 for all real x, the sign of y = A e^{0.5x} is strictly determined by A (A > 0 stays above y = 0, A < 0 stays below y = 0, and A = 0 lies along y = 0)."
+    },
+    {
+      q: "How do the general solution families of dy/dx = 2x and dy/dx = 0.5y differ geometrically?",
+      opts: [
+        "dy/dx = 2x gives vertical translations (y = x² + C), whereas dy/dx = 0.5y gives vertical scalings (y = A e^{0.5x})",
+        "Both give vertical translations by a constant C",
+        "dy/dx = 2x gives horizontal translations, whereas dy/dx = 0.5y gives vertical translations",
+        "Both families have a horizontal asymptote at y = 0"
+      ],
+      ans: 0,
+      exp: "An additive constant (+C) translates curves parallel to the y-axis, whereas a multiplicative constant (A) scales curves parallel to the y-axis (including reflection across y = 0 when A < 0)."
+    },
+    {
+      q: "When solving dy/dx = 0.5y, why can ±e^C be replaced by a single arbitrary constant A ∈ ℝ?",
+      opts: [
+        "Because e^C > 0 covers all positive reals, ±e^C covers all non-zero reals, and A = 0 gives the valid equilibrium solution y = 0",
+        "Because e^C can be negative when C < 0",
+        "Because modulus signs can always be ignored without justification",
+        "Because A must be a positive integer"
+      ],
+      ans: 0,
+      exp: "For C ∈ ℝ, e^C takes every positive real value, so ±e^C takes every non-zero real value; including A = 0 accounts for the trivial solution y = 0."
+    }
+  ];
+
+  let curQ = 0;
+
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").textContent = item.q;
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i}, this)">${String.fromCharCode(65 + i)}. ${o}</button>
+    `).join("");
+  }
+
+  function gradeExamQ(idx, btn) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  // Initialize
+  setMode("shift");
+  renderExamQ();
+  requestAnimationFrame(renderLoop);
+</script>
+
+</body>
+</html>
