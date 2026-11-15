@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 5.1 Lesson 6: Applied Optimisation & Connected Rates</title>
+
+  <!-- MathJax 3 for crisp typeset mathematical notation -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.48;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 540px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1000px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .mode-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 7px;
+      margin-bottom: 10px;
+    }
+
+    .sub-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.76rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .sub-btn {
+      padding: 7px 8px;
+      border-radius: 9px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-weight: 700;
+      font-size: 0.74rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .sub-btn.active {
+      background: var(--teal);
+      color: #ffffff;
+      border-color: #115e59;
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.52;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .eqn-editor {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 11px;
+    }
+
+    .eqn-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 7px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .slider-row {
+      margin-bottom: 8px;
+    }
+
+    .slider-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 3px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple-dark);
+      cursor: pointer;
+    }
+
+    .solve-bar {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: none;
+      background: var(--purple-dark);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.76rem;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .action-btn.secondary {
+      background: var(--blue-bg);
+      color: var(--blue);
+      border: 1px solid #bae6fd;
+    }
+
+    .action-btn.amber {
+      background: var(--amber-bg);
+      color: var(--amber);
+      border: 1px solid #fde68a;
+    }
+
+    .step-card {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      padding: 9px 11px;
+      margin-top: 8px;
+      font-size: 0.79rem;
+      line-height: 1.55;
+    }
+
+    .step-card .step-tag {
+      font-size: 0.69rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--purple-dark);
+      letter-spacing: 0.4px;
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    /* LIVE GAUGES FOR CONNECTED RATES & OPTIMISATION */
+    .gauge-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 7px;
+      margin-bottom: 11px;
+    }
+
+    .gauge-card {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 8px 9px;
+      text-align: center;
+    }
+
+    .gauge-lbl {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 3px;
+    }
+
+    .gauge-val {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .gc-screen-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin-bottom: 11px;
+    }
+
+    .box-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .gc-readout {
+      background: #f1f5f9;
+      border: 2px solid #64748b;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.79rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 5px;
+      line-height: 1.48;
+    }
+
+    .solution-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.8rem;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    /* RIGHT PANEL CANVASES */
+    .split-canvases {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 780px) {
+      .split-canvases {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .canvas-box {
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 8px 10px;
+    }
+
+    .canvas-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.76rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 5px;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    canvas {
+      width: 100%;
+      height: 310px;
+      display: block;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+    }
+
+    .gc-guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .gc-guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .step-pill {
+      background: var(--blue-bg);
+      border: 1px solid #bae6fd;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.77rem;
+      line-height: 1.48;
+      color: #0c4a6e;
+    }
+
+    .misconception-box {
+      margin-top: 10px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-size: 0.78rem;
+      line-height: 1.48;
+      color: #78350f;
+    }
+
+    .grader-card {
+      margin-top: 10px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 14px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 7px;
+    }
+
+    @media (max-width: 700px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      line-height: 1.48;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Mode A: Applied Optimisation</strong>
+        Drag radius $r$ (or drag directly on the 3D cutaway) to morph a cylinder inside a sphere or a folded conical sector, locking onto the exact maximum where $\dfrac{\mathrm{d}V}{\mathrm{d}r} = 0$ and $\dfrac{\mathrm{d}^2V}{\mathrm{d}r^2} &lt; 0$.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Mode B: Connected Rates of Change</strong>
+        Run the play/pause time scrubber on a conical tank or sliding ladder to observe live Chain Rule gauges for $\dfrac{\mathrm{d}x}{\mathrm{d}t}$, $\dfrac{\mathrm{d}y}{\mathrm{d}x}$, and $\dfrac{\mathrm{d}y}{\mathrm{d}t}$.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Follow the 9758 Exam Protocol</strong>
+        Check every step: (i) express the objective in one variable, (ii) solve $\frac{\mathrm{d}V}{\mathrm{d}r} = 0$, and (iii) verify maximum/minimum nature via $\frac{\mathrm{d}^2V}{\mathrm{d}r^2}$ or a sign table.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        5.1 Lesson 6 &bull; Applied Optimisation &amp; Connected Rates
+      </div>
+
+      <!-- 2 Main Mode Tabs -->
+      <div class="mode-grid">
+        <button class="tab-btn active" id="mode_opt" onclick="switchMode('opt')">
+          Mode A: Applied Optimisation
+        </button>
+        <button class="tab-btn" id="mode_rates" onclick="switchMode('rates')">
+          Mode B: Connected Rates
+        </button>
+      </div>
+
+      <!-- 2 Sub-Scenarios per Mode -->
+      <div class="sub-grid" id="subGrid"></div>
+
+      <!-- Contextual Problem Statement -->
+      <div class="context-box" id="contextBox"></div>
+
+      <!-- Interactive Sliders & Controls -->
+      <div class="eqn-editor">
+        <div class="eqn-header">
+          <span id="controlTitle">Adjust Decision Variable</span>
+          <span id="statusPill" style="color:var(--purple-dark);">r = 3.00</span>
+        </div>
+
+        <div id="sliderArea"></div>
+
+        <div class="solve-bar" id="actionBar"></div>
+
+        <!-- Step-by-Step Modelling & Calculus Derivation -->
+        <div class="step-card" id="derivationCard"></div>
+      </div>
+
+      <!-- Live Gauges (3-Column Readout) -->
+      <div class="gauge-grid" id="gaugeGrid"></div>
+
+      <!-- TI-84 Plus CE Readout -->
+      <div class="gc-screen-box" id="gcBox"></div>
+
+      <!-- Geometric & Syllabus Summary Banner -->
+      <div class="solution-banner" id="solutionBanner"></div>
+    </div>
+
+    <!-- RIGHT SPLIT CANVASES, GC GUIDE & EXAM CHECK -->
+    <div class="card">
+      <div class="split-canvases">
+        <div class="canvas-box">
+          <div class="canvas-top-bar">
+            <span id="leftCanvasTitle">3D Geometric Cross-Section (1:1 Scale)</span>
+            <span id="leftCanvasTag" style="color:var(--purple-dark);">Interactive</span>
+          </div>
+          <canvas id="geomCanvas" style="cursor:ew-resize; touch-action:none;"></canvas>
+        </div>
+
+        <div class="canvas-box">
+          <div class="canvas-top-bar">
+            <span id="rightCanvasTitle">Volume $V(r)$ &amp; Derivative $\frac{\mathrm{d}V}{\mathrm{d}r}$</span>
+            <span id="rightCanvasTag" style="color:var(--teal);">Live Plot</span>
+          </div>
+          <canvas id="plotCanvas"></canvas>
+        </div>
+      </div>
+
+      <!-- 3-Step TI-84 Plus CE Keystroke Guide -->
+      <div class="gc-guide-grid">
+        <div class="step-pill">
+          <strong>1. Check Extrema on GC</strong><br>
+          Plot <strong>Y₁ = V(x)</strong> on domain $(0, R)$, press <strong>[2nd] [TRACE] &rarr; 4: maximum</strong>, and verify the optimal radius $r$.
+        </div>
+        <div class="step-pill">
+          <strong>2. Verify $\frac{\mathrm{d}V}{\mathrm{d}r} = 0$ &amp; $\frac{\mathrm{d}^2V}{\mathrm{d}r^2} &lt; 0$</strong><br>
+          Graph <strong>Y₂ = nDeriv(Y₁, X, X)</strong> to confirm $Y_2$ crosses zero from $+$ to $-$ at the optimal point.
+        </div>
+        <div class="step-pill">
+          <strong>3. Connected Rates Substitution</strong><br>
+          Always differentiate the general relation (e.g., $V = \frac{1}{3}\pi h^3 \tan^2\alpha$) <strong>before</strong> substituting the instant value of $h$ or $x$.
+        </div>
+      </div>
+
+      <!-- 9758 Misconception Alert Box -->
+      <div class="misconception-box">
+        <strong>9758 Exam Misconception Alert:</strong>
+        <ul style="margin:3px 0 0 0; padding-left:18px;">
+          <li><strong>Mandatory Verification Step:</strong> Solving $\dfrac{\mathrm{d}V}{\mathrm{d}r} = 0$ alone never earns full marks in an optimisation question—you <strong>must</strong> justify maximum/minimum nature using $\dfrac{\mathrm{d}^2V}{\mathrm{d}r^2}$ or a First Derivative Sign Table.</li>
+          <li><strong>Differentiate Before Substituting:</strong> In connected rates (e.g., $x^2 + y^2 = L^2$), $x$ and $y$ are functions of time $t$. Never substitute numerical values for $x$ or $y$ before differentiating with respect to $t$.</li>
+        </ul>
+      </div>
+
+      <!-- Quick 9758 Exam Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 Optimisation &amp; Rates Check (<span id="qIdxLbl">1</span>/3)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.8rem; line-height:1.48; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function typesetMath(el) {
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      window.MathJax.typesetPromise(el ? [el] : undefined).catch(() => {});
+    }
+  }
+
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  const state = {
+    mode: "opt",     // "opt" or "rates"
+    sub: "cylSphere",// "cylSphere", "sectorCone", "coneTank", "ladder"
+    // Mode A params
+    R: 5.0,
+    r: 3.2,
+    dragging: false,
+    // Mode B params
+    t: 2.5,
+    playing: false,
+    lastTime: null,
+    // Conical tank: R_tank = 3m, H_tank = 6m, dV/dt = 1.5 m^3/min
+    tankR: 3.0,
+    tankH: 6.0,
+    dVdt: 1.5,
+    // Ladder: L = 5m, dx/dt = 0.6 m/s
+    ladderL: 5.0,
+    dxdt: 0.6
+  };
+
+  const geomCanvas = document.getElementById("geomCanvas");
+  const plotCanvas = document.getElementById("plotCanvas");
+  const gCtx = geomCanvas.getContext("2d");
+  const pCtx = plotCanvas.getContext("2d");
+
+  function fmt(n, d = 2) {
+    if (isNaN(n)) return "Undefined";
+    if (!isFinite(n)) return n > 0 ? "+∞" : "−∞";
+    if (Math.abs(n) < 1e-6) return "0.00";
+    return n.toFixed(d);
+  }
+
+  function switchMode(newMode) {
+    state.mode = newMode;
+    if (state.playing) togglePlay();
+
+    document.getElementById("mode_opt").classList.toggle("active", newMode === "opt");
+    document.getElementById("mode_rates").classList.toggle("active", newMode === "rates");
+
+    const subGrid = document.getElementById("subGrid");
+    if (newMode === "opt") {
+      subGrid.innerHTML = `
+        <button class="sub-btn active" id="sub_cylSphere" onclick="selectSub('cylSphere')">1. Cylinder in Sphere ($R$)</button>
+        <button class="sub-btn" id="sub_sectorCone" onclick="selectSub('sectorCone')">2. Sector Folded into Cone ($L$)</button>
+      `;
+      selectSub("cylSphere");
+    } else {
+      subGrid.innerHTML = `
+        <button class="sub-btn active" id="sub_coneTank" onclick="selectSub('coneTank')">1. Conical Tank Filling</button>
+        <button class="sub-btn" id="sub_ladder" onclick="selectSub('ladder')">2. Sliding Ladder on Wall</button>
+      `;
+      selectSub("coneTank");
+    }
+  }
+
+  function selectSub(subKey) {
+    state.sub = subKey;
+    if (state.playing) togglePlay();
+
+    document.querySelectorAll(".sub-btn").forEach(b => b.classList.remove("active"));
+    const activeBtn = document.getElementById("sub_" + subKey);
+    if (activeBtn) activeBtn.classList.add("active");
+
+    const sliderArea = document.getElementById("sliderArea");
+    const actionBar = document.getElementById("actionBar");
+
+    if (subKey === "cylSphere") {
+      state.R = 5.0;
+      state.r = 3.2;
+      document.getElementById("controlTitle").textContent = "Cylinder Radius (r) & Sphere Radius (R)";
+      document.getElementById("leftCanvasTitle").innerHTML = "3D Cutaway: Cylinder in Sphere ($1:1$ Scale)";
+      document.getElementById("rightCanvasTitle").innerHTML = "Volume $V(r)$ &amp; Derivative $\\frac{\\mathrm{d}V}{\\mathrm{d}r}$";
+      document.getElementById("contextBox").innerHTML = `
+        <div><strong>Cylinder Inscribed in Sphere of Fixed Radius $R$:</strong> By Pythagoras, $r^2 + \\left(\\frac{h}{2}\\right)^2 = R^2 \\implies h = 2\\sqrt{R^2 - r^2}$, so $V(r) = 2\\pi r^2\\sqrt{R^2 - r^2}$ for $0 &lt; r &lt; R$.</div>
+        <div class="var-pill">Exact Maximum: $r = \\sqrt{\\dfrac{2}{3}}R \\approx 0.8165R$, &nbsp;$V_{\\max} = \\dfrac{4\\pi}{3\\sqrt{3}}R^3$</div>
+      `;
+      sliderArea.innerHTML = `
+        <div class="slider-row">
+          <div class="slider-label">
+            <span>Cylinder Radius $r$ (or drag corner on diagram)</span>
+            <span id="lbl_r">3.20</span>
+          </div>
+          <input type="range" id="sl_r" min="0.25" max="4.90" step="0.02" value="3.20" oninput="onOptSlide()" />
+        </div>
+        <div class="slider-row">
+          <div class="slider-label">
+            <span>Fixed Sphere Radius $R$</span>
+            <span id="lbl_R">5.00</span>
+          </div>
+          <input type="range" id="sl_R" min="3.5" max="6.5" step="0.5" value="5.0" oninput="onOptSlide()" />
+        </div>
+      `;
+      actionBar.innerHTML = `
+        <button class="action-btn" onclick="lockOptimal()">Lock onto Exact Maximum $r = \\sqrt{\\frac{2}{3}}R$</button>
+      `;
+    } else if (subKey === "sectorCone") {
+      state.R = 5.0; // Here R acts as slant height / sector radius L
+      state.r = 3.0;
+      document.getElementById("controlTitle").textContent = "Cone Base Radius (r) & Sector Radius (L)";
+      document.getElementById("leftCanvasTitle").innerHTML = "3D Folded Cone &amp; Sector ($1:1$ Scale)";
+      document.getElementById("rightCanvasTitle").innerHTML = "Cone Volume $V(r)$ &amp; $\\frac{\\mathrm{d}V}{\\mathrm{d}r}$";
+      document.getElementById("contextBox").innerHTML = `
+        <div><strong>Circular Sector of Radius $L$ Folded into a Cone:</strong> The sector radius becomes the cone's slant height $L$, so $h = \\sqrt{L^2 - r^2}$ and $V(r) = \\dfrac{1}{3}\\pi r^2\\sqrt{L^2 - r^2}$ for $0 &lt; r &lt; L$.</div>
+        <div class="var-pill">Exact Maximum: $r = \\sqrt{\\dfrac{2}{3}}L \\approx 0.8165L$ &nbsp;($\\theta = 2\\pi\\sqrt{\\frac{2}{3}} \\approx 293.9^\\circ$)</div>
+      `;
+      sliderArea.innerHTML = `
+        <div class="slider-row">
+          <div class="slider-label">
+            <span>Cone Base Radius $r$ (or drag base on diagram)</span>
+            <span id="lbl_r">3.00</span>
+          </div>
+          <input type="range" id="sl_r" min="0.25" max="4.90" step="0.02" value="3.00" oninput="onOptSlide()" />
+        </div>
+        <div class="slider-row">
+          <div class="slider-label">
+            <span>Fixed Sector Radius / Slant Height $L$</span>
+            <span id="lbl_R">5.00</span>
+          </div>
+          <input type="range" id="sl_R" min="3.5" max="6.5" step="0.5" value="5.0" oninput="onOptSlide()" />
+        </div>
+      `;
+      actionBar.innerHTML = `
+        <button class="action-btn" onclick="lockOptimal()">Lock onto Exact Maximum $r = \\sqrt{\\frac{2}{3}}L$</button>
+      `;
+    } else if (subKey === "coneTank") {
+      state.t = 3.0;
+      state.dVdt = 1.5;
+      document.getElementById("controlTitle").textContent = "Time Scrubber (t) & Inflow Rate (dV/dt)";
+      document.getElementById("leftCanvasTitle").innerHTML = "Conical Tank ($R = 3\\text{ m}, H = 6\\text{ m}$)";
+      document.getElementById("rightCanvasTitle").innerHTML = "Depth $h(t)$ &amp; Rate $\\frac{\\mathrm{d}h}{\\mathrm{d}t}$ vs. Time $t$";
+      document.getElementById("contextBox").innerHTML = `
+        <div><strong>Inverted Conical Water Tank:</strong> Radius $R = 3\\text{ m}$, height $H = 6\\text{ m}$. By similar triangles, $\\dfrac{r}{h} = \\dfrac{3}{6} = \\dfrac{1}{2} \\implies V = \\dfrac{1}{3}\\pi r^2 h = \\dfrac{1}{12}\\pi h^3$.</div>
+        <div class="var-pill">Chain Rule: $\\dfrac{\\mathrm{d}V}{\\mathrm{d}t} = \\dfrac{\\mathrm{d}V}{\\mathrm{d}h} \\cdot \\dfrac{\\mathrm{d}h}{\\mathrm{d}t} = \\dfrac{1}{4}\\pi h^2 \\dfrac{\\mathrm{d}h}{\\mathrm{d}t}$</div>
+      `;
+      sliderArea.innerHTML = `
+        <div class="slider-row">
+          <div class="slider-label">
+            <span>Elapsed Time $t$ (minutes)</span>
+            <span id="lbl_t">3.00 min</span>
+          </div>
+          <input type="range" id="sl_t" min="0.2" max="11.5" step="0.05" value="3.0" oninput="onRatesSlide()" />
+        </div>
+        <div class="slider-row">
+          <div class="slider-label">
+            <span>Constant Volume Inflow $\\dfrac{\\mathrm{d}V}{\\mathrm{d}t}$ ($\\text{m}^3/\\text{min}$)</span>
+            <span id="lbl_rate">1.50</span>
+          </div>
+          <input type="range" id="sl_rate" min="0.5" max="3.0" step="0.25" value="1.5" oninput="onRatesSlide()" />
+        </div>
+      `;
+      actionBar.innerHTML = `
+        <button class="action-btn" id="playBtn" onclick="togglePlay()">▶ Play Time Scrubber</button>
+        <button class="action-btn secondary" onclick="resetTime()">↺ Reset $t$</button>
+      `;
+    } else if (subKey === "ladder") {
+      state.t = 3.0;
+      state.dxdt = 0.6;
+      document.getElementById("controlTitle").textContent = "Time Scrubber (t) & Base Speed (dx/dt)";
+      document.getElementById("leftCanvasTitle").innerHTML = "Sliding Ladder ($L = 5\\text{ m}$ Fixed Length)";
+      document.getElementById("rightCanvasTitle").innerHTML = "Height $y(t)$ &amp; Speed $\\left|\\frac{\\mathrm{d}y}{\\mathrm{d}t}\\right|$ vs. Time $t$";
+      document.getElementById("contextBox").innerHTML = `
+        <div><strong>Sliding Ladder Against Vertical Wall:</strong> A $5\\text{ m}$ ladder slides down a vertical wall as its base is pulled away horizontally at constant speed $\\dfrac{\\mathrm{d}x}{\\mathrm{d}t}$. Since $x^2 + y^2 = 25$, differentiating w.r.t. $t$ gives $2x\\dfrac{\\mathrm{d}x}{\\mathrm{d}t} + 2y\\dfrac{\\mathrm{d}y}{\\mathrm{d}t} = 0$.</div>
+        <div class="var-pill">Chain Rule: $\\dfrac{\\mathrm{d}y}{\\mathrm{d}t} = \\dfrac{\\mathrm{d}y}{\\mathrm{d}x}\\cdot\\dfrac{\\mathrm{d}x}{\\mathrm{d}t} = -\\dfrac{x}{y}\\dfrac{\\mathrm{d}x}{\\mathrm{d}t}$</div>
+      `;
+      sliderArea.innerHTML = `
+        <div class="slider-row">
+          <div class="slider-label">
+            <span>Elapsed Time $t$ (seconds)</span>
+            <span id="lbl_t">3.00 s</span>
+          </div>
+          <input type="range" id="sl_t" min="0.5" max="6.2" step="0.04" value="3.0" oninput="onRatesSlide()" />
+        </div>
+        <div class="slider-row">
+          <div class="slider-label">
+            <span>Horizontal Pull Speed $\\dfrac{\\mathrm{d}x}{\\mathrm{d}t}$ ($\\text{m/s}$)</span>
+            <span id="lbl_rate">0.60</span>
+          </div>
+          <input type="range" id="sl_rate" min="0.2" max="1.2" step="0.1" value="0.6" oninput="onRatesSlide()" />
+        </div>
+      `;
+      actionBar.innerHTML = `
+        <button class="action-btn" id="playBtn" onclick="togglePlay()">▶ Play Time Scrubber</button>
+        <button class="action-btn secondary" onclick="resetTime()">↺ Reset $t$</button>
+      `;
+    }
+
+    updateAll();
+    typesetMath();
+  }
+
+  function onOptSlide() {
+    state.R = parseFloat(document.getElementById("sl_R").value);
+    const slR = document.getElementById("sl_r");
+    slR.max = (state.R - 0.08).toFixed(2);
+    state.r = Math.min(parseFloat(slR.value), state.R - 0.08);
+    slR.value = state.r.toFixed(2);
+    updateAll();
+  }
+
+  function lockOptimal() {
+    state.r = Math.sqrt(2 / 3) * state.R;
+    document.getElementById("sl_r").value = state.r.toFixed(2);
+    updateAll();
+  }
+
+  function onRatesSlide() {
+    state.t = parseFloat(document.getElementById("sl_t").value);
+    if (state.sub === "coneTank") {
+      state.dVdt = parseFloat(document.getElementById("sl_rate").value);
+    } else {
+      state.dxdt = parseFloat(document.getElementById("sl_rate").value);
+    }
+    updateAll();
+  }
+
+  function resetTime() {
+    state.t = state.sub === "coneTank" ? 0.5 : 1.0;
+    document.getElementById("sl_t").value = state.t.toFixed(2);
+    updateAll();
+  }
+
+  function togglePlay() {
+    state.playing = !state.playing;
+    const btn = document.getElementById("playBtn");
+    if (btn) btn.textContent = state.playing ? "❚❚ Pause Scrubber" : "▶ Play Time Scrubber";
+    if (state.playing) {
+      state.lastTime = performance.now();
+      requestAnimationFrame(animateLoop);
+    }
+  }
+
+  function animateLoop(now) {
+    if (!state.playing || state.mode !== "rates") return;
+    const dt = Math.min((now - state.lastTime) / 1000, 0.05);
+    state.lastTime = now;
+
+    const sl = document.getElementById("sl_t");
+    const tMax = parseFloat(sl.max);
+    const tMin = parseFloat(sl.min);
+
+    let nt = state.t + 1.2 * dt;
+    if (nt > tMax) nt = tMin;
+    state.t = nt;
+    sl.value = nt.toFixed(2);
+    updateAll();
+    requestAnimationFrame(animateLoop);
+  }
+
+  // ==========================================
+  // MATHEMATICAL MODELS & GAUGE CALCULATIONS
+  // ==========================================
+  function evalOpt(r, R) {
+    const u = Math.max(1e-4, R * R - r * r);
+    const sq = Math.sqrt(u);
+    if (state.sub === "cylSphere") {
+      const h = 2 * sq;
+      const V = 2 * Math.PI * r * r * sq;
+      const dVdr = (2 * Math.PI * r * (2 * R * R - 3 * r * r)) / sq;
+      const d2Vdr2 = (2 * Math.PI * (2 * Math.pow(R, 4) - 9 * R * R * r * r + 6 * Math.pow(r, 4))) / (u * sq);
+      return { h, V, dVdr, d2Vdr2, rOpt: Math.sqrt(2 / 3) * R };
+    } else {
+      const h = sq;
+      const V = (1 / 3) * Math.PI * r * r * sq;
+      const dVdr = (Math.PI * r * (2 * R * R - 3 * r * r)) / (3 * sq);
+      const d2Vdr2 = (Math.PI * (2 * Math.pow(R, 4) - 9 * R * R * r * r + 6 * Math.pow(r, 4))) / (3 * u * sq);
+      return { h, V, dVdr, d2Vdr2, rOpt: Math.sqrt(2 / 3) * R };
+    }
+  }
+
+  function evalRates() {
+    if (state.sub === "coneTank") {
+      // V = (pi/12) h^3 = dVdt * t  (capped at V_max = 18*pi)
+      const vMax = (1 / 12) * Math.PI * Math.pow(state.tankH, 3);
+      const V = Math.min(vMax, state.dVdt * state.t);
+      const h = Math.cbrt((12 * V) / Math.PI);
+      const rWater = 0.5 * h;
+      const dVdh = 0.25 * Math.PI * h * h;
+      const dhdV = 1 / dVdh;
+      const dhdt = state.dVdt * dhdV;
+      return { V, h, rWater, dVdt: state.dVdt, dhdV, dhdt, full: V >= vMax - 1e-3 };
+    } else {
+      // x = 1.0 + dxdt * t (clamped below L = 5)
+      const L = state.ladderL;
+      const x = Math.min(L - 0.15, 0.8 + state.dxdt * state.t);
+      const y = Math.sqrt(Math.max(0.01, L * L - x * x));
+      const dydx = -x / y;
+      const dydt = dydx * state.dxdt;
+      return { L, x, y, dxdt: state.dxdt, dydx, dydt };
+    }
+  }
+
+  function updateAll() {
+    if (state.mode === "opt") {
+      const m = evalOpt(state.r, state.R);
+      const isCyl = state.sub === "cylSphere";
+      const symR = isCyl ? "R" : "L";
+
+      if (document.getElementById("lbl_r")) document.getElementById("lbl_r").textContent = state.r.toFixed(2);
+      if (document.getElementById("lbl_R")) document.getElementById("lbl_R").textContent = state.R.toFixed(2);
+      document.getElementById("statusPill").textContent = `r = ${state.r.toFixed(2)}, h = ${m.h.toFixed(2)}`;
+
+      document.getElementById("derivationCard").innerHTML = isCyl
+        ? `
+          <span class="step-tag">3-Step Optimisation Model</span>
+          <div><strong>1. Single Variable:</strong> $V(r) = 2\\pi r^2\\sqrt{R^2 - r^2}$, $\\;0 &lt; r &lt; R$.</div>
+          <div><strong>2. Stationary Point:</strong> $\\dfrac{\\mathrm{d}V}{\\mathrm{d}r} = \\dfrac{2\\pi r(2R^2 - 3r^2)}{\\sqrt{R^2 - r^2}} = 0 \\implies r = \\sqrt{\\frac{2}{3}}R$.</div>
+        `
+        : `
+          <span class="step-tag">3-Step Optimisation Model</span>
+          <div><strong>1. Single Variable:</strong> $V(r) = \\frac{1}{3}\\pi r^2\\sqrt{L^2 - r^2}$, $\\;0 &lt; r &lt; L$.</div>
+          <div><strong>2. Stationary Point:</strong> $\\dfrac{\\mathrm{d}V}{\\mathrm{d}r} = \\dfrac{\\pi r(2L^2 - 3r^2)}{3\\sqrt{L^2 - r^2}} = 0 \\implies r = \\sqrt{\\frac{2}{3}}L$.</div>
+        `;
+
+      document.getElementById("gaugeGrid").innerHTML = `
+        <div class="gauge-card">
+          <div class="gauge-lbl">Volume $V(r)$</div>
+          <div class="gauge-val" style="color:var(--purple-dark);">${m.V.toFixed(2)}</div>
+        </div>
+        <div class="gauge-card">
+          <div class="gauge-lbl">First Deriv. $\\frac{\\mathrm{d}V}{\\mathrm{d}r}$</div>
+          <div class="gauge-val" style="color:${Math.abs(m.dVdr) < 0.15 ? "var(--teal)" : "var(--rose)"};">${fmt(m.dVdr)}</div>
+        </div>
+        <div class="gauge-card">
+          <div class="gauge-lbl">Second Deriv. $\\frac{\\mathrm{d}^2V}{\\mathrm{d}r^2}$</div>
+          <div class="gauge-val" style="color:var(--blue);">${fmt(m.d2Vdr2)}</div>
+        </div>
+      `;
+
+      const atOpt = Math.abs(state.r - m.rOpt) < 0.04;
+      document.getElementById("gcBox").innerHTML = `
+        <span class="box-title">TI-84 Plus CE Optimisation Check (${symR} = ${state.R.toFixed(2)})</span>
+        <div class="gc-readout">
+          Current r = ${state.r.toFixed(2)} | Optimal r* = √(2/3)${symR} = ${m.rOpt.toFixed(2)}<br>
+          V(r) = ${m.V.toFixed(2)} | Max Possible V(r*) = ${evalOpt(m.rOpt, state.R).V.toFixed(2)}
+        </div>
+      `;
+
+      document.getElementById("solutionBanner").innerHTML = atOpt
+        ? `Maximum Locked! At $r = ${m.rOpt.toFixed(2)}$, $\\dfrac{\\mathrm{d}V}{\\mathrm{d}r} = 0$ and $\\dfrac{\\mathrm{d}^2V}{\\mathrm{d}r^2} = ${m.d2Vdr2.toFixed(2)} &lt; 0$, confirming a global maximum volume.`
+        : `Verification Status: $\\dfrac{\\mathrm{d}^2V}{\\mathrm{d}r^2} = ${m.d2Vdr2.toFixed(2)} ${m.d2Vdr2 < 0 ? "&lt; 0" : "&gt; 0"}$. Drag $r$ toward $r^* = ${m.rOpt.toFixed(2)}$ where $\\dfrac{\\mathrm{d}V}{\\mathrm{d}r} = 0$.`;
+    } else {
+      const rt = evalRates();
+      if (state.sub === "coneTank") {
+        if (document.getElementById("lbl_t")) document.getElementById("lbl_t").textContent = `${state.t.toFixed(2)} min`;
+        if (document.getElementById("lbl_rate")) document.getElementById("lbl_rate").textContent = state.dVdt.toFixed(2);
+        document.getElementById("statusPill").textContent = `h = ${rt.h.toFixed(2)} m, r = ${rt.rWater.toFixed(2)} m`;
+
+        document.getElementById("derivationCard").innerHTML = `
+          <span class="step-tag">Connected Rates Chain Rule Breakdown</span>
+          <div><strong>1. Geometry Link:</strong> $V = \\frac{1}{12}\\pi h^3 \\implies \\dfrac{\\mathrm{d}V}{\\mathrm{d}h} = \\frac{1}{4}\\pi h^2$.</div>
+          <div><strong>2. Chain Rule:</strong> $\\dfrac{\\mathrm{d}h}{\\mathrm{d}t} = \\dfrac{\\mathrm{d}h}{\\mathrm{d}V} \\cdot \\dfrac{\\mathrm{d}V}{\\mathrm{d}t} = \\dfrac{4}{\\pi h^2} \\cdot \\dfrac{\\mathrm{d}V}{\\mathrm{d}t}$.</div>
+        `;
+
+        document.getElementById("gaugeGrid").innerHTML = `
+          <div class="gauge-card">
+            <div class="gauge-lbl">Inflow $\\frac{\\mathrm{d}V}{\\mathrm{d}t}$</div>
+            <div class="gauge-val" style="color:var(--blue);">${rt.dVdt.toFixed(2)}</div>
+          </div>
+          <div class="gauge-card">
+            <div class="gauge-lbl">Factor $\\frac{\\mathrm{d}h}{\\mathrm{d}V} = \\frac{1}{\\pi r^2}$</div>
+            <div class="gauge-val" style="color:var(--amber);">${rt.dhdV.toFixed(3)}</div>
+          </div>
+          <div class="gauge-card">
+            <div class="gauge-lbl">Rise Rate $\\frac{\\mathrm{d}h}{\\mathrm{d}t}$</div>
+            <div class="gauge-val" style="color:var(--teal);">${rt.dhdt.toFixed(3)}</div>
+          </div>
+        `;
+
+        document.getElementById("gcBox").innerHTML = `
+          <span class="box-title">Live Conical Tank Readout at t = ${state.t.toFixed(2)} min</span>
+          <div class="gc-readout">
+            Depth h = ${rt.h.toFixed(2)} m | Water Radius r = ${rt.rWater.toFixed(2)} m | Volume V = ${rt.V.toFixed(2)} m³<br>
+            dh/dt = (4 / (π · ${rt.h.toFixed(2)}²)) × ${rt.dVdt.toFixed(2)} = ${rt.dhdt.toFixed(3)} m/min
+          </div>
+        `;
+
+        document.getElementById("solutionBanner").innerHTML = rt.full
+          ? `Tank Full ($H = 6.00\\text{ m}$)! Reset time $t$ to replay the filling process.`
+          : `Physical Insight: Because the cone widens upward ($\text{area } \\pi r^2 \\propto h^2$), the depth rise rate $\\dfrac{\\mathrm{d}h}{\\mathrm{d}t} \\propto \\dfrac{1}{h^2}$ slows down rapidly as $h$ increases.`;
+      } else {
+        if (document.getElementById("lbl_t")) document.getElementById("lbl_t").textContent = `${state.t.toFixed(2)} s`;
+        if (document.getElementById("lbl_rate")) document.getElementById("lbl_rate").textContent = state.dxdt.toFixed(2);
+        document.getElementById("statusPill").textContent = `x = ${rt.x.toFixed(2)} m, y = ${rt.y.toFixed(2)} m`;
+
+        document.getElementById("derivationCard").innerHTML = `
+          <span class="step-tag">Connected Rates Chain Rule Breakdown</span>
+          <div><strong>1. Constraint:</strong> $x^2 + y^2 = 25 \\implies \\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = -\\dfrac{x}{y}$.</div>
+          <div><strong>2. Chain Rule:</strong> $\\dfrac{\\mathrm{d}y}{\\mathrm{d}t} = \\dfrac{\\mathrm{d}y}{\\mathrm{d}x} \\cdot \\dfrac{\\mathrm{d}x}{\\mathrm{d}t} = -\\dfrac{x}{y}\\dfrac{\\mathrm{d}x}{\\mathrm{d}t}$.</div>
+        `;
+
+        document.getElementById("gaugeGrid").innerHTML = `
+          <div class="gauge-card">
+            <div class="gauge-lbl">Base Speed $\\frac{\\mathrm{d}x}{\\mathrm{d}t}$</div>
+            <div class="gauge-val" style="color:var(--blue);">+${rt.dxdt.toFixed(2)}</div>
+          </div>
+          <div class="gauge-card">
+            <div class="gauge-lbl">Slope $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = -\\frac{x}{y}$</div>
+            <div class="gauge-val" style="color:var(--amber);">${rt.dydx.toFixed(2)}</div>
+          </div>
+          <div class="gauge-card">
+            <div class="gauge-lbl">Top Velocity $\\frac{\\mathrm{d}y}{\\mathrm{d}t}$</div>
+            <div class="gauge-val" style="color:var(--rose);">${rt.dydt.toFixed(2)}</div>
+          </div>
+        `;
+
+        document.getElementById("gcBox").innerHTML = `
+          <span class="box-title">Live Sliding Ladder Readout at t = ${state.t.toFixed(2)} s</span>
+          <div class="gc-readout">
+            Base x = ${rt.x.toFixed(2)} m | Top Height y = ${rt.y.toFixed(2)} m | L = 5.00 m<br>
+            dy/dt = −(${rt.x.toFixed(2)} / ${rt.y.toFixed(2)}) × ${rt.dxdt.toFixed(2)} = ${rt.dydt.toFixed(3)} m/s
+          </div>
+        `;
+
+        document.getElementById("solutionBanner").innerHTML =
+          `Sign &amp; Speed Insight: $\\dfrac{\\mathrm{d}y}{\\mathrm{d}t} &lt; 0$ because height $y$ is decreasing. As $x$ increases and $y \\to 0^+$, the downward speed $\\left|\\dfrac{\\mathrm{d}y}{\\mathrm{d}t}\\right| = \\dfrac{x}{y}\\dfrac{\\mathrm{d}x}{\\mathrm{d}t}$ accelerates sharply!`;
+      }
+    }
+
+    drawGeomCanvas();
+    drawPlotCanvas();
+    typesetMath(document.querySelector(".card"));
+    typesetMath(document.getElementById("rightCanvasTitle"));
+  }
+
+  // ==========================================
+  // CANVAS 1: 1:1 ISOTROPIC GEOMETRIC DIAGRAM
+  // ==========================================
+  function resizeCanvases() {
+    const dpr = window.devicePixelRatio || 1;
+    [geomCanvas, plotCanvas].forEach(c => {
+      const rect = c.getBoundingClientRect();
+      c.width = Math.round(rect.width * dpr);
+      c.height = Math.round(rect.height * dpr);
+      c.getContext("2d").setTransform(dpr, 0, 0, dpr, 0, 0);
+    });
+    drawGeomCanvas();
+    drawPlotCanvas();
+  }
+
+  // Drag cylinder/cone radius directly on geomCanvas in Mode A
+  geomCanvas.addEventListener("pointerdown", e => {
+    if (state.mode === "opt") {
+      state.dragging = true;
+      geomCanvas.setPointerCapture(e.pointerId);
+      handleGeomDrag(e.clientX);
+    }
+  });
+  geomCanvas.addEventListener("pointermove", e => {
+    if (state.dragging && state.mode === "opt") handleGeomDrag(e.clientX);
+  });
+  geomCanvas.addEventListener("pointerup", () => (state.dragging = false));
+  geomCanvas.addEventListener("pointercancel", () => (state.dragging = false));
+
+  function handleGeomDrag(clientX) {
+    const rect = geomCanvas.getBoundingClientRect();
+    const w = rect.width;
+    const h = rect.height;
+    const scale = Math.min(w, h) / (2 * (state.R + 1.1));
+    const dxPx = Math.abs(clientX - rect.left - w / 2);
+    const newR = Math.max(0.25, Math.min(state.R - 0.08, dxPx / scale));
+    state.r = newR;
+    document.getElementById("sl_r").value = newR.toFixed(2);
+    updateAll();
+  }
+
+  function drawGeomCanvas() {
+    const rect = geomCanvas.getBoundingClientRect();
+    const w = rect.width;
+    const h = rect.height;
+    gCtx.clearRect(0, 0, w, h);
+
+    if (state.mode === "opt") {
+      const m = evalOpt(state.r, state.R);
+      const scale = Math.min(w, h) / (2 * (state.R + 1.1)); // 1:1 isotropic scale
+      const cx = w / 2;
+      const cy = h / 2;
+
+      if (state.sub === "cylSphere") {
+        // Outer sphere circle
+        const Rpx = state.R * scale;
+        gCtx.strokeStyle = "#94a3b8";
+        gCtx.lineWidth = 2;
+        gCtx.beginPath();
+        gCtx.arc(cx, cy, Rpx, 0, Math.PI * 2);
+        gCtx.stroke();
+
+        // Inscribed cylinder rectangle + 3D ellipses
+        const rPx = state.r * scale;
+        const halfHPx = (m.h / 2) * scale;
+
+        gCtx.fillStyle = "rgba(139, 92, 246, 0.16)";
+        gCtx.strokeStyle = "#7c3aed";
+        gCtx.lineWidth = 2.2;
+        gCtx.fillRect(cx - rPx, cy - halfHPx, 2 * rPx, 2 * halfHPx);
+        gCtx.strokeRect(cx - rPx, cy - halfHPx, 2 * rPx, 2 * halfHPx);
+
+        // Top & bottom 3D perspective ellipses
+        gCtx.beginPath();
+        gCtx.ellipse(cx, cy - halfHPx, rPx, rPx * 0.22, 0, 0, Math.PI * 2);
+        gCtx.stroke();
+        gCtx.beginPath();
+        gCtx.ellipse(cx, cy + halfHPx, rPx, rPx * 0.22, 0, 0, Math.PI * 2);
+        gCtx.stroke();
+
+        // Pythagoras right triangle: center -> (r, 0) -> (r, h/2)
+        gCtx.setLineDash([4, 4]);
+        gCtx.strokeStyle = "#0f766e";
+        gCtx.lineWidth = 1.8;
+        gCtx.beginPath();
+        gCtx.moveTo(cx, cy);
+        gCtx.lineTo(cx + rPx, cy);
+        gCtx.lineTo(cx + rPx, cy - halfHPx);
+        gCtx.closePath();
+        gCtx.stroke();
+        gCtx.setLineDash([]);
+
+        // Draggable corner handle
+        gCtx.fillStyle = "#0f766e";
+        gCtx.beginPath();
+        gCtx.arc(cx + rPx, cy - halfHPx, 6, 0, Math.PI * 2);
+        gCtx.fill();
+
+        gCtx.fillStyle = "#1e293b";
+        gCtx.font = "bold 11px sans-serif";
+        gCtx.fillText(`R = ${state.R.toFixed(1)}`, cx + rPx * 0.35 - 12, cy - halfHPx * 0.55);
+        gCtx.fillText(`r = ${state.r.toFixed(2)}`, cx + rPx * 0.45 - 10, cy + 14);
+        gCtx.fillText(`h/2`, cx + rPx + 6, cy - halfHPx * 0.45);
+      } else {
+        // Folded 3D Cone from Sector of slant height L = state.R
+        const baseY = cy + (state.R * 0.45) * scale;
+        const rPx = state.r * scale;
+        const hPx = m.h * scale;
+        const apexY = baseY - hPx;
+
+        // Cone lateral sides
+        gCtx.fillStyle = "rgba(15, 118, 110, 0.15)";
+        gCtx.strokeStyle = "#0f766e";
+        gCtx.lineWidth = 2.2;
+        gCtx.beginPath();
+        gCtx.moveTo(cx, apexY);
+        gCtx.lineTo(cx - rPx, baseY);
+        gCtx.lineTo(cx + rPx, baseY);
+        gCtx.closePath();
+        gCtx.fill();
+        gCtx.stroke();
+
+        // Base ellipse
+        gCtx.beginPath();
+        gCtx.ellipse(cx, baseY, rPx, rPx * 0.24, 0, 0, Math.PI * 2);
+        gCtx.stroke();
+
+        // Right triangle (h, r, L)
+        gCtx.setLineDash([4, 4]);
+        gCtx.strokeStyle = "#7c3aed";
+        gCtx.beginPath();
+        gCtx.moveTo(cx, apexY);
+        gCtx.lineTo(cx, baseY);
+        gCtx.lineTo(cx + rPx, baseY);
+        gCtx.stroke();
+        gCtx.setLineDash([]);
+
+        gCtx.fillStyle = "#7c3aed";
+        gCtx.beginPath();
+        gCtx.arc(cx + rPx, baseY, 6, 0, Math.PI * 2);
+        gCtx.fill();
+
+        gCtx.fillStyle = "#1e293b";
+        gCtx.font = "bold 11px sans-serif";
+        gCtx.fillText(`L = ${state.R.toFixed(1)}`, cx + rPx * 0.5 + 6, apexY + hPx * 0.5);
+        gCtx.fillText(`h = ${m.h.toFixed(2)}`, cx - 48, apexY + hPx * 0.55);
+        gCtx.fillText(`r = ${state.r.toFixed(2)}`, cx + rPx * 0.35, baseY + 16);
+      }
+    } else {
+      // MODE B: 1:1 Isotropic Connected Rates Geometry
+      const rt = evalRates();
+      if (state.sub === "coneTank") {
+        const scale = Math.min(w, h) / 8.0; // H = 6m, 2R = 6m -> 1:1 isotropic
+        const cx = w / 2;
+        const apexY = h * 0.86;
+        const topY = apexY - state.tankH * scale;
+        const topR = state.tankR * scale;
+
+        // Water cone fill
+        const waterY = apexY - rt.h * scale;
+        const waterR = rt.rWater * scale;
+        gCtx.fillStyle = "rgba(2, 132, 199, 0.28)";
+        gCtx.beginPath();
+        gCtx.moveTo(cx, apexY);
+        gCtx.lineTo(cx - waterR, waterY);
+        gCtx.lineTo(cx + waterR, waterY);
+        gCtx.closePath();
+        gCtx.fill();
+
+        // Water surface ellipse
+        gCtx.strokeStyle = "#0284c7";
+        gCtx.lineWidth = 2;
+        gCtx.beginPath();
+        gCtx.ellipse(cx, waterY, waterR, waterR * 0.22, 0, 0, Math.PI * 2);
+        gCtx.stroke();
+
+        // Outer tank walls
+        gCtx.strokeStyle = "#1e293b";
+        gCtx.lineWidth = 2.4;
+        gCtx.beginPath();
+        gCtx.moveTo(cx - topR, topY);
+        gCtx.lineTo(cx, apexY);
+        gCtx.lineTo(cx + topR, topY);
+        gCtx.stroke();
+        gCtx.beginPath();
+        gCtx.ellipse(cx, topY, topR, topR * 0.2, 0, 0, Math.PI * 2);
+        gCtx.stroke();
+
+        // Dimension labels
+        gCtx.fillStyle = "#0369a1";
+        gCtx.font = "bold 11px sans-serif";
+        gCtx.fillText(`h = ${rt.h.toFixed(2)} m`, cx + waterR + 8, waterY + 4);
+        gCtx.fillText(`r = ${rt.rWater.toFixed(2)} m`, cx - 22, waterY - 8);
+      } else {
+        // Sliding ladder against wall (1:1 isotropic scale for L = 5m)
+        const scale = Math.min(w, h) / 6.6;
+        const ox = w * 0.22;
+        const oy = h * 0.84;
+        const xPx = ox + rt.x * scale;
+        const yPx = oy - rt.y * scale;
+
+        // Wall & Floor
+        gCtx.strokeStyle = "#475569";
+        gCtx.lineWidth = 3;
+        gCtx.beginPath();
+        gCtx.moveTo(ox, oy - 5.4 * scale);
+        gCtx.lineTo(ox, oy);
+        gCtx.lineTo(ox + 5.4 * scale, oy);
+        gCtx.stroke();
+
+        // Ladder beam
+        gCtx.strokeStyle = "#b45309";
+        gCtx.lineWidth = 4.5;
+        gCtx.beginPath();
+        gCtx.moveTo(ox, yPx);
+        gCtx.lineTo(xPx, oy);
+        gCtx.stroke();
+
+        // Velocity arrows
+        gCtx.fillStyle = "#0284c7";
+        gCtx.font = "bold 11px sans-serif";
+        gCtx.fillText(`x = ${rt.x.toFixed(2)} m  (dx/dt = +${rt.dxdt.toFixed(2)})`, ox + 12, oy + 16);
+        gCtx.fillStyle = "#e11d48";
+        gCtx.fillText(`y = ${rt.y.toFixed(2)} m`, ox + 8, yPx - 8);
+        gCtx.fillText(`dy/dt = ${rt.dydt.toFixed(2)} m/s`, ox + 8, yPx + 14);
+      }
+    }
+  }
+
+  // ==========================================
+  // CANVAS 2: LIVE CALCULUS CURVES
+  // ==========================================
+  function drawPlotCanvas() {
+    const rect = plotCanvas.getBoundingClientRect();
+    const w = rect.width;
+    const h = rect.height;
+    pCtx.clearRect(0, 0, w, h);
+
+    const padL = 36, padR = 14, padT = 18, padB = 26;
+    const pw = w - padL - padR;
+    const ph = h - padT - padB;
+
+    if (state.mode === "opt") {
+      const mOpt = evalOpt(Math.sqrt(2 / 3) * state.R, state.R);
+      const vMax = mOpt.V * 1.18;
+      const dMax = vMax * 0.7;
+
+      const toX = r => padL + (r / state.R) * pw;
+      const toYV = v => padT + ph * 0.62 - (v / vMax) * (ph * 0.56);
+      const zeroY = padT + ph * 0.62;
+
+      // Zero axis
+      pCtx.strokeStyle = "#94a3b8";
+      pCtx.lineWidth = 1.2;
+      pCtx.beginPath();
+      pCtx.moveTo(padL, zeroY);
+      pCtx.lineTo(padL + pw, zeroY);
+      pCtx.stroke();
+
+      // Plot V(r) in purple
+      pCtx.strokeStyle = "#7c3aed";
+      pCtx.lineWidth = 2.4;
+      pCtx.beginPath();
+      for (let i = 0; i <= 140; i++) {
+        const r = 0.05 + (i / 140) * (state.R - 0.1);
+        const val = evalOpt(r, state.R).V;
+        const px = toX(r);
+        const py = toYV(val);
+        if (i === 0) pCtx.moveTo(px, py);
+        else pCtx.lineTo(px, py);
+      }
+      pCtx.stroke();
+
+      // Plot dV/dr in teal
+      pCtx.strokeStyle = "#0f766e";
+      pCtx.lineWidth = 2;
+      pCtx.beginPath();
+      for (let i = 0; i <= 140; i++) {
+        const r = 0.05 + (i / 140) * (state.R - 0.14);
+        const dv = evalOpt(r, state.R).dVdr;
+        const px = toX(r);
+        const py = zeroY - (dv / dMax) * (ph * 0.34);
+        if (i === 0) pCtx.moveTo(px, py);
+        else pCtx.lineTo(px, py);
+      }
+      pCtx.stroke();
+
+      // Current r vertical line & markers
+      const cur = evalOpt(state.r, state.R);
+      const cx = toX(state.r);
+      pCtx.setLineDash([4, 4]);
+      pCtx.strokeStyle = "#64748b";
+      pCtx.beginPath();
+      pCtx.moveTo(cx, padT);
+      pCtx.lineTo(cx, padT + ph);
+      pCtx.stroke();
+      pCtx.setLineDash([]);
+
+      pCtx.fillStyle = "#7c3aed";
+      pCtx.beginPath();
+      pCtx.arc(cx, toYV(cur.V), 5.5, 0, Math.PI * 2);
+      pCtx.fill();
+
+      pCtx.fillStyle = "#0f766e";
+      pCtx.beginPath();
+      pCtx.arc(cx, zeroY - (cur.dVdr / dMax) * (ph * 0.34), 5.5, 0, Math.PI * 2);
+      pCtx.fill();
+
+      pCtx.fillStyle = "#7c3aed";
+      pCtx.font = "bold 11px sans-serif";
+      pCtx.fillText("V(r)", padL + 6, padT + 12);
+      pCtx.fillStyle = "#0f766e";
+      pCtx.fillText("dV/dr", padL + 42, padT + 12);
+      pCtx.fillStyle = "#475569";
+      pCtx.fillText(`r = ${state.r.toFixed(2)}`, Math.min(cx + 5, w - 55), padT + ph - 4);
+    } else {
+      // Mode B: Time plot
+      const sl = document.getElementById("sl_t");
+      const tMin = parseFloat(sl.min);
+      const tMax = parseFloat(sl.max);
+      const toX = t => padL + ((t - tMin) / (tMax - tMin)) * pw;
+      const baseLine = padT + ph;
+
+      pCtx.strokeStyle = "#94a3b8";
+      pCtx.lineWidth = 1.2;
+      pCtx.beginPath();
+      pCtx.moveTo(padL, baseLine);
+      pCtx.lineTo(padL + pw, baseLine);
+      pCtx.stroke();
+
+      if (state.sub === "coneTank") {
+        // Plot h(t) (blue) and dh/dt (teal)
+        pCtx.strokeStyle = "#0284c7";
+        pCtx.lineWidth = 2.3;
+        pCtx.beginPath();
+        for (let i = 0; i <= 120; i++) {
+          const t = tMin + (i / 120) * (tMax - tMin);
+          const V = Math.min((1 / 12) * Math.PI * 216, state.dVdt * t);
+          const hVal = Math.cbrt((12 * V) / Math.PI);
+          const px = toX(t);
+          const py = baseLine - (hVal / 6.5) * ph;
+          if (i === 0) pCtx.moveTo(px, py);
+          else pCtx.lineTo(px, py);
+        }
+        pCtx.stroke();
+
+        pCtx.strokeStyle = "#0f766e";
+        pCtx.lineWidth = 2;
+        pCtx.beginPath();
+        for (let i = 0; i <= 120; i++) {
+          const t = tMin + (i / 120) * (tMax - tMin);
+          const V = Math.min((1 / 12) * Math.PI * 216, state.dVdt * t);
+          const hVal = Math.cbrt((12 * V) / Math.PI);
+          const rate = state.dVdt / (0.25 * Math.PI * hVal * hVal);
+          const px = toX(t);
+          const py = baseLine - Math.min(1, rate / 2.2) * ph;
+          if (i === 0) pCtx.moveTo(px, py);
+          else pCtx.lineTo(px, py);
+        }
+        pCtx.stroke();
+
+        const cx = toX(state.t);
+        pCtx.setLineDash([4, 4]);
+        pCtx.strokeStyle = "#64748b";
+        pCtx.beginPath();
+        pCtx.moveTo(cx, padT);
+        pCtx.lineTo(cx, baseLine);
+        pCtx.stroke();
+        pCtx.setLineDash([]);
+
+        pCtx.fillStyle = "#0284c7";
+        pCtx.font = "bold 11px sans-serif";
+        pCtx.fillText("Depth h(t)", padL + 6, padT + 12);
+        pCtx.fillStyle = "#0f766e";
+        pCtx.fillText("Rate dh/dt", padL + 75, padT + 12);
+      } else {
+        // Ladder: plot y(t) (amber) and |dy/dt| (rose)
+        pCtx.strokeStyle = "#b45309";
+        pCtx.lineWidth = 2.3;
+        pCtx.beginPath();
+        for (let i = 0; i <= 120; i++) {
+          const t = tMin + (i / 120) * (tMax - tMin);
+          const xVal = Math.min(4.85, 0.8 + state.dxdt * t);
+          const yVal = Math.sqrt(Math.max(0.01, 25 - xVal * xVal));
+          const px = toX(t);
+          const py = baseLine - (yVal / 5.4) * ph;
+          if (i === 0) pCtx.moveTo(px, py);
+          else pCtx.lineTo(px, py);
+        }
+        pCtx.stroke();
+
+        pCtx.strokeStyle = "#e11d48";
+        pCtx.lineWidth = 2;
+        pCtx.beginPath();
+        for (let i = 0; i <= 120; i++) {
+          const t = tMin + (i / 120) * (tMax - tMin);
+          const xVal = Math.min(4.85, 0.8 + state.dxdt * t);
+          const yVal = Math.sqrt(Math.max(0.01, 25 - xVal * xVal));
+          const spd = (xVal / yVal) * state.dxdt;
+          const px = toX(t);
+          const py = baseLine - Math.min(1, spd / 2.5) * ph;
+          if (i === 0) pCtx.moveTo(px, py);
+          else pCtx.lineTo(px, py);
+        }
+        pCtx.stroke();
+
+        const cx = toX(state.t);
+        pCtx.setLineDash([4, 4]);
+        pCtx.strokeStyle = "#64748b";
+        pCtx.beginPath();
+        pCtx.moveTo(cx, padT);
+        pCtx.lineTo(cx, baseLine);
+        pCtx.stroke();
+        pCtx.setLineDash([]);
+
+        pCtx.fillStyle = "#b45309";
+        pCtx.font = "bold 11px sans-serif";
+        pCtx.fillText("Height y(t)", padL + 6, padT + 12);
+        pCtx.fillStyle = "#e11d48";
+        pCtx.fillText("Speed |dy/dt|", padL + 78, padT + 12);
+      }
+    }
+  }
+
+  // 3-Question 9758 Exam Check
+  const examQs = [
+    {
+      q: "Water is poured into an inverted right circular cone of semi-vertical angle $45^\\circ$ at a constant rate of $6\\text{ cm}^3\\text{ s}^{-1}$. Find the rate at which the depth $h$ is increasing when $h = 3\\text{ cm}$.",
+      opts: [
+        "$\\dfrac{2}{3\\pi}\\text{ cm s}^{-1}$",
+        "$\\dfrac{6}{\\pi}\\text{ cm s}^{-1}$",
+        "$\\dfrac{2}{\\pi}\\text{ cm s}^{-1}$",
+        "$\\dfrac{1}{3\\pi}\\text{ cm s}^{-1}$"
+      ],
+      ans: 0,
+      exp: "With semi-vertical angle $45^\\circ$, $r = h\\tan 45^\\circ = h$, so $V = \\frac{1}{3}\\pi h^3 \\implies \\frac{\\mathrm{d}V}{\\mathrm{d}h} = \\pi h^2$. At $h = 3$, $\\frac{\\mathrm{d}h}{\\mathrm{d}t} = \\frac{1}{\\pi(3)^2} \\times 6 = \\frac{2}{3\\pi}\\text{ cm s}^{-1}$."
+    },
+    {
+      q: "A $5\\text{ m}$ ladder leans against a vertical wall. Its foot is pulled away from the wall at $0.4\\text{ m s}^{-1}$. How fast is the top sliding down when the foot is $3\\text{ m}$ from the wall?",
+      opts: [
+        "$0.3\\text{ m s}^{-1}$",
+        "$0.4\\text{ m s}^{-1}$",
+        "$\\dfrac{16}{30}\\text{ m s}^{-1}$",
+        "$0.5\\text{ m s}^{-1}$"
+      ],
+      ans: 0,
+      exp: "When $x = 3$, $y = \\sqrt{5^2 - 3^2} = 4$. Differentiating $x^2 + y^2 = 25$ w.r.t. $t$ gives $2x\\frac{\\mathrm{d}x}{\\mathrm{d}t} + 2y\\frac{\\mathrm{d}y}{\\mathrm{d}t} = 0 \\implies \\frac{\\mathrm{d}y}{\\mathrm{d}t} = -\\frac{3}{4}(0.4) = -0.3\\text{ m s}^{-1}$."
+    },
+    {
+      q: "In an optimisation problem, a student finds $\\dfrac{\\mathrm{d}V}{\\mathrm{d}r} = 0$ at $r = r_0$. What is required next in 9758 H2 Math to obtain full credit?",
+      opts: [
+        "Verify maximum/minimum nature via $\\dfrac{\\mathrm{d}^2V}{\\mathrm{d}r^2}$ or a First Derivative Sign Table",
+        "Substitute $r = r_0$ into $V(r)$ immediately without checking nature",
+        "Set $\\dfrac{\\mathrm{d}^2V}{\\mathrm{d}r^2} = 0$",
+        "Check that $V(r_0) &gt; 0$"
+      ],
+      ans: 0,
+      exp: "Solving $\\frac{\\mathrm{d}V}{\\mathrm{d}r} = 0$ only identifies a stationary value; you must prove it yields a maximum (or minimum) using the Second Derivative Test or a First Derivative Sign Table."
+    }
+  ];
+
+  let curQ = 0;
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").innerHTML = item.q;
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i})">${String.fromCharCode(65 + i)}. ${o}</button>
+    `).join("");
+    typesetMath(document.querySelector(".grader-card"));
+  }
+
+  function gradeExamQ(idx) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+    typesetMath(fb);
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  // Initialize
+  window.addEventListener("resize", resizeCanvases);
+  switchMode("opt");
+  renderExamQ();
+  resizeCanvases();
+</script>
+
+</body>
+</html>
