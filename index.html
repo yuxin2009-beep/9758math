@@ -2220,37 +2220,36 @@
             exitAnswer: "With respect to y, it is a single integral <strong>∫_{−2}^2 (4 − y²) dy</strong>, whereas with respect to x it requires 2∫_0^4 √x dx (and for asymmetric curves, splitting into two separate integrals)."
           },
           {
-            label: "Lesson 4: Volume of Solid of Revolution (About Axes & Between Two Curves)",
+            label: "Lesson 4: Volume of Solid of Revolution About Coordinate Axes (Disc Method)",
             file: "interactives/5_4_lesson4.html",
             videoEmbedUrl: "",
-            prereq: "Area of a circle πr² and washer (annulus) π(R² − r²), plus algebraic expansion of squared expressions.",
+            prereq: "Area of a circle πr², cylinder volume πr²h, and definite integrals as limits of Riemann sums.",
             objectives: [
-              "Compute volume of revolution about the x-axis using V = π ∫_a^b y² dx and about the y-axis using V = π ∫_c^d x² dy.",
-              "Compute washer volume when rotating a region between two curves about an axis: V = π ∫_a^b (y_outer² − y_inner²) dx.",
-              "Avoid the critical misconception π ∫ (y_outer − y_inner)² dx ≠ π ∫ (y_outer² − y_inner²) dx."
+              "Derive V = π ∫_a^b y² dx and V = π ∫_c^d x² dy from first principles by summing thin cylindrical discs of volume δV ≈ πr² δx as δx → 0.",
+              "Compute volumes of revolution about the x-axis using V = π ∫_a^b y² dx and about the y-axis using V = π ∫_c^d x² dy.",
+              "Rearrange curve equations accurately to express x² in terms of y when rotating about the y-axis."
             ],
             prompts: [
-              "Click 'Animate 0° → 360° Sweep' in the 3D Lathe Visualizer to watch a 2D region between y = x and y = x² revolve into a hollowed 3D washer solid.",
-              "Inspect the cross-sectional ring at slice x₀ and compare true washer volume (2π/15) against the false (y₁ − y₂)² formula (π/30)."
+              "Slide the Riemann Cylinder Count N from 4 to 60 in the Derivation Explorer to see thin cylindrical discs converge to the exact solid of revolution.",
+              "Click 'Animate 0° → 360° Sweep' across x-axis and y-axis presets to connect each perpendicular strip to a circular disc of radius r."
             ],
             pitfalls: [
-              "Writing π ∫_a^b (y₁ − y₂)² dx instead of π ∫_a^b (y₁² − y₂²) dx—rotating the vertical gap between two curves does NOT produce the same volume as rotating the region!",
-              "Forgetting the factor of π in front of the integral, or forgetting to square y (or x) before integrating."
+              "Forgetting the factor of π in front of the integral, or forgetting to square y (or x) before integrating.",
+              "Integrating with respect to x (and using x-limits) when rotating a region about the y-axis."
             ],
-            gcTip: "Always factor π outside your GC check: π * fnInt(Y₁² − Y₂², X, a, b), and divide the decimal by π to verify exact rational multiples of π.",
+            gcTip: "Always factor π outside your GC check: π * fnInt((Y₁)², X, a, b), and divide the decimal by π (or omit π and press [MATH] > 1: Frac) to verify exact rational multiples of π.",
             workedQuestion: `
-              The region <em>R</em> is bounded by the curve <em>y = x<sup>2</sup></em> and the line <em>y = x</em> for <em>0 &le; x &le; 1</em>.<br>
-              <strong>(i)</strong> Find the exact volume of the solid formed when <em>R</em> is rotated through <em>360&deg;</em> about the <em>x</em>-axis. [3]<br>
-              <strong>(ii)</strong> Find the exact volume of the solid formed when <em>R</em> is rotated through <em>360&deg;</em> about the <em>y</em>-axis. [3]
+              <strong>(i)</strong> Find the exact volume of the solid formed when the region bounded by the curve <em>y = &radic;x</em>, the <em>x</em>-axis, and the line <em>x = 4</em> is rotated through <em>360&deg;</em> about the <em>x</em>-axis. [3]<br>
+              <strong>(ii)</strong> Find the exact volume of the solid formed when the region bounded by the curve <em>y = e<sup>x</sup></em>, the <em>y</em>-axis, and the lines <em>y = 1</em> and <em>y = 3</em> is rotated through <em>360&deg;</em> about the <em>y</em>-axis. [3]
             `,
             workedSolution: `
-              <strong>(i) About the x-axis</strong> (outer radius <em>y = x</em>, inner radius <em>y = x<sup>2</sup></em>):<br>
-              <em>V<sub>x</sub> = &pi; &int;<sub>0</sub><sup>1</sup> [ x<sup>2</sup> &minus; (x<sup>2</sup>)<sup>2</sup> ] dx = &pi; &int;<sub>0</sub><sup>1</sup> (x<sup>2</sup> &minus; x<sup>4</sup>) dx = &pi; [<span class="frac"><span class="frac-num">1</span><span class="frac-den">3</span></span>x<sup>3</sup> &minus; <span class="frac"><span class="frac-num">1</span><span class="frac-den">5</span></span>x<sup>5</sup>]<sub>0</sub><sup>1</sup> =</em> <strong><span class="frac"><span class="frac-num">2&pi;</span><span class="frac-den">15</span></span> units<sup>3</sup></strong>.<br><br>
-              <strong>(ii) About the y-axis</strong> (outer radius <em>x = &radic;y</em>, inner radius <em>x = y</em> for <em>0 &le; y &le; 1</em>):<br>
-              <em>V<sub>y</sub> = &pi; &int;<sub>0</sub><sup>1</sup> [ (&radic;y)<sup>2</sup> &minus; y<sup>2</sup> ] dy = &pi; &int;<sub>0</sub><sup>1</sup> (y &minus; y<sup>2</sup>) dy = &pi; [<span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span>y<sup>2</sup> &minus; <span class="frac"><span class="frac-num">1</span><span class="frac-den">3</span></span>y<sup>3</sup>]<sub>0</sub><sup>1</sup> =</em> <strong><span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">6</span></span> units<sup>3</sup></strong>.
+              <strong>(i) About the x-axis</strong> (<em>r = y = &radic;x</em>):<br>
+              <em>V<sub>x</sub> = &pi; &int;<sub>0</sub><sup>4</sup> (&radic;x)<sup>2</sup> dx = &pi; &int;<sub>0</sub><sup>4</sup> x dx = &pi; [&frac12;x<sup>2</sup>]<sub>0</sub><sup>4</sup> =</em> <strong>8&pi; units<sup>3</sup></strong>.<br><br>
+              <strong>(ii) About the y-axis</strong> (<em>y = e<sup>x</sup> &rArr; x = ln y</em>, so <em>r = x = ln y</em>):<br>
+              <em>V<sub>y</sub> = &pi; &int;<sub>1</sub><sup>3</sup> (ln y)<sup>2</sup> dy =</em> <strong>&pi; &int;<sub>1</sub><sup>3</sup> (ln y)<sup>2</sup> dy &approx; 3.55 units<sup>3</sup></strong> (via GC <code>&pi;*fnInt((ln(X))², X, 1, 3)</code>).
             `,
-            exitQuestion: "Why is π ∫_0^1 (x − x²)² dx incorrect for the volume of revolution of the region between y = x and y = x² about the x-axis?",
-            exitAnswer: "Because the area of a washer cross-section is πR² − πr² = <strong>π(R² − r²)</strong>, whereas π(R − r)² omits the hollow inner cavity's true radius."
+            exitQuestion: "Derive why a thin vertical strip of width δx at position x under y = f(x) generates a volume element δV ≈ π[f(x)]² δx when rotated 360° about the x-axis.",
+            exitAnswer: "Rotating the rectangular strip of height r = f(x) and thickness h = δx through 360° forms a thin right circular cylinder of volume <strong>δV ≈ πr²h = π[f(x)]² δx</strong>."
           },
           {
             label: "Lesson 5: Volume of Revolution About Shifted Lines (y = k & x = k)",
