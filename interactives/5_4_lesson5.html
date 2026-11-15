@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 5.4 Lesson 5: Volume of Revolution About Shifted Lines (Translation Method)</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 525px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1000px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.76rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.48;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .translation-box {
+      background: #faf5ff;
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 11px;
+      font-size: 0.78rem;
+      line-height: 1.5;
+      color: #3b0764;
+    }
+
+    .translation-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--purple-dark);
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .trans-step {
+      background: #ffffff;
+      border: 1px solid #e9d5ff;
+      border-radius: 8px;
+      padding: 6px 9px;
+      margin-bottom: 5px;
+    }
+
+    .trans-step:last-child {
+      margin-bottom: 0;
+    }
+
+    .control-panel {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 13px;
+      margin-bottom: 11px;
+    }
+
+    .control-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .slider-row {
+      margin-bottom: 9px;
+    }
+
+    .slider-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+      color: #334155;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple-dark);
+      cursor: pointer;
+    }
+
+    .solve-bar {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: none;
+      background: var(--purple-dark);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .action-btn:hover {
+      opacity: 0.93;
+    }
+
+    .action-btn.secondary {
+      background: var(--blue-bg);
+      color: var(--blue);
+      border: 1px solid #bae6fd;
+    }
+
+    .gc-screen-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin-bottom: 11px;
+    }
+
+    .box-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .gc-readout {
+      background: #f1f5f9;
+      border: 2px solid #64748b;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 5px;
+      line-height: 1.45;
+    }
+
+    .solution-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.82rem;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    /* DUAL CANVAS STAGE: 2D COORDINATE TRANSLATION + 3D TRANSLATED SOLID */
+    .canvas-stage {
+      display: grid;
+      grid-template-columns: 1.15fr 1.15fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .canvas-stage {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .canvas-card {
+      background: #fdfbf7;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 8px;
+      text-align: center;
+    }
+
+    .canvas-caption {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-bottom: 4px;
+    }
+
+    canvas {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+    }
+
+    .check-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.79rem;
+      margin-top: 8px;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .check-table th, .check-table td {
+      border: 1px solid #e2e8f0;
+      padding: 6px 9px;
+      text-align: left;
+    }
+
+    .check-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    .gc-guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .gc-guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .step-pill {
+      background: var(--blue-bg);
+      border: 1px solid #bae6fd;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.77rem;
+      line-height: 1.45;
+      color: #0c4a6e;
+    }
+
+    .grader-card {
+      margin-top: 12px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 700px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .misconception-box {
+      margin-top: 12px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 10px 13px;
+      font-size: 0.79rem;
+      line-height: 1.48;
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Select a Shifted-Line Problem (Top-Left)</strong>
+        Choose a region bounded directly by a curve and a shifted horizontal line <em>y = k</em> or vertical line <em>x = k</em> (no washers—pure single-curve solids!).
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Slide Translation Progress (0% &rarr; 100%)</strong>
+        Drag the <em>Translation Shift (&minus;k)</em> slider (or click <em>Animate Shift &rarr; Axis</em>) to watch both the curve and the line <em>y = k</em> (or <em>x = k</em>) translate onto the coordinate axis!
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Revolve Around the Axis &amp; Check Exam Quiz</strong>
+        Once translated onto the axis (<em>Y = 0</em> or <em>X = 0</em>), use the standard disc formula <em>&pi;&int; Y&sup2; dx</em> or <em>&pi;&int; X&sup2; dy</em>, then test yourself on the 3-question <em>9758 Exam Check</em>.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        5.4 Lesson 5 &bull; Volume About Shifted Lines (y = k &amp; x = k via Translation)
+      </div>
+
+      <!-- Scenario Presets (Pure Single-Curve Solids Bounded by Shifted Line) -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="sc_horizAbove" onclick="loadScenario('horizAbove')">
+          1. Curve y = &radic;x &amp; Line y = 2
+        </button>
+        <button class="tab-btn" id="sc_horizBelow" onclick="loadScenario('horizBelow')">
+          2. Curve y = x&sup2; &amp; Line y = &minus;1
+        </button>
+        <button class="tab-btn" id="sc_vertLeft" onclick="loadScenario('vertLeft')">
+          3. Curve x = &radic;y &amp; Line x = &minus;1
+        </button>
+        <button class="tab-btn" id="sc_vertRight" onclick="loadScenario('vertRight')">
+          4. Curve x = y&sup2; &amp; Line x = 4
+        </button>
+      </div>
+
+      <!-- Contextual Problem & Formula Setup -->
+      <div class="context-box" id="contextBox"></div>
+
+      <!-- Step-by-Step Translation Proof Box -->
+      <div class="translation-box" id="translationBox"></div>
+
+      <!-- Interactive Translation & Sweep Controls -->
+      <div class="control-panel">
+        <div class="control-header">
+          <span id="axisModeHeader">Axis: Horizontal y = 2 &rarr; Y = 0</span>
+          <span id="limitsHeader" style="color:var(--purple-dark);">Limits: x ∈ [0, 4]</span>
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-label">
+            <span id="transSliderName">Translation Progress (Shift by &minus;k onto Axis)</span>
+            <span id="transValLbl" style="color:var(--rose);">100% (On x-Axis)</span>
+          </div>
+          <input type="range" id="transSlider" min="0" max="100" step="2" value="100" oninput="onControlChange()" />
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-label">
+            <span>Revolution Sweep Angle (&theta;)</span>
+            <span id="angleValLbl" style="color:var(--purple-dark);">360&deg; (Full Solid)</span>
+          </div>
+          <input type="range" id="angleSlider" min="0" max="360" step="5" value="360" oninput="onControlChange()" />
+        </div>
+
+        <div class="slider-row" style="margin-bottom:4px;">
+          <div class="slider-label">
+            <span id="slicePosName">Cross-Section Disc Position (x₀)</span>
+            <span id="sliceValLbl" style="color:var(--teal);">x₀ = 2.00</span>
+          </div>
+          <input type="range" id="sliceSlider" min="0.06" max="0.94" step="0.01" value="0.50" oninput="onControlChange()" />
+        </div>
+
+        <div class="solve-bar">
+          <button class="action-btn" id="animTransBtn" onclick="animateTranslationAndSweep()">&#9654; Animate Shift &rarr; Revolve</button>
+          <button class="action-btn secondary" onclick="toggleOriginalVsTranslated()">Toggle 0% / 100% Shift</button>
+        </div>
+      </div>
+
+      <!-- Definite Integral & TI-84 Plus CE Readout -->
+      <div class="gc-screen-box" id="gcOutputBox"></div>
+
+      <!-- Exact Volume Conclusion Banner -->
+      <div class="solution-banner" id="solutionBanner"></div>
+    </div>
+
+    <!-- RIGHT TRANSLATION STAGE, 3D SOLID & EXAM CHECK -->
+    <div class="card">
+      <div style="font-size:1.02rem; font-weight:800; color:#1e293b; margin-bottom:8px;" id="rightPanelHeading">
+        Coordinate Translation onto Axis &amp; Resulting 3D Solid of Revolution
+      </div>
+
+      <!-- Dual Canvas Stage: Left = 2D Coordinate Translation, Right = 3D Solid Around Translated Axis -->
+      <div class="canvas-stage">
+        <div class="canvas-card">
+          <div class="canvas-caption" id="transCanvasCaption">2D Region Translation onto Coordinate Axis</div>
+          <canvas id="transCanvas" width="320" height="245"></canvas>
+        </div>
+        <div class="canvas-card">
+          <div class="canvas-caption" id="latheCaption">3D Solid of Revolution (Disc Method)</div>
+          <canvas id="latheCanvas" width="320" height="245"></canvas>
+        </div>
+      </div>
+
+      <!-- Dynamic Original vs. Translated Comparison Table -->
+      <table class="check-table" id="verificationTable"></table>
+
+      <!-- 3-Step TI-84 Plus CE Keystroke Guide -->
+      <div class="gc-guide-grid" id="gcGuideGrid"></div>
+
+      <div class="misconception-box" id="misconceptionBox"></div>
+
+      <!-- Quick 9758 Translation Volume Exam Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 Shifted-Line Translation Check (<span id="qIdxLbl">1</span>/3)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.8rem; line-height:1.45; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  const scenarios = {
+    horizAbove: {
+      orientation: "horizontal",
+      k: 2,
+      a: 0,
+      b: 4,
+      origCurveLabel: "y = √x",
+      origLineLabel: "y = 2",
+      transVectorText: "Translate 2 units downwards (y ↦ Y = y − 2)",
+      transCurveLabel: "Y = √x − 2",
+      transAxisLabel: "Y = 0 (x-axis)",
+      radiusExpr: "√x − 2",
+      radiusSqExpanded: "x − 4√x + 4",
+      origFn: (x) => Math.sqrt(Math.max(0, x)),
+      maxRadius: 2.1,
+      story: "<strong>Horizontal Line y = 2:</strong> The region bounded by <em>y = &radic;x</em>, the line <em>y = 2</em>, and the <em>y</em>-axis (<em>0 &le; x &le; 4</em>) is rotated <strong>360&deg;</strong> about <strong>y = 2</strong>.",
+      gcExpr: "π * fnInt((√(X) − 2)², X, 0, 4)",
+      exactVol: (8 / 3) * Math.PI,
+      exactText: "(8π)/3 units³",
+      stepsSummary: "π ∫₀⁴ (√x − 2)² dx = π [½x² − (8/3)x^(3/2) + 4x]₀⁴ = <strong>8π/3 units³</strong>"
+    },
+    horizBelow: {
+      orientation: "horizontal",
+      k: -1,
+      a: 0,
+      b: 2,
+      origCurveLabel: "y = x²",
+      origLineLabel: "y = −1",
+      transVectorText: "Translate 1 unit upwards (y ↦ Y = y − (−1) = y + 1)",
+      transCurveLabel: "Y = x² + 1",
+      transAxisLabel: "Y = 0 (x-axis)",
+      radiusExpr: "x² + 1",
+      radiusSqExpanded: "x⁴ + 2x² + 1",
+      origFn: (x) => x * x,
+      maxRadius: 5.2,
+      story: "<strong>Horizontal Line y = &minus;1:</strong> The region bounded by <em>y = x&sup2;</em>, the line <em>y = &minus;1</em>, and the lines <em>x = 0</em> and <em>x = 2</em> is rotated <strong>360&deg;</strong> about <strong>y = &minus;1</strong>.",
+      gcExpr: "π * fnInt((X² + 1)², X, 0, 2)",
+      // π ∫₀² (x⁴ + 2x² + 1) dx = π [32/5 + 16/3 + 2] = 206π/15
+      exactVol: (206 / 15) * Math.PI,
+      exactText: "(206π)/15 units³",
+      stepsSummary: "π ∫₀² (x² + 1)² dx = π [⅕x⁵ + ⅔x³ + x]₀² = <strong>206π/15 units³</strong>"
+    },
+    vertLeft: {
+      orientation: "vertical",
+      k: -1,
+      a: 0,
+      b: 4,
+      origCurveLabel: "x = √y",
+      origLineLabel: "x = −1",
+      transVectorText: "Translate 1 unit to the right (x ↦ X = x − (−1) = x + 1)",
+      transCurveLabel: "X = √y + 1",
+      transAxisLabel: "X = 0 (y-axis)",
+      radiusExpr: "√y + 1",
+      radiusSqExpanded: "y + 2√y + 1",
+      origFn: (y) => Math.sqrt(Math.max(0, y)),
+      maxRadius: 3.1,
+      story: "<strong>Vertical Line x = &minus;1:</strong> The region bounded by <em>y = x&sup2;</em> (<em>x = &radic;y</em>, <em>x &ge; 0</em>), the vertical line <em>x = &minus;1</em>, and <em>y = 0</em> to <em>y = 4</em> is rotated <strong>360&deg;</strong> about <strong>x = &minus;1</strong>.",
+      gcExpr: "π * fnInt((√(X) + 1)², X, 0, 4)",
+      // π ∫₀⁴ (y + 2√y + 1) dy = π [8 + 32/3 + 4] = 68π/3
+      exactVol: (68 / 3) * Math.PI,
+      exactText: "(68π)/3 units³",
+      stepsSummary: "π ∫₀⁴ (√y + 1)² dy = π [½y² + (4/3)y^(3/2) + y]₀⁴ = <strong>68π/3 units³</strong>"
+    },
+    vertRight: {
+      orientation: "vertical",
+      k: 4,
+      a: 0,
+      b: 2,
+      origCurveLabel: "x = y²",
+      origLineLabel: "x = 4",
+      transVectorText: "Translate 4 units to the left (x ↦ X = x − 4)",
+      transCurveLabel: "X = y² − 4",
+      transAxisLabel: "X = 0 (y-axis)",
+      radiusExpr: "y² − 4",
+      radiusSqExpanded: "y⁴ − 8y² + 16",
+      origFn: (y) => y * y,
+      maxRadius: 4.1,
+      story: "<strong>Vertical Line x = 4:</strong> The region bounded by <em>x = y&sup2;</em>, the vertical line <em>x = 4</em>, and the <em>x</em>-axis (<em>0 &le; y &le; 2</em>) is rotated <strong>360&deg;</strong> about <strong>x = 4</strong>.",
+      gcExpr: "π * fnInt((X² − 4)², X, 0, 2)",
+      // π ∫₀² (y⁴ - 8y² + 16) dy = π [32/5 - 64/3 + 32] = 256π/15
+      exactVol: (256 / 15) * Math.PI,
+      exactText: "(256π)/15 units³",
+      stepsSummary: "π ∫₀² (y² − 4)² dy = π [⅕y⁵ − (8/3)y³ + 16y]₀² = <strong>256π/15 units³</strong>"
+    }
+  };
+
+  let curKey = "horizAbove";
+  let animId = null;
+
+  function loadScenario(key) {
+    stopAnimation();
+    curKey = key;
+
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("sc_" + key).classList.add("active");
+
+    const sc = scenarios[key];
+    const isH = sc.orientation === "horizontal";
+    const diffVar = isH ? "x" : "y";
+    const transVar = isH ? "Y" : "X";
+
+    document.getElementById("contextBox").innerHTML = `
+      <div>${sc.story}</div>
+      <div class="var-pill">Translated Axis Formula: V = π ∫<sub>${sc.a}</sub><sup>${sc.b}</sup> ${transVar}² d${diffVar} = π ∫<sub>${sc.a}</sub><sup>${sc.b}</sup> (${sc.radiusExpr})² d${diffVar}</div>
+    `;
+
+    document.getElementById("axisModeHeader").textContent =
+      `Axis: ${sc.origLineLabel} → ${sc.transAxisLabel}`;
+    document.getElementById("limitsHeader").textContent = `Limits: ${diffVar} ∈ [${sc.a}, ${sc.b}]`;
+    document.getElementById("transSliderName").textContent =
+      `Translation Progress (${sc.transVectorText.split("(")[0].trim()})`;
+    document.getElementById("slicePosName").textContent = `Cross-Section Disc Position (${diffVar}₀)`;
+
+    renderTranslationBox(sc);
+
+    document.getElementById("transSlider").value = 100;
+    document.getElementById("angleSlider").value = 360;
+    document.getElementById("sliceSlider").value = 0.50;
+    updateAll();
+  }
+
+  function renderTranslationBox(sc) {
+    const isH = sc.orientation === "horizontal";
+    const diffVar = isH ? "x" : "y";
+    const transVar = isH ? "Y" : "X";
+    const origVar = isH ? "y" : "x";
+
+    document.getElementById("translationBox").innerHTML = `
+      <div class="translation-title">
+        <span>Why Translation Reduces Shifted Lines to Standard Discs</span>
+        <span style="background:#ffffff; padding:1px 7px; border-radius:999px; border:1px solid #d8b4fe;">Volume is Translation-Invariant</span>
+      </div>
+      <div class="trans-step">
+        <strong>1. Shift Axis to Origin:</strong> ${sc.transVectorText}. Under this rigid translation, the rotation line <em>${sc.origLineLabel}</em> becomes <strong>${sc.transAxisLabel}</strong>.
+      </div>
+      <div class="trans-step">
+        <strong>2. New Curve Equation:</strong> Replacing <em>${origVar}</em> by <em>${transVar} + (${sc.k})</em> maps <em>${sc.origCurveLabel}</em> onto <strong>${sc.transCurveLabel}</strong>.
+      </div>
+      <div class="trans-step">
+        <strong>3. Standard Disc Formula Around Axis:</strong> Rotating <em>${sc.transCurveLabel}</em> about <em>${sc.transAxisLabel}</em> gives <em>V = &pi; &int;<sub>${sc.a}</sub><sup>${sc.b}</sup> ${transVar}&sup2; d${diffVar} =</em> <strong>&pi; &int;<sub>${sc.a}</sub><sup>${sc.b}</sup> (${sc.radiusExpr})&sup2; d${diffVar}</strong>.
+      </div>
+    `;
+  }
+
+  function toggleOriginalVsTranslated() {
+    stopAnimation();
+    const tSlider = document.getElementById("transSlider");
+    tSlider.value = Number(tSlider.value) >= 50 ? 0 : 100;
+    updateAll();
+  }
+
+  function animateTranslationAndSweep() {
+    if (animId) {
+      stopAnimation();
+      return;
+    }
+    const tSlider = document.getElementById("transSlider");
+    const aSlider = document.getElementById("angleSlider");
+    let phase = 0; // 0..100 translation, 100..280 revolution (180 steps * 2 deg = 360 deg)
+    tSlider.value = 0;
+    aSlider.value = 0;
+    document.getElementById("animTransBtn").textContent = "⏸ Pause Animation";
+
+    function step() {
+      phase += 2;
+      if (phase <= 100) {
+        tSlider.value = phase;
+        aSlider.value = 0;
+      } else if (phase <= 280) {
+        tSlider.value = 100;
+        aSlider.value = (phase - 100) * 2;
+      } else {
+        tSlider.value = 100;
+        aSlider.value = 360;
+        updateAll();
+        stopAnimation();
+        return;
+      }
+      updateAll();
+      animId = requestAnimationFrame(step);
+    }
+    animId = requestAnimationFrame(step);
+  }
+
+  function stopAnimation() {
+    if (animId) {
+      cancelAnimationFrame(animId);
+      animId = null;
+    }
+    document.getElementById("animTransBtn").innerHTML = "&#9654; Animate Shift &rarr; Revolve";
+  }
+
+  function onControlChange() {
+    stopAnimation();
+    updateAll();
+  }
+
+  function updateAll() {
+    const sc = scenarios[curKey];
+    const transPct = Number(document.getElementById("transSlider").value);
+    const deg = Number(document.getElementById("angleSlider").value);
+    const tFrac = Number(document.getElementById("sliceSlider").value);
+
+    const isH = sc.orientation === "horizontal";
+    const diffVar = isH ? "x" : "y";
+    const transVar = isH ? "Y" : "X";
+    const sPos = sc.a + tFrac * (sc.b - sc.a);
+
+    document.getElementById("transValLbl").textContent =
+      transPct === 100
+        ? `100% (Axis at ${sc.transAxisLabel})`
+        : transPct === 0
+        ? `0% (Original ${sc.origLineLabel})`
+        : `${transPct}% shifted`;
+    document.getElementById("angleValLbl").textContent =
+      deg === 360 ? "360° (Full Solid)" : `${deg}° (${(deg / 360 * 100).toFixed(0)}% swept)`;
+    document.getElementById("sliceValLbl").textContent = `${diffVar}₀ = ${sPos.toFixed(2)}`;
+
+    const origCoord = sc.origFn(sPos);
+    const transCoord = origCoord - sc.k; // Y = y - k or X = x - k
+    const r = Math.abs(transCoord);
+    const sweptVol = sc.exactVol * (deg / 360);
+
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">TI-84 Plus CE Numerical Check &amp; Translated Disc Integral</span>
+      <div class="gc-readout">
+        GC Input: ${sc.gcExpr}<br>
+        Full 360° Volume = <strong>${sc.exactText}</strong> (&approx; ${sc.exactVol.toFixed(4)})<br>
+        Current ${deg}° Sweep &approx; ${sweptVol.toFixed(4)} units³
+      </div>
+    `;
+
+    document.getElementById("solutionBanner").innerHTML =
+      `Translated Curve <strong>${sc.transCurveLabel}</strong> about <strong>${sc.transAxisLabel}</strong> &rArr; ${sc.stepsSummary}.`;
+
+    document.getElementById("verificationTable").innerHTML = `
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Original System (About ${sc.origLineLabel})</th>
+          <th>Translated System (About ${sc.transAxisLabel})</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Axis of Revolution</strong></td>
+          <td>${sc.origLineLabel}</td>
+          <td style="color:#0f766e; font-weight:700;">${sc.transAxisLabel}</td>
+        </tr>
+        <tr>
+          <td><strong>Boundary Curve</strong></td>
+          <td>${sc.origCurveLabel}</td>
+          <td style="color:#6d28d9; font-weight:700;">${sc.transCurveLabel}</td>
+        </tr>
+        <tr>
+          <td><strong>Disc Radius at ${diffVar}₀ = ${sPos.toFixed(2)}</strong></td>
+          <td>|${origCoord.toFixed(2)} − (${sc.k})| = ${r.toFixed(3)}</td>
+          <td>|${transVar}(${sPos.toFixed(2)})| = |${transCoord.toFixed(2)}| = ${r.toFixed(3)}</td>
+        </tr>
+        <tr>
+          <td><strong>Volume Integral</strong></td>
+          <td>π ∫<sub>${sc.a}</sub><sup>${sc.b}</sup> (${sc.radiusExpr})² d${diffVar}</td>
+          <td style="color:#0f766e; font-weight:700;">π ∫<sub>${sc.a}</sub><sup>${sc.b}</sup> ${transVar}² d${diffVar} = ${sc.exactText}</td>
+        </tr>
+      </tbody>
+    `;
+
+    document.getElementById("gcGuideGrid").innerHTML = `
+      <div class="step-pill">
+        <strong>Step 1: Translate Axis by &minus;k</strong><br>
+        Shift <strong>y = k</strong> vertically by <em>&minus;k</em> to <strong>Y = 0</strong> (or <strong>x = k</strong> horizontally by <em>&minus;k</em> to <strong>X = 0</strong>).
+      </div>
+      <div class="step-pill">
+        <strong>Step 2: Apply Same Shift to Curve</strong><br>
+        The translated height/width is <strong>Y = f(x) &minus; k</strong> (or <strong>X = g(y) &minus; k</strong>). Squaring gives <em>(f(x) &minus; k)&sup2;</em>, which is always positive!
+      </div>
+      <div class="step-pill">
+        <strong>Step 3: TI-84 Plus CE Check</strong><br>
+        Evaluate <strong>fnInt((Y₁ − k)², X, a, b)</strong> (omitting π) via <strong>[ALPHA][WINDOW] &gt; 4</strong>, then press <strong>[MATH] &gt; 1: Frac</strong> to confirm the exact fraction of π.
+      </div>
+    `;
+
+    document.getElementById("misconceptionBox").innerHTML = `
+      <strong>Critical 9758 Translation &amp; Shifted-Line Misconception Alerts:</strong>
+      <ul style="margin:3px 0 0 0; padding-left:18px;">
+        <li><strong>Watch the sign when k &lt; 0:</strong> Translating the line <em>y = −1</em> onto the <em>x</em>-axis shifts the region <strong>upwards by +1 unit</strong>, so <em>Y = y − (−1) = y + 1</em> (NOT <em>y − 1</em>).</li>
+        <li><strong>Notice why (f(x) − k)² = (k − f(x))²:</strong> Even when a downward translation puts the curve below the new axis (like <em>Y = √x − 2 ≤ 0</em>), squaring <em>Y</em> gives <em>(√x − 2)² = (2 − √x)² &ge; 0</em>, so the disc area <em>πY²</em> is automatically positive!</li>
+      </ul>
+    `;
+
+    drawTranslationCanvas(sc, transPct, sPos);
+    drawLatheCanvas(sc, transPct, deg, sPos);
+  }
+
+  function drawTranslationCanvas(sc, transPct, sPos) {
+    const canvas = document.getElementById("transCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const alpha = transPct / 100; // 0 = original position, 1 = translated onto axis
+    const isH = sc.orientation === "horizontal";
+
+    if (isH) {
+      // Determine vertical bounds covering both original and translated states
+      const yVals = [];
+      for (let i = 0; i <= 30; i++) {
+        const x = sc.a + (i / 30) * (sc.b - sc.a);
+        const y0 = sc.origFn(x);
+        yVals.push(y0, y0 - sc.k);
+      }
+      yVals.push(0, sc.k, -0.5);
+      const yMin = Math.min(...yVals) - 0.6;
+      const yMax = Math.max(...yVals) + 0.7;
+
+      const padL = 38, padR = 18, padT = 20, padB = 26;
+      const plotW = W - padL - padR;
+      const plotH = H - padT - padB;
+
+      const toSx = (x) => padL + ((x - sc.a) / (sc.b - sc.a)) * plotW;
+      const toSy = (y) => padT + ((yMax - y) / (yMax - yMin)) * plotH;
+
+      // Draw fixed coordinate axes (X=0 at padL, Y=0 at toSy(0))
+      ctx.strokeStyle = "#64748b";
+      ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      ctx.moveTo(padL - 8, toSy(0));
+      ctx.lineTo(W - 10, toSy(0));
+      ctx.moveTo(padL, padT - 6);
+      ctx.lineTo(padL, H - padB + 8);
+      ctx.stroke();
+
+      ctx.fillStyle = "#475569";
+      ctx.font = "bold 10px Segoe UI, sans-serif";
+      ctx.fillText("x", W - 16, toSy(0) - 5);
+      ctx.fillText("y / Y", padL + 5, padT + 4);
+
+      // Draw ghost original region if alpha > 0
+      if (alpha > 0.05) {
+        ctx.beginPath();
+        ctx.moveTo(toSx(sc.a), toSy(sc.k));
+        for (let i = 0; i <= 40; i++) {
+          const x = sc.a + (i / 40) * (sc.b - sc.a);
+          ctx.lineTo(toSx(x), toSy(sc.origFn(x)));
+        }
+        ctx.lineTo(toSx(sc.b), toSy(sc.k));
+        ctx.closePath();
+        ctx.fillStyle = "rgba(148, 163, 184, 0.14)";
+        ctx.fill();
+        ctx.strokeStyle = "#94a3b8";
+        ctx.lineWidth = 1.1;
+        ctx.setLineDash([3, 3]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+
+      // Current interpolated shift: offset = -alpha * sc.k
+      const shiftY = -alpha * sc.k;
+      const curAxisY = sc.k + shiftY;
+
+      // Draw shaded region at current translation state
+      ctx.beginPath();
+      ctx.moveTo(toSx(sc.a), toSy(curAxisY));
+      for (let i = 0; i <= 40; i++) {
+        const x = sc.a + (i / 40) * (sc.b - sc.a);
+        ctx.lineTo(toSx(x), toSy(sc.origFn(x) + shiftY));
+      }
+      ctx.lineTo(toSx(sc.b), toSy(curAxisY));
+      ctx.closePath();
+      ctx.fillStyle = "rgba(139, 92, 246, 0.25)";
+      ctx.fill();
+      ctx.strokeStyle = "#6d28d9";
+      ctx.lineWidth = 2.2;
+      ctx.stroke();
+
+      // Draw moving rotation axis line
+      ctx.beginPath();
+      ctx.moveTo(padL - 8, toSy(curAxisY));
+      ctx.lineTo(W - 10, toSy(curAxisY));
+      ctx.strokeStyle = alpha === 1 ? "#0f766e" : "#e11d48";
+      ctx.lineWidth = 2.2;
+      ctx.setLineDash([6, 4]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Draw translation arrow at x = (a+b)/2
+      const midX = (sc.a + sc.b) / 2;
+      if (alpha > 0.08) {
+        const yStart = toSy(sc.k);
+        const yEnd = toSy(curAxisY);
+        ctx.beginPath();
+        ctx.moveTo(toSx(midX), yStart);
+        ctx.lineTo(toSx(midX), yEnd);
+        ctx.strokeStyle = "#e11d48";
+        ctx.lineWidth = 1.6;
+        ctx.stroke();
+      }
+
+      // Draw vertical radius strip at sPos
+      const sxSlice = toSx(sPos);
+      ctx.beginPath();
+      ctx.moveTo(sxSlice, toSy(curAxisY));
+      ctx.lineTo(sxSlice, toSy(sc.origFn(sPos) + shiftY));
+      ctx.strokeStyle = "#0f766e";
+      ctx.lineWidth = 3;
+      ctx.stroke();
+
+      ctx.fillStyle = alpha === 1 ? "#0f766e" : "#be123c";
+      ctx.font = "bold 10px Segoe UI, sans-serif";
+      ctx.fillText(
+        alpha === 1 ? `Axis: ${sc.transAxisLabel}` : `Axis: y = ${curAxisY.toFixed(2)}`,
+        padL + 6,
+        toSy(curAxisY) - 6
+      );
+    } else {
+      // Vertical orientation: x = g(y) translated horizontally by -alpha * sc.k
+      const xVals = [];
+      for (let i = 0; i <= 30; i++) {
+        const y = sc.a + (i / 30) * (sc.b - sc.a);
+        const x0 = sc.origFn(y);
+        xVals.push(x0, x0 - sc.k);
+      }
+      xVals.push(0, sc.k, -0.5);
+      const xMin = Math.min(...xVals) - 0.8;
+      const xMax = Math.max(...xVals) + 0.8;
+
+      const padL = 28, padR = 20, padT = 18, padB = 28;
+      const plotW = W - padL - padR;
+      const plotH = H - padT - padB;
+
+      const toSx = (x) => padL + ((x - xMin) / (xMax - xMin)) * plotW;
+      const toSy = (y) => padT + ((sc.b - y) / (sc.b - sc.a)) * plotH;
+
+      // Draw fixed coordinate axes (X=0 at toSx(0), Y=0 at padT + plotH)
+      ctx.strokeStyle = "#64748b";
+      ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      ctx.moveTo(padL - 6, toSy(sc.a));
+      ctx.lineTo(W - 10, toSy(sc.a));
+      ctx.moveTo(toSx(0), padT - 6);
+      ctx.lineTo(toSx(0), H - padB + 8);
+      ctx.stroke();
+
+      ctx.fillStyle = "#475569";
+      ctx.font = "bold 10px Segoe UI, sans-serif";
+      ctx.fillText("x / X", W - 26, toSy(sc.a) - 5);
+      ctx.fillText("y", toSx(0) + 5, padT + 4);
+
+      // Ghost original region
+      if (alpha > 0.05) {
+        ctx.beginPath();
+        ctx.moveTo(toSx(sc.k), toSy(sc.a));
+        for (let i = 0; i <= 40; i++) {
+          const y = sc.a + (i / 40) * (sc.b - sc.a);
+          ctx.lineTo(toSx(sc.origFn(y)), toSy(y));
+        }
+        ctx.lineTo(toSx(sc.k), toSy(sc.b));
+        ctx.closePath();
+        ctx.fillStyle = "rgba(148, 163, 184, 0.14)";
+        ctx.fill();
+        ctx.strokeStyle = "#94a3b8";
+        ctx.lineWidth = 1.1;
+        ctx.setLineDash([3, 3]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+
+      const shiftX = -alpha * sc.k;
+      const curAxisX = sc.k + shiftX;
+
+      // Shaded region at current shift
+      ctx.beginPath();
+      ctx.moveTo(toSx(curAxisX), toSy(sc.a));
+      for (let i = 0; i <= 40; i++) {
+        const y = sc.a + (i / 40) * (sc.b - sc.a);
+        ctx.lineTo(toSx(sc.origFn(y) + shiftX), toSy(y));
+      }
+      ctx.lineTo(toSx(curAxisX), toSy(sc.b));
+      ctx.closePath();
+      ctx.fillStyle = "rgba(139, 92, 246, 0.25)";
+      ctx.fill();
+      ctx.strokeStyle = "#6d28d9";
+      ctx.lineWidth = 2.2;
+      ctx.stroke();
+
+      // Moving vertical rotation axis
+      ctx.beginPath();
+      ctx.moveTo(toSx(curAxisX), padT - 6);
+      ctx.lineTo(toSx(curAxisX), H - padB + 8);
+      ctx.strokeStyle = alpha === 1 ? "#0f766e" : "#e11d48";
+      ctx.lineWidth = 2.2;
+      ctx.setLineDash([6, 4]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Horizontal radius strip at sPos
+      const sySlice = toSy(sPos);
+      ctx.beginPath();
+      ctx.moveTo(toSx(curAxisX), sySlice);
+      ctx.lineTo(toSx(sc.origFn(sPos) + shiftX), sySlice);
+      ctx.strokeStyle = "#0f766e";
+      ctx.lineWidth = 3;
+      ctx.stroke();
+
+      ctx.fillStyle = alpha === 1 ? "#0f766e" : "#be123c";
+      ctx.font = "bold 10px Segoe UI, sans-serif";
+      ctx.fillText(
+        alpha === 1 ? `${sc.transAxisLabel}` : `x = ${curAxisX.toFixed(2)}`,
+        toSx(curAxisX) + 5,
+        padT + 14
+      );
+    }
+  }
+
+  function drawLatheCanvas(sc, transPct, deg, sPos) {
+    const canvas = document.getElementById("latheCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const radMax = (deg * Math.PI) / 180;
+    const steps = 38;
+    const angSteps = Math.max(2, Math.round((deg / 360) * 32));
+    const isH = sc.orientation === "horizontal";
+
+    function project(tNorm, signedRadialNorm, phi) {
+      const y3d = signedRadialNorm * Math.cos(phi);
+      const z3d = signedRadialNorm * Math.sin(phi);
+      if (isH) {
+        const sx = 46 + tNorm * 225 + z3d * 20;
+        const sy = H * 0.52 - y3d * 74 + z3d * 15;
+        return [sx, sy];
+      } else {
+        const sx = W * 0.5 + y3d * 76 + z3d * 18;
+        const sy = H - 32 - tNorm * 172 + z3d * 14;
+        return [sx, sy];
+      }
+    }
+
+    // Draw translated coordinate axis (Axis of Revolution)
+    ctx.strokeStyle = "#0f766e";
+    ctx.lineWidth = 1.6;
+    if (isH) {
+      ctx.beginPath();
+      ctx.moveTo(22, H * 0.52);
+      ctx.lineTo(W - 14, H * 0.52);
+      ctx.moveTo(46, 18);
+      ctx.lineTo(46, H - 18);
+      ctx.stroke();
+
+      ctx.fillStyle = "#0f766e";
+      ctx.font = "bold 10px Segoe UI, sans-serif";
+      ctx.fillText(sc.transAxisLabel, W - 82, H * 0.52 - 7);
+      ctx.fillText("Y", 52, 26);
+    } else {
+      ctx.beginPath();
+      ctx.moveTo(W * 0.5, H - 16);
+      ctx.lineTo(W * 0.5, 16);
+      ctx.moveTo(28, H - 32);
+      ctx.lineTo(W - 28, H - 32);
+      ctx.stroke();
+
+      ctx.fillStyle = "#0f766e";
+      ctx.font = "bold 10px Segoe UI, sans-serif";
+      ctx.fillText(sc.transAxisLabel, W * 0.5 + 7, 25);
+      ctx.fillText("X", W - 36, H - 38);
+    }
+
+    // Swept 3D wireframe rings around the translated axis
+    if (deg > 0) {
+      for (let i = 0; i <= steps; i += 3) {
+        const t = i / steps;
+        const val = sc.a + t * (sc.b - sc.a);
+        const signedR = (sc.origFn(val) - sc.k) / sc.maxRadius;
+
+        ctx.beginPath();
+        for (let m = 0; m <= angSteps; m++) {
+          const phi = (m / angSteps) * radMax;
+          const [px, py] = project(t, signedR, phi);
+          if (m === 0) ctx.moveTo(px, py);
+          else ctx.lineTo(px, py);
+        }
+        ctx.strokeStyle = "rgba(139, 92, 246, 0.28)";
+        ctx.lineWidth = 1.2;
+        ctx.stroke();
+      }
+
+      // Longitude ribs
+      for (let m = 0; m <= angSteps; m += Math.max(1, Math.floor(angSteps / 8))) {
+        const phi = (m / angSteps) * radMax;
+        ctx.beginPath();
+        for (let i = 0; i <= steps; i++) {
+          const t = i / steps;
+          const val = sc.a + t * (sc.b - sc.a);
+          const signedR = (sc.origFn(val) - sc.k) / sc.maxRadius;
+          const [px, py] = project(t, signedR, phi);
+          if (i === 0) ctx.moveTo(px, py);
+          else ctx.lineTo(px, py);
+        }
+        ctx.strokeStyle = "rgba(124, 58, 237, 0.2)";
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+    }
+
+    // Highlighted circular disc at sPos
+    const tSlice = (sPos - sc.a) / (sc.b - sc.a);
+    const sRSlice = (sc.origFn(sPos) - sc.k) / sc.maxRadius;
+
+    if (deg > 0) {
+      ctx.beginPath();
+      for (let m = 0; m <= angSteps; m++) {
+        const phi = (m / angSteps) * radMax;
+        const [px, py] = project(tSlice, sRSlice, phi);
+        if (m === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+      ctx.strokeStyle = "#0f766e";
+      ctx.lineWidth = 2.6;
+      ctx.stroke();
+    }
+
+    // Draw translated 2D region at phi = 0
+    ctx.beginPath();
+    const [pStart0, pStart1] = project(0, 0, 0);
+    ctx.moveTo(pStart0, pStart1);
+    for (let i = 0; i <= steps; i++) {
+      const t = i / steps;
+      const val = sc.a + t * (sc.b - sc.a);
+      const signedR = (sc.origFn(val) - sc.k) / sc.maxRadius;
+      const [px, py] = project(t, signedR, 0);
+      ctx.lineTo(px, py);
+    }
+    const [pEnd0, pEnd1] = project(1, 0, 0);
+    ctx.lineTo(pEnd0, pEnd1);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(139, 92, 246, 0.26)";
+    ctx.fill();
+    ctx.strokeStyle = "#6d28d9";
+    ctx.lineWidth = 2.3;
+    ctx.stroke();
+
+    // Draw perpendicular radius strip at sPos
+    const [axX, axY] = project(tSlice, 0, 0);
+    const [cvX, cvY] = project(tSlice, sRSlice, 0);
+    ctx.beginPath();
+    ctx.moveTo(axX, axY);
+    ctx.lineTo(cvX, cvY);
+    ctx.strokeStyle = "#0f766e";
+    ctx.lineWidth = 3.4;
+    ctx.stroke();
+  }
+
+  const examQs = [
+    {
+      q: "The region bounded by y = e^x, the horizontal line y = 1, and the vertical line x = 2 is rotated 360° about y = 1. Translating y = 1 onto the x-axis (Y = y − 1), which integral gives the exact volume?",
+      opts: [
+        "π ∫₀² (e^x − 1)² dx",
+        "π ∫₀² (e^(2x) − 1) dx",
+        "π ∫₀² (e^x + 1)² dx",
+        "π ∫₁^(e²) (ln y)² dy"
+      ],
+      ans: 0,
+      exp: "Translating down by 1 unit maps y = 1 to Y = 0 and y = e^x to Y = e^x − 1. Using V = π ∫₀² Y² dx gives π ∫₀² (e^x − 1)² dx."
+    },
+    {
+      q: "The region bounded by x = y², the vertical line x = −2, and the horizontal lines y = 0 and y = 1 is rotated 360° about x = −2. How does translating x = −2 onto the y-axis transform the curve?",
+      opts: [
+        "X = y² + 2, giving V = π ∫₀¹ (y² + 2)² dy",
+        "X = y² − 2, giving V = π ∫₀¹ (y² − 2)² dy",
+        "Y = x² + 2, giving V = π ∫₀¹ (x² + 2)² dx",
+        "X = y² + 2, giving V = π ∫₀¹ (y⁴ + 4) dy"
+      ],
+      ans: 0,
+      exp: "Translating right by 2 units maps x = −2 to X = 0 and x = y² to X = y² − (−2) = y² + 2. Integrating wrt y gives V = π ∫₀¹ (y² + 2)² dy."
+    },
+    {
+      q: "Why does translating a curve y = f(x) and its axis of revolution y = k by −k units leave the volume of revolution unchanged?",
+      opts: [
+        "Rigid translation preserves all perpendicular distances |f(x) − k| from the rotation axis, so every circular disc has the same radius",
+        "Because definite integrals are invariant under horizontal stretching",
+        "Because k cancels out when differentiating y = f(x) − k",
+        "Only when k > 0; negative k changes the sign of the volume"
+      ],
+      ans: 0,
+      exp: "A translation is a rigid isometry: shifting both the region and the axis by −k moves the axis to Y = 0 while preserving every disc radius r = |f(x) − k|."
+    }
+  ];
+
+  let curQ = 0;
+
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").textContent = item.q;
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i}, this)">${String.fromCharCode(65 + i)}. ${o}</button>
+    `).join("");
+  }
+
+  function gradeExamQ(idx, btn) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  loadScenario("horizAbove");
+  renderExamQ();
+</script>
+
+</body>
+</html>

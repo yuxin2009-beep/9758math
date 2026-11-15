@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 5.4 Lesson 4: Volume of Solid of Revolution About Coordinate Axes</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 525px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1000px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.76rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.48;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .derivation-box {
+      background: #faf5ff;
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 11px;
+      font-size: 0.78rem;
+      line-height: 1.5;
+      color: #3b0764;
+    }
+
+    .derivation-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--purple-dark);
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .deriv-step {
+      background: #ffffff;
+      border: 1px solid #e9d5ff;
+      border-radius: 8px;
+      padding: 6px 9px;
+      margin-bottom: 5px;
+    }
+
+    .deriv-step:last-child {
+      margin-bottom: 0;
+    }
+
+    .control-panel {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 13px;
+      margin-bottom: 11px;
+    }
+
+    .control-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .slider-row {
+      margin-bottom: 9px;
+    }
+
+    .slider-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+      color: #334155;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple-dark);
+      cursor: pointer;
+    }
+
+    .solve-bar {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: none;
+      background: var(--purple-dark);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .action-btn:hover {
+      opacity: 0.93;
+    }
+
+    .action-btn.secondary {
+      background: var(--blue-bg);
+      color: var(--blue);
+      border: 1px solid #bae6fd;
+    }
+
+    .action-btn.disc-active {
+      background: var(--teal);
+      color: #ffffff;
+      border: 1px solid #115e59;
+    }
+
+    .gc-screen-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin-bottom: 11px;
+    }
+
+    .box-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .gc-readout {
+      background: #f1f5f9;
+      border: 2px solid #64748b;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 5px;
+      line-height: 1.45;
+    }
+
+    .solution-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.82rem;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    /* 3D LATHE & CROSS-SECTION CANVAS STAGE */
+    .canvas-stage {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .canvas-stage {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .canvas-card {
+      background: #fdfbf7;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 8px;
+      text-align: center;
+    }
+
+    .canvas-caption {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-bottom: 4px;
+    }
+
+    canvas {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+    }
+
+    .check-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.79rem;
+      margin-top: 8px;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .check-table th, .check-table td {
+      border: 1px solid #e2e8f0;
+      padding: 6px 9px;
+      text-align: left;
+    }
+
+    .check-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    .gc-guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .gc-guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .step-pill {
+      background: var(--blue-bg);
+      border: 1px solid #bae6fd;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.77rem;
+      line-height: 1.45;
+      color: #0c4a6e;
+    }
+
+    .grader-card {
+      margin-top: 12px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 700px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .misconception-box {
+      margin-top: 12px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 10px 13px;
+      font-size: 0.79rem;
+      line-height: 1.48;
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Select an Axis of Revolution Preset</strong>
+        Choose between <em>About x-Axis</em> curves (<em>y = &radic;x</em> or <em>y = &frac12;x + 1</em>) and <em>About y-Axis</em> curves (<em>x = y&sup2;</em> or <em>y = e<sup>x</sup> &rArr; x = ln y</em>).
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Derive from First Principles (Cylinder Sum)</strong>
+        Read the 4-step <em>Cylinder Slice Derivation</em> and toggle <em>Show N Cylindrical Discs</em> (adjusting <em>N</em> from 4 to 40) to watch Riemann cylinders converge to <em>&pi;&int; r&sup2;</em>.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Sweep 0° &rarr; 360° &amp; Complete Exam Check</strong>
+        Animate the 3D revolution sweep, inspect the perpendicular circular cross-section <em>&pi;r&sup2;</em> at slice <em>x₀</em> or <em>y₀</em>, and test yourself on the 3-question <em>9758 Exam Check</em>.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        5.4 Lesson 4 &bull; Volume of Solid of Revolution About Coordinate Axes
+      </div>
+
+      <!-- Scenario Presets (Single-Curve Solids About Axes Only) -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="sc_paraboloidX" onclick="loadScenario('paraboloidX')">
+          1. Paraboloid: y = &radic;x (x-Axis)
+        </button>
+        <button class="tab-btn" id="sc_frustumX" onclick="loadScenario('frustumX')">
+          2. Cone Frustum: y = &frac12;x + 1 (x-Axis)
+        </button>
+        <button class="tab-btn" id="sc_quarticY" onclick="loadScenario('quarticY')">
+          3. Bowl: x = y&sup2; (y-Axis)
+        </button>
+        <button class="tab-btn" id="sc_expY" onclick="loadScenario('expY')">
+          4. Trumpet: y = e<sup>x</sup> &rArr; x = ln y (y-Axis)
+        </button>
+      </div>
+
+      <!-- Contextual Problem & Formula Setup -->
+      <div class="context-box" id="contextBox"></div>
+
+      <!-- First-Principles Derivation Box -->
+      <div class="derivation-box" id="derivationBox"></div>
+
+      <!-- Interactive Revolution, Cylinder Sum & Slice Controls -->
+      <div class="control-panel">
+        <div class="control-header">
+          <span id="axisModeHeader">Axis of Revolution: x-Axis (Integrate wrt x)</span>
+          <span id="limitsHeader" style="color:var(--purple-dark);">Limits: [0, 4]</span>
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-label">
+            <span>Revolution Sweep Angle (&theta;)</span>
+            <span id="angleValLbl" style="color:var(--purple-dark);">360&deg; (Full Solid)</span>
+          </div>
+          <input type="range" id="angleSlider" min="0" max="360" step="5" value="360" oninput="onControlChange()" />
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-label">
+            <span id="slicePosName">Cross-Section Slice Position (x₀)</span>
+            <span id="sliceValLbl" style="color:var(--teal);">x₀ = 2.20</span>
+          </div>
+          <input type="range" id="sliceSlider" min="0.06" max="0.94" step="0.01" value="0.55" oninput="onControlChange()" />
+        </div>
+
+        <div class="slider-row" id="discCountRow" style="margin-bottom:4px; display:none;">
+          <div class="slider-label">
+            <span>Riemann Cylinder Count (N Discs)</span>
+            <span id="discCountLbl" style="color:var(--blue);">N = 10 cylinders</span>
+          </div>
+          <input type="range" id="discCountSlider" min="4" max="40" step="1" value="10" oninput="onControlChange()" />
+        </div>
+
+        <div class="solve-bar">
+          <button class="action-btn" id="animBtn" onclick="toggleSweepAnimation()">&#9654; Animate 0&deg; &rarr; 360&deg; Sweep</button>
+          <button class="action-btn secondary" id="discOverlayBtn" onclick="toggleDiscOverlay()">Show N Cylindrical Discs</button>
+        </div>
+      </div>
+
+      <!-- Definite Integral & TI-84 Plus CE Readout -->
+      <div class="gc-screen-box" id="gcOutputBox"></div>
+
+      <!-- Exact Volume Conclusion Banner -->
+      <div class="solution-banner" id="solutionBanner"></div>
+    </div>
+
+    <!-- RIGHT 3D VISUALIZER, SLICE ANALYSIS & EXAM CHECK -->
+    <div class="card">
+      <div style="font-size:1.02rem; font-weight:800; color:#1e293b; margin-bottom:8px;" id="rightPanelHeading">
+        3D Solid of Revolution &amp; Circular Disc Cross-Section Inspector
+      </div>
+
+      <!-- Dual Canvas Stage: 3D Isometric Lathe + 2D Circular Cross-Section Disc -->
+      <div class="canvas-stage">
+        <div class="canvas-card">
+          <div class="canvas-caption" id="latheCaption">3D Solid of Revolution (Isometric View)</div>
+          <canvas id="latheCanvas" width="380" height="245"></canvas>
+        </div>
+        <div class="canvas-card">
+          <div class="canvas-caption" id="sliceCaption">Circular Disc Cross-Section at x₀</div>
+          <canvas id="sliceCanvas" width="270" height="245"></canvas>
+        </div>
+      </div>
+
+      <!-- Dynamic Radius & Cylinder Element Table -->
+      <table class="check-table" id="verificationTable"></table>
+
+      <!-- 3-Step TI-84 Plus CE Keystroke Guide -->
+      <div class="gc-guide-grid" id="gcGuideGrid"></div>
+
+      <div class="misconception-box" id="misconceptionBox"></div>
+
+      <!-- Quick 9758 Volume Exam Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 Volume About Coordinate Axes Check (<span id="qIdxLbl">1</span>/3)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.8rem; line-height:1.45; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  const scenarios = {
+    paraboloidX: {
+      axis: "x",
+      a: 0,
+      b: 4,
+      maxR: 2.2,
+      story: "<strong>Rotation About x-Axis:</strong> The region bounded by <em>y = &radic;x</em>, the <em>x</em>-axis, and the line <em>x = 4</em> is rotated through <strong>360&deg;</strong> about the <em>x</em>-axis.",
+      formulaPill: "V = π ∫₀⁴ y² dx = π ∫₀⁴ (√x)² dx",
+      curveLabel: "y = √x",
+      radiusFn: (x) => Math.sqrt(Math.max(0, x)),
+      exactVol: 8 * Math.PI,
+      exactText: "8π units³",
+      gcExpr: "π * fnInt((√(X))², X, 0, 4)",
+      stepsSummary: "π ∫₀⁴ x dx = π [½x²]₀⁴ = <strong>8π units³</strong>"
+    },
+    frustumX: {
+      axis: "x",
+      a: 0,
+      b: 4,
+      maxR: 3.2,
+      story: "<strong>Rotation About x-Axis (Frustum of a Cone):</strong> The region bounded by <em>y = &frac12;x + 1</em>, the <em>x</em>-axis, and the lines <em>x = 0</em> and <em>x = 4</em> is rotated through <strong>360&deg;</strong> about the <em>x</em>-axis.",
+      formulaPill: "V = π ∫₀⁴ y² dx = π ∫₀⁴ (½x + 1)² dx",
+      curveLabel: "y = ½x + 1",
+      radiusFn: (x) => 0.5 * x + 1,
+      // π ∫₀⁴ (¼x² + x + 1) dx = π [1/12 x³ + ½x² + x]₀⁴ = π (16/3 + 8 + 4) = 52π/3
+      exactVol: (52 / 3) * Math.PI,
+      exactText: "(52π)/3 units³",
+      gcExpr: "π * fnInt((0.5X + 1)², X, 0, 4)",
+      stepsSummary: "π ∫₀⁴ (¼x² + x + 1) dx = π [x³/12 + ½x² + x]₀⁴ = <strong>52π/3 units³</strong>"
+    },
+    quarticY: {
+      axis: "y",
+      a: 0,
+      b: 2,
+      maxR: 4.2,
+      story: "<strong>Rotation About y-Axis:</strong> The region bounded by <em>x = y&sup2;</em>, the <em>y</em>-axis, and the line <em>y = 2</em> is rotated through <strong>360&deg;</strong> about the <em>y</em>-axis.",
+      formulaPill: "V = π ∫₀² x² dy = π ∫₀² (y²)² dy",
+      curveLabel: "x = y²",
+      radiusFn: (y) => y * y,
+      // π ∫₀² y⁴ dy = 32π/5
+      exactVol: (32 / 5) * Math.PI,
+      exactText: "(32π)/5 units³",
+      gcExpr: "π * fnInt((X²)², X, 0, 2)",
+      stepsSummary: "π ∫₀² y⁴ dy = π [⅕y⁵]₀² = <strong>32π/5 units³</strong>"
+    },
+    expY: {
+      axis: "y",
+      a: 1,
+      b: 3,
+      maxR: 1.25,
+      story: "<strong>Rotation About y-Axis (Rearranging y = e<sup>x</sup>):</strong> The region bounded by <em>y = e<sup>x</sup></em>, the <em>y</em>-axis, and the lines <em>y = 1</em> and <em>y = 3</em> is rotated through <strong>360&deg;</strong> about the <em>y</em>-axis.",
+      formulaPill: "y = eˣ ⇒ x = ln y  ⇒  V = π ∫₁³ x² dy = π ∫₁³ (ln y)² dy",
+      curveLabel: "x = ln y",
+      radiusFn: (y) => Math.log(Math.max(1, y)),
+      // Numerical integration of π ∫₁³ (ln y)² dy ≈ 3.55159
+      exactVol: 3.5515916,
+      exactText: "π ∫₁³ (ln y)² dy ≈ 3.55 units³ (3 s.f.)",
+      gcExpr: "π * fnInt((ln(X))², X, 1, 3)",
+      stepsSummary: "Rearrange <em>y = e<sup>x</sup> &rArr; x = ln y</em>; evaluate via GC: <strong>3.55 units³</strong>"
+    }
+  };
+
+  let curKey = "paraboloidX";
+  let showDiscOverlay = false;
+  let animId = null;
+
+  function loadScenario(key) {
+    stopAnimation();
+    curKey = key;
+
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("sc_" + key).classList.add("active");
+
+    const sc = scenarios[key];
+    document.getElementById("contextBox").innerHTML = `
+      <div>${sc.story}</div>
+      <div class="var-pill">${sc.formulaPill}</div>
+    `;
+
+    const varName = sc.axis === "x" ? "x" : "y";
+    document.getElementById("axisModeHeader").textContent =
+      `Axis of Revolution: ${sc.axis}-Axis (Integrate wrt ${varName})`;
+    document.getElementById("limitsHeader").textContent = `Limits: ${varName} ∈ [${sc.a}, ${sc.b}]`;
+    document.getElementById("slicePosName").textContent = `Cross-Section Slice Position (${varName}₀)`;
+
+    renderDerivationBox(sc);
+
+    document.getElementById("angleSlider").value = 360;
+    document.getElementById("sliceSlider").value = 0.55;
+    updateAll();
+  }
+
+  function renderDerivationBox(sc) {
+    const isX = sc.axis === "x";
+    const diff = isX ? "x" : "y";
+    const radSym = isX ? "y" : "x";
+    document.getElementById("derivationBox").innerHTML = `
+      <div class="derivation-title">
+        <span>First-Principles Derivation (Limit of Cylindrical Discs)</span>
+        <span style="background:#ffffff; padding:1px 7px; border-radius:999px; border:1px solid #d8b4fe;">V<sub>cylinder</sub> = &pi;r&sup2;h</span>
+      </div>
+      <div class="deriv-step">
+        <strong>1. Slice into Thin Strips:</strong> Partition [${sc.a}, ${sc.b}] into <em>N</em> subintervals of thickness <em>&delta;${diff} = (${sc.b} &minus; ${sc.a})/N</em>. A strip at <em>${diff}<sub>i</sub></em> has height <em>r = ${radSym}<sub>i</sub></em>.
+      </div>
+      <div class="deriv-step">
+        <strong>2. Revolve 360&deg; into a Cylinder:</strong> Rotating the strip about the <em>${sc.axis}</em>-axis forms a thin circular disc of radius <em>r = ${radSym}<sub>i</sub></em> and height <em>h = &delta;${diff}</em>, with volume <strong>&delta;V<sub>i</sub> &approx; &pi;${radSym}<sub>i</sub>&sup2; &delta;${diff}</strong>.
+      </div>
+      <div class="deriv-step">
+        <strong>3. Sum &amp; Take Limit (&delta;${diff} &rarr; 0):</strong> <em>V = lim<sub>N&rarr;&infin;</sub> &Sigma;<sub>i=1</sub><sup>N</sup> &pi;${radSym}<sub>i</sub>&sup2; &delta;${diff} =</em> <strong>&pi; &int;<sub>${sc.a}</sub><sup>${sc.b}</sup> ${radSym}&sup2; d${diff}</strong>.
+      </div>
+    `;
+  }
+
+  function toggleDiscOverlay() {
+    showDiscOverlay = !showDiscOverlay;
+    const btn = document.getElementById("discOverlayBtn");
+    const row = document.getElementById("discCountRow");
+    if (showDiscOverlay) {
+      btn.classList.add("disc-active");
+      btn.textContent = "Hide N Cylindrical Discs";
+      row.style.display = "block";
+    } else {
+      btn.classList.remove("disc-active");
+      btn.textContent = "Show N Cylindrical Discs";
+      row.style.display = "none";
+    }
+    updateAll();
+  }
+
+  function toggleSweepAnimation() {
+    if (animId) {
+      stopAnimation();
+      return;
+    }
+    const slider = document.getElementById("angleSlider");
+    let deg = 0;
+    slider.value = 0;
+    document.getElementById("animBtn").textContent = "⏸ Pause Sweep";
+
+    function step() {
+      deg += 4;
+      if (deg >= 360) {
+        deg = 360;
+        slider.value = deg;
+        updateAll();
+        stopAnimation();
+        return;
+      }
+      slider.value = deg;
+      updateAll();
+      animId = requestAnimationFrame(step);
+    }
+    animId = requestAnimationFrame(step);
+  }
+
+  function stopAnimation() {
+    if (animId) {
+      cancelAnimationFrame(animId);
+      animId = null;
+    }
+    document.getElementById("animBtn").innerHTML = "&#9654; Animate 0&deg; &rarr; 360&deg; Sweep";
+  }
+
+  function onControlChange() {
+    stopAnimation();
+    updateAll();
+  }
+
+  function computeRiemannCylinderVol(sc, nDiscs) {
+    const dx = (sc.b - sc.a) / nDiscs;
+    let sum = 0;
+    for (let i = 0; i < nDiscs; i++) {
+      const mid = sc.a + (i + 0.5) * dx;
+      const r = sc.radiusFn(mid);
+      sum += Math.PI * r * r * dx;
+    }
+    return sum;
+  }
+
+  function updateAll() {
+    const sc = scenarios[curKey];
+    const deg = Number(document.getElementById("angleSlider").value);
+    const tFrac = Number(document.getElementById("sliceSlider").value);
+    const nDiscs = Number(document.getElementById("discCountSlider").value);
+    const varName = sc.axis === "x" ? "x" : "y";
+    const sPos = sc.a + tFrac * (sc.b - sc.a);
+
+    document.getElementById("angleValLbl").textContent =
+      deg === 360 ? "360° (Full Solid)" : `${deg}° (${(deg / 360 * 100).toFixed(0)}% swept)`;
+    document.getElementById("sliceValLbl").textContent = `${varName}₀ = ${sPos.toFixed(2)}`;
+    document.getElementById("discCountLbl").textContent = `N = ${nDiscs} cylinders`;
+    document.getElementById("sliceCaption").textContent = `Circular Disc Cross-Section at ${varName}₀ = ${sPos.toFixed(2)}`;
+
+    const r = sc.radiusFn(sPos);
+    const discAreaPi = r * r;
+    const sweptVol = sc.exactVol * (deg / 360);
+    const riemannVol = computeRiemannCylinderVol(sc, nDiscs);
+
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">TI-84 Plus CE Numerical Check &amp; Cylinder Sum Convergence</span>
+      <div class="gc-readout">
+        GC Input: ${sc.gcExpr}<br>
+        Full 360° Volume = <strong>${sc.exactText}</strong> (&approx; ${sc.exactVol.toFixed(4)})<br>
+        ${showDiscOverlay
+          ? `Midpoint Sum (N = ${nDiscs} discs) = ${riemannVol.toFixed(4)} (${((riemannVol / sc.exactVol) * 100).toFixed(2)}% of exact)`
+          : `Current ${deg}° Sweep Volume &approx; ${sweptVol.toFixed(4)} units³`}
+      </div>
+    `;
+
+    document.getElementById("solutionBanner").innerHTML =
+      `Exact 360° Volume About ${sc.axis}-Axis: ${sc.stepsSummary}.`;
+
+    document.getElementById("verificationTable").innerHTML = `
+      <thead>
+        <tr>
+          <th>Slice Quantity at ${varName}₀ = ${sPos.toFixed(2)}</th>
+          <th>Value</th>
+          <th>Connection to Cylinder Derivation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Disc Radius r(${varName}₀)</strong></td>
+          <td>${r.toFixed(3)} units</td>
+          <td>Perpendicular distance from ${sc.axis}-axis to ${sc.curveLabel}</td>
+        </tr>
+        <tr>
+          <td><strong>Circular Cross-Section Area A(${varName}₀)</strong></td>
+          <td style="color:#0f766e; font-weight:700;">πr² = ${discAreaPi.toFixed(4)}π</td>
+          <td>Area of circle swept by perpendicular strip</td>
+        </tr>
+        <tr>
+          <td><strong>Infinitesimal Volume Element dV</strong></td>
+          <td>πr² d${varName} = ${discAreaPi.toFixed(3)}π d${varName}</td>
+          <td>Cylinder of base area πr² and thickness d${varName}</td>
+        </tr>
+      </tbody>
+    `;
+
+    document.getElementById("gcGuideGrid").innerHTML = `
+      <div class="step-pill">
+        <strong>Step 1: Match Axis &amp; Variable</strong><br>
+        Rotating about the <strong>x-axis</strong> &rArr; <strong>π∫ y² dx</strong> (use x-limits). Rotating about the <strong>y-axis</strong> &rArr; <strong>π∫ x² dy</strong> (use y-limits).
+      </div>
+      <div class="step-pill">
+        <strong>Step 2: Square the Curve Expression</strong><br>
+        Always square the radius function before integrating: e.g., <em>y = &radic;x &rArr; y² = x</em>, or <em>x = ln y &rArr; x² = (ln y)²</em>.
+      </div>
+      <div class="step-pill">
+        <strong>Step 3: TI-84 Plus CE Verification</strong><br>
+        Press <strong>[ALPHA][WINDOW] &gt; 4: fnInt(</strong>, evaluate <strong>fnInt(r², X, a, b)</strong> without π, then press <strong>[MATH] &gt; 1: Frac</strong> for the exact rational coefficient of π.
+      </div>
+    `;
+
+    document.getElementById("misconceptionBox").innerHTML = `
+      <strong>Critical 9758 Exam Misconception Alerts:</strong>
+      <ul style="margin:3px 0 0 0; padding-left:18px;">
+        <li><strong>Do NOT integrate y² with respect to y when rotating about the y-axis:</strong> Rotating a strip perpendicular to the <em>y</em>-axis gives a disc of radius <em>r = x</em> and thickness <em>dy</em>, so the volume is <strong>π∫ x² dy</strong> (never π∫ y² dy!).</li>
+        <li><strong>Always include π and square the integrand:</strong> Students frequently compute ∫ y dx (area under curve) instead of <strong>π∫ y² dx</strong> (volume of revolution).</li>
+      </ul>
+    `;
+
+    drawLatheCanvas(sc, deg, sPos, nDiscs);
+    drawSliceCanvas(sc, sPos, r);
+  }
+
+  function drawLatheCanvas(sc, deg, sPos, nDiscs) {
+    const canvas = document.getElementById("latheCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const radMax = (deg * Math.PI) / 180;
+    const steps = 40;
+    const angSteps = Math.max(2, Math.round((deg / 360) * 32));
+
+    function project(tNorm, radiusNorm, phi) {
+      const y3d = radiusNorm * Math.cos(phi);
+      const z3d = radiusNorm * Math.sin(phi);
+      if (sc.axis === "x") {
+        const sx = 52 + tNorm * 255 + z3d * 24;
+        const sy = H * 0.52 - y3d * 78 + z3d * 18;
+        return [sx, sy];
+      } else {
+        const sx = W * 0.5 + y3d * 82 + z3d * 22;
+        const sy = H - 36 - tNorm * 175 + z3d * 16;
+        return [sx, sy];
+      }
+    }
+
+    // Draw coordinate axes
+    ctx.strokeStyle = "#94a3b8";
+    ctx.lineWidth = 1.3;
+    if (sc.axis === "x") {
+      ctx.beginPath();
+      ctx.moveTo(28, H * 0.52);
+      ctx.lineTo(W - 22, H * 0.52);
+      ctx.moveTo(52, 20);
+      ctx.lineTo(52, H - 20);
+      ctx.stroke();
+
+      ctx.fillStyle = "#475569";
+      ctx.font = "bold 11px Segoe UI, sans-serif";
+      ctx.fillText("x (Axis)", W - 55, H * 0.52 - 7);
+      ctx.fillText("y", 58, 28);
+    } else {
+      ctx.beginPath();
+      ctx.moveTo(W * 0.5, H - 18);
+      ctx.lineTo(W * 0.5, 18);
+      ctx.moveTo(35, H - 36);
+      ctx.lineTo(W - 35, H - 36);
+      ctx.stroke();
+
+      ctx.fillStyle = "#475569";
+      ctx.font = "bold 11px Segoe UI, sans-serif";
+      ctx.fillText("y (Axis)", W * 0.5 + 8, 26);
+      ctx.fillText("x", W - 45, H - 42);
+    }
+
+    // Optional N-Cylinder Riemann Disc Overlay
+    if (showDiscOverlay && deg > 0) {
+      for (let i = 0; i < nDiscs; i++) {
+        const t0 = i / nDiscs;
+        const t1 = (i + 1) / nDiscs;
+        const tMid = (t0 + t1) / 2;
+        const valMid = sc.a + tMid * (sc.b - sc.a);
+        const rNorm = sc.radiusFn(valMid) / sc.maxR;
+
+        // Front and back rim of cylinder i
+        [t0, t1].forEach((tRim, rimIdx) => {
+          ctx.beginPath();
+          for (let k = 0; k <= angSteps; k++) {
+            const phi = (k / angSteps) * radMax;
+            const [px, py] = project(tRim, rNorm, phi);
+            if (k === 0) ctx.moveTo(px, py);
+            else ctx.lineTo(px, py);
+          }
+          ctx.strokeStyle = rimIdx === 1 ? "rgba(2, 132, 199, 0.55)" : "rgba(2, 132, 199, 0.25)";
+          ctx.lineWidth = 1.1;
+          ctx.stroke();
+        });
+
+        // Top & bottom cylinder edges at phi = 0 and phi = pi (if swept >= 180)
+        const [p0x, p0y] = project(t0, rNorm, 0);
+        const [p1x, p1y] = project(t1, rNorm, 0);
+        ctx.beginPath();
+        ctx.moveTo(p0x, p0y);
+        ctx.lineTo(p1x, p1y);
+        ctx.strokeStyle = "#0284c7";
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+      }
+    }
+
+    // Draw smooth swept 3D wireframe rings
+    if (deg > 0) {
+      for (let i = 0; i <= steps; i += 3) {
+        const t = i / steps;
+        const val = sc.a + t * (sc.b - sc.a);
+        const rNorm = sc.radiusFn(val) / sc.maxR;
+
+        ctx.beginPath();
+        for (let k = 0; k <= angSteps; k++) {
+          const phi = (k / angSteps) * radMax;
+          const [px, py] = project(t, rNorm, phi);
+          if (k === 0) ctx.moveTo(px, py);
+          else ctx.lineTo(px, py);
+        }
+        ctx.strokeStyle = showDiscOverlay ? "rgba(139, 92, 246, 0.14)" : "rgba(139, 92, 246, 0.28)";
+        ctx.lineWidth = 1.2;
+        ctx.stroke();
+      }
+
+      // Longitude ribs
+      for (let k = 0; k <= angSteps; k += Math.max(1, Math.floor(angSteps / 8))) {
+        const phi = (k / angSteps) * radMax;
+        ctx.beginPath();
+        for (let i = 0; i <= steps; i++) {
+          const t = i / steps;
+          const val = sc.a + t * (sc.b - sc.a);
+          const rNorm = sc.radiusFn(val) / sc.maxR;
+          const [px, py] = project(t, rNorm, phi);
+          if (i === 0) ctx.moveTo(px, py);
+          else ctx.lineTo(px, py);
+        }
+        ctx.strokeStyle = "rgba(124, 58, 237, 0.2)";
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+    }
+
+    // Highlighted Circular Cross-Section Disc at sPos
+    const tSlice = (sPos - sc.a) / (sc.b - sc.a);
+    const rSliceNorm = sc.radiusFn(sPos) / sc.maxR;
+
+    if (deg > 0) {
+      ctx.beginPath();
+      for (let k = 0; k <= angSteps; k++) {
+        const phi = (k / angSteps) * radMax;
+        const [px, py] = project(tSlice, rSliceNorm, phi);
+        if (k === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+      ctx.strokeStyle = "#0f766e";
+      ctx.lineWidth = 2.6;
+      ctx.stroke();
+    }
+
+    // Draw original 2D generating region at phi = 0
+    ctx.beginPath();
+    const [startAxisX, startAxisY] = project(0, 0, 0);
+    ctx.moveTo(startAxisX, startAxisY);
+    for (let i = 0; i <= steps; i++) {
+      const t = i / steps;
+      const val = sc.a + t * (sc.b - sc.a);
+      const rNorm = sc.radiusFn(val) / sc.maxR;
+      const [px, py] = project(t, rNorm, 0);
+      ctx.lineTo(px, py);
+    }
+    const [endAxisX, endAxisY] = project(1, 0, 0);
+    ctx.lineTo(endAxisX, endAxisY);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(139, 92, 246, 0.26)";
+    ctx.fill();
+    ctx.strokeStyle = "#6d28d9";
+    ctx.lineWidth = 2.4;
+    ctx.stroke();
+
+    // Draw perpendicular radius strip at tSlice on the phi = 0 generating plane
+    const [pAxisX, pAxisY] = project(tSlice, 0, 0);
+    const [pCurveX, pCurveY] = project(tSlice, rSliceNorm, 0);
+    ctx.beginPath();
+    ctx.moveTo(pAxisX, pAxisY);
+    ctx.lineTo(pCurveX, pCurveY);
+    ctx.strokeStyle = "#0f766e";
+    ctx.lineWidth = 3.5;
+    ctx.stroke();
+  }
+
+  function drawSliceCanvas(sc, sPos, r) {
+    const canvas = document.getElementById("sliceCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const cx = W / 2;
+    const cy = H / 2 + 4;
+    const maxPx = 88;
+    const rPx = (r / sc.maxR) * maxPx;
+
+    // Crosshairs for axis centre
+    ctx.strokeStyle = "#cbd5e1";
+    ctx.lineWidth = 1;
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath();
+    ctx.moveTo(20, cy);
+    ctx.lineTo(W - 20, cy);
+    ctx.moveTo(cx, 22);
+    ctx.lineTo(cx, H - 22);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Solid circular disc
+    ctx.beginPath();
+    ctx.arc(cx, cy, Math.max(2, rPx), 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(15, 118, 110, 0.22)";
+    ctx.fill();
+    ctx.strokeStyle = "#0f766e";
+    ctx.lineWidth = 2.4;
+    ctx.stroke();
+
+    // Radius arrow
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + rPx, cy);
+    ctx.strokeStyle = "#0f766e";
+    ctx.lineWidth = 2.3;
+    ctx.stroke();
+
+    // Centre dot & labels
+    ctx.beginPath();
+    ctx.arc(cx, cy, 3.4, 0, Math.PI * 2);
+    ctx.fillStyle = "#1e293b";
+    ctx.fill();
+
+    ctx.fillStyle = "#0f766e";
+    ctx.font = "bold 11px Segoe UI, sans-serif";
+    ctx.fillText(`r = ${r.toFixed(2)}`, cx + Math.min(rPx * 0.42, 42), cy - 7);
+
+    ctx.fillStyle = "#334155";
+    ctx.font = "bold 11px Segoe UI, sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(`Disc Area = π(${r.toFixed(2)})² = ${(r * r).toFixed(3)}π`, cx, H - 8);
+    ctx.textAlign = "left";
+  }
+
+  const examQs = [
+    {
+      q: "Why does rotating the area under y = f(x) from x = a to x = b through 360° about the x-axis give V = π ∫_a^b [f(x)]² dx?",
+      opts: [
+        "Each thin strip of height f(x) and width δx revolves into a cylindrical disc of volume δV ≈ π[f(x)]² δx, which sums to the integral as δx → 0",
+        "Because the surface area of a cylinder is 2πrh and integrating 2πy gives πy²",
+        "Because rotating a curve multiplies its arc length by π",
+        "Because the average value of f(x) on [a, b] is squared and multiplied by π"
+      ],
+      ans: 0,
+      exp: "Slicing perpendicular to the x-axis creates thin rectangular strips of height r = f(x) and thickness h = δx. Rotating each strip 360° generates a cylinder of volume πr²h = π[f(x)]² δx; taking the Riemann limit as δx → 0 yields π ∫_a^b [f(x)]² dx."
+    },
+    {
+      q: "The region bounded by the curve y = x³, the y-axis, and the line y = 8 is rotated 360° about the y-axis. Which definite integral gives the exact volume?",
+      opts: [
+        "π ∫₀⁸ y^(2/3) dy",
+        "π ∫₀⁸ y⁶ dy",
+        "π ∫₀² x⁶ dx",
+        "π ∫₀⁸ y^(1/3) dy"
+      ],
+      ans: 0,
+      exp: "Rotating about the y-axis requires V = π ∫₀⁸ x² dy. Rearranging y = x³ gives x = y^(1/3), so x² = y^(2/3) and V = π ∫₀⁸ y^(2/3) dy."
+    },
+    {
+      q: "The region bounded by y = sin x and the x-axis for 0 ≤ x ≤ π is rotated 360° about the x-axis. Given sin² x = ½(1 − cos 2x), what is the exact volume?",
+      opts: [
+        "π² / 2 units³",
+        "2π units³",
+        "π² units³",
+        "π / 2 units³"
+      ],
+      ans: 0,
+      exp: "V = π ∫₀^π sin² x dx = (π/2) ∫₀^π (1 − cos 2x) dx = (π/2)[x − ½ sin 2x]₀^π = (π/2)(π − 0) = π²/2 units³."
+    }
+  ];
+
+  let curQ = 0;
+
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").textContent = item.q;
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i}, this)">${String.fromCharCode(65 + i)}. ${o}</button>
+    `).join("");
+  }
+
+  function gradeExamQ(idx, btn) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  loadScenario("paraboloidX");
+  renderExamQ();
+</script>
+
+</body>
+</html>

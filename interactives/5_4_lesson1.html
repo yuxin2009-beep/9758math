@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 5.4 Lesson 1: Riemann Sums, FTC &amp; Definite Integral Properties</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 525px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1000px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.76rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.48;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .theory-box {
+      background: #faf5ff;
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 11px;
+      font-size: 0.78rem;
+      line-height: 1.5;
+      color: #3b0764;
+    }
+
+    .theory-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--purple-dark);
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .theory-step {
+      background: #ffffff;
+      border: 1px solid #e9d5ff;
+      border-radius: 8px;
+      padding: 6px 9px;
+      margin-bottom: 5px;
+    }
+
+    .theory-step:last-child {
+      margin-bottom: 0;
+    }
+
+    .control-panel {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 13px;
+      margin-bottom: 11px;
+    }
+
+    .control-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .slider-row {
+      margin-bottom: 9px;
+    }
+
+    .slider-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+      color: #334155;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple-dark);
+      cursor: pointer;
+    }
+
+    .solve-bar {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: none;
+      background: var(--purple-dark);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .action-btn:hover {
+      opacity: 0.93;
+    }
+
+    .action-btn.secondary {
+      background: var(--blue-bg);
+      color: var(--blue);
+      border: 1px solid #bae6fd;
+    }
+
+    .action-btn.mode-active {
+      background: var(--teal);
+      color: #ffffff;
+      border: 1px solid #115e59;
+    }
+
+    .gc-screen-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin-bottom: 11px;
+    }
+
+    .box-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .gc-readout {
+      background: #f1f5f9;
+      border: 2px solid #64748b;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 5px;
+      line-height: 1.45;
+    }
+
+    .solution-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.82rem;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    /* DUAL CANVAS STAGE: RIEMANN RECTANGLES + FTC ACCUMULATION FUNCTION */
+    .canvas-stage {
+      display: grid;
+      grid-template-columns: 1.2fr 1.1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .canvas-stage {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .canvas-card {
+      background: #fdfbf7;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 8px;
+      text-align: center;
+    }
+
+    .canvas-caption {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-bottom: 4px;
+    }
+
+    canvas {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+    }
+
+    .check-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.79rem;
+      margin-top: 8px;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .check-table th, .check-table td {
+      border: 1px solid #e2e8f0;
+      padding: 6px 9px;
+      text-align: left;
+    }
+
+    .check-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    .gc-guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .gc-guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .step-pill {
+      background: var(--blue-bg);
+      border: 1px solid #bae6fd;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.77rem;
+      line-height: 1.45;
+      color: #0c4a6e;
+    }
+
+    .grader-card {
+      margin-top: 12px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 700px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .misconception-box {
+      margin-top: 12px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 10px 13px;
+      font-size: 0.79rem;
+      line-height: 1.48;
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Select a Riemann Sum, FTC &amp; Property Mode</strong>
+        Explore <em>Monotonic Curve (Upper vs. Lower Sums)</em>, <em>Signed Integral (Positive vs. Negative Regions)</em>, <em>FTC Accumulation A(x) = &int;<sub>a</sub><sup>x</sup> f(t) dt</em>, or <em>Additivity &amp; Reversed Limits</em>.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Adjust Subintervals N &amp; Upper Limit x</strong>
+        Increase <em>Subintervals N</em> (from 4 to 80) to watch Left, Midpoint, and Right Riemann sums squeeze onto the exact definite integral, and drag <em>Upper Limit x</em> to see <em>A'(x) = f(x)</em> in action.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Verify Definite Integral Properties &amp; Exam Check</strong>
+        Compare <em>Signed Definite Integral &int;<sub>a</sub><sup>b</sup> f(x) dx</em> against <em>Geometric Area &int;<sub>a</sub><sup>b</sup> |f(x)| dx</em> and complete the 3-question <em>9758 Exam Check</em>.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        5.4 Lesson 1 &bull; Riemann Sums, FTC &amp; Definite Integral Properties
+      </div>
+
+      <!-- Scenario Presets -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="sc_riemannMono" onclick="loadScenario('riemannMono')">
+          1. Riemann Squeeze: y = x&sup2; + 1
+        </button>
+        <button class="tab-btn" id="sc_signedNet" onclick="loadScenario('signedNet')">
+          2. Signed Integral: y = x&sup2; &minus; 4
+        </button>
+        <button class="tab-btn" id="sc_ftcAccum" onclick="loadScenario('ftcAccum')">
+          3. FTC: A(x) = &int;<sub>0</sub><sup>x</sup> (2t + 1) dt
+        </button>
+        <button class="tab-btn" id="sc_propAdd" onclick="loadScenario('propAdd')">
+          4. Properties: Additivity &amp; Limits
+        </button>
+      </div>
+
+      <!-- Contextual Problem & Formula Setup -->
+      <div class="context-box" id="contextBox"></div>
+
+      <!-- Theory & Property Breakdown Box -->
+      <div class="theory-box" id="theoryBox"></div>
+
+      <!-- Interactive Riemann & FTC Controls -->
+      <div class="control-panel">
+        <div class="control-header">
+          <span id="modeHeader">Riemann Approximation: Left / Midpoint / Right</span>
+          <span id="limitsHeader" style="color:var(--purple-dark);">Interval: [0, 3]</span>
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-label">
+            <span>Number of Subintervals (N Rectangles)</span>
+            <span id="nValLbl" style="color:var(--purple-dark);">N = 8 (&delta;x = 0.375)</span>
+          </div>
+          <input type="range" id="nSlider" min="4" max="80" step="2" value="8" oninput="onControlChange()" />
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-label">
+            <span id="xUpperName">Upper Limit / FTC Variable (x)</span>
+            <span id="xUpperLbl" style="color:var(--teal);">x = 3.00</span>
+          </div>
+          <input type="range" id="xUpperSlider" min="0.05" max="1.00" step="0.01" value="1.00" oninput="onControlChange()" />
+        </div>
+
+        <div class="slider-row" style="margin-bottom:4px;">
+          <div class="slider-label">
+            <span id="sampleRuleName">Rectangle Sample Rule</span>
+            <span id="sampleRuleLbl" style="color:var(--blue);">Left Endpoint (Lower Sum)</span>
+          </div>
+          <input type="range" id="ruleSlider" min="0" max="2" step="1" value="0" oninput="onControlChange()" />
+        </div>
+
+        <div class="solve-bar">
+          <button class="action-btn" id="animNBtn" onclick="animateRiemannLimit()">&#9654; Animate N: 4 &rarr; 80 Limit</button>
+          <button class="action-btn secondary" id="swapLimitsBtn" onclick="toggleReverseLimits()">Test &int;<sub>b</sub><sup>a</sup> = &minus;&int;<sub>a</sub><sup>b</sup></button>
+        </div>
+      </div>
+
+      <!-- Definite Integral & TI-84 Plus CE Readout -->
+      <div class="gc-screen-box" id="gcOutputBox"></div>
+
+      <!-- Exact FTC Evaluation Banner -->
+      <div class="solution-banner" id="solutionBanner"></div>
+    </div>
+
+    <!-- RIGHT RIEMANN & FTC VISUALIZER, PROPERTIES TABLE & EXAM CHECK -->
+    <div class="card">
+      <div style="font-size:1.02rem; font-weight:800; color:#1e293b; margin-bottom:8px;" id="rightPanelHeading">
+        Riemann Sum Partition &amp; FTC Accumulation Function A(x) = &int;<sub>a</sub><sup>x</sup> f(t) dt
+      </div>
+
+      <!-- Dual Canvas Stage: Left = Riemann Rectangles & Signed Area, Right = Accumulation Curve A(x) & Derivative Slope -->
+      <div class="canvas-stage">
+        <div class="canvas-card">
+          <div class="canvas-caption" id="riemannCaption">Riemann Partition on [a, x]</div>
+          <canvas id="riemannCanvas" width="335" height="245"></canvas>
+        </div>
+        <div class="canvas-card">
+          <div class="canvas-caption" id="ftcCaption">FTC Accumulation A(x) &amp; Tangent Slope A'(x) = f(x)</div>
+          <canvas id="ftcCanvas" width="305" height="245"></canvas>
+        </div>
+      </div>
+
+      <!-- Dynamic Riemann & Definite Integral Properties Table -->
+      <table class="check-table" id="verificationTable"></table>
+
+      <!-- 3-Step TI-84 Plus CE Keystroke Guide -->
+      <div class="gc-guide-grid" id="gcGuideGrid"></div>
+
+      <div class="misconception-box" id="misconceptionBox"></div>
+
+      <!-- Quick 9758 Exam Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 Riemann Sums, FTC &amp; Properties Check (<span id="qIdxLbl">1</span>/3)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.8rem; line-height:1.45; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  const scenarios = {
+    riemannMono: {
+      a: 0,
+      bMax: 3,
+      splitC: 1.5,
+      fn: (t) => t * t + 1,
+      antideriv: (x) => (x * x * x) / 3 + x,
+      fnLabel: "f(x) = x² + 1",
+      antiLabel: "F(x) = ⅓x³ + x",
+      story: "<strong>Definite Integral as Limit of a Riemann Sum:</strong> Partition <em>[0, x]</em> into <em>N</em> equal subintervals of width <em>&delta;x = x/N</em>. Since <em>f(t) = t&sup2; + 1</em> is strictly increasing on <em>[0, 3]</em>, the <strong>Left Sum</strong> underestimates and the <strong>Right Sum</strong> overestimates the exact integral.",
+      formulaPill: "lim_{N→∞} ∑_{i=1}^N f(x_i*) δx = ∫₀ˣ (t² + 1) dt = [⅓t³ + t]₀ˣ",
+      gcExpr: (x) => `fnInt(X² + 1, X, 0, ${x.toFixed(2)})`,
+      theorySteps: [
+        "<strong>1. Riemann Sum Definition:</strong> <em>S<sub>N</sub> = &Sigma;<sub>i=1</sub><sup>N</sup> f(t<sub>i</sub>*) &delta;t</em> approximates the signed area using <em>N</em> rectangles of width <em>&delta;t = (x &minus; a)/N</em>.",
+        "<strong>2. Squeeze Between Lower &amp; Upper Sums:</strong> As <em>N &rarr; &infin;</em> (<em>&delta;t &rarr; 0</em>), both <em>L<sub>N</sub></em> and <em>U<sub>N</sub></em> converge to the unique limit <strong>&int;<sub>a</sub><sup>x</sup> f(t) dt</strong>.",
+        "<strong>3. Fundamental Theorem of Calculus (Part 2):</strong> If <em>F'(t) = f(t)</em>, then <strong>&int;<sub>a</sub><sup>b</sup> f(t) dt = F(b) &minus; F(a)</strong>."
+      ]
+    },
+    signedNet: {
+      a: 0,
+      bMax: 3,
+      splitC: 2.0,
+      fn: (t) => t * t - 4,
+      antideriv: (x) => (x * x * x) / 3 - 4 * x,
+      fnLabel: "f(x) = x² − 4",
+      antiLabel: "F(x) = ⅓x³ − 4x",
+      story: "<strong>Signed Definite Integral vs. Geometric Area:</strong> On <em>[0, 2)</em>, <em>f(x) = x&sup2; &minus; 4 &lt; 0</em> (rectangles contribute <em>negative</em> signed area). On <em>(2, 3]</em>, <em>f(x) &gt; 0</em> (positive signed area). Notice how <em>&int;<sub>0</sub><sup>3</sup> (x&sup2; &minus; 4) dx = &minus;3</em> whereas total geometric area is <em>&int;<sub>0</sub><sup>3</sup> |x&sup2; &minus; 4| dx = 23/3</em>!",
+      formulaPill: "∫₀³ (x² − 4) dx = ∫₀² (x² − 4) dx + ∫₂³ (x² − 4) dx = −16/3 + 7/3 = −3",
+      gcExpr: (x) => `fnInt(X² − 4, X, 0, ${x.toFixed(2)})`,
+      theorySteps: [
+        "<strong>1. Signed Area Convention:</strong> Regions below the <em>x</em>-axis have <em>f(x) &lt; 0</em>, so Riemann terms <em>f(x<sub>i</sub>*)&delta;x</em> are negative.",
+        "<strong>2. Additivity at the Root x = 2:</strong> <em>&int;<sub>0</sub><sup>3</sup> f(x) dx = &int;<sub>0</sub><sup>2</sup> f(x) dx + &int;<sub>2</sub><sup>3</sup> f(x) dx = &minus;16/3 + 7/3 = &minus;3</em>.",
+        "<strong>3. Geometric Area Requires |f(x)|:</strong> Total area = <em>&minus;&int;<sub>0</sub><sup>2</sup> (x&sup2; &minus; 4) dx + &int;<sub>2</sub><sup>3</sup> (x&sup2; &minus; 4) dx = 16/3 + 7/3 = 23/3</em>."
+      ]
+    },
+    ftcAccum: {
+      a: 0,
+      bMax: 4,
+      splitC: 2.0,
+      fn: (t) => 2 * t + 1,
+      antideriv: (x) => x * x + x,
+      fnLabel: "f(t) = 2t + 1",
+      antiLabel: "A(x) = x² + x",
+      story: "<strong>Fundamental Theorem of Calculus (Part 1 — Accumulation Function):</strong> Define <em>A(x) = &int;<sub>0</sub><sup>x</sup> (2t + 1) dt</em> as the area accumulated from <em>0</em> to variable upper limit <em>x</em>. Drag the <em>Upper Limit x</em> slider and observe that the tangent gradient <em>A'(x)</em> on the right graph always equals the curve height <em>f(x)</em> on the left graph!",
+      formulaPill: "d/dx [ ∫ₐˣ f(t) dt ] = f(x)   ⇒   A'(x) = 2x + 1 = f(x)",
+      gcExpr: (x) => `fnInt(2X + 1, X, 0, ${x.toFixed(2)})`,
+      theorySteps: [
+        "<strong>1. Accumulation Function A(x):</strong> <em>A(x) = &int;<sub>a</sub><sup>x</sup> f(t) dt</em> measures net signed area on <em>[a, x]</em>, with <em>A(a) = 0</em>.",
+        "<strong>2. Rate of Area Accumulation:</strong> Increasing <em>x</em> by <em>&delta;x</em> adds a strip of area <em>&delta;A &approx; f(x)&delta;x</em>, so <em>&delta;A/&delta;x &approx; f(x)</em>.",
+        "<strong>3. FTC Part 1 &amp; Chain Rule Extension:</strong> <strong>A'(x) = f(x)</strong>, and more generally <em>d/dx [&int;<sub>a</sub><sup>g(x)</sup> f(t) dt] = f(g(x)) &middot; g'(x)</em>."
+      ]
+    },
+    propAdd: {
+      a: 0,
+      bMax: 4,
+      splitC: 2.0,
+      fn: (t) => 3 * Math.sin((Math.PI * t) / 4) + 1,
+      antideriv: (x) => (-12 / Math.PI) * Math.cos((Math.PI * x) / 4) + x + 12 / Math.PI,
+      fnLabel: "f(x) = 3 sin(πx/4) + 1",
+      antiLabel: "F(x) = −(12/π)cos(πx/4) + x + 12/π",
+      story: "<strong>Linearity, Additivity &amp; Reversed Limits:</strong> For any integrable functions <em>f, g</em> and constants <em>c, k</em>: (1) <em>&int;<sub>a</sub><sup>b</sup> [kf(x) + cg(x)] dx = k&int;<sub>a</sub><sup>b</sup> f(x) dx + c&int;<sub>a</sub><sup>b</sup> g(x) dx</em>; (2) <em>&int;<sub>a</sub><sup>c</sup> f(x) dx + &int;<sub>c</sub><sup>b</sup> f(x) dx = &int;<sub>a</sub><sup>b</sup> f(x) dx</em>; (3) <em>&int;<sub>b</sub><sup>a</sup> f(x) dx = &minus;&int;<sub>a</sub><sup>b</sup> f(x) dx</em>.",
+      formulaPill: "∫₀² f(x) dx + ∫₂⁴ f(x) dx = ∫₀⁴ f(x) dx   and   ∫_b^a f(x) dx = −∫_a^b f(x) dx",
+      gcExpr: (x) => `fnInt(3sin(πX/4) + 1, X, 0, ${x.toFixed(2)})`,
+      theorySteps: [
+        "<strong>1. Interval Additivity:</strong> Splitting <em>[0, x]</em> at <em>c = 2</em> gives <strong>&int;<sub>0</sub><sup>2</sup> f(x) dx + &int;<sub>2</sub><sup>x</sup> f(x) dx = &int;<sub>0</sub><sup>x</sup> f(x) dx</strong> (holds even if <em>c</em> lies outside <em>[0, x]</em>!).",
+        "<strong>2. Reversed Limits &amp; Zero-Width Integral:</strong> Swapping limits reverses every <em>&delta;x</em> sign: <strong>&int;<sub>b</sub><sup>a</sup> f(x) dx = &minus;&int;<sub>a</sub><sup>b</sup> f(x) dx</strong>, and <em>&int;<sub>a</sub><sup>a</sup> f(x) dx = 0</em>.",
+        "<strong>3. Linearity:</strong> Constants factor outside and sums split term-by-term: <em>&int;<sub>a</sub><sup>b</sup> [kf(x) &plusmn; g(x)] dx = k&int;<sub>a</sub><sup>b</sup> f(x) dx &plusmn; &int;<sub>a</sub><sup>b</sup> g(x) dx</em>."
+      ]
+    }
+  };
+
+  let curKey = "riemannMono";
+  let reversedLimits = false;
+  let animId = null;
+
+  function loadScenario(key) {
+    stopAnimation();
+    curKey = key;
+    reversedLimits = false;
+
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("sc_" + key).classList.add("active");
+
+    const sc = scenarios[key];
+    document.getElementById("contextBox").innerHTML = `
+      <div>${sc.story}</div>
+      <div class="var-pill">${sc.formulaPill}</div>
+    `;
+
+    document.getElementById("theoryBox").innerHTML = `
+      <div class="theory-title">
+        <span>Core 9758 Integration Foundations</span>
+        <span style="background:#ffffff; padding:1px 7px; border-radius:999px; border:1px solid #d8b4fe;">Riemann &rarr; FTC</span>
+      </div>
+      ${sc.theorySteps.map(s => `<div class="theory-step">${s}</div>`).join("")}
+    `;
+
+    const swapBtn = document.getElementById("swapLimitsBtn");
+    swapBtn.classList.remove("mode-active");
+    swapBtn.innerHTML = "Test &int;<sub>b</sub><sup>a</sup> = &minus;&int;<sub>a</sub><sup>b</sup>";
+
+    document.getElementById("nSlider").value = 8;
+    document.getElementById("xUpperSlider").value = 1.0;
+    document.getElementById("ruleSlider").value = 0;
+    updateAll();
+  }
+
+  function toggleReverseLimits() {
+    reversedLimits = !reversedLimits;
+    const btn = document.getElementById("swapLimitsBtn");
+    if (reversedLimits) {
+      btn.classList.add("mode-active");
+      btn.innerHTML = "Active: &int;<sub>x</sub><sup>a</sup> = &minus;&int;<sub>a</sub><sup>x</sup>";
+    } else {
+      btn.classList.remove("mode-active");
+      btn.innerHTML = "Test &int;<sub>b</sub><sup>a</sup> = &minus;&int;<sub>a</sub><sup>b</sup>";
+    }
+    updateAll();
+  }
+
+  function animateRiemannLimit() {
+    if (animId) {
+      stopAnimation();
+      return;
+    }
+    const slider = document.getElementById("nSlider");
+    let n = 4;
+    slider.value = 4;
+    document.getElementById("animNBtn").textContent = "⏸ Pause Limit";
+
+    function step() {
+      n += 2;
+      if (n >= 80) {
+        n = 80;
+        slider.value = n;
+        updateAll();
+        stopAnimation();
+        return;
+      }
+      slider.value = n;
+      updateAll();
+      animId = requestAnimationFrame(step);
+    }
+    animId = requestAnimationFrame(step);
+  }
+
+  function stopAnimation() {
+    if (animId) {
+      cancelAnimationFrame(animId);
+      animId = null;
+    }
+    document.getElementById("animNBtn").innerHTML = "&#9654; Animate N: 4 &rarr; 80 Limit";
+  }
+
+  function onControlChange() {
+    stopAnimation();
+    updateAll();
+  }
+
+  function computeRiemannSums(sc, xUpper, N) {
+    const dx = (xUpper - sc.a) / N;
+    let left = 0, mid = 0, right = 0, absArea = 0;
+    for (let i = 0; i < N; i++) {
+      const xL = sc.a + i * dx;
+      const xM = sc.a + (i + 0.5) * dx;
+      const xR = sc.a + (i + 1) * dx;
+      left += sc.fn(xL) * dx;
+      mid += sc.fn(xM) * dx;
+      right += sc.fn(xR) * dx;
+      absArea += Math.abs(sc.fn(xM)) * dx;
+    }
+    return { left, mid, right, absArea, dx };
+  }
+
+  function updateAll() {
+    const sc = scenarios[curKey];
+    const N = Number(document.getElementById("nSlider").value);
+    const tFrac = Number(document.getElementById("xUpperSlider").value);
+    const ruleIdx = Number(document.getElementById("ruleSlider").value);
+
+    const xUpper = sc.a + tFrac * (sc.bMax - sc.a);
+    const ruleNames = ["Left Endpoint", "Midpoint Rule", "Right Endpoint"];
+    const sums = computeRiemannSums(sc, xUpper, N);
+    const exactForward = sc.antideriv(xUpper) - sc.antideriv(sc.a);
+    const signFactor = reversedLimits ? -1 : 1;
+
+    const activeApprox = (ruleIdx === 0 ? sums.left : ruleIdx === 1 ? sums.mid : sums.right) * signFactor;
+    const exactSigned = exactForward * signFactor;
+    const absErr = Math.abs(activeApprox - exactSigned);
+
+    document.getElementById("limitsHeader").textContent = reversedLimits
+      ? `Reversed: [${xUpper.toFixed(2)}, ${sc.a}]`
+      : `Interval: [${sc.a}, ${xUpper.toFixed(2)}]`;
+    document.getElementById("nValLbl").textContent = `N = ${N} (δx = ${sums.dx.toFixed(3)})`;
+    document.getElementById("xUpperLbl").textContent = `x = ${xUpper.toFixed(2)}`;
+    document.getElementById("sampleRuleLbl").textContent = ruleNames[ruleIdx];
+
+    const lowerLimStr = reversedLimits ? xUpper.toFixed(2) : `${sc.a}`;
+    const upperLimStr = reversedLimits ? `${sc.a}` : xUpper.toFixed(2);
+
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">TI-84 Plus CE Definite Integral vs. Riemann Sum S<sub>${N}</sub></span>
+      <div class="gc-readout">
+        GC Input: fnInt(${sc.fnLabel.split("=")[1].trim()}, X, ${lowerLimStr}, ${upperLimStr})<br>
+        Exact FTC Value &int;<sub>${lowerLimStr}</sub><sup>${upperLimStr}</sup> f(x) dx = <strong>${exactSigned.toFixed(4)}</strong><br>
+        ${ruleNames[ruleIdx]} (N = ${N}) = <strong>${activeApprox.toFixed(4)}</strong> (Error = ${absErr.toFixed(4)})
+      </div>
+    `;
+
+    const fAtX = sc.fn(xUpper);
+    document.getElementById("solutionBanner").innerHTML = reversedLimits
+      ? `Reversed Limits Property: &int;<sub>${xUpper.toFixed(2)}</sub><sup>${sc.a}</sup> f(x) dx = &minus;&int;<sub>${sc.a}</sub><sup>${xUpper.toFixed(2)}</sup> f(x) dx = &minus;(${exactForward.toFixed(4)}) = <strong>${exactSigned.toFixed(4)}</strong>.`
+      : `FTC Evaluation: [F(t)]<sub>${sc.a}</sub><sup>${xUpper.toFixed(2)}</sup> = <strong>${exactSigned.toFixed(4)}</strong> &nbsp;|&nbsp; Instantaneous Rate A'(${xUpper.toFixed(2)}) = f(${xUpper.toFixed(2)}) = <strong>${fAtX.toFixed(3)}</strong>.`;
+
+    // Interval split check at sc.splitC
+    const c = sc.splitC;
+    const part1 = sc.antideriv(c) - sc.antideriv(sc.a);
+    const part2 = sc.antideriv(xUpper) - sc.antideriv(c);
+
+    document.getElementById("verificationTable").innerHTML = `
+      <thead>
+        <tr>
+          <th>Quantity / Integral Property</th>
+          <th>Value</th>
+          <th>9758 Analytical Meaning</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Left / Midpoint / Right Sums (N = ${N})</strong></td>
+          <td>${(sums.left * signFactor).toFixed(3)} / ${(sums.mid * signFactor).toFixed(3)} / ${(sums.right * signFactor).toFixed(3)}</td>
+          <td>Converges to exact integral ${exactSigned.toFixed(4)} as N &rarr; &infin;</td>
+        </tr>
+        <tr>
+          <td><strong>Signed Integral vs. Geometric Area</strong></td>
+          <td>Signed = ${exactSigned.toFixed(3)} &nbsp;|&nbsp; Area &approx; ${sums.absArea.toFixed(3)}</td>
+          <td>&int;<sub>a</sub><sup>b</sup> f(x) dx can be negative; Area = &int;<sub>a</sub><sup>b</sup> |f(x)| dx &ge; 0</td>
+        </tr>
+        <tr>
+          <td><strong>Additivity Split at c = ${c.toFixed(1)}</strong></td>
+          <td>${part1.toFixed(3)} + (${part2.toFixed(3)}) = ${(part1 + part2).toFixed(3)}</td>
+          <td>&int;<sub>${sc.a}</sub><sup>${c.toFixed(1)}</sup> f(x) dx + &int;<sub>${c.toFixed(1)}</sub><sup>${xUpper.toFixed(2)}</sup> f(x) dx = &int;<sub>${sc.a}</sub><sup>${xUpper.toFixed(2)}</sup> f(x) dx</td>
+        </tr>
+        <tr>
+          <td><strong>FTC Part 1 Derivative A'(${xUpper.toFixed(2)})</strong></td>
+          <td style="color:#0f766e; font-weight:700;">A'(${xUpper.toFixed(2)}) = f(${xUpper.toFixed(2)}) = ${fAtX.toFixed(3)}</td>
+          <td>Gradient of tangent to A(x) equals height of f(x)</td>
+        </tr>
+      </tbody>
+    `;
+
+    document.getElementById("gcGuideGrid").innerHTML = `
+      <div class="step-pill">
+        <strong>Step 1: Numerical Definite Integral</strong><br>
+        Press <strong>[ALPHA][WINDOW] &gt; 4: fnInt(</strong> (or <strong>[MATH] &gt; 9</strong>), enter integrand, variable <strong>X</strong>, lower limit <strong>a</strong>, and upper limit <strong>b</strong>.
+      </div>
+      <div class="step-pill">
+        <strong>Step 2: Geometric Area via abs(</strong><br>
+        To find total unsigned area when <em>f(x)</em> crosses the <em>x</em>-axis, evaluate <strong>fnInt(abs(Y₁), X, a, b)</strong> using <strong>[MATH] &gt; NUM &gt; 1: abs(</strong>.
+      </div>
+      <div class="step-pill">
+        <strong>Step 3: Graph Accumulation A(x)</strong><br>
+        Set <strong>Y₂ = fnInt(Y₁, X, a, X)</strong> in <strong>[Y=]</strong> and compare <strong>nDeriv(Y₂, X, x₀)</strong> with <strong>Y₁(x₀)</strong> to verify FTC Part 1!
+      </div>
+    `;
+
+    document.getElementById("misconceptionBox").innerHTML = `
+      <strong>Critical 9758 Exam Misconception Alerts:</strong>
+      <ul style="margin:3px 0 0 0; padding-left:18px;">
+        <li><strong>Definite Integral &ne; Area:</strong> A definite integral <em>&int;<sub>a</sub><sup>b</sup> f(x) dx</em> gives the <strong>net signed area</strong>; if <em>f(x) &lt; 0</em> on part of <em>[a, b]</em>, you must split at the roots and take <em>&int; |f(x)| dx</em> when asked for geometric area.</li>
+        <li><strong>Dummy Integration Variable:</strong> In <em>A(x) = &int;<sub>a</sub><sup>x</sup> f(t) dt</em>, <em>t</em> is a dummy variable; differentiating with respect to <em>x</em> gives <em>f(x)</em> (or <em>f(g(x))g'(x)</em> by the Chain Rule if the upper limit is <em>g(x)</em>).</li>
+      </ul>
+    `;
+
+    drawRiemannCanvas(sc, xUpper, N, ruleIdx);
+    drawFtcCanvas(sc, xUpper);
+  }
+
+  function drawRiemannCanvas(sc, xUpper, N, ruleIdx) {
+    const canvas = document.getElementById("riemannCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    // Compute y-bounds across [a, bMax]
+    let yMin = 0, yMax = 0;
+    for (let i = 0; i <= 50; i++) {
+      const t = sc.a + (i / 50) * (sc.bMax - sc.a);
+      const val = sc.fn(t);
+      if (val < yMin) yMin = val;
+      if (val > yMax) yMax = val;
+    }
+    yMin = Math.min(yMin - 0.8, -0.6);
+    yMax = Math.max(yMax + 1.0, 2.0);
+
+    const padL = 34, padR = 16, padT = 18, padB = 26;
+    const plotW = W - padL - padR;
+    const plotH = H - padT - padB;
+
+    const toSx = (x) => padL + ((x - sc.a) / (sc.bMax - sc.a)) * plotW;
+    const toSy = (y) => padT + ((yMax - y) / (yMax - yMin)) * plotH;
+    const yZero = toSy(0);
+
+    // Draw Riemann rectangles on [a, xUpper]
+    const dx = (xUpper - sc.a) / N;
+    for (let i = 0; i < N; i++) {
+      const xL = sc.a + i * dx;
+      const xSample = ruleIdx === 0 ? xL : ruleIdx === 1 ? xL + 0.5 * dx : xL + dx;
+      const hVal = sc.fn(xSample);
+
+      const rx = toSx(xL);
+      const rw = Math.max(1, toSx(xL + dx) - rx);
+      const ry = hVal >= 0 ? toSy(hVal) : yZero;
+      const rh = Math.abs(toSy(hVal) - yZero);
+
+      ctx.fillStyle = hVal >= 0 ? "rgba(139, 92, 246, 0.25)" : "rgba(225, 29, 72, 0.24)";
+      ctx.fillRect(rx, ry, rw, rh);
+
+      if (N <= 40) {
+        ctx.strokeStyle = hVal >= 0 ? "rgba(109, 40, 217, 0.55)" : "rgba(190, 18, 60, 0.55)";
+        ctx.lineWidth = 0.9;
+        ctx.strokeRect(rx, ry, rw, rh);
+      }
+    }
+
+    // Draw coordinate axes
+    ctx.strokeStyle = "#475569";
+    ctx.lineWidth = 1.4;
+    ctx.beginPath();
+    ctx.moveTo(padL - 6, yZero);
+    ctx.lineTo(W - 8, yZero);
+    ctx.moveTo(padL, padT - 6);
+    ctx.lineTo(padL, H - padB + 6);
+    ctx.stroke();
+
+    // Draw full curve y = f(x) on [a, bMax]
+    ctx.beginPath();
+    for (let i = 0; i <= 80; i++) {
+      const t = sc.a + (i / 80) * (sc.bMax - sc.a);
+      const sx = toSx(t);
+      const sy = toSy(sc.fn(t));
+      if (i === 0) ctx.moveTo(sx, sy);
+      else ctx.lineTo(sx, sy);
+    }
+    ctx.strokeStyle = "#0f766e";
+    ctx.lineWidth = 2.4;
+    ctx.stroke();
+
+    // Highlight upper limit x = xUpper vertical line & point (xUpper, f(xUpper))
+    const sxUp = toSx(xUpper);
+    const syUp = toSy(sc.fn(xUpper));
+    ctx.beginPath();
+    ctx.moveTo(sxUp, yZero);
+    ctx.lineTo(sxUp, syUp);
+    ctx.strokeStyle = "#0284c7";
+    ctx.lineWidth = 2;
+    ctx.setLineDash([4, 3]);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    ctx.beginPath();
+    ctx.arc(sxUp, syUp, 4, 0, Math.PI * 2);
+    ctx.fillStyle = "#0284c7";
+    ctx.fill();
+
+    ctx.fillStyle = "#0f766e";
+    ctx.font = "bold 10px Segoe UI, sans-serif";
+    ctx.fillText(sc.fnLabel, padL + 6, padT + 10);
+    ctx.fillStyle = "#0284c7";
+    ctx.fillText(`f(${xUpper.toFixed(1)}) = ${sc.fn(xUpper).toFixed(2)}`, Math.min(sxUp - 28, W - 82), Math.max(syUp - 8, padT + 12));
+  }
+
+  function drawFtcCanvas(sc, xUpper) {
+    const canvas = document.getElementById("ftcCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    // Compute bounds of A(x) = ∫_a^x f(t) dt across [a, bMax]
+    let aMin = 0, aMax = 0;
+    for (let i = 0; i <= 50; i++) {
+      const t = sc.a + (i / 50) * (sc.bMax - sc.a);
+      const val = sc.antideriv(t) - sc.antideriv(sc.a);
+      if (val < aMin) aMin = val;
+      if (val > aMax) aMax = val;
+    }
+    aMin = Math.min(aMin - 1.2, -1.0);
+    aMax = Math.max(aMax + 1.5, 2.5);
+
+    const padL = 34, padR = 16, padT = 18, padB = 26;
+    const plotW = W - padL - padR;
+    const plotH = H - padT - padB;
+
+    const toSx = (x) => padL + ((x - sc.a) / (sc.bMax - sc.a)) * plotW;
+    const toSy = (y) => padT + ((aMax - y) / (aMax - aMin)) * plotH;
+    const yZero = toSy(0);
+
+    // Axes
+    ctx.strokeStyle = "#475569";
+    ctx.lineWidth = 1.4;
+    ctx.beginPath();
+    ctx.moveTo(padL - 6, yZero);
+    ctx.lineTo(W - 8, yZero);
+    ctx.moveTo(padL, padT - 6);
+    ctx.lineTo(padL, H - padB + 6);
+    ctx.stroke();
+
+    // Draw accumulation curve A(x)
+    ctx.beginPath();
+    for (let i = 0; i <= 80; i++) {
+      const t = sc.a + (i / 80) * (sc.bMax - sc.a);
+      const aVal = sc.antideriv(t) - sc.antideriv(sc.a);
+      const sx = toSx(t);
+      const sy = toSy(aVal);
+      if (i === 0) ctx.moveTo(sx, sy);
+      else ctx.lineTo(sx, sy);
+    }
+    ctx.strokeStyle = "#7c3aed";
+    ctx.lineWidth = 2.4;
+    ctx.stroke();
+
+    // Point (xUpper, A(xUpper)) and tangent line with slope A'(xUpper) = f(xUpper)
+    const aCur = sc.antideriv(xUpper) - sc.antideriv(sc.a);
+    const slope = sc.fn(xUpper);
+    const dxTan = 0.55;
+    const x1 = Math.max(sc.a, xUpper - dxTan);
+    const x2 = Math.min(sc.bMax, xUpper + dxTan);
+    const y1 = aCur + slope * (x1 - xUpper);
+    const y2 = aCur + slope * (x2 - xUpper);
+
+    ctx.beginPath();
+    ctx.moveTo(toSx(x1), toSy(y1));
+    ctx.lineTo(toSx(x2), toSy(y2));
+    ctx.strokeStyle = "#e11d48";
+    ctx.lineWidth = 2.2;
+    ctx.stroke();
+
+    const sxPt = toSx(xUpper);
+    const syPt = toSy(aCur);
+    ctx.beginPath();
+    ctx.arc(sxPt, syPt, 4.3, 0, Math.PI * 2);
+    ctx.fillStyle = "#e11d48";
+    ctx.fill();
+
+    ctx.fillStyle = "#6d28d9";
+    ctx.font = "bold 10px Segoe UI, sans-serif";
+    ctx.fillText("A(x) = ∫ₐˣ f(t) dt", padL + 6, padT + 10);
+
+    ctx.fillStyle = "#be123c";
+    ctx.fillText(
+      `Slope A'(${xUpper.toFixed(1)}) = ${slope.toFixed(2)}`,
+      Math.max(padL + 6, Math.min(sxPt - 45, W - 115)),
+      Math.min(H - padB - 6, Math.max(syPt + 15, padT + 24))
+    );
+  }
+
+  const examQs = [
+    {
+      q: "Given ∫₁⁴ f(x) dx = 7 and ∫₁⁴ g(x) dx = −2, what is the exact value of ∫₄¹ [2f(x) − 3g(x)] dx?",
+      opts: [
+        "−20",
+        "20",
+        "8",
+        "−8"
+      ],
+      ans: 0,
+      exp: "First apply linearity on [1, 4]: ∫₁⁴ [2f(x) − 3g(x)] dx = 2(7) − 3(−2) = 14 + 6 = 20. Reversing the limits from 4 to 1 negates the integral, giving −20."
+    },
+    {
+      q: "Let A(x) = ∫₂^(x³) √(t² + 5) dt. Using the Fundamental Theorem of Calculus and the Chain Rule, what is A'(x)?",
+      opts: [
+        "3x² √(x⁶ + 5)",
+        "√(x⁶ + 5)",
+        "3x² √(x² + 5)",
+        "√(x² + 5)"
+      ],
+      ans: 0,
+      exp: "By FTC Part 1 combined with the Chain Rule, d/dx [∫_a^{g(x)} f(t) dt] = f(g(x)) · g'(x) = √((x³)² + 5) · 3x² = 3x²√(x⁶ + 5)."
+    },
+    {
+      q: "If f(x) is continuous with ∫₀² f(x) dx = 5 and ∫₀⁵ f(x) dx = −1, what is the value of ∫₂⁵ f(x) dx?",
+      opts: [
+        "−6",
+        "4",
+        "6",
+        "−4"
+      ],
+      ans: 0,
+      exp: "By interval additivity, ∫₀² f(x) dx + ∫₂⁵ f(x) dx = ∫₀⁵ f(x) dx ⇒ 5 + ∫₂⁵ f(x) dx = −1 ⇒ ∫₂⁵ f(x) dx = −6."
+    }
+  ];
+
+  let curQ = 0;
+
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").textContent = item.q;
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i}, this)">${String.fromCharCode(65 + i)}. ${o}</button>
+    `).join("");
+  }
+
+  function gradeExamQ(idx, btn) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  loadScenario("riemannMono");
+  renderExamQ();
+</script>
+
+</body>
+</html>
