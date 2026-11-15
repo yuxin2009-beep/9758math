@@ -3,7 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>9758 H2 Math | 5.1 Lesson 1: Graphical Interpretation of f'(x) & f''(x)</title>
+  <title>9758 H2 Math | 5.1 Lesson 2: Graphical Interpretation of f'(x) & f''(x)</title>
+
+  <!-- MathJax 3 for crisp typeset mathematical notation -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
   <style>
     :root {
       --bg: #fdfbf7;
@@ -116,7 +129,7 @@
       border-radius: 10px;
       padding: 9px 11px;
       font-size: 0.78rem;
-      line-height: 1.45;
+      line-height: 1.48;
     }
 
     .guide-step-card strong {
@@ -127,7 +140,7 @@
 
     .app-container {
       display: grid;
-      grid-template-columns: 525px 1fr;
+      grid-template-columns: 535px 1fr;
       gap: 20px;
     }
 
@@ -182,7 +195,7 @@
       border-radius: 11px;
       padding: 10px 12px;
       font-size: 0.8rem;
-      line-height: 1.48;
+      line-height: 1.52;
       margin-bottom: 11px;
     }
 
@@ -191,8 +204,8 @@
       background: var(--purple-bg);
       color: var(--purple-dark);
       font-weight: 700;
-      font-size: 0.74rem;
-      padding: 3px 9px;
+      font-size: 0.75rem;
+      padding: 4px 10px;
       border-radius: 6px;
       margin-top: 6px;
     }
@@ -320,11 +333,11 @@
       border-radius: 8px;
       padding: 8px 12px;
       font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-      font-size: 0.8rem;
+      font-size: 0.79rem;
       font-weight: 700;
       color: #0f172a;
       margin-top: 5px;
-      line-height: 1.45;
+      line-height: 1.48;
     }
 
     .solution-banner {
@@ -333,9 +346,9 @@
       border-radius: 12px;
       padding: 10px 13px;
       color: #4c1d95;
-      font-size: 0.81rem;
+      font-size: 0.8rem;
       font-weight: 700;
-      line-height: 1.45;
+      line-height: 1.5;
     }
 
     /* RIGHT PANEL CANVASES */
@@ -356,7 +369,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.77rem;
+      font-size: 0.78rem;
       font-weight: 800;
       color: #1e293b;
       margin-bottom: 5px;
@@ -368,18 +381,18 @@
       display: flex;
       gap: 6px;
       flex-wrap: wrap;
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       font-weight: 700;
     }
 
     .leg-chip {
-      padding: 2px 7px;
+      padding: 2px 8px;
       border-radius: 999px;
     }
 
     canvas {
       width: 100%;
-      height: 225px;
+      height: 220px;
       display: block;
       border-radius: 8px;
       border: 1px solid #e2e8f0;
@@ -407,12 +420,12 @@
       border-radius: 10px;
       padding: 9px 11px;
       font-size: 0.77rem;
-      line-height: 1.45;
+      line-height: 1.48;
       color: #0c4a6e;
     }
 
     .grader-card {
-      margin-top: 12px;
+      margin-top: 11px;
       background: #f8fafc;
       border: 1.5px solid #cbd5e1;
       border-radius: 12px;
@@ -465,20 +478,20 @@
     .grader-feedback {
       margin-top: 8px;
       font-size: 0.78rem;
-      line-height: 1.45;
+      line-height: 1.48;
       padding: 7px 10px;
       border-radius: 8px;
       display: none;
     }
 
     .misconception-box {
-      margin-top: 12px;
+      margin-top: 11px;
       background: #fffbeb;
       border: 1px solid #fde68a;
       border-left: 4px solid #d97706;
       border-radius: 10px;
       padding: 10px 13px;
-      font-size: 0.79rem;
+      font-size: 0.78rem;
       line-height: 1.48;
       color: #78350f;
     }
@@ -489,18 +502,19 @@
       border-radius: 10px;
       padding: 9px 11px;
       margin-top: 8px;
-      font-size: 0.77rem;
+      font-size: 0.78rem;
+      line-height: 1.45;
     }
 
     .challenge-panel select {
       width: 100%;
-      padding: 4px 7px;
+      padding: 5px 7px;
       border-radius: 7px;
       border: 1px solid #cbd5e1;
-      font-size: 0.75rem;
+      font-size: 0.76rem;
       font-weight: 600;
-      margin-top: 2px;
-      margin-bottom: 6px;
+      margin-top: 3px;
+      margin-bottom: 7px;
       background: #fff;
     }
   </style>
@@ -520,15 +534,15 @@
     <div class="guide-steps" id="guideSteps">
       <div class="guide-step-card">
         <strong>1. Drag or Animate the Tangent Rider</strong>
-        Drag the point on either canvas (or click <em>▶ Play Sweep</em>) to watch the tangent line pivot along <em>y = f(x)</em> while plotting its gradient onto <em>y = f'(x)</em> below.
+        Drag the point on either canvas (or click <em>▶ Play Sweep</em>) to watch the tangent line pivot along $y = f(x)$ while plotting its gradient onto $y = f'(x)$ below.
       </div>
       <div class="guide-step-card">
         <strong>2. Toggle Slope &amp; Concavity Shading</strong>
-        Switch between <em>f'(x) Shading</em> (increasing vs. decreasing) and <em>f''(x) Shading</em> (concave up vs. concave down) to connect curvature with the slope of <em>y = f'(x)</em>.
+        Switch between $f'(x)$ <em>Shading</em> (increasing vs. decreasing) and $f''(x)$ <em>Shading</em> (concave up vs. concave down) to connect curvature with the slope of $y = f'(x)$.
       </div>
       <div class="guide-step-card">
-        <strong>3. Deduce y = f'(x) from Complex Mystery Curves</strong>
-        Select <em>4. Challenge: Deduce f' from f</em> to analyze anonymous curves combining stationary points of inflexion, turning points, and asymptotes before revealing <em>y = f'(x)</em>.
+        <strong>3. Deduce $y = f'(x)$ from Complex Mystery Curves</strong>
+        Select <em>4. Challenge: Deduce $f'$ from $f$</em> to analyze anonymous curves combining stationary points of inflexion, turning points, and asymptotes before revealing $y = f'(x)$.
       </div>
     </div>
   </div>
@@ -537,7 +551,7 @@
     <!-- LEFT CONTROL PANEL -->
     <div class="card">
       <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
-        5.1 Lesson 1 &bull; Graphical Interpretation of f'(x) &amp; f''(x)
+        5.1 Lesson 2 &bull; Graphical Interpretation of $f'(x)$ &amp; $f''(x)$
       </div>
 
       <!-- Curve / Mode Presets -->
@@ -549,10 +563,10 @@
           2. Stationary Inflexion Cubic
         </button>
         <button class="tab-btn" id="sc_rational" onclick="loadPreset('rational')">
-          3. Rational Curve: x + k/x
+          3. Rational: $y = x + \frac{k}{x}$
         </button>
         <button class="tab-btn challenge-tab" id="sc_challenge" onclick="loadPreset('challenge')">
-          4. Challenge: Deduce f' from f
+          4. Challenge: Deduce $f'$ from $f$
         </button>
       </div>
 
@@ -568,7 +582,7 @@
 
         <div class="slider-row">
           <div class="slider-label">
-            <span>Tangent Rider Position (x) — or drag on graph</span>
+            <span>Tangent Rider Position ($x$) — or drag on graph</span>
             <span id="xSliderVal">−1.50</span>
           </div>
           <input type="range" id="xSlider" min="-3.8" max="3.8" step="0.02" value="-1.5" oninput="onRiderSlide(this.value)" />
@@ -578,16 +592,16 @@
 
         <!-- Challenge Mode Sub-Controls: Complex Anonymous Curves -->
         <div id="challengePanel" class="challenge-panel" style="display:none;">
-          <div style="font-weight:800; color:#9f1239; margin-bottom:4px;">Deduce y = f'(x) from Anonymous Curve y = f(x):</div>
-          <label for="chSelect" style="font-weight:700; font-size:0.74rem;">Select Complex Mystery Curve:</label>
+          <div style="font-weight:800; color:#9f1239; margin-bottom:4px;">Deduce $y = f'(x)$ from Anonymous Curve $y = f(x)$:</div>
+          <label for="chSelect" style="font-weight:700; font-size:0.75rem;">Select Complex Mystery Curve:</label>
           <select id="chSelect" onchange="loadChallengeCase(this.value)">
-            <option value="0">Mystery 1: Stat. Inflexion (0,0) + Vert. Asymp. x=1 + Local Min + Oblique Asymp.</option>
-            <option value="1">Mystery 2: Stat. Inflexion (−1,0) + Local Max (1.5, 2.38) + Horiz. Asymp. y=0</option>
-            <option value="2">Mystery 3: Vert. Asymp. x=0 + Local Max (−2, 1.5) + Local Min (2, 0.5) + Horiz. Asymp. y=1</option>
+            <option value="0">Mystery 1: Stat. Inflexion (0,0) + Vert. Asymp. x = 1 + Local Min + Oblique Asymp.</option>
+            <option value="1">Mystery 2: Stat. Inflexion (−1,0) + Local Max (2, 5.85) + Horiz. Asymp. y = 0</option>
+            <option value="2">Mystery 3: Vert. Asymp. x = 0 + Local Max (2, 1.5) + Horiz. Asymp. y = 1</option>
           </select>
           <div id="chQuestionsBox"></div>
           <button class="action-btn" style="background:var(--rose); width:100%; margin-top:4px;" onclick="revealChallenge()">
-            Check Deduction &amp; Reveal y = f'(x)
+            Check Deduction &amp; Reveal $y = f'(x)$
           </button>
         </div>
 
@@ -599,15 +613,15 @@
 
         <div class="toggle-strip" id="toggleStrip">
           <label class="toggle-pill">
-            <span>Shade f'(x) Sign (+/−)</span>
+            <span>Shade $f'(x)$ Sign ($+ / -$)</span>
             <input type="checkbox" id="chkGrad" checked onchange="drawAll()" />
           </label>
           <label class="toggle-pill">
-            <span>Shade f''(x) Concavity</span>
+            <span>Shade $f''(x)$ Concavity</span>
             <input type="checkbox" id="chkConc" onchange="drawAll()" />
           </label>
           <label class="toggle-pill" id="traceToggleRow" style="grid-column: span 2;">
-            <span>Progressive Trace Mode (Plot f'(x) point-by-point as rider moves)</span>
+            <span>Progressive Trace Mode (Plot $f'(x)$ point-by-point as rider moves)</span>
             <input type="checkbox" id="chkTrace" onchange="drawAll()" />
           </label>
         </div>
@@ -624,13 +638,13 @@
     <div class="card">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:6px;">
         <div style="font-size:1.02rem; font-weight:800; color:#1e293b;" id="rightPanelHeading">
-          Synced Graph Matcher: y = f(x) &amp; y = f'(x)
+          Synced Graph Matcher: $y = f(x)$ &amp; $y = f'(x)$
         </div>
         <div class="legend-row">
-          <span class="leg-chip" style="background:#ccfbf1; color:#0f766e;">f'(x) &gt; 0 (Increasing)</span>
-          <span class="leg-chip" style="background:#ffe4e6; color:#9f1239;">f'(x) &lt; 0 (Decreasing)</span>
-          <span class="leg-chip" style="background:#e0f2fe; color:#0284c7;">f''(x) &gt; 0 (∪)</span>
-          <span class="leg-chip" style="background:#fef3c7; color:#b45309;">f''(x) &lt; 0 (∩)</span>
+          <span class="leg-chip" style="background:#ccfbf1; color:#0f766e;">$f'(x) &gt; 0$ (Increasing)</span>
+          <span class="leg-chip" style="background:#ffe4e6; color:#9f1239;">$f'(x) &lt; 0$ (Decreasing)</span>
+          <span class="leg-chip" style="background:#e0f2fe; color:#0284c7;">$f''(x) &gt; 0$ ($\cup$)</span>
+          <span class="leg-chip" style="background:#fef3c7; color:#b45309;">$f''(x) &lt; 0$ ($\cap$)</span>
         </div>
       </div>
 
@@ -638,16 +652,16 @@
       <div class="canvas-stack">
         <div class="canvas-box">
           <div class="canvas-top-bar">
-            <span id="topCanvasTitle">Top Graph: y = f(x) — Curve &amp; Pivoting Tangent Line</span>
-            <span id="topEqnBadge" style="color:var(--purple-dark); font-family:ui-monospace, monospace;"></span>
+            <span id="topCanvasTitle">Top Graph: $y = f(x)$ — Curve &amp; Pivoting Tangent Line</span>
+            <span id="topEqnBadge" style="color:var(--purple-dark);"></span>
           </div>
           <canvas id="topCanvas"></canvas>
         </div>
 
         <div class="canvas-box">
           <div class="canvas-top-bar">
-            <span id="botCanvasTitle">Bottom Graph: y = f'(x) — Gradient Function (y-value = Slope of Top Curve)</span>
-            <span id="botEqnBadge" style="color:var(--teal); font-family:ui-monospace, monospace;"></span>
+            <span id="botCanvasTitle">Bottom Graph: $y = f'(x)$ — Gradient Function</span>
+            <span id="botEqnBadge" style="color:var(--teal);"></span>
           </div>
           <canvas id="botCanvas"></canvas>
         </div>
@@ -656,25 +670,25 @@
       <!-- 3-Step TI-84 Plus CE Keystroke Guide -->
       <div class="gc-guide-grid">
         <div class="step-pill">
-          <strong>1. Approximate f'(a) on GC</strong><br>
-          Plot <strong>Y₁ = f(x)</strong>, press <strong>[2nd] [TRACE] (CALC) &rarr; 6: dy/dx</strong>, type <em>x = a</em>, and press <strong>[ENTER]</strong>.
+          <strong>1. Approximate $f'(a)$ on GC</strong><br>
+          Plot <strong>Y₁ = f(x)</strong>, press <strong>[2nd] [TRACE] (CALC) &rarr; 6: dy/dx</strong>, type $x = a$, and press <strong>[ENTER]</strong>.
         </div>
         <div class="step-pill">
           <strong>2. Locate Extrema on GC</strong><br>
           Press <strong>[2nd] [TRACE] &rarr; 3: minimum</strong> or <strong>4: maximum</strong>, set Left/Right Bounds, and press <strong>[ENTER]</strong>.
         </div>
         <div class="step-pill">
-          <strong>3. Graph y = f'(x) Numerically</strong><br>
-          Set <strong>Y₂ = nDeriv(Y₁, X, X)</strong> via <strong>[ALPHA] [WINDOW] &rarr; 3</strong> to compare <em>f(x)</em> and <em>f'(x)</em> simultaneously.
+          <strong>3. Graph $y = f'(x)$ Numerically</strong><br>
+          Set <strong>Y₂ = nDeriv(Y₁, X, X)</strong> via <strong>[ALPHA] [WINDOW] &rarr; 3</strong> to compare $f(x)$ and $f'(x)$ simultaneously.
         </div>
       </div>
 
       <!-- 9758 Misconception Alert Box -->
       <div class="misconception-box">
-        <strong>9758 Exam Sketching Rules for y = f'(x) from Complex Curves y = f(x):</strong>
+        <strong>9758 Exam Sketching Rules for $y = f'(x)$ from Complex Curves $y = f(x)$:</strong>
         <ul style="margin:3px 0 0 0; padding-left:18px;">
-          <li><strong>Stationary points &rarr; x-intercepts:</strong> Local maxima/minima become <strong>crossing</strong> <em>x</em>-intercepts of <em>y = f'(x)</em>, whereas stationary points of inflexion become <strong>touching (bouncing)</strong> <em>x</em>-intercepts of <em>y = f'(x)</em>.</li>
-          <li><strong>Asymptote transformations:</strong> A vertical asymptote <em>x = c</em> stays a vertical asymptote <em>x = c</em> on <em>y = f'(x)</em>. A horizontal asymptote <em>y = k</em> flattens to <strong>y = 0</strong> on <em>y = f'(x)</em>, while an oblique asymptote <em>y = mx + c</em> becomes a horizontal asymptote <strong>y = m</strong> on <em>y = f'(x)</em>.</li>
+          <li><strong>Stationary points &rarr; $x$-intercepts:</strong> Local maxima/minima become <strong>crossing</strong> $x$-intercepts of $y = f'(x)$, whereas stationary points of inflexion become <strong>touching (bouncing)</strong> $x$-intercepts of $y = f'(x)$.</li>
+          <li><strong>Asymptote transformations:</strong> A vertical asymptote $x = c$ stays a vertical asymptote $x = c$ on $y = f'(x)$. A horizontal asymptote $y = k$ flattens to $y = 0$ on $y = f'(x)$, while an oblique asymptote $y = mx + c$ becomes a horizontal asymptote $y = m$ on $y = f'(x)$.</li>
         </ul>
       </div>
 
@@ -684,7 +698,7 @@
           <strong style="font-size:0.81rem; color:#1e293b;">9758 Graphical Calculus Check (<span id="qIdxLbl">1</span>/3)</strong>
           <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
         </div>
-        <div id="qPrompt" style="font-size:0.8rem; line-height:1.45; color:#334155;"></div>
+        <div id="qPrompt" style="font-size:0.8rem; line-height:1.48; color:#334155;"></div>
         <div class="mcq-options" id="qOpts"></div>
         <div class="grader-feedback" id="qFeedback"></div>
       </div>
@@ -693,6 +707,12 @@
 </div>
 
 <script>
+  function typesetMath(el) {
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      window.MathJax.typesetPromise(el ? [el] : undefined).catch(() => {});
+    }
+  }
+
   let guideOpen = true;
   function toggleGuide() {
     guideOpen = !guideOpen;
@@ -715,27 +735,15 @@
     traced: new Set(),
     dragging: false,
     chCase: 0,
-    chRevealed: false
+    chRevealed: false,
+    lastBadgeKey: ""
   };
 
   // Complex Anonymous Mystery Curves: NO formula or function family exposed
   const challengeCases = [
     {
-      // Mystery 1: f(x) = x^3 / (x - 1)^2
-      // Features:
-      // - Stationary point of inflexion at (0, 0): f'(0) = 0, f'(x) >= 0 on both sides of 0!
-      //   Wait: f'(x) = [3x^2(x-1)^2 - x^3*2(x-1)] / (x-1)^4 = x^2(x - 3) / (x - 1)^3.
-      //   Let's check signs of f'(x) = x^2(x - 3)/(x - 1)^3:
-      //   For x < 0: (+)(-)/(-) = + (increasing!)
-      //   At x = 0: 0 (stationary inflexion!)
-      //   For 0 < x < 1: (+)(-)/(-) = + (increasing to +inf as x -> 1-!)
-      //   At x = 1: Vertical asymptote!
-      //   For 1 < x < 3: (+)(-)/(+) = - (decreasing from +inf!)
-      //   At x = 3: 0 (local minimum at (3, 27/4 = 6.75)!)
-      //   For x > 3: (+)(+)/(+) = + (increasing toward oblique asymptote y = x + 2, so f'(x) -> 1!)
-      // Let's scale y by 0.55 so (3, 3.71) fits comfortably in [-5, 6]
-      story: "<strong>Mystery Curve 1 (Formula Unknown):</strong> This two-branch curve has a <strong>stationary point of inflexion at (0, 0)</strong>, a <strong>vertical asymptote at x = 1</strong>, a <strong>local minimum at (3, 3.71)</strong>, and approaches an <strong>oblique asymptote of slope +0.55</strong> as <em>x &rarr; &plusmn;&infin;</em>.",
-      pill: "Inspect both branches (x < 1 and x > 1) and test how the tangent slope behaves near x = 0, x = 1, x = 3, and x → ±∞.",
+      story: "<strong>Mystery Curve 1 (Formula Unknown):</strong> This two-branch curve has a <strong>stationary point of inflexion at $(0, 0)$</strong>, a <strong>vertical asymptote at $x = 1$</strong>, a <strong>local minimum at $(3, 3.71)$</strong>, and approaches an <strong>oblique asymptote of slope $+0.55$</strong> as $x \\to \\pm\\infty$.",
+      pill: "Inspect both branches ($x < 1$ and $x > 1$) near $x = 0$, $x = 1$, $x = 3$, and $x \\to \\pm\\infty$.",
       fn: x => {
         if (Math.abs(x - 1) < 0.07) return NaN;
         return 0.55 * (x * x * x) / Math.pow(x - 1, 2);
@@ -758,39 +766,32 @@
         { x: 0, label: "Stat. Inflexion (0, 0)" },
         { x: 3, label: "Local Min (3, 3.71)" }
       ],
-      q1Label: "How does y = f'(x) behave at x = 0 (stationary inflexion) vs. x = 3 (local min)?",
+      q1Label: "How does $y = f'(x)$ behave at $x = 0$ (stationary inflexion) vs. $x = 3$ (local min)?",
       q1Opts: [
-        { v: "bounce0_cross3", t: "Touches x-axis at (0,0) from above without crossing; crosses x-axis from − to + at (3,0)" },
-        { v: "cross0_bounce3", t: "Crosses x-axis at (0,0); touches x-axis at (3,0) without crossing" },
+        { v: "bounce0_cross3", t: "Touches x-axis at (0, 0) from above without crossing; crosses x-axis from − to + at (3, 0)" },
+        { v: "cross0_bounce3", t: "Crosses x-axis at (0, 0); touches x-axis at (3, 0) without crossing" },
         { v: "crossBoth", t: "Crosses the x-axis at both x = 0 and x = 3" }
       ],
       q1Ans: "bounce0_cross3",
-      q2Label: "What happens to y = f'(x) as x → 1⁻ and as x → 1⁺ (near vertical asymptote x = 1)?",
+      q2Label: "What happens to $y = f'(x)$ as $x \\to 1^-$ and as $x \\to 1^+$ (near vertical asymptote $x = 1$)?",
       q2Opts: [
         { v: "pInf_nInf", t: "f'(x) → +∞ as x → 1⁻ (steeply rising) and f'(x) → −∞ as x → 1⁺ (steeply falling)" },
         { v: "nInf_pInf", t: "f'(x) → −∞ as x → 1⁻ and f'(x) → +∞ as x → 1⁺" },
         { v: "zero", t: "f'(x) → 0 on both sides of x = 1" }
       ],
       q2Ans: "pInf_nInf",
-      q3Label: "Because y = f(x) approaches an oblique asymptote of slope 0.55 as x → ±∞, y = f'(x) approaches:",
+      q3Label: "Because $y = f(x)$ approaches an oblique asymptote of slope $0.55$ as $x \\to \\pm\\infty$, $y = f'(x)$ approaches:",
       q3Opts: [
         { v: "y055", t: "The horizontal asymptote y = 0.55 as x → ±∞" },
         { v: "y0", t: "The horizontal asymptote y = 0 as x → ±∞" },
         { v: "oblique", t: "An oblique asymptote of slope 0.55" }
       ],
       q3Ans: "y055",
-      explain: "At x = 0 (stationary inflexion where f increases before and after), y = f'(x) touches (0,0) from above. Near x = 1, f'(x) → +∞ on the left and −∞ on the right. At x = 3 (local min), f'(x) crosses from − to +, then levels off toward the horizontal asymptote y = 0.55 (the slope of f's oblique asymptote)."
+      explain: "At $x = 0$ (stationary inflexion where $f$ increases before and after), $y = f'(x)$ touches $(0, 0)$ from above. Near $x = 1$, $f'(x) \\to +\\infty$ on the left and $-\\infty$ on the right. At $x = 3$ (local min), $f'(x)$ crosses from $-$ to $+$, then levels off toward the horizontal asymptote $y = 0.55$."
     },
     {
-      // Mystery 2: f(x) = 1.6 * (x + 1)^3 * e^(-x)
-      // Derivative: f'(x) = 1.6 * (x + 1)^2 * (2 - x) * e^(-x)
-      // Features:
-      // - Stationary point of inflexion at x = -1 (y = 0): f'(-1) = 0, f'(x) > 0 on both sides!
-      // - Local maximum at x = 2 (y = 1.6 * 27 * e^(-2) ≈ 5.85): f'(2) = 0, f' goes + to -!
-      // - Horizontal asymptote y = 0 as x -> +inf (approaching from above, so f'(x) -> 0 from below!)
-      // - Steepest downward slope at x = 2 + sqrt(3) ≈ 3.73 (local min of f'(x))
-      story: "<strong>Mystery Curve 2 (Formula Unknown):</strong> This single-branch curve has a <strong>stationary point of inflexion at (−1, 0)</strong>, rises to a <strong>local maximum at (2, 5.85)</strong>, and then decays toward the <strong>horizontal asymptote y = 0</strong> as <em>x &rarr; +&infin;</em>.",
-      pill: "Trace the tangent slope from x = −2 across the stationary inflexion (−1, 0), over the peak at x = 2, and out toward x → +∞.",
+      story: "<strong>Mystery Curve 2 (Formula Unknown):</strong> This single-branch curve has a <strong>stationary point of inflexion at $(-1, 0)$</strong>, rises to a <strong>local maximum at $(2, 5.85)$</strong>, and then decays toward the <strong>horizontal asymptote $y = 0$</strong> as $x \\to +\\infty$.",
+      pill: "Trace the tangent slope across $(-1, 0)$, over the peak at $x = 2$, and out toward $x \\to +\\infty$.",
       fn: x => 1.6 * Math.pow(x + 1, 3) * Math.exp(-x),
       df: x => 1.6 * Math.pow(x + 1, 2) * (2 - x) * Math.exp(-x),
       ddf: x => 1.6 * (x + 1) * (x * x - 4 * x + 1) * Math.exp(-x),
@@ -804,45 +805,32 @@
         { x: -1, label: "Stat. Inflexion (−1, 0)" },
         { x: 2, label: "Local Max (2, 5.85)" }
       ],
-      q1Label: "What are the x-intercepts of y = f'(x) and how does the curve meet them?",
+      q1Label: "What are the $x$-intercepts of $y = f'(x)$ and how does the curve meet them?",
       q1Opts: [
         { v: "touchM1_cross2", t: "Touches x-axis from above at (−1, 0) and crosses x-axis (+ to −) at (2, 0)" },
         { v: "crossM1_touch2", t: "Crosses x-axis at (−1, 0) and touches x-axis at (2, 0)" },
         { v: "crossBoth", t: "Crosses the x-axis at both (−1, 0) and (2, 0)" }
       ],
       q1Ans: "touchM1_cross2",
-      q2Label: "On which interval does y = f'(x) lie strictly BELOW the x-axis (f'(x) < 0)?",
+      q2Label: "On which interval does $y = f'(x)$ lie strictly BELOW the $x$-axis ($f'(x) < 0$)?",
       q2Opts: [
         { v: "x>2", t: "x > 2 (to the right of the local maximum)" },
         { v: "x<-1", t: "x < −1 (to the left of the stationary inflexion)" },
         { v: "mid", t: "−1 < x < 2" }
       ],
       q2Ans: "x>2",
-      q3Label: "As x → +∞, how does y = f'(x) approach its horizontal asymptote y = 0?",
+      q3Label: "As $x \\to +\\infty$, how does $y = f'(x)$ approach its horizontal asymptote $y = 0$?",
       q3Opts: [
         { v: "below", t: "From BELOW (f'(x) < 0), after passing through a local minimum near x = 3.73" },
         { v: "above", t: "From ABOVE (f'(x) > 0) without any turning points for x > 2" },
         { v: "negInf", t: "It diverges to −∞ instead of approaching y = 0" }
       ],
       q3Ans: "below",
-      explain: "For x < 2 (except x = −1), y = f(x) is increasing, so f'(x) ≥ 0, touching the x-axis at (−1, 0). At x = 2 (local max), f'(x) crosses below the x-axis, reaches a local minimum where f slopes down most steeply (x ≈ 3.73), and approaches y = 0 from below as x → +∞."
+      explain: "For $x < 2$ (except $x = -1$), $y = f(x)$ is increasing, so $f'(x) \\ge 0$, touching the $x$-axis at $(-1, 0)$. At $x = 2$ (local max), $f'(x)$ crosses below the $x$-axis, reaches a local minimum where $f$ slopes down most steeply ($x \\approx 3.73$), and approaches $y = 0$ from below as $x \\to +\\infty$."
     },
     {
-      // Mystery 3: f(x) = 1 - 4x / (x^2 + 4)  or two-branch rational with vertical asymptote:
-      // Let's use f(x) = 1 - (x^2 - 4) / x^2 ? No, let's use f(x) = 1 + 4x / (x^2 - 4) -> vertical asymptotes at x = -2, 2.
-      // Even cleaner single vertical asymptote at x = 0 with horizontal asymptote y = 1:
-      // f(x) = 1 + (x - 1) / x^2 = 1 + 1/x - 1/x^2
-      // Let's check f'(x) = -1/x^2 + 2/x^3 = (2 - x) / x^3!
-      // Look how clean f(x) = 1 + 2/x - 2/x^2 is:
-      // - Vertical asymptote at x = 0 (f(x) -> -inf as x -> 0- and -inf as x -> 0+)
-      // - Horizontal asymptote y = 1 as x -> +-inf
-      // - f'(x) = -2/x^2 + 4/x^3 = 2(2 - x) / x^3:
-      //   * For x < 0: (+)/(-) = - (decreasing from y = 1 toward -inf!)
-      //   * For 0 < x < 2: (+)/(+) = + (increasing from -inf up to local max at x = 2, y = 1.5!)
-      //   * At x = 2: Local maximum at (2, 1.5)!
-      //   * For x > 2: (-)/(+) = - (decreasing from y = 1.5 toward horizontal asymptote y = 1!)
-      story: "<strong>Mystery Curve 3 (Formula Unknown):</strong> This curve has a <strong>vertical asymptote at x = 0</strong> (dropping to <em>&minus;&infin;</em> on both sides), a <strong>local maximum at (2, 1.5)</strong> on the right branch, and approaches the <strong>horizontal asymptote y = 1</strong> as <em>x &rarr; &plusmn;&infin;</em>.",
-      pill: "Compare the left branch (x < 0, strictly decreasing) with the right branch (0 < x < 2 increasing, x > 2 decreasing).",
+      story: "<strong>Mystery Curve 3 (Formula Unknown):</strong> This curve has a <strong>vertical asymptote at $x = 0$</strong> (dropping to $-\\infty$ on both sides), a <strong>local maximum at $(2, 1.5)$</strong> on the right branch, and approaches the <strong>horizontal asymptote $y = 1$</strong> as $x \\to \\pm\\infty$.",
+      pill: "Compare the left branch ($x < 0$, strictly decreasing) with the right branch ($0 < x < 2$ increasing, $x > 2$ decreasing).",
       fn: x => {
         if (Math.abs(x) < 0.14) return NaN;
         return 1 + 2 / x - 2 / (x * x);
@@ -864,28 +852,28 @@
       landmarks: [
         { x: 2, label: "Local Max (2, 1.5)" }
       ],
-      q1Label: "On the left branch (x < 0), where does y = f'(x) lie?",
+      q1Label: "On the left branch ($x < 0$), where does $y = f'(x)$ lie?",
       q1Opts: [
         { v: "belowAll", t: "Entirely BELOW the x-axis (f'(x) < 0), approaching y = 0 as x → −∞ and −∞ as x → 0⁻" },
         { v: "aboveAll", t: "Entirely ABOVE the x-axis (f'(x) > 0)" },
         { v: "cross", t: "Crosses the x-axis at x = −2" }
       ],
       q1Ans: "belowAll",
-      q2Label: "On the right branch (x > 0), what happens to y = f'(x) as x → 0⁺ and at x = 2?",
+      q2Label: "On the right branch ($x > 0$), what happens to $y = f'(x)$ as $x \\to 0^+$ and at $x = 2$?",
       q2Opts: [
         { v: "pInf_cross2", t: "f'(x) → +∞ as x → 0⁺, then crosses the x-axis from + to − at x = 2" },
         { v: "nInf_cross2", t: "f'(x) → −∞ as x → 0⁺, then crosses the x-axis from − to + at x = 2" },
         { v: "touch2", t: "Touches the x-axis at x = 2 without crossing" }
       ],
       q2Ans: "pInf_cross2",
-      q3Label: "What are the asymptotes of the gradient graph y = f'(x)?",
+      q3Label: "What are the asymptotes of the gradient graph $y = f'(x)$?",
       q3Opts: [
         { v: "x0_y0", t: "Vertical asymptote x = 0 and horizontal asymptote y = 0" },
         { v: "x0_y1", t: "Vertical asymptote x = 0 and horizontal asymptote y = 1" },
         { v: "y0only", t: "Only a horizontal asymptote y = 0 (continuous at x = 0)" }
       ],
       q3Ans: "x0_y0",
-      explain: "For x < 0, f(x) decreases ever more steeply toward −∞ as x → 0⁻, so f'(x) < 0 and f'(x) → −∞. For x > 0, f(x) rises steeply from −∞ (so f'(x) → +∞ as x → 0⁺), crosses the x-axis at x = 2 (local max), and approaches y = 0 from below as x → +∞."
+      explain: "For $x < 0$, $f(x)$ decreases ever more steeply toward $-\\infty$ as $x \\to 0^-$, so $f'(x) < 0$ and $f'(x) \\to -\\infty$. For $x > 0$, $f(x)$ rises steeply from $-\\infty$ (so $f'(x) \\to +\\infty$ as $x \\to 0^+$), crosses the $x$-axis at $x = 2$ (local max), and approaches $y = 0$ from below as $x \\to +\\infty$."
     }
   ];
 
@@ -966,6 +954,7 @@
 
   function loadPreset(key) {
     state.preset = key;
+    state.lastBadgeKey = "";
     if (state.playing) togglePlay();
     state.traced.clear();
 
@@ -982,7 +971,7 @@
       chPanel.style.display = "block";
       traceRow.style.display = "none";
       clearBtn.style.display = "none";
-      document.getElementById("controlHeader").textContent = "Anonymous Curve Rider & f'(x) Deduction";
+      document.getElementById("controlHeader").innerHTML = "Anonymous Curve Rider &amp; $f'(x)$ Deduction";
       loadChallengeCase(document.getElementById("chSelect").value);
       return;
     }
@@ -991,42 +980,42 @@
     traceRow.style.display = "flex";
     clearBtn.style.display = "inline-block";
     document.getElementById("controlHeader").textContent = "Tangent Rider & Curve Parameters";
-    document.getElementById("topCanvasTitle").textContent = "Top Graph: y = f(x) — Curve & Pivoting Tangent Line";
-    document.getElementById("botCanvasTitle").textContent = "Bottom Graph: y = f'(x) — Gradient Function (y-value = Slope of Top Curve)";
+    document.getElementById("topCanvasTitle").innerHTML = "Top Graph: $y = f(x)$ — Curve &amp; Pivoting Tangent Line";
+    document.getElementById("botCanvasTitle").innerHTML = "Bottom Graph: $y = f'(x)$ — Gradient Function";
 
     if (key === "cubicStd") {
       state.params = { a: 0.25, b: 0, c: -1.5, k: 2.0 };
       document.getElementById("contextBox").innerHTML = `
-        <div><strong>Cubic Function (Two Turning Points):</strong> Observe how <em>y = f'(x)</em> is a parabola whose <em>x</em>-intercepts align vertically with the local maximum and local minimum of <em>y = f(x)</em>.</div>
-        <div class="var-pill">Key Rule: f'(a) = 0 and f'(x) changes sign &rArr; Turning point at x = a</div>
+        <div><strong>Cubic Function (Two Turning Points):</strong> Observe how $y = f'(x)$ is a parabola whose $x$-intercepts align vertically with the local maximum and local minimum of $y = f(x)$.</div>
+        <div class="var-pill">Key Rule: $f'(a) = 0$ and $f'(x)$ changes sign $\\Rightarrow$ Turning point at $x = a$</div>
       `;
       paramBox.innerHTML = `
         <div class="slider-row">
-          <div class="slider-label"><span>Leading coefficient (a)</span><span id="p_a">0.25</span></div>
+          <div class="slider-label"><span>Leading coefficient ($a$)</span><span id="p_a">0.25</span></div>
           <input type="range" min="-0.5" max="0.5" step="0.05" value="0.25" oninput="setParam('a', this.value)" />
         </div>
         <div class="slider-row">
-          <div class="slider-label"><span>Quadratic coefficient (b)</span><span id="p_b">0.00</span></div>
+          <div class="slider-label"><span>Quadratic coefficient ($b$)</span><span id="p_b">0.00</span></div>
           <input type="range" min="-1.0" max="1.0" step="0.1" value="0" oninput="setParam('b', this.value)" />
         </div>
         <div class="slider-row">
-          <div class="slider-label"><span>Linear coefficient (c)</span><span id="p_c">−1.50</span></div>
+          <div class="slider-label"><span>Linear coefficient ($c$)</span><span id="p_c">−1.50</span></div>
           <input type="range" min="-3.0" max="2.0" step="0.25" value="-1.5" oninput="setParam('c', this.value)" />
         </div>
       `;
     } else if (key === "cubicInflex") {
       state.params = { a: 0.35, b: 0.5, c: 0, k: 2.0 };
       document.getElementById("contextBox").innerHTML = `
-        <div><strong>Stationary Point of Inflexion:</strong> At <em>x = h</em>, the tangent line becomes completely horizontal (<em>f'(h) = 0</em>), yet <em>y = f'(x)</em> touches the <em>x</em>-axis without crossing it.</div>
-        <div class="var-pill">Key Rule: f'(h) = 0 with NO sign change in f'(x) &rArr; Stationary inflexion</div>
+        <div><strong>Stationary Point of Inflexion:</strong> At $x = h$, the tangent line becomes completely horizontal ($f'(h) = 0$), yet $y = f'(x)$ touches the $x$-axis without crossing it.</div>
+        <div class="var-pill">Key Rule: $f'(h) = 0$ with NO sign change in $f'(x)$ $\\Rightarrow$ Stationary inflexion</div>
       `;
       paramBox.innerHTML = `
         <div class="slider-row">
-          <div class="slider-label"><span>Steepness (a)</span><span id="p_a">0.35</span></div>
+          <div class="slider-label"><span>Steepness ($a$)</span><span id="p_a">0.35</span></div>
           <input type="range" min="-0.6" max="0.6" step="0.05" value="0.35" oninput="setParam('a', this.value)" />
         </div>
         <div class="slider-row">
-          <div class="slider-label"><span>Inflexion x-coordinate (h)</span><span id="p_b">0.50</span></div>
+          <div class="slider-label"><span>Inflexion $x$-coordinate ($h$)</span><span id="p_b">0.50</span></div>
           <input type="range" min="-2.0" max="2.0" step="0.25" value="0.5" oninput="setParam('b', this.value)" />
         </div>
       `;
@@ -1034,12 +1023,12 @@
       state.params = { a: 0.25, b: 0, c: -1.5, k: 2.0 };
       if (Math.abs(state.x) < 0.25) state.x = 1.2;
       document.getElementById("contextBox").innerHTML = `
-        <div><strong>Rational Curve y = x + k/x (x &ne; 0):</strong> Notice the vertical asymptote at <em>x = 0</em>, where both <em>f(x)</em> and <em>f'(x) = 1 − k/x²</em> are undefined, and stationary points at <em>x = &plusmn;&radic;k</em>.</div>
-        <div class="var-pill">Domain Restriction: Asymptote at x = 0 carries over to y = f'(x)</div>
+        <div><strong>Rational Curve $y = x + \\dfrac{k}{x}$ ($x \\neq 0$):</strong> Notice the vertical asymptote at $x = 0$, where both $f(x)$ and $f'(x) = 1 - \\dfrac{k}{x^2}$ are undefined, and stationary points at $x = \\pm\\sqrt{k}$.</div>
+        <div class="var-pill">Domain Restriction: Asymptote at $x = 0$ carries over to $y = f'(x)$</div>
       `;
       paramBox.innerHTML = `
         <div class="slider-row">
-          <div class="slider-label"><span>Numerator constant (k)</span><span id="p_k">2.00</span></div>
+          <div class="slider-label"><span>Numerator constant ($k$)</span><span id="p_k">2.00</span></div>
           <input type="range" min="0.5" max="4.0" step="0.25" value="2.0" oninput="setParam('k', this.value)" />
         </div>
       `;
@@ -1047,6 +1036,7 @@
 
     recordTrace(state.x);
     drawAll();
+    typesetMath();
   }
 
   function setParam(key, raw) {
@@ -1063,9 +1053,9 @@
   function loadChallengeCase(idxStr) {
     state.chCase = parseInt(idxStr, 10);
     state.chRevealed = false;
+    state.lastBadgeKey = "";
     const ch = challengeCases[state.chCase];
 
-    // Ensure rider is not sitting directly on a vertical asymptote
     if (ch.vAsymp !== null && Math.abs(state.x - ch.vAsymp) < 0.22) {
       state.x = ch.vAsymp - 0.8;
       document.getElementById("xSlider").value = state.x.toFixed(2);
@@ -1075,21 +1065,21 @@
       <div>${ch.story}</div>
       <div class="var-pill">${ch.pill}</div>
     `;
-    document.getElementById("topCanvasTitle").textContent = "Top Graph: y = f(x) [Anonymous Complex Curve — Drag Tangent Rider]";
-    document.getElementById("botCanvasTitle").textContent = "Bottom Graph: y = f'(x) [HIDDEN — Deduce Intercepts, Sign & Asymptotes]";
+    document.getElementById("topCanvasTitle").innerHTML = "Top Graph: $y = f(x)$ [Anonymous Complex Curve — Drag Rider]";
+    document.getElementById("botCanvasTitle").innerHTML = "Bottom Graph: $y = f'(x)$ [HIDDEN — Deduce Intercepts, Sign &amp; Asymptotes]";
 
     document.getElementById("chQuestionsBox").innerHTML = `
-      <label style="font-size:0.74rem; font-weight:700;">1. ${ch.q1Label}</label>
+      <label style="font-size:0.75rem; font-weight:700;">1. ${ch.q1Label}</label>
       <select id="chQ1">
         <option value="">-- Select answer --</option>
         ${ch.q1Opts.map(o => `<option value="${o.v}">${o.t}</option>`).join("")}
       </select>
-      <label style="font-size:0.74rem; font-weight:700;">2. ${ch.q2Label}</label>
+      <label style="font-size:0.75rem; font-weight:700;">2. ${ch.q2Label}</label>
       <select id="chQ2">
         <option value="">-- Select answer --</option>
         ${ch.q2Opts.map(o => `<option value="${o.v}">${o.t}</option>`).join("")}
       </select>
-      <label style="font-size:0.74rem; font-weight:700;">3. ${ch.q3Label}</label>
+      <label style="font-size:0.75rem; font-weight:700;">3. ${ch.q3Label}</label>
       <select id="chQ3">
         <option value="">-- Select answer --</option>
         ${ch.q3Opts.map(o => `<option value="${o.v}">${o.t}</option>`).join("")}
@@ -1097,6 +1087,7 @@
     `;
 
     drawAll();
+    typesetMath();
   }
 
   function revealChallenge() {
@@ -1107,11 +1098,13 @@
     const score = (a1 === ch.q1Ans ? 1 : 0) + (a2 === ch.q2Ans ? 1 : 0) + (a3 === ch.q3Ans ? 1 : 0);
 
     state.chRevealed = true;
-    document.getElementById("botCanvasTitle").textContent = "Bottom Graph: y = f'(x) [REVEALED]";
+    state.lastBadgeKey = "";
+    document.getElementById("botCanvasTitle").innerHTML = "Bottom Graph: $y = f'(x)$ [REVEALED]";
     drawAll();
 
-    document.getElementById("solutionBanner").innerHTML =
-      `Deduction Score: <strong>${score}/3</strong> — ${ch.explain}`;
+    const banner = document.getElementById("solutionBanner");
+    banner.innerHTML = `Deduction Score: <strong>${score}/3</strong> — ${ch.explain}`;
+    typesetMath();
   }
 
   function clampAcrossAsymptote(val, dirHint = 0) {
@@ -1180,7 +1173,6 @@
     requestAnimationFrame(animateLoop);
   }
 
-  // Canvas Geometry Helpers
   function toPxX(x, w) {
     return ((x - X_MIN) / (X_MAX - X_MIN)) * w;
   }
@@ -1363,26 +1355,30 @@
   }
 
   function updateBadges() {
+    const { a, b, c, k } = state.params;
+    const badgeKey = `${state.preset}_${state.chRevealed}_${a}_${b}_${c}_${k}`;
+    if (badgeKey === state.lastBadgeKey) return;
+    state.lastBadgeKey = badgeKey;
+
     const topB = document.getElementById("topEqnBadge");
     const botB = document.getElementById("botEqnBadge");
 
     if (state.preset === "challenge") {
-      topB.textContent = "y = f(x) [Anonymous Curve]";
-      botB.textContent = state.chRevealed ? "y = f'(x) [Revealed]" : "y = f'(x) [Hidden]";
-      return;
+      topB.innerHTML = "$y = f(x)$ [Anonymous Curve]";
+      botB.innerHTML = state.chRevealed ? "$y = f'(x)$ [Revealed]" : "$y = f'(x)$ [Hidden]";
+    } else if (state.preset === "cubicStd") {
+      topB.innerHTML = `$f(x) = ${a.toFixed(2)}x^3 ${b >= 0 ? "+" : "-"} ${Math.abs(b).toFixed(1)}x^2 ${c >= 0 ? "+" : "-"} ${Math.abs(c).toFixed(2)}x$`;
+      botB.innerHTML = `$f'(x) = ${(3 * a).toFixed(2)}x^2 ${2 * b >= 0 ? "+" : "-"} ${Math.abs(2 * b).toFixed(1)}x ${c >= 0 ? "+" : "-"} ${Math.abs(c).toFixed(2)}$`;
+    } else if (state.preset === "cubicInflex") {
+      topB.innerHTML = `$f(x) = ${a.toFixed(2)}(x ${b >= 0 ? "-" : "+"} ${Math.abs(b).toFixed(2)})^3$`;
+      botB.innerHTML = `$f'(x) = ${(3 * a).toFixed(2)}(x ${b >= 0 ? "-" : "+"} ${Math.abs(b).toFixed(2)})^2$`;
+    } else {
+      topB.innerHTML = `$f(x) = x + \\dfrac{${k.toFixed(2)}}{x}$`;
+      botB.innerHTML = `$f'(x) = 1 - \\dfrac{${k.toFixed(2)}}{x^2}$`;
     }
 
-    const { a, b, c, k } = state.params;
-    if (state.preset === "cubicStd") {
-      topB.textContent = `f(x) = ${a.toFixed(2)}x³ ${b >= 0 ? "+" : "−"} ${Math.abs(b).toFixed(1)}x² ${c >= 0 ? "+" : "−"} ${Math.abs(c).toFixed(2)}x`;
-      botB.textContent = `f'(x) = ${(3 * a).toFixed(2)}x² ${2 * b >= 0 ? "+" : "−"} ${Math.abs(2 * b).toFixed(1)}x ${c >= 0 ? "+" : "−"} ${Math.abs(c).toFixed(2)}`;
-    } else if (state.preset === "cubicInflex") {
-      topB.textContent = `f(x) = ${a.toFixed(2)}(x ${b >= 0 ? "−" : "+"} ${Math.abs(b).toFixed(2)})³`;
-      botB.textContent = `f'(x) = ${(3 * a).toFixed(2)}(x ${b >= 0 ? "−" : "+"} ${Math.abs(b).toFixed(2)})²`;
-    } else {
-      topB.textContent = `f(x) = x + ${k.toFixed(2)}/x`;
-      botB.textContent = `f'(x) = 1 − ${k.toFixed(2)}/x²`;
-    }
+    typesetMath(topB);
+    typesetMath(botB);
   }
 
   function drawAll() {
@@ -1402,7 +1398,6 @@
     drawAsymptotes(topCtx, w, h, cur.yTop, cur.vAsymp, cur.hAsympTop, cur.obliqueTop);
     drawFunctionCurve(topCtx, w, h, cur.yTop, x => evalModel(x).y, "#1e293b", 2.6);
 
-    // Landmark Pins in Challenge Mode
     if (state.preset === "challenge" && cur.landmarks) {
       cur.landmarks.forEach(lm => {
         const lmy = evalModel(lm.x).y;
@@ -1584,40 +1579,40 @@
     document.getElementById("solutionBanner").innerHTML = `Geometric Deduction: ${part1} ${part2}`;
   }
 
-  // 3-Question 9758 Exam Check
+  // 3-Question 9758 Exam Check with formatted LaTeX
   const examQs = [
     {
-      q: "A smooth curve y = f(x) has a local maximum at (−2, 5) and a local minimum at (3, −1), with no other stationary points. Which feature must y = f'(x) have?",
+      q: "A smooth curve $y = f(x)$ has a local maximum at $(-2, 5)$ and a local minimum at $(3, -1)$, with no other stationary points. Which feature must $y = f'(x)$ have?",
       opts: [
-        "x-intercepts at x = −2 and x = 3, lying below the x-axis for −2 < x < 3",
-        "x-intercepts at x = −2 and x = 3, lying above the x-axis for −2 < x < 3",
-        "Turning points at x = −2 and x = 3",
-        "Vertical asymptotes at x = −2 and x = 3"
+        "$x$-intercepts at $x = -2$ and $x = 3$, lying below the $x$-axis for $-2 < x < 3$",
+        "$x$-intercepts at $x = -2$ and $x = 3$, lying above the $x$-axis for $-2 < x < 3$",
+        "Turning points at $x = -2$ and $x = 3$",
+        "Vertical asymptotes at $x = -2$ and $x = 3$"
       ],
       ans: 0,
-      exp: "Between the local max at x = −2 and local min at x = 3, y = f(x) is strictly decreasing, so f'(x) < 0 (below the x-axis) on (−2, 3), crossing the x-axis at x = −2 and x = 3."
+      exp: "Between the local max at $x = -2$ and local min at $x = 3$, $y = f(x)$ is strictly decreasing, so $f'(x) < 0$ (below the $x$-axis) on $(-2, 3)$, crossing the $x$-axis at $x = -2$ and $x = 3$."
     },
     {
-      q: "Suppose y = f(x) has a stationary point of inflexion at (1, 2), decreasing before x = 1 and decreasing after x = 1. How does y = f'(x) behave near x = 1?",
+      q: "Suppose $y = f(x)$ has a stationary point of inflexion at $(1, 2)$, decreasing before $x = 1$ and decreasing after $x = 1$. How does $y = f'(x)$ behave near $x = 1$?",
       opts: [
-        "Crosses the x-axis from negative to positive at (1, 0)",
-        "Touches the x-axis at (1, 0) from below without crossing it (f'(x) ≤ 0)",
-        "Touches the x-axis at (1, 0) from above without crossing it (f'(x) ≥ 0)",
-        "Has a horizontal tangent at y = 2"
+        "Crosses the $x$-axis from negative to positive at $(1, 0)$",
+        "Touches the $x$-axis at $(1, 0)$ from below without crossing it ($f'(x) \\le 0$)",
+        "Touches the $x$-axis at $(1, 0)$ from above without crossing it ($f'(x) \\ge 0$)",
+        "Has a horizontal tangent at $y = 2$"
       ],
       ans: 1,
-      exp: "Because y = f(x) decreases on both sides of x = 1, f'(x) < 0 for x < 1 and x > 1, with f'(1) = 0. Hence y = f'(x) touches (1, 0) from below and stays below the x-axis."
+      exp: "Because $y = f(x)$ decreases on both sides of $x = 1$, $f'(x) < 0$ for $x < 1$ and $x > 1$, with $f'(1) = 0$. Hence $y = f'(x)$ touches $(1, 0)$ from below and stays below the $x$-axis."
     },
     {
-      q: "A curve y = f(x) approaches an oblique asymptote y = 2x − 3 as x → ∞. What asymptote must the gradient graph y = f'(x) approach as x → ∞?",
+      q: "A curve $y = f(x)$ approaches an oblique asymptote $y = 2x - 3$ as $x \\to \\infty$. What asymptote must the gradient graph $y = f'(x)$ approach as $x \\to \\infty$?",
       opts: [
-        "Oblique asymptote y = 2x − 3",
-        "Horizontal asymptote y = 2",
-        "Horizontal asymptote y = 0",
-        "Horizontal asymptote y = −3"
+        "Oblique asymptote $y = 2x - 3$",
+        "Horizontal asymptote $y = 2$",
+        "Horizontal asymptote $y = 0$",
+        "Horizontal asymptote $y = -3$"
       ],
       ans: 1,
-      exp: "As x → ∞, the gradient of y = f(x) approaches the gradient of its oblique asymptote y = 2x − 3, which is 2. Thus y = f'(x) approaches the horizontal asymptote y = 2."
+      exp: "As $x \\to \\infty$, the gradient of $y = f(x)$ approaches the gradient of its oblique asymptote $y = 2x - 3$, which is $2$. Thus $y = f'(x)$ approaches the horizontal asymptote $y = 2$."
     }
   ];
 
@@ -1625,12 +1620,13 @@
   function renderExamQ() {
     const item = examQs[curQ];
     document.getElementById("qIdxLbl").textContent = curQ + 1;
-    document.getElementById("qPrompt").textContent = item.q;
+    document.getElementById("qPrompt").innerHTML = item.q;
     const fb = document.getElementById("qFeedback");
     fb.style.display = "none";
     document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
       <button class="mcq-btn" onclick="gradeExamQ(${i})">${String.fromCharCode(65 + i)}. ${o}</button>
     `).join("");
+    typesetMath(document.querySelector(".grader-card"));
   }
 
   function gradeExamQ(idx) {
@@ -1645,6 +1641,7 @@
     fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
     fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
     fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+    typesetMath(fb);
   }
 
   function nextExamQ() {
