@@ -1806,36 +1806,41 @@
         syllabusNotes: "Approximation of a function by a polynomial near x = 0; standard Maclaurin series expansions from MF27 for (1 + x)ⁿ, eˣ, sin x, cos x, and ln(1 + x) along with their intervals of convergence (ranges of validity); derivation of Maclaurin series using repeated implicit differentiation; algebraic manipulation and substitution of standard series; deduction of related series via differentiation or integration and finding the equation of the tangent at x = 0; small-angle approximations, limits, and truncation error analysis.",
         lessons: [
           {
-            label: "Lesson 1: Polynomial Approximation, Standard Series & Convergence",
+            label: "Lesson 1: Derivation of Maclaurin Formula, Standard Series & Convergence",
             file: "interactives/5_2_lesson1.html",
             videoEmbedUrl: "",
-            prereq: "Factorial notation n!, basic graphs of eˣ, sin x, cos x, ln(1 + x), and interval/modulus inequalities.",
+            prereq: "Repeated differentiation, factorial notation n!, equation of a tangent y − y₁ = m(x − x₁), and modulus/interval inequalities.",
             objectives: [
-              "Understand how higher-degree Maclaurin polynomials P_n(x) approximate a smooth function f(x) increasingly well near x = 0.",
-              "Recall and interpret the five standard MF27 Maclaurin series—(1 + x)ⁿ, eˣ, sin x, cos x, and ln(1 + x)—and state their exact intervals of convergence (ranges of validity).",
-              "Explain visually and algebraically why a series diverges outside its interval of convergence (e.g., vertical asymptote at x = −1 for ln(1 + x) and (1 + x)ⁿ)."
+              "Derive the Maclaurin series formula f(x) = f(0) + f'(0)x + [f''(0)/2!]x² + [f'''(0)/3!]x³ + ⋯ from first principles by matching derivatives at x = 0.",
+              "Deduce the equation of the tangent to y = f(x) at x = 0 directly from the linear terms y = f(0) + f'(0)x of its Maclaurin series.",
+              "Apply the five standard MF27 Maclaurin series—(1 + x)ⁿ, eˣ, sin x, cos x, and ln(1 + x)—along with their exact intervals of convergence (ranges of validity).",
+              "Explain how approximation accuracy improves by increasing polynomial degree k or evaluating closer to x = 0 inside the interval of convergence."
             ],
             prompts: [
-              "In the Polynomial Approximation & Convergence Lab, increase degree n from 1 to 9 for y = eˣ, y = sin x, and y = ln(1 + x) to watch how P_n(x) hugs the curve inside (−1, 1] for ln(1 + x) but blows up immediately for |x| > 1.",
-              "Compare the convergence behaviour of eˣ, sin x, and cos x (valid for all x ∈ ℝ) against (1 + x)ⁿ (valid for −1 < x < 1) and ln(1 + x) (valid for −1 < x ≤ 1)."
+              "In Tab 1 (Formula Derivation & Tangent at x = 0), step through Differentiate & Set x = 0 to see why differentiating a_k x^k k times produces k! · a_k = f⁽ᵏ⁾(0).",
+              "In Tab 2 (Polynomial Morph & Convergence Wall), toggle the Tangent Line y = f(0) + f'(0)x and scrub degree k from 0 to 12 for ln(1 + x) to observe convergence inside (−1, 1] and divergence outside."
             ],
             pitfalls: [
-              "Confusing the endpoint boundary of ln(1 + x) (valid for −1 < x ≤ 1, inclusive of x = 1) with (1 + x)ⁿ (valid for −1 < x < 1 when n is not a non-negative integer).",
-              "Evaluating a Maclaurin series outside its interval of convergence (e.g., substituting x = 2 into the series for ln(1 + x))."
+              "Forgetting to divide f⁽ᵏ⁾(0) by k! when assembling the Maclaurin series (especially dividing by 3 instead of 3! = 6).",
+              "Confusing the endpoint boundary of ln(1 + x) (valid for −1 < x ≤ 1, inclusive of x = 1) with (1 + x)ⁿ (valid for −1 < x < 1 when n is not a non-negative integer)."
             ],
-            gcTip: "Graph Y₁ = ln(1 + X) alongside Y₂ = X − X²/2 + X³/3 − X⁴/4 on the TI-84 Plus CE over [−1.5, 1.5] to see the divergence barrier at x = ±1.",
+            gcTip: "Graph Y₁ = ln(1 + X), Y₂ = X (tangent at x = 0), and Y₃ = X − X²/2 + X³/3 − X⁴/4 on the TI-84 Plus CE over [−1.5, 1.5] to verify the tangent contact and divergence wall at x = ±1.",
             workedQuestion: `
-              <strong>(i)</strong> Write down the standard MF27 Maclaurin series for <em>ln(1 + x)</em> and <em>(1 + x)^{−1/2}</em> up to and including the term in <em>x³</em>, stating the range of values of <em>x</em> for which each expansion is valid. [4]<br>
-              <strong>(ii)</strong> Explain why the Maclaurin series for <em>ln(1 + x)</em> cannot be used to approximate <em>ln 3</em> directly, whereas it can be used when <em>x = 0.2</em>. [2]
+              <strong>(i)</strong> Assuming that <em>f(x) = a₀ + a₁x + a₂x² + a₃x³ + ⋯</em> can be differentiated term-by-term, show how <em>a₂</em> and <em>a₃</em> are expressed in terms of derivatives of <em>f</em> at <em>x = 0</em>. [2]<br>
+              <strong>(ii)</strong> Write down the standard MF27 Maclaurin series for <em>ln(1 + x)</em> up to and including the term in <em>x³</em>, stating its range of validity, and deduce the equation of the tangent to <em>y = ln(1 + x)</em> at <em>x = 0</em>. [3]<br>
+              <strong>(iii)</strong> State two ways to improve the accuracy of a Maclaurin polynomial approximation for <em>ln(1 + x)</em>. [2]
             `,
             workedSolution: `
-              <strong>(i)</strong> From MF27:<br>
-              • <em>ln(1 + x) =</em> <strong>x − ½x² + ⅓x³ − ⋯</strong>, valid for <strong>−1 &lt; x ≤ 1</strong>.<br>
-              • <em>(1 + x)^{−1/2} = 1 + (−½)x + [(−½)(−3/2)/2!]x² + [(−½)(−3/2)(−5/2)/3!]x³ + ⋯ =</em> <strong>1 − ½x + ⅜x² − (5/16)x³ + ⋯</strong>, valid for <strong>−1 &lt; x &lt; 1</strong>.<br><br>
-              <strong>(ii)</strong> Approximating <em>ln 3 = ln(1 + 2)</em> requires <em>x = 2</em>, which lies <strong>outside the interval of convergence −1 &lt; x ≤ 1</strong> (the partial sums diverge). By contrast, <em>x = 0.2 ∈ (−1, 1]</em> lies well inside the interval of convergence, so the terms decay rapidly toward 0.
+              <strong>(i)</strong> Differentiating term-by-term:<br>
+              <em>f'(x) = a₁ + 2a₂x + 3a₃x² + ⋯</em><br>
+              <em>f''(x) = 2! a₂ + 3·2 a₃x + ⋯</em> &rArr; setting <em>x = 0</em> gives <em>f''(0) = 2! a₂ &rArr;</em> <strong>a₂ = f''(0) / 2!</strong>.<br>
+              <em>f'''(x) = 3! a₃ + ⋯</em> &rArr; setting <em>x = 0</em> gives <em>f'''(0) = 3! a₃ &rArr;</em> <strong>a₃ = f'''(0) / 3!</strong>.<br><br>
+              <strong>(ii)</strong> From MF27, <em>ln(1 + x) =</em> <strong>x − ½x² + ⅓x³ − ⋯</strong>, valid for <strong>−1 &lt; x ≤ 1</strong>.<br>
+              Truncating after the linear term gives the tangent at <em>x = 0</em>: <strong>y = x</strong>.<br><br>
+              <strong>(iii)</strong> Within the interval of convergence <em>−1 &lt; x ≤ 1</em>, accuracy improves by: (1) <strong>including higher-degree terms</strong> in the polynomial, or (2) evaluating at values of <em>x</em> <strong>closer to 0</strong> (smaller <em>|x|</em>).
             `,
-            exitQuestion: "State the range of validity for the Maclaurin expansion of (a) cos(3x) and (b) ln(1 − 4x).",
-            exitAnswer: "(a) <strong>x ∈ ℝ</strong> (all real x); (b) −1 < −4x ≤ 1 ⇔ <strong>−¼ ≤ x &lt; ¼</strong>."
+            exitQuestion: "Write down the Maclaurin expansion of e^{2x} up to x³ and deduce the equation of the tangent to y = e^{2x} at x = 0.",
+            exitAnswer: "e^{2x} = 1 + 2x + (2x)²/2! + (2x)³/3! + ⋯ = <strong>1 + 2x + 2x² + (4/3)x³ + ⋯</strong>. Tangent at x = 0: <strong>y = 1 + 2x</strong>."
           },
           {
             label: "Lesson 2: Repeated Implicit Differentiation for Maclaurin Series",
