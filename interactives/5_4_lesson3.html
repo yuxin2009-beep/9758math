@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 5.4 Lesson 3: Area Between Two Curves</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    sub, sup {
+      line-height: 0;
+      font-size: 0.72em;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 0.78rem;
+      line-height: 1.5;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 530px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1000px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.76rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.48;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .method-box {
+      background: #faf5ff;
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 11px;
+      font-size: 0.78rem;
+      line-height: 1.5;
+      color: #3b0764;
+    }
+
+    .method-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--purple-dark);
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .method-step {
+      background: #ffffff;
+      border: 1px solid #e9d5ff;
+      border-radius: 8px;
+      padding: 6px 9px;
+      margin-bottom: 5px;
+    }
+
+    .method-step:last-child {
+      margin-bottom: 0;
+    }
+
+    .control-panel {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 13px;
+      margin-bottom: 11px;
+    }
+
+    .control-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .slider-row {
+      margin-bottom: 9px;
+    }
+
+    .slider-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+      color: #334155;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple-dark);
+      cursor: pointer;
+    }
+
+    .solve-bar {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: none;
+      background: var(--purple-dark);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .action-btn:hover {
+      opacity: 0.93;
+    }
+
+    .action-btn.secondary {
+      background: var(--blue-bg);
+      color: var(--blue);
+      border: 1px solid #bae6fd;
+    }
+
+    .action-btn.mode-active {
+      background: var(--rose);
+      color: #ffffff;
+      border: 1px solid #be123c;
+    }
+
+    .gc-screen-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin-bottom: 11px;
+    }
+
+    .box-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .gc-readout {
+      background: #f1f5f9;
+      border: 2px solid #64748b;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.79rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 5px;
+      line-height: 1.48;
+    }
+
+    .solution-banner {
+      background: var(--purple-bg);
+      border: 1.5px solid #d8b4fe;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #4c1d95;
+      font-size: 0.82rem;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    /* DUAL CANVAS STAGE */
+    .canvas-stage {
+      display: grid;
+      grid-template-columns: 1.25fr 1.05fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .canvas-stage {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .canvas-card {
+      background: #fdfbf7;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 8px;
+      text-align: center;
+    }
+
+    .canvas-caption {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-bottom: 4px;
+    }
+
+    canvas {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+    }
+
+    .check-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.79rem;
+      margin-top: 8px;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .check-table th, .check-table td {
+      border: 1px solid #e2e8f0;
+      padding: 6px 9px;
+      text-align: left;
+    }
+
+    .check-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    .gc-guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .gc-guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .step-pill {
+      background: var(--blue-bg);
+      border: 1px solid #bae6fd;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.76rem;
+      line-height: 1.48;
+      color: #0c4a6e;
+    }
+
+    .key-badge {
+      display: inline-block;
+      background: #ffffff;
+      border: 1px solid #93c5fd;
+      border-radius: 4px;
+      padding: 0 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: #1e3a8a;
+    }
+
+    .grader-card {
+      margin-top: 12px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 700px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .misconception-box {
+      margin-top: 12px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 10px 13px;
+      font-size: 0.79rem;
+      line-height: 1.48;
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Visual Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Choose a Two-Curve Configuration</strong>
+        Compare <em>Top &minus; Bottom</em>, <em>Across x-Axis</em>, <em>Crossing Curves (Modulus Split)</em>, and <em>Right &minus; Left wrt y</em> to master both <em>dx</em> and <em>dy</em> setups.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Inspect Differential Strip &amp; Modulus |f &minus; g|</strong>
+        Drag the strip slider to see <em>|f &minus; g|</em> span between curves, or click <em>Plot Modulus Curve |f &minus; g|</em> to visualize why <em>Area = &int; |f &minus; g|</em> needs no sign adjustments.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Follow Exact TI-84 Plus CE Steps &amp; Exam Check</strong>
+        Use the 3-step <em>TI-84 Plus CE Keystroke Guide</em> to find intersections via <code>5: intersect</code> and evaluate <code>fnInt(abs(Y₁&minus;Y₂),...)</code>, then test yourself below.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        5.4 Lesson 3 &bull; Area Between Two Curves (Top &minus; Bottom &amp; Right &minus; Left)
+      </div>
+
+      <!-- Scenario Presets -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="sc_topBottom" onclick="loadScenario('topBottom')">
+          1. Top &minus; Bottom: y = 4x &minus; x&sup2; &amp; y = x
+        </button>
+        <button class="tab-btn" id="sc_acrossX" onclick="loadScenario('acrossX')">
+          2. Across x-Axis: y = 2 &minus; x&sup2; &amp; y = x
+        </button>
+        <button class="tab-btn" id="sc_crossing" onclick="loadScenario('crossing')">
+          3. Crossing Curves: y = sin x &amp; y = cos x
+        </button>
+        <button class="tab-btn" id="sc_rightLeftY" onclick="loadScenario('rightLeftY')">
+          4. Right &minus; Left (wrt y): x = y + 2 &amp; x = y&sup2;
+        </button>
+      </div>
+
+      <!-- Contextual Problem & Formula Setup -->
+      <div class="context-box" id="contextBox"></div>
+
+      <!-- Step-by-Step Modulus & Two-Curve Method -->
+      <div class="method-box" id="methodBox"></div>
+
+      <!-- Interactive Sweep & Strip Controls -->
+      <div class="control-panel">
+        <div class="control-header">
+          <span id="axisModeHeader">Strip Orientation: Vertical |y₁ &minus; y₂| dx</span>
+          <span id="limitsHeader" style="color:var(--purple-dark);">Intersections: x &isin; [0, 3]</span>
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-label">
+            <span id="sweepLabelName">Upper Limit Sweep Position (x<sub>upper</sub>)</span>
+            <span id="sweepValLbl" style="color:var(--purple-dark);">x = 3.00</span>
+          </div>
+          <input type="range" id="sweepSlider" min="0.04" max="1.00" step="0.01" value="1.00" oninput="onControlChange()" />
+        </div>
+
+        <div class="slider-row" style="margin-bottom:4px;">
+          <div class="slider-label">
+            <span id="stripLabelName">Differential Strip Position (x₀)</span>
+            <span id="stripValLbl" style="color:var(--teal);">x₀ = 1.50</span>
+          </div>
+          <input type="range" id="stripSlider" min="0.05" max="0.95" step="0.01" value="0.50" oninput="onControlChange()" />
+        </div>
+
+        <div class="solve-bar">
+          <button class="action-btn" id="animSweepBtn" onclick="animateAreaSweep()">&#9654; Animate Area Sweep</button>
+          <button class="action-btn secondary" id="absDiffBtn" onclick="toggleAbsDiff()">Plot Modulus Curve |f &minus; g|</button>
+        </div>
+      </div>
+
+      <!-- Definite Integral & TI-84 Plus CE Readout -->
+      <div class="gc-screen-box" id="gcOutputBox"></div>
+
+      <!-- Exact Area Conclusion Banner -->
+      <div class="solution-banner" id="solutionBanner"></div>
+    </div>
+
+    <!-- RIGHT CURVE CANVAS, ACCUMULATION COMPARISON & EXAM CHECK -->
+    <div class="card">
+      <div style="font-size:1.02rem; font-weight:800; color:#1e293b; margin-bottom:8px;" id="rightPanelHeading">
+        Enclosed Region Between Curves &amp; Modulus Integral &int; |f &minus; g|
+      </div>
+
+      <!-- Dual Canvas Stage -->
+      <div class="canvas-stage">
+        <div class="canvas-card">
+          <div class="canvas-caption" id="curveCanvasCaption">Two Curves &amp; Differential Strip (Teal = f &ge; g, Rose = g &gt; f)</div>
+          <canvas id="curveCanvas" width="340" height="245"></canvas>
+        </div>
+        <div class="canvas-card">
+          <div class="canvas-caption" id="compareCanvasCaption">Modulus Area &int;|f &minus; g| vs. Net &int;(f &minus; g)</div>
+          <canvas id="compareCanvas" width="300" height="245"></canvas>
+        </div>
+      </div>
+
+      <!-- Dynamic Strip & Area Breakdown Table -->
+      <table class="check-table" id="verificationTable"></table>
+
+      <!-- 3-Step Exact TI-84 Plus CE Keystroke Guide -->
+      <div class="gc-guide-grid" id="gcGuideGrid"></div>
+
+      <div class="misconception-box" id="misconceptionBox"></div>
+
+      <!-- Quick 9758 Area Between Two Curves Exam Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 Area Between Two Curves Exam Check (<span id="qIdxLbl">1</span>/3)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.8rem; line-height:1.45; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  const scenarios = {
+    topBottom: {
+      orientation: "x",
+      a: 0,
+      b: 3,
+      roots: [0, 3],
+      f: (x) => 4 * x - x * x,
+      g: (x) => x,
+      antiderivDiff: (x) => 1.5 * x * x - (x * x * x) / 3,
+      fLabel: "y₁ = 4x − x² (Top)",
+      gLabel: "y₂ = x (Bottom)",
+      domainStr: "[0, 3]",
+      modulusIntegralStr: "&int;<sub>0</sub><sup>3</sup> |(4x &minus; x&sup2;) &minus; x| dx",
+      piecewiseStr: "&int;<sub>0</sub><sup>3</sup> (3x &minus; x&sup2;) dx = [&frac32;x&sup2; &minus; &frac13;x&sup3;]<sub>0</sub><sup>3</sup>",
+      story: "<strong>Standard Top &minus; Bottom Region:</strong> Find the exact area enclosed between the parabola <em>y = 4x &minus; x&sup2;</em> and the line <em>y = x</em>. Solving <em>4x &minus; x&sup2; = x &rArr; x(3 &minus; x) = 0</em> gives intersections at <em>(0, 0)</em> and <em>(3, 3)</em>.",
+      formulaPill: "Area = &int;<sub>0</sub><sup>3</sup> |y<sub>1</sub> &minus; y<sub>2</sub>| dx = &int;<sub>0</sub><sup>3</sup> (3x &minus; x&sup2;) dx = 9/2 units&sup2;",
+      gcY1: "4X − X²",
+      gcY2: "X",
+      gcSyntax: "fnInt(abs(Y₁ − Y₂), X, 0, 3)",
+      exactSignedText: "9/2 (4.5)",
+      exactAreaText: "9/2 units&sup2;",
+      methodSteps: [
+        "<strong>1. Find Intersections:</strong> Solve <em>4x &minus; x&sup2; = x &rArr; x = 0, 3</em>.",
+        "<strong>2. Set Up Modulus Difference:</strong> <em>Area = &int;<sub>0</sub><sup>3</sup> |(4x &minus; x&sup2;) &minus; x| dx</em>. Since <em>4x &minus; x&sup2; &ge; x</em> on <em>[0, 3]</em>, <em>|y<sub>1</sub> &minus; y<sub>2</sub>| = 3x &minus; x&sup2;</em>.",
+        "<strong>3. Evaluate Antiderivative:</strong> <em>[&frac32;x&sup2; &minus; &frac13;x&sup3;]<sub>0</sub><sup>3</sup> = 27/2 &minus; 9 =</em> <strong>9/2 units&sup2;</strong>."
+      ]
+    },
+    acrossX: {
+      orientation: "x",
+      a: -2,
+      b: 1,
+      roots: [-2, 1],
+      f: (x) => 2 - x * x,
+      g: (x) => x,
+      antiderivDiff: (x) => 2 * x - 0.5 * x * x - (x * x * x) / 3,
+      fLabel: "y₁ = 2 − x² (Top)",
+      gLabel: "y₂ = x (Bottom)",
+      domainStr: "[−2, 1]",
+      modulusIntegralStr: "&int;<sub>&minus;2</sub><sup>1</sup> |(2 &minus; x&sup2;) &minus; x| dx",
+      piecewiseStr: "&int;<sub>&minus;2</sub><sup>1</sup> (2 &minus; x &minus; x&sup2;) dx = [2x &minus; &frac12;x&sup2; &minus; &frac13;x&sup3;]<sub>&minus;2</sub><sup>1</sup>",
+      story: "<strong>Region Cutting Across the x-Axis:</strong> Find the exact area bounded by <em>y = 2 &minus; x&sup2;</em> and <em>y = x</em>. They intersect at <em>(&minus;2, &minus;2)</em> (below the <em>x</em>-axis) and <em>(1, 1)</em> (above the <em>x</em>-axis), so the shaded region cuts right across <em>y = 0</em>—yet the strip height <em>y<sub>top</sub> &minus; y<sub>bot</sub> = (2 &minus; x&sup2;) &minus; x</em> stays positive throughout <em>[&minus;2, 1]</em>!",
+      formulaPill: "Area = &int;<sub>&minus;2</sub><sup>1</sup> |(2 &minus; x&sup2;) &minus; x| dx = 9/2 units&sup2;",
+      gcY1: "2 − X²",
+      gcY2: "X",
+      gcSyntax: "fnInt(abs(Y₁ − Y₂), X, −2, 1)",
+      exactSignedText: "9/2 (4.5)",
+      exactAreaText: "9/2 units&sup2;",
+      methodSteps: [
+        "<strong>1. Find Intersections:</strong> Solve <em>2 &minus; x&sup2; = x &rArr; x&sup2; + x &minus; 2 = 0 &rArr; (&minus;2, &minus;2)</em> and <em>(1, 1)</em>.",
+        "<strong>2. No Need to Split at x-Axis:</strong> Even where <em>y &lt; 0</em>, <em>y<sub>top</sub> &minus; y<sub>bot</sub> = (2 &minus; x&sup2;) &minus; x &ge; 0</em> on <em>[&minus;2, 1]</em>.",
+        "<strong>3. Evaluate Antiderivative:</strong> <em>[2x &minus; &frac12;x&sup2; &minus; &frac13;x&sup3;]<sub>&minus;2</sub><sup>1</sup> = (7/6) &minus; (&minus;10/3) =</em> <strong>9/2 units&sup2;</strong>."
+      ]
+    },
+    crossing: {
+      orientation: "x",
+      a: 0,
+      b: Math.PI,
+      roots: [0, Math.PI / 4, Math.PI],
+      f: (x) => Math.sin(x),
+      g: (x) => Math.cos(x),
+      antiderivDiff: (x) => -Math.cos(x) - Math.sin(x),
+      fLabel: "y₁ = sin x",
+      gLabel: "y₂ = cos x",
+      domainStr: "[0, π]",
+      modulusIntegralStr: "&int;<sub>0</sub><sup>&pi;</sup> |sin x &minus; cos x| dx",
+      piecewiseStr: "&int;<sub>0</sub><sup>&pi;/4</sup> (cos x &minus; sin x) dx + &int;<sub>&pi;/4</sub><sup>&pi;</sup> (sin x &minus; cos x) dx",
+      story: "<strong>Crossing Curves (Modulus Split Required):</strong> Find the exact area bounded by <em>y = sin x</em>, <em>y = cos x</em>, <em>x = 0</em>, and <em>x = &pi;</em>. The curves cross at <em>x = &pi;/4</em>: on <em>[0, &pi;/4]</em>, <em>cos x &ge; sin x</em>; on <em>[&pi;/4, &pi;]</em>, <em>sin x &ge; cos x</em>.",
+      formulaPill: "Area = &int;<sub>0</sub><sup>&pi;</sup> |sin x &minus; cos x| dx = (&radic;2 &minus; 1) + (1 + &radic;2) = 2&radic;2 units&sup2;",
+      gcY1: "sin(X)",
+      gcY2: "cos(X)",
+      gcSyntax: "fnInt(abs(Y₁ − Y₂), X, 0, π)",
+      exactSignedText: "2 (Net cancellation on [0, π/2])",
+      exactAreaText: "2√2 units² (≈ 2.828)",
+      methodSteps: [
+        "<strong>1. Find Crossing Point:</strong> Solve <em>sin x = cos x &rArr; tan x = 1 &rArr; x = &pi;/4</em> on <em>[0, &pi;]</em>.",
+        "<strong>2. Split Modulus at x = &pi;/4:</strong> <em>Area = &int;<sub>0</sub><sup>&pi;</sup> |sin x &minus; cos x| dx = &int;<sub>0</sub><sup>&pi;/4</sup> (cos x &minus; sin x) dx + &int;<sub>&pi;/4</sub><sup>&pi;</sup> (sin x &minus; cos x) dx</em>.",
+        "<strong>3. Evaluate Exact Value:</strong> <em>[sin x + cos x]<sub>0</sub><sup>&pi;/4</sup> + [&minus;cos x &minus; sin x]<sub>&pi;/4</sub><sup>&pi;</sup> = (&radic;2 &minus; 1) + (1 + &radic;2) =</em> <strong>2&radic;2 units&sup2;</strong>."
+      ]
+    },
+    rightLeftY: {
+      orientation: "y",
+      a: -1,
+      b: 2,
+      roots: [-1, 2],
+      f: (y) => y + 2,
+      g: (y) => y * y,
+      antiderivDiff: (y) => 0.5 * y * y + 2 * y - (y * y * y) / 3,
+      fLabel: "x₁ = y + 2 (Right)",
+      gLabel: "x₂ = y² (Left)",
+      domainStr: "[−1, 2]",
+      modulusIntegralStr: "&int;<sub>&minus;1</sub><sup>2</sup> |(y + 2) &minus; y&sup2;| dy",
+      piecewiseStr: "&int;<sub>&minus;1</sub><sup>2</sup> (y + 2 &minus; y&sup2;) dy = [&frac12;y&sup2; + 2y &minus; &frac13;y&sup3;]<sub>&minus;1</sub><sup>2</sup>",
+      story: "<strong>Right &minus; Left Horizontal Strips (&int; |x<sub>R</sub> &minus; x<sub>L</sub>| dy):</strong> Find the exact area bounded by <em>x = y + 2</em> and <em>x = y&sup2;</em>. Integrating wrt <em>x</em> requires splitting at <em>x = 1</em> (<em>y = &pm;&radic;x</em>), whereas integrating horizontally wrt <em>y</em> uses a single strip <em>(x<sub>right</sub> &minus; x<sub>left</sub>) dy</em> from <em>y = &minus;1</em> to <em>2</em>!",
+      formulaPill: "Area = &int;<sub>&minus;1</sub><sup>2</sup> |x<sub>1</sub> &minus; x<sub>2</sub>| dy = &int;<sub>&minus;1</sub><sup>2</sup> (y + 2 &minus; y&sup2;) dy = 9/2 units&sup2;",
+      gcY1: "X + 2",
+      gcY2: "X²",
+      gcSyntax: "fnInt(abs(Y₁ − Y₂), X, −1, 2)",
+      exactSignedText: "9/2 (4.5)",
+      exactAreaText: "9/2 units&sup2;",
+      methodSteps: [
+        "<strong>1. Find y-Intersections:</strong> Solve <em>y + 2 = y&sup2; &rArr; y&sup2; &minus; y &minus; 2 = 0 &rArr; y = &minus;1, 2</em>.",
+        "<strong>2. Set Up Horizontal Strip (Right &minus; Left):</strong> On <em>[&minus;1, 2]</em>, <em>x<sub>right</sub> = y + 2 &ge; x<sub>left</sub> = y&sup2;</em>, so <em>Area = &int;<sub>&minus;1</sub><sup>2</sup> (y + 2 &minus; y&sup2;) dy</em>.",
+        "<strong>3. Evaluate Antiderivative:</strong> <em>[&frac12;y&sup2; + 2y &minus; &frac13;y&sup3;]<sub>&minus;1</sub><sup>2</sup> = (10/3) &minus; (&minus;7/6) =</em> <strong>9/2 units&sup2;</strong>."
+      ]
+    }
+  };
+
+  let curKey = "acrossX";
+  let showAbsDiff = false;
+  let animId = null;
+
+  function loadScenario(key) {
+    stopAnimation();
+    curKey = key;
+    showAbsDiff = false;
+
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("sc_" + key).classList.add("active");
+
+    const sc = scenarios[key];
+    const isX = sc.orientation === "x";
+    const varSym = isX ? "x" : "y";
+    const stripSym = isX ? "|y₁ &minus; y₂| dx" : "|x₁ &minus; x₂| dy";
+
+    document.getElementById("contextBox").innerHTML = `
+      <div>${sc.story}</div>
+      <div class="var-pill">${sc.formulaPill}</div>
+    `;
+
+    document.getElementById("methodBox").innerHTML = `
+      <div class="method-title">
+        <span>Two-Curve Modulus &amp; Piecewise Analytical Method</span>
+        <span style="background:#ffffff; padding:1px 7px; border-radius:999px; border:1px solid #d8b4fe;">Strip: ${stripSym}</span>
+      </div>
+      ${sc.methodSteps.map(s => `<div class="method-step">${s}</div>`).join("")}
+    `;
+
+    document.getElementById("axisModeHeader").innerHTML =
+      isX ? "Strip Orientation: Vertical |y₁ &minus; y₂| dx" : "Strip Orientation: Horizontal |x₁ &minus; x₂| dy";
+    document.getElementById("limitsHeader").innerHTML =
+      `Domain: ${varSym} &isin; ${sc.domainStr}`;
+    document.getElementById("sweepLabelName").innerHTML = `Upper Limit Sweep Position (${varSym}<sub>upper</sub>)`;
+    document.getElementById("stripLabelName").textContent = `Differential Strip Position (${varSym}₀)`;
+
+    const diffBtn = document.getElementById("absDiffBtn");
+    diffBtn.classList.remove("mode-active");
+    diffBtn.textContent = "Plot Modulus Curve |f − g|";
+
+    document.getElementById("sweepSlider").value = 1.0;
+    document.getElementById("stripSlider").value = 0.50;
+    updateAll();
+  }
+
+  function toggleAbsDiff() {
+    showAbsDiff = !showAbsDiff;
+    const btn = document.getElementById("absDiffBtn");
+    if (showAbsDiff) {
+      btn.classList.add("mode-active");
+      btn.textContent = "Showing |f − g| Curve (Active)";
+    } else {
+      btn.classList.remove("mode-active");
+      btn.textContent = "Plot Modulus Curve |f − g|";
+    }
+    updateAll();
+  }
+
+  function animateAreaSweep() {
+    if (animId) {
+      stopAnimation();
+      return;
+    }
+    const slider = document.getElementById("sweepSlider");
+    let t = 0.04;
+    slider.value = t;
+    document.getElementById("animSweepBtn").textContent = "⏸ Pause Sweep";
+
+    function step() {
+      t += 0.012;
+      if (t >= 1.0) {
+        slider.value = 1.0;
+        updateAll();
+        stopAnimation();
+        return;
+      }
+      slider.value = t;
+      updateAll();
+      animId = requestAnimationFrame(step);
+    }
+    animId = requestAnimationFrame(step);
+  }
+
+  function stopAnimation() {
+    if (animId) {
+      cancelAnimationFrame(animId);
+      animId = null;
+    }
+    document.getElementById("animSweepBtn").innerHTML = "&#9654; Animate Area Sweep";
+  }
+
+  function onControlChange() {
+    stopAnimation();
+    updateAll();
+  }
+
+  function computeAccumulatedValues(sc, uPos) {
+    const netSigned = sc.antiderivDiff(uPos) - sc.antiderivDiff(sc.a);
+
+    const pts = [sc.a];
+    sc.roots.forEach(r => {
+      if (r > sc.a + 1e-6 && r < uPos - 1e-6) pts.push(r);
+    });
+    pts.push(uPos);
+
+    let totalArea = 0;
+    let fAboveArea = 0;
+    let gAboveArea = 0;
+
+    for (let i = 0; i < pts.length - 1; i++) {
+      const seg = sc.antiderivDiff(pts[i + 1]) - sc.antiderivDiff(pts[i]);
+      if (seg >= 0) {
+        fAboveArea += seg;
+        totalArea += seg;
+      } else {
+        gAboveArea += Math.abs(seg);
+        totalArea += Math.abs(seg);
+      }
+    }
+    return { netSigned, totalArea, fAboveArea, gAboveArea };
+  }
+
+  function updateAll() {
+    const sc = scenarios[curKey];
+    const sweepFrac = Number(document.getElementById("sweepSlider").value);
+    const stripFrac = Number(document.getElementById("stripSlider").value);
+
+    const isX = sc.orientation === "x";
+    const varSym = isX ? "x" : "y";
+    const uPos = sc.a + sweepFrac * (sc.b - sc.a);
+    const sPos = sc.a + stripFrac * (sc.b - sc.a);
+
+    document.getElementById("sweepValLbl").textContent = `${varSym} = ${uPos.toFixed(2)}`;
+    document.getElementById("stripValLbl").textContent = `${varSym}₀ = ${sPos.toFixed(2)}`;
+
+    const acc = computeAccumulatedValues(sc, uPos);
+    const fVal = sc.f(sPos);
+    const gVal = sc.g(sPos);
+    const stripLen = Math.abs(fVal - gVal);
+
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">TI-84 Plus CE Two-Curve Modulus Syntax &amp; Live Sweep Totals</span>
+      <div class="gc-readout">
+        Y₁ = ${sc.gcY1}, Y₂ = ${sc.gcY2} &nbsp;&rArr;&nbsp; Syntax: <strong>${sc.gcSyntax}</strong><br>
+        Full Domain: Modulus Area &int;|f &minus; g| = <strong>${sc.exactAreaText}</strong> &nbsp;|&nbsp; Net &int;(f &minus; g) = <strong>${sc.exactSignedText}</strong><br>
+        Up to ${varSym} = ${uPos.toFixed(2)}: &int;|f &minus; g| = <strong>${acc.totalArea.toFixed(4)}</strong> &nbsp;|&nbsp; Net &int;(f &minus; g) = ${acc.netSigned.toFixed(4)}
+      </div>
+    `;
+
+    document.getElementById("solutionBanner").innerHTML =
+      `Modulus Integral <strong>${sc.modulusIntegralStr}</strong> = ${sc.piecewiseStr} = <strong>${sc.exactAreaText}</strong>.`;
+
+    document.getElementById("verificationTable").innerHTML = `
+      <thead>
+        <tr>
+          <th>Quantity on [${sc.a.toFixed(0)}, ${uPos.toFixed(2)}]</th>
+          <th>Value</th>
+          <th>9758 Two-Curve Analytical Interpretation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Sub-Region where f &ge; g</strong></td>
+          <td style="color:#0f766e; font-weight:700;">+${acc.fAboveArea.toFixed(4)}</td>
+          <td>${isX ? "y₁ is above y₂" : "x₁ is right of x₂"} (|f &minus; g| = f &minus; g)</td>
+        </tr>
+        <tr>
+          <td><strong>Sub-Region where g &gt; f</strong></td>
+          <td style="color:#e11d48; font-weight:700;">+${acc.gAboveArea.toFixed(4)}</td>
+          <td>${isX ? "y₂ is above y₁" : "x₂ is right of x₁"} (|f &minus; g| = g &minus; f)</td>
+        </tr>
+        <tr>
+          <td><strong>Net Signed Integral &int; (f &minus; g) d${varSym}</strong></td>
+          <td>${acc.netSigned.toFixed(4)}</td>
+          <td>Sub-regions cancel if curves cross and order isn't swapped</td>
+        </tr>
+        <tr>
+          <td><strong>Modulus Area Integral &int; |f &minus; g| d${varSym}</strong></td>
+          <td style="color:#6d28d9; font-weight:700;">${acc.totalArea.toFixed(4)} units&sup2;</td>
+          <td>Strip length at ${varSym}₀ = ${sPos.toFixed(2)}: |${fVal.toFixed(2)} &minus; (${gVal.toFixed(2)})| = ${stripLen.toFixed(2)}</td>
+        </tr>
+      </tbody>
+    `;
+
+    document.getElementById("gcGuideGrid").innerHTML = `
+      <div class="step-pill">
+        <strong>Step 1: Find Intersections via GC</strong><br>
+        1. Press <span class="key-badge">Y=</span>; enter <strong>Y₁ = ${sc.gcY1}</strong> and <strong>Y₂ = ${sc.gcY2}</strong>.<br>
+        2. Press <span class="key-badge">GRAPH</span>, then <span class="key-badge">2nd</span> <span class="key-badge">TRACE</span> &gt; <span class="key-badge">5: intersect</span>.<br>
+        3. Select First Curve, Second Curve, and Guess to record all intersection limits (e.g. <em>x = 0.785398... = &pi;/4</em>).
+      </div>
+      <div class="step-pill">
+        <strong>Step 2: Exact Keystrokes for &int; |Y₁ &minus; Y₂| dX</strong><br>
+        1. On Home Screen, press <span class="key-badge">ALPHA</span> <span class="key-badge">WINDOW</span> &gt; <span class="key-badge">4: fnInt(</span>.<br>
+        2. Enter limits <strong>a</strong> and <strong>b</strong>, then inside the integrand press <span class="key-badge">MATH</span> &rarr; <span class="key-badge">&#9654;</span> (<strong>NUM</strong>) &gt; <span class="key-badge">1: abs(</span>.<br>
+        3. Press <span class="key-badge">ALPHA</span> <span class="key-badge">TRACE</span> &gt; <span class="key-badge">1: Y₁</span> &minus; <span class="key-badge">ALPHA</span> <span class="key-badge">TRACE</span> &gt; <span class="key-badge">2: Y₂</span>, type <strong>X</strong>, and press <span class="key-badge">ENTER</span>.
+      </div>
+      <div class="step-pill">
+        <strong>Step 3: Exact Paper Setup &amp; Fraction Check</strong><br>
+        1. Press <span class="key-badge">MATH</span> &gt; <span class="key-badge">1: &#9654;Frac</span> &rarr; <span class="key-badge">ENTER</span> for rational answers (e.g., <strong>9/2</strong>).<br>
+        2. <em>Exam Tip:</em> Always verify which curve is on top/right on each sub-interval before removing the modulus bars on paper!
+      </div>
+    `;
+
+    document.getElementById("misconceptionBox").innerHTML = `
+      <strong>Critical 9758 Exam Misconception Alerts:</strong>
+      <ul style="margin:3px 0 0 0; padding-left:18px;">
+        <li><strong>Always check if curves cross inside (a, b):</strong> If <em>f(x)</em> and <em>g(x)</em> intersect at <em>x = c &isin; (a, b)</em>, writing a single unsplit <em>&int;<sub>a</sub><sup>b</sup> [f(x) &minus; g(x)] dx</em> subtracts the second sub-region instead of adding it. Split into <em>&int;<sub>a</sub><sup>c</sup> (f &minus; g) dx + &int;<sub>c</sub><sup>b</sup> (g &minus; f) dx</em>.</li>
+        <li><strong>Do NOT square the functions (&int; [f&sup2; &minus; g&sup2;] dx is Volume, NOT Area!):</strong> Area between two curves uses the linear difference <strong>&int;<sub>a</sub><sup>b</sup> |f(x) &minus; g(x)| dx</strong>; squaring <em>f</em> and <em>g</em> computes volume of revolution around the <em>x</em>-axis!</li>
+      </ul>
+    `;
+
+    drawCurveCanvas(sc, uPos, sPos);
+    drawCompareCanvas(sc, uPos);
+  }
+
+  function drawCurveCanvas(sc, uPos, sPos) {
+    const canvas = document.getElementById("curveCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const isX = sc.orientation === "x";
+
+    if (isX) {
+      // Pad horizontal domain slightly so axis crossings & intersections are clearly visible
+      const spanX = sc.b - sc.a;
+      const xMin = sc.a - 0.12 * spanX;
+      const xMax = sc.b + 0.12 * spanX;
+
+      let yMin = 0, yMax = 0;
+      for (let i = 0; i <= 70; i++) {
+        const x = xMin + (i / 70) * (xMax - xMin);
+        const y1 = sc.f(x);
+        const y2 = sc.g(x);
+        yMin = Math.min(yMin, y1, y2);
+        yMax = Math.max(yMax, y1, y2);
+        if (showAbsDiff) yMax = Math.max(yMax, Math.abs(y1 - y2));
+      }
+      yMin = Math.min(yMin - 0.55, -0.45);
+      yMax = Math.max(yMax + 0.75, 1.2);
+
+      const padL = 28, padR = 16, padT = 20, padB = 22;
+      const plotW = W - padL - padR;
+      const plotH = H - padT - padB;
+
+      const toSx = (x) => padL + ((x - xMin) / (xMax - xMin)) * plotW;
+      const toSy = (y) => padT + ((yMax - y) / (yMax - yMin)) * plotH;
+      const xZero = toSx(0);
+      const yZero = toSy(0);
+
+      // Shade between f(x) and g(x) from sc.a to uPos
+      const slices = 90;
+      const dx = (uPos - sc.a) / slices;
+      for (let i = 0; i < slices; i++) {
+        const x0 = sc.a + i * dx;
+        const x1 = x0 + dx;
+        const xm = (x0 + x1) / 2;
+        const y1 = sc.f(xm);
+        const y2 = sc.g(xm);
+
+        const sx0 = toSx(x0);
+        const sw = Math.max(1, toSx(x1) - sx0 + 0.4);
+        const syTop = toSy(Math.max(y1, y2));
+        const sh = Math.abs(toSy(y1) - toSy(y2));
+
+        ctx.fillStyle = y1 >= y2 ? "rgba(15, 118, 110, 0.25)" : "rgba(225, 29, 72, 0.25)";
+        ctx.fillRect(sx0, syTop, sw, sh);
+      }
+
+      // Draw true x-axis (y = 0) and y-axis (x = 0)
+      ctx.strokeStyle = "#475569";
+      ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      ctx.moveTo(padL - 4, yZero);
+      ctx.lineTo(W - 8, yZero);
+      ctx.moveTo(xZero, padT - 4);
+      ctx.lineTo(xZero, H - padB + 4);
+      ctx.stroke();
+
+      ctx.fillStyle = "#64748b";
+      ctx.font = "bold 9px Segoe UI, sans-serif";
+      ctx.fillText("x", W - 14, yZero - 4);
+      ctx.fillText("y", xZero + 4, padT + 4);
+
+      // Draw curve y1 = f(x) over [xMin, xMax]
+      ctx.beginPath();
+      for (let i = 0; i <= 100; i++) {
+        const x = xMin + (i / 100) * (xMax - xMin);
+        const sx = toSx(x);
+        const sy = toSy(sc.f(x));
+        if (i === 0) ctx.moveTo(sx, sy);
+        else ctx.lineTo(sx, sy);
+      }
+      ctx.strokeStyle = "#0f766e";
+      ctx.lineWidth = 2.2;
+      ctx.stroke();
+
+      // Draw curve y2 = g(x) over [xMin, xMax]
+      ctx.beginPath();
+      for (let i = 0; i <= 100; i++) {
+        const x = xMin + (i / 100) * (xMax - xMin);
+        const sx = toSx(x);
+        const sy = toSy(sc.g(x));
+        if (i === 0) ctx.moveTo(sx, sy);
+        else ctx.lineTo(sx, sy);
+      }
+      ctx.strokeStyle = "#e11d48";
+      ctx.lineWidth = 2.2;
+      ctx.stroke();
+
+      // Optional modulus difference curve |f(x) - g(x)|
+      if (showAbsDiff) {
+        ctx.beginPath();
+        for (let i = 0; i <= 90; i++) {
+          const x = sc.a + (i / 90) * (sc.b - sc.a);
+          const sx = toSx(x);
+          const sy = toSy(Math.abs(sc.f(x) - sc.g(x)));
+          if (i === 0) ctx.moveTo(sx, sy);
+          else ctx.lineTo(sx, sy);
+        }
+        ctx.strokeStyle = "#7c3aed";
+        ctx.lineWidth = 2.1;
+        ctx.setLineDash([5, 3]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+
+      // Draw sample vertical differential strip at sPos
+      const sxStrip = toSx(sPos);
+      ctx.beginPath();
+      ctx.moveTo(sxStrip, toSy(sc.f(sPos)));
+      ctx.lineTo(sxStrip, toSy(sc.g(sPos)));
+      ctx.strokeStyle = "#0284c7";
+      ctx.lineWidth = 3.4;
+      ctx.stroke();
+
+      // Draw upper sweep boundary line at uPos
+      const sxUp = toSx(uPos);
+      ctx.beginPath();
+      ctx.moveTo(sxUp, padT);
+      ctx.lineTo(sxUp, H - padB);
+      ctx.strokeStyle = "#6d28d9";
+      ctx.lineWidth = 1.6;
+      ctx.setLineDash([4, 3]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Mark intersection points and coordinate labels
+      sc.roots.forEach(r => {
+        const px = toSx(r);
+        const py = toSy(sc.f(r));
+        ctx.beginPath();
+        ctx.arc(px, py, 3.6, 0, Math.PI * 2);
+        ctx.fillStyle = "#1e293b";
+        ctx.fill();
+
+        if (curKey === "acrossX") {
+          ctx.fillStyle = "#1e293b";
+          ctx.font = "bold 9px Segoe UI, sans-serif";
+          const lbl = r < 0 ? "(−2, −2)" : "(1, 1)";
+          ctx.fillText(lbl, px + (r < 0 ? 5 : -26), py + (r < 0 ? 11 : -7));
+        }
+      });
+
+      ctx.font = "bold 9.5px Segoe UI, sans-serif";
+      ctx.fillStyle = "#0f766e";
+      ctx.fillText(sc.fLabel, padL + 4, padT + 8);
+      ctx.fillStyle = "#e11d48";
+      ctx.fillText(sc.gLabel, padL + 112, padT + 8);
+    } else {
+      // Orientation y: horizontal strips between x1 = f(y) and x2 = g(y)
+      let xMin = 0, xMax = 0;
+      for (let i = 0; i <= 60; i++) {
+        const y = sc.a + (i / 60) * (sc.b - sc.a);
+        const x1 = sc.f(y);
+        const x2 = sc.g(y);
+        xMin = Math.min(xMin, x1, x2);
+        xMax = Math.max(xMax, x1, x2);
+      }
+      xMin = Math.min(xMin - 0.4, -0.3);
+      xMax = Math.max(xMax + 0.5, 4.4);
+
+      const padL = 34, padR = 16, padT = 18, padB = 26;
+      const plotW = W - padL - padR;
+      const plotH = H - padT - padB;
+
+      const toSx = (x) => padL + ((x - xMin) / (xMax - xMin)) * plotW;
+      const toSy = (y) => padT + ((sc.b - y) / (sc.b - sc.a)) * plotH;
+      const xZero = toSx(0);
+      const yZero = toSy(0);
+
+      const slices = 80;
+      const dy = (uPos - sc.a) / slices;
+      for (let i = 0; i < slices; i++) {
+        const y0 = sc.a + i * dy;
+        const y1 = y0 + dy;
+        const ym = (y0 + y1) / 2;
+        const x1 = sc.f(ym);
+        const x2 = sc.g(ym);
+
+        const sy1 = toSy(y1);
+        const sh = Math.max(1, toSy(y0) - sy1 + 0.4);
+        const sxLeft = toSx(Math.min(x1, x2));
+        const sw = Math.abs(toSx(x1) - toSx(x2));
+
+        ctx.fillStyle = "rgba(15, 118, 110, 0.24)";
+        ctx.fillRect(sxLeft, sy1, sw, sh);
+      }
+
+      ctx.strokeStyle = "#475569";
+      ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      ctx.moveTo(padL - 6, yZero);
+      ctx.lineTo(W - 8, yZero);
+      ctx.moveTo(xZero, padT - 6);
+      ctx.lineTo(xZero, H - padB + 6);
+      ctx.stroke();
+
+      // Draw x1 = f(y)
+      ctx.beginPath();
+      for (let i = 0; i <= 80; i++) {
+        const y = sc.a + (i / 80) * (sc.b - sc.a);
+        const sx = toSx(sc.f(y));
+        const sy = toSy(y);
+        if (i === 0) ctx.moveTo(sx, sy);
+        else ctx.lineTo(sx, sy);
+      }
+      ctx.strokeStyle = "#0f766e";
+      ctx.lineWidth = 2.2;
+      ctx.stroke();
+
+      // Draw x2 = g(y)
+      ctx.beginPath();
+      for (let i = 0; i <= 80; i++) {
+        const y = sc.a + (i / 80) * (sc.b - sc.a);
+        const sx = toSx(sc.g(y));
+        const sy = toSy(y);
+        if (i === 0) ctx.moveTo(sx, sy);
+        else ctx.lineTo(sx, sy);
+      }
+      ctx.strokeStyle = "#e11d48";
+      ctx.lineWidth = 2.2;
+      ctx.stroke();
+
+      // Optional modulus curve x = |f(y) - g(y)|
+      if (showAbsDiff) {
+        ctx.beginPath();
+        for (let i = 0; i <= 80; i++) {
+          const y = sc.a + (i / 80) * (sc.b - sc.a);
+          const sx = toSx(Math.abs(sc.f(y) - sc.g(y)));
+          const sy = toSy(y);
+          if (i === 0) ctx.moveTo(sx, sy);
+          else ctx.lineTo(sx, sy);
+        }
+        ctx.strokeStyle = "#7c3aed";
+        ctx.lineWidth = 2.1;
+        ctx.setLineDash([5, 3]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+
+      // Horizontal differential strip at sPos
+      const syStrip = toSy(sPos);
+      ctx.beginPath();
+      ctx.moveTo(toSx(sc.g(sPos)), syStrip);
+      ctx.lineTo(toSx(sc.f(sPos)), syStrip);
+      ctx.strokeStyle = "#0284c7";
+      ctx.lineWidth = 3.4;
+      ctx.stroke();
+
+      const syUp = toSy(uPos);
+      ctx.beginPath();
+      ctx.moveTo(padL, syUp);
+      ctx.lineTo(W - padR, syUp);
+      ctx.strokeStyle = "#6d28d9";
+      ctx.lineWidth = 1.6;
+      ctx.setLineDash([4, 3]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      ctx.font = "bold 9.5px Segoe UI, sans-serif";
+      ctx.fillStyle = "#0f766e";
+      ctx.fillText(sc.fLabel, padL + 6, padT + 9);
+      ctx.fillStyle = "#e11d48";
+      ctx.fillText(sc.gLabel, padL + 115, padT + 9);
+    }
+  }
+
+  function drawCompareCanvas(sc, uPos) {
+    const canvas = document.getElementById("compareCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const samples = 70;
+    let vMin = 0, vMax = 0;
+    const ptsNet = [], ptsArea = [];
+
+    for (let i = 0; i <= samples; i++) {
+      const u = sc.a + (i / samples) * (sc.b - sc.a);
+      const res = computeAccumulatedValues(sc, u);
+      ptsNet.push({ u, val: res.netSigned });
+      ptsArea.push({ u, val: res.totalArea });
+      if (res.netSigned < vMin) vMin = res.netSigned;
+      if (res.netSigned > vMax) vMax = res.netSigned;
+      if (res.totalArea > vMax) vMax = res.totalArea;
+    }
+    vMin = Math.min(vMin - 0.5, -0.4);
+    vMax = Math.max(vMax + 0.8, 1.5);
+
+    const padL = 34, padR = 14, padT = 22, padB = 26;
+    const plotW = W - padL - padR;
+    const plotH = H - padT - padB;
+
+    const toSx = (u) => padL + ((u - sc.a) / (sc.b - sc.a)) * plotW;
+    const toSy = (v) => padT + ((vMax - v) / (vMax - vMin)) * plotH;
+    const yZero = toSy(0);
+
+    ctx.strokeStyle = "#475569";
+    ctx.lineWidth = 1.3;
+    ctx.beginPath();
+    ctx.moveTo(padL - 5, yZero);
+    ctx.lineTo(W - 8, yZero);
+    ctx.moveTo(padL, padT - 6);
+    ctx.lineTo(padL, H - padB + 6);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ptsNet.forEach((p, idx) => {
+      const sx = toSx(p.u);
+      const sy = toSy(p.val);
+      if (idx === 0) ctx.moveTo(sx, sy);
+      else ctx.lineTo(sx, sy);
+    });
+    ctx.strokeStyle = "#e11d48";
+    ctx.lineWidth = 2.1;
+    ctx.setLineDash([5, 3]);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    ctx.beginPath();
+    ptsArea.forEach((p, idx) => {
+      const sx = toSx(p.u);
+      const sy = toSy(p.val);
+      if (idx === 0) ctx.moveTo(sx, sy);
+      else ctx.lineTo(sx, sy);
+    });
+    ctx.strokeStyle = "#6d28d9";
+    ctx.lineWidth = 2.4;
+    ctx.stroke();
+
+    const curAcc = computeAccumulatedValues(sc, uPos);
+    const sxCur = toSx(uPos);
+
+    ctx.beginPath();
+    ctx.arc(sxCur, toSy(curAcc.totalArea), 4, 0, Math.PI * 2);
+    ctx.fillStyle = "#6d28d9";
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(sxCur, toSy(curAcc.netSigned), 4, 0, Math.PI * 2);
+    ctx.fillStyle = "#e11d48";
+    ctx.fill();
+
+    ctx.font = "bold 9.5px Segoe UI, sans-serif";
+    ctx.fillStyle = "#6d28d9";
+    ctx.fillText("— Modulus ∫|f−g|", padL + 4, padT - 6);
+    ctx.fillStyle = "#e11d48";
+    ctx.fillText("-- Net ∫(f−g)", padL + 114, padT - 6);
+  }
+
+  const examQs = [
+    {
+      q: "The curves <em>y = x<sup>3</sup></em> and <em>y = 4x</em> enclose two symmetric regions on <em>[&minus;2, 2]</em>. Which expression gives the exact total enclosed area?",
+      opts: [
+        "&int;<sub>&minus;2</sub><sup>2</sup> |x<sup>3</sup> &minus; 4x| dx = &int;<sub>&minus;2</sub><sup>0</sup> (x<sup>3</sup> &minus; 4x) dx + &int;<sub>0</sub><sup>2</sup> (4x &minus; x<sup>3</sup>) dx = 8",
+        "&int;<sub>&minus;2</sub><sup>2</sup> (x<sup>3</sup> &minus; 4x) dx = 0",
+        "&int;<sub>&minus;2</sub><sup>2</sup> (4x &minus; x<sup>3</sup>) dx = 0",
+        "&pi;&int;<sub>&minus;2</sub><sup>2</sup> [(4x)<sup>2</sup> &minus; (x<sup>3</sup>)<sup>2</sup>] dx"
+      ],
+      ans: 0,
+      exp: "Solving <em>x<sup>3</sup> = 4x</em> gives <em>x = &minus;2, 0, 2</em>. On <em>[&minus;2, 0]</em>, <em>x<sup>3</sup> &ge; 4x</em> (area = 4); on <em>[0, 2]</em>, <em>4x &ge; x<sup>3</sup></em> (area = 4). Splitting the modulus integral <em>&int;<sub>&minus;2</sub><sup>2</sup> |x<sup>3</sup> &minus; 4x| dx</em> at <em>x = 0</em> yields <em>4 + 4 = 8 units<sup>2</sup></em>."
+    },
+    {
+      q: "Why is integrating with respect to <em>y</em> (<em>&int; |x<sub>right</sub> &minus; x<sub>left</sub>| dy</em>) preferred for the region bounded by <em>x = y<sup>2</sup> &minus; 4</em> and <em>x = 2 &minus; y</em>?",
+      opts: [
+        "A single horizontal strip spans from x<sub>left</sub> = y<sup>2</sup> &minus; 4 to x<sub>right</sub> = 2 &minus; y on [&minus;3, 2] without splitting",
+        "Because x = y<sup>2</sup> &minus; 4 is always positive",
+        "Because vertical strips cannot be integrated on a GC",
+        "Because &int;<sub>&minus;3</sub><sup>2</sup> [(2 &minus; y) &minus; (y<sup>2</sup> &minus; 4)] dy equals zero"
+      ],
+      ans: 0,
+      exp: "Solving <em>y<sup>2</sup> &minus; 4 = 2 &minus; y &rArr; y = &minus;3, 2</em>. For all <em>y &isin; [&minus;3, 2]</em>, the line <em>x = 2 &minus; y</em> stays to the right of the parabola <em>x = y<sup>2</sup> &minus; 4</em>, avoiding splitting into upper/lower branches <em>y = &pm;&radic;(x + 4)</em>."
+    },
+    {
+      q: "Find the exact area enclosed between the curves <em>y = e<sup>x</sup></em>, <em>y = e<sup>&minus;x</sup></em>, and the line <em>x = 1</em>.",
+      opts: [
+        "e + e<sup>&minus;1</sup> &minus; 2",
+        "e &minus; e<sup>&minus;1</sup>",
+        "e + e<sup>&minus;1</sup>",
+        "e<sup>2</sup> &minus; 1"
+      ],
+      ans: 0,
+      exp: "<em>e<sup>x</sup> = e<sup>&minus;x</sup></em> at <em>x = 0</em>. For <em>x &isin; [0, 1]</em>, <em>e<sup>x</sup> &ge; e<sup>&minus;x</sup></em>, so <em>Area = &int;<sub>0</sub><sup>1</sup> (e<sup>x</sup> &minus; e<sup>&minus;x</sup>) dx = [e<sup>x</sup> + e<sup>&minus;x</sup>]<sub>0</sub><sup>1</sup> = (e + e<sup>&minus;1</sup>) &minus; (1 + 1) = e + e<sup>&minus;1</sup> &minus; 2</em>."
+    }
+  ];
+
+  let curQ = 0;
+
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").innerHTML = item.q;
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i}, this)">${String.fromCharCode(65 + i)}. ${o}</button>
+    `).join("");
+  }
+
+  function gradeExamQ(idx, btn) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  loadScenario("acrossX");
+  renderExamQ();
+</script>
+
+</body>
+</html>
