@@ -67,15 +67,27 @@
       text-align: center;
     }
 
+    /* SEAMLESS SVG SQUARE ROOT SYMBOL */
     .sqrt {
       display: inline-flex;
-      align-items: baseline;
+      align-items: stretch;
+      vertical-align: baseline;
+      margin: 0 2px;
+    }
+
+    .sqrt-hook {
+      width: 0.62em;
+      height: 1.16em;
+      flex-shrink: 0;
+      overflow: visible;
+      align-self: stretch;
     }
 
     .sqrt-rad {
-      border-top: 1.3px solid currentColor;
-      padding: 0 2px;
-      margin-left: 1px;
+      border-top: 1.45px solid currentColor;
+      padding: 0 3px 0 1px;
+      line-height: 1.14;
+      display: inline-block;
     }
 
     /* HEADER & TABS */
@@ -476,6 +488,9 @@
     </div>
   </div>
 
+  function sqrt(expr) {
+  return `<span class="sqrt"><svg class="sqrt-hook" viewBox="0 0 12 20" preserveAspectRatio="none" aria-hidden="true"><path d="M 0.5 11.5 L 3.2 11.5 L 6.2 19 L 11.8 0.8" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sqrt-rad">${expr}</span></span>`;
+}
   <!-- =========================================================
        MF27 QUADRATIC REFERENCE BANNER (ALL 4 FORMULAS)
        ========================================================= -->
