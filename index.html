@@ -2380,6 +2380,151 @@
           }
         ]
       },
+      "6.6": {
+        title: "6.6 Correlation and Regression",
+        syllabusNotes: "Use of scatter diagram to determine if there is a plausible linear relationship between the two variables; correlation coefficient as a measure of the fit of a linear model to the scatter diagram; finding and interpreting the product moment correlation coefficient (in particular, values close to −1, 0 and 1); concepts of linear regression and method of least squares to find the equation of the regression line; concepts of interpolation and extrapolation; use of the appropriate regression line to make prediction or estimate a value in context, including explaining why a given regression line may not be appropriate for a particular prediction. (Excludes hypothesis test for correlation coefficient and non-linear regression via transformation—use of a given substitution or linearising form is only tested if explicitly guided.)",
+        lessons: [
+          {
+            label: "Lesson 1: Scatter Diagrams & Product Moment Correlation Coefficient (r)",
+            file: "interactives/6_6_lesson1.html",
+            videoEmbedUrl: "",
+            prereq: "2D coordinate plotting, sample mean (x̄, ȳ), and variance/summation notation Σx, Σx², Σxy.",
+            objectives: [
+              "Construct and interpret scatter diagrams to assess the direction (positive vs. negative), form (linear vs. non-linear), and strength of association between two variables.",
+              "Calculate the product moment correlation coefficient r = S_{xy} / √(S_{xx} S_{yy}) using a graphing calculator or summary statistics.",
+              "Interpret values of r close to +1, −1, and 0 in context, and explain why strong correlation (|r| ≈ 1) does NOT imply causation and why r ≈ 0 does not rule out a strong non-linear relationship."
+            ],
+            prompts: [
+              "In Tab 1, drag data points on the scatter plot or switch between Singapore datasets (e.g., HDB resale floor level vs. price, ambient temperature vs. iced kopi sales, or curved quadratic patterns) to watch r respond dynamically.",
+              "Observe how a single influential outlier or a symmetric U-shaped curve can pull r close to 0 despite a clear visual pattern."
+            ],
+            pitfalls: [
+              "Concluding that 'there is no relationship between x and y' when r ≈ 0—state instead that 'there is little or no LINEAR correlation between x and y' (a strong non-linear relationship may still exist!).",
+              "Claiming that a high correlation coefficient (e.g., r = 0.94) proves that x causes y."
+            ],
+            gcTip: "Ensure DiagnosticOn is enabled ([2nd] [0] (CATALOG) > DiagnosticOn), enter data in L1 and L2 via [STAT] > [1: Edit], and run [STAT] > [CALC] > [4: LinReg(ax+b)] to read r.",
+            workedQuestion: `
+              The table below records the daily average temperature <em>x</em> (°C) and daily iced coffee sales <em>y</em> (hundreds of cups) at a Tiong Bahru café over 6 days:<br>
+              <em>x</em>: 27.5, 29.0, 30.2, 31.5, 32.8, 33.6 &nbsp;|&nbsp; <em>y</em>: 1.8, 2.1, 2.5, 2.7, 3.2, 3.3.<br>
+              <strong>(i)</strong> Draw a scatter diagram for the data and describe the relationship between <em>x</em> and <em>y</em>. [2]<br>
+              <strong>(ii)</strong> Calculate the product moment correlation coefficient <em>r</em> to 4 significant figures and interpret its value in context. [2]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> Plotting the 6 points shows an upward-sloping band of points lying close to a straight line, indicating a <strong>strong, positive linear relationship</strong> between daily average temperature and iced coffee sales.<br><br>
+              <strong>(ii)</strong> Using a graphing calculator (<code>LinReg(ax+b)</code>): <strong>r = 0.9927</strong> (to 4 s.f.).<br>
+              Since <em>r</em> is very close to +1, there is a <strong>strong positive linear correlation</strong> between the daily average temperature and the number of iced coffees sold.
+            `,
+            exitQuestion: "A dataset yields r = −0.04. Does this prove there is no relationship between the two variables? Explain briefly.",
+            exitAnswer: "<strong>No.</strong> It only indicates there is almost no <strong>linear</strong> correlation; the variables could still follow a strong <strong>non-linear</strong> (e.g., quadratic or periodic) relationship."
+          },
+          {
+            label: "Lesson 2: Least Squares Regression Line (y on x)",
+            file: "interactives/6_6_lesson2.html",
+            videoEmbedUrl: "",
+            prereq: "Equation of a straight line y = a + bx, gradient/y-intercept interpretation, and summary statistics S_{xx}, S_{xy}.",
+            objectives: [
+              "Understand the Method of Least Squares: minimising the sum of squared vertical residuals Σ eᵢ² = Σ (yᵢ − (a + bxᵢ))² to obtain the regression line of y on x.",
+              "Compute the regression line y = a + bx using a graphing calculator or summary formulas b = S_{xy} / S_{xx} and a = ȳ − b x̄.",
+              "Verify that the least squares regression line always passes through the centroid (x̄, ȳ), and interpret the gradient b and y-intercept a in context."
+            ],
+            prompts: [
+              "In Tab 1 (Least Squares Residual Studio), drag the line's slope and y-intercept to try minimising the total area of the shaded vertical residual squares, then click 'Snap to Optimal Least Squares Line' to verify it passes through (x̄, ȳ).",
+              "In Tab 2, practice finding an unknown data point or parameter using the centroid property ȳ = a + b x̄."
+            ],
+            pitfalls: [
+              "Minimising perpendicular distances instead of vertical distances (for regression of y on x, residuals are vertical deviations dᵢ = yᵢ − ŷᵢ!).",
+              "Interpreting the y-intercept a literally when x = 0 lies far outside the meaningful domain of the context (e.g., height of an adult when weight = 0 kg)."
+            ],
+            gcTip: "On the TI-84 Plus CE, run [STAT] > [CALC] > [8: LinReg(a+bx)] (or [4: LinReg(ax+b)]), paying close attention to which letter represents the slope versus the y-intercept!",
+            workedQuestion: `
+              In a study of 8 HDB 4-room resale flats in Tampines, the floor area <em>x</em> (in m²) and resale price <em>y</em> (in $ thousands) are summarised by:<br>
+              <em>Σx = 744</em>, &nbsp;<em>Σy = 4680</em>, &nbsp;<em>Σx² = 69,480</em>, &nbsp;<em>Σxy = 436,920</em>.<br>
+              <strong>(i)</strong> Find the equation of the least squares regression line of <em>y</em> on <em>x</em> in the form <em>y = a + bx</em>. [3]<br>
+              <strong>(ii)</strong> Interpret the value of <em>b</em> in the context of the question. [1]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> Here <em>n = 8</em>, so <em>x̄ = 744 / 8 = 93</em> and <em>ȳ = 4680 / 8 = 585</em>.<br>
+              <em>S_{xx} = 69,480 − 744² / 8 = 69,480 − 69,192 = 288</em>.<br>
+              <em>S_{xy} = 436,920 − (744 × 4680) / 8 = 436,920 − 435,240 = 1680</em>.<br>
+              Gradient <em>b = S_{xy} / S_{xx} = 1680 / 288 = 35/6 ≈</em> <strong>5.83</strong> (to 3 s.f.).<br>
+              Intercept <em>a = ȳ − b x̄ = 585 − (35/6)(93) = 585 − 542.5 =</em> <strong>42.5</strong>.<br>
+              Hence the regression line is <strong>y = 42.5 + 5.83x</strong>.<br><br>
+              <strong>(ii)</strong> On average, each additional <strong>1 m²</strong> in floor area increases the resale price by approximately <strong>$5,830</strong> ($5.83 thousand).
+            `,
+            exitQuestion: "A regression line of y on x is given by y = 12.4 + 2.5x. If x̄ = 16, find the exact value of ȳ.",
+            exitAnswer: "Since the regression line passes through (x̄, ȳ), ȳ = 12.4 + 2.5(16) = 12.4 + 40 = <strong>52.4</strong>."
+          },
+          {
+            label: "Lesson 3: Choosing the Regression Line (y on x vs. x on y), Interpolation & Extrapolation",
+            file: "interactives/6_6_lesson3.html",
+            videoEmbedUrl: "",
+            prereq: "Least squares regression line of y on x and correlation coefficient r.",
+            objectives: [
+              "Distinguish between the regression line of y on x (minimises vertical residuals; used when x is controlled/independent or when predicting y from x) and x on y (minimises horizontal residuals; used when y is controlled or predicting x from y).",
+              "Explain why we do NOT algebraically rearrange y = a + bx to predict x when y is an uncontrolled random variable—unless |r| ≈ 1 (when both lines nearly coincide).",
+              "Evaluate the reliability of predictions based on correlation strength (|r| close to 1) and whether the input lies inside (interpolation) or outside (extrapolation) the observed data range."
+            ],
+            prompts: [
+              "In Tab 1 (y on x vs. x on y Dual-Line Visualizer), toggle between vertical residuals (y on x) and horizontal residuals (x on y) and watch the two lines scissor apart as |r| decreases toward 0, then merge as |r| → 1.",
+              "In Tab 2 (Prediction Reliability Grader), test predictions inside vs. outside the data range and inspect how examiner rubric comments grade each justification."
+            ],
+            pitfalls: [
+              "Using the regression line of y on x (rearranged for x) to estimate x from a given y when x is a random variable and |r| is not close to 1—always fit the regression line of x on y instead!",
+              "Claiming a prediction is reliable solely because it is an interpolation while ignoring a weak correlation coefficient (e.g., r = 0.25), or vice versa."
+            ],
+            gcTip: "To find the regression line of x on y on the TI-84 Plus CE without swapping lists manually, run [STAT] > [CALC] > [4: LinReg(ax+b)] and set Xlist: L2 and Ylist: L1 (writing the output as x = a y + b!).",
+            workedQuestion: `
+              An agronomist tests 7 plots of land by applying controlled amounts of fertiliser <em>x</em> (in kg) and measuring the resulting crop yield <em>y</em> (in tonnes), for <em>10 ≤ x ≤ 40</em> and <em>2.4 ≤ y ≤ 6.8</em>. The regression line of <em>y</em> on <em>x</em> is <em>y = 1.15 + 0.142x</em> with <em>r = 0.968</em>.<br>
+              <strong>(i)</strong> Estimate the crop yield when <em>25 kg</em> of fertiliser is applied, and comment on the reliability of this estimate. [3]<br>
+              <strong>(ii)</strong> Explain whether it is appropriate to use the equation <em>y = 1.15 + 0.142x</em> to estimate the amount of fertiliser needed for a target yield of <em>5.0 tonnes</em>. [2]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> When <em>x = 25</em>: <em>y = 1.15 + 0.142(25) =</em> <strong>4.70 tonnes</strong>.<br>
+              This estimate is <strong>reliable</strong> because <em>x = 25</em> lies within the given data range <em>[10, 40]</em> (<strong>interpolation</strong>) and the correlation coefficient <em>r = 0.968</em> is <strong>close to 1</strong> (indicating a strong positive linear relationship).<br><br>
+              <strong>(ii)</strong> <strong>No, it is not appropriate.</strong> Here <em>x</em> (fertiliser) is the controlled independent variable and <em>y</em> (yield) is the dependent random variable, so only the regression line of <em>y</em> on <em>x</em> is valid (minimising vertical errors in <em>y</em>, not horizontal errors in <em>x</em>). Furthermore, <em>r = 0.968 ≠ 1</em>, so the two regression lines do not coincide.
+            `,
+            exitQuestion: "State the two conditions required for a regression prediction of y from x to be considered reliable.",
+            exitAnswer: "1. The given value of x lies within the observed data range (<strong>interpolation</strong>, not extrapolation).<br>2. The magnitude of the correlation coefficient <strong>|r| is close to 1</strong> (confirming a strong linear fit)."
+          },
+          {
+            label: "Lesson 4: Guided Linearisation & Topic 6.6 Exam Synthesis",
+            file: "interactives/6_6_lesson4.html",
+            videoEmbedUrl: "",
+            prereq: "Logarithms (ln y, lg y), power transformations (x², 1/x, √x), and all Topic 6.6 correlation & regression skills.",
+            objectives: [
+              "Transform curved bivariate data into a linear form Y = A + BX using an explicitly given substitution (e.g., Y = ln y or X = x²) and compare r before and after transformation to justify the better model.",
+              "Back-substitute to express y in terms of x (e.g., y = e^{A + Bx} = c e^{bx} or y = a + b x²) and make contextual predictions.",
+              "Synthesize multi-part 9758 exam problems combining scatter diagrams, r, regression lines, outliers, and prediction critiques."
+            ],
+            prompts: [
+              "In Tab 1 (Guided Linearisation Lab), compare the raw scatter plot (x, y) against transformed plots such as (x, ln y) or (x², y) to watch curved residuals straighten out and |r| jump closer to 1.",
+              "In Tab 2 (9758 Exam Synthesis Grader), work through a complete multi-part Paper 2 Statistics problem and check every justification keyword."
+            ],
+            pitfalls: [
+              "Forgetting to back-substitute from the linearised variable (e.g., leaving the final prediction as ln y = 2.45 instead of computing y = e^{2.45} = 11.6!).",
+              "Attempting to guess a non-linear transformation without using the specific linearising variables stated in the 9758 exam question."
+            ],
+            gcTip: "Define transformed lists directly in the TI-84 List Editor header (e.g., highlight L3 and type ln(L2), or L2^2) so all values transform automatically without rounding errors.",
+            workedQuestion: `
+              The number of active users <em>N</em> (in thousands) of a Singapore fintech app <em>t</em> months after launch is recorded below:<br>
+              <em>t</em>: 1, 2, 3, 4, 5, 6 &nbsp;|&nbsp; <em>N</em>: 4.2, 6.8, 11.1, 17.9, 29.0, 46.8.<br>
+              <strong>(i)</strong> Calculate the product moment correlation coefficient between <em>t</em> and <em>N</em>, and between <em>t</em> and <em>ln N</em>, to 4 decimal places. Explain which model is more appropriate. [3]<br>
+              <strong>(ii)</strong> Find the least squares regression line of <em>ln N</em> on <em>t</em>, and hence estimate the number of active users after 7 months, commenting on the reliability of your estimate. [4]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> Using GC:<br>
+              • Between <em>t</em> and <em>N</em>: <strong>r₁ = 0.9461</strong>.<br>
+              • Between <em>t</em> and <em>ln N</em>: <strong>r₂ = 0.9999</strong>.<br>
+              Since <em>r₂ = 0.9999</em> is much closer to 1 than <em>r₁ = 0.9461</em>, the linear model between <strong>t and ln N</strong> (an exponential growth model) is much more appropriate.<br><br>
+              <strong>(ii)</strong> Running <code>LinReg</code> on <em>(t, ln N)</em> gives <strong>ln N = 0.953 + 0.482t</strong> (to 3 s.f.).<br>
+              When <em>t = 7</em>: <em>ln N = 0.9531 + 0.4822(7) = 4.3285 ⇒ N = e^{4.3285} =</em> <strong>75.8 thousand</strong> (i.e. 75,800 users).<br>
+              Although <em>r = 0.9999</em> is extremely close to 1, <em>t = 7</em> lies outside the observed range <em>[1, 6]</em> (<strong>extrapolation</strong>), so the estimate may be <strong>unreliable</strong> as exponential user growth may slow down due to market saturation.
+            `,
+            exitQuestion: "If the regression line of ln y on x is ln y = 1.2 + 0.5x, express y explicitly in the form y = A e^{bx} to 3 significant figures.",
+            exitAnswer: "y = e^{1.2 + 0.5x} = e^{1.2} e^{0.5x} = <strong>3.32 e^{0.5x}</strong>."
+          }
+        ]
+      },
     };
 
     let currentTopic = "1.1";
