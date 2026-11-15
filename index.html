@@ -525,7 +525,7 @@
     </button>
     <button class="topic-btn" id="nav_5.4" onclick="selectTopic('5.4')">
       <span>5.4 Definite Integrals</span>
-      <span class="status-pill">3 Lessons</span>
+      <span class="status-pill">5 Lessons</span>
     </button>
     <button class="topic-btn" id="nav_5.5" onclick="selectTopic('5.5')">
       <span>5.5 Differential Equations</span>
@@ -2117,6 +2117,177 @@
             `,
             exitQuestion: "In ∫ x² ln x dx, why does LIATE instruct us to choose u = ln x rather than u = x²?",
             exitAnswer: "Because differentiating ln x turns it into the simple algebraic fraction 1/x, whereas integrating ln x requires integration by parts itself."
+          }
+        ]
+      },
+      "5.4": {
+        title: "5.4 Definite Integrals",
+        syllabusNotes: "Concept of definite integral as a limit of a sum; Fundamental Theorem of Calculus and properties of definite integrals; area under a curve (including regions below the x-axis, bounded by the y-axis, and curves defined parametrically); area between two curves; volume of revolution about the x- or y-axis (including regions between two curves) and about a vertical or horizontal line parallel to an axis.",
+        lessons: [
+          {
+            label: "Lesson 1: Riemann Sums, FTC & Properties of Definite Integrals",
+            file: "interactives/5_4_lesson1.html",
+            videoEmbedUrl: "https://www.youtube.com/embed/rfG8ce4nNh0",
+            prereq: "Antiderivatives F(x), sigma summation notation, and odd/even function symmetry.",
+            objectives: [
+              "Connect the limit of Riemann sums lim_{n→∞} Σ f(xᵢ)Δx to the definite integral ∫_a^b f(x) dx = F(b) − F(a).",
+              "Apply linearity, interval additivity ∫_a^c f(x) dx + ∫_c^b f(x) dx = ∫_a^b f(x) dx, limit reversal, and symmetry on [−a, a] for odd and even functions.",
+              "Convert integration limits cleanly during substitution u = g(x) without back-substituting."
+            ],
+            prompts: [
+              "Increase the rectangle count n from 4 to 120 in the Riemann Sum explorer to observe Left, Midpoint, and Right sums converging to the exact Fundamental Theorem of Calculus value.",
+              "Test an odd integrand (e.g., x³ − 4x) versus an even integrand (e.g., x² + 1) across symmetric limits [−a, a]."
+            ],
+            pitfalls: [
+              "Forgetting to change the limits of integration when applying substitution u = g(x), or substituting x-limits into an antiderivative expressed in u.",
+              "Assuming ∫_a^b f(x)g(x) dx = (∫_a^b f(x) dx)(∫_a^b g(x) dx)—integrals are linear, NOT multiplicative!"
+            ],
+            gcTip: "Press [ALPHA] [WINDOW] > [4: fnInt(] on the TI-84 Plus CE to evaluate definite integrals numerically and verify transformed substitution limits.",
+            workedQuestion: `
+              <strong>(i)</strong> Given that <em>&int;<sub>1</sub><sup>5</sup> f(x) dx = 12</em> and <em>&int;<sub>3</sub><sup>5</sup> f(x) dx = 4</em>, find the value of <em>&int;<sub>1</sub><sup>3</sup> [2f(x) + 3] dx</em>. [3]<br>
+              <strong>(ii)</strong> Evaluate <em>&int;<sub>&minus;2</sub><sup>2</sup> (x<sup>5</sup> cos x + 3x<sup>2</sup>) dx</em>. [2]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> By interval additivity, <em>&int;<sub>1</sub><sup>3</sup> f(x) dx = &int;<sub>1</sub><sup>5</sup> f(x) dx &minus; &int;<sub>3</sub><sup>5</sup> f(x) dx = 12 &minus; 4 = 8</em>.<br>
+              By linearity: <em>2(8) + [3x]<sub>1</sub><sup>3</sup> = 16 + 6 =</em> <strong>22</strong>.<br><br>
+              <strong>(ii)</strong> Since <em>g(x) = x<sup>5</sup> cos x</em> is an <strong>odd function</strong> (<em>g(&minus;x) = &minus;g(x)</em>), <em>&int;<sub>&minus;2</sub><sup>2</sup> x<sup>5</sup> cos x dx = 0</em>.<br>
+              Since <em>3x<sup>2</sup></em> is even: <em>2 &int;<sub>0</sub><sup>2</sup> 3x<sup>2</sup> dx = 2[x<sup>3</sup>]<sub>0</sub><sup>2</sup> =</em> <strong>16</strong>.
+            `,
+            exitQuestion: "If ∫_0^4 f(x) dx = 10, find the exact value of ∫_0^2 f(2x) dx using the substitution u = 2x.",
+            exitAnswer: "Let u = 2x ⇒ du = 2 dx, with u ∈ [0, 4]: ½ ∫_0^4 f(u) du = ½(10) = <strong>5</strong>."
+          },
+          {
+            label: "Lesson 2: Area Under a Curve, Signed Area & Parametric Area",
+            file: "interactives/5_4_lesson2.html",
+            videoEmbedUrl: "",
+            prereq: "Finding x- and y-intercepts of curves and parametric differentiation dx/dt.",
+            objectives: [
+              "Distinguish net signed integral ∫_a^b f(x) dx from total geometric area ∫_a^b |f(x)| dx when a curve crosses the x-axis.",
+              "Set up horizontal strips ∫_c^d x dy when a region is bounded by x = g(y) and the y-axis.",
+              "Compute area under a parametric curve using A = ∫_{t₁}^{t₂} y(t)(dx/dt) dt, ensuring limits match left-to-right x orientation."
+            ],
+            prompts: [
+              "Run the Area Sweeper on y = x³ − 4x over [−2, 2] to contrast net signed integral (= 0) against total geometric area (= 8).",
+              "Switch to Horizontal Strips (dy) on x = 4 − y² to see why integrating with respect to y avoids splitting square-root branches."
+            ],
+            pitfalls: [
+              "Evaluating ∫_a^b f(x) dx directly across an x-intercept when asked for total area (positive and negative regions cancel out!).",
+              "Integrating parametric area ∫ y(t)(dx/dt) dt from t₁ to t₂ without checking whether x increases from left to right as t goes from t₁ to t₂ (if x decreases, take the modulus or swap limits)."
+            ],
+            gcTip: "Use fnInt(abs(Y₁), X, a, b) on your GC to verify total unsigned geometric area across x-intercepts.",
+            workedQuestion: `
+              <strong>(a)</strong> Find the total area of the finite regions bounded by the curve <em>y = x(x &minus; 1)(x &minus; 3)</em> and the <em>x</em>-axis. [3]<br>
+              <strong>(b)</strong> A curve has parametric equations <em>x = t<sup>2</sup> + 1</em>, <em>y = 2t</em> for <em>0 &le; t &le; 3</em>. Find the area bounded by the curve, the <em>x</em>-axis, and the lines <em>x = 1</em> and <em>x = 10</em>. [3]
+            `,
+            workedSolution: `
+              <strong>(a)</strong> The curve crosses the <em>x</em>-axis at <em>x = 0, 1, 3</em> (above axis on <em>(0, 1)</em>, below axis on <em>(1, 3)</em>):<br>
+              <em>Area = &int;<sub>0</sub><sup>1</sup> (x<sup>3</sup> &minus; 4x<sup>2</sup> + 3x) dx &minus; &int;<sub>1</sub><sup>3</sup> (x<sup>3</sup> &minus; 4x<sup>2</sup> + 3x) dx = <span class="frac"><span class="frac-num">5</span><span class="frac-den">12</span></span> &minus; (&minus;<span class="frac"><span class="frac-num">8</span><span class="frac-den">3</span></span>) =</em> <strong><span class="frac"><span class="frac-num">37</span><span class="frac-den">12</span></span> units<sup>2</sup></strong>.<br><br>
+              <strong>(b)</strong> When <em>x = 1</em>, <em>t = 0</em>; when <em>x = 10</em>, <em>t = 3</em> (and <em>dx/dt = 2t &ge; 0</em>):<br>
+              <em>Area = &int;<sub>0</sub><sup>3</sup> (2t)(2t dt) = &int;<sub>0</sub><sup>3</sup> 4t<sup>2</sup> dt = [<span class="frac"><span class="frac-num">4</span><span class="frac-den">3</span></span>t<sup>3</sup>]<sub>0</sub><sup>3</sup> =</em> <strong>36 units<sup>2</sup></strong>.
+            `,
+            exitQuestion: "Write down the definite integral for the area bounded by the curve x = y² + 1, the y-axis, and the lines y = −1 and y = 2.",
+            exitAnswer: "Since x = y² + 1 > 0 to the right of the y-axis, Area = <strong>∫_{−1}^2 (y² + 1) dy</strong> (= 6)."
+          },
+          {
+            label: "Lesson 3: Area Between Two Curves",
+            file: "interactives/5_4_lesson3.html",
+            videoEmbedUrl: "",
+            prereq: "Solving simultaneous equations for intersection points and setting up vertical (dx) vs. horizontal (dy) strips.",
+            objectives: [
+              "Find exact intersection points of two curves algebraically or via GC before setting integral limits.",
+              "Calculate area between two curves via vertical strips ∫_a^b (y_top − y_bottom) dx or horizontal strips ∫_c^d (x_right − x_left) dy.",
+              "Choose horizontal slicing (dy) strategically when vertical slicing (dx) would require splitting at a corner."
+            ],
+            prompts: [
+              "Compare Vertical Slicing (dx) against Horizontal Slicing (dy) on the region bounded by y = x − 1 and y² = 2x + 6 to see why dy evaluates in one single integral.",
+              "Observe how top-minus-bottom remains positive even when part or all of the region lies below the x-axis."
+            ],
+            pitfalls: [
+              "Forgetting to split the integral when the upper and lower boundary curves swap roles at an interior intersection point.",
+              "Subtracting in the wrong order (bottom − top), yielding a negative area."
+            ],
+            gcTip: "Plot Y₁ and Y₂ on your GC, find intersections via [2nd] [TRACE] > [5: intersect], store x-coordinates in A and B, and evaluate fnInt(Y₁ − Y₂, X, A, B).",
+            workedQuestion: `
+              Find the exact area of the finite region enclosed by the curve <em>y<sup>2</sup> = 2x + 6</em> and the line <em>y = x &minus; 1</em>. [5]
+            `,
+            workedSolution: `
+              Solving simultaneously: <em>y<sup>2</sup> = 2(y + 1) + 6 &rArr; y<sup>2</sup> &minus; 2y &minus; 8 = 0 &rArr; (y &minus; 4)(y + 2) = 0 &rArr; y = &minus;2, 4</em>.<br>
+              Using horizontal strips from <em>y = &minus;2</em> to <em>y = 4</em> (right boundary <em>x = y + 1</em>, left boundary <em>x = &frac12;(y<sup>2</sup> &minus; 6)</em>):<br>
+              <em>Area = &int;<sub>&minus;2</sub><sup>4</sup> [ (y + 1) &minus; &frac12;(y<sup>2</sup> &minus; 6) ] dy = &int;<sub>&minus;2</sub><sup>4</sup> (4 + y &minus; &frac12;y<sup>2</sup>) dy</em><br>
+              = <em>[4y + &frac12;y<sup>2</sup> &minus; &frac16;y<sup>3</sup>]<sub>&minus;2</sub><sup>4</sup> = (16 + 8 &minus; <span class="frac"><span class="frac-num">32</span><span class="frac-den">3</span></span>) &minus; (&minus;8 + 2 + <span class="frac"><span class="frac-num">4</span><span class="frac-den">3</span></span>) =</em> <strong>18 units<sup>2</sup></strong>.
+            `,
+            exitQuestion: "Why is integrating with respect to y more efficient than with respect to x for the region between x = y² and x = 4?",
+            exitAnswer: "With respect to y, it is a single integral <strong>∫_{−2}^2 (4 − y²) dy</strong>, whereas with respect to x it requires 2∫_0^4 √x dx (and for asymmetric curves, splitting into two separate integrals)."
+          },
+          {
+            label: "Lesson 4: Volume of Solid of Revolution (About Axes & Between Two Curves)",
+            file: "interactives/5_4_lesson4.html",
+            videoEmbedUrl: "",
+            prereq: "Area of a circle πr² and washer (annulus) π(R² − r²), plus algebraic expansion of squared expressions.",
+            objectives: [
+              "Compute volume of revolution about the x-axis using V = π ∫_a^b y² dx and about the y-axis using V = π ∫_c^d x² dy.",
+              "Compute washer volume when rotating a region between two curves about an axis: V = π ∫_a^b (y_outer² − y_inner²) dx.",
+              "Avoid the critical misconception π ∫ (y_outer − y_inner)² dx ≠ π ∫ (y_outer² − y_inner²) dx."
+            ],
+            prompts: [
+              "Click 'Animate 0° → 360° Sweep' in the 3D Lathe Visualizer to watch a 2D region between y = x and y = x² revolve into a hollowed 3D washer solid.",
+              "Inspect the cross-sectional ring at slice x₀ and compare true washer volume (2π/15) against the false (y₁ − y₂)² formula (π/30)."
+            ],
+            pitfalls: [
+              "Writing π ∫_a^b (y₁ − y₂)² dx instead of π ∫_a^b (y₁² − y₂²) dx—rotating the vertical gap between two curves does NOT produce the same volume as rotating the region!",
+              "Forgetting the factor of π in front of the integral, or forgetting to square y (or x) before integrating."
+            ],
+            gcTip: "Always factor π outside your GC check: π * fnInt(Y₁² − Y₂², X, a, b), and divide the decimal by π to verify exact rational multiples of π.",
+            workedQuestion: `
+              The region <em>R</em> is bounded by the curve <em>y = x<sup>2</sup></em> and the line <em>y = x</em> for <em>0 &le; x &le; 1</em>.<br>
+              <strong>(i)</strong> Find the exact volume of the solid formed when <em>R</em> is rotated through <em>360&deg;</em> about the <em>x</em>-axis. [3]<br>
+              <strong>(ii)</strong> Find the exact volume of the solid formed when <em>R</em> is rotated through <em>360&deg;</em> about the <em>y</em>-axis. [3]
+            `,
+            workedSolution: `
+              <strong>(i) About the x-axis</strong> (outer radius <em>y = x</em>, inner radius <em>y = x<sup>2</sup></em>):<br>
+              <em>V<sub>x</sub> = &pi; &int;<sub>0</sub><sup>1</sup> [ x<sup>2</sup> &minus; (x<sup>2</sup>)<sup>2</sup> ] dx = &pi; &int;<sub>0</sub><sup>1</sup> (x<sup>2</sup> &minus; x<sup>4</sup>) dx = &pi; [<span class="frac"><span class="frac-num">1</span><span class="frac-den">3</span></span>x<sup>3</sup> &minus; <span class="frac"><span class="frac-num">1</span><span class="frac-den">5</span></span>x<sup>5</sup>]<sub>0</sub><sup>1</sup> =</em> <strong><span class="frac"><span class="frac-num">2&pi;</span><span class="frac-den">15</span></span> units<sup>3</sup></strong>.<br><br>
+              <strong>(ii) About the y-axis</strong> (outer radius <em>x = &radic;y</em>, inner radius <em>x = y</em> for <em>0 &le; y &le; 1</em>):<br>
+              <em>V<sub>y</sub> = &pi; &int;<sub>0</sub><sup>1</sup> [ (&radic;y)<sup>2</sup> &minus; y<sup>2</sup> ] dy = &pi; &int;<sub>0</sub><sup>1</sup> (y &minus; y<sup>2</sup>) dy = &pi; [<span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span>y<sup>2</sup> &minus; <span class="frac"><span class="frac-num">1</span><span class="frac-den">3</span></span>y<sup>3</sup>]<sub>0</sub><sup>1</sup> =</em> <strong><span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">6</span></span> units<sup>3</sup></strong>.
+            `,
+            exitQuestion: "Why is π ∫_0^1 (x − x²)² dx incorrect for the volume of revolution of the region between y = x and y = x² about the x-axis?",
+            exitAnswer: "Because the area of a washer cross-section is πR² − πr² = <strong>π(R² − r²)</strong>, whereas π(R − r)² omits the hollow inner cavity's true radius."
+          },
+          {
+            label: "Lesson 5: Volume of Revolution About Shifted Lines (y = k & x = k)",
+            file: "interactives/5_4_lesson5.html",
+            videoEmbedUrl: "",
+            prereq: "Washer method about coordinate axes and perpendicular distance |y − k| or |x − k|.",
+            objectives: [
+              "Set up disc and washer volumes about any horizontal line y = k using perpendicular radii R(x) = |y − k| and integrating with respect to x.",
+              "Set up disc and washer volumes about any vertical line x = k using perpendicular radii R(y) = |x − k| and integrating with respect to y.",
+              "Determine R_outer and R_inner accurately when the shifted axis lies above/right versus below/left of the region."
+            ],
+            prompts: [
+              "Drag the horizontal axis slider y = k from y = 5 (above the region) to y = −1 (below the region) and observe how R_outer and R_inner swap roles.",
+              "Switch to Vertical Line x = k mode and verify that rotating around x = k requires rewriting boundaries in the form x = g(y) and integrating with respect to y."
+            ],
+            pitfalls: [
+              "Using y + k instead of |y − k| when k is negative (e.g., distance from y = x² to y = −2 is x² − (−2) = x² + 2, whereas distance from y = x² to y = 5 is 5 − x²).",
+              "Integrating with respect to x when rotating about a vertical line x = k (using the disc/washer method, rotation about a vertical axis MUST be integrated with respect to y!)."
+            ],
+            gcTip: "Sketch the region and draw a dashed axis line y = k (or x = k) first; draw two perpendicular segments from the axis to the farther boundary (R_outer) and nearer boundary (R_inner) before writing the integral.",
+            workedQuestion: `
+              The region <em>R</em> is bounded by the curve <em>y = x<sup>2</sup></em> and the line <em>y = 2x</em> for <em>0 &le; x &le; 2</em>. Find the exact volume of the solid generated when <em>R</em> is rotated through <em>360&deg;</em> about:<br>
+              <strong>(i)</strong> the horizontal line <em>y = 5</em>, [4]<br>
+              <strong>(ii)</strong> the vertical line <em>x = &minus;1</em>. [4]
+            `,
+            workedSolution: `
+              <strong>(i) About y = 5</strong> (lies above <em>R</em>, so <em>y = x<sup>2</sup></em> is farther and <em>y = 2x</em> is nearer):<br>
+              <em>R<sub>outer</sub> = 5 &minus; x<sup>2</sup></em>, &nbsp;<em>R<sub>inner</sub> = 5 &minus; 2x</em>.<br>
+              <em>V = &pi; &int;<sub>0</sub><sup>2</sup> [ (5 &minus; x<sup>2</sup>)<sup>2</sup> &minus; (5 &minus; 2x)<sup>2</sup> ] dx = &pi; &int;<sub>0</sub><sup>2</sup> (x<sup>4</sup> &minus; 14x<sup>2</sup> + 20x) dx</em><br>
+              = <em>&pi; [<span class="frac"><span class="frac-num">1</span><span class="frac-den">5</span></span>x<sup>5</sup> &minus; <span class="frac"><span class="frac-num">14</span><span class="frac-den">3</span></span>x<sup>3</sup> + 10x<sup>2</sup>]<sub>0</sub><sup>2</sup> = &pi; (<span class="frac"><span class="frac-num">32</span><span class="frac-den">5</span></span> &minus; <span class="frac"><span class="frac-num">112</span><span class="frac-den">3</span></span> + 40) =</em> <strong><span class="frac"><span class="frac-num">136&pi;</span><span class="frac-den">15</span></span> units<sup>3</sup></strong>.<br><br>
+              <strong>(ii) About x = &minus;1</strong> (integrate wrt <em>y</em> from <em>0</em> to <em>4</em>; <em>x = &radic;y</em> is farther, <em>x = &frac12;y</em> is nearer):<br>
+              <em>R<sub>outer</sub> = &radic;y &minus; (&minus;1) = &radic;y + 1</em>, &nbsp;<em>R<sub>inner</sub> = &frac12;y + 1</em>.<br>
+              <em>V = &pi; &int;<sub>0</sub><sup>4</sup> [ (&radic;y + 1)<sup>2</sup> &minus; (&frac12;y + 1)<sup>2</sup> ] dy = &pi; &int;<sub>0</sub><sup>4</sup> (2&radic;y &minus; &frac14;y<sup>2</sup>) dy</em><br>
+              = <em>&pi; [<span class="frac"><span class="frac-num">4</span><span class="frac-den">3</span></span>y<sup>3/2</sup> &minus; <span class="frac"><span class="frac-num">1</span><span class="frac-den">12</span></span>y<sup>3</sup>]<sub>0</sub><sup>4</sup> = &pi; (<span class="frac"><span class="frac-num">32</span><span class="frac-den">3</span></span> &minus; <span class="frac"><span class="frac-num">16</span><span class="frac-den">3</span></span>) =</em> <strong><span class="frac"><span class="frac-num">16&pi;</span><span class="frac-den">3</span></span> units<sup>3</sup></strong>.
+            `,
+            exitQuestion: "A region bounded by y = √x, y = 0, and x = 4 is rotated 360° about the line y = −2. State the outer and inner radii in terms of x.",
+            exitAnswer: "Axis y = −2 lies below the region: <strong>R_outer = √x − (−2) = √x + 2</strong> and <strong>R_inner = 0 − (−2) = 2</strong>."
           }
         ]
       },
