@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5.3 Lesson 2 | Trigonometric Identities & Integration Workbench</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 16px 20px 28px 20px;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .math {
+      font-family: 'Cambria Math', 'Times New Roman', Georgia, serif;
+      font-size: 1.05em;
+    }
+
+    .frac {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      vertical-align: middle;
+      margin: 0 3px;
+      font-size: 0.88em;
+      line-height: 1.1;
+    }
+
+    .frac-num {
+      padding: 0 4px 2px 4px;
+      border-bottom: 1.4px solid currentColor;
+      text-align: center;
+    }
+
+    .frac-den {
+      padding: 2px 4px 0 4px;
+      text-align: center;
+    }
+
+    /* HEADER & 3 TABS */
+    .lab-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .lab-title-wrap h1 {
+      margin: 0;
+      font-size: 1.15rem;
+      color: #1e293b;
+    }
+
+    .lab-title-wrap p {
+      margin: 3px 0 0 0;
+      font-size: 0.81rem;
+      color: var(--muted);
+    }
+
+    .mode-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mode-btn {
+      padding: 8px 13px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: var(--text);
+      font-size: 0.81rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mode-btn:hover {
+      border-color: var(--purple);
+      color: var(--purple-dark);
+    }
+
+    .mode-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.22);
+    }
+
+    /* IDENTITY TOOLKIT BANNER */
+    .foundation-card {
+      background: var(--panel);
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.07);
+    }
+
+    .foundation-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 9px;
+    }
+
+    .kicker {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--purple-dark);
+    }
+
+    .rule-badge {
+      background: var(--amber-bg);
+      color: var(--amber);
+      border: 1px solid #fcd34d;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 800;
+    }
+
+    .identity-trio {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    @media (max-width: 860px) {
+      .identity-trio {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .id-box {
+      background: #f5f3ff;
+      border: 1px solid #ddd6fe;
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      line-height: 1.55;
+      color: #1e293b;
+    }
+
+    .id-box.teal-box {
+      background: var(--teal-bg);
+      border-color: #5eead4;
+    }
+
+    .id-box.blue-box {
+      background: var(--blue-bg);
+      border-color: #7dd3fc;
+    }
+
+    .id-eq {
+      font-weight: 800;
+      font-size: 0.94rem;
+      color: #1e293b;
+    }
+
+    .id-sub {
+      font-size: 0.75rem;
+      color: #475569;
+      margin-top: 2px;
+    }
+
+    /* PANELS & GRIDS */
+    .view-panel {
+      display: none;
+    }
+    .view-panel.active {
+      display: block;
+    }
+
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 1.15fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 980px) {
+      .workspace-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 3px 10px rgba(148, 163, 184, 0.06);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    /* PILLS & SLIDERS */
+    .fn-pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 11px;
+    }
+
+    .expr-pill {
+      padding: 6px 12px;
+      border-radius: 9px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #1e293b;
+      font-size: 0.86rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .expr-pill:hover {
+      border-color: var(--purple);
+      background: #f5f3ff;
+    }
+
+    .expr-pill.active {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      border-color: var(--purple);
+    }
+
+    .slider-panel {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 13px;
+      margin-bottom: 12px;
+    }
+
+    .slider-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .a-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      border: 1px solid #c4b5fd;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.84rem;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple);
+      cursor: pointer;
+    }
+
+    .rewrite-card {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 11px 13px;
+      margin-bottom: 11px;
+      font-size: 0.88rem;
+      line-height: 1.7;
+    }
+
+    .answer-stage {
+      background: #f5f3ff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 11px;
+      padding: 11px 14px;
+      margin-bottom: 11px;
+      font-size: 0.92rem;
+      line-height: 1.75;
+      color: #1e293b;
+    }
+
+    /* MISSING COS X TRAP SIMULATOR */
+    .trap-box {
+      border-radius: 11px;
+      padding: 10px 13px;
+      border: 1.5px solid #5eead4;
+      background: var(--teal-bg);
+      color: #134e4a;
+      font-size: 0.82rem;
+      line-height: 1.58;
+      transition: 0.2s;
+    }
+
+    .trap-box.trap-on {
+      border-color: #fb7185;
+      background: var(--rose-bg);
+      color: #881337;
+    }
+
+    .trap-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .trap-btn {
+      padding: 5px 10px;
+      border-radius: 8px;
+      border: 1.5px solid #0f766e;
+      background: #ffffff;
+      color: #0f766e;
+      font-size: 0.76rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .trap-box.trap-on .trap-btn {
+      border-color: #e11d48;
+      background: #e11d48;
+      color: #ffffff;
+    }
+
+    /* CANVAS */
+    .canvas-wrap {
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 290px;
+    }
+
+    .legend-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 11px;
+      margin-top: 8px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: #475569;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .swatch-line {
+      width: 15px;
+      height: 3px;
+      border-radius: 2px;
+      display: inline-block;
+    }
+
+    /* STEP BOXES FOR TABS 2 & 3 */
+    .step-box {
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 10px 13px;
+      margin-bottom: 9px;
+      background: #f8fafc;
+    }
+
+    .step-box.active-step {
+      border-color: var(--purple);
+      background: #faf5ff;
+      box-shadow: 0 2px 8px rgba(139, 92, 246, 0.1);
+    }
+
+    .step-box.locked {
+      opacity: 0.38;
+      background: #f1f5f9;
+    }
+
+    .action-btn {
+      padding: 5px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #1e293b;
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .action-btn.primary {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .info-card {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 11px 13px;
+      font-size: 0.83rem;
+      line-height: 1.65;
+      color: #334155;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER & 3 TABS -->
+  <div class="lab-header">
+    <div class="lab-title-wrap">
+      <h1>Integrating Squared &amp; Product Trigonometric Functions</h1>
+      <p>Apply double-angle identities, Pythagorean identities, and MF27 factor formulas to convert trig integrands into integrable forms</p>
+    </div>
+    <div class="mode-tabs">
+      <button class="mode-btn active" id="tabDoubleBtn" onclick="switchMode('double')">
+        1. sin&sup2;x &amp; cos&sup2;x (Double-Angle)
+      </button>
+      <button class="mode-btn" id="tabPythagBtn" onclick="switchMode('pythag')">
+        2. tan&sup2;x, cot&sup2;x &amp; Odd Powers (Pythagorean)
+      </button>
+      <button class="mode-btn" id="tabFactorBtn" onclick="switchMode('factor')">
+        3. Factor Formula (Products)
+      </button>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       IDENTITY CONVERSION TOOLKIT BANNER
+       ========================================================= -->
+  <div class="foundation-card">
+    <div class="foundation-top">
+      <span class="kicker">3 Core Trigonometric Integration Conversions (9758 H2 Math)</span>
+      <span class="rule-badge">Never Integrate sin&sup2;(ax) as &frac13;sin&sup3;(ax) — Missing cos(ax)!</span>
+    </div>
+
+    <div class="identity-trio">
+      <div class="id-box">
+        <div class="id-eq math">sin&sup2;(<em>ax</em>) = <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span>(1 &minus; cos 2<em>ax</em>)<br>cos&sup2;(<em>ax</em>) = <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span>(1 + cos 2<em>ax</em>)</div>
+        <div class="id-sub"><strong>Double-Angle Formulas:</strong> Used for even powers <span class="math">sin&sup2;</span> &amp; <span class="math">cos&sup2;</span>.</div>
+      </div>
+
+      <div class="id-box teal-box">
+        <div class="id-eq math">tan&sup2;(<em>ax</em>) = sec&sup2;(<em>ax</em>) &minus; 1<br>cot&sup2;(<em>ax</em>) = cosec&sup2;(<em>ax</em>) &minus; 1</div>
+        <div class="id-sub"><strong>Pythagorean Identities:</strong> Also splits odd powers (<span class="math">sin<sup>3</sup><em>x</em>, cos<sup>3</sup><em>x</em></span>).</div>
+      </div>
+
+      <div class="id-box blue-box">
+        <div class="id-eq math">2 sin <em>A</em> cos <em>B</em> = sin(<em>A</em>+<em>B</em>) + sin(<em>A</em>&minus;<em>B</em>)<br>2 cos <em>A</em> cos <em>B</em> = cos(<em>A</em>+<em>B</em>) + cos(<em>A</em>&minus;<em>B</em>)</div>
+        <div class="id-sub"><strong>MF27 Factor Formulas:</strong> Turns products with different angles into sums.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       TAB 1: SIN^2 AND COS^2 (USE OF DOUBLE ANGLE)
+       ========================================================= -->
+  <div class="view-panel active" id="doublePanel">
+    <div class="workspace-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker">Tab 1: <span class="math" style="text-transform:none;">sin&sup2;(<em>ax</em>)</span> &amp; <span class="math" style="text-transform:none;">cos&sup2;(<em>ax</em>)</span> via Double-Angle Formula</span>
+        </div>
+
+        <div class="fn-pills">
+          <button class="expr-pill active" id="sq_sin2" onclick="selectSqFn('sin2')">
+            <span class="math">&int; sin&sup2;(<em>ax</em>) d<em>x</em></span>
+          </button>
+          <button class="expr-pill" id="sq_cos2" onclick="selectSqFn('cos2')">
+            <span class="math">&int; cos&sup2;(<em>ax</em>) d<em>x</em></span>
+          </button>
+        </div>
+
+        <div class="slider-panel">
+          <div class="slider-top">
+            <span style="font-size:0.83rem; font-weight:700; color:#1e293b;">Inner Coefficient <span class="math"><em>a</em></span> in <span class="math"><em>ax</em></span>:</span>
+            <span class="a-pill math" id="aReadout">a = 1 &rarr; sin&sup2;(x)</span>
+          </div>
+          <input type="range" id="aSlider" min="1" max="4" step="1" value="1" oninput="onAChange(this.value)" />
+          <div style="display:flex; justify-content:space-between; font-size:0.74rem; color:var(--muted); margin-top:3px;">
+            <span>a = 1 (x)</span>
+            <span>a = 2 (2x)</span>
+            <span>a = 3 (3x)</span>
+            <span>a = 4 (4x)</span>
+          </div>
+        </div>
+
+        <div class="rewrite-card" id="rewriteStageHTML"></div>
+
+        <div class="answer-stage" id="sqFinalAnswerHTML"></div>
+
+        <div class="trap-box" id="missingCosBox">
+          <div class="trap-header">
+            <span style="font-weight:800;" id="trapTitle"></span>
+            <button class="trap-btn" id="trapToggleBtn" onclick="toggleTrap()"></button>
+          </div>
+          <div id="trapBodyHTML"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker" style="color:var(--teal);">Identity Equivalence &amp; Derivative Graph Check</span>
+        </div>
+
+        <div class="canvas-wrap">
+          <canvas id="doubleCurveCanvas" width="600" height="290"></canvas>
+        </div>
+
+        <div class="legend-row" id="sqLegendRow"></div>
+
+        <div class="info-card" style="margin-top:10px;">
+          <strong>Key Double-Angle Takeaways:</strong><br>
+          &bull; Both <span class="math">sin&sup2;(<em>ax</em>)</span> and <span class="math">cos&sup2;(<em>ax</em>)</span> oscillate around the midline <span class="math"><em>y</em> = &frac12;</span> with doubled frequency <span class="math">2<em>ax</em></span>.<br>
+          &bull; Only the sign before <span class="math">cos(2<em>ax</em>)</span> differs: <strong>minus</strong> for <span class="math">sin&sup2;(<em>ax</em>)</span>, <strong>plus</strong> for <span class="math">cos&sup2;(<em>ax</em>)</span>.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       TAB 2: TAN^2, COT^2 AND ODD POWERS (PYTHAGOREAN IDENTITY)
+       ========================================================= -->
+  <div class="view-panel" id="pythagPanel">
+    <div class="workspace-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker">Tab 2: <span class="math" style="text-transform:none;">tan&sup2;<em>x</em>, cot&sup2;<em>x</em></span> &amp; Odd Powers via Pythagorean Identity</span>
+          <div style="display:flex; gap:6px;">
+            <button class="action-btn" onclick="setPyStep(0)">Step 1</button>
+            <button class="action-btn primary" onclick="nextPyStep()">Next Step (+1)</button>
+            <button class="action-btn" onclick="setPyStep(2)">Reveal All</button>
+          </div>
+        </div>
+
+        <div class="fn-pills">
+          <button class="expr-pill active" id="py_tan2" onclick="selectPythag('tan2')">
+            1. <span class="math">&int; tan&sup2; 3<em>x</em> d<em>x</em></span>
+          </button>
+          <button class="expr-pill" id="py_cot2" onclick="selectPythag('cot2')">
+            2. <span class="math">&int; cot&sup2; 2<em>x</em> d<em>x</em></span>
+          </button>
+          <button class="expr-pill" id="py_sin3" onclick="selectPythag('sin3')">
+            3. <span class="math">&int; sin<sup>3</sup> <em>x</em> d<em>x</em></span>
+          </button>
+          <button class="expr-pill" id="py_cos3" onclick="selectPythag('cos3')">
+            4. <span class="math">&int; cos<sup>3</sup> 2<em>x</em> d<em>x</em></span>
+          </button>
+          <button class="expr-pill" id="py_tan3" onclick="selectPythag('tan3')">
+            5. <span class="math">&int; tan<sup>3</sup> <em>x</em> d<em>x</em></span>
+          </button>
+        </div>
+
+        <div id="pythagStepsContainer"></div>
+
+        <div class="answer-stage" id="pythagFinalBanner"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker" style="color:var(--teal);">Why Pythagorean Identities Unlock These 5 Forms</span>
+        </div>
+
+        <div class="info-card" style="margin-bottom:10px;">
+          <strong>1. Even Squares (<span class="math">tan&sup2; <em>ax</em></span> &amp; <span class="math">cot&sup2; <em>ax</em></span>):</strong><br>
+          &bull; <span class="math">1 + tan&sup2; <em>ax</em> = sec&sup2; <em>ax</em> &rArr; tan&sup2; <em>ax</em> = <strong>sec&sup2; <em>ax</em> &minus; 1</strong></span>.<br>
+          &bull; <span class="math">1 + cot&sup2; <em>ax</em> = cosec&sup2; <em>ax</em> &rArr; cot&sup2; <em>ax</em> = <strong>cosec&sup2; <em>ax</em> &minus; 1</strong></span>.<br>
+          Both <span class="math">sec&sup2; <em>ax</em></span> and <span class="math">cosec&sup2; <em>ax</em></span> are standard MF27 derivatives (<span class="math"><span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>a</em></span></span> tan <em>ax</em></span> and <span class="math">&minus;<span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>a</em></span></span> cot <em>ax</em></span>).
+        </div>
+
+        <div class="info-card">
+          <strong>2. Odd Powers (<span class="math">sin<sup>3</sup> <em>x</em>, cos<sup>3</sup> <em>x</em>, tan<sup>3</sup> <em>x</em></span>):</strong><br>
+          &bull; Peel off <strong>one linear factor</strong> to act as <span class="math">f&prime;(<em>x</em>)</span>, leaving an <em>even</em> power:<br>
+          &nbsp;&nbsp;&ndash; <span class="math">sin<sup>3</sup> <em>x</em> = <strong>sin <em>x</em></strong>(1 &minus; cos&sup2; <em>x</em>)</span><br>
+          &nbsp;&nbsp;&ndash; <span class="math">cos<sup>3</sup> <em>x</em> = <strong>cos <em>x</em></strong>(1 &minus; sin&sup2; <em>x</em>)</span><br>
+          &nbsp;&nbsp;&ndash; <span class="math">tan<sup>3</sup> <em>x</em> = tan <em>x</em>(sec&sup2; <em>x</em> &minus; 1) = tan <em>x</em> sec&sup2; <em>x</em> &minus; tan <em>x</em></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       TAB 3: FACTOR FORMULA (PRODUCT-TO-SUM)
+       ========================================================= -->
+  <div class="view-panel" id="factorPanel">
+    <div class="workspace-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker">Tab 3: MF27 Factor Formula Step-by-Step Solver</span>
+          <div style="display:flex; gap:6px;">
+            <button class="action-btn" onclick="setFacStep(0)">Step 1</button>
+            <button class="action-btn primary" onclick="nextFacStep()">Next Step (+1)</button>
+            <button class="action-btn" onclick="setFacStep(2)">Reveal All</button>
+          </div>
+        </div>
+
+        <div class="fn-pills">
+          <button class="expr-pill active" id="fa_sinCos" onclick="selectFactor('sinCos')">
+            1. <span class="math">&int; sin 3<em>x</em> cos <em>x</em> d<em>x</em></span>
+          </button>
+          <button class="expr-pill" id="fa_cosSin" onclick="selectFactor('cosSin')">
+            2. <span class="math">&int; cos 5<em>x</em> sin 2<em>x</em> d<em>x</em></span>
+          </button>
+          <button class="expr-pill" id="fa_cosCos" onclick="selectFactor('cosCos')">
+            3. <span class="math">&int; cos 4<em>x</em> cos 2<em>x</em> d<em>x</em></span>
+          </button>
+          <button class="expr-pill" id="fa_sinSin" onclick="selectFactor('sinSin')">
+            4. <span class="math">&int; sin 5<em>x</em> sin 2<em>x</em> d<em>x</em></span>
+          </button>
+        </div>
+
+        <div id="factorStepsContainer"></div>
+
+        <div class="answer-stage" id="factorFinalBanner"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker" style="color:var(--blue);">MF27 Factor Formula Reference &amp; Sign Guardrails</span>
+        </div>
+
+        <div class="info-card" style="margin-bottom:10px;">
+          <strong>MF27 Product-to-Sum Conversions:</strong><br>
+          <div class="math" style="line-height:1.85; margin-top:4px;">
+            &bull; sin <em>A</em> cos <em>B</em> = <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span>[sin(<em>A</em> + <em>B</em>) + sin(<em>A</em> &minus; <em>B</em>)]<br>
+            &bull; cos <em>A</em> sin <em>B</em> = <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span>[sin(<em>A</em> + <em>B</em>) &minus; sin(<em>A</em> &minus; <em>B</em>)]<br>
+            &bull; cos <em>A</em> cos <em>B</em> = <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span>[cos(<em>A</em> + <em>B</em>) + cos(<em>A</em> &minus; <em>B</em>)]<br>
+            &bull; sin <em>A</em> sin <em>B</em> = <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span>[cos(<em>A</em> &minus; <em>B</em>) &minus; cos(<em>A</em> + <em>B</em>)]
+          </div>
+        </div>
+
+        <div style="background:var(--amber-bg); border:1px solid #fcd34d; border-radius:10px; padding:9px 12px; color:#78350f; font-size:0.81rem; line-height:1.55;">
+          <strong>Exam Tip on <span class="math">sin <em>A</em> sin <em>B</em></span>:</strong> In MF27, the formula is listed as <span class="math">cos <em>P</em> &minus; cos <em>Q</em> = &minus;2 sin <span class="frac"><span class="frac-num"><em>P</em>+<em>Q</em></span><span class="frac-den">2</span></span> sin <span class="frac"><span class="frac-num"><em>P</em>&minus;<em>Q</em></span><span class="frac-den">2</span></span></span>. Notice the negative sign: <span class="math">sin <em>A</em> sin <em>B</em> = &minus;&frac12;[cos(<em>A</em> + <em>B</em>) &minus; cos(<em>A</em> &minus; <em>B</em>)] = +&frac12;[cos(<em>A</em> &minus; <em>B</em>) &minus; cos(<em>A</em> + <em>B</em>)]</span>!
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let activeMode = "double";
+    let sqFn = "sin2";
+    let paramA = 1;
+    let showWrongPowerTrap = false;
+
+    let currentPythag = "tan2";
+    let pyStep = 2;
+
+    let currentFactor = "sinCos";
+    let facStep = 2;
+
+    const canvas = document.getElementById("doubleCurveCanvas");
+    const ctx = canvas.getContext("2d");
+
+    function frac(num, den) {
+      return `<span class="frac"><span class="frac-num">${num}</span><span class="frac-den">${den}</span></span>`;
+    }
+
+    /* =========================================================
+       TAB 1: SIN^2 AND COS^2 (DOUBLE ANGLE)
+       ========================================================= */
+    function getSqData(fn, a) {
+      const aStr = a === 1 ? "" : `${a}`;
+      const twoA = 2 * a;
+      const fourA = 4 * a;
+
+      if (fn === "sin2") {
+        return {
+          origName: `sin&sup2;(${aStr}<em>x</em>)`,
+          rewrittenName: `${frac("1", "2")}(1 &minus; cos ${twoA}<em>x</em>)`,
+          rewriteStepsHTML: `
+            <div class="kicker" style="margin-bottom:3px;">Step 2: Double-Angle Identity Rewrite</div>
+            <div class="math">
+              &int; sin&sup2;(${aStr}<em>x</em>) d<em>x</em> = &int; <strong>${frac("1", "2")}(1 &minus; cos ${twoA}<em>x</em>)</strong> d<em>x</em>
+            </div>
+            <div style="font-size:0.79rem; color:#475569; margin-top:3px;">
+              From <span class="math">cos 2<em>A</em> = 1 &minus; 2 sin&sup2; <em>A</em></span> with <span class="math"><em>A</em> = ${aStr}<em>x</em></span>, the angle doubles to <span class="math">${twoA}<em>x</em></span>.
+            </div>
+          `,
+          finalAnswerHTML: `
+            <div class="kicker" style="margin-bottom:2px;">Step 3: Exact Antiderivative</div>
+            <div class="math">
+              ${frac("1", "2")} [ <em>x</em> &minus; ${frac(`sin ${twoA}<em>x</em>`, `${twoA}`)} ] + <em>C</em> = <strong>${frac("1", "2")}<em>x</em> &minus; ${frac(`sin ${twoA}<em>x</em>`, `${fourA}`)} + <em>C</em></strong>
+            </div>
+          `,
+          trapTitleOK: `&#10003; Why &int; sin&sup2;(${aStr}x) dx &ne; ${frac("1", `${3 * a}`)} sin&sup3;(${aStr}x)`,
+          trapBodyOK: `Differentiating <span class="math">${frac("1", `${3 * a}`)} sin&sup3;(${aStr}<em>x</em>)</span> gives <span class="math">sin&sup2;(${aStr}<em>x</em>) <strong>cos(${aStr}<em>x</em>)</strong></span> — which has an extra <span class="math">cos(${aStr}<em>x</em>)</span> factor missing from our integrand!`,
+          trapTitleON: `&#9888; Wrong Power-Rule Guess Active: y = sin&sup2;(${aStr}x) cos(${aStr}x)`,
+          trapBodyON: `Look at the dashed rose curve on the graph: <span class="math">${frac("d", "d<em>x</em>")}[${frac("1", `${3 * a}`)} sin&sup3;(${aStr}<em>x</em>)] = sin&sup2;(${aStr}<em>x</em>) cos(${aStr}<em>x</em>)</span> diverges from <span class="math">sin&sup2;(${aStr}<em>x</em>)</span> everywhere except <span class="math">cos(${aStr}<em>x</em>) = 1</span>!`,
+          origEval: (x) => Math.pow(Math.sin(a * x), 2),
+          rewrittenEval: (x) => 0.5 * (1 - Math.cos(2 * a * x)),
+          fakeDerivEval: (x) => Math.pow(Math.sin(a * x), 2) * Math.cos(a * x)
+        };
+      }
+
+      return {
+        origName: `cos&sup2;(${aStr}<em>x</em>)`,
+        rewrittenName: `${frac("1", "2")}(1 + cos ${twoA}<em>x</em>)`,
+        rewriteStepsHTML: `
+          <div class="kicker" style="margin-bottom:3px;">Step 2: Double-Angle Identity Rewrite</div>
+          <div class="math">
+            &int; cos&sup2;(${aStr}<em>x</em>) d<em>x</em> = &int; <strong>${frac("1", "2")}(1 + cos ${twoA}<em>x</em>)</strong> d<em>x</em>
+          </div>
+          <div style="font-size:0.79rem; color:#475569; margin-top:3px;">
+            From <span class="math">cos 2<em>A</em> = 2 cos&sup2; <em>A</em> &minus; 1</span> with <span class="math"><em>A</em> = ${aStr}<em>x</em></span> (note the <strong>+</strong> sign!).
+          </div>
+        `,
+        finalAnswerHTML: `
+          <div class="kicker" style="margin-bottom:2px;">Step 3: Exact Antiderivative</div>
+          <div class="math">
+            ${frac("1", "2")} [ <em>x</em> + ${frac(`sin ${twoA}<em>x</em>`, `${twoA}`)} ] + <em>C</em> = <strong>${frac("1", "2")}<em>x</em> + ${frac(`sin ${twoA}<em>x</em>`, `${fourA}`)} + <em>C</em></strong>
+          </div>
+        `,
+        trapTitleOK: `&#10003; Why &int; cos&sup2;(${aStr}x) dx &ne; ${frac("1", `${3 * a}`)} cos&sup3;(${aStr}x)`,
+        trapBodyOK: `Differentiating <span class="math">${frac("1", `${3 * a}`)} cos&sup3;(${aStr}<em>x</em>)</span> gives <span class="math">&minus;cos&sup2;(${aStr}<em>x</em>) <strong>sin(${aStr}<em>x</em>)</strong></span> — missing <span class="math">&minus;sin(${aStr}<em>x</em>)</span>!`,
+        trapTitleON: `&#9888; Wrong Power-Rule Guess Active: y = &minus;cos&sup2;(${aStr}x) sin(${aStr}x)`,
+        trapBodyON: `The dashed rose curve shows <span class="math">${frac("d", "d<em>x</em>")}[${frac("1", `${3 * a}`)} cos&sup3;(${aStr}<em>x</em>)] = &minus;cos&sup2;(${aStr}<em>x</em>) sin(${aStr}<em>x</em>)</span>, which even turns negative!`,
+        origEval: (x) => Math.pow(Math.cos(a * x), 2),
+        rewrittenEval: (x) => 0.5 * (1 + Math.cos(2 * a * x)),
+        fakeDerivEval: (x) => -Math.pow(Math.cos(a * x), 2) * Math.sin(a * x)
+      };
+    }
+
+    function renderDoubleLab() {
+      const d = getSqData(sqFn, paramA);
+      document.getElementById("aReadout").innerHTML = `a = ${paramA} &rarr; ${d.origName}`;
+      document.getElementById("rewriteStageHTML").innerHTML = d.rewriteStepsHTML;
+      document.getElementById("sqFinalAnswerHTML").innerHTML = d.finalAnswerHTML;
+
+      const trapBox = document.getElementById("missingCosBox");
+      trapBox.className = "trap-box" + (showWrongPowerTrap ? " trap-on" : "");
+      document.getElementById("trapTitle").innerHTML = showWrongPowerTrap ? d.trapTitleON : d.trapTitleOK;
+      document.getElementById("trapBodyHTML").innerHTML = showWrongPowerTrap ? d.trapBodyON : d.trapBodyOK;
+      document.getElementById("trapToggleBtn").textContent = showWrongPowerTrap
+        ? "Hide Wrong Guess"
+        : "Compare Wrong Power-Rule Guess";
+
+      document.getElementById("sqLegendRow").innerHTML = `
+        <span class="legend-item"><span class="swatch-line" style="background:#0f172a;"></span> Original <span class="math">${d.origName}</span></span>
+        <span class="legend-item"><span class="swatch-line" style="background:#0f766e;"></span> Double-Angle Form <span class="math">${d.rewrittenName}</span></span>
+        ${showWrongPowerTrap ? `<span class="legend-item"><span class="swatch-line" style="background:#e11d48;"></span> Wrong Guess Derivative</span>` : ""}
+      `;
+    }
+
+    function drawDoubleCurveCanvas() {
+      const d = getSqData(sqFn, paramA);
+      const w = canvas.width;
+      const h = canvas.height;
+      ctx.clearRect(0, 0, w, h);
+
+      const xMin = 0;
+      const xMax = Math.PI;
+      const yMin = showWrongPowerTrap ? -0.6 : -0.15;
+      const yMax = 1.25;
+
+      const padL = 42, padR = 18, padT = 16, padB = 28;
+      const toPxX = (x) => padL + ((x - xMin) / (xMax - xMin)) * (w - padL - padR);
+      const toPxY = (y) => (h - padB) - ((y - yMin) / (yMax - yMin)) * (h - padT - padB);
+
+      ctx.strokeStyle = "#e2e8f0";
+      ctx.lineWidth = 1;
+      for (let gy = -0.5; gy <= 1.0; gy += 0.5) {
+        if (gy < yMin) continue;
+        const py = toPxY(gy);
+        ctx.beginPath(); ctx.moveTo(padL, py); ctx.lineTo(w - padR, py); ctx.stroke();
+        ctx.fillStyle = "#475569";
+        ctx.font = "11px Segoe UI, sans-serif";
+        ctx.fillText(gy.toFixed(1), 10, py + 4);
+      }
+
+      const oy = toPxY(0);
+      ctx.strokeStyle = "#64748b";
+      ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      ctx.moveTo(padL, oy); ctx.lineTo(w - padR, oy);
+      ctx.moveTo(padL, padT); ctx.lineTo(padL, h - padB);
+      ctx.stroke();
+
+      function plotCurve(fn, color, width, dash = []) {
+        ctx.save();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = width;
+        ctx.setLineDash(dash);
+        ctx.beginPath();
+        const N = 300;
+        for (let i = 0; i <= N; i++) {
+          const x = xMin + (i / N) * (xMax - xMin);
+          const y = fn(x);
+          const px = toPxX(x);
+          const py = toPxY(y);
+          if (i === 0) ctx.moveTo(px, py);
+          else ctx.lineTo(px, py);
+        }
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      plotCurve(d.origEval, "#0f172a", 2.8);
+      plotCurve(d.rewrittenEval, "#0f766e", 2.5, [7, 5]);
+      if (showWrongPowerTrap) {
+        plotCurve(d.fakeDerivEval, "#e11d48", 2.3, [4, 3]);
+      }
+    }
+
+    /* =========================================================
+       TAB 2: TAN^2, COT^2 AND ODD POWERS (PYTHAGOREAN)
+       ========================================================= */
+    const PYTHAG_CASES = {
+      tan2: {
+        steps: [
+          {
+            title: "Step 1: Apply Pythagorean Identity 1 + tan²(3x) = sec²(3x)",
+            html: `<span class="math">&int; tan&sup2; 3<em>x</em> d<em>x</em> = &int; <strong>(sec&sup2; 3<em>x</em> &minus; 1)</strong> d<em>x</em></span>.`
+          },
+          {
+            title: "Step 2: Integrate sec²(3x) & Constant −1",
+            html: `Since <span class="math">${frac("d", "d<em>x</em>")}(tan 3<em>x</em>) = 3 sec&sup2; 3<em>x</em></span>, <span class="math">&int; sec&sup2; 3<em>x</em> d<em>x</em> = ${frac("1", "3")} tan 3<em>x</em></span>.`
+          },
+          {
+            title: "Step 3: Write Complete Antiderivative",
+            html: `<span class="math"><strong>${frac("1", "3")} tan 3<em>x</em> &minus; <em>x</em> + <em>C</em></strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong>&int; tan&sup2; 3<em>x</em> d<em>x</em> = ${frac("1", "3")} tan 3<em>x</em> &minus; <em>x</em> + <em>C</em></strong></span>`
+      },
+
+      cot2: {
+        steps: [
+          {
+            title: "Step 1: Apply Pythagorean Identity 1 + cot²(2x) = cosec²(2x)",
+            html: `<span class="math">&int; cot&sup2; 2<em>x</em> d<em>x</em> = &int; <strong>(cosec&sup2; 2<em>x</em> &minus; 1)</strong> d<em>x</em></span>.`
+          },
+          {
+            title: "Step 2: Integrate cosec²(2x) (Watch the Minus Sign!)",
+            html: `Since <span class="math">${frac("d", "d<em>x</em>")}(cot 2<em>x</em>) = &minus;2 cosec&sup2; 2<em>x</em></span>, <span class="math">&int; cosec&sup2; 2<em>x</em> d<em>x</em> = &minus;${frac("1", "2")} cot 2<em>x</em></span>.`
+          },
+          {
+            title: "Step 3: Write Complete Antiderivative",
+            html: `<span class="math"><strong>&minus;${frac("1", "2")} cot 2<em>x</em> &minus; <em>x</em> + <em>C</em></strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong>&int; cot&sup2; 2<em>x</em> d<em>x</em> = &minus;${frac("1", "2")} cot 2<em>x</em> &minus; <em>x</em> + <em>C</em></strong></span>`
+      },
+
+      sin3: {
+        steps: [
+          {
+            title: "Step 1: Peel Off One sin x & Replace sin²x = 1 − cos²x",
+            html: `<span class="math">&int; sin<sup>3</sup> <em>x</em> d<em>x</em> = &int; sin <em>x</em> (1 &minus; cos&sup2; <em>x</em>) d<em>x</em> = &int; (sin <em>x</em> &minus; sin <em>x</em> cos&sup2; <em>x</em>) d<em>x</em></span>.`
+          },
+          {
+            title: "Step 2: Apply Reverse Chain Rule on −sin x cos²x",
+            html: `Since <span class="math">${frac("d", "d<em>x</em>")}(cos <em>x</em>) = &minus;sin <em>x</em></span>, <span class="math">&int; (&minus;sin <em>x</em>)(cos <em>x</em>)&sup2; d<em>x</em> = +${frac("1", "3")} cos<sup>3</sup> <em>x</em></span>.`
+          },
+          {
+            title: "Step 3: Combine Both Terms",
+            html: `<span class="math"><strong>&minus;cos <em>x</em> + ${frac("1", "3")} cos<sup>3</sup> <em>x</em> + <em>C</em></strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong>&int; sin<sup>3</sup> <em>x</em> d<em>x</em> = &minus;cos <em>x</em> + ${frac("1", "3")} cos<sup>3</sup> <em>x</em> + <em>C</em></strong></span>`
+      },
+
+      cos3: {
+        steps: [
+          {
+            title: "Step 1: Peel Off One cos 2x & Replace cos²2x = 1 − sin²2x",
+            html: `<span class="math">&int; cos<sup>3</sup> 2<em>x</em> d<em>x</em> = &int; cos 2<em>x</em> (1 &minus; sin&sup2; 2<em>x</em>) d<em>x</em> = &int; (cos 2<em>x</em> &minus; cos 2<em>x</em> sin&sup2; 2<em>x</em>) d<em>x</em></span>.`
+          },
+          {
+            title: "Step 2: Apply Reverse Chain Rule (Watch Inner Factor 2!)",
+            html: `Since <span class="math">${frac("d", "d<em>x</em>")}(sin 2<em>x</em>) = 2 cos 2<em>x</em></span>, <span class="math">&int; cos 2<em>x</em> (sin 2<em>x</em>)&sup2; d<em>x</em> = ${frac("1", "2")} &middot; ${frac("1", "3")} sin<sup>3</sup> 2<em>x</em> = ${frac("1", "6")} sin<sup>3</sup> 2<em>x</em></span>.`
+          },
+          {
+            title: "Step 3: Combine Both Terms",
+            html: `<span class="math"><strong>${frac("1", "2")} sin 2<em>x</em> &minus; ${frac("1", "6")} sin<sup>3</sup> 2<em>x</em> + <em>C</em></strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong>&int; cos<sup>3</sup> 2<em>x</em> d<em>x</em> = ${frac("1", "2")} sin 2<em>x</em> &minus; ${frac("1", "6")} sin<sup>3</sup> 2<em>x</em> + <em>C</em></strong></span>`
+      },
+
+      tan3: {
+        steps: [
+          {
+            title: "Step 1: Split tan³x = tan x · tan²x = tan x (sec²x − 1)",
+            html: `<span class="math">&int; tan<sup>3</sup> <em>x</em> d<em>x</em> = &int; tan <em>x</em> (sec&sup2; <em>x</em> &minus; 1) d<em>x</em> = &int; tan <em>x</em> sec&sup2; <em>x</em> d<em>x</em> &minus; &int; tan <em>x</em> d<em>x</em></span>.`
+          },
+          {
+            title: "Step 2: Integrate First Term via Reverse Chain Rule & Second via MF27",
+            html: `&bull; <span class="math">&int; (tan <em>x</em>)<sup>1</sup> sec&sup2; <em>x</em> d<em>x</em> = ${frac("1", "2")} tan&sup2; <em>x</em></span><br>
+                   &bull; <span class="math">&int; tan <em>x</em> d<em>x</em> = ln|sec <em>x</em>|</span> (from MF27).`
+          },
+          {
+            title: "Step 3: Combine Results",
+            html: `<span class="math"><strong>${frac("1", "2")} tan&sup2; <em>x</em> &minus; ln|sec <em>x</em>| + <em>C</em></strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong>&int; tan<sup>3</sup> <em>x</em> d<em>x</em> = ${frac("1", "2")} tan&sup2; <em>x</em> &minus; ln|sec <em>x</em>| + <em>C</em></strong></span>`
+      }
+    };
+
+    function renderPythagTab() {
+      const item = PYTHAG_CASES[currentPythag];
+      document.getElementById("pythagStepsContainer").innerHTML = item.steps.map((st, idx) => {
+        const unlocked = idx <= pyStep;
+        return `
+          <div class="step-box ${idx === pyStep ? "active-step" : ""} ${!unlocked ? "locked" : ""}">
+            <div class="kicker" style="margin-bottom:3px;">${st.title}</div>
+            <div style="font-size:0.86rem; line-height:1.7;">
+              ${unlocked ? st.html : "<em>Click 'Next Step (+1)' to reveal...</em>"}
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      document.getElementById("pythagFinalBanner").innerHTML =
+        `<div class="kicker" style="margin-bottom:2px;">Final Integrated Result</div>` + item.finalHTML;
+    }
+
+    /* =========================================================
+       TAB 3: FACTOR FORMULA (PRODUCT-TO-SUM)
+       ========================================================= */
+    const FACTOR_CASES = {
+      sinCos: {
+        steps: [
+          {
+            title: "Step 1: Apply MF27 Factor Formula 2 sin A cos B = sin(A + B) + sin(A − B)",
+            html: `With <span class="math"><em>A</em> = 3<em>x</em></span> and <span class="math"><em>B</em> = <em>x</em></span>:<br>
+                   <span class="math">sin 3<em>x</em> cos <em>x</em> = <strong>${frac("1", "2")}[sin 4<em>x</em> + sin 2<em>x</em>]</strong></span>.`
+          },
+          {
+            title: "Step 2: Integrate Each Sine Term",
+            html: `<span class="math">${frac("1", "2")} &int; (sin 4<em>x</em> + sin 2<em>x</em>) d<em>x</em> = ${frac("1", "2")}(&minus;${frac("1", "4")} cos 4<em>x</em> &minus; ${frac("1", "2")} cos 2<em>x</em>) + <em>C</em></span>.`
+          },
+          {
+            title: "Step 3: Expand & Simplify",
+            html: `<span class="math"><strong>&minus;${frac("1", "8")} cos 4<em>x</em> &minus; ${frac("1", "4")} cos 2<em>x</em> + <em>C</em></strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong>&int; sin 3<em>x</em> cos <em>x</em> d<em>x</em> = &minus;${frac("1", "8")} cos 4<em>x</em> &minus; ${frac("1", "4")} cos 2<em>x</em> + <em>C</em></strong></span>`
+      },
+
+      cosSin: {
+        steps: [
+          {
+            title: "Step 1: Apply MF27 Factor Formula 2 cos A sin B = sin(A + B) − sin(A − B)",
+            html: `With <span class="math"><em>A</em> = 5<em>x</em></span> and <span class="math"><em>B</em> = 2<em>x</em></span>:<br>
+                   <span class="math">cos 5<em>x</em> sin 2<em>x</em> = <strong>${frac("1", "2")}[sin 7<em>x</em> &minus; sin 3<em>x</em>]</strong></span>.`
+          },
+          {
+            title: "Step 2: Integrate Each Sine Term",
+            html: `<span class="math">${frac("1", "2")} &int; (sin 7<em>x</em> &minus; sin 3<em>x</em>) d<em>x</em> = ${frac("1", "2")}(&minus;${frac("1", "7")} cos 7<em>x</em> + ${frac("1", "3")} cos 3<em>x</em>) + <em>C</em></span>.`
+          },
+          {
+            title: "Step 3: Expand & Simplify",
+            html: `<span class="math"><strong>${frac("1", "6")} cos 3<em>x</em> &minus; ${frac("1", "14")} cos 7<em>x</em> + <em>C</em></strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong>&int; cos 5<em>x</em> sin 2<em>x</em> d<em>x</em> = ${frac("1", "6")} cos 3<em>x</em> &minus; ${frac("1", "14")} cos 7<em>x</em> + <em>C</em></strong></span>`
+      },
+
+      cosCos: {
+        steps: [
+          {
+            title: "Step 1: Apply MF27 Factor Formula 2 cos A cos B = cos(A + B) + cos(A − B)",
+            html: `With <span class="math"><em>A</em> = 4<em>x</em></span> and <span class="math"><em>B</em> = 2<em>x</em></span>:<br>
+                   <span class="math">cos 4<em>x</em> cos 2<em>x</em> = <strong>${frac("1", "2")}[cos 6<em>x</em> + cos 2<em>x</em>]</strong></span>.`
+          },
+          {
+            title: "Step 2: Integrate Each Cosine Term",
+            html: `<span class="math">${frac("1", "2")} &int; (cos 6<em>x</em> + cos 2<em>x</em>) d<em>x</em> = ${frac("1", "2")}(${frac("1", "6")} sin 6<em>x</em> + ${frac("1", "2")} sin 2<em>x</em>) + <em>C</em></span>.`
+          },
+          {
+            title: "Step 3: Expand & Simplify",
+            html: `<span class="math"><strong>${frac("1", "12")} sin 6<em>x</em> + ${frac("1", "4")} sin 2<em>x</em> + <em>C</em></strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong>&int; cos 4<em>x</em> cos 2<em>x</em> d<em>x</em> = ${frac("1", "12")} sin 6<em>x</em> + ${frac("1", "4")} sin 2<em>x</em> + <em>C</em></strong></span>`
+      },
+
+      sinSin: {
+        steps: [
+          {
+            title: "Step 1: Apply MF27 Factor Formula −2 sin A sin B = cos(A + B) − cos(A − B)",
+            html: `Rearranging gives <span class="math">sin 5<em>x</em> sin 2<em>x</em> = <strong>${frac("1", "2")}[cos 3<em>x</em> &minus; cos 7<em>x</em>]</strong></span>.`
+          },
+          {
+            title: "Step 2: Integrate Term-by-Term",
+            html: `<span class="math">${frac("1", "2")} &int; (cos 3<em>x</em> &minus; cos 7<em>x</em>) d<em>x</em> = ${frac("1", "2")}(${frac("1", "3")} sin 3<em>x</em> &minus; ${frac("1", "7")} sin 7<em>x</em>) + <em>C</em></span>.`
+          },
+          {
+            title: "Step 3: Expand & Simplify",
+            html: `<span class="math"><strong>${frac("1", "6")} sin 3<em>x</em> &minus; ${frac("1", "14")} sin 7<em>x</em> + <em>C</em></strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong>&int; sin 5<em>x</em> sin 2<em>x</em> d<em>x</em> = ${frac("1", "6")} sin 3<em>x</em> &minus; ${frac("1", "14")} sin 7<em>x</em> + <em>C</em></strong></span>`
+      }
+    };
+
+    function renderFactorTab() {
+      const item = FACTOR_CASES[currentFactor];
+      document.getElementById("factorStepsContainer").innerHTML = item.steps.map((st, idx) => {
+        const unlocked = idx <= facStep;
+        return `
+          <div class="step-box ${idx === facStep ? "active-step" : ""} ${!unlocked ? "locked" : ""}">
+            <div class="kicker" style="margin-bottom:3px;">${st.title}</div>
+            <div style="font-size:0.86rem; line-height:1.7;">
+              ${unlocked ? st.html : "<em>Click 'Next Step (+1)' to reveal...</em>"}
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      document.getElementById("factorFinalBanner").innerHTML =
+        `<div class="kicker" style="margin-bottom:2px;">Final Integrated Result</div>` + item.finalHTML;
+    }
+
+    /* =========================================================
+       NAVIGATION & EVENTS
+       ========================================================= */
+    function switchMode(mode) {
+      activeMode = mode;
+      document.getElementById("tabDoubleBtn").classList.toggle("active", mode === "double");
+      document.getElementById("tabPythagBtn").classList.toggle("active", mode === "pythag");
+      document.getElementById("tabFactorBtn").classList.toggle("active", mode === "factor");
+
+      document.getElementById("doublePanel").classList.toggle("active", mode === "double");
+      document.getElementById("pythagPanel").classList.toggle("active", mode === "pythag");
+      document.getElementById("factorPanel").classList.toggle("active", mode === "factor");
+
+      if (mode === "double") drawDoubleCurveCanvas();
+    }
+
+    function selectSqFn(fn) {
+      sqFn = fn;
+      document.querySelectorAll("#doublePanel .expr-pill").forEach(el => el.classList.remove("active"));
+      document.getElementById("sq_" + fn).classList.add("active");
+      renderDoubleLab();
+      drawDoubleCurveCanvas();
+    }
+
+    function onAChange(val) {
+      paramA = parseInt(val, 10);
+      renderDoubleLab();
+      drawDoubleCurveCanvas();
+    }
+
+    function toggleTrap() {
+      showWrongPowerTrap = !showWrongPowerTrap;
+      renderDoubleLab();
+      drawDoubleCurveCanvas();
+    }
+
+    function selectPythag(key) {
+      currentPythag = key;
+      document.querySelectorAll("#pythagPanel .expr-pill").forEach(el => el.classList.remove("active"));
+      document.getElementById("py_" + key).classList.add("active");
+      renderPythagTab();
+    }
+
+    function setPyStep(s) { pyStep = s; renderPythagTab(); }
+    function nextPyStep() { if (pyStep < 2) { pyStep++; renderPythagTab(); } }
+
+    function selectFactor(key) {
+      currentFactor = key;
+      document.querySelectorAll("#factorPanel .expr-pill").forEach(el => el.classList.remove("active"));
+      document.getElementById("fa_" + key).classList.add("active");
+      renderFactorTab();
+    }
+
+    function setFacStep(s) { facStep = s; renderFactorTab(); }
+    function nextFacStep() { if (facStep < 2) { facStep++; renderFactorTab(); } }
+
+    renderDoubleLab();
+    drawDoubleCurveCanvas();
+    renderPythagTab();
+    renderFactorTab();
+  </script>
+</body>
+</html>

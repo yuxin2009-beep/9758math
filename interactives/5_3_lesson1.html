@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5.3 Lesson 1 | Pattern-Spotter & Constant-Balancer Lab</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 16px 20px 28px 20px;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .math {
+      font-family: 'Cambria Math', 'Times New Roman', Georgia, serif;
+      font-size: 1.05em;
+    }
+
+    .frac {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      vertical-align: middle;
+      margin: 0 3px;
+      font-size: 0.88em;
+      line-height: 1.1;
+    }
+
+    .frac-num {
+      padding: 0 4px 2px 4px;
+      border-bottom: 1.4px solid currentColor;
+      text-align: center;
+    }
+
+    .frac-den {
+      padding: 2px 4px 0 4px;
+      text-align: center;
+    }
+
+    /* HEADER & TABS */
+    .lab-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .lab-title-wrap h1 {
+      margin: 0;
+      font-size: 1.15rem;
+      color: #1e293b;
+    }
+
+    .lab-title-wrap p {
+      margin: 3px 0 0 0;
+      font-size: 0.81rem;
+      color: var(--muted);
+    }
+
+    .mode-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mode-btn {
+      padding: 8px 13px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: var(--text);
+      font-size: 0.81rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mode-btn:hover {
+      border-color: var(--purple);
+      color: var(--purple-dark);
+    }
+
+    .mode-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.22);
+    }
+
+    /* FOUNDATION REFERENCE CARD */
+    .foundation-card {
+      background: var(--panel);
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.07);
+    }
+
+    .foundation-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 9px;
+    }
+
+    .kicker {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--purple-dark);
+    }
+
+    .rule-badge {
+      background: var(--amber-bg);
+      color: var(--amber);
+      border: 1px solid #fcd34d;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 800;
+    }
+
+    .formula-trio {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .trig-mf27-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      padding-top: 9px;
+      border-top: 1px dashed #cbd5e1;
+    }
+
+    @media (max-width: 860px) {
+      .formula-trio,
+      .trig-mf27-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .f-card {
+      background: #f5f3ff;
+      border: 1px solid #ddd6fe;
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      line-height: 1.55;
+      color: #1e293b;
+    }
+
+    .f-card.ln-card {
+      background: var(--teal-bg);
+      border-color: #5eead4;
+    }
+
+    .trig-ref-pill {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      padding: 6px 10px;
+      font-size: 0.8rem;
+      line-height: 1.55;
+      color: #1e293b;
+    }
+
+    .f-eq {
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: #1e293b;
+    }
+
+    .f-sub {
+      font-size: 0.75rem;
+      color: #475569;
+      margin-top: 2px;
+    }
+
+    /* EXPRESSION SELECTOR BAR */
+    .expr-bar {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 7px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      box-shadow: 0 2px 8px rgba(148, 163, 184, 0.06);
+    }
+
+    .bar-label {
+      font-size: 0.74rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--muted);
+      margin-right: 4px;
+    }
+
+    .expr-pill {
+      padding: 6px 11px;
+      border-radius: 9px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #1e293b;
+      font-size: 0.83rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .expr-pill:hover {
+      border-color: var(--purple);
+      background: #f5f3ff;
+    }
+
+    .expr-pill.active {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      border-color: var(--purple);
+    }
+
+    .expr-pill.trap-pill {
+      border-color: #fda4af;
+      background: #fff1f2;
+      color: #be123c;
+    }
+
+    .expr-pill.trap-pill.active {
+      background: var(--rose-bg);
+      border-color: var(--rose);
+      color: #881337;
+    }
+
+    /* PANELS */
+    .view-panel {
+      display: none;
+    }
+    .view-panel.active {
+      display: block;
+    }
+
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: 1.38fr 1.12fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 980px) {
+      .workspace-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 3px 10px rgba(148, 163, 184, 0.06);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    /* ANATOMIZER DISPLAY */
+    .anatomy-stage {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 14px;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .big-integral {
+      font-size: 1.26rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 10px;
+    }
+
+    .hl-fx {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      border: 1px solid #c4b5fd;
+      padding: 2px 7px;
+      border-radius: 7px;
+    }
+
+    .hl-dfx {
+      background: var(--blue-bg);
+      color: #0369a1;
+      border: 1px solid #7dd3fc;
+      padding: 2px 7px;
+      border-radius: 7px;
+    }
+
+    .anatomy-breakdown {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      text-align: left;
+    }
+
+    @media (max-width: 680px) {
+      .anatomy-breakdown {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .part-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 8px 10px;
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+
+    .part-label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+      display: block;
+    }
+
+    .n-flag-box {
+      border-radius: 11px;
+      padding: 10px 13px;
+      margin-bottom: 12px;
+      font-size: 0.83rem;
+      line-height: 1.55;
+      border: 1.5px solid #c4b5fd;
+      background: #f5f3ff;
+      color: #3b0764;
+    }
+
+    .n-flag-box.ln-trigger {
+      border-color: #2dd4bf;
+      background: var(--teal-bg);
+      color: #134e4a;
+    }
+
+    .n-flag-box.trap-trigger {
+      border-color: #fb7185;
+      background: var(--rose-bg);
+      color: #881337;
+    }
+
+    .balancer-box {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+    }
+
+    .k-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .k-btn {
+      padding: 7px 13px;
+      border-radius: 9px;
+      border: 1.5px solid #cbd5e1;
+      background: #ffffff;
+      color: #1e293b;
+      font-size: 0.85rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .k-btn:hover {
+      border-color: var(--purple);
+      background: #f5f3ff;
+    }
+
+    .k-btn.selected-correct {
+      background: var(--teal-bg);
+      border-color: var(--teal);
+      color: #115e59;
+      box-shadow: 0 2px 6px rgba(15, 118, 110, 0.15);
+    }
+
+    .k-btn.selected-wrong {
+      background: var(--rose-bg);
+      border-color: var(--rose);
+      color: #881337;
+    }
+
+    .balancer-feedback {
+      margin-top: 9px;
+      font-size: 0.83rem;
+      line-height: 1.6;
+      padding: 8px 11px;
+      border-radius: 9px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+    }
+
+    .answer-stage {
+      background: #f5f3ff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 11px;
+      padding: 11px 14px;
+      font-size: 0.92rem;
+      line-height: 1.75;
+      color: #1e293b;
+    }
+
+    .canvas-wrap {
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 295px;
+    }
+
+    .legend-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 8px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: #475569;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .swatch-line {
+      width: 16px;
+      height: 3px;
+      border-radius: 2px;
+      display: inline-block;
+    }
+
+    .check-note {
+      margin-top: 10px;
+      background: var(--teal-bg);
+      border: 1px solid #5eead4;
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-size: 0.81rem;
+      line-height: 1.55;
+      color: #134e4a;
+    }
+
+    /* TAB 2: LONG DIVISION WORKBENCH */
+    .long-div-box {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 12px;
+      overflow-x: auto;
+    }
+
+    .ld-table {
+      border-collapse: collapse;
+      font-family: 'Cambria Math', 'Times New Roman', Georgia, serif;
+      font-size: 1.03rem;
+      margin: 4px auto;
+      min-width: 280px;
+    }
+
+    .ld-table td {
+      padding: 4px 10px;
+      text-align: right;
+    }
+
+    .ld-quotient-row td {
+      color: var(--purple-dark);
+      font-weight: 800;
+      border-bottom: 2px solid #1e293b;
+    }
+
+    .ld-divisor-cell {
+      border-right: 2px solid #1e293b;
+      color: #0369a1;
+      font-weight: 700;
+      text-align: right;
+    }
+
+    .ld-sub-row td {
+      color: #64748b;
+      border-bottom: 1.5px solid #94a3b8;
+    }
+
+    .ld-rem-cell {
+      color: var(--teal);
+      font-weight: 800;
+    }
+
+    .builder-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 640px) {
+      .builder-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .choice-group {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 9px 11px;
+    }
+
+    .choice-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .c-pill {
+      padding: 5px 10px;
+      border-radius: 8px;
+      border: 1.5px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.83rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .c-pill.active-ok {
+      background: var(--teal-bg);
+      border-color: var(--teal);
+      color: #115e59;
+    }
+
+    .c-pill.active-err {
+      background: var(--rose-bg);
+      border-color: var(--rose);
+      color: #881337;
+    }
+
+    .step-box {
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 10px 13px;
+      margin-bottom: 9px;
+      background: #f8fafc;
+    }
+
+    .step-box.active-step {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .action-btn {
+      padding: 5px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #1e293b;
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .action-btn.primary {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER & TABS -->
+  <div class="lab-header">
+    <div class="lab-title-wrap">
+      <h1>Reverse Chain Rule &amp; Recognising <span class="math">f&prime;(<em>x</em>)</span> &amp; MF27 Trig Forms</h1>
+      <p>Anatomize composite algebraic, exponential, and general <span class="math">f&prime;(<em>x</em>)&middot;trig[f(<em>x</em>)]</span> integrands (<span class="math">tan, cot, sec, cosec, sec&middot;tan, &minus;cosec&middot;cot</span>) and tune constant <span class="math"><em>k</em></span></p>
+    </div>
+    <div class="mode-tabs">
+      <button class="mode-btn active" id="tabAnatomizerBtn" onclick="switchMode('anatomizer')">
+        1. Pattern-Spotter &amp; Constant-Balancer Lab
+      </button>
+      <button class="mode-btn" id="tabImproperBtn" onclick="switchMode('improper')">
+        2. Long Division &rarr; Quotient + <span class="math"><span class="frac"><span class="frac-num">f&prime;(<em>x</em>)</span><span class="frac-den">f(<em>x</em>)</span></span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       CORE REFERENCE BANNER (ALGEBRAIC + GENERAL MF27 TRIG FORMS)
+       ========================================================= -->
+  <div class="foundation-card">
+    <div class="foundation-top">
+      <span class="kicker">9758 H2 Math Reverse Chain Rule &amp; General <span class="math" style="text-transform:none;">f&prime;(<em>x</em>)&middot;trig[f(<em>x</em>)]</span> Forms (MF27)</span>
+      <span class="rule-badge">Golden Rule: Only Constants May Cross the &int; Sign!</span>
+    </div>
+
+    <div class="formula-trio">
+      <div class="f-card">
+        <div class="f-eq math">&int; f&prime;(<em>x</em>)[f(<em>x</em>)]<sup><em>n</em></sup> d<em>x</em> = <span class="frac"><span class="frac-num">[f(<em>x</em>)]<sup><em>n</em> + 1</sup></span><span class="frac-den"><em>n</em> + 1</span></span> + <em>C</em></div>
+        <div class="f-sub">For <span class="math"><strong><em>n</em> &ne; &minus;1</strong></span> (including <span class="math">sin<sup><em>n</em></sup><em>x</em> cos <em>x</em></span>, <span class="math">tan<sup><em>n</em></sup><em>x</em> sec<sup>2</sup><em>x</em></span>).</div>
+      </div>
+
+      <div class="f-card ln-card">
+        <div class="f-eq math">&int; <span class="frac"><span class="frac-num">f&prime;(<em>x</em>)</span><span class="frac-den">f(<em>x</em>)</span></span> d<em>x</em> = ln|f(<em>x</em>)| + <em>C</em></div>
+        <div class="f-sub">Triggered when <span class="math"><strong><em>n</em> = &minus;1</strong></span>! Explains <span class="math">&int; f&prime;(<em>x</em>)tan[f(<em>x</em>)] d<em>x</em></span> &amp; <span class="math">&int; f&prime;(<em>x</em>)cot[f(<em>x</em>)] d<em>x</em></span>.</div>
+      </div>
+
+      <div class="f-card">
+        <div class="f-eq math">&int; f&prime;(<em>x</em>)e<sup>f(<em>x</em>)</sup> d<em>x</em> = e<sup>f(<em>x</em>)</sup> + <em>C</em></div>
+        <div class="f-sub">Exponential power stays unchanged once <span class="math">f&prime;(<em>x</em>)</span> is matched.</div>
+      </div>
+    </div>
+
+    <!-- MF27 GENERAL COMPOSITE TRIGONOMETRIC INTEGRALS f'(x) trig[f(x)] -->
+    <div class="trig-mf27-grid">
+      <div class="trig-ref-pill">
+        <span class="math"><strong>&int; f&prime;(<em>x</em>) tan[f(<em>x</em>)] d<em>x</em> = ln|sec[f(<em>x</em>)]| + <em>C</em></strong></span><br>
+        <span class="math"><strong>&int; f&prime;(<em>x</em>) cot[f(<em>x</em>)] d<em>x</em> = ln|sin[f(<em>x</em>)]| + <em>C</em></strong></span>
+        <div style="font-size:0.72rem; color:var(--muted);">e.g. <span class="math">&int; 2<em>x</em> tan(<em>x</em>&sup2;) d<em>x</em> = ln|sec(<em>x</em>&sup2;)| + <em>C</em></span></div>
+      </div>
+
+      <div class="trig-ref-pill">
+        <span class="math"><strong>&int; f&prime;(<em>x</em>) sec[f(<em>x</em>)] d<em>x</em> = ln|sec[f(<em>x</em>)] + tan[f(<em>x</em>)]| + <em>C</em></strong></span><br>
+        <span class="math"><strong>&int; f&prime;(<em>x</em>) cosec[f(<em>x</em>)] d<em>x</em> = &minus;ln|cosec[f(<em>x</em>)] + cot[f(<em>x</em>)]| + <em>C</em></strong></span>
+        <div style="font-size:0.72rem; color:var(--muted);">Works for any differentiable inner <span class="math">f(<em>x</em>)</span> once <span class="math">f&prime;(<em>x</em>)</span> is present</div>
+      </div>
+
+      <div class="trig-ref-pill">
+        <span class="math"><strong>&int; f&prime;(<em>x</em>) sec[f(<em>x</em>)] tan[f(<em>x</em>)] d<em>x</em> = sec[f(<em>x</em>)] + <em>C</em></strong></span><br>
+        <span class="math"><strong>&int; &minus;f&prime;(<em>x</em>) cosec[f(<em>x</em>)] cot[f(<em>x</em>)] d<em>x</em> = cosec[f(<em>x</em>)] + <em>C</em></strong></span>
+        <div style="font-size:0.72rem; color:var(--muted);">Direct reverse derivatives of <span class="math">sec[f(<em>x</em>)]</span> and <span class="math">cosec[f(<em>x</em>)]</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       TAB 1: PATTERN-SPOTTER & CONSTANT-BALANCER LAB
+       ========================================================= -->
+  <div class="view-panel active" id="anatomizerPanel">
+    <div class="expr-bar">
+      <span class="bar-label">Select Integrand:</span>
+      <button class="expr-pill active" id="ex_pow" onclick="selectProblem('pow')">
+        1. <span class="math">&int; <em>x</em>(<em>x</em>&sup2; + 4)<sup>3</sup> d<em>x</em></span>
+      </button>
+      <button class="expr-pill" id="ex_log" onclick="selectProblem('log')">
+        2. <span class="math">&int; <span class="frac"><span class="frac-num"><em>x</em></span><span class="frac-den"><em>x</em>&sup2; + 4</span></span> d<em>x</em></span> <span style="font-size:0.72rem; color:var(--teal);">(n = &minus;1)</span>
+      </button>
+      <button class="expr-pill" id="ex_exp" onclick="selectProblem('exp')">
+        3. <span class="math">&int; <em>x</em>&sup2;e<sup>2<em>x</em>&sup3;</sup> d<em>x</em></span>
+      </button>
+      <button class="expr-pill" id="ex_tanFx" onclick="selectProblem('tanFx')">
+        4. <span class="math">&int; <em>x</em> tan(<em>x</em>&sup2;) d<em>x</em></span>
+      </button>
+      <button class="expr-pill" id="ex_secTanFx" onclick="selectProblem('secTanFx')">
+        5. <span class="math">&int; <em>x</em> sec(<em>x</em>&sup2;+1) tan(<em>x</em>&sup2;+1) d<em>x</em></span>
+      </button>
+      <button class="expr-pill" id="ex_cosecCotFx" onclick="selectProblem('cosecCotFx')">
+        6. <span class="math">&int; e<sup><em>x</em></sup> cosec(e<sup><em>x</em></sup>) cot(e<sup><em>x</em></sup>) d<em>x</em></span>
+      </button>
+      <button class="expr-pill" id="ex_cosecFx" onclick="selectProblem('cosecFx')">
+        7. <span class="math">&int; <span class="frac"><span class="frac-num">cosec(ln <em>x</em>)</span><span class="frac-den"><em>x</em></span></span> d<em>x</em></span>
+      </button>
+      <button class="expr-pill" id="ex_trigPow" onclick="selectProblem('trigPow')">
+        8. <span class="math">&int; tan<sup>2</sup> 2<em>x</em> sec<sup>2</sup> 2<em>x</em> d<em>x</em></span>
+      </button>
+      <button class="expr-pill trap-pill" id="ex_trap" onclick="selectProblem('trap')">
+        &#9888; Trap: <span class="math">&int; e<sup><em>x</em>&sup2;</sup> d<em>x</em></span>
+      </button>
+    </div>
+
+    <div class="workspace-grid">
+      <!-- LEFT: ANATOMIZER & CONSTANT BALANCER -->
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker">Step 1 &amp; 2: Expression Anatomizer &amp; Constant-Balancer</span>
+        </div>
+
+        <div class="anatomy-stage">
+          <div class="big-integral math" id="bigIntegralHTML"></div>
+          <div class="anatomy-breakdown" id="anatomyGrid"></div>
+        </div>
+
+        <div class="n-flag-box" id="nFlagBanner"></div>
+
+        <div class="balancer-box">
+          <div class="kicker" style="color:#1e293b;">Step 3: Tune the Missing Scaling Constant <span class="math" style="text-transform:none;"><em>k</em></span></div>
+          <div style="font-size:0.82rem; color:#475569; margin-top:3px;" id="balancerPrompt"></div>
+          <div class="k-options" id="kButtonsRow"></div>
+          <div class="balancer-feedback" id="balancerFeedback"></div>
+        </div>
+
+        <div class="answer-stage" id="finalAnswerBox"></div>
+      </div>
+
+      <!-- RIGHT: DERIVATIVE VERIFICATION GRAPH -->
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker" style="color:var(--teal);">Differentiation Check: <span class="math" style="text-transform:none;"><span class="frac"><span class="frac-num">d</span><span class="frac-den">d<em>x</em></span></span>[<em>F</em>(<em>x</em>)] = Integrand</span></span>
+        </div>
+
+        <div class="canvas-wrap">
+          <canvas id="verifyCanvas" width="600" height="295"></canvas>
+        </div>
+
+        <div class="legend-row">
+          <span class="legend-item">
+            <span class="swatch-line" style="background:#0f172a;"></span> Original Integrand <span class="math"><em>y</em> = <em>g</em>(<em>x</em>)</span>
+          </span>
+          <span class="legend-item">
+            <span class="swatch-line" style="background:#0f766e;"></span> Derivative of Answer <span class="math"><em>F</em>&prime;(<em>x</em>)</span>
+          </span>
+          <span class="legend-item">
+            <span class="swatch-line" style="background:#8b5cf6;"></span> Antiderivative <span class="math"><em>y</em> = <em>F</em>(<em>x</em>)</span>
+          </span>
+        </div>
+
+        <div class="check-note" id="graphExplainBox"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       TAB 2: IMPROPER RATIONAL FRACTION LONG DIVISION WORKBENCH
+       ========================================================= -->
+  <div class="view-panel" id="improperPanel">
+    <div class="workspace-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker">Improper Rational Long Division &rarr; <span class="math" style="text-transform:none;"><em>Q</em>(<em>x</em>) + <em>k</em> &middot; <span class="frac"><span class="frac-num">f&prime;(<em>x</em>)</span><span class="frac-den">f(<em>x</em>)</span></span></span></span>
+          <div style="display:flex; gap:6px;">
+            <button class="action-btn" onclick="setLdStep(0)">Reset Division</button>
+            <button class="action-btn primary" onclick="nextLdStep()">Next Division Step (+1)</button>
+            <button class="action-btn" onclick="setLdStep(2)">Show Full Division</button>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px;">
+          <button class="expr-pill active" id="imp_lin" onclick="selectImproper('lin')">
+            1. <span class="math">&int; <span class="frac"><span class="frac-num">2<em>x</em> + 3</span><span class="frac-den"><em>x</em> + 1</span></span> d<em>x</em></span>
+          </button>
+          <button class="expr-pill" id="imp_quad" onclick="selectImproper('quad')">
+            2. <span class="math">&int; <span class="frac"><span class="frac-num"><em>x</em>&sup2;</span><span class="frac-den"><em>x</em> + 2</span></span> d<em>x</em></span>
+          </button>
+          <button class="expr-pill" id="imp_deg2" onclick="selectImproper('deg2')">
+            3. <span class="math">&int; <span class="frac"><span class="frac-num">2<em>x</em>&sup2; + 2<em>x</em> + 2</span><span class="frac-den"><em>x</em>&sup2; + 1</span></span> d<em>x</em></span>
+          </button>
+        </div>
+
+        <div class="long-div-box" id="longDivisionTableau"></div>
+
+        <div class="builder-grid">
+          <div class="choice-group">
+            <span class="kicker" style="color:var(--purple-dark);">Select Quotient <span class="math" style="text-transform:none;"><em>Q</em>(<em>x</em>)</span>:</span>
+            <div class="choice-pills" id="quotientPills"></div>
+          </div>
+          <div class="choice-group">
+            <span class="kicker" style="color:var(--teal);">Select Remainder <span class="math" style="text-transform:none;"><em>R</em>(<em>x</em>)</span>:</span>
+            <div class="choice-pills" id="remainderPills"></div>
+          </div>
+        </div>
+
+        <div class="answer-stage" id="improperFinalBox"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker" style="color:var(--rose);">3-Step Protocol &amp; Modulus Bars <span class="math" style="text-transform:none;">ln|f(<em>x</em>)|</span></span>
+        </div>
+
+        <div style="font-size:0.84rem; line-height:1.65; color:#334155;">
+          <div class="step-box active-step" style="margin-bottom:10px;">
+            <div class="kicker" style="margin-bottom:3px;">When to Use Polynomial Long Division</div>
+            Whenever <span class="math"><strong>deg(Numerator) &ge; deg(Denominator)</strong></span>, divide the numerator by the denominator first to rewrite:
+            <div style="text-align:center; margin:6px 0; font-size:0.95rem;" class="math">
+              <span class="frac"><span class="frac-num"><em>P</em>(<em>x</em>)</span><span class="frac-den">f(<em>x</em>)</span></span> = <strong><em>Q</em>(<em>x</em>)</strong> + <span class="frac"><span class="frac-num"><strong><em>R</em>(<em>x</em>)</strong></span><span class="frac-den">f(<em>x</em>)</span></span>
+            </div>
+            where <span class="math">deg(<em>R</em>) &lt; deg(f)</span>. Then match <span class="math"><em>R</em>(<em>x</em>)</span> to <span class="math"><em>k</em> &middot; f&prime;(<em>x</em>)</span>!
+          </div>
+
+          <p style="margin:6px 0;">
+            <strong>Why Modulus Bars <span class="math">ln|f(<em>x</em>)|</span> Are Mandatory:</strong>
+          </p>
+          <ul style="padding-left:18px; margin:6px 0 10px 0;">
+            <li>In <span class="math">&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den">3 &minus; 2<em>x</em></span></span> d<em>x</em> = &minus;<span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span> ln|3 &minus; 2<em>x</em>| + <em>C</em></span>, when <span class="math"><em>x</em> &gt; <span class="frac"><span class="frac-num">3</span><span class="frac-den">2</span></span></span>, <span class="math">3 &minus; 2<em>x</em> &lt; 0</span>, so <span class="math">ln(3 &minus; 2<em>x</em>)</span> is undefined without <span class="math">|&middot;|</span>.</li>
+            <li>When <span class="math">f(<em>x</em>) &gt; 0</span> for all real <span class="math"><em>x</em></span> (such as <span class="math"><em>x</em>&sup2; + 1 &gt; 0</span>), <span class="math">|f(<em>x</em>)| = f(<em>x</em>)</span>.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let activeMode = "anatomizer";
+    let currentProb = "pow";
+    let selectedKIndex = 1;
+
+    let currentImp = "lin";
+    let ldStep = 2;
+    let chosenQIdx = 0;
+    let chosenRIdx = 0;
+
+    const canvas = document.getElementById("verifyCanvas");
+    const ctx = canvas.getContext("2d");
+
+    function frac(num, den) {
+      return `<span class="frac"><span class="frac-num">${num}</span><span class="frac-den">${den}</span></span>`;
+    }
+
+    const PROBLEMS = {
+      pow: {
+        bigHTML: `&int; <span class="hl-dfx"><em>x</em></span>(<span class="hl-fx"><em>x</em>&sup2; + 4</span>)<sup>3</sup> d<em>x</em>`,
+        fxHTML: `f(<em>x</em>) = <em>x</em>&sup2; + 4`,
+        dfxReqHTML: `f&prime;(<em>x</em>) = 2<em>x</em>`,
+        nLabel: `<em>n</em> = 3 (&ne; &minus;1)`,
+        flagType: "power",
+        flagHTML: `<strong>Power Rule Triggered (<span class="math"><em>n</em> = 3 &ne; &minus;1</span>):</strong> Raise power from <span class="math">3</span> to <span class="math">4</span> and divide by <span class="math">4</span> once <span class="math">f&prime;(<em>x</em>) = 2<em>x</em></span> is balanced.`,
+        promptHTML: `We have <span class="math"><em>x</em></span> in front, and we need <span class="math">f&prime;(<em>x</em>) = 2<em>x</em></span>. Choose <span class="math"><em>k</em></span> in <span class="math"><em>k</em> &int; 2<em>x</em>(<em>x</em>&sup2; + 4)<sup>3</sup> d<em>x</em></span>:`,
+        options: [
+          { label: "k = 2", mult: 2, correct: false },
+          { label: "k = ½", mult: 0.5, correct: true },
+          { label: "k = ¼", mult: 0.25, correct: false }
+        ],
+        correctFeedback: `<strong>Spot on!</strong> <span class="math"><em>k</em> = ${frac("1", "2")}</span> supplies the factor of 2 needed for <span class="math">f&prime;(<em>x</em>) = 2<em>x</em></span>.`,
+        wrongFeedback: (opt) => `Not quite — <span class="math">${opt.label} &times; 2<em>x</em> = ${2 * opt.mult}<em>x</em> &ne; 1<em>x</em></span>.`,
+        finalAnswerHTML: `<span class="math">${frac("1", "2")} &middot; ${frac("(<em>x</em>&sup2; + 4)<sup>4</sup>", "4")} + <em>C</em> = <strong>${frac("1", "8")}(<em>x</em>&sup2; + 4)<sup>4</sup> + <em>C</em></strong></span>`,
+        xMin: -2.2, xMax: 2.2, yMin: -40, yMax: 60,
+        integrandFn: (x) => x * Math.pow(x * x + 4, 3),
+        antiderivFn: (x) => Math.pow(x * x + 4, 4) / 8 - 32,
+        graphNote: `Differentiating <span class="math">${frac("1", "8")}(<em>x</em>&sup2; + 4)<sup>4</sup></span> yields <span class="math"><em>x</em>(<em>x</em>&sup2; + 4)<sup>3</sup></span>, matching the black curve.`
+      },
+
+      log: {
+        bigHTML: `&int; <span class="frac"><span class="frac-num"><span class="hl-dfx"><em>x</em></span></span><span class="frac-den"><span class="hl-fx"><em>x</em>&sup2; + 4</span></span></span> d<em>x</em>`,
+        fxHTML: `f(<em>x</em>) = <em>x</em>&sup2; + 4`,
+        dfxReqHTML: `f&prime;(<em>x</em>) = 2<em>x</em>`,
+        nLabel: `<em>n</em> = &minus;1 (Log Trigger!)`,
+        flagType: "ln",
+        flagHTML: `<strong>&#9888; <span class="math"><em>n</em> = &minus;1</span> Logarithm Triggered!</strong> Power rule fails (<span class="math">&minus;1 + 1 = 0</span>); use <span class="math">&int; ${frac("f&prime;(<em>x</em>)", "f(<em>x</em>)")} d<em>x</em> = ln|f(<em>x</em>)| + <em>C</em></span>.`,
+        promptHTML: `Numerator is <span class="math"><em>x</em></span>, while <span class="math">f&prime;(<em>x</em>) = 2<em>x</em></span>. Select <span class="math"><em>k</em></span> in <span class="math"><em>k</em> &int; ${frac("2<em>x</em>", "<em>x</em>&sup2; + 4")} d<em>x</em></span>:`,
+        options: [
+          { label: "k = 2", mult: 2, correct: false },
+          { label: "k = ½", mult: 0.5, correct: true },
+          { label: "k = −½", mult: -0.5, correct: false }
+        ],
+        correctFeedback: `<strong>Correct!</strong> <span class="math"><em>k</em> = ${frac("1", "2")}</span> balances the numerator, and since <span class="math"><em>x</em>&sup2; + 4 &gt; 0</span>, <span class="math">ln|<em>x</em>&sup2; + 4| = ln(<em>x</em>&sup2; + 4)</span>.`,
+        wrongFeedback: (opt) => `Check balance: <span class="math">${opt.label} &times; 2<em>x</em> = ${2 * opt.mult}<em>x</em> &ne; <em>x</em></span>.`,
+        finalAnswerHTML: `<span class="math">${frac("1", "2")} &int; ${frac("2<em>x</em>", "<em>x</em>&sup2; + 4")} d<em>x</em> = <strong>${frac("1", "2")} ln(<em>x</em>&sup2; + 4) + <em>C</em></strong></span>`,
+        xMin: -3.5, xMax: 3.5, yMin: -1.5, yMax: 2.5,
+        integrandFn: (x) => x / (x * x + 4),
+        antiderivFn: (x) => 0.5 * Math.log(x * x + 4),
+        graphNote: `Derivative of <span class="math">${frac("1", "2")} ln(<em>x</em>&sup2; + 4)</span> equals <span class="math">${frac("<em>x</em>", "<em>x</em>&sup2; + 4")}</span> everywhere.`
+      },
+
+      exp: {
+        bigHTML: `&int; <span class="hl-dfx"><em>x</em>&sup2;</span> e<sup><span class="hl-fx">2<em>x</em>&sup3;</span></sup> d<em>x</em>`,
+        fxHTML: `f(<em>x</em>) = 2<em>x</em>&sup3;`,
+        dfxReqHTML: `f&prime;(<em>x</em>) = 6<em>x</em>&sup2;`,
+        nLabel: `Exponential Form`,
+        flagType: "power",
+        flagHTML: `<strong>Exponential Chain Form (<span class="math">&int; f&prime;(<em>x</em>)e<sup>f(<em>x</em>)</sup> d<em>x</em> = e<sup>f(<em>x</em>)</sup> + <em>C</em></span>):</strong> Differentiating <span class="math">2<em>x</em>&sup3;</span> produces <span class="math">6<em>x</em>&sup2;</span>.`,
+        promptHTML: `We have <span class="math"><em>x</em>&sup2;</span>, and we need <span class="math">f&prime;(<em>x</em>) = 6<em>x</em>&sup2;</span>. Select <span class="math"><em>k</em></span>:`,
+        options: [
+          { label: "k = ⅙", mult: 1 / 6, correct: true },
+          { label: "k = ⅓", mult: 1 / 3, correct: false },
+          { label: "k = 6", mult: 6, correct: false }
+        ],
+        correctFeedback: `<strong>Spot on!</strong> <span class="math">${frac("1", "6")} &times; 6<em>x</em>&sup2; = <em>x</em>&sup2;</span>, yielding <span class="math">${frac("1", "6")} e<sup>2<em>x</em>&sup3;</sup> + <em>C</em></span>.`,
+        wrongFeedback: (opt) => `Solve <span class="math">6<em>k</em> = 1</span> so that <span class="math"><em>k</em> &middot; 6<em>x</em>&sup2; = <em>x</em>&sup2;</span>.`,
+        finalAnswerHTML: `<span class="math">${frac("1", "6")} &int; 6<em>x</em>&sup2; e<sup>2<em>x</em>&sup3;</sup> d<em>x</em> = <strong>${frac("1", "6")} e<sup>2<em>x</em>&sup3;</sup> + <em>C</em></strong></span>`,
+        xMin: -1.3, xMax: 1.15, yMin: -1, yMax: 6,
+        integrandFn: (x) => x * x * Math.exp(2 * x * x * x),
+        antiderivFn: (x) => Math.exp(2 * x * x * x) / 6,
+        graphNote: `Differentiating <span class="math">${frac("1", "6")} e<sup>2<em>x</em>&sup3;</sup></span> recovers <span class="math"><em>x</em>&sup2; e<sup>2<em>x</em>&sup3;</sup></span>.`
+      },
+
+      tanFx: {
+        bigHTML: `&int; <span class="hl-dfx"><em>x</em></span> tan(<span class="hl-fx"><em>x</em>&sup2;</span>) d<em>x</em> = &int; <span class="frac"><span class="frac-num"><span class="hl-dfx"><em>x</em></span> sin(<span class="hl-fx"><em>x</em>&sup2;</span>)</span><span class="frac-den">cos(<span class="hl-fx"><em>x</em>&sup2;</span>)</span></span> d<em>x</em>`,
+        fxHTML: `f(<em>x</em>) = <em>x</em>&sup2;`,
+        dfxReqHTML: `f&prime;(<em>x</em>) = 2<em>x</em>`,
+        nLabel: `f'(x) tan[f(x)] Form`,
+        flagType: "ln",
+        flagHTML: `<strong>General Composite <span class="math">&int; f&prime;(<em>x</em>) tan[f(<em>x</em>)] d<em>x</em> = ln|sec[f(<em>x</em>)]| + <em>C</em></span>:</strong> Here <span class="math">f(<em>x</em>) = <em>x</em>&sup2;</span> (non-linear!), so we need <span class="math">f&prime;(<em>x</em>) = 2<em>x</em></span> in front of <span class="math">tan(<em>x</em>&sup2;)</span>.`,
+        promptHTML: `We have <span class="math"><em>x</em> tan(<em>x</em>&sup2;)</span>, and we need <span class="math">2<em>x</em> tan(<em>x</em>&sup2;)</span>. Choose <span class="math"><em>k</em></span>:`,
+        options: [
+          { label: "k = 2", mult: 2, correct: false },
+          { label: "k = ½", mult: 0.5, correct: true },
+          { label: "k = −½", mult: -0.5, correct: false }
+        ],
+        correctFeedback: `<strong>Spot on!</strong> <span class="math">${frac("1", "2")} &int; 2<em>x</em> tan(<em>x</em>&sup2;) d<em>x</em> = ${frac("1", "2")} ln|sec(<em>x</em>&sup2;)| + <em>C</em></span> (or <span class="math">&minus;${frac("1", "2")} ln|cos(<em>x</em>&sup2;)| + <em>C</em></span>).`,
+        wrongFeedback: () => `Remember <span class="math">&int; f&prime;(<em>x</em>) tan[f(<em>x</em>)] d<em>x</em> = +ln|sec[f(<em>x</em>)]|</span>, and <span class="math"><em>k</em> &middot; 2<em>x</em> = <em>x</em> &rArr; <em>k</em> = ${frac("1", "2")}</span>.`,
+        finalAnswerHTML: `<span class="math">${frac("1", "2")} &int; 2<em>x</em> tan(<em>x</em>&sup2;) d<em>x</em> = <strong>${frac("1", "2")} ln|sec(<em>x</em>&sup2;)| + <em>C</em></strong></span>`,
+        xMin: -1.15, xMax: 1.15, yMin: -2.5, yMax: 2.5,
+        integrandFn: (x) => x * Math.tan(x * x),
+        antiderivFn: (x) => 0.5 * Math.log(Math.abs(1 / Math.cos(x * x))),
+        graphNote: `Differentiating <span class="math">${frac("1", "2")} ln|sec(<em>x</em>&sup2;)|</span> via chain rule gives <span class="math">${frac("1", "2")} &middot; ${frac("2<em>x</em> sec(<em>x</em>&sup2;) tan(<em>x</em>&sup2;)", "sec(<em>x</em>&sup2;)")} = <em>x</em> tan(<em>x</em>&sup2;)</span>.`
+      },
+
+      secTanFx: {
+        bigHTML: `&int; <span class="hl-dfx"><em>x</em></span> sec(<span class="hl-fx"><em>x</em>&sup2; + 1</span>) tan(<span class="hl-fx"><em>x</em>&sup2; + 1</span>) d<em>x</em>`,
+        fxHTML: `f(<em>x</em>) = <em>x</em>&sup2; + 1`,
+        dfxReqHTML: `f&prime;(<em>x</em>) = 2<em>x</em>`,
+        nLabel: `f'(x) sec[f(x)] tan[f(x)]`,
+        flagType: "power",
+        flagHTML: `<strong>General Composite <span class="math">&int; f&prime;(<em>x</em>) sec[f(<em>x</em>)] tan[f(<em>x</em>)] d<em>x</em> = sec[f(<em>x</em>)] + <em>C</em></span>:</strong> Differentiating <span class="math">sec(<em>x</em>&sup2; + 1)</span> produces <span class="math"><strong>2<em>x</em></strong> sec(<em>x</em>&sup2; + 1) tan(<em>x</em>&sup2; + 1)</span>.`,
+        promptHTML: `We have <span class="math"><em>x</em> sec(<em>x</em>&sup2;+1) tan(<em>x</em>&sup2;+1)</span>, and we need <span class="math">2<em>x</em></span> in front. Select <span class="math"><em>k</em></span>:`,
+        options: [
+          { label: "k = 2", mult: 2, correct: false },
+          { label: "k = ½", mult: 0.5, correct: true },
+          { label: "k = −½", mult: -0.5, correct: false }
+        ],
+        correctFeedback: `<strong>Exact match!</strong> Since <span class="math">${frac("d", "d<em>x</em>")}[sec(<em>x</em>&sup2; + 1)] = +2<em>x</em> sec(<em>x</em>&sup2; + 1) tan(<em>x</em>&sup2; + 1)</span>, multiplying by <span class="math"><em>k</em> = +${frac("1", "2")}</span> gives <span class="math">${frac("1", "2")} sec(<em>x</em>&sup2; + 1) + <em>C</em></span>.`,
+        wrongFeedback: () => `Watch the inner derivative: <span class="math">${frac("d", "d<em>x</em>")}(<em>x</em>&sup2; + 1) = +2<em>x</em></span>, so <span class="math"><em>k</em> = +${frac("1", "2")}</span>.`,
+        finalAnswerHTML: `<span class="math">${frac("1", "2")} &int; 2<em>x</em> sec(<em>x</em>&sup2;+1) tan(<em>x</em>&sup2;+1) d<em>x</em> = <strong>${frac("1", "2")} sec(<em>x</em>&sup2; + 1) + <em>C</em></strong></span>`,
+        xMin: -0.68, xMax: 0.68, yMin: -3, yMax: 5,
+        integrandFn: (x) => x * (1 / Math.cos(x * x + 1)) * Math.tan(x * x + 1),
+        antiderivFn: (x) => 0.5 * (1 / Math.cos(x * x + 1)),
+        graphNote: `Differentiating <span class="math">${frac("1", "2")} sec(<em>x</em>&sup2; + 1)</span> matches <span class="math"><em>x</em> sec(<em>x</em>&sup2; + 1) tan(<em>x</em>&sup2; + 1)</span> identically.`
+      },
+
+      cosecCotFx: {
+        bigHTML: `&int; <span class="hl-dfx">e<sup><em>x</em></sup></span> cosec(<span class="hl-fx">e<sup><em>x</em></sup></span>) cot(<span class="hl-fx">e<sup><em>x</em></sup></span>) d<em>x</em>`,
+        fxHTML: `f(<em>x</em>) = e<sup><em>x</em></sup>`,
+        dfxReqHTML: `f&prime;(<em>x</em>) = e<sup><em>x</em></sup> (needs &minus;1 sign!)`,
+        nLabel: `&minus;f'(x) cosec[f(x)] cot[f(x)]`,
+        flagType: "ln",
+        flagHTML: `<strong>&#9888; Watch the Minus Sign!</strong> By chain rule, <span class="math">${frac("d", "d<em>x</em>")}[cosec(e<sup><em>x</em></sup>)] = <strong>&minus;e<sup><em>x</em></sup></strong> cosec(e<sup><em>x</em></sup>) cot(e<sup><em>x</em></sup>)</span>. Since our integrand has <span class="math">+e<sup><em>x</em></sup></span>, we must pull out <span class="math"><em>k</em> = &minus;1</span>!`,
+        promptHTML: `We have <span class="math">+e<sup><em>x</em></sup> cosec(e<sup><em>x</em></sup>) cot(e<sup><em>x</em></sup>)</span>, and we need <span class="math">&minus;e<sup><em>x</em></sup> cosec(e<sup><em>x</em></sup>) cot(e<sup><em>x</em></sup>)</span>. Select <span class="math"><em>k</em></span>:`,
+        options: [
+          { label: "k = +1", mult: 1, correct: false },
+          { label: "k = −1", mult: -1, correct: true },
+          { label: "k = −e", mult: -Math.E, correct: false }
+        ],
+        correctFeedback: `<strong>Spot on!</strong> <span class="math">(&minus;1) &int; (&minus;e<sup><em>x</em></sup> cosec(e<sup><em>x</em></sup>) cot(e<sup><em>x</em></sup>)) d<em>x</em> = <strong>&minus;cosec(e<sup><em>x</em></sup>) + <em>C</em></strong></span>!`,
+        wrongFeedback: () => `Check the derivative of <span class="math">cosec[f(<em>x</em>)]</span>: it carries a <strong>minus sign</strong> (<span class="math">&minus;f&prime;(<em>x</em>) cosec[f(<em>x</em>)] cot[f(<em>x</em>)]</span>), so <span class="math"><em>k</em> = &minus;1</span>!`,
+        finalAnswerHTML: `<span class="math">&minus;&int; (&minus;e<sup><em>x</em></sup> cosec(e<sup><em>x</em></sup>) cot(e<sup><em>x</em></sup>)) d<em>x</em> = <strong>&minus;cosec(e<sup><em>x</em></sup>) + <em>C</em></strong></span>`,
+        xMin: -1.2, xMax: 0.9, yMin: -3, yMax: 3,
+        integrandFn: (x) => Math.exp(x) * (1 / Math.sin(Math.exp(x))) * (1 / Math.tan(Math.exp(x))),
+        antiderivFn: (x) => -(1 / Math.sin(Math.exp(x))),
+        graphNote: `Differentiating <span class="math">&minus;cosec(e<sup><em>x</em></sup>)</span> gives <span class="math">&minus;(&minus;e<sup><em>x</em></sup> cosec(e<sup><em>x</em></sup>) cot(e<sup><em>x</em></sup>)) = +e<sup><em>x</em></sup> cosec(e<sup><em>x</em></sup>) cot(e<sup><em>x</em></sup>)</span>.`
+      },
+
+      cosecFx: {
+        bigHTML: `&int; <span class="hl-dfx">${frac("1", "<em>x</em>")}</span> cosec(<span class="hl-fx">ln <em>x</em></span>) d<em>x</em>`,
+        fxHTML: `f(<em>x</em>) = ln <em>x</em>`,
+        dfxReqHTML: `f&prime;(<em>x</em>) = ${frac("1", "<em>x</em>")} (Already exact!)`,
+        nLabel: `f'(x) cosec[f(x)] Form`,
+        flagType: "ln",
+        flagHTML: `<strong>General Composite <span class="math">&int; f&prime;(<em>x</em>) cosec[f(<em>x</em>)] d<em>x</em> = &minus;ln|cosec[f(<em>x</em>)] + cot[f(<em>x</em>)]| + <em>C</em></span>:</strong> Notice <span class="math">f(<em>x</em>) = ln <em>x</em></span> has derivative <span class="math">f&prime;(<em>x</em>) = ${frac("1", "<em>x</em>")}</span> sitting right outside!`,
+        promptHTML: `Since <span class="math">f&prime;(<em>x</em>) = ${frac("1", "<em>x</em>")}</span> is already exact, what scaling constant <span class="math"><em>k</em></span> sits outside the MF27 formula?`,
+        options: [
+          { label: "k = 1 (gives −ln|cosec(ln x) + cot(ln x)|)", mult: 1, correct: true },
+          { label: "k = 1/x", mult: -1, correct: false },
+          { label: "k = ln x", mult: 2, correct: false }
+        ],
+        correctFeedback: `<strong>Spot on!</strong> <span class="math">${frac("1", "<em>x</em>")}</span> is absorbed into <span class="math">f&prime;(<em>x</em>)</span>, leaving <span class="math">&minus;ln|cosec(ln <em>x</em>) + cot(ln <em>x</em>)| + <em>C</em></span>.`,
+        wrongFeedback: () => `<span class="math">${frac("1", "<em>x</em>")}</span> is <span class="math">f&prime;(<em>x</em>)</span> itself — never leave a variable outside <span class="math">&int;</span>!`,
+        finalAnswerHTML: `<span class="math"><strong>&minus;ln|cosec(ln <em>x</em>) + cot(ln <em>x</em>)| + <em>C</em></strong></span>`,
+        xMin: 1.25, xMax: 12, yMin: -2.5, yMax: 2.5,
+        integrandFn: (x) => (1 / x) * (1 / Math.sin(Math.log(x))),
+        antiderivFn: (x) => -Math.log(Math.abs(1 / Math.sin(Math.log(x)) + 1 / Math.tan(Math.log(x)))),
+        graphNote: `Differentiating <span class="math">&minus;ln|cosec(ln <em>x</em>) + cot(ln <em>x</em>)|</span> via chain rule yields <span class="math">${frac("1", "<em>x</em>")} cosec(ln <em>x</em>)</span>.`
+      },
+
+      trigPow: {
+        bigHTML: `&int; (<span class="hl-fx">tan 2<em>x</em></span>)<sup>2</sup> <span class="hl-dfx">sec<sup>2</sup> 2<em>x</em></span> d<em>x</em>`,
+        fxHTML: `f(<em>x</em>) = tan 2<em>x</em>`,
+        dfxReqHTML: `f&prime;(<em>x</em>) = 2 sec<sup>2</sup> 2<em>x</em>`,
+        nLabel: `<em>n</em> = 2 (&ne; &minus;1)`,
+        flagType: "power",
+        flagHTML: `<strong>Composite Trig Power Form:</strong> Since <span class="math">${frac("d", "d<em>x</em>")}(tan 2<em>x</em>) = <strong>2 sec<sup>2</sup> 2<em>x</em></strong></span>, treat <span class="math">tan<sup>2</sup> 2<em>x</em></span> as <span class="math">[f(<em>x</em>)]<sup>2</sup></span>!`,
+        promptHTML: `We have <span class="math">sec<sup>2</sup> 2<em>x</em></span>, and we need <span class="math">f&prime;(<em>x</em>) = 2 sec<sup>2</sup> 2<em>x</em></span>. Select <span class="math"><em>k</em></span>:`,
+        options: [
+          { label: "k = 1", mult: 1, correct: false },
+          { label: "k = ½", mult: 0.5, correct: true },
+          { label: "k = ⅙", mult: 1 / 6, correct: false }
+        ],
+        correctFeedback: `<strong>Exact match!</strong> <span class="math"><em>k</em> = ${frac("1", "2")}</span> supplies the inner factor of 2, and raising the power from 2 to 3 divides by 3, giving <span class="math">${frac("1", "6")} tan<sup>3</sup> 2<em>x</em> + <em>C</em></span>.`,
+        wrongFeedback: () => `First balance <span class="math">f&prime;(<em>x</em>) = 2 sec<sup>2</sup> 2<em>x</em></span> using <span class="math"><em>k</em> = ${frac("1", "2")}</span> before dividing by the new power <span class="math">3</span>.`,
+        finalAnswerHTML: `<span class="math">${frac("1", "2")} &middot; ${frac("tan<sup>3</sup> 2<em>x</em>", "3")} + <em>C</em> = <strong>${frac("1", "6")} tan<sup>3</sup> 2<em>x</em> + <em>C</em></strong></span>`,
+        xMin: -0.55, xMax: 0.55, yMin: -2, yMax: 5,
+        integrandFn: (x) => Math.pow(Math.tan(2 * x), 2) * Math.pow(1 / Math.cos(2 * x), 2),
+        antiderivFn: (x) => Math.pow(Math.tan(2 * x), 3) / 6,
+        graphNote: `Differentiating <span class="math">${frac("1", "6")} tan<sup>3</sup> 2<em>x</em></span> gives <span class="math">${frac("3", "6")} tan<sup>2</sup> 2<em>x</em> &middot; (2 sec<sup>2</sup> 2<em>x</em>) = tan<sup>2</sup> 2<em>x</em> sec<sup>2</sup> 2<em>x</em></span>.`
+      },
+
+      trap: {
+        bigHTML: `&int; <span class="hl-dfx">1</span> &middot; e<sup><span class="hl-fx"><em>x</em>&sup2;</span></sup> d<em>x</em>`,
+        fxHTML: `f(<em>x</em>) = <em>x</em>&sup2;`,
+        dfxReqHTML: `f&prime;(<em>x</em>) = 2<em>x</em> (Missing x!)`,
+        nLabel: `NON-ELEMENTARY TRAP`,
+        flagType: "trap",
+        flagHTML: `<strong>&#9888; ILLEGAL CONSTANT-BALANCER TRAP!</strong> <span class="math">f&prime;(<em>x</em>) = 2<em>x</em></span> requires a <strong>variable factor <span class="math"><em>x</em></span></strong>, not a constant! Writing <span class="math">${frac("1", "2<em>x</em>")} &int; 2<em>x</em> e<sup><em>x</em>&sup2;</sup> d<em>x</em></span> is false because variables cannot cross <span class="math">&int;</span>.`,
+        promptHTML: `Can any constant <span class="math"><em>k</em></span> turn <span class="math">1 &middot; e<sup><em>x</em>&sup2;</sup></span> into <span class="math">2<em>x</em> e<sup><em>x</em>&sup2;</sup></span>?`,
+        options: [
+          { label: "No — impossible!", mult: 0, correct: true },
+          { label: "k = 1/(2x)", mult: -1, correct: false },
+          { label: "k = ½", mult: 0.5, correct: false }
+        ],
+        correctFeedback: `<strong>Exactly right!</strong> <span class="math">&int; e<sup><em>x</em>&sup2;</sup> d<em>x</em></span> has no closed elementary antiderivative.`,
+        wrongFeedback: () => `Differentiating <span class="math">${frac("1", "2<em>x</em>")} e<sup><em>x</em>&sup2;</sup></span> produces <span class="math">e<sup><em>x</em>&sup2;</sup> &minus; ${frac("1", "2<em>x</em>&sup2;")} e<sup><em>x</em>&sup2;</sup> &ne; e<sup><em>x</em>&sup2;</sup></span>!`,
+        finalAnswerHTML: `<strong>No closed elementary antiderivative!</strong> Differentiating <span class="math">${frac("e<sup><em>x</em>&sup2;</sup>", "2<em>x</em>")}</span> gives the dashed teal curve, NOT <span class="math">e<sup><em>x</em>&sup2;</sup></span>!`,
+        xMin: -1.4, xMax: 1.4, yMin: -2, yMax: 6,
+        integrandFn: (x) => Math.exp(x * x),
+        antiderivFn: (x) => (Math.abs(x) > 0.15 ? Math.exp(x * x) / (2 * x) : NaN),
+        fakeDerivFn: (x) => (Math.abs(x) > 0.15 ? Math.exp(x * x) * (1 - 1 / (2 * x * x)) : NaN),
+        graphNote: `The derivative of the illegal guess <span class="math">${frac("e<sup><em>x</em>&sup2;</sup>", "2<em>x</em>")}</span> (dashed teal) diverges near <span class="math"><em>x</em> = 0</span> instead of matching <span class="math">e<sup><em>x</em>&sup2;</sup></span>.`
+      }
+    };
+
+    function renderAnatomizer() {
+      const p = PROBLEMS[currentProb];
+      document.getElementById("bigIntegralHTML").innerHTML = p.bigHTML;
+
+      document.getElementById("anatomyGrid").innerHTML = `
+        <div class="part-box">
+          <span class="part-label" style="color:var(--purple-dark);">Inner Function f(x)</span>
+          <span class="math"><strong>${p.fxHTML}</strong></span>
+        </div>
+        <div class="part-box">
+          <span class="part-label" style="color:var(--blue);">Required f&prime;(x)</span>
+          <span class="math"><strong>${p.dfxReqHTML}</strong></span>
+        </div>
+        <div class="part-box">
+          <span class="part-label" style="color:var(--teal);">MF27 / Power Form</span>
+          <span class="math"><strong>${p.nLabel}</strong></span>
+        </div>
+      `;
+
+      const flagBox = document.getElementById("nFlagBanner");
+      flagBox.className = "n-flag-box" + (p.flagType === "ln" ? " ln-trigger" : (p.flagType === "trap" ? " trap-trigger" : ""));
+      flagBox.innerHTML = p.flagHTML;
+
+      document.getElementById("balancerPrompt").innerHTML = p.promptHTML;
+
+      const btnRow = document.getElementById("kButtonsRow");
+      btnRow.innerHTML = p.options.map((opt, idx) => {
+        let cls = "k-btn";
+        if (idx === selectedKIndex) {
+          cls += opt.correct ? " selected-correct" : " selected-wrong";
+        }
+        return `<button class="${cls}" onclick="pickK(${idx})">${opt.label}</button>`;
+      }).join("");
+
+      const chosen = p.options[selectedKIndex];
+      const fb = document.getElementById("balancerFeedback");
+      fb.innerHTML = chosen.correct ? p.correctFeedback : p.wrongFeedback(chosen);
+      fb.style.borderColor = chosen.correct ? "#5eead4" : "#fda4af";
+
+      document.getElementById("finalAnswerBox").innerHTML = `
+        <div class="kicker" style="margin-bottom:2px;">Assembled Integral Result</div>
+        ${p.finalAnswerHTML}
+      `;
+
+      document.getElementById("graphExplainBox").innerHTML = p.graphNote;
+    }
+
+    function drawVerificationGraph() {
+      const p = PROBLEMS[currentProb];
+      const w = canvas.width;
+      const h = canvas.height;
+      ctx.clearRect(0, 0, w, h);
+
+      const toPxX = (x) => ((x - p.xMin) / (p.xMax - p.xMin)) * w;
+      const toPxY = (y) => h - ((y - p.yMin) / (p.yMax - p.yMin)) * h;
+
+      ctx.strokeStyle = "#e2e8f0";
+      ctx.lineWidth = 1;
+      for (let gx = Math.ceil(p.xMin); gx <= Math.floor(p.xMax); gx++) {
+        const px = toPxX(gx);
+        ctx.beginPath(); ctx.moveTo(px, 0); ctx.lineTo(px, h); ctx.stroke();
+      }
+      const yStep = (p.yMax - p.yMin) > 20 ? 20 : 1;
+      for (let gy = Math.ceil(p.yMin / yStep) * yStep; gy <= p.yMax; gy += yStep) {
+        const py = toPxY(gy);
+        ctx.beginPath(); ctx.moveTo(0, py); ctx.lineTo(w, py); ctx.stroke();
+      }
+
+      const ox = toPxX(0);
+      const oy = toPxY(0);
+      ctx.strokeStyle = "#64748b";
+      ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      ctx.moveTo(0, oy); ctx.lineTo(w, oy);
+      ctx.moveTo(ox, 0); ctx.lineTo(ox, h);
+      ctx.stroke();
+
+      function plotFn(fn, color, width, dash = []) {
+        ctx.save();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = width;
+        ctx.setLineDash(dash);
+        ctx.beginPath();
+        let started = false;
+        const N = 400;
+        for (let i = 0; i <= N; i++) {
+          const x = p.xMin + (i / N) * (p.xMax - p.xMin);
+          const y = fn(x);
+          if (!Number.isFinite(y) || y < p.yMin - 5 || y > p.yMax + 5) {
+            started = false;
+            continue;
+          }
+          const px = toPxX(x);
+          const py = toPxY(y);
+          if (!started) { ctx.moveTo(px, py); started = true; }
+          else { ctx.lineTo(px, py); }
+        }
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      plotFn(p.integrandFn, "#0f172a", 2.6);
+      plotFn(p.antiderivFn, "#8b5cf6", 2.1);
+
+      const eps = 1e-4;
+      const derivFn = p.fakeDerivFn
+        ? p.fakeDerivFn
+        : (x) => (p.antiderivFn(x + eps) - p.antiderivFn(x - eps)) / (2 * eps);
+      plotFn(derivFn, "#0f766e", 2.4, [6, 4]);
+    }
+
+    /* =========================================================
+       TAB 2: LONG DIVISION WORKBENCH -> QUOTIENT + f'(x)/f(x)
+       ========================================================= */
+    const LONG_DIV_CASES = {
+      lin: {
+        origFrac: `${frac("2<em>x</em> + 3", "<em>x</em> + 1")}`,
+        denomHTML: `<em>x</em> + 1`,
+        quotientOptions: [
+          { label: "2", correct: true },
+          { label: "2x", correct: false },
+          { label: "3", correct: false }
+        ],
+        remOptions: [
+          { label: "1", correct: true },
+          { label: "3", correct: false },
+          { label: "−1", correct: false }
+        ],
+        renderTableau: (step) => `
+          <table class="ld-table">
+            <tr class="ld-quotient-row">
+              <td></td>
+              <td></td>
+              <td>${step >= 1 ? "2" : "?"}</td>
+            </tr>
+            <tr>
+              <td class="ld-divisor-cell"><em>x</em> + 1</td>
+              <td>2<em>x</em></td>
+              <td>+ 3</td>
+            </tr>
+            ${step >= 1 ? `
+            <tr class="ld-sub-row">
+              <td></td>
+              <td>&minus;(2<em>x</em></td>
+              <td>+ 2)</td>
+            </tr>` : ""}
+            ${step >= 2 ? `
+            <tr>
+              <td></td>
+              <td></td>
+              <td class="ld-rem-cell">1 &nbsp;(Remainder <em>R</em>)</td>
+            </tr>` : ""}
+          </table>
+        `,
+        fPrimeMatchHTML: `Notice <span class="math">f(<em>x</em>) = <em>x</em> + 1</span> has <span class="math">f&prime;(<em>x</em>) = <strong>1</strong></span>, so <span class="math">${frac("1", "<em>x</em> + 1")}</span> is already exact <span class="math">${frac("f&prime;(<em>x</em>)", "f(<em>x</em>)")}</span>!`,
+        integratedHTML: `<span class="math">&int; (<strong>2</strong> + <strong>${frac("1", "<em>x</em> + 1")}</strong>) d<em>x</em> = <strong>2<em>x</em> + ln|<em>x</em> + 1| + <em>C</em></strong></span>`
+      },
+
+      quad: {
+        origFrac: `${frac("<em>x</em>&sup2;", "<em>x</em> + 2")}`,
+        denomHTML: `<em>x</em> + 2`,
+        quotientOptions: [
+          { label: "x − 2", correct: true },
+          { label: "x + 2", correct: false },
+          { label: "x", correct: false }
+        ],
+        remOptions: [
+          { label: "4", correct: true },
+          { label: "−4", correct: false },
+          { label: "0", correct: false }
+        ],
+        renderTableau: (step) => `
+          <table class="ld-table">
+            <tr class="ld-quotient-row">
+              <td></td>
+              <td></td>
+              <td>${step >= 1 ? "<em>x</em>" : "?"}</td>
+              <td>${step >= 2 ? "&minus; 2" : ""}</td>
+            </tr>
+            <tr>
+              <td class="ld-divisor-cell"><em>x</em> + 2</td>
+              <td><em>x</em>&sup2;</td>
+              <td>+ 0<em>x</em></td>
+              <td>+ 0</td>
+            </tr>
+            ${step >= 1 ? `
+            <tr class="ld-sub-row">
+              <td></td>
+              <td>&minus;(<em>x</em>&sup2;</td>
+              <td>+ 2<em>x</em>)</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td>&minus;2<em>x</em></td>
+              <td>+ 0</td>
+            </tr>` : ""}
+            ${step >= 2 ? `
+            <tr class="ld-sub-row">
+              <td></td>
+              <td></td>
+              <td>&minus;(&minus;2<em>x</em></td>
+              <td>&minus; 4)</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="ld-rem-cell">4 &nbsp;(Remainder <em>R</em>)</td>
+            </tr>` : ""}
+          </table>
+        `,
+        fPrimeMatchHTML: `Since <span class="math">f(<em>x</em>) = <em>x</em> + 2</span> has <span class="math">f&prime;(<em>x</em>) = 1</span>, write <span class="math">${frac("4", "<em>x</em> + 2")} = <strong>4 &middot; ${frac("1", "<em>x</em> + 2")}</strong></span>.`,
+        integratedHTML: `<span class="math">&int; (<strong><em>x</em> &minus; 2</strong> + <strong>4 &middot; ${frac("1", "<em>x</em> + 2")}</strong>) d<em>x</em> = <strong>${frac("1", "2")}<em>x</em>&sup2; &minus; 2<em>x</em> + 4 ln|<em>x</em> + 2| + <em>C</em></strong></span>`
+      },
+
+      deg2: {
+        origFrac: `${frac("2<em>x</em>&sup2; + 2<em>x</em> + 2", "<em>x</em>&sup2; + 1")}`,
+        denomHTML: `<em>x</em>&sup2; + 1`,
+        quotientOptions: [
+          { label: "2", correct: true },
+          { label: "2x", correct: false },
+          { label: "2 + 2x", correct: false }
+        ],
+        remOptions: [
+          { label: "2x", correct: true },
+          { label: "2x + 2", correct: false },
+          { label: "2", correct: false }
+        ],
+        renderTableau: (step) => `
+          <table class="ld-table">
+            <tr class="ld-quotient-row">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>${step >= 1 ? "2" : "?"}</td>
+            </tr>
+            <tr>
+              <td class="ld-divisor-cell"><em>x</em>&sup2; + 1</td>
+              <td>2<em>x</em>&sup2;</td>
+              <td>+ 2<em>x</em></td>
+              <td>+ 2</td>
+            </tr>
+            ${step >= 1 ? `
+            <tr class="ld-sub-row">
+              <td></td>
+              <td>&minus;(2<em>x</em>&sup2;</td>
+              <td>+ 0<em>x</em></td>
+              <td>+ 2)</td>
+            </tr>` : ""}
+            ${step >= 2 ? `
+            <tr>
+              <td></td>
+              <td></td>
+              <td class="ld-rem-cell" colspan="2">2<em>x</em> &nbsp;(Remainder <em>R</em>(<em>x</em>))</td>
+            </tr>` : ""}
+          </table>
+        `,
+        fPrimeMatchHTML: `Look at the remainder: <span class="math">f(<em>x</em>) = <em>x</em>&sup2; + 1</span> has derivative <span class="math">f&prime;(<em>x</em>) = <strong>2<em>x</em></strong></span>, matching <span class="math"><em>R</em>(<em>x</em>) = 2<em>x</em></span> identically!`,
+        integratedHTML: `<span class="math">&int; (<strong>2</strong> + <strong>${frac("2<em>x</em>", "<em>x</em>&sup2; + 1")}</strong>) d<em>x</em> = <strong>2<em>x</em> + ln(<em>x</em>&sup2; + 1) + <em>C</em></strong></span>`
+      }
+    };
+
+    function renderImproperTab() {
+      const item = LONG_DIV_CASES[currentImp];
+      document.getElementById("longDivisionTableau").innerHTML = item.renderTableau(ldStep);
+
+      const qDiv = document.getElementById("quotientPills");
+      qDiv.innerHTML = item.quotientOptions.map((opt, idx) => {
+        let cls = "c-pill";
+        if (idx === chosenQIdx) cls += opt.correct ? " active-ok" : " active-err";
+        return `<button class="${cls} math" onclick="pickQuotient(${idx})">${opt.label}</button>`;
+      }).join("");
+
+      const rDiv = document.getElementById("remainderPills");
+      rDiv.innerHTML = item.remOptions.map((opt, idx) => {
+        let cls = "c-pill";
+        if (idx === chosenRIdx) cls += opt.correct ? " active-ok" : " active-err";
+        return `<button class="${cls} math" onclick="pickRemainder(${idx})">${opt.label}</button>`;
+      }).join("");
+
+      const qChoice = item.quotientOptions[chosenQIdx];
+      const rChoice = item.remOptions[chosenRIdx];
+      const bothRight = qChoice.correct && rChoice.correct;
+
+      const finalBox = document.getElementById("improperFinalBox");
+      if (bothRight) {
+        finalBox.innerHTML = `
+          <div class="kicker" style="color:var(--teal); margin-bottom:3px;">&#10003; Long Division Verified &rarr; Ready to Integrate</div>
+          <div class="math" style="margin-bottom:5px;">
+            ${item.origFrac} = <strong>${qChoice.label}</strong> + <span class="frac"><span class="frac-num"><strong>${rChoice.label}</strong></span><span class="frac-den">${item.denomHTML}</span></span>
+          </div>
+          <div style="font-size:0.83rem; color:#334155; margin-bottom:6px;">${item.fPrimeMatchHTML}</div>
+          <div style="background:#ffffff; border:1px solid #5eead4; border-radius:8px; padding:7px 10px;">
+            ${item.integratedHTML}
+          </div>
+        `;
+      } else {
+        finalBox.innerHTML = `
+          <div class="kicker" style="color:var(--rose); margin-bottom:3px;">Check Long Division Quotient / Remainder</div>
+          <div style="font-size:0.84rem; color:#881337;">
+            Your current selection gives <span class="math">(${qChoice.label})(${item.denomHTML}) + (${rChoice.label})</span>, which does not expand back to the original numerator. Use <strong>Show Full Division</strong> above to verify!
+          </div>
+        `;
+      }
+    }
+
+    function switchMode(mode) {
+      activeMode = mode;
+      document.getElementById("tabAnatomizerBtn").classList.toggle("active", mode === "anatomizer");
+      document.getElementById("tabImproperBtn").classList.toggle("active", mode === "improper");
+      document.getElementById("anatomizerPanel").classList.toggle("active", mode === "anatomizer");
+      document.getElementById("improperPanel").classList.toggle("active", mode === "improper");
+      if (mode === "anatomizer") drawVerificationGraph();
+    }
+
+    function selectProblem(key) {
+      currentProb = key;
+      const p = PROBLEMS[key];
+      selectedKIndex = p.options.findIndex(o => o.correct);
+      document.querySelectorAll("#anatomizerPanel .expr-pill").forEach(el => el.classList.remove("active"));
+      document.getElementById("ex_" + key).classList.add("active");
+      renderAnatomizer();
+      drawVerificationGraph();
+    }
+
+    function pickK(idx) {
+      selectedKIndex = idx;
+      renderAnatomizer();
+    }
+
+    function selectImproper(key) {
+      currentImp = key;
+      ldStep = 2;
+      chosenQIdx = 0;
+      chosenRIdx = 0;
+      document.querySelectorAll("#improperPanel .expr-pill").forEach(el => el.classList.remove("active"));
+      document.getElementById("imp_" + key).classList.add("active");
+      renderImproperTab();
+    }
+
+    function setLdStep(s) {
+      ldStep = s;
+      renderImproperTab();
+    }
+
+    function nextLdStep() {
+      if (ldStep < 2) {
+        ldStep++;
+        renderImproperTab();
+      }
+    }
+
+    function pickQuotient(idx) {
+      chosenQIdx = idx;
+      renderImproperTab();
+    }
+
+    function pickRemainder(idx) {
+      chosenRIdx = idx;
+      renderImproperTab();
+    }
+
+    renderAnatomizer();
+    drawVerificationGraph();
+    renderImproperTab();
+  </script>
+</body>
+</html>

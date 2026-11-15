@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5.3 Lesson 3 | MF27 Quadratic Forms, Completing the Square &amp; Partial Fractions</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 16px 20px 28px 20px;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .math {
+      font-family: 'Cambria Math', 'Times New Roman', Georgia, serif;
+      font-size: 1.05em;
+    }
+
+    .frac {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      vertical-align: middle;
+      margin: 0 3px;
+      font-size: 0.88em;
+      line-height: 1.1;
+    }
+
+    .frac-num {
+      padding: 0 4px 2px 4px;
+      border-bottom: 1.4px solid currentColor;
+      text-align: center;
+    }
+
+    .frac-den {
+      padding: 2px 4px 0 4px;
+      text-align: center;
+    }
+
+    .sqrt {
+      display: inline-flex;
+      align-items: baseline;
+    }
+
+    .sqrt-rad {
+      border-top: 1.3px solid currentColor;
+      padding: 0 2px;
+      margin-left: 1px;
+    }
+
+    /* HEADER & TABS */
+    .lab-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .lab-title-wrap h1 {
+      margin: 0;
+      font-size: 1.15rem;
+      color: #1e293b;
+    }
+
+    .lab-title-wrap p {
+      margin: 3px 0 0 0;
+      font-size: 0.81rem;
+      color: var(--muted);
+    }
+
+    .mode-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mode-btn {
+      padding: 8px 13px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: var(--text);
+      font-size: 0.81rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mode-btn:hover {
+      border-color: var(--purple);
+      color: var(--purple-dark);
+    }
+
+    .mode-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.22);
+    }
+
+    /* MF27 QUADRATIC REFERENCE BANNER */
+    .foundation-card {
+      background: var(--panel);
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.07);
+    }
+
+    .foundation-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 9px;
+    }
+
+    .kicker {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--purple-dark);
+    }
+
+    .rule-badge {
+      background: var(--amber-bg);
+      color: var(--amber);
+      border: 1px solid #fcd34d;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 800;
+    }
+
+    .mf27-quad-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 9px;
+    }
+
+    @media (max-width: 1020px) {
+      .mf27-quad-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .mf27-quad-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .q-card {
+      background: #f5f3ff;
+      border: 1px solid #ddd6fe;
+      border-radius: 10px;
+      padding: 8px 11px;
+      font-size: 0.83rem;
+      line-height: 1.55;
+      color: #1e293b;
+    }
+
+    .q-card.teal-card {
+      background: var(--teal-bg);
+      border-color: #5eead4;
+    }
+
+    .q-card.blue-card {
+      background: var(--blue-bg);
+      border-color: #7dd3fc;
+    }
+
+    .q-eq {
+      font-weight: 800;
+      font-size: 0.92rem;
+      color: #1e293b;
+    }
+
+    .q-sub {
+      font-size: 0.73rem;
+      color: #475569;
+      margin-top: 3px;
+    }
+
+    /* PANELS & GRIDS */
+    .view-panel {
+      display: none;
+    }
+    .view-panel.active {
+      display: block;
+    }
+
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: 1.38fr 1.12fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 980px) {
+      .workspace-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 3px 10px rgba(148, 163, 184, 0.06);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    /* PILLS */
+    .fn-pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 11px;
+    }
+
+    .expr-pill {
+      padding: 6px 12px;
+      border-radius: 9px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #1e293b;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .expr-pill:hover {
+      border-color: var(--purple);
+      background: #f5f3ff;
+    }
+
+    .expr-pill.active {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      border-color: var(--purple);
+    }
+
+    /* ANATOMIZER / STEP BOXES */
+    .anatomy-stage {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 12px 14px;
+      text-align: center;
+      margin-bottom: 11px;
+    }
+
+    .big-integral {
+      font-size: 1.24rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 9px;
+    }
+
+    .hl-u {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      border: 1px solid #c4b5fd;
+      padding: 1px 6px;
+      border-radius: 6px;
+    }
+
+    .hl-a {
+      background: var(--teal-bg);
+      color: #115e59;
+      border: 1px solid #5eead4;
+      padding: 1px 6px;
+      border-radius: 6px;
+    }
+
+    .anatomy-breakdown {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      text-align: left;
+    }
+
+    @media (max-width: 680px) {
+      .anatomy-breakdown {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .part-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 7px 10px;
+      font-size: 0.81rem;
+      line-height: 1.5;
+    }
+
+    .part-label {
+      font-size: 0.69rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+      display: block;
+    }
+
+    .step-box {
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 10px 13px;
+      margin-bottom: 9px;
+      background: #f8fafc;
+    }
+
+    .step-box.active-step {
+      border-color: var(--purple);
+      background: #faf5ff;
+      box-shadow: 0 2px 8px rgba(139, 92, 246, 0.1);
+    }
+
+    .step-box.locked {
+      opacity: 0.38;
+      background: #f1f5f9;
+    }
+
+    .answer-stage {
+      background: #f5f3ff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 11px;
+      padding: 11px 14px;
+      font-size: 0.92rem;
+      line-height: 1.75;
+      color: #1e293b;
+    }
+
+    .action-btn {
+      padding: 5px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #1e293b;
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .action-btn.primary {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .info-card {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 10px 13px;
+      font-size: 0.82rem;
+      line-height: 1.62;
+      color: #334155;
+    }
+
+    /* CANVAS */
+    .canvas-wrap {
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 270px;
+    }
+
+    .legend-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 11px;
+      margin-top: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #475569;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .swatch-line {
+      width: 15px;
+      height: 3px;
+      border-radius: 2px;
+      display: inline-block;
+    }
+
+    .check-note {
+      margin-top: 9px;
+      background: var(--teal-bg);
+      border: 1px solid #5eead4;
+      border-radius: 10px;
+      padding: 8px 11px;
+      font-size: 0.8rem;
+      line-height: 1.55;
+      color: #134e4a;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER & 3 TABS -->
+  <div class="lab-header">
+    <div class="lab-title-wrap">
+      <h1>MF27 Standard Quadratic Forms, Completing the Square &amp; Partial Fractions</h1>
+      <p>Recognise MF27 quadratic templates, complete the square, split linear numerators into <span class="math">k&middot;<span class="frac"><span class="frac-num">f&prime;(<em>x</em>)</span><span class="frac-den">f(<em>x</em>)</span></span> + MF27</span>, and decompose rational functions</p>
+    </div>
+    <div class="mode-tabs">
+      <button class="mode-btn active" id="tabQuadBtn" onclick="switchMode('quad')">
+        1. MF27 Forms &amp; Completing the Square
+      </button>
+      <button class="mode-btn" id="tabSplitBtn" onclick="switchMode('split')">
+        2. <span class="math">f&prime;(<em>x</em>)</span> Numerator Splitting
+      </button>
+      <button class="mode-btn" id="tabPfBtn" onclick="switchMode('pf')">
+        3. Partial Fractions Lab
+      </button>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MF27 QUADRATIC REFERENCE BANNER (ALL 4 FORMULAS)
+       ========================================================= -->
+  <div class="foundation-card">
+    <div class="foundation-top">
+      <span class="kicker">MF27 Standard Quadratic Integrals (Divide by <span class="math" style="text-transform:none;"><em>p</em></span> when <span class="math" style="text-transform:none;"><em>u</em> = <em>px</em> + <em>q</em></span>)</span>
+      <span class="rule-badge">Watch Signs &amp; &radic; Carefully: One Sign Flips tan&sup1; &harr; ln!</span>
+    </div>
+
+    <div class="mf27-quad-grid">
+      <div class="q-card">
+        <div class="q-eq math">&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>x</em>&sup2; + <em>a</em>&sup2;</span></span> d<em>x</em> = <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>a</em></span></span> tan<sup>&minus;1</sup>(<span class="frac"><span class="frac-num"><em>x</em></span><span class="frac-den"><em>a</em></span></span>) + <em>C</em></div>
+        <div class="q-sub">Sum of squares, <strong>no &radic;</strong> &rarr; <span class="math">tan<sup>&minus;1</sup></span> with <span class="math"><span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>a</em></span></span></span> outside.</div>
+      </div>
+
+      <div class="q-card teal-card">
+        <div class="q-eq math">&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="sqrt">&radic;<span class="sqrt-rad"><em>a</em>&sup2; &minus; <em>x</em>&sup2;</span></span></span></span> d<em>x</em> = sin<sup>&minus;1</sup>(<span class="frac"><span class="frac-num"><em>x</em></span><span class="frac-den"><em>a</em></span></span>) + <em>C</em></div>
+        <div class="q-sub"><strong>With &radic;</strong>, <span class="math"><em>a</em>&sup2; &minus; <em>x</em>&sup2;</span> &rarr; <span class="math">sin<sup>&minus;1</sup></span> (<strong>no</strong> <span class="math"><span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>a</em></span></span></span> in front!).</div>
+      </div>
+
+      <div class="q-card blue-card">
+        <div class="q-eq math">&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>x</em>&sup2; &minus; <em>a</em>&sup2;</span></span> d<em>x</em> = <span class="frac"><span class="frac-num">1</span><span class="frac-den">2<em>a</em></span></span> ln|<span class="frac"><span class="frac-num"><em>x</em> &minus; <em>a</em></span><span class="frac-den"><em>x</em> + <em>a</em></span></span>| + <em>C</em></div>
+        <div class="q-sub">Variable first (<span class="math"><em>x</em>&sup2; &minus; <em>a</em>&sup2;</span>), no &radic; &rarr; <span class="math"><em>x</em> &minus; <em>a</em></span> on top.</div>
+      </div>
+
+      <div class="q-card blue-card">
+        <div class="q-eq math">&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>a</em>&sup2; &minus; <em>x</em>&sup2;</span></span> d<em>x</em> = <span class="frac"><span class="frac-num">1</span><span class="frac-den">2<em>a</em></span></span> ln|<span class="frac"><span class="frac-num"><em>a</em> + <em>x</em></span><span class="frac-den"><em>a</em> &minus; <em>x</em></span></span>| + <em>C</em></div>
+        <div class="q-sub">Constant first (<span class="math"><em>a</em>&sup2; &minus; <em>x</em>&sup2;</span>), no &radic; &rarr; <span class="math"><em>a</em> + <em>x</em></span> on top.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       TAB 1: MF27 QUADRATIC FORMS & COMPLETING THE SQUARE
+       ========================================================= -->
+  <div class="view-panel active" id="quadPanel">
+    <div class="workspace-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker">Tab 1: Pattern-Matcher &amp; Completing the Square Workbench</span>
+          <div style="display:flex; gap:6px;">
+            <button class="action-btn" onclick="setQuadStep(0)">Step 1</button>
+            <button class="action-btn primary" onclick="nextQuadStep()">Next Step (+1)</button>
+            <button class="action-btn" onclick="setQuadStep(2)">Reveal All</button>
+          </div>
+        </div>
+
+        <div class="fn-pills">
+          <button class="expr-pill active" id="qd_tanInv" onclick="selectQuad('tanInv')">
+            1. <span class="math">&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den">4<em>x</em>&sup2; + 9</span></span> d<em>x</em></span>
+          </button>
+          <button class="expr-pill" id="qd_ctsTan" onclick="selectQuad('ctsTan')">
+            2. <span class="math">&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>x</em>&sup2; + 4<em>x</em> + 13</span></span> d<em>x</em></span>
+          </button>
+          <button class="expr-pill" id="qd_ctsSin" onclick="selectQuad('ctsSin')">
+            3. <span class="math">&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="sqrt">&radic;<span class="sqrt-rad">5 &minus; 4<em>x</em> &minus; <em>x</em>&sup2;</span></span></span></span> d<em>x</em></span>
+          </button>
+          <button class="expr-pill" id="qd_ctsLn" onclick="selectQuad('ctsLn')">
+            4. <span class="math">&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>x</em>&sup2; &minus; 6<em>x</em> + 5</span></span> d<em>x</em></span>
+          </button>
+        </div>
+
+        <div class="anatomy-stage">
+          <div class="big-integral math" id="quadBigHTML"></div>
+          <div class="anatomy-breakdown" id="quadAnatomyGrid"></div>
+        </div>
+
+        <div id="quadStepsContainer"></div>
+
+        <div class="answer-stage" id="quadFinalBanner"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker" style="color:var(--teal);">Differentiation Check: <span class="math" style="text-transform:none;"><span class="frac"><span class="frac-num">d</span><span class="frac-den">d<em>x</em></span></span>[<em>F</em>(<em>x</em>)] = Integrand</span></span>
+        </div>
+
+        <div class="canvas-wrap">
+          <canvas id="quadVerifyCanvas" width="600" height="270"></canvas>
+        </div>
+
+        <div class="legend-row">
+          <span class="legend-item">
+            <span class="swatch-line" style="background:#0f172a;"></span> Original Integrand <span class="math"><em>y</em> = <em>g</em>(<em>x</em>)</span>
+          </span>
+          <span class="legend-item">
+            <span class="swatch-line" style="background:#0f766e;"></span> Derivative of Answer <span class="math"><em>F</em>&prime;(<em>x</em>)</span>
+          </span>
+          <span class="legend-item">
+            <span class="swatch-line" style="background:#8b5cf6;"></span> Antiderivative <span class="math"><em>y</em> = <em>F</em>(<em>x</em>)</span>
+          </span>
+        </div>
+
+        <div class="check-note" id="quadGraphNote"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       TAB 2: LINEAR NUMERATOR SPLITTING -> f'(x)/f(x) + MF27
+       ========================================================= -->
+  <div class="view-panel" id="splitPanel">
+    <div class="workspace-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker">Tab 2: Linear Numerator Splitting (<span class="math" style="text-transform:none;"><em>Ax</em> + <em>B</em> &rarr; <em>k</em>&middot;f&prime;(<em>x</em>) + <em>R</em></span>)</span>
+          <div style="display:flex; gap:6px;">
+            <button class="action-btn" onclick="setSplitStep(0)">Step 1</button>
+            <button class="action-btn primary" onclick="nextSplitStep()">Next Step (+1)</button>
+            <button class="action-btn" onclick="setSplitStep(2)">Reveal All</button>
+          </div>
+        </div>
+
+        <div class="fn-pills">
+          <button class="expr-pill active" id="sp_quad" onclick="selectSplit('quad')">
+            1. <span class="math">&int; <span class="frac"><span class="frac-num">4<em>x</em> + 5</span><span class="frac-den"><em>x</em>&sup2; + 2<em>x</em> + 5</span></span> d<em>x</em></span>
+          </button>
+          <button class="expr-pill" id="sp_sqrtSin" onclick="selectSplit('sqrtSin')">
+            2. <span class="math">&int; <span class="frac"><span class="frac-num">2<em>x</em> + 3</span><span class="frac-den"><span class="sqrt">&radic;<span class="sqrt-rad">4 &minus; <em>x</em>&sup2;</span></span></span></span> d<em>x</em></span>
+          </button>
+          <button class="expr-pill" id="sp_sqrtCts" onclick="selectSplit('sqrtCts')">
+            3. <span class="math">&int; <span class="frac"><span class="frac-num">3<em>x</em> &minus; 1</span><span class="frac-den"><span class="sqrt">&radic;<span class="sqrt-rad">8 &minus; 2<em>x</em> &minus; <em>x</em>&sup2;</span></span></span></span> d<em>x</em></span>
+          </button>
+        </div>
+
+        <div id="splitStepsContainer"></div>
+
+        <div class="answer-stage" id="splitFinalBanner"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker" style="color:var(--blue);">2-Part Numerator Decomposition Blueprint</span>
+        </div>
+
+        <div class="info-card" style="margin-bottom:10px;">
+          <strong>Case A: Denominator Without Square Root (<span class="math"><span class="frac"><span class="frac-num"><em>Ax</em> + <em>B</em></span><span class="frac-den">f(<em>x</em>)</span></span></span>)</strong><br>
+          1. Compute <span class="math">f&prime;(<em>x</em>)</span> of the quadratic denominator.<br>
+          2. Write <span class="math"><em>Ax</em> + <em>B</em> = <strong><em>k</em> &middot; f&prime;(<em>x</em>)</strong> + <strong><em>R</em></strong></span> by matching the <span class="math"><em>x</em></span>-coefficient first.<br>
+          3. Integrate <span class="math"><em>k</em> &int; <span class="frac"><span class="frac-num">f&prime;(<em>x</em>)</span><span class="frac-den">f(<em>x</em>)</span></span> d<em>x</em> = <strong><em>k</em> ln|f(<em>x</em>)|</strong></span> and complete the square on <span class="math"><em>R</em> &int; <span class="frac"><span class="frac-num">1</span><span class="frac-den">f(<em>x</em>)</span></span> d<em>x</em></span> for MF27!
+        </div>
+
+        <div class="info-card">
+          <strong>Case B: Denominator With Square Root (<span class="math"><span class="frac"><span class="frac-num"><em>Ax</em> + <em>B</em></span><span class="frac-den"><span class="sqrt">&radic;<span class="sqrt-rad">f(<em>x</em>)</span></span></span></span></span>)</strong><br>
+          1. Write <span class="math"><em>Ax</em> + <em>B</em> = <strong><em>k</em> &middot; f&prime;(<em>x</em>)</strong> + <strong><em>R</em></strong></span>.<br>
+          2. First part uses power rule <span class="math"><em>n</em> = &minus;&frac12;</span>:<br>
+          <div style="text-align:center; margin:4px 0;" class="math">
+            <em>k</em> &int; f&prime;(<em>x</em>)[f(<em>x</em>)]<sup>&minus;&frac12;</sup> d<em>x</em> = <em>k</em> &middot; <span class="frac"><span class="frac-num">[f(<em>x</em>)]<sup>&frac12;</sup></span><span class="frac-den">&frac12;</span></span> = <strong>2<em>k</em><span class="sqrt">&radic;<span class="sqrt-rad">f(<em>x</em>)</span></span></strong>
+          </div>
+          3. Second part <span class="math"><em>R</em> &int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="sqrt">&radic;<span class="sqrt-rad"><em>a</em>&sup2; &minus; <em>u</em>&sup2;</span></span></span></span> d<em>x</em></span> integrates to <strong><span class="math"><em>R</em> sin<sup>&minus;1</sup>(<span class="frac"><span class="frac-num"><em>u</em></span><span class="frac-den"><em>a</em></span></span>)</span></strong>!
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       TAB 3: PARTIAL FRACTIONS LAB
+       ========================================================= -->
+  <div class="view-panel" id="pfPanel">
+    <div class="workspace-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker">Tab 3: Partial Fractions Decomposition &amp; Integration</span>
+          <div style="display:flex; gap:6px;">
+            <button class="action-btn" onclick="setPfStep(0)">Step 1</button>
+            <button class="action-btn primary" onclick="nextPfStep()">Next Step (+1)</button>
+            <button class="action-btn" onclick="setPfStep(2)">Reveal All</button>
+          </div>
+        </div>
+
+        <div class="fn-pills">
+          <button class="expr-pill active" id="pf_distinct" onclick="selectPf('distinct')">
+            1. Distinct Linear: <span class="math">&int; <span class="frac"><span class="frac-num">5<em>x</em> + 1</span><span class="frac-den">(<em>x</em> &minus; 1)(<em>x</em> + 2)</span></span> d<em>x</em></span>
+          </button>
+          <button class="expr-pill" id="pf_repeated" onclick="selectPf('repeated')">
+            2. Repeated Linear: <span class="math">&int; <span class="frac"><span class="frac-num">3<em>x</em> + 5</span><span class="frac-den">(<em>x</em> + 1)&sup2;</span></span> d<em>x</em></span>
+          </button>
+          <button class="expr-pill" id="pf_irredQuad" onclick="selectPf('irredQuad')">
+            3. Irreducible Quadratic: <span class="math">&int; <span class="frac"><span class="frac-num">2<em>x</em>&sup2; + 3<em>x</em> + 4</span><span class="frac-den">(<em>x</em> + 1)(<em>x</em>&sup2; + 4)</span></span> d<em>x</em></span>
+          </button>
+        </div>
+
+        <div id="pfStepsContainer"></div>
+
+        <div class="answer-stage" id="pfFinalBanner"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker" style="color:var(--rose);">Partial Fraction Templates &amp; Common Traps</span>
+        </div>
+
+        <div class="info-card" style="margin-bottom:10px;">
+          <strong>1. Check Properness First!</strong><br>
+          If <span class="math">deg(Numerator) &ge; deg(Denominator)</span>, perform <strong>polynomial long division</strong> before setting up partial fractions.
+        </div>
+
+        <div class="info-card" style="margin-bottom:10px;">
+          <strong>2. Three Standard Denominator Templates:</strong><br>
+          &bull; <strong>Distinct linear <span class="math">(<em>ax</em> + <em>b</em>)(<em>cx</em> + <em>d</em>)</span>:</strong> <span class="math"><span class="frac"><span class="frac-num"><em>A</em></span><span class="frac-den"><em>ax</em> + <em>b</em></span></span> + <span class="frac"><span class="frac-num"><em>B</em></span><span class="frac-den"><em>cx</em> + <em>d</em></span></span></span><br>
+          &bull; <strong>Repeated linear <span class="math">(<em>ax</em> + <em>b</em>)&sup2;</span>:</strong> <span class="math"><span class="frac"><span class="frac-num"><em>A</em></span><span class="frac-den"><em>ax</em> + <em>b</em></span></span> + <span class="frac"><span class="frac-num"><em>B</em></span><span class="frac-den">(<em>ax</em> + <em>b</em>)&sup2;</span></span></span><br>
+          &bull; <strong>Irreducible quadratic <span class="math">(<em>x</em>&sup2; + <em>a</em>&sup2;)</span>:</strong> <span class="math"><span class="frac"><span class="frac-num"><em>Bx</em> + <em>C</em></span><span class="frac-den"><em>x</em>&sup2; + <em>a</em>&sup2;</span></span></span> (split into <span class="math">ln</span> + <span class="math">tan<sup>&minus;1</sup></span>!)
+        </div>
+
+        <div style="background:var(--rose-bg); border:1px solid #fda4af; border-radius:10px; padding:9px 12px; color:#881337; font-size:0.81rem; line-height:1.55;">
+          <strong>Repeated Factor Trap:</strong> <span class="math">&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den">(<em>x</em> + 1)&sup2;</span></span> d<em>x</em> = &int; (<em>x</em> + 1)<sup>&minus;2</sup> d<em>x</em> = <strong>&minus;<span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>x</em> + 1</span></span></strong> + <em>C</em></span> (Power rule <span class="math"><em>n</em> = &minus;2</span>, <strong>NEVER</strong> <span class="math">ln|(<em>x</em> + 1)&sup2;|</span>!).
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let activeMode = "quad";
+    let currentQuad = "tanInv";
+    let quadStep = 2;
+
+    let currentSplit = "quad";
+    let splitStep = 2;
+
+    let currentPf = "distinct";
+    let pfStep = 2;
+
+    const canvas = document.getElementById("quadVerifyCanvas");
+    const ctx = canvas.getContext("2d");
+
+    function frac(num, den) {
+      return `<span class="frac"><span class="frac-num">${num}</span><span class="frac-den">${den}</span></span>`;
+    }
+
+    function sqrt(expr) {
+      return `<span class="sqrt">&radic;<span class="sqrt-rad">${expr}</span></span>`;
+    }
+
+    /* =========================================================
+       TAB 1: MF27 QUADRATIC FORMS & COMPLETING THE SQUARE
+       ========================================================= */
+    const QUAD_CASES = {
+      tanInv: {
+        bigHTML: `&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den">(<span class="hl-u">2<em>x</em></span>)&sup2; + <span class="hl-a">3</span>&sup2;</span></span> d<em>x</em>`,
+        uHTML: `<em>u</em> = 2<em>x</em> &nbsp;(<em>p</em> = 2)`,
+        aHTML: `<em>a</em> = 3`,
+        formLabel: `${frac("1", "<em>u</em>&sup2; + <em>a</em>&sup2;")} &rarr; tan<sup>&minus;1</sup>`,
+        steps: [
+          {
+            title: "Step 1: Rewrite Denominator as u² + a²",
+            html: `<span class="math">4<em>x</em>&sup2; + 9 = (2<em>x</em>)&sup2; + 3&sup2;</span>, so <span class="math"><em>u</em> = 2<em>x</em></span> (<span class="math"><span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = 2</span>) and <span class="math"><em>a</em> = 3</span>.`
+          },
+          {
+            title: "Step 2: Apply MF27 tan⁻¹ Formula & Divide by Inner Coefficient p = 2",
+            html: `<span class="math">&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den">(2<em>x</em>)&sup2; + 3&sup2;</span></span> d<em>x</em> = <strong>${frac("1", "2")}</strong> &middot; ${frac("1", "3")} tan<sup>&minus;1</sup>(${frac("2<em>x</em>", "3")}) + <em>C</em></span>.`
+          },
+          {
+            title: "Step 3: Simplify Leading Constant",
+            html: `<span class="math"><strong>${frac("1", "6")} tan<sup>&minus;1</sup>(${frac("2<em>x</em>", "3")}) + <em>C</em></strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong>&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den">4<em>x</em>&sup2; + 9</span></span> d<em>x</em> = ${frac("1", "6")} tan<sup>&minus;1</sup>(${frac("2<em>x</em>", "3")}) + <em>C</em></strong></span>`,
+        xMin: -3.5, xMax: 3.5, yMin: -0.35, yMax: 0.45,
+        integrandFn: (x) => 1 / (4 * x * x + 9),
+        antiderivFn: (x) => (1 / 6) * Math.atan((2 * x) / 3),
+        graphNote: `Differentiating <span class="math">${frac("1", "6")} tan<sup>&minus;1</sup>(${frac("2<em>x</em>", "3")})</span> yields <span class="math">${frac("1", "4<em>x</em>&sup2; + 9")}</span> identically.`
+      },
+
+      ctsTan: {
+        bigHTML: `&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den">(<span class="hl-u"><em>x</em> + 2</span>)&sup2; + <span class="hl-a">3</span>&sup2;</span></span> d<em>x</em>`,
+        uHTML: `<em>u</em> = <em>x</em> + 2 &nbsp;(<em>p</em> = 1)`,
+        aHTML: `<em>a</em> = 3`,
+        formLabel: `${frac("1", "<em>u</em>&sup2; + <em>a</em>&sup2;")} &rarr; tan<sup>&minus;1</sup>`,
+        steps: [
+          {
+            title: "Step 1: Complete the Square on x² + 4x + 13",
+            html: `<span class="math"><em>x</em>&sup2; + 4<em>x</em> + 13 = (<em>x</em> + 2)&sup2; &minus; 4 + 13 = <strong>(<em>x</em> + 2)&sup2; + 3&sup2;</strong></span>.`
+          },
+          {
+            title: "Step 2: Match to MF27 ∫ 1/(u² + a²) du = (1/a) tan⁻¹(u/a)",
+            html: `Here <span class="math"><em>u</em> = <em>x</em> + 2</span> (<span class="math"><em>p</em> = 1</span>) and <span class="math"><em>a</em> = 3</span>.`
+          },
+          {
+            title: "Step 3: Write Complete Antiderivative",
+            html: `<span class="math"><strong>${frac("1", "3")} tan<sup>&minus;1</sup>(${frac("<em>x</em> + 2", "3")}) + <em>C</em></strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong>&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>x</em>&sup2; + 4<em>x</em> + 13</span></span> d<em>x</em> = ${frac("1", "3")} tan<sup>&minus;1</sup>(${frac("<em>x</em> + 2", "3")}) + <em>C</em></strong></span>`,
+        xMin: -6, xMax: 2, yMin: -0.6, yMax: 0.6,
+        integrandFn: (x) => 1 / (x * x + 4 * x + 13),
+        antiderivFn: (x) => (1 / 3) * Math.atan((x + 2) / 3),
+        graphNote: `Both curves peak symmetrically at <span class="math"><em>x</em> = &minus;2</span>, the vertex of <span class="math">(<em>x</em> + 2)&sup2; + 9</span>.`
+      },
+
+      ctsSin: {
+        bigHTML: `&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den">${sqrt(`<span class="hl-a">3</span>&sup2; &minus; (<span class="hl-u"><em>x</em> + 2</span>)&sup2;`)}</span></span> d<em>x</em>`,
+        uHTML: `<em>u</em> = <em>x</em> + 2 &nbsp;(<em>p</em> = 1)`,
+        aHTML: `<em>a</em> = 3`,
+        formLabel: `${frac("1", sqrt("<em>a</em>&sup2; &minus; <em>u</em>&sup2;"))} &rarr; sin<sup>&minus;1</sup>`,
+        steps: [
+          {
+            title: "Step 1: Factor −1 Before Completing the Square on 5 − 4x − x²",
+            html: `<span class="math">5 &minus; 4<em>x</em> &minus; <em>x</em>&sup2; = 5 &minus; (<em>x</em>&sup2; + 4<em>x</em>) = 5 &minus; [(<em>x</em> + 2)&sup2; &minus; 4] = <strong>9 &minus; (<em>x</em> + 2)&sup2;</strong></span>.`
+          },
+          {
+            title: "Step 2: Match to MF27 ∫ 1/√(a² − u²) du = sin⁻¹(u/a)",
+            html: `With <span class="math"><em>a</em> = 3</span> and <span class="math"><em>u</em> = <em>x</em> + 2</span>, note there is <strong>NO <span class="math">1/<em>a</em></span></strong> in front of <span class="math">sin<sup>&minus;1</sup></span>!`
+          },
+          {
+            title: "Step 3: Write Complete Antiderivative (Valid for −5 < x < 1)",
+            html: `<span class="math"><strong>sin<sup>&minus;1</sup>(${frac("<em>x</em> + 2", "3")}) + <em>C</em></strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong>&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den">${sqrt("5 &minus; 4<em>x</em> &minus; <em>x</em>&sup2;")}</span></span> d<em>x</em> = sin<sup>&minus;1</sup>(${frac("<em>x</em> + 2", "3")}) + <em>C</em></strong></span>`,
+        xMin: -4.85, xMax: 0.85, yMin: -1.7, yMax: 1.7,
+        integrandFn: (x) => 1 / Math.sqrt(5 - 4 * x - x * x),
+        antiderivFn: (x) => Math.asin((x + 2) / 3),
+        graphNote: `Domain is <span class="math">&minus;5 &lt; <em>x</em> &lt; 1</span> where <span class="math">9 &minus; (<em>x</em> + 2)&sup2; &gt; 0</span>.`
+      },
+
+      ctsLn: {
+        bigHTML: `&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den">(<span class="hl-u"><em>x</em> &minus; 3</span>)&sup2; &minus; <span class="hl-a">2</span>&sup2;</span></span> d<em>x</em>`,
+        uHTML: `<em>u</em> = <em>x</em> &minus; 3 &nbsp;(<em>p</em> = 1)`,
+        aHTML: `<em>a</em> = 2`,
+        formLabel: `${frac("1", "<em>u</em>&sup2; &minus; <em>a</em>&sup2;")} &rarr; ${frac("1", "2<em>a</em>")} ln|&middot;|`,
+        steps: [
+          {
+            title: "Step 1: Complete the Square on x² − 6x + 5",
+            html: `<span class="math"><em>x</em>&sup2; &minus; 6<em>x</em> + 5 = (<em>x</em> &minus; 3)&sup2; &minus; 9 + 5 = <strong>(<em>x</em> &minus; 3)&sup2; &minus; 2&sup2;</strong></span> (minus sign &rArr; MF27 <span class="math">ln</span> form, not <span class="math">tan<sup>&minus;1</sup></span>!).`
+          },
+          {
+            title: "Step 2: Apply MF27 ∫ 1/(u² − a²) du = (1/2a) ln|(u − a)/(u + a)|",
+            html: `With <span class="math"><em>u</em> = <em>x</em> &minus; 3</span> and <span class="math"><em>a</em> = 2</span>:<br>
+                   <span class="math">${frac("1", "2(2)")} ln|<span class="frac"><span class="frac-num">(<em>x</em> &minus; 3) &minus; 2</span><span class="frac-den">(<em>x</em> &minus; 3) + 2</span></span>| + <em>C</em></span>.`
+          },
+          {
+            title: "Step 3: Simplify Numerator & Denominator Inside Modulus",
+            html: `<span class="math"><strong>${frac("1", "4")} ln|<span class="frac"><span class="frac-num"><em>x</em> &minus; 5</span><span class="frac-den"><em>x</em> &minus; 1</span></span>| + <em>C</em></strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong>&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>x</em>&sup2; &minus; 6<em>x</em> + 5</span></span> d<em>x</em> = ${frac("1", "4")} ln|<span class="frac"><span class="frac-num"><em>x</em> &minus; 5</span><span class="frac-den"><em>x</em> &minus; 1</span></span>| + <em>C</em></strong></span>`,
+        xMin: 1.25, xMax: 4.75, yMin: -1.5, yMax: 1.5,
+        integrandFn: (x) => 1 / (x * x - 6 * x + 5),
+        antiderivFn: (x) => 0.25 * Math.log(Math.abs((x - 5) / (x - 1))),
+        graphNote: `Plotted on <span class="math">1 &lt; <em>x</em> &lt; 5</span> between the two vertical asymptotes <span class="math"><em>x</em> = 1</span> and <span class="math"><em>x</em> = 5</span>.`
+      }
+    };
+
+    function renderQuadTab() {
+      const item = QUAD_CASES[currentQuad];
+      document.getElementById("quadBigHTML").innerHTML = item.bigHTML;
+      document.getElementById("quadAnatomyGrid").innerHTML = `
+        <div class="part-box">
+          <span class="part-label" style="color:var(--purple-dark);">Completed Square u</span>
+          <span class="math"><strong>${item.uHTML}</strong></span>
+        </div>
+        <div class="part-box">
+          <span class="part-label" style="color:var(--teal);">Constant a</span>
+          <span class="math"><strong>${item.aHTML}</strong></span>
+        </div>
+        <div class="part-box">
+          <span class="part-label" style="color:var(--blue);">MF27 Template</span>
+          <span class="math"><strong>${item.formLabel}</strong></span>
+        </div>
+      `;
+
+      document.getElementById("quadStepsContainer").innerHTML = item.steps.map((st, idx) => {
+        const unlocked = idx <= quadStep;
+        return `
+          <div class="step-box ${idx === quadStep ? "active-step" : ""} ${!unlocked ? "locked" : ""}">
+            <div class="kicker" style="margin-bottom:3px;">${st.title}</div>
+            <div style="font-size:0.85rem; line-height:1.68;">
+              ${unlocked ? st.html : "<em>Click 'Next Step (+1)' to reveal...</em>"}
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      document.getElementById("quadFinalBanner").innerHTML =
+        `<div class="kicker" style="margin-bottom:2px;">Final Integrated Result</div>` + item.finalHTML;
+      document.getElementById("quadGraphNote").innerHTML = item.graphNote;
+    }
+
+    function drawQuadVerifyCanvas() {
+      const p = QUAD_CASES[currentQuad];
+      const w = canvas.width;
+      const h = canvas.height;
+      ctx.clearRect(0, 0, w, h);
+
+      const toPxX = (x) => ((x - p.xMin) / (p.xMax - p.xMin)) * w;
+      const toPxY = (y) => h - ((y - p.yMin) / (p.yMax - p.yMin)) * h;
+
+      ctx.strokeStyle = "#e2e8f0";
+      ctx.lineWidth = 1;
+      for (let gx = Math.ceil(p.xMin); gx <= Math.floor(p.xMax); gx++) {
+        const px = toPxX(gx);
+        ctx.beginPath(); ctx.moveTo(px, 0); ctx.lineTo(px, h); ctx.stroke();
+      }
+      const yStep = 0.5;
+      for (let gy = Math.ceil(p.yMin / yStep) * yStep; gy <= p.yMax; gy += yStep) {
+        const py = toPxY(gy);
+        ctx.beginPath(); ctx.moveTo(0, py); ctx.lineTo(w, py); ctx.stroke();
+      }
+
+      const ox = toPxX(0);
+      const oy = toPxY(0);
+      ctx.strokeStyle = "#64748b";
+      ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      ctx.moveTo(0, oy); ctx.lineTo(w, oy);
+      if (ox >= 0 && ox <= w) { ctx.moveTo(ox, 0); ctx.lineTo(ox, h); }
+      ctx.stroke();
+
+      function plotFn(fn, color, width, dash = []) {
+        ctx.save();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = width;
+        ctx.setLineDash(dash);
+        ctx.beginPath();
+        let started = false;
+        const N = 350;
+        for (let i = 0; i <= N; i++) {
+          const x = p.xMin + (i / N) * (p.xMax - p.xMin);
+          const y = fn(x);
+          if (!Number.isFinite(y) || y < p.yMin - 2 || y > p.yMax + 2) {
+            started = false;
+            continue;
+          }
+          const px = toPxX(x);
+          const py = toPxY(y);
+          if (!started) { ctx.moveTo(px, py); started = true; }
+          else { ctx.lineTo(px, py); }
+        }
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      plotFn(p.integrandFn, "#0f172a", 2.6);
+      plotFn(p.antiderivFn, "#8b5cf6", 2.1);
+
+      const eps = 1e-4;
+      const derivFn = (x) => (p.antiderivFn(x + eps) - p.antiderivFn(x - eps)) / (2 * eps);
+      plotFn(derivFn, "#0f766e", 2.4, [6, 4]);
+    }
+
+    /* =========================================================
+       TAB 2: LINEAR NUMERATOR SPLITTING -> f'(x)/f(x) + MF27
+       ========================================================= */
+    const SPLIT_CASES = {
+      quad: {
+        steps: [
+          {
+            title: "Step 1: Find f'(x) & Split Numerator 4x + 5 = k·f'(x) + R",
+            html: `Denominator <span class="math">f(<em>x</em>) = <em>x</em>&sup2; + 2<em>x</em> + 5</span> has <span class="math">f&prime;(<em>x</em>) = <strong>2<em>x</em> + 2</strong></span>.<br>
+                   Match <span class="math">4<em>x</em></span>: <span class="math">4<em>x</em> + 5 = <strong>2(2<em>x</em> + 2) + 1</strong></span>.`
+          },
+          {
+            title: "Step 2: Separate into Logarithmic Integral + Completing-the-Square MF27 Integral",
+            html: `<span class="math">2 &int; <span class="frac"><span class="frac-num">2<em>x</em> + 2</span><span class="frac-den"><em>x</em>&sup2; + 2<em>x</em> + 5</span></span> d<em>x</em> + &int; <span class="frac"><span class="frac-num">1</span><span class="frac-den">(<em>x</em> + 1)&sup2; + 2&sup2;</span></span> d<em>x</em></span>.`
+          },
+          {
+            title: "Step 3: Integrate Both Parts",
+            html: `<span class="math"><strong>2 ln(<em>x</em>&sup2; + 2<em>x</em> + 5) + ${frac("1", "2")} tan<sup>&minus;1</sup>(${frac("<em>x</em> + 1", "2")}) + <em>C</em></strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong>2 ln(<em>x</em>&sup2; + 2<em>x</em> + 5) + ${frac("1", "2")} tan<sup>&minus;1</sup>(${frac("<em>x</em> + 1", "2")}) + <em>C</em></strong></span>`
+      },
+
+      sqrtSin: {
+        steps: [
+          {
+            title: "Step 1: Find f'(x) Inside √(4 − x²) & Split Numerator 2x + 3",
+            html: `Inside root: <span class="math">f(<em>x</em>) = 4 &minus; <em>x</em>&sup2; &rArr; f&prime;(<em>x</em>) = <strong>&minus;2<em>x</em></strong></span>.<br>
+                   Write <span class="math">2<em>x</em> + 3 = <strong>&minus;1(&minus;2<em>x</em>) + 3</strong></span>.`
+          },
+          {
+            title: "Step 2: Separate into Power Rule (n = −½) + MF27 sin⁻¹",
+            html: `<span class="math">&minus;&int; (&minus;2<em>x</em>)(4 &minus; <em>x</em>&sup2;)<sup>&minus;&frac12;</sup> d<em>x</em> + 3 &int; <span class="frac"><span class="frac-num">1</span><span class="frac-den">${sqrt("2&sup2; &minus; <em>x</em>&sup2;")}</span></span> d<em>x</em></span>.`
+          },
+          {
+            title: "Step 3: Integrate Both Parts",
+            html: `<span class="math">&minus;2${sqrt("4 &minus; <em>x</em>&sup2;")} + 3 sin<sup>&minus;1</sup>(${frac("<em>x</em>", "2")}) + <em>C</em></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong>&minus;2${sqrt("4 &minus; <em>x</em>&sup2;")} + 3 sin<sup>&minus;1</sup>(${frac("<em>x</em>", "2")}) + <em>C</em></strong></span>`
+      },
+
+      sqrtCts: {
+        steps: [
+          {
+            title: "Step 1: Find f'(x) of 8 − 2x − x² & Split Numerator 3x − 1",
+            html: `Here <span class="math">f(<em>x</em>) = 8 &minus; 2<em>x</em> &minus; <em>x</em>&sup2; &rArr; f&prime;(<em>x</em>) = <strong>&minus;2 &minus; 2<em>x</em></strong></span>.<br>
+                   Match <span class="math">3<em>x</em></span>: <span class="math">3<em>x</em> &minus; 1 = &minus;${frac("3", "2")}(&minus;2 &minus; 2<em>x</em>) &minus; 3 &minus; 1 = <strong>&minus;${frac("3", "2")}(&minus;2 &minus; 2<em>x</em>) &minus; 4</strong></span>.`
+          },
+          {
+            title: "Step 2: Complete the Square on 8 − 2x − x² = 9 − (x + 1)²",
+            html: `<span class="math">&minus;${frac("3", "2")} &int; (&minus;2 &minus; 2<em>x</em>)(8 &minus; 2<em>x</em> &minus; <em>x</em>&sup2;)<sup>&minus;&frac12;</sup> d<em>x</em> &minus; 4 &int; <span class="frac"><span class="frac-num">1</span><span class="frac-den">${sqrt("3&sup2; &minus; (<em>x</em> + 1)&sup2;")}</span></span> d<em>x</em></span>.`
+          },
+          {
+            title: "Step 3: Integrate Both Parts",
+            html: `<span class="math">&minus;${frac("3", "2")} &middot; 2${sqrt("8 &minus; 2<em>x</em> &minus; <em>x</em>&sup2;")} &minus; 4 sin<sup>&minus;1</sup>(${frac("<em>x</em> + 1", "3")}) + <em>C</em></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong>&minus;3${sqrt("8 &minus; 2<em>x</em> &minus; <em>x</em>&sup2;")} &minus; 4 sin<sup>&minus;1</sup>(${frac("<em>x</em> + 1", "3")}) + <em>C</em></strong></span>`
+      }
+    };
+
+    function renderSplitTab() {
+      const item = SPLIT_CASES[currentSplit];
+      document.getElementById("splitStepsContainer").innerHTML = item.steps.map((st, idx) => {
+        const unlocked = idx <= splitStep;
+        return `
+          <div class="step-box ${idx === splitStep ? "active-step" : ""} ${!unlocked ? "locked" : ""}">
+            <div class="kicker" style="margin-bottom:3px;">${st.title}</div>
+            <div style="font-size:0.86rem; line-height:1.7;">
+              ${unlocked ? st.html : "<em>Click 'Next Step (+1)' to reveal...</em>"}
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      document.getElementById("splitFinalBanner").innerHTML =
+        `<div class="kicker" style="margin-bottom:2px;">Final Integrated Result</div>` + item.finalHTML;
+    }
+
+    /* =========================================================
+       TAB 3: PARTIAL FRACTIONS LAB
+       ========================================================= */
+    const PF_CASES = {
+      distinct: {
+        steps: [
+          {
+            title: "Step 1: Set Up Distinct Linear Partial Fractions",
+            html: `<span class="math"><span class="frac"><span class="frac-num">5<em>x</em> + 1</span><span class="frac-den">(<em>x</em> &minus; 1)(<em>x</em> + 2)</span></span> &equiv; <span class="frac"><span class="frac-num"><em>A</em></span><span class="frac-den"><em>x</em> &minus; 1</span></span> + <span class="frac"><span class="frac-num"><em>B</em></span><span class="frac-den"><em>x</em> + 2</span></span> &rArr; 5<em>x</em> + 1 &equiv; <em>A</em>(<em>x</em> + 2) + <em>B</em>(<em>x</em> &minus; 1)</span>.`
+          },
+          {
+            title: "Step 2: Substitute Roots x = 1 and x = −2 (Cover-Up Method)",
+            html: `&bull; Put <span class="math"><em>x</em> = 1</span>: <span class="math">6 = 3<em>A</em> &rArr; <strong><em>A</em> = 2</strong></span>.<br>
+                   &bull; Put <span class="math"><em>x</em> = &minus;2</span>: <span class="math">&minus;9 = &minus;3<em>B</em> &rArr; <strong><em>B</em> = 3</strong></span>.`
+          },
+          {
+            title: "Step 3: Integrate Each Linear Fraction to ln|·|",
+            html: `<span class="math">&int; (<span class="frac"><span class="frac-num">2</span><span class="frac-den"><em>x</em> &minus; 1</span></span> + <span class="frac"><span class="frac-num">3</span><span class="frac-den"><em>x</em> + 2</span></span>) d<em>x</em> = <strong>2 ln|<em>x</em> &minus; 1| + 3 ln|<em>x</em> + 2| + <em>C</em></strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong>2 ln|<em>x</em> &minus; 1| + 3 ln|<em>x</em> + 2| + <em>C</em></strong></span>`
+      },
+
+      repeated: {
+        steps: [
+          {
+            title: "Step 1: Set Up Repeated Linear Template",
+            html: `<span class="math"><span class="frac"><span class="frac-num">3<em>x</em> + 5</span><span class="frac-den">(<em>x</em> + 1)&sup2;</span></span> &equiv; <span class="frac"><span class="frac-num"><em>A</em></span><span class="frac-den"><em>x</em> + 1</span></span> + <span class="frac"><span class="frac-num"><em>B</em></span><span class="frac-den">(<em>x</em> + 1)&sup2;</span></span> &rArr; 3<em>x</em> + 5 &equiv; <em>A</em>(<em>x</em> + 1) + <em>B</em></span>.`
+          },
+          {
+            title: "Step 2: Solve for B and A",
+            html: `&bull; Put <span class="math"><em>x</em> = &minus;1</span>: <span class="math">3(&minus;1) + 5 = <em>B</em> &rArr; <strong><em>B</em> = 2</strong></span>.<br>
+                   &bull; Equate coefficients of <span class="math"><em>x</em></span>: <span class="math"><strong><em>A</em> = 3</strong></span>.`
+          },
+          {
+            title: "Step 3: Integrate (First Term &rarr; ln, Second Term &rarr; Power Rule n = −2)",
+            html: `<span class="math">&int; (<span class="frac"><span class="frac-num">3</span><span class="frac-den"><em>x</em> + 1</span></span> + 2(<em>x</em> + 1)<sup>&minus;2</sup>) d<em>x</em> = <strong>3 ln|<em>x</em> + 1| &minus; <span class="frac"><span class="frac-num">2</span><span class="frac-den"><em>x</em> + 1</span></span> + <em>C</em></strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong>3 ln|<em>x</em> + 1| &minus; <span class="frac"><span class="frac-num">2</span><span class="frac-den"><em>x</em> + 1</span></span> + <em>C</em></strong></span>`
+      },
+
+      irredQuad: {
+        steps: [
+          {
+            title: "Step 1: Set Up Linear + Irreducible Quadratic Template",
+            html: `<span class="math"><span class="frac"><span class="frac-num">2<em>x</em>&sup2; + 3<em>x</em> + 4</span><span class="frac-den">(<em>x</em> + 1)(<em>x</em>&sup2; + 4)</span></span> &equiv; <span class="frac"><span class="frac-num"><em>A</em></span><span class="frac-den"><em>x</em> + 1</span></span> + <span class="frac"><span class="frac-num"><em>Bx</em> + <em>C</em></span><span class="frac-den"><em>x</em>&sup2; + 4</span></span></span>.<br>
+                   Multiply through: <span class="math">2<em>x</em>&sup2; + 3<em>x</em> + 4 &equiv; <em>A</em>(<em>x</em>&sup2; + 4) + (<em>Bx</em> + <em>C</em>)(<em>x</em> + 1)</span>.`
+          },
+          {
+            title: "Step 2: Find A, B, and C",
+            html: `&bull; Put <span class="math"><em>x</em> = &minus;1</span>: <span class="math">3 = 5<em>A</em> &rArr; <strong><em>A</em> = <span class="frac"><span class="frac-num">3</span><span class="frac-den">5</span></span></strong></span>.<br>
+                   &bull; Equate <span class="math"><em>x</em>&sup2;</span> &amp; constants: <span class="math"><strong><em>B</em> = <span class="frac"><span class="frac-num">7</span><span class="frac-den">5</span></span></strong></span>, <span class="math"><strong><em>C</em> = <span class="frac"><span class="frac-num">8</span><span class="frac-den">5</span></span></strong></span>.`
+          },
+          {
+            title: "Step 3: Split (7x + 8)/(x² + 4) into f'(x)/f(x) + tan⁻¹",
+            html: `<span class="math"><span class="frac"><span class="frac-num">3</span><span class="frac-den">5</span></span> &int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>x</em> + 1</span></span> d<em>x</em> + <span class="frac"><span class="frac-num">7</span><span class="frac-den">10</span></span> &int; <span class="frac"><span class="frac-num">2<em>x</em></span><span class="frac-den"><em>x</em>&sup2; + 4</span></span> d<em>x</em> + <span class="frac"><span class="frac-num">8</span><span class="frac-den">5</span></span> &int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>x</em>&sup2; + 2&sup2;</span></span> d<em>x</em></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong><span class="frac"><span class="frac-num">3</span><span class="frac-den">5</span></span> ln|<em>x</em> + 1| + <span class="frac"><span class="frac-num">7</span><span class="frac-den">10</span></span> ln(<em>x</em>&sup2; + 4) + <span class="frac"><span class="frac-num">4</span><span class="frac-den">5</span></span> tan<sup>&minus;1</sup>(<span class="frac"><span class="frac-num"><em>x</em></span><span class="frac-den">2</span></span>) + <em>C</em></strong></span>`
+      }
+    };
+
+    function renderPfTab() {
+      const item = PF_CASES[currentPf];
+      document.getElementById("pfStepsContainer").innerHTML = item.steps.map((st, idx) => {
+        const unlocked = idx <= pfStep;
+        return `
+          <div class="step-box ${idx === pfStep ? "active-step" : ""} ${!unlocked ? "locked" : ""}">
+            <div class="kicker" style="margin-bottom:3px;">${st.title}</div>
+            <div style="font-size:0.86rem; line-height:1.7;">
+              ${unlocked ? st.html : "<em>Click 'Next Step (+1)' to reveal...</em>"}
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      document.getElementById("pfFinalBanner").innerHTML =
+        `<div class="kicker" style="margin-bottom:2px;">Final Integrated Result</div>` + item.finalHTML;
+    }
+
+    /* =========================================================
+       NAVIGATION & EVENTS
+       ========================================================= */
+    function switchMode(mode) {
+      activeMode = mode;
+      document.getElementById("tabQuadBtn").classList.toggle("active", mode === "quad");
+      document.getElementById("tabSplitBtn").classList.toggle("active", mode === "split");
+      document.getElementById("tabPfBtn").classList.toggle("active", mode === "pf");
+
+      document.getElementById("quadPanel").classList.toggle("active", mode === "quad");
+      document.getElementById("splitPanel").classList.toggle("active", mode === "split");
+      document.getElementById("pfPanel").classList.toggle("active", mode === "pf");
+
+      if (mode === "quad") drawQuadVerifyCanvas();
+    }
+
+    function selectQuad(key) {
+      currentQuad = key;
+      document.querySelectorAll("#quadPanel .expr-pill").forEach(el => el.classList.remove("active"));
+      document.getElementById("qd_" + key).classList.add("active");
+      renderQuadTab();
+      drawQuadVerifyCanvas();
+    }
+
+    function setQuadStep(s) { quadStep = s; renderQuadTab(); }
+    function nextQuadStep() { if (quadStep < 2) { quadStep++; renderQuadTab(); } }
+
+    function selectSplit(key) {
+      currentSplit = key;
+      document.querySelectorAll("#splitPanel .expr-pill").forEach(el => el.classList.remove("active"));
+      document.getElementById("sp_" + key).classList.add("active");
+      renderSplitTab();
+    }
+
+    function setSplitStep(s) { splitStep = s; renderSplitTab(); }
+    function nextSplitStep() { if (splitStep < 2) { splitStep++; renderSplitTab(); } }
+
+    function selectPf(key) {
+      currentPf = key;
+      document.querySelectorAll("#pfPanel .expr-pill").forEach(el => el.classList.remove("active"));
+      document.getElementById("pf_" + key).classList.add("active");
+      renderPfTab();
+    }
+
+    function setPfStep(s) { pfStep = s; renderPfTab(); }
+    function nextPfStep() { if (pfStep < 2) { pfStep++; renderPfTab(); } }
+
+    renderQuadTab();
+    drawQuadVerifyCanvas();
+    renderSplitTab();
+    renderPfTab();
+  </script>
+</body>
+</html>
