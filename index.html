@@ -1812,8 +1812,8 @@
             prereq: "Repeated differentiation (Product, Quotient, and Chain Rules) and factorial notation n!.",
             objectives: [
               "Derive the Maclaurin series f(x) = f(0) + f'(0)x + [f''(0)/2!]x² + [f'''(0)/3!]x³ + ⋯ by matching derivatives at x = 0.",
-              "Compute successive derivatives f'(0), f''(0), f'''(0) efficiently using implicit differentiation or differential relations (such as y' = 1 + y² for tan x) rather than brute-force quotient rules.",
-              "Appreciate how higher-degree Taylor/Maclaurin polynomials improve local polynomial approximation around x = 0."
+              "Compute successive derivatives f'(0), f''(0), f'''(0) efficiently using implicit differentiation or differential relations (such as y' = 1 + y² for tan x).",
+              "Understand how higher-degree Maclaurin polynomials improve local polynomial approximation around x = 0."
             ],
             prompts: [
               "In the Polynomial Approximation Lab, increase the degree n from 1 to 7 for y = eˣ, y = sin x, and y = ln(1 + x) to observe how the polynomial hugs the curve near x = 0.",
@@ -1877,40 +1877,70 @@
             exitAnswer: "(2 + x)⁻¹ = ½(1 + x/2)⁻¹ = ½[1 − (x/2) + (x/2)² − ⋯] = <strong>½ − ¼x + ⅛x² − ⋯</strong>, valid for |x/2| < 1 ⇔ <strong>−2 < x < 2</strong>."
           },
           {
-            label: "Lesson 3: Small-Angle Approximations, Differentiation/Integration of Series & Synthesis",
+            label: "Lesson 3: Small-Angle Trigonometric Approximations",
             file: "interactives/5_2_lesson3.html",
             videoEmbedUrl: "",
-            prereq: "Radian measure, compound angle identities (sin(A + B), cos(A + B)), and basic differentiation/integration of polynomials.",
+            prereq: "Radian measure, compound angle identities (sin(A + B), cos(A + B)), and standard expansions of sin x and cos x.",
             objectives: [
-              "Apply small-angle approximations (sin θ ≈ θ, cos θ ≈ 1 − ½θ², tan θ ≈ θ for small θ in radians) to simplify trigonometric expressions in geometry and mechanics contexts.",
-              "Obtain new Maclaurin series by differentiating or integrating a known series term-by-term (e.g., integrating 1/(1 + x²) to obtain tan⁻¹x, or differentiating (1 − x)⁻¹).",
-              "Synthesize multi-part 9758 exam problems combining trigonometric identities, binomial/exponential expansions, and error/approximation analysis."
+              "Apply small-angle approximations (sin θ ≈ θ, cos θ ≈ 1 − ½θ², tan θ ≈ θ for small θ in radians) to simplify trigonometric expressions.",
+              "Expand shifted trigonometric expressions such as sin(π/6 + x) or cos(π/3 − 2x) by applying compound angle identities before substituting small-angle expansions.",
+              "Solve geometric and physical approximation problems where an angle θ is sufficiently small for θ³ or θ⁴ and higher powers to be neglected."
             ],
             prompts: [
-              "In the Small-Angle Trigonometry Lab, expand sin(π/6 + θ) by first rewriting via sin(A + B) = sin A cos B + cos A sin B (since θ is small, NOT π/6 + θ!).",
-              "Use the Term-by-Term Calculus Builder to watch integrating 1/(1 + x²) = 1 − x² + x⁴ − ⋯ from 0 to x generate the Gregory–Leibniz series for tan⁻¹x."
+              "In the Small-Angle Trigonometry Lab, compare sin θ, cos θ, and tan θ against θ and 1 − ½θ² as θ varies from 0 to 0.5 radians.",
+              "Test sin(π/6 + x) to see why replacing sin(π/6 + x) directly with π/6 + x fails, whereas expanding sin(π/6)cos x + cos(π/6)sin x first succeeds."
             ],
             pitfalls: [
-              "Substituting sin(π/3 + x) ≈ π/3 + x when x is small—π/3 + x is NOT small! You MUST expand sin(π/3 + x) = sin(π/3)cos x + cos(π/3)sin x first before replacing cos x and sin x.",
-              "Forgetting that small-angle approximations hold ONLY when angles are measured in radians (never degrees!)."
+              "Substituting sin(π/3 + x) ≈ π/3 + x when x is small—π/3 + x is NOT small! Always expand via compound angle formulas first.",
+              "Forgetting that small-angle approximations require angles to be in radians (never degrees!)."
             ],
-            gcTip: "Always ensure your TI-84 Plus CE is in RADIAN mode when checking small-angle trigonometric approximations numerically.",
+            gcTip: "Ensure your TI-84 Plus CE is in RADIAN mode when verifying small-angle trigonometric approximations numerically.",
             workedQuestion: `
-              <strong>(a)</strong> Given that <em>x</em> is sufficiently small for <em>x⁴</em> and higher powers to be neglected, show that <em>cos(π/3 + x) ≈ ½ − (√3/2)x − ¼x² + (√3/12)x³</em>. [4]<br>
-              <strong>(b)</strong> By writing down the Maclaurin expansion of <em>1 / (1 + x²)</em> up to <em>x⁴</em> and integrating with respect to <em>x</em>, find the Maclaurin series for <em>tan⁻¹ x</em> up to and including the term in <em>x⁵</em>. [3]
+              Given that <em>x</em> is sufficiently small for <em>x⁴</em> and higher powers to be neglected, show that<br>
+              <em>cos(π/3 + x) ≈ ½ − (√3/2)x − ¼x² + (√3/12)x³</em>. [4]
             `,
             workedSolution: `
-              <strong>(a)</strong> Using the compound angle formula:<br>
+              Using the compound angle formula:<br>
               <em>cos(π/3 + x) = cos(π/3) cos x − sin(π/3) sin x = ½ cos x − (√3/2) sin x</em>.<br>
               Substituting <em>cos x ≈ 1 − x²/2!</em> and <em>sin x ≈ x − x³/3!</em>:<br>
-              <em>cos(π/3 + x) ≈ ½(1 − ½x²) − (√3/2)(x − ⅙x³) =</em> <strong>½ − (√3/2)x − ¼x² + (√3/12)x³</strong>.<br><br>
-              <strong>(b)</strong> Replacing <em>x</em> with <em>x²</em> in <em>(1 + u)⁻¹ = 1 − u + u² − ⋯</em> gives:<br>
-              <em>1 / (1 + x²) = 1 − x² + x⁴ − ⋯</em>.<br>
-              Integrating both sides with respect to <em>x</em> from <em>0</em> to <em>x</em> (noting <em>tan⁻¹ 0 = 0</em>):<br>
-              <em>tan⁻¹ x = ∫₀ˣ (1 − t² + t⁴ − ⋯) dt =</em> <strong>x − ⅓x³ + ⅕x⁵ − ⋯</strong>.
+              <em>cos(π/3 + x) ≈ ½(1 − ½x²) − (√3/2)(x − ⅙x³) =</em> <strong>½ − (√3/2)x − ¼x² + (√3/12)x³</strong>.
             `,
             exitQuestion: "If θ is small (in radians), simplify (1 − cos 2θ) / (θ sin 3θ) up to a constant approximation.",
             exitAnswer: "1 − cos 2θ ≈ 1 − [1 − ½(2θ)²] = 2θ², and θ sin 3θ ≈ θ(3θ) = 3θ². Ratio ≈ 2θ² / (3θ²) = <strong>2/3</strong>."
+          },
+          {
+            label: "Lesson 4: Differentiation & Integration of Series and Synthesis",
+            file: "interactives/5_2_lesson4.html",
+            videoEmbedUrl: "",
+            prereq: "Term-by-term differentiation and integration of polynomials, and all Topic 5.2 expansion techniques.",
+            objectives: [
+              "Obtain new Maclaurin series by differentiating or integrating a known series term-by-term (e.g., integrating 1/(1 + x²) to obtain tan⁻¹x, or differentiating (1 − x)⁻¹).",
+              "Determine the constant of integration accurately when integrating a Maclaurin series using the value of the function at x = 0.",
+              "Synthesize multi-part 9758 exam problems combining Maclaurin expansions, calculus on series, and definite integral approximations."
+            ],
+            prompts: [
+              "In the Term-by-Term Calculus Builder, watch integrating 1/(1 + x²) = 1 − x² + x⁴ − ⋯ from 0 to x generate the series for tan⁻¹x.",
+              "Use the 9758 Exam Synthesis Grader to approximate non-elementary definite integrals such as ∫₀^{0.2} e^{−x²} dx using Maclaurin polynomials."
+            ],
+            pitfalls: [
+              "Forgetting to evaluate the constant of integration C at x = 0 when performing indefinite integration on a Maclaurin series.",
+              "Forgetting to update the range of validity or check boundary convergence when differentiating or integrating a series."
+            ],
+            gcTip: "Compare your Maclaurin polynomial integral approximation against [MATH] > [9: fnInt(] on the TI-84 Plus CE to verify accuracy.",
+            workedQuestion: `
+              <strong>(i)</strong> Write down the Maclaurin expansion of <em>1 / (1 + x²)</em> up to and including the term in <em>x⁴</em>, stating its range of validity. [2]<br>
+              <strong>(ii)</strong> Hence obtain the Maclaurin series for <em>tan⁻¹ x</em> up to and including the term in <em>x⁵</em>, and use it to estimate <em>∫₀^{0.5} tan⁻¹ x dx</em> to 4 decimal places. [4]
+            `,
+            workedSolution: `
+              <strong>(i)</strong> Replacing <em>x</em> with <em>x²</em> in <em>(1 + u)⁻¹ = 1 − u + u² − ⋯</em> gives:<br>
+              <em>1 / (1 + x²) =</em> <strong>1 − x² + x⁴ − ⋯</strong>, valid for <em>|x²| &lt; 1 ⇔</em> <strong>−1 &lt; x &lt; 1</strong>.<br><br>
+              <strong>(ii)</strong> Integrating both sides with respect to <em>x</em> from <em>0</em> to <em>x</em> (noting <em>tan⁻¹ 0 = 0</em>):<br>
+              <em>tan⁻¹ x = ∫₀ˣ (1 − t² + t⁴ − ⋯) dt =</em> <strong>x − ⅓x³ + ⅕x⁵ − ⋯</strong>.<br>
+              Integrating term-by-term from <em>0</em> to <em>0.5</em>:<br>
+              <em>∫₀^{0.5} (x − ⅓x³ + ⅕x⁵) dx = [½x² − (1/12)x⁴ + (1/30)x⁶]₀^{0.5} = 0.125 − 0.005208 + 0.000521 =</em> <strong>0.1203</strong> (to 4 d.p.).
+            `,
+            exitQuestion: "By differentiating the Maclaurin series for eˣ = 1 + x + x²/2! + x³/3! + ⋯ term-by-term, verify what series you obtain.",
+            exitAnswer: "d/dx(1 + x + x²/2! + x³/3! + ⋯) = 0 + 1 + 2x/2! + 3x²/3! + ⋯ = <strong>1 + x + x²/2! + ⋯ = eˣ</strong>."
           }
         ]
       },
