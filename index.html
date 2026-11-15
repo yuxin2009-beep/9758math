@@ -513,7 +513,7 @@
     <div class="nav-group">Topic 5: Calculus</div>
     <button class="topic-btn" id="nav_5.1" onclick="selectTopic('5.1')">
       <span>5.1 Differentiation</span>
-      <span class="status-pill">5 Lessons</span>
+      <span class="status-pill">6 Lessons</span>
     </button>
     <button class="topic-btn" id="nav_5.2" onclick="selectTopic('5.2')">
       <span>5.2 Maclaurin Series</span>
@@ -1647,13 +1647,40 @@
       },
 "5.1": {
         title: "5.1 Differentiation",
-        syllabusNotes: "9758 H2 Math Scope: Graphical interpretation of f'(x) and f''(x); relating y = f'(x) to y = f(x); implicit and parametric differentiation; stationary points via first/second derivative tests; GC derivative & extrema workflows; tangents/normals; local maxima/minima and connected rates of change. (Excludes: non-stationary points of inflexion and finding second derivatives of parametric equations.)",
+        syllabusNotes: "9758 H2 Math Scope: Recap of standard derivatives (power, trig, eˣ, ln x) and chain/product/quotient rules; new H2 derivatives (inverse trig, aˣ, logₐ x); graphical interpretation of f'(x) and f''(x); relating y = f'(x) to y = f(x); implicit and parametric differentiation; stationary points via first/second derivative tests; GC workflows; tangents/normals; local maxima/minima and connected rates of change. (Excludes: non-stationary points of inflexion and second derivatives of parametric equations.)",
         lessons: [
           {
-            label: "Lesson 1: Graphical Interpretation of f'(x) & f''(x)",
+            label: "Lesson 1: Differentiation Techniques & Standard Derivatives",
             file: "interactives/5_1_lesson1.html",
             videoEmbedUrl: "",
-            prereq: "O-Level / H2 assumed knowledge of basic differentiation rules (power, product, quotient, chain) and standard derivatives (eˣ, ln x, trigonometric functions).",
+            prereq: "Laws of indices, laws of logarithms (change of base formula), and basic trigonometric identities.",
+            objectives: [
+              "Recall and apply standard derivatives of power, trigonometric, natural exponential (eˣ), and natural logarithmic (ln x) functions.",
+              "Combine Chain, Product, and Quotient Rules accurately on composite expressions.",
+              "Derive and apply derivatives of inverse trigonometric functions: sin⁻¹(x/a), cos⁻¹(x/a), and tan⁻¹(x/a) (as given in MF27).",
+              "Differentiate exponential functions with a general base (aˣ) and logarithmic functions with a general base (logₐ x) by rewriting in base e."
+            ],
+            prompts: [
+              "Use the Inverse Trig Visual Lab to see why d/dx(sin⁻¹ x) = 1/√(1 − x²) blows up as x → ±1 (vertical tangents at the endpoints).",
+              "Compare y = aˣ and its gradient y = (ln a)·aˣ as you vary base a: notice they coincide identically only when a = e.",
+              "Step through the Chain + Product/Quotient Rule Builder to verify inner-to-outer differentiation."
+            ],
+            pitfalls: [
+              "Forgetting the inner derivative f'(x) when differentiating inverse trig functions—for example, d/dx[tan⁻¹(3x)] = 3 / (1 + 9x²), not 1 / (1 + 9x²).",
+              "Confusing power rule with exponential rule: d/dx(aˣ) = aˣ ln a (variable in exponent), whereas d/dx(xᵃ) = a·xᵃ⁻¹ (variable in base).",
+              "Differentiating logₐ x directly as 1/x without converting via change-of-base: logₐ x = (ln x)/(ln a) ⇒ d/dx(logₐ x) = 1 / (x ln a)."
+            ],
+            gcTip: "To verify an analytical derivative f'(x) on the TI-84 Plus CE, enter your formula in Y₂ and set Y₃ = nDeriv(Y₁, X, X). Check [2nd] [GRAPH] (TABLE) to confirm Y₂ and Y₃ match across the domain.",
+            workedQuestion: "Differentiate with respect to x: (a) y = tan⁻¹(e²ˣ), (b) y = 3ˣ² · log₂(5x) for x > 0, and (c) y = sin⁻¹(2x − 1) / x.",
+            workedSolution: "(a) By the chain rule, dy/dx = [1 / (1 + (e²ˣ)²)] · (2e²ˣ) = 2e²ˣ / (1 + e⁴ˣ). (b) Rewrite 3ˣ² = e^(x² ln 3) and log₂(5x) = ln(5x) / ln 2. By the product rule: dy/dx = [2x(ln 3)·3ˣ²]·log₂(5x) + 3ˣ²·[5 / (5x ln 2)] = 3ˣ² [2x(ln 3)log₂(5x) + 1 / (x ln 2)]. (c) By the quotient rule: dy/dx = [x · (2 / √(1 − (2x − 1)²)) − sin⁻¹(2x − 1) · 1] / x² = [2x / √(4x − 4x²) − sin⁻¹(2x − 1)] / x².",
+            exitQuestion: "Find the exact gradient of the curve y = 2ˣ + log₃(x) at the point where x = 1.",
+            exitAnswer: "dy/dx = 2ˣ ln 2 + 1 / (x ln 3). At x = 1, dy/dx = 2 ln 2 + 1 / ln 3 = ln 4 + 1 / ln 3."
+          },
+          {
+            label: "Lesson 2: Graphical Interpretation of f'(x) & f''(x)",
+            file: "interactives/5_1_lesson2.html",
+            videoEmbedUrl: "",
+            prereq: "Lesson 1 differentiation techniques and basic curve sketching features (asymptotes, intercepts, turning points).",
             objectives: [
               "Interpret f'(x) > 0, f'(x) = 0, and f'(x) < 0 in terms of increasing, stationary, and decreasing behaviour of y = f(x).",
               "Interpret f''(x) > 0 (concave upward) and f''(x) < 0 (concave downward) geometrically.",
@@ -1663,7 +1690,7 @@
             prompts: [
               "Drag the tangent rider across a local maximum on y = f(x): observe how y = f'(x) crosses the x-axis from positive to negative.",
               "Locate a stationary point of inflexion on y = f(x) and verify that y = f'(x) touches the x-axis without crossing it.",
-              "Switch to Challenge Mode: given only the graph of y = f'(x), identify all intervals where f(x) is concave upward (where f'(x) is strictly increasing)."
+              "Switch to Challenge Mode: inspect an anonymous curve y = f(x) with stationary inflexions and asymptotes, and deduce the graph of y = f'(x)."
             ],
             pitfalls: [
               "Confusing the turning points of y = f'(x) with the turning points of y = f(x): turning points of y = f'(x) correspond to where f''(x) = 0 (concavity changes), whereas x-intercepts of y = f'(x) give stationary points of y = f(x).",
@@ -1676,10 +1703,10 @@
             exitAnswer: "Since f'(x) < 0 everywhere, y = f(x) is strictly decreasing for all x (no stationary points). At x = 2, f''(2) = 0 and f'(x) changes from increasing (f'' > 0) to decreasing (f'' < 0), so y = f(x) changes from concave upward to concave downward at x = 2."
           },
           {
-            label: "Lesson 2: Implicit & Parametric Differentiation",
-            file: "interactives/5_1_lesson2.html",
+            label: "Lesson 3: Implicit & Parametric Differentiation",
+            file: "interactives/5_1_lesson3.html",
             videoEmbedUrl: "",
-            prereq: "Chain rule and product rule for functions of a single variable.",
+            prereq: "Chain rule and product rule from Lesson 1.",
             objectives: [
               "Differentiate curves defined implicitly by applying the chain rule: d/dx [g(y)] = g'(y) · dy/dx.",
               "Find dy/dx in terms of parameter t for curves defined parametrically by x = f(t), y = g(t) using dy/dx = (dy/dt) / (dx/dt).",
@@ -1701,8 +1728,8 @@
             exitAnswer: "dx/dθ = −3 sin θ and dy/dθ = 2 cos θ, so dy/dx = −(2/3) cot θ. The tangent is vertical when dx/dθ = 0 (and dy/dθ ≠ 0), which occurs at θ = 0 and θ = π."
           },
           {
-            label: "Lesson 3: Tangents & Normals to Curves",
-            file: "interactives/5_1_lesson3.html",
+            label: "Lesson 4: Tangents & Normals to Curves",
+            file: "interactives/5_1_lesson4.html",
             videoEmbedUrl: "",
             prereq: "Coordinate geometry of straight lines (y − y₁ = m(x − x₁)) and perpendicular gradients (m_T · m_N = −1).",
             objectives: [
@@ -1725,8 +1752,8 @@
             exitAnswer: "Differentiating implicitly: 2x + y + x(dy/dx) + 2y(dy/dx) = 0. At (2, 1): 4 + 1 + 2(dy/dx) + 2(dy/dx) = 0 ⇒ dy/dx = −5/4. Tangent equation: y − 1 = −(5/4)(x − 2), or 5x + 4y = 14."
           },
           {
-            label: "Lesson 4: Stationary Points & Derivative Tests",
-            file: "interactives/5_1_lesson4.html",
+            label: "Lesson 5: Stationary Points & Derivative Tests",
+            file: "interactives/5_1_lesson5.html",
             videoEmbedUrl: "",
             prereq: "Solving algebraic/trigonometric equations f'(x) = 0 and computing second derivatives f''(x).",
             objectives: [
@@ -1749,8 +1776,8 @@
             exitAnswer: "dy/dx = e^{−2x}(1 − 2x) = 0 ⇒ x = 1/2, y = 1/(2e). d²y/dx² = e^{−2x}(4x − 4). At x = 1/2, d²y/dx² = −2e^{−1} < 0, so (1/2, 1/(2e)) is a local maximum."
           },
           {
-            label: "Lesson 5: Applied Optimisation & Connected Rates of Change",
-            file: "interactives/5_1_lesson5.html",
+            label: "Lesson 6: Applied Optimisation & Connected Rates of Change",
+            file: "interactives/5_1_lesson6.html",
             videoEmbedUrl: "",
             prereq: "Mensuration formulae (cones, cylinders, spheres), similar triangles, chain rule, and stationary point tests.",
             objectives: [
@@ -1767,7 +1794,7 @@
               "Connected Rates: Substituting instantaneous numerical values (like h = 6) BEFORE differentiating the geometric equation."
             ],
             gcTip: "In optimisation problems with messy radical expressions, graph Y₁ = V(x) on your GC and use [2nd] [TRACE] > 4: maximum to double-check your exact surd answer numerically.",
-            workedQuestion: "An inverted right circular cone of semi-vertical angle 30° is filled with water at a constant rate of 12 cm³ s⁻¹. Find the exact rate at which the depth h of the water is increasing at the instant when h = 6 cm.",
+            workedQuestion: "An inverted right circular cone of semi-vertical angle 30° is being filled with water at a constant rate of 12 cm³ s⁻¹. Find the exact rate at which the depth h of the water is increasing at the instant when h = 6 cm.",
             workedSolution: "Let r be the water surface radius at depth h. By trigonometry, r = h tan 30° = h / √3. Volume of water: V = (1/3)πr²h = (1/3)π(h²/3)h = (π/9)h³. Differentiating with respect to h: dV/dh = (π/3)h². By the chain rule, dV/dt = (dV/dh)(dh/dt) ⇒ 12 = [(π/3)(6)²] (dh/dt) = 12π (dh/dt). Hence dh/dt = 1/π cm s⁻¹.",
             exitQuestion: "The area A of a circular ink blot is increasing at a constant rate of 4 cm² s⁻¹. Find the exact rate at which its radius r is increasing when r = 5 cm.",
             exitAnswer: "A = πr² ⇒ dA/dr = 2πr. Using dA/dt = (dA/dr)(dr/dt): 4 = 2π(5)(dr/dt) ⇒ dr/dt = 2/(5π) cm s⁻¹."
