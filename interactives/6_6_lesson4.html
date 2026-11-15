@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 6.6 Lesson 4: Linearising Non-Linear Data via Transformations</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --green: #15803d;
+      --green-bg: #dcfce7;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1450px;
+      margin: 0 auto;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 0.8rem;
+      line-height: 1.58;
+      letter-spacing: 0.01em;
+    }
+
+    .guide-step-heading {
+      color: #1e293b;
+      font-weight: 800;
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.82rem;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 585px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1080px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 11px;
+    }
+
+    @media (max-width: 560px) {
+      .preset-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .tab-btn {
+      padding: 8px 8px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.74rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.48;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.74rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    /* DUAL PLOT GRID (RAW CURVE VS LINEARISED) */
+    .plot-editor {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 11px;
+    }
+
+    .eqn-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 7px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .dual-canvas-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    @media (max-width: 560px) {
+      .dual-canvas-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .canvas-pane {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .pane-label {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-align: center;
+      padding: 3px 6px;
+      border-radius: 6px;
+    }
+
+    .pane-label.raw {
+      background: #fff1f2;
+      color: #be123c;
+      border: 1px solid #fecdd3;
+    }
+
+    .pane-label.lin {
+      background: #f0f9ff;
+      color: #0369a1;
+      border: 1px solid #bae6fd;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 245px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 9px;
+    }
+
+    .legend-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 7px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .swatch {
+      width: 16px;
+      height: 3px;
+      border-radius: 2px;
+      display: inline-block;
+    }
+
+    /* TRANSFORMATION SELECTOR & OVERLAY CHECKBOXES */
+    .transform-selector-bar {
+      margin-top: 8px;
+      background: #faf5ff;
+      border: 1.5px solid #d8b4fe;
+      border-radius: 9px;
+      padding: 7px 9px;
+    }
+
+    .transform-selector-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: var(--purple-dark);
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .tf-btn-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 5px;
+    }
+
+    @media (max-width: 560px) {
+      .tf-btn-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .tf-btn {
+      padding: 5px 4px;
+      border-radius: 7px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.71rem;
+      font-weight: 700;
+      color: #334155;
+      cursor: pointer;
+      text-align: center;
+      transition: 0.15s;
+    }
+
+    .tf-btn.active {
+      background: var(--purple-dark);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .control-rows {
+      margin-top: 7px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .control-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      padding: 5px 6px;
+      border-radius: 8px;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+    }
+
+    @media (max-width: 560px) {
+      .control-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .toggle-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #1e293b;
+      cursor: pointer;
+    }
+
+    /* LIVE BACK-SUBSTITUTION SIMULATOR */
+    .predict-box {
+      margin-top: 8px;
+      background: #f0f9ff;
+      border: 1.5px solid #7dd3fc;
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-size: 0.76rem;
+      color: #0c4a6e;
+    }
+
+    .predict-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 5px;
+    }
+
+    .slider-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 5px;
+    }
+
+    .slider-wrap input[type="range"] {
+      flex: 1;
+      accent-color: #0284c7;
+      cursor: pointer;
+    }
+
+    .backsub-steps {
+      background: #ffffff;
+      border: 1px solid #bae6fd;
+      border-radius: 7px;
+      padding: 6px 9px;
+      font-size: 0.75rem;
+      line-height: 1.46;
+      color: #0f172a;
+    }
+
+    /* GC READOUT */
+    .gc-screen-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 10px 12px;
+      color: #134e4a;
+      font-size: 0.79rem;
+      line-height: 1.48;
+    }
+
+    .box-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .gc-readout-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    @media (max-width: 560px) {
+      .gc-readout-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .gc-readout {
+      background: #f1f5f9;
+      border: 2px solid #64748b;
+      border-radius: 8px;
+      padding: 7px 9px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.42;
+    }
+
+    /* RIGHT PANEL SECTIONS */
+    .ref-table-wrap {
+      border: 1.5px solid #cbd5e1;
+      border-radius: 11px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .ref-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.75rem;
+      background: #ffffff;
+    }
+
+    .ref-table th, .ref-table td {
+      border-bottom: 1px solid #e2e8f0;
+      border-right: 1px solid #e2e8f0;
+      padding: 6px 8px;
+      text-align: left;
+      line-height: 1.4;
+    }
+
+    .ref-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    .ref-table tr.highlight-row {
+      background: #f3e8ff;
+      font-weight: 700;
+      color: #3b0764;
+    }
+
+    .workflow-box {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 9px 12px;
+      margin-bottom: 10px;
+      font-size: 0.77rem;
+      line-height: 1.48;
+    }
+
+    .workflow-title {
+      font-size: 0.74rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: #1e293b;
+      margin-bottom: 4px;
+    }
+
+    .table-scroll {
+      max-height: 155px;
+      overflow-y: auto;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .check-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.75rem;
+      background: #ffffff;
+    }
+
+    .check-table th, .check-table td {
+      border-bottom: 1px solid #e2e8f0;
+      border-right: 1px solid #e2e8f0;
+      padding: 5px 6px;
+      text-align: center;
+    }
+
+    .check-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+
+    .misconception-box {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-size: 0.77rem;
+      line-height: 1.45;
+      color: #78350f;
+      margin-bottom: 10px;
+    }
+
+    .grader-card {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 10px 12px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 7px;
+    }
+
+    @media (max-width: 700px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 7px;
+      font-size: 0.76rem;
+      line-height: 1.45;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Interactive Linearisation Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <span class="guide-step-heading">1. Compare Candidate Transformations</span>
+        Switch between the 4 candidate variable transformations (such as <strong>ln <em>y</em> vs <em>x</em></strong>, <strong><em>y</em> vs <em>x</em>&sup2;</strong>, <strong><em>y</em> vs 1/<em>x</em></strong>, and <strong>ln <em>y</em> vs ln <em>x</em></strong>) and inspect how <strong>|<em>r</em>|</strong> changes in the transformed plot.
+      </div>
+      <div class="guide-step-card">
+        <span class="guide-step-heading">2. Toggle Fitted Lines &amp; Back-Transformed Curves</span>
+        Use the checkboxes below the dual scatter plots (all off by default) to overlay the <em>Raw Linear Fit</em>, the <em>Transformed Regression Line</em>, and the <em>Back-Transformed Curve</em> on the original (<em>x, y</em>) axes.
+      </div>
+      <div class="guide-step-card">
+        <span class="guide-step-heading">3. Master 3-Step Exam Back-Substitution</span>
+        Use the prediction slider to trace how a target <em>x</em>-value is substituted into the linearised equation and then inverted (e.g., via <em>e</em><sup>(...)</sup> or taking a square root) to recover the estimate in original units.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT CONTROL PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        6.6 Lesson 4 &bull; Linearising Non-Linear Data via Transformations
+      </div>
+
+      <!-- Scenario Presets -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="sc_exp" onclick="loadScenario('exp')">
+          1. Bacteria Growth (y = ab^x)
+        </button>
+        <button class="tab-btn" id="sc_quad" onclick="loadScenario('quad')">
+          2. Braking Distance (y = a + bx²)
+        </button>
+        <button class="tab-btn" id="sc_recip" onclick="loadScenario('recip')">
+          3. Boyle's Gas Law (y = a + b/x)
+        </button>
+      </div>
+
+      <!-- Contextual Word Problem & Variable Definition -->
+      <div class="context-box" id="contextBox"></div>
+
+      <!-- Side-by-Side Raw vs Transformed Scatter Plots -->
+      <div class="plot-editor">
+        <div class="eqn-header">
+          <span>Raw (x, y) vs. Transformed (X, Y) Plots</span>
+          <span id="rCompareHeader" style="color:var(--purple-dark);">Raw r = 0.000 | Transf. r = 0.000</span>
+        </div>
+
+        <div class="dual-canvas-grid">
+          <div class="canvas-pane">
+            <div class="pane-label raw" id="rawPaneLbl">Original Variables: (x, y)</div>
+            <canvas id="rawCanvas" width="265" height="245"></canvas>
+          </div>
+          <div class="canvas-pane">
+            <div class="pane-label lin" id="linPaneLbl">Transformed: (X, Y)</div>
+            <canvas id="linCanvas" width="265" height="245"></canvas>
+          </div>
+        </div>
+
+        <!-- Legend -->
+        <div class="legend-strip">
+          <span class="legend-item"><span class="swatch" style="background:#e11d48; border-top:2px dashed #e11d48; background:none;"></span> Poor Raw Line</span>
+          <span class="legend-item"><span class="swatch" style="background:#0284c7;"></span> Linearised Regression</span>
+          <span class="legend-item"><span class="swatch" style="background:#16a34a;"></span> Back-Transformed Curve</span>
+        </div>
+
+        <!-- Candidate Transformation Selector -->
+        <div class="transform-selector-bar">
+          <div class="transform-selector-title">
+            <span>Select Variable Transformation (X, Y):</span>
+            <span id="tfVerdictPill" style="font-size:0.7rem; font-weight:800;"></span>
+          </div>
+          <div class="tf-btn-row" id="tfBtnRow"></div>
+        </div>
+
+        <!-- Overlay Checkboxes (ALL OFF BY DEFAULT) -->
+        <div class="control-rows">
+          <div class="control-row">
+            <label class="toggle-pill">
+              <input type="checkbox" id="chkRawLine" onchange="drawBothCanvases()" />
+              Raw Linear Fit
+            </label>
+            <label class="toggle-pill">
+              <input type="checkbox" id="chkLinLine" onchange="drawBothCanvases()" />
+              Linearised Line
+            </label>
+            <label class="toggle-pill">
+              <input type="checkbox" id="chkBackCurve" onchange="drawBothCanvases()" />
+              Back-Transf. Curve
+            </label>
+          </div>
+        </div>
+
+        <!-- Live Back-Substitution Simulator -->
+        <div class="predict-box">
+          <div class="predict-header">
+            <strong>Step-by-Step Estimation Simulator:</strong>
+            <span id="simTargetLbl" style="font-family:ui-monospace, monospace; font-weight:800;"></span>
+          </div>
+          <div class="slider-wrap">
+            <input type="range" id="simSlider" oninput="onSimSlider()" />
+          </div>
+          <div class="backsub-steps" id="backsubSteps"></div>
+        </div>
+      </div>
+
+      <!-- Simulated GC Readouts -->
+      <div class="gc-screen-box" id="gcOutputBox"></div>
+    </div>
+
+    <!-- RIGHT: TRANSFORMATION GUIDE TABLE, TI-84 LIST WORKFLOW, DATA TABLE & QUIZ -->
+    <div class="card">
+      <div style="font-size:1.02rem; font-weight:800; color:#1e293b; margin-bottom:8px;">
+        Choosing &amp; Applying Linearising Transformations (9758 Syllabus)
+      </div>
+
+      <!-- Standard 9758 Linearising Models Reference Table -->
+      <div class="ref-table-wrap">
+        <table class="ref-table">
+          <thead>
+            <tr>
+              <th>Non-Linear Model</th>
+              <th>Linearised Form</th>
+              <th>Plot <em>Y</em> vs <em>X</em></th>
+              <th>Slope &amp; Intercept</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="row_exp">
+              <td><strong>Exponential:</strong> <em>y = ab<sup>x</sup></em> or <em>y = Ae<sup>kx</sup></em></td>
+              <td>ln <em>y</em> = ln <em>a</em> + (ln <em>b</em>)<em>x</em></td>
+              <td><strong>ln <em>y</em></strong> vs <strong><em>x</em></strong></td>
+              <td>Slope = ln <em>b</em> (or <em>k</em>)<br>Int. = ln <em>a</em> (or ln <em>A</em>)</td>
+            </tr>
+            <tr id="row_quad">
+              <td><strong>Quadratic / Power:</strong> <em>y = a + bx&sup2;</em></td>
+              <td><em>y</em> = <em>a</em> + <em>b</em>(<em>x&sup2;</em>)</td>
+              <td><strong><em>y</em></strong> vs <strong><em>x&sup2;</em></strong></td>
+              <td>Slope = <em>b</em><br>Int. = <em>a</em></td>
+            </tr>
+            <tr id="row_recip">
+              <td><strong>Reciprocal:</strong> <em>y = a + b/x</em></td>
+              <td><em>y</em> = <em>a</em> + <em>b</em>(1/<em>x</em>)</td>
+              <td><strong><em>y</em></strong> vs <strong>1/<em>x</em></strong></td>
+              <td>Slope = <em>b</em><br>Int. = <em>a</em></td>
+            </tr>
+            <tr id="row_power">
+              <td><strong>General Power:</strong> <em>y = ax<sup>b</sup></em></td>
+              <td>ln <em>y</em> = ln <em>a</em> + <em>b</em> ln <em>x</em></td>
+              <td><strong>ln <em>y</em></strong> vs <strong>ln <em>x</em></strong></td>
+              <td>Slope = <em>b</em><br>Int. = ln <em>a</em></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- TI-84 Plus CE List Transformation Workflow -->
+      <div class="workflow-box">
+        <div class="workflow-title">TI-84 Plus CE Workflow for Transformed Data (x in L1, y in L2)</div>
+        <ol style="margin:0; padding-left:18px;">
+          <li><strong>Define Transformed Lists:</strong> Highlight the header <code>L3</code> (or <code>L4</code>) in <strong>STAT &rarr; Edit</strong> and type the transformation formula (e.g., <code>ln(L2)</code> or <code>L1^2</code> or <code>1/L1</code>), then press <strong>ENTER</strong>.</li>
+          <li><strong>Check Scatter Plot &amp; |<em>r</em>|:</strong> Run <strong>LinReg(a+bx)</strong> on the transformed lists (e.g., <code>Xlist: L1, Ylist: L3</code>). Confirm the scatter diagram is linear and <strong>|<em>r</em>| is closer to 1</strong> than the raw data.</li>
+          <li><strong>Substitute &amp; Back-Transform:</strong> Substitute the given <em>x</em> (or <em>y</em>) into the linearised equation first, then invert the transformation (e.g., <em>y = e<sup>Y</sup></em>) to express the final answer in original units (3 s.f.).</li>
+        </ol>
+      </div>
+
+      <!-- Live Raw & Transformed Values Table -->
+      <div class="table-scroll">
+        <table class="check-table" id="dataTable"></table>
+      </div>
+
+      <!-- 9758 Exam Misconception Alert -->
+      <div class="misconception-box">
+        <strong>9758 Exam Alert — Common Linearisation Mistakes:</strong>
+        <ul style="margin:3px 0 0 0; padding-left:18px;">
+          <li><strong>Comparing |<em>r</em>| across transformations:</strong> When deciding which of two suggested models fits better, choose the transformation whose <strong>|<em>r</em>| is closer to 1</strong> (and whose scatter plot shows no curvature).</li>
+          <li><strong>Forgetting to back-transform:</strong> If the linearised line is <strong>ln <em>y</em> = 1.20 + 0.35<em>x</em></strong> and <em>x = 4</em>, substituting gives <strong>ln <em>y</em> = 2.60</strong>—you must compute <strong><em>y = e</em><sup>2.60</sup> = 13.5</strong>, not leave 2.60 as the final answer!</li>
+        </ul>
+      </div>
+
+      <!-- Quick 9758 Exam Concept Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 Linearisation &amp; Back-Transformation Check (<span id="qIdxLbl">1</span>/3)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.8rem; line-height:1.45; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  const transforms = {
+    raw: {
+      id: "raw",
+      btnLabel: "y vs x (Raw)",
+      xLabel: (xN) => xN,
+      yLabel: (yN) => yN,
+      X: (x) => x,
+      Y: (y) => y,
+      invY: (Y) => Y,
+      eqnStr: (a, b) => `y = ${a.toPrecision(3)} ${b >= 0 ? "+" : "−"} ${Math.abs(b).toPrecision(3)}x`,
+      backSteps: (xVal, a, b, yUnit) => {
+        const Yhat = a + b * xVal;
+        return `1. Direct raw line (poor curved fit): <strong>y&#770; = ${a.toFixed(3)} + (${b.toFixed(3)})(${xVal}) = ${Yhat.toFixed(2)} ${yUnit}</strong>`;
+      }
+    },
+    lny_x: {
+      id: "lny_x",
+      btnLabel: "ln y vs x",
+      xLabel: (xN) => xN,
+      yLabel: () => "ln y",
+      X: (x) => x,
+      Y: (y) => Math.log(y),
+      invY: (Y) => Math.exp(Y),
+      eqnStr: (a, b) => `ln y = ${a.toPrecision(3)} ${b >= 0 ? "+" : "−"} ${Math.abs(b).toPrecision(3)}x`,
+      backSteps: (xVal, a, b, yUnit) => {
+        const Yhat = a + b * xVal;
+        const yhat = Math.exp(Yhat);
+        return `
+          1. Substitute <strong>x = ${xVal}</strong> into linearised model: <strong>ln y&#770; = ${a.toFixed(4)} + (${b.toFixed(4)})(${xVal}) = ${Yhat.toFixed(4)}</strong><br>
+          2. Back-transform via exponential: <strong>y&#770; = e<sup>${Yhat.toFixed(4)}</sup> = ${yhat.toPrecision(3)} ${yUnit}</strong> (3 s.f.)
+        `;
+      }
+    },
+    y_x2: {
+      id: "y_x2",
+      btnLabel: "y vs x²",
+      xLabel: () => "x²",
+      yLabel: (yN) => yN,
+      X: (x) => x * x,
+      Y: (y) => y,
+      invY: (Y) => Y,
+      eqnStr: (a, b) => `y = ${a.toPrecision(3)} ${b >= 0 ? "+" : "−"} ${Math.abs(b).toPrecision(3)}x²`,
+      backSteps: (xVal, a, b, yUnit) => {
+        const Xval = xVal * xVal;
+        const Yhat = a + b * Xval;
+        return `
+          1. Compute transformed predictor: <strong>x² = ${xVal}² = ${Xval.toFixed(1)}</strong><br>
+          2. Substitute into linearised model: <strong>y&#770; = ${a.toFixed(4)} + (${b.toFixed(4)})(${Xval.toFixed(1)}) = ${Yhat.toPrecision(3)} ${yUnit}</strong> (3 s.f.)
+        `;
+      }
+    },
+    y_invx: {
+      id: "y_invx",
+      btnLabel: "y vs 1/x",
+      xLabel: () => "1/x",
+      yLabel: (yN) => yN,
+      X: (x) => 1 / x,
+      Y: (y) => y,
+      invY: (Y) => Y,
+      eqnStr: (a, b) => `y = ${a.toPrecision(3)} ${b >= 0 ? "+" : "−"} ${Math.abs(b).toPrecision(3)}(1/x)`,
+      backSteps: (xVal, a, b, yUnit) => {
+        const Xval = 1 / xVal;
+        const Yhat = a + b * Xval;
+        return `
+          1. Compute transformed predictor: <strong>1/x = 1/${xVal} = ${Xval.toFixed(4)}</strong><br>
+          2. Substitute into linearised model: <strong>y&#770; = ${a.toFixed(4)} + (${b.toFixed(4)})(${Xval.toFixed(4)}) = ${Yhat.toPrecision(3)} ${yUnit}</strong> (3 s.f.)
+        `;
+      }
+    },
+    lny_lnx: {
+      id: "lny_lnx",
+      btnLabel: "ln y vs ln x",
+      xLabel: () => "ln x",
+      yLabel: () => "ln y",
+      X: (x) => Math.log(x),
+      Y: (y) => Math.log(y),
+      invY: (Y) => Math.exp(Y),
+      eqnStr: (a, b) => `ln y = ${a.toPrecision(3)} ${b >= 0 ? "+" : "−"} ${Math.abs(b).toPrecision(3)} ln x`,
+      backSteps: (xVal, a, b, yUnit) => {
+        const Xval = Math.log(xVal);
+        const Yhat = a + b * Xval;
+        const yhat = Math.exp(Yhat);
+        return `
+          1. Substitute <strong>ln(${xVal}) = ${Xval.toFixed(4)}</strong>: <strong>ln y&#770; = ${a.toFixed(4)} + (${b.toFixed(4)})(${Xval.toFixed(4)}) = ${Yhat.toFixed(4)}</strong><br>
+          2. Back-transform: <strong>y&#770; = e<sup>${Yhat.toFixed(4)}</sup> = ${yhat.toPrecision(3)} ${yUnit}</strong> (3 s.f.)
+        `;
+      }
+    }
+  };
+
+  const scenarios = {
+    exp: {
+      xName: "Time x (hrs)",
+      yName: "Count y (×10³)",
+      yUnit: "×10³ cells",
+      bestTf: "lny_x",
+      tableRowId: "row_exp",
+      candidateTfs: ["lny_x", "y_x2", "y_invx", "lny_lnx"],
+      simMin: 1.0, simMax: 6.0, simStep: 0.2, simDefault: 4.5,
+      varDesc: "x = incubation time (hours); y = bacteria colony count (thousands of cells).",
+      story: "<strong>Scenario 1 — Exponential Bacteria Growth (y = ab<sup>x</sup>):</strong> Notice how the raw (<em>x, y</em>) plot curves sharply upward. Select <strong>ln <em>y</em> vs <em>x</em></strong> to linearise the data and inspect the jump in |<em>r</em>|!",
+      points: [
+        { x: 1, y: 2.4 },
+        { x: 2, y: 4.3 },
+        { x: 3, y: 7.9 },
+        { x: 4, y: 14.2 },
+        { x: 5, y: 25.8 },
+        { x: 6, y: 46.5 }
+      ]
+    },
+    quad: {
+      xName: "Speed x (m/s)",
+      yName: "Dist y (m)",
+      yUnit: "m",
+      bestTf: "y_x2",
+      tableRowId: "row_quad",
+      candidateTfs: ["y_x2", "lny_x", "y_invx", "lny_lnx"],
+      simMin: 10, simMax: 35, simStep: 1, simDefault: 28,
+      varDesc: "x = vehicle speed (m/s); y = total braking distance (metres).",
+      story: "<strong>Scenario 2 — Quadratic Braking Distance (y = a + bx&sup2;):</strong> Kinetic energy scales with speed squared, producing a parabolic curve on (<em>x, y</em>). Test <strong><em>y</em> vs <em>x</em>&sup2;</strong> against other transformations.",
+      points: [
+        { x: 10, y: 8.2 },
+        { x: 15, y: 16.5 },
+        { x: 20, y: 28.4 },
+        { x: 25, y: 43.1 },
+        { x: 30, y: 61.8 },
+        { x: 35, y: 83.2 }
+      ]
+    },
+    recip: {
+      xName: "Volume x (L)",
+      yName: "Press y (kPa)",
+      yUnit: "kPa",
+      bestTf: "y_invx",
+      tableRowId: "row_recip",
+      candidateTfs: ["y_invx", "lny_x", "y_x2", "lny_lnx"],
+      simMin: 1.0, simMax: 5.0, simStep: 0.2, simDefault: 2.4,
+      varDesc: "x = syringe gas volume (litres); y = measured gas pressure (kPa) at constant temperature.",
+      story: "<strong>Scenario 3 — Reciprocal Gas Law (y = a + b/x):</strong> Pressure decreases in a curve as volume increases. Compare <strong><em>y</em> vs 1/<em>x</em></strong> with the other candidate transformations to see which yields |<em>r</em>| closest to 1.",
+      points: [
+        { x: 1.0, y: 245 },
+        { x: 1.5, y: 168 },
+        { x: 2.0, y: 129 },
+        { x: 3.0, y: 91 },
+        { x: 4.0, y: 71 },
+        { x: 5.0, y: 60 }
+      ]
+    }
+  };
+
+  let curKey = "exp";
+  let curTfKey = "lny_x";
+  let simX = 4.5;
+
+  const rawCanvas = document.getElementById("rawCanvas");
+  const rawCtx = rawCanvas.getContext("2d");
+  const linCanvas = document.getElementById("linCanvas");
+  const linCtx = linCanvas.getContext("2d");
+
+  function fitLine(pts) {
+    const n = pts.length;
+    const meanX = pts.reduce((s, p) => s + p.x, 0) / n;
+    const meanY = pts.reduce((s, p) => s + p.y, 0) / n;
+    let sxx = 0, syy = 0, sxy = 0;
+    pts.forEach(p => {
+      const dx = p.x - meanX;
+      const dy = p.y - meanY;
+      sxx += dx * dx;
+      syy += dy * dy;
+      sxy += dx * dy;
+    });
+    const denom = Math.sqrt(sxx * syy);
+    const r = denom === 0 ? 0 : sxy / denom;
+    const b = sxx === 0 ? 0 : sxy / sxx;
+    const a = meanY - b * meanX;
+    return { meanX, meanY, r, a, b };
+  }
+
+  function loadScenario(key) {
+    curKey = key;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("sc_" + key).classList.add("active");
+
+    document.querySelectorAll(".ref-table tbody tr").forEach(tr => tr.classList.remove("highlight-row"));
+    const sc = scenarios[key];
+    document.getElementById(sc.tableRowId).classList.add("highlight-row");
+
+    curTfKey = sc.bestTf;
+    simX = sc.simDefault;
+
+    const slider = document.getElementById("simSlider");
+    slider.min = sc.simMin;
+    slider.max = sc.simMax;
+    slider.step = sc.simStep;
+    slider.value = simX;
+
+    document.getElementById("contextBox").innerHTML = `
+      <div>${sc.story}</div>
+      <div class="var-pill">${sc.varDesc}</div>
+    `;
+
+    renderTfButtons();
+    updateAll();
+  }
+
+  function selectTransform(tfKey) {
+    curTfKey = tfKey;
+    renderTfButtons();
+    updateAll();
+  }
+
+  function renderTfButtons() {
+    const sc = scenarios[curKey];
+    document.getElementById("tfBtnRow").innerHTML = sc.candidateTfs.map(k => {
+      const tf = transforms[k];
+      return `<button class="tf-btn ${k === curTfKey ? "active" : ""}" onclick="selectTransform('${k}')">${tf.btnLabel}</button>`;
+    }).join("");
+  }
+
+  function onSimSlider() {
+    simX = parseFloat(document.getElementById("simSlider").value);
+    updateAll();
+  }
+
+  function updateAll() {
+    const sc = scenarios[curKey];
+    const tf = transforms[curTfKey];
+    const rawPts = sc.points;
+    const rawFit = fitLine(rawPts);
+
+    const transPts = rawPts.map(p => ({ x: tf.X(p.x), y: tf.Y(p.y) }));
+    const transFit = fitLine(transPts);
+
+    const isBest = curTfKey === sc.bestTf;
+    document.getElementById("rCompareHeader").textContent = `Raw |r| = ${Math.abs(rawFit.r).toFixed(4)} → Transf. |r| = ${Math.abs(transFit.r).toFixed(4)}`;
+    document.getElementById("rawPaneLbl").textContent = `Original: ${sc.yName} vs ${sc.xName}`;
+    document.getElementById("linPaneLbl").textContent = `Transformed: ${tf.yLabel(sc.yName)} vs ${tf.xLabel(sc.xName)}`;
+
+    const verdictPill = document.getElementById("tfVerdictPill");
+    if (isBest) {
+      verdictPill.textContent = "Best Linearising Fit (|r| ≈ 1)";
+      verdictPill.style.color = "#15803d";
+    } else {
+      verdictPill.textContent = "Suboptimal Fit (Still Curved)";
+      verdictPill.style.color = "#b45309";
+    }
+
+    document.getElementById("simTargetLbl").textContent = `Target x = ${simX}`;
+    document.getElementById("backsubSteps").innerHTML = tf.backSteps(simX, transFit.a, transFit.b, sc.yUnit);
+
+    document.getElementById("gcOutputBox").innerHTML = `
+      <span class="box-title">TI-84 Plus CE Comparison: Raw vs. Transformed LinReg(a+bx)</span>
+      <div class="gc-readout-grid">
+        <div class="gc-readout">
+          <strong style="color:#be123c;">Raw Lists (Xlist: L1, Ylist: L2)</strong><br>
+          y = a + bx<br>
+          r = ${rawFit.r.toFixed(4)} (|r| = ${Math.abs(rawFit.r).toFixed(4)})<br>
+          Curved pattern &rArr; poor linear fit
+        </div>
+        <div class="gc-readout">
+          <strong style="color:#0369a1;">Transformed (${tf.btnLabel})</strong><br>
+          ${tf.eqnStr(transFit.a, transFit.b)}<br>
+          a = ${transFit.a.toFixed(4)}, b = ${transFit.b.toFixed(4)}<br>
+          <strong>r = ${transFit.r.toFixed(4)} (|r| = ${Math.abs(transFit.r).toFixed(4)})</strong>
+        </div>
+      </div>
+    `;
+
+    document.getElementById("dataTable").innerHTML = `
+      <thead>
+        <tr>
+          <th>Point</th>
+          <th>Raw <em>x</em></th>
+          <th>Raw <em>y</em></th>
+          <th style="background:#f0f9ff; color:#0369a1;">Transf. <em>X</em> (${tf.xLabel("x")})</th>
+          <th style="background:#f0f9ff; color:#0369a1;">Transf. <em>Y</em> (${tf.yLabel("y")})</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rawPts.map((p, i) => `
+          <tr>
+            <td><strong>#${i + 1}</strong></td>
+            <td>${p.x}</td>
+            <td>${p.y}</td>
+            <td style="color:#0369a1; font-weight:700;">${tf.X(p.x).toFixed(3)}</td>
+            <td style="color:#0369a1; font-weight:700;">${tf.Y(p.y).toFixed(3)}</td>
+          </tr>
+        `).join("")}
+      </tbody>
+    `;
+
+    drawBothCanvases();
+  }
+
+  function prepCanvas(cvs, context) {
+    const dpr = window.devicePixelRatio || 1;
+    const rect = cvs.getBoundingClientRect();
+    const w = rect.width > 0 ? rect.width : 265;
+    const h = rect.height > 0 ? rect.height : 245;
+    cvs.width = Math.round(w * dpr);
+    cvs.height = Math.round(h * dpr);
+    context.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return { w, h };
+  }
+
+  function getDomain(vals) {
+    const minV = Math.min(...vals);
+    const maxV = Math.max(...vals);
+    const span = maxV - minV || 1;
+    return {
+      min: minV - 0.12 * span,
+      max: maxV + 0.14 * span,
+      dataMin: minV,
+      dataMax: maxV
+    };
+  }
+
+  function drawAxesAndBounds(context, w, h, b, xDom, yDom, xLbl, yLbl) {
+    context.clearRect(0, 0, w, h);
+
+    // Clean Axes (No grid lines & no intermediate ticks)
+    context.strokeStyle = "#475569";
+    context.lineWidth = 1.4;
+    context.beginPath();
+    context.moveTo(b.left, b.top);
+    context.lineTo(b.left, b.bottom);
+    context.lineTo(b.right, b.bottom);
+    context.stroke();
+
+    context.fillStyle = "#475569";
+    context.font = "italic bold 10px Segoe UI, sans-serif";
+    context.textAlign = "right";
+    context.fillText("O", b.left - 5, b.bottom + 12);
+
+    context.fillStyle = "#334155";
+    context.font = "bold 10px Segoe UI, sans-serif";
+    context.textAlign = "center";
+    context.fillText(xLbl, (b.left + b.right) / 2, h - 4);
+    context.save();
+    context.translate(12, (b.top + b.bottom) / 2);
+    context.rotate(-Math.PI / 2);
+    context.fillText(yLbl, 0, 0);
+    context.restore();
+
+    // First & Last Bound Labels
+    const x0Px = b.left + ((xDom.dataMin - xDom.min) / (xDom.max - xDom.min)) * (b.right - b.left);
+    const x1Px = b.left + ((xDom.dataMax - xDom.min) / (xDom.max - xDom.min)) * (b.right - b.left);
+    const y0Py = b.bottom - ((yDom.dataMin - yDom.min) / (yDom.max - yDom.min)) * (b.bottom - b.top);
+    const y1Py = b.bottom - ((yDom.dataMax - yDom.min) / (yDom.max - yDom.min)) * (b.bottom - b.top);
+
+    context.font = "bold 9px Segoe UI, sans-serif";
+    context.textAlign = "center";
+    context.fillStyle = "#0284c7";
+    context.fillText(xDom.dataMin.toFixed(1), x0Px, b.bottom + 12);
+    context.fillStyle = "#7c3aed";
+    context.fillText(xDom.dataMax.toFixed(1), x1Px, b.bottom + 12);
+
+    context.textAlign = "right";
+    context.fillStyle = "#0284c7";
+    context.fillText(yDom.dataMin.toFixed(1), b.left - 5, y0Py + 3);
+    context.fillStyle = "#7c3aed";
+    context.fillText(yDom.dataMax.toFixed(1), b.left - 5, y1Py + 3);
+  }
+
+  function drawBothCanvases() {
+    const sc = scenarios[curKey];
+    const tf = transforms[curTfKey];
+    const rawPts = sc.points;
+    const rawFit = fitLine(rawPts);
+
+    const transPts = rawPts.map(p => ({ x: tf.X(p.x), y: tf.Y(p.y) }));
+    const transFit = fitLine(transPts);
+
+    const showRawLine = document.getElementById("chkRawLine").checked;
+    const showLinLine = document.getElementById("chkLinLine").checked;
+    const showBackCurve = document.getElementById("chkBackCurve").checked;
+
+    // --- LEFT CANVAS: RAW (x, y) ---
+    const d1 = prepCanvas(rawCanvas, rawCtx);
+    const b1 = { left: 44, right: d1.w - 14, top: 14, bottom: d1.h - 32 };
+    const xDom1 = getDomain(rawPts.map(p => p.x));
+    const yDom1 = getDomain(rawPts.map(p => p.y));
+    const toPx1 = (x, y) => ({
+      px: b1.left + ((x - xDom1.min) / (xDom1.max - xDom1.min)) * (b1.right - b1.left),
+      py: b1.bottom - ((y - yDom1.min) / (yDom1.max - yDom1.min)) * (b1.bottom - b1.top)
+    });
+
+    drawAxesAndBounds(rawCtx, d1.w, d1.h, b1, xDom1, yDom1, sc.xName, sc.yName);
+
+    // Optional Raw Linear Fit (Dashed Rose)
+    if (showRawLine) {
+      rawCtx.save();
+      rawCtx.beginPath();
+      rawCtx.rect(b1.left, b1.top, b1.right - b1.left, b1.bottom - b1.top);
+      rawCtx.clip();
+
+      const pA = toPx1(xDom1.min, rawFit.a + rawFit.b * xDom1.min);
+      const pB = toPx1(xDom1.max, rawFit.a + rawFit.b * xDom1.max);
+      rawCtx.strokeStyle = "#e11d48";
+      rawCtx.lineWidth = 2;
+      rawCtx.setLineDash([5, 4]);
+      rawCtx.beginPath();
+      rawCtx.moveTo(pA.px, pA.py);
+      rawCtx.lineTo(pB.px, pB.py);
+      rawCtx.stroke();
+      rawCtx.restore();
+    }
+
+    // Optional Back-Transformed Curve on Original Axes (Solid Green)
+    if (showBackCurve) {
+      rawCtx.save();
+      rawCtx.beginPath();
+      rawCtx.rect(b1.left, b1.top, b1.right - b1.left, b1.bottom - b1.top);
+      rawCtx.clip();
+
+      rawCtx.strokeStyle = "#16a34a";
+      rawCtx.lineWidth = 2.3;
+      rawCtx.beginPath();
+      const steps = 90;
+      let started = false;
+      for (let i = 0; i <= steps; i++) {
+        const xv = xDom1.dataMin * 0.9 + (i / steps) * (xDom1.dataMax * 1.08 - xDom1.dataMin * 0.9);
+        if (xv <= 0) continue;
+        const Xv = tf.X(xv);
+        const Yv = transFit.a + transFit.b * Xv;
+        const yv = tf.invY(Yv);
+        if (!isFinite(yv)) continue;
+        const pt = toPx1(xv, yv);
+        if (!started) {
+          rawCtx.moveTo(pt.px, pt.py);
+          started = true;
+        } else {
+          rawCtx.lineTo(pt.px, pt.py);
+        }
+      }
+      rawCtx.stroke();
+      rawCtx.restore();
+    }
+
+    // Raw Data Points
+    rawPts.forEach(p => {
+      const pt = toPx1(p.x, p.y);
+      rawCtx.fillStyle = "#8b5cf6";
+      rawCtx.strokeStyle = "#ffffff";
+      rawCtx.lineWidth = 1.8;
+      rawCtx.beginPath();
+      rawCtx.arc(pt.px, pt.py, 4.8, 0, Math.PI * 2);
+      rawCtx.fill();
+      rawCtx.stroke();
+    });
+
+    // --- RIGHT CANVAS: TRANSFORMED (X, Y) ---
+    const d2 = prepCanvas(linCanvas, linCtx);
+    const b2 = { left: 44, right: d2.w - 14, top: 14, bottom: d2.h - 32 };
+    const xDom2 = getDomain(transPts.map(p => p.x));
+    const yDom2 = getDomain(transPts.map(p => p.y));
+    const toPx2 = (x, y) => ({
+      px: b2.left + ((x - xDom2.min) / (xDom2.max - xDom2.min)) * (b2.right - b2.left),
+      py: b2.bottom - ((y - yDom2.min) / (yDom2.max - yDom2.min)) * (b2.bottom - b2.top)
+    });
+
+    drawAxesAndBounds(linCtx, d2.w, d2.h, b2, xDom2, yDom2, tf.xLabel(sc.xName), tf.yLabel(sc.yName));
+
+    // Optional Linearised Regression Line (Solid Blue)
+    if (showLinLine) {
+      linCtx.save();
+      linCtx.beginPath();
+      linCtx.rect(b2.left, b2.top, b2.right - b2.left, b2.bottom - b2.top);
+      linCtx.clip();
+
+      const qA = toPx2(xDom2.min, transFit.a + transFit.b * xDom2.min);
+      const qB = toPx2(xDom2.max, transFit.a + transFit.b * xDom2.max);
+      linCtx.strokeStyle = "#0284c7";
+      linCtx.lineWidth = 2.3;
+      linCtx.beginPath();
+      linCtx.moveTo(qA.px, qA.py);
+      linCtx.lineTo(qB.px, qB.py);
+      linCtx.stroke();
+      linCtx.restore();
+    }
+
+    // Transformed Data Points
+    transPts.forEach(p => {
+      const pt = toPx2(p.x, p.y);
+      linCtx.fillStyle = "#0284c7";
+      linCtx.strokeStyle = "#ffffff";
+      linCtx.lineWidth = 1.8;
+      linCtx.beginPath();
+      linCtx.arc(pt.px, pt.py, 4.8, 0, Math.PI * 2);
+      linCtx.fill();
+      linCtx.stroke();
+    });
+  }
+
+  window.addEventListener("resize", drawBothCanvases);
+  if (typeof ResizeObserver !== "undefined") {
+    const ro = new ResizeObserver(() => drawBothCanvases());
+    ro.observe(rawCanvas);
+    ro.observe(linCanvas);
+  }
+
+  const examQs = [
+    {
+      q: "A scientist tests two models for a non-linear dataset: Model A (y against x²) gives r = 0.994, while Model B (ln y against x) gives r = −0.961. Which model is better and why?",
+      opts: [
+        "Model A (y against x²), because |r| = 0.994 is closer to 1 than |r| = 0.961",
+        "Model B (ln y against x), because r is negative",
+        "Model A, because x² is always larger than ln y",
+        "Both models are equally valid because |r| > 0.95 for both"
+      ],
+      ans: 0,
+      exp: "To compare two linearising transformations, compare |r| (or r²) and the scatter plots—the model with |r| closer to 1 (0.994 > 0.961) provides the stronger linear fit."
+    },
+    {
+      q: "The linearised regression line of ln y on x is found to be ln y = 0.850 + 0.420x. Estimate the value of y when x = 5.",
+      opts: [
+        "y = e^(0.850 + 0.420×5) = e^2.95 = 19.1 (3 s.f.)",
+        "y = 0.850 + 0.420(5) = 2.95",
+        "y = ln(2.95) = 1.08",
+        "y = 10^2.95 = 891"
+      ],
+      ans: 0,
+      exp: "Substituting x = 5 gives ln y = 2.95. Back-transforming via the natural exponential gives y = e^2.95 ≈ 19.1 (to 3 significant figures)."
+    },
+    {
+      q: "A physical law is believed to follow y = a + b/x, where x is controlled in an experiment. Which variables should be entered into LinReg(a+bx) on the graphing calculator?",
+      opts: [
+        "Xlist: 1/x, Ylist: y",
+        "Xlist: x, Ylist: 1/y",
+        "Xlist: ln x, Ylist: ln y",
+        "Xlist: y, Ylist: 1/x"
+      ],
+      ans: 0,
+      exp: "Comparing y = a + b(1/x) with Y = a + bX gives Y = y and X = 1/x. Since x is controlled, we regress Y (y) on X (1/x)."
+    }
+  ];
+
+  let curQ = 0;
+
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").textContent = item.q;
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i}, this)">${String.fromCharCode(65 + i)}. ${o}</button>
+    `).join("");
+  }
+
+  function gradeExamQ(idx, btn) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  loadScenario("exp");
+  renderExamQ();
+</script>
+
+</body>
+</html>
