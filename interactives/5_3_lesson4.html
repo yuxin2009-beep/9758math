@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5.3 Lesson 4 | Integration by a Given Substitution (Indefinite Integrals)</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 16px 20px 28px 20px;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .math {
+      font-family: 'Cambria Math', 'Times New Roman', Georgia, serif;
+      font-size: 1.06em;
+    }
+
+    .frac {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      vertical-align: middle;
+      margin: 0 3px;
+      font-size: 0.88em;
+      line-height: 1.1;
+    }
+
+    .frac-num {
+      padding: 0 4px 2px 4px;
+      border-bottom: 1.4px solid currentColor;
+      text-align: center;
+    }
+
+    .frac-den {
+      padding: 2px 4px 0 4px;
+      text-align: center;
+    }
+
+    /* SEAMLESS SVG SQUARE ROOT SYMBOL */
+    .sqrt {
+      display: inline-flex;
+      align-items: stretch;
+      vertical-align: baseline;
+      margin: 0 2px;
+    }
+
+    .sqrt-hook {
+      width: 0.62em;
+      height: 1.16em;
+      flex-shrink: 0;
+      overflow: visible;
+      align-self: stretch;
+    }
+
+    .sqrt-rad {
+      border-top: 1.45px solid currentColor;
+      padding: 0 3px 0 1px;
+      line-height: 1.14;
+      display: inline-block;
+    }
+
+    /* HEADER & TABS */
+    .lab-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .lab-title-wrap h1 {
+      margin: 0;
+      font-size: 1.15rem;
+      color: #1e293b;
+    }
+
+    .lab-title-wrap p {
+      margin: 3px 0 0 0;
+      font-size: 0.81rem;
+      color: var(--muted);
+    }
+
+    .mode-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mode-btn {
+      padding: 8px 13px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: var(--text);
+      font-size: 0.81rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .mode-btn:hover {
+      border-color: var(--purple);
+      color: var(--purple-dark);
+    }
+
+    .mode-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.22);
+    }
+
+    /* 5-STEP PROTOCOL BANNER */
+    .foundation-card {
+      background: var(--panel);
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.07);
+    }
+
+    .foundation-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 9px;
+    }
+
+    .kicker {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--purple-dark);
+    }
+
+    .rule-badge {
+      background: var(--amber-bg);
+      color: var(--amber);
+      border: 1px solid #fcd34d;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 800;
+    }
+
+    .pipeline-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+    }
+
+    @media (max-width: 960px) {
+      .pipeline-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 560px) {
+      .pipeline-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .pipe-step {
+      background: #f5f3ff;
+      border: 1px solid #ddd6fe;
+      border-radius: 10px;
+      padding: 7px 10px;
+      font-size: 0.79rem;
+      line-height: 1.48;
+      color: #1e293b;
+    }
+
+    .pipe-step.teal-step {
+      background: var(--teal-bg);
+      border-color: #5eead4;
+    }
+
+    .pipe-num {
+      font-size: 0.69rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--purple-dark);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .pipe-step.teal-step .pipe-num {
+      color: var(--teal);
+    }
+
+    /* PANELS & GRIDS */
+    .view-panel {
+      display: none;
+    }
+    .view-panel.active {
+      display: block;
+    }
+
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: 1.38fr 1.12fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 980px) {
+      .workspace-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 3px 10px rgba(148, 163, 184, 0.06);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    /* PILLS */
+    .fn-pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 11px;
+    }
+
+    .expr-pill {
+      padding: 6px 12px;
+      border-radius: 9px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #1e293b;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .expr-pill:hover {
+      border-color: var(--purple);
+      background: #f5f3ff;
+    }
+
+    .expr-pill.active {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      border-color: var(--purple);
+    }
+
+    /* ANATOMY & STEP BOXES */
+    .anatomy-stage {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 11px;
+    }
+
+    .big-integral {
+      font-size: 1.22rem;
+      font-weight: 700;
+      color: #1e293b;
+      text-align: center;
+      margin-bottom: 9px;
+    }
+
+    .sub-badge {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      border: 1px solid #c4b5fd;
+      padding: 2px 9px;
+      border-radius: 8px;
+      font-size: 0.92em;
+      margin-left: 6px;
+    }
+
+    .anatomy-breakdown {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    @media (max-width: 680px) {
+      .anatomy-breakdown {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .part-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 7px 10px;
+      font-size: 0.81rem;
+      line-height: 1.55;
+    }
+
+    .part-label {
+      font-size: 0.69rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+      display: block;
+    }
+
+    .step-box {
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 10px 13px;
+      margin-bottom: 9px;
+      background: #f8fafc;
+    }
+
+    .step-box.active-step {
+      border-color: var(--purple);
+      background: #faf5ff;
+      box-shadow: 0 2px 8px rgba(139, 92, 246, 0.1);
+    }
+
+    .step-box.locked {
+      opacity: 0.38;
+      background: #f1f5f9;
+    }
+
+    .answer-stage {
+      background: #f5f3ff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 11px;
+      padding: 11px 14px;
+      font-size: 0.92rem;
+      line-height: 1.78;
+      color: #1e293b;
+    }
+
+    .action-btn {
+      padding: 5px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #1e293b;
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .action-btn.primary {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .info-card {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 10px 13px;
+      font-size: 0.82rem;
+      line-height: 1.66;
+      color: #334155;
+      margin-bottom: 10px;
+    }
+
+    /* REFERENCE TRIANGLE CANVAS */
+    .canvas-wrap {
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 245px;
+    }
+
+    /* DIAGNOSTIC QUIZ OPTIONS */
+    .trap-choice {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 9px 12px;
+      margin-bottom: 8px;
+      border-radius: 10px;
+      border: 1.5px solid #cbd5e1;
+      background: #ffffff;
+      color: #1e293b;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .trap-choice:hover {
+      border-color: var(--purple);
+      background: #f5f3ff;
+    }
+
+    .trap-choice.selected-ok {
+      background: var(--teal-bg);
+      border-color: var(--teal);
+      color: #115e59;
+    }
+
+    .trap-choice.selected-err {
+      background: var(--rose-bg);
+      border-color: var(--rose);
+      color: #881337;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER & 3 TABS -->
+  <div class="lab-header">
+    <div class="lab-title-wrap">
+      <h1>Integration by a Given Substitution (Indefinite Integrals)</h1>
+      <p>Transform <span class="math">&int; g(<em>x</em>) d<em>x</em></span> into a pure <span class="math"><em>u</em></span>- or <span class="math">&theta;</span>-integral, integrate, and back-substitute into <span class="math"><em>x</em></span></p>
+    </div>
+    <div class="mode-tabs">
+      <button class="mode-btn active" id="tabAlgBtn" onclick="switchMode('alg')">
+        1. Algebraic &amp; Radical Substitutions
+      </button>
+      <button class="mode-btn" id="tabTrigBtn" onclick="switchMode('trig')">
+        2. Trigonometric Substitutions &amp; Reference Triangle
+      </button>
+      <button class="mode-btn" id="tabTrapBtn" onclick="switchMode('trap')">
+        3. Substitution Pitfall Spotter
+      </button>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       5-STEP INDEFINITE SUBSTITUTION PROTOCOL BANNER
+       ========================================================= -->
+  <div class="foundation-card">
+    <div class="foundation-top">
+      <span class="kicker">5-Step Indefinite Substitution Protocol (9758 H2 Math)</span>
+      <span class="rule-badge">Never Mix <span class="math"><em>x</em></span> and <span class="math"><em>u</em></span> in the Same Integral &amp; Always Back-Substitute!</span>
+    </div>
+
+    <div class="pipeline-grid">
+      <div class="pipe-step">
+        <span class="pipe-num">Step 1: Differentiate</span>
+        Find <span class="math"><span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span></span> (or <span class="math"><span class="frac"><span class="frac-num">d<em>x</em></span><span class="frac-den">d<em>u</em></span></span></span>) from the given substitution.
+      </div>
+      <div class="pipe-step">
+        <span class="pipe-num">Step 2: Replace <span class="math" style="text-transform:none;">d<em>x</em></span></span>
+        Substitute <span class="math">d<em>x</em> = (<span class="frac"><span class="frac-num">d<em>x</em></span><span class="frac-den">d<em>u</em></span></span>) d<em>u</em></span> into the integral.
+      </div>
+      <div class="pipe-step">
+        <span class="pipe-num">Step 3: Eliminate All <span class="math" style="text-transform:none;"><em>x</em></span></span>
+        Rewrite any leftover <span class="math"><em>x</em></span>-terms purely in terms of <span class="math"><em>u</em></span>.
+      </div>
+      <div class="pipe-step">
+        <span class="pipe-num">Step 4: Integrate in <span class="math" style="text-transform:none;"><em>u</em></span></span>
+        Apply power, <span class="math">ln</span>, partial fractions, or trig rules in <span class="math"><em>u</em></span>.
+      </div>
+      <div class="pipe-step teal-step">
+        <span class="pipe-num">Step 5: Back-Substitute</span>
+        Replace <span class="math"><em>u</em></span> back in terms of <span class="math"><em>x</em></span> and add <strong><span class="math">+ <em>C</em></span></strong>!
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       TAB 1: ALGEBRAIC & RADICAL SUBSTITUTIONS
+       ========================================================= -->
+  <div class="view-panel active" id="algPanel">
+    <div class="workspace-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker">Tab 1: Step-by-Step Indefinite Substitution Workbench</span>
+          <div style="display:flex; gap:6px;">
+            <button class="action-btn" onclick="setAlgStep(0)">Step 1</button>
+            <button class="action-btn primary" onclick="nextAlgStep()">Next Step (+1)</button>
+            <button class="action-btn" onclick="setAlgStep(3)">Reveal All</button>
+          </div>
+        </div>
+
+        <div class="fn-pills" id="algPillsContainer"></div>
+
+        <div class="anatomy-stage">
+          <div class="big-integral math" id="algBigHTML"></div>
+          <div class="anatomy-breakdown" id="algAnatomyGrid"></div>
+        </div>
+
+        <div id="algStepsContainer"></div>
+
+        <div class="answer-stage" id="algFinalBanner"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker" style="color:var(--teal);">Why Each Given Substitution Works</span>
+        </div>
+
+        <div class="info-card">
+          <strong>1. Linear Shift Inside a Radical (<span class="math"><em>u</em> = <em>ax</em> + <em>b</em></span> or <span class="math"><em>u</em>&sup2; = <em>ax</em> + <em>b</em></span>):</strong><br>
+          Moving the binomial <span class="math">(2<em>x</em> + 1)</span> out from under the square root into a single monomial <span class="math"><em>u</em><sup>&frac12;</sup></span> lets you expand <span class="math"><span class="frac"><span class="frac-num"><em>u</em> &minus; 1</span><span class="frac-den">2</span></span> &middot; <em>u</em><sup>&frac12;</sup></span> into simple power terms.
+        </div>
+
+        <div class="info-card">
+          <strong>2. Odd Power Paired with <span class="math"><em>u</em> = 1 &minus; <em>x</em>&sup2;</span>:</strong><br>
+          Writing <span class="math"><em>x</em><sup>3</sup> = <em>x</em>&sup2; &middot; <em>x</em></span> lets <span class="math"><em>x</em> d<em>x</em> = &minus;&frac12; d<em>u</em></span> absorb one <span class="math"><em>x</em></span>, while the remaining <span class="math"><em>x</em>&sup2;</span> is replaced cleanly by <span class="math">1 &minus; <em>u</em></span>.
+        </div>
+
+        <div class="info-card" id="algSurdNoteCard"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       TAB 2: TRIGONOMETRIC SUBSTITUTIONS & REFERENCE TRIANGLE
+       ========================================================= -->
+  <div class="view-panel" id="trigPanel">
+    <div class="workspace-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker">Tab 2: Trigonometric Substitution Workbench</span>
+          <div style="display:flex; gap:6px;">
+            <button class="action-btn" onclick="setTrigStep(0)">Step 1</button>
+            <button class="action-btn primary" onclick="nextTrigStep()">Next Step (+1)</button>
+            <button class="action-btn" onclick="setTrigStep(3)">Reveal All</button>
+          </div>
+        </div>
+
+        <div class="fn-pills" id="trigPillsContainer"></div>
+
+        <div id="trigStepsContainer"></div>
+
+        <div class="answer-stage" id="trigFinalBanner"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker" style="color:var(--teal);">Back-Substitution Right-Angled Reference Triangle</span>
+        </div>
+
+        <div class="canvas-wrap">
+          <canvas id="triangleCanvas" width="540" height="245"></canvas>
+        </div>
+
+        <div class="info-card" style="margin-top:10px;" id="triangleExplainHTML"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       TAB 3: SUBSTITUTION PITFALL SPOTTER
+       ========================================================= -->
+  <div class="view-panel" id="trapPanel">
+    <div class="workspace-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker" style="color:var(--rose);">Tab 3: Diagnose the Student's Mistake</span>
+        </div>
+
+        <div class="fn-pills">
+          <button class="expr-pill active" id="tp_1" onclick="selectTrap(0)">Trap 1: Missing <span class="math">d<em>x</em></span> Factor</button>
+          <button class="expr-pill" id="tp_2" onclick="selectTrap(1)">Trap 2: Mixed <span class="math"><em>x</em></span> and <span class="math"><em>u</em></span> Variables</button>
+          <button class="expr-pill" id="tp_3" onclick="selectTrap(2)">Trap 3: Stopping in <span class="math"><em>u</em></span></button>
+        </div>
+
+        <div class="anatomy-stage" id="trapScenarioHTML"></div>
+
+        <div class="kicker" style="margin-bottom:6px; color:#1e293b;">Identify the Error &amp; Correct Fix:</div>
+        <div id="trapChoicesContainer"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="kicker" style="color:var(--teal);">Diagnostic Explanation</span>
+        </div>
+        <div class="info-card" id="trapFeedbackBox"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let activeMode = "alg";
+
+    let currentAlg = "linRoot";
+    let algStep = 3;
+
+    let currentTrig = "sin";
+    let trigStep = 3;
+
+    let currentTrapIdx = 0;
+    let selectedTrapOption = 0;
+
+    const triCanvas = document.getElementById("triangleCanvas");
+    const triCtx = triCanvas.getContext("2d");
+
+    function frac(num, den) {
+      return `<span class="frac"><span class="frac-num">${num}</span><span class="frac-den">${den}</span></span>`;
+    }
+
+    function sqrt(expr) {
+      return `<span class="sqrt"><svg class="sqrt-hook" viewBox="0 0 12 20" preserveAspectRatio="none" aria-hidden="true"><path d="M 0.5 11.5 L 3.2 11.5 L 6.2 19 L 11.8 0.8" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sqrt-rad">${expr}</span></span>`;
+    }
+
+    /* =========================================================
+       TAB 1: ALGEBRAIC & RADICAL SUBSTITUTIONS
+       ========================================================= */
+    const ALG_CASES = {
+      linRoot: {
+        pillHTML: `1. <span class="math">&int; <em>x</em>${sqrt("2<em>x</em> + 1")} d<em>x</em></span> &nbsp;(<span class="math"><em>u</em> = 2<em>x</em> + 1</span>)`,
+        bigHTML: `&int; <em>x</em>${sqrt("2<em>x</em> + 1")} d<em>x</em> <span class="sub-badge">Given: <em>u</em> = 2<em>x</em> + 1</span>`,
+        duHTML: `<span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = 2 &rArr; d<em>x</em> = ${frac("1", "2")} d<em>u</em>`,
+        xSubHTML: `<em>x</em> = ${frac("<em>u</em> &minus; 1", "2")}`,
+        uIntHTML: `&int; ${frac("<em>u</em> &minus; 1", "2")} &middot; <em>u</em><sup>&frac12;</sup> &middot; ${frac("1", "2")} d<em>u</em>`,
+        steps: [
+          {
+            titleHTML: `Step 1 &amp; 2: Differentiate <span class="math" style="text-transform:none;"><em>u</em> = 2<em>x</em> + 1</span> and Replace <span class="math" style="text-transform:none;">d<em>x</em></span>`,
+            html: `<span class="math"><span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = 2 &rArr; d<em>x</em> = <strong>${frac("1", "2")} d<em>u</em></strong></span>.`
+          },
+          {
+            titleHTML: `Step 3: Express Leftover <span class="math" style="text-transform:none;"><em>x</em></span> in Terms of <span class="math" style="text-transform:none;"><em>u</em></span>`,
+            html: `From <span class="math"><em>u</em> = 2<em>x</em> + 1</span>, we get <span class="math"><em>x</em> = <strong>${frac("<em>u</em> &minus; 1", "2")}</strong></span>.<br>
+                   Substitute everything: <span class="math">&int; (${frac("<em>u</em> &minus; 1", "2")}) <em>u</em><sup>&frac12;</sup> (${frac("1", "2")} d<em>u</em>) = ${frac("1", "4")} &int; (<em>u</em><sup><span style="font-size:0.82em;">3/2</span></sup> &minus; <em>u</em><sup><span style="font-size:0.82em;">1/2</span></sup>) d<em>u</em></span>.`
+          },
+          {
+            titleHTML: `Step 4: Integrate Purely with Respect to <span class="math" style="text-transform:none;"><em>u</em></span>`,
+            html: `<span class="math">${frac("1", "4")} [ ${frac("2", "5")}<em>u</em><sup><span style="font-size:0.82em;">5/2</span></sup> &minus; ${frac("2", "3")}<em>u</em><sup><span style="font-size:0.82em;">3/2</span></sup> ] + <em>C</em> = ${frac("1", "10")}<em>u</em><sup><span style="font-size:0.82em;">5/2</span></sup> &minus; ${frac("1", "6")}<em>u</em><sup><span style="font-size:0.82em;">3/2</span></sup> + <em>C</em></span>.`
+          },
+          {
+            titleHTML: `Step 5: Back-Substitute <span class="math" style="text-transform:none;"><em>u</em> = 2<em>x</em> + 1</span>`,
+            html: `<span class="math"><strong>${frac("1", "10")}(2<em>x</em> + 1)<sup><span style="font-size:0.82em;">5/2</span></sup> &minus; ${frac("1", "6")}(2<em>x</em> + 1)<sup><span style="font-size:0.82em;">3/2</span></sup> + <em>C</em></strong></span> (or factored as <span class="math">${frac("1", "15")}(2<em>x</em> + 1)<sup><span style="font-size:0.82em;">3/2</span></sup>(3<em>x</em> &minus; 1) + <em>C</em></span>).`
+          }
+        ],
+        finalHTML: `<span class="math"><strong>${frac("1", "10")}(2<em>x</em> + 1)<sup><span style="font-size:0.82em;">5/2</span></sup> &minus; ${frac("1", "6")}(2<em>x</em> + 1)<sup><span style="font-size:0.82em;">3/2</span></sup> + <em>C</em></strong></span>`
+      },
+
+      cubeRoot: {
+        pillHTML: `2. <span class="math">&int; <span class="frac"><span class="frac-num"><em>x</em><sup>3</sup></span><span class="frac-den">${sqrt("1 &minus; <em>x</em>&sup2;")}</span></span> d<em>x</em></span> &nbsp;(<span class="math"><em>u</em> = 1 &minus; <em>x</em>&sup2;</span>)`,
+        bigHTML: `&int; <span class="frac"><span class="frac-num"><em>x</em><sup>3</sup></span><span class="frac-den">${sqrt("1 &minus; <em>x</em>&sup2;")}</span></span> d<em>x</em> <span class="sub-badge">Given: <em>u</em> = 1 &minus; <em>x</em>&sup2;</span>`,
+        duHTML: `<span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = &minus;2<em>x</em> &rArr; <em>x</em> d<em>x</em> = &minus;${frac("1", "2")} d<em>u</em>`,
+        xSubHTML: `<em>x</em>&sup2; = 1 &minus; <em>u</em>`,
+        uIntHTML: `&minus;${frac("1", "2")} &int; (1 &minus; <em>u</em>)<em>u</em><sup>&minus;&frac12;</sup> d<em>u</em>`,
+        steps: [
+          {
+            titleHTML: `Step 1 &amp; 2: Differentiate <span class="math" style="text-transform:none;"><em>u</em> = 1 &minus; <em>x</em>&sup2;</span> and Pair <span class="math" style="text-transform:none;"><em>x</em> d<em>x</em></span>`,
+            html: `<span class="math"><span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = &minus;2<em>x</em> &rArr; <strong><em>x</em> d<em>x</em> = &minus;${frac("1", "2")} d<em>u</em></strong></span>.`
+          },
+          {
+            titleHTML: `Step 3: Split <span class="math" style="text-transform:none;"><em>x</em><sup>3</sup> = <em>x</em>&sup2; &middot; <em>x</em></span> and Eliminate <span class="math" style="text-transform:none;"><em>x</em>&sup2; = 1 &minus; <em>u</em></span>`,
+            html: `<span class="math">&int; <span class="frac"><span class="frac-num"><em>x</em>&sup2; &middot; <em>x</em></span><span class="frac-den">${sqrt("1 &minus; <em>x</em>&sup2;")}</span></span> d<em>x</em> = &minus;${frac("1", "2")} &int; <span class="frac"><span class="frac-num">1 &minus; <em>u</em></span><span class="frac-den"><em>u</em><sup>&frac12;</sup></span></span> d<em>u</em> = &minus;${frac("1", "2")} &int; (<em>u</em><sup><span style="font-size:0.82em;">&minus;1/2</span></sup> &minus; <em>u</em><sup><span style="font-size:0.82em;">1/2</span></sup>) d<em>u</em></span>.`
+          },
+          {
+            titleHTML: `Step 4: Integrate Purely with Respect to <span class="math" style="text-transform:none;"><em>u</em></span>`,
+            html: `<span class="math">&minus;${frac("1", "2")} [ 2<em>u</em><sup><span style="font-size:0.82em;">1/2</span></sup> &minus; ${frac("2", "3")}<em>u</em><sup><span style="font-size:0.82em;">3/2</span></sup> ] + <em>C</em> = &minus;<em>u</em><sup><span style="font-size:0.82em;">1/2</span></sup> + ${frac("1", "3")}<em>u</em><sup><span style="font-size:0.82em;">3/2</span></sup> + <em>C</em></span>.`
+          },
+          {
+            titleHTML: `Step 5: Back-Substitute <span class="math" style="text-transform:none;"><em>u</em> = 1 &minus; <em>x</em>&sup2;</span>`,
+            html: `<span class="math"><strong>${frac("1", "3")}(1 &minus; <em>x</em>&sup2;)<sup><span style="font-size:0.82em;">3/2</span></sup> &minus; ${sqrt("1 &minus; <em>x</em>&sup2;")} + <em>C</em></strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong>${frac("1", "3")}(1 &minus; <em>x</em>&sup2;)<sup><span style="font-size:0.82em;">3/2</span></sup> &minus; ${sqrt("1 &minus; <em>x</em>&sup2;")} + <em>C</em></strong></span>`
+      },
+
+      expPf: {
+        pillHTML: `3. <span class="math">&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den">e<sup><em>x</em></sup> + 1</span></span> d<em>x</em></span> &nbsp;(<span class="math"><em>u</em> = e<sup><em>x</em></sup></span>)`,
+        bigHTML: `&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den">e<sup><em>x</em></sup> + 1</span></span> d<em>x</em> <span class="sub-badge">Given: <em>u</em> = e<sup><em>x</em></sup></span>`,
+        duHTML: `<span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = e<sup><em>x</em></sup> = <em>u</em> &rArr; d<em>x</em> = ${frac("1", "<em>u</em>")} d<em>u</em>`,
+        xSubHTML: `e<sup><em>x</em></sup> = <em>u</em>`,
+        uIntHTML: `&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>u</em>(<em>u</em> + 1)</span></span> d<em>u</em>`,
+        steps: [
+          {
+            titleHTML: `Step 1 &amp; 2: Differentiate <span class="math" style="text-transform:none;"><em>u</em> = e<sup><em>x</em></sup></span> and Express <span class="math" style="text-transform:none;">d<em>x</em></span> in Terms of <span class="math" style="text-transform:none;"><em>u</em></span>`,
+            html: `<span class="math"><span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = e<sup><em>x</em></sup> = <em>u</em> &rArr; d<em>x</em> = <strong>${frac("1", "<em>u</em>")} d<em>u</em></strong></span>.`
+          },
+          {
+            titleHTML: `Step 3: Rewrite Purely in <span class="math" style="text-transform:none;"><em>u</em></span> &amp; Decompose into Partial Fractions`,
+            html: `<span class="math">&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>u</em> + 1</span></span> &middot; ${frac("1", "<em>u</em>")} d<em>u</em> = &int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>u</em>(<em>u</em> + 1)</span></span> d<em>u</em> = &int; (<strong>${frac("1", "<em>u</em>")} &minus; ${frac("1", "<em>u</em> + 1")}</strong>) d<em>u</em></span>.`
+          },
+          {
+            titleHTML: `Step 4: Integrate Purely with Respect to <span class="math" style="text-transform:none;"><em>u</em></span>`,
+            html: `<span class="math">ln|<em>u</em>| &minus; ln|<em>u</em> + 1| + <em>C</em> = ln|<span class="frac"><span class="frac-num"><em>u</em></span><span class="frac-den"><em>u</em> + 1</span></span>| + <em>C</em></span>.`
+          },
+          {
+            titleHTML: `Step 5: Back-Substitute <span class="math" style="text-transform:none;"><em>u</em> = e<sup><em>x</em></sup></span> (Since <span class="math" style="text-transform:none;">e<sup><em>x</em></sup> &gt; 0</span>, Modulus Drops)`,
+            html: `<span class="math">ln(<span class="frac"><span class="frac-num">e<sup><em>x</em></sup></span><span class="frac-den">e<sup><em>x</em></sup> + 1</span></span>) + <em>C</em> = <strong><em>x</em> &minus; ln(e<sup><em>x</em></sup> + 1) + <em>C</em></strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong><em>x</em> &minus; ln(e<sup><em>x</em></sup> + 1) + <em>C</em></strong> &nbsp;(or ln(<span class="frac"><span class="frac-num">e<sup><em>x</em></sup></span><span class="frac-den">e<sup><em>x</em></sup> + 1</span></span>) + <em>C</em>)</span>`
+      },
+
+      surdU: {
+        pillHTML: `4. <span class="math">&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>x</em>${sqrt("<em>x</em> + 4")}</span></span> d<em>x</em></span> &nbsp;(<span class="math"><em>u</em> = ${sqrt("<em>x</em> + 4")}</span>)`,
+        bigHTML: `&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>x</em>${sqrt("<em>x</em> + 4")}</span></span> d<em>x</em> <span class="sub-badge">Given: <em>u</em> = ${sqrt("<em>x</em> + 4")}</span>`,
+        duHTML: `<em>u</em>&sup2; = <em>x</em> + 4 &rArr; d<em>x</em> = 2<em>u</em> d<em>u</em>`,
+        xSubHTML: `<em>x</em> = <em>u</em>&sup2; &minus; 4`,
+        uIntHTML: `&int; <span class="frac"><span class="frac-num">2<em>u</em></span><span class="frac-den">(<em>u</em>&sup2; &minus; 4)<em>u</em></span></span> d<em>u</em>`,
+        steps: [
+          {
+            titleHTML: `Step 1 &amp; 2: Square <span class="math" style="text-transform:none;"><em>u</em> = ${sqrt("<em>x</em> + 4")}</span> First for Clean Differentiation`,
+            html: `<span class="math"><em>u</em>&sup2; = <em>x</em> + 4 &rArr; 2<em>u</em> <span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = 1 &rArr; <strong>d<em>x</em> = 2<em>u</em> d<em>u</em></strong></span>.`
+          },
+          {
+            titleHTML: `Step 3: Substitute <span class="math" style="text-transform:none;"><em>x</em> = <em>u</em>&sup2; &minus; 4</span> and Cancel Common Factor <span class="math" style="text-transform:none;"><em>u</em></span>`,
+            html: `<span class="math">&int; <span class="frac"><span class="frac-num">2<em>u</em></span><span class="frac-den">(<em>u</em>&sup2; &minus; 4)<em>u</em></span></span> d<em>u</em> = 2 &int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>u</em>&sup2; &minus; 2&sup2;</span></span> d<em>u</em></span>.`
+          },
+          {
+            titleHTML: `Step 4: Apply MF27 Formula <span class="math" style="text-transform:none;">&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>u</em>&sup2; &minus; <em>a</em>&sup2;</span></span> d<em>u</em> = <span class="frac"><span class="frac-num">1</span><span class="frac-den">2<em>a</em></span></span> ln|<span class="frac"><span class="frac-num"><em>u</em> &minus; <em>a</em></span><span class="frac-den"><em>u</em> + <em>a</em></span></span>|</span>`,
+            html: `With <span class="math"><em>a</em> = 2</span>: <span class="math">2 &middot; ${frac("1", "2(2)")} ln|<span class="frac"><span class="frac-num"><em>u</em> &minus; 2</span><span class="frac-den"><em>u</em> + 2</span></span>| + <em>C</em> = ${frac("1", "2")} ln|<span class="frac"><span class="frac-num"><em>u</em> &minus; 2</span><span class="frac-den"><em>u</em> + 2</span></span>| + <em>C</em></span>.`
+          },
+          {
+            titleHTML: `Step 5: Back-Substitute <span class="math" style="text-transform:none;"><em>u</em> = ${sqrt("<em>x</em> + 4")}</span>`,
+            html: `<span class="math"><strong>${frac("1", "2")} ln|<span class="frac"><span class="frac-num">${sqrt("<em>x</em> + 4")} &minus; 2</span><span class="frac-den">${sqrt("<em>x</em> + 4")} + 2</span></span>| + <em>C</em></strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong>${frac("1", "2")} ln|<span class="frac"><span class="frac-num">${sqrt("<em>x</em> + 4")} &minus; 2</span><span class="frac-den">${sqrt("<em>x</em> + 4")} + 2</span></span>| + <em>C</em></strong></span>`
+      }
+    };
+
+    function renderAlgPills() {
+      document.getElementById("algPillsContainer").innerHTML = Object.keys(ALG_CASES).map(key => `
+        <button class="expr-pill ${key === currentAlg ? "active" : ""}" id="al_${key}" onclick="selectAlg('${key}')">
+          ${ALG_CASES[key].pillHTML}
+        </button>
+      `).join("");
+    }
+
+    function renderAlgTab() {
+      const item = ALG_CASES[currentAlg];
+      document.getElementById("algBigHTML").innerHTML = item.bigHTML;
+      document.getElementById("algAnatomyGrid").innerHTML = `
+        <div class="part-box">
+          <span class="part-label" style="color:var(--purple-dark);">Differential Relation</span>
+          <span class="math"><strong>${item.duHTML}</strong></span>
+        </div>
+        <div class="part-box">
+          <span class="part-label" style="color:var(--blue);">Eliminate <span class="math" style="text-transform:none;"><em>x</em></span></span>
+          <span class="math"><strong>${item.xSubHTML}</strong></span>
+        </div>
+        <div class="part-box">
+          <span class="part-label" style="color:var(--teal);">Pure <span class="math" style="text-transform:none;"><em>u</em></span>-Integral</span>
+          <span class="math"><strong>${item.uIntHTML}</strong></span>
+        </div>
+      `;
+
+      document.getElementById("algStepsContainer").innerHTML = item.steps.map((st, idx) => {
+        const unlocked = idx <= algStep;
+        return `
+          <div class="step-box ${idx === algStep ? "active-step" : ""} ${!unlocked ? "locked" : ""}">
+            <div class="kicker" style="margin-bottom:3px;">${st.titleHTML}</div>
+            <div style="font-size:0.85rem; line-height:1.7;">
+              ${unlocked ? st.html : "<em>Click 'Next Step (+1)' to reveal...</em>"}
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      document.getElementById("algFinalBanner").innerHTML =
+        `<div class="kicker" style="margin-bottom:2px;">Final Integrated Result (in terms of <span class="math" style="text-transform:none;"><em>x</em></span>)</div>` + item.finalHTML;
+
+      document.getElementById("algSurdNoteCard").innerHTML = `
+        <strong>3. Rationalising a Surd Directly (<span class="math"><em>u</em> = ${sqrt("<em>x</em> + 4")} &rArr; <em>u</em>&sup2; = <em>x</em> + 4</span>):</strong><br>
+        Differentiating <span class="math"><em>u</em>&sup2; = <em>x</em> + 4</span> implicitly gives <span class="math">2<em>u</em> d<em>u</em> = d<em>x</em></span>, which cancels the <span class="math"><em>u</em></span> in the denominator and leaves a clean MF27 quadratic form.
+      `;
+    }
+
+    /* =========================================================
+       TAB 2: TRIGONOMETRIC SUBSTITUTIONS & REFERENCE TRIANGLE
+       ========================================================= */
+    const TRIG_CASES = {
+      sin: {
+        pillHTML: `1. <span class="math">&int; ${sqrt("9 &minus; <em>x</em>&sup2;")} d<em>x</em></span> &nbsp;(<span class="math"><em>x</em> = 3 sin &theta;</span>)`,
+        steps: [
+          {
+            titleHTML: `Step 1 &amp; 2: Differentiate <span class="math" style="text-transform:none;"><em>x</em> = 3 sin &theta;</span> and Simplify <span class="math" style="text-transform:none;">${sqrt("9 &minus; <em>x</em>&sup2;")}</span>`,
+            html: `&bull; <span class="math"><span class="frac"><span class="frac-num">d<em>x</em></span><span class="frac-den">d&theta;</span></span> = 3 cos &theta; &rArr; <strong>d<em>x</em> = 3 cos &theta; d&theta;</strong></span>.<br>
+                   &bull; <span class="math">${sqrt("9 &minus; 9 sin&sup2; &theta;")} = ${sqrt("9 cos&sup2; &theta;")} = <strong>3 cos &theta;</strong></span> (for <span class="math">&minus;${frac("&pi;", "2")} &le; &theta; &le; ${frac("&pi;", "2")}</span>).`
+          },
+          {
+            titleHTML: `Step 3: Form Pure <span class="math" style="text-transform:none;">&theta;</span>-Integral &amp; Apply Double-Angle Identity`,
+            html: `<span class="math">&int; (3 cos &theta;)(3 cos &theta; d&theta;) = 9 &int; cos&sup2; &theta; d&theta; = ${frac("9", "2")} &int; (1 + cos 2&theta;) d&theta;</span>.`
+          },
+          {
+            titleHTML: `Step 4: Integrate with Respect to <span class="math" style="text-transform:none;">&theta;</span>`,
+            html: `<span class="math">${frac("9", "2")} [ &theta; + ${frac("1", "2")} sin 2&theta; ] + <em>C</em> = ${frac("9", "2")} &theta; + ${frac("9", "2")} sin &theta; cos &theta; + <em>C</em></span> (using <span class="math">sin 2&theta; = 2 sin &theta; cos &theta;</span>).`
+          },
+          {
+            titleHTML: `Step 5: Back-Substitute Using Reference Triangle (<span class="math" style="text-transform:none;">sin &theta; = ${frac("<em>x</em>", "3")}</span>)`,
+            html: `From the triangle: <span class="math">&theta; = sin<sup>&minus;1</sup>(${frac("<em>x</em>", "3")})</span>, <span class="math">sin &theta; = ${frac("<em>x</em>", "3")}</span>, <span class="math">cos &theta; = ${frac(sqrt("9 &minus; <em>x</em>&sup2;"), "3")}</span>:<br>
+                   <span class="math"><strong>${frac("9", "2")} sin<sup>&minus;1</sup>(${frac("<em>x</em>", "3")}) + ${frac("1", "2")}<em>x</em>${sqrt("9 &minus; <em>x</em>&sup2;")} + <em>C</em></strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong>${frac("9", "2")} sin<sup>&minus;1</sup>(${frac("<em>x</em>", "3")}) + ${frac("1", "2")}<em>x</em>${sqrt("9 &minus; <em>x</em>&sup2;")} + <em>C</em></strong></span>`,
+        hypCanvas: "3",
+        oppCanvas: "x",
+        adjCanvas: "√(9 − x²)",
+        triNote: `Since <span class="math">sin &theta; = ${frac("<em>x</em>", "3")} = ${frac("Opposite", "Hypotenuse")}</span>, Pythagoras gives <span class="math">Adjacent = ${sqrt("9 &minus; <em>x</em>&sup2;")}</span>, so <span class="math">cos &theta; = ${frac(sqrt("9 &minus; <em>x</em>&sup2;"), "3")}</span>.`
+      },
+
+      tan: {
+        pillHTML: `2. <span class="math">&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den">(<em>x</em>&sup2; + 4)<sup><span style="font-size:0.82em;">3/2</span></sup></span></span> d<em>x</em></span> &nbsp;(<span class="math"><em>x</em> = 2 tan &theta;</span>)`,
+        steps: [
+          {
+            titleHTML: `Step 1 &amp; 2: Differentiate <span class="math" style="text-transform:none;"><em>x</em> = 2 tan &theta;</span> and Simplify <span class="math" style="text-transform:none;">(<em>x</em>&sup2; + 4)<sup><span style="font-size:0.82em;">3/2</span></sup></span>`,
+            html: `&bull; <span class="math"><strong>d<em>x</em> = 2 sec&sup2; &theta; d&theta;</strong></span>.<br>
+                   &bull; <span class="math">(4 tan&sup2; &theta; + 4)<sup><span style="font-size:0.82em;">3/2</span></sup> = (4 sec&sup2; &theta;)<sup><span style="font-size:0.82em;">3/2</span></sup> = <strong>8 sec<sup>3</sup> &theta;</strong></span>.`
+          },
+          {
+            titleHTML: `Step 3: Substitute &amp; Simplify Pure <span class="math" style="text-transform:none;">&theta;</span>-Integral`,
+            html: `<span class="math">&int; <span class="frac"><span class="frac-num">2 sec&sup2; &theta;</span><span class="frac-den">8 sec<sup>3</sup> &theta;</span></span> d&theta; = ${frac("1", "4")} &int; <span class="frac"><span class="frac-num">1</span><span class="frac-den">sec &theta;</span></span> d&theta; = ${frac("1", "4")} &int; cos &theta; d&theta;</span>.`
+          },
+          {
+            titleHTML: `Step 4: Integrate with Respect to <span class="math" style="text-transform:none;">&theta;</span>`,
+            html: `<span class="math"><strong>${frac("1", "4")} sin &theta; + <em>C</em></strong></span>.`
+          },
+          {
+            titleHTML: `Step 5: Back-Substitute Using Reference Triangle (<span class="math" style="text-transform:none;">tan &theta; = ${frac("<em>x</em>", "2")}</span>)`,
+            html: `From the triangle, <span class="math">sin &theta; = ${frac("Opposite", "Hypotenuse")} = ${frac("<em>x</em>", sqrt("<em>x</em>&sup2; + 4"))}</span>:<br>
+                   <span class="math"><strong>${frac("<em>x</em>", `4${sqrt("<em>x</em>&sup2; + 4")}`)} + <em>C</em></strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong>${frac("<em>x</em>", `4${sqrt("<em>x</em>&sup2; + 4")}`)} + <em>C</em></strong></span>`,
+        hypCanvas: "√(x² + 4)",
+        oppCanvas: "x",
+        adjCanvas: "2",
+        triNote: `Since <span class="math">tan &theta; = ${frac("<em>x</em>", "2")} = ${frac("Opposite", "Adjacent")}</span>, Pythagoras gives <span class="math">Hypotenuse = ${sqrt("<em>x</em>&sup2; + 4")}</span>, so <span class="math">sin &theta; = ${frac("<em>x</em>", sqrt("<em>x</em>&sup2; + 4"))}</span>.`
+      },
+
+      sec: {
+        pillHTML: `3. <span class="math">&int; <span class="frac"><span class="frac-num">${sqrt("<em>x</em>&sup2; &minus; 16")}</span><span class="frac-den"><em>x</em></span></span> d<em>x</em></span> &nbsp;(<span class="math"><em>x</em> = 4 sec &theta;</span>)`,
+        steps: [
+          {
+            titleHTML: `Step 1 &amp; 2: Differentiate <span class="math" style="text-transform:none;"><em>x</em> = 4 sec &theta;</span> and Simplify <span class="math" style="text-transform:none;">${sqrt("<em>x</em>&sup2; &minus; 16")}</span>`,
+            html: `&bull; <span class="math"><strong>d<em>x</em> = 4 sec &theta; tan &theta; d&theta;</strong></span>.<br>
+                   &bull; <span class="math">${sqrt("16 sec&sup2; &theta; &minus; 16")} = ${sqrt("16 tan&sup2; &theta;")} = <strong>4 tan &theta;</strong></span> (for <span class="math"><em>x</em> &ge; 4</span>).`
+          },
+          {
+            titleHTML: `Step 3: Substitute into Integral &amp; Rewrite <span class="math" style="text-transform:none;">tan&sup2; &theta; = sec&sup2; &theta; &minus; 1</span>`,
+            html: `<span class="math">&int; <span class="frac"><span class="frac-num">(4 tan &theta;)(4 sec &theta; tan &theta;)</span><span class="frac-den">4 sec &theta;</span></span> d&theta; = 4 &int; tan&sup2; &theta; d&theta; = 4 &int; (sec&sup2; &theta; &minus; 1) d&theta;</span>.`
+          },
+          {
+            titleHTML: `Step 4: Integrate with Respect to <span class="math" style="text-transform:none;">&theta;</span>`,
+            html: `<span class="math"><strong>4 tan &theta; &minus; 4&theta; + <em>C</em></strong></span>.`
+          },
+          {
+            titleHTML: `Step 5: Back-Substitute Using Reference Triangle (<span class="math" style="text-transform:none;">sec &theta; = ${frac("<em>x</em>", "4")}</span>)`,
+            html: `From the triangle: <span class="math">tan &theta; = ${frac(sqrt("<em>x</em>&sup2; &minus; 16"), "4")}</span> and <span class="math">&theta; = cos<sup>&minus;1</sup>(${frac("4", "<em>x</em>")})</span>:<br>
+                   <span class="math"><strong>${sqrt("<em>x</em>&sup2; &minus; 16")} &minus; 4 cos<sup>&minus;1</sup>(${frac("4", "<em>x</em>")}) + <em>C</em></strong></span>.`
+          }
+        ],
+        finalHTML: `<span class="math"><strong>${sqrt("<em>x</em>&sup2; &minus; 16")} &minus; 4 cos<sup>&minus;1</sup>(${frac("4", "<em>x</em>")}) + <em>C</em></strong></span>`,
+        hypCanvas: "x",
+        oppCanvas: "√(x² − 16)",
+        adjCanvas: "4",
+        triNote: `Since <span class="math">sec &theta; = ${frac("<em>x</em>", "4")} &rArr; cos &theta; = ${frac("4", "<em>x</em>")} = ${frac("Adjacent", "Hypotenuse")}</span>, Pythagoras gives <span class="math">Opposite = ${sqrt("<em>x</em>&sup2; &minus; 16")}</span>.`
+      }
+    };
+
+    function renderTrigPills() {
+      document.getElementById("trigPillsContainer").innerHTML = Object.keys(TRIG_CASES).map(key => `
+        <button class="expr-pill ${key === currentTrig ? "active" : ""}" id="tr_${key}" onclick="selectTrig('${key}')">
+          ${TRIG_CASES[key].pillHTML}
+        </button>
+      `).join("");
+    }
+
+    function renderTrigTab() {
+      const item = TRIG_CASES[currentTrig];
+      document.getElementById("trigStepsContainer").innerHTML = item.steps.map((st, idx) => {
+        const unlocked = idx <= trigStep;
+        return `
+          <div class="step-box ${idx === trigStep ? "active-step" : ""} ${!unlocked ? "locked" : ""}">
+            <div class="kicker" style="margin-bottom:3px;">${st.titleHTML}</div>
+            <div style="font-size:0.85rem; line-height:1.7;">
+              ${unlocked ? st.html : "<em>Click 'Next Step (+1)' to reveal...</em>"}
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      document.getElementById("trigFinalBanner").innerHTML =
+        `<div class="kicker" style="margin-bottom:2px;">Final Integrated Result (in terms of <span class="math" style="text-transform:none;"><em>x</em></span>)</div>` + item.finalHTML;
+      document.getElementById("triangleExplainHTML").innerHTML = item.triNote;
+    }
+
+    /* Draw a true geometric radical symbol on HTML5 Canvas */
+    function drawCanvasRadicalLabel(ctx, prefix, radicand, x, y, align) {
+      ctx.save();
+      ctx.font = "bold 15px Cambria Math, Georgia, serif";
+      const prefixW = ctx.measureText(prefix).width;
+      const hookW = 11;
+      const radW = ctx.measureText(radicand).width + 4;
+      const totalW = prefixW + hookW + radW;
+
+      let startX = x;
+      if (align === "center") startX = x - totalW / 2;
+      else if (align === "right") startX = x - totalW;
+
+      ctx.textAlign = "left";
+      ctx.fillText(prefix, startX, y);
+
+      const rx = startX + prefixW;
+      ctx.strokeStyle = ctx.fillStyle;
+      ctx.lineWidth = 1.6;
+      ctx.beginPath();
+      ctx.moveTo(rx, y - 5);
+      ctx.lineTo(rx + 3, y - 5);
+      ctx.lineTo(rx + 6, y + 2);
+      ctx.lineTo(rx + hookW, y - 13);
+      ctx.lineTo(rx + hookW + radW, y - 13);
+      ctx.stroke();
+
+      ctx.fillText(radicand, rx + hookW + 2, y);
+      ctx.restore();
+    }
+
+    function drawReferenceTriangle() {
+      const item = TRIG_CASES[currentTrig];
+      const w = triCanvas.width;
+      const h = triCanvas.height;
+      triCtx.clearRect(0, 0, w, h);
+
+      const Ax = 135, Ay = 195;
+      const Bx = 375, By = 195;
+      const Cx = 375, Cy = 55;
+
+      triCtx.save();
+      triCtx.fillStyle = "rgba(139, 92, 246, 0.1)";
+      triCtx.beginPath();
+      triCtx.moveTo(Ax, Ay);
+      triCtx.lineTo(Bx, By);
+      triCtx.lineTo(Cx, Cy);
+      triCtx.closePath();
+      triCtx.fill();
+
+      triCtx.strokeStyle = "#1e293b";
+      triCtx.lineWidth = 2.4;
+      triCtx.stroke();
+
+      triCtx.strokeStyle = "#64748b";
+      triCtx.lineWidth = 1.6;
+      triCtx.strokeRect(Bx - 16, By - 16, 16, 16);
+
+      triCtx.strokeStyle = "#7c3aed";
+      triCtx.lineWidth = 2;
+      triCtx.beginPath();
+      triCtx.arc(Ax, Ay, 38, -Math.atan2(By - Cy, Bx - Ax), 0);
+      triCtx.stroke();
+
+      triCtx.fillStyle = "#7c3aed";
+      triCtx.font = "bold 16px Cambria Math, Georgia, serif";
+      triCtx.fillText("θ", Ax + 46, Ay - 8);
+
+      // Adjacent label
+      triCtx.fillStyle = "#0f766e";
+      triCtx.font = "bold 15px Cambria Math, Georgia, serif";
+      if (item.adjCanvas.startsWith("√")) {
+        drawCanvasRadicalLabel(triCtx, "Adj = ", "9 − x²", (Ax + Bx) / 2, Ay + 25, "center");
+      } else {
+        triCtx.textAlign = "center";
+        triCtx.fillText("Adj = " + item.adjCanvas, (Ax + Bx) / 2, Ay + 25);
+      }
+
+      // Opposite label
+      triCtx.fillStyle = "#0284c7";
+      if (item.oppCanvas.startsWith("√")) {
+        drawCanvasRadicalLabel(triCtx, "Opp = ", "x² − 16", Bx + 12, (By + Cy) / 2 + 5, "left");
+      } else {
+        triCtx.textAlign = "left";
+        triCtx.fillText("Opp = " + item.oppCanvas, Bx + 12, (By + Cy) / 2 + 5);
+      }
+
+      // Hypotenuse label
+      triCtx.fillStyle = "#7c3aed";
+      if (item.hypCanvas.startsWith("√")) {
+        drawCanvasRadicalLabel(triCtx, "Hyp = ", "x² + 4", (Ax + Cx) / 2 - 14, (Ay + Cy) / 2 - 6, "right");
+      } else {
+        triCtx.textAlign = "right";
+        triCtx.fillText("Hyp = " + item.hypCanvas, (Ax + Cx) / 2 - 14, (Ay + Cy) / 2 - 6);
+      }
+      triCtx.restore();
+    }
+
+    /* =========================================================
+       TAB 3: SUBSTITUTION PITFALL SPOTTER
+       ========================================================= */
+    const TRAP_CASES = [
+      {
+        scenarioHTML: `
+          <div class="kicker" style="color:var(--rose); margin-bottom:4px;">Student Working for <span class="math" style="text-transform:none;">&int; (3<em>x</em> + 1)<sup>5</sup> d<em>x</em></span> with <span class="math" style="text-transform:none;"><em>u</em> = 3<em>x</em> + 1</span>:</div>
+          <div class="math" style="font-size:1.05rem;">
+            &int; (3<em>x</em> + 1)<sup>5</sup> d<em>x</em> = &int; <em>u</em><sup>5</sup> d<em>u</em> = ${frac("1", "6")}<em>u</em><sup>6</sup> + <em>C</em> = ${frac("1", "6")}(3<em>x</em> + 1)<sup>6</sup> + <em>C</em>
+          </div>
+        `,
+        choices: [
+          {
+            html: `Error: Replaced <span class="math">d<em>x</em></span> directly with <span class="math">d<em>u</em></span> instead of <span class="math">d<em>x</em> = ${frac("1", "3")} d<em>u</em></span>!`,
+            correct: true,
+            explain: `<strong>Spot on!</strong> Since <span class="math"><span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = 3</span>, we must substitute <span class="math"><strong>d<em>x</em> = ${frac("1", "3")} d<em>u</em></strong></span>, giving <span class="math">${frac("1", "3")} &middot; ${frac("1", "6")}(3<em>x</em> + 1)<sup>6</sup> + <em>C</em> = <strong>${frac("1", "18")}(3<em>x</em> + 1)<sup>6</sup> + <em>C</em></strong></span>.`
+          },
+          {
+            html: `Error: Forgot to use integration by parts.`,
+            correct: false,
+            explain: `No — <span class="math"><em>u</em> = 3<em>x</em> + 1</span> works cleanly once <span class="math">d<em>x</em> = ${frac("1", "3")} d<em>u</em></span> is included.`
+          }
+        ]
+      },
+
+      {
+        scenarioHTML: `
+          <div class="kicker" style="color:var(--rose); margin-bottom:4px;">Student Working for <span class="math" style="text-transform:none;">&int; <em>x</em>${sqrt("<em>x</em> + 2")} d<em>x</em></span> with <span class="math" style="text-transform:none;"><em>u</em> = <em>x</em> + 2</span>:</div>
+          <div class="math" style="font-size:1.05rem;">
+            &int; <em>x</em>${sqrt("<em>x</em> + 2")} d<em>x</em> = &int; <em>x</em> <em>u</em><sup>&frac12;</sup> d<em>u</em> = <em>x</em> &middot; ${frac("2", "3")}<em>u</em><sup><span style="font-size:0.82em;">3/2</span></sup> + <em>C</em>
+          </div>
+        `,
+        choices: [
+          {
+            html: `Error: Left <span class="math"><em>x</em></span> inside a <span class="math">d<em>u</em></span>-integral and treated <span class="math"><em>x</em></span> as a constant!`,
+            correct: true,
+            explain: `<strong>Exactly right!</strong> Every <span class="math"><em>x</em></span> must be eliminated before integrating with respect to <span class="math"><em>u</em></span>. Replace <span class="math"><em>x</em> = <strong><em>u</em> &minus; 2</strong></span> so the integrand becomes <span class="math">&int; (<em>u</em> &minus; 2)<em>u</em><sup>&frac12;</sup> d<em>u</em> = &int; (<em>u</em><sup><span style="font-size:0.82em;">3/2</span></sup> &minus; 2<em>u</em><sup><span style="font-size:0.82em;">1/2</span></sup>) d<em>u</em></span>.`
+          },
+          {
+            html: `Error: Differentiated <span class="math">${sqrt("<em>u</em>")}</span> incorrectly.`,
+            correct: false,
+            explain: `The power rule on <span class="math"><em>u</em><sup>&frac12;</sup></span> was fine, but <span class="math"><em>x</em></span> is a variable and cannot be treated as a constant during <span class="math">&int; &middot; d<em>u</em></span>.`
+          }
+        ]
+      },
+
+      {
+        scenarioHTML: `
+          <div class="kicker" style="color:var(--rose); margin-bottom:4px;">Student Working for <span class="math" style="text-transform:none;">&int; 2<em>x</em> e<sup><em>x</em>&sup2; + 1</sup> d<em>x</em></span> with <span class="math" style="text-transform:none;"><em>u</em> = <em>x</em>&sup2; + 1</span>:</div>
+          <div class="math" style="font-size:1.05rem;">
+            &int; 2<em>x</em> e<sup><em>x</em>&sup2; + 1</sup> d<em>x</em> = &int; e<sup><em>u</em></sup> d<em>u</em> = e<sup><em>u</em></sup> + <em>C</em> &nbsp;(Stopped here!)
+          </div>
+        `,
+        choices: [
+          {
+            html: `Error: Left the final answer in terms of dummy variable <span class="math"><em>u</em></span> instead of <span class="math"><em>x</em></span>!`,
+            correct: true,
+            explain: `<strong>Spot on!</strong> Because the original indefinite integral was given in terms of <span class="math"><em>x</em></span>, you must complete Step 5 by back-substituting <span class="math"><em>u</em> = <em>x</em>&sup2; + 1</span> to write <strong><span class="math">e<sup><em>x</em>&sup2; + 1</sup> + <em>C</em></span></strong>.`
+          },
+          {
+            html: `Error: Needed to divide by <span class="math">2<em>x</em></span>.`,
+            correct: false,
+            explain: `No — <span class="math">2<em>x</em> d<em>x</em> = d<em>u</em></span> cancelled <span class="math">2<em>x</em></span> cleanly; the only missing step is converting <span class="math">e<sup><em>u</em></sup></span> back to <span class="math">e<sup><em>x</em>&sup2; + 1</sup></span>.`
+          }
+        ]
+      }
+    ];
+
+    function renderTrapTab() {
+      const t = TRAP_CASES[currentTrapIdx];
+      document.getElementById("trapScenarioHTML").innerHTML = t.scenarioHTML;
+      document.getElementById("trapChoicesContainer").innerHTML = t.choices.map((ch, idx) => {
+        let cls = "trap-choice";
+        if (idx === selectedTrapOption) cls += ch.correct ? " selected-ok" : " selected-err";
+        return `<button class="${cls}" onclick="pickTrapChoice(${idx})">${ch.html}</button>`;
+      }).join("");
+
+      document.getElementById("trapFeedbackBox").innerHTML = t.choices[selectedTrapOption].explain;
+    }
+
+    /* =========================================================
+       NAVIGATION & EVENTS
+       ========================================================= */
+    function switchMode(mode) {
+      activeMode = mode;
+      document.getElementById("tabAlgBtn").classList.toggle("active", mode === "alg");
+      document.getElementById("tabTrigBtn").classList.toggle("active", mode === "trig");
+      document.getElementById("tabTrapBtn").classList.toggle("active", mode === "trap");
+
+      document.getElementById("algPanel").classList.toggle("active", mode === "alg");
+      document.getElementById("trigPanel").classList.toggle("active", mode === "trig");
+      document.getElementById("trapPanel").classList.toggle("active", mode === "trap");
+
+      if (mode === "trig") drawReferenceTriangle();
+    }
+
+    function selectAlg(key) {
+      currentAlg = key;
+      renderAlgPills();
+      renderAlgTab();
+    }
+
+    function setAlgStep(s) { algStep = s; renderAlgTab(); }
+    function nextAlgStep() { if (algStep < 3) { algStep++; renderAlgTab(); } }
+
+    function selectTrig(key) {
+      currentTrig = key;
+      renderTrigPills();
+      renderTrigTab();
+      drawReferenceTriangle();
+    }
+
+    function setTrigStep(s) { trigStep = s; renderTrigTab(); }
+    function nextTrigStep() { if (trigStep < 3) { trigStep++; renderTrigTab(); } }
+
+    function selectTrap(idx) {
+      currentTrapIdx = idx;
+      selectedTrapOption = 0;
+      document.querySelectorAll("#trapPanel .expr-pill").forEach(el => el.classList.remove("active"));
+      document.getElementById("tp_" + (idx + 1)).classList.add("active");
+      renderTrapTab();
+    }
+
+    function pickTrapChoice(idx) {
+      selectedTrapOption = idx;
+      renderTrapTab();
+    }
+
+    renderAlgPills();
+    renderAlgTab();
+    renderTrigPills();
+    renderTrigTab();
+    drawReferenceTriangle();
+    renderTrapTab();
+  </script>
+</body>
+</html>
