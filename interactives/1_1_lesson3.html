@@ -43,12 +43,42 @@
       margin: 0 auto;
     }
 
+    /* MATH NOTATION STYLING */
+    .math {
+      font-family: 'Cambria Math', 'Times New Roman', Georgia, serif;
+      font-style: italic;
+    }
+
+    .math-upright {
+      font-family: 'Cambria Math', 'Times New Roman', Georgia, serif;
+      font-style: normal;
+    }
+
+    .sqrt {
+      display: inline-flex;
+      align-items: baseline;
+      white-space: nowrap;
+    }
+
+    .sqrt-sign {
+      font-family: 'Cambria Math', 'Times New Roman', Georgia, serif;
+      font-style: normal;
+      margin-right: 1px;
+    }
+
+    .radicand {
+      border-top: 1.25px solid currentColor;
+      padding: 0 2px;
+      display: inline-block;
+      line-height: 1.15;
+    }
+
     /* HOW-TO-USE GUIDE BANNER */
     .guide-banner {
       background: #ffffff;
       border: 1.5px solid #c4b5fd;
       border-radius: 14px;
-      padding: 12px 18px;
+      padding: 14px 18px;
       margin-bottom: 16px;
       box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
     }
@@ -95,9 +125,9 @@
     .guide-steps {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 10px;
-      padding-top: 10px;
+      gap: 14px;
+      margin-top: 12px;
+      padding-top: 12px;
       border-top: 1px dashed #e2e8f0;
     }
 
@@ -111,15 +141,17 @@
       background: #f8fafc;
       border: 1px solid #e2e8f0;
       border-radius: 10px;
-      padding: 9px 11px;
-      font-size: 0.78rem;
-      line-height: 1.45;
+      padding: 12px 14px;
+      font-size: 0.81rem;
+      line-height: 1.6;
     }
 
-    .guide-step-card strong {
+    .guide-step-heading {
       color: #1e293b;
+      font-weight: 800;
       display: block;
-      margin-bottom: 2px;
+      margin-bottom: 6px;
+      font-size: 0.83rem;
     }
 
     .app-container {
@@ -159,6 +191,7 @@
     .slider-header {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       font-size: 0.79rem;
       font-weight: 700;
       margin-bottom: 3px;
@@ -174,7 +207,7 @@
       border-radius: 12px;
       padding: 11px 13px;
       font-size: 0.81rem;
-      line-height: 1.5;
+      line-height: 1.6;
       margin-bottom: 11px;
     }
 
@@ -186,7 +219,7 @@
       color: #4c1d95;
       font-size: 0.83rem;
       font-weight: 700;
-      line-height: 1.45;
+      line-height: 1.6;
     }
 
     canvas {
@@ -206,7 +239,7 @@
       border-radius: 10px;
       padding: 11px 14px;
       font-size: 0.81rem;
-      line-height: 1.5;
+      line-height: 1.6;
       color: #78350f;
     }
   </style>
@@ -225,16 +258,16 @@
     </div>
     <div class="guide-steps" id="guideSteps">
       <div class="guide-step-card">
-        <strong>1. Adjust Domain D_f and Domain D_g</strong>
-        Move the sliders on the left to change the input interval <em>D_f = [a, b]</em> of <em>f(x) = x² − 1</em> and the permitted domain <em>D_g = [c, ∞)</em> of <em>g(x) = √(x − c)</em>.
+        <span class="guide-step-heading">1. Adjust Domain <span class="math">D<sub>f</sub></span> and Domain <span class="math">D<sub>g</sub></span></span>
+        Move the sliders on the left to change the input interval <span class="math">D<sub>f</sub> = [a, b]</span> of <span class="math">f(x) = x&sup2; &minus; 1</span> and the permitted domain <span class="math">D<sub>g</sub> = [c, &infin;)</span> of <span class="math">g(x) = <span class="sqrt"><span class="sqrt-sign">&radic;</span><span class="radicand">x &minus; c</span></span></span>.
       </div>
       <div class="guide-step-card">
-        <strong>2. Inspect the Two-Stage Pipeline (D_f &rarr; R_f &rarr; R_{gf})</strong>
-        Watch the middle number line on the canvas: if the purple bar <em>R_f</em> fits completely inside the blue bar <em>D_g</em> (<em>R_f &sube; D_g</em>), then <em>gf</em> exists!
+        <span class="guide-step-heading">2. Inspect the Pipeline (<span class="math">D<sub>f</sub> &rarr; R<sub>f</sub> &rarr; R<sub>gf</sub></span>)</span>
+        Watch the middle number line on the canvas: if the purple bar <span class="math">R<sub>f</sub></span> fits completely inside the blue bar <span class="math">D<sub>g</sub></span> (<span class="math">R<sub>f</sub> &sube; D<sub>g</sub></span>), then <span class="math">gf</span> exists!
       </div>
       <div class="guide-step-card">
-        <strong>3. Compare R_{gf} Against R_g</strong>
-        Notice on the right-hand number line how <em>R_{gf}</em> is computed by feeding only <em>R_f</em> (not all of <em>D_g</em>) into <em>g</em>.
+        <span class="guide-step-heading">3. Compare <span class="math">R<sub>gf</sub></span> Against <span class="math">R<sub>g</sub></span></span>
+        Notice on the right-hand number line how <span class="math">R<sub>gf</sub></span> is computed by feeding only <span class="math">R<sub>f</sub></span> (not all of <span class="math">D<sub>g</sub></span>) into <span class="math">g</span>.
       </div>
     </div>
   </div>
@@ -242,25 +275,25 @@
   <div class="app-container">
     <div class="card">
       <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
-        1.1 Lesson 3 &bull; Composite Functions gf(x) = g(f(x))
+        1.1 Lesson 3 &bull; Composite Functions <span class="math" style="text-transform:none;">gf(x) = g(f(x))</span>
       </div>
 
-      <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:10px; padding:9px 11px; font-size:0.8rem; margin-bottom:10px;">
-        <strong>Inner Function:</strong> <em>f(x) = x² − 1</em>, &nbsp;<em>x ∈ [a, b]</em><br>
-        <strong>Outer Function:</strong> <em>g(x) = √(x − c)</em>, &nbsp;<em>x ≥ c</em>
+      <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:10px; padding:10px 12px; font-size:0.82rem; line-height:1.65; margin-bottom:10px;">
+        <strong>Inner Function:</strong> <span class="math">f(x) = x&sup2; &minus; 1</span>, &nbsp;<span class="math">x &isin; [a, b]</span><br>
+        <strong>Outer Function:</strong> <span class="math">g(x) = <span class="sqrt"><span class="sqrt-sign">&radic;</span><span class="radicand">x &minus; c</span></span></span>, &nbsp;<span class="math">x &ge; c</span>
       </div>
 
       <div class="slider-grid">
         <div class="slider-group">
-          <div class="slider-header"><span>D_f Left (a)</span><span id="lbl_a" style="color:var(--purple-dark);">-1</span></div>
+          <div class="slider-header"><span><span class="math">D<sub>f</sub></span> Left (<span class="math">a</span>)</span><span id="lbl_a" style="color:var(--purple-dark);">&minus;1</span></div>
           <input type="range" min="-3" max="1" step="0.5" value="-1" oninput="a=parseFloat(this.value); draw();" />
         </div>
         <div class="slider-group">
-          <div class="slider-header"><span>D_f Right (b)</span><span id="lbl_b" style="color:var(--purple-dark);">3</span></div>
+          <div class="slider-header"><span><span class="math">D<sub>f</sub></span> Right (<span class="math">b</span>)</span><span id="lbl_b" style="color:var(--purple-dark);">3</span></div>
           <input type="range" min="1" max="4" step="0.5" value="3" oninput="b=parseFloat(this.value); draw();" />
         </div>
         <div class="slider-group" style="grid-column:span 2;">
-          <div class="slider-header"><span>D_g Lower Bound (c)</span><span id="lbl_c" style="color:var(--blue);">-2</span></div>
+          <div class="slider-header"><span><span class="math">D<sub>g</sub></span> Lower Bound (<span class="math">c</span>)</span><span id="lbl_c" style="color:var(--blue);">&minus;2</span></div>
           <input type="range" min="-3" max="3" step="0.5" value="-2" oninput="c=parseFloat(this.value); draw();" />
         </div>
       </div>
@@ -271,7 +304,7 @@
 
     <div class="card">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
-        <strong style="font-size:1.04rem; color:#1e293b;">Two-Stage Composite Mapping Pipeline: D_f &rarr; R_f &sube; D_g &rarr; R_{gf}</strong>
+        <strong style="font-size:1.04rem; color:#1e293b;">Two-Stage Composite Mapping Pipeline: <span class="math">D<sub>f</sub> &rarr; R<sub>f</sub> &sube; D<sub>g</sub> &rarr; R<sub>gf</sub></span></strong>
       </div>
 
       <canvas id="compCanvas" width="880" height="465"></canvas>
@@ -279,8 +312,8 @@
       <div class="misconception-box">
         <strong>9758 Misconception Alert (Composite Functions):</strong>
         <ul style="margin:4px 0 0 0; padding-left:18px;">
-          <li><strong>Existence condition <em>R_f &sube; D_g</em>:</strong> Always state both sets explicitly (e.g., <em>R_f = [−1, 8] &sube; [−2, ∞) = D_g</em>) when justifying why <em>gf</em> exists.</li>
-          <li><strong>Range of <em>gf</em> is NOT <em>R_g</em>:</strong> To find <em>R_{gf}</em>, restrict the input of <em>g</em> to <strong>R_f</strong> (not all of <em>D_g</em>).</li>
+          <li><strong>Existence condition <span class="math">R<sub>f</sub> &sube; D<sub>g</sub></span>:</strong> Always state both sets explicitly (e.g., <span class="math">R<sub>f</sub> = [&minus;1, 8] &sube; [&minus;2, &infin;) = D<sub>g</sub></span>) when justifying why <span class="math">gf</span> exists.</li>
+          <li><strong>Range of <span class="math">gf</span> is NOT <span class="math">R<sub>g</sub></span>:</strong> To find <span class="math">R<sub>gf</sub></span>, restrict the input of <span class="math">g</span> to <strong><span class="math">R<sub>f</sub></span></strong> (not all of <span class="math">D<sub>g</sub></span>).</li>
         </ul>
       </div>
     </div>
@@ -298,13 +331,24 @@
   let a = -1, b = 3, c = -2;
 
   function fmt(n) {
-    return Number.isInteger(n) ? n.toString() : n.toFixed(2).replace(/\.?0+$/, "");
+    if (!isFinite(n)) return n < 0 ? "&minus;&infin;" : "&infin;";
+    const s = Number.isInteger(n) ? n.toString() : n.toFixed(2).replace(/\.?0+$/, "");
+    return s.startsWith("-") ? `&minus;${s.slice(1)}` : s;
+  }
+
+  function fmtCanvas(n) {
+    const s = Number.isInteger(n) ? n.toString() : n.toFixed(2).replace(/\.?0+$/, "");
+    return s.startsWith("-") ? `−${s.slice(1)}` : s;
+  }
+
+  function sqrtHTML(expr) {
+    return `<span class="sqrt"><span class="sqrt-sign">&radic;</span><span class="radicand">${expr}</span></span>`;
   }
 
   function draw() {
-    document.getElementById("lbl_a").textContent = fmt(a);
-    document.getElementById("lbl_b").textContent = fmt(b);
-    document.getElementById("lbl_c").textContent = fmt(c);
+    document.getElementById("lbl_a").innerHTML = `<span class="math">${fmt(a)}</span>`;
+    document.getElementById("lbl_b").innerHTML = `<span class="math">${fmt(b)}</span>`;
+    document.getElementById("lbl_c").innerHTML = `<span class="math">${fmt(c)}</span>`;
 
     // f(x) = x^2 - 1 on [a, b]
     const rfMin = (a <= 0 && b >= 0) ? -1 : Math.min(a * a - 1, b * b - 1);
@@ -317,17 +361,22 @@
     if (exists) {
       const rgfMin = Math.sqrt(rfMin - c);
       const rgfMax = Math.sqrt(rfMax - c);
+      const shift = 1 + c;
+      const radicandExpr = Math.abs(shift) < 1e-9
+        ? "x&sup2;"
+        : (shift > 0 ? `x&sup2; &minus; ${fmt(shift)}` : `x&sup2; + ${fmt(Math.abs(shift))}`);
+
       existBox.style.background = "#ccfbf1";
       existBox.style.border = "1.5px solid #5eead4";
       existBox.style.color = "#134e4a";
       existBox.innerHTML = `
         <strong>Existence Check (PASS):</strong><br>
-        &bull; <em>R_f = [${fmt(rfMin)}, ${fmt(rfMax)}]</em> and <em>D_g = [${fmt(c)}, ∞)</em>.<br>
-        &bull; Since <strong>R_f &sube; D_g</strong>, the composite function <strong>gf exists</strong>!
+        &bull; <span class="math">R<sub>f</sub> = [${fmt(rfMin)}, ${fmt(rfMax)}]</span> and <span class="math">D<sub>g</sub> = [${fmt(c)}, &infin;)</span>.<br>
+        &bull; Since <strong><span class="math">R<sub>f</sub> &sube; D<sub>g</sub></span></strong>, the composite function <strong><span class="math">gf</span> exists</strong>!
       `;
       compBanner.innerHTML = `
-        Rule: <strong>gf(x) = &radic;(x&sup2; − ${1 + c >= 0 ? 1 + c : "(" + (1 + c) + ")"})</strong>, &nbsp;<em>D_{gf} = [${fmt(a)}, ${fmt(b)}]</em><br>
-        Exact Range: <strong>R_{gf} = [${fmt(rgfMin)}, ${fmt(rgfMax)}]</strong>
+        Rule: <strong><span class="math">gf(x) = ${sqrtHTML(radicandExpr)}</span></strong>, &nbsp;<span class="math">D<sub>gf</sub> = [${fmt(a)}, ${fmt(b)}]</span><br>
+        Exact Range: <strong><span class="math">R<sub>gf</sub> = [${fmt(rgfMin)}, ${fmt(rgfMax)}]</span></strong>
       `;
     } else {
       existBox.style.background = "#ffe4e6";
@@ -335,10 +384,10 @@
       existBox.style.color = "#881337";
       existBox.innerHTML = `
         <strong>Existence Check (FAIL):</strong><br>
-        &bull; <em>R_f = [${fmt(rfMin)}, ${fmt(rfMax)}]</em> and <em>D_g = [${fmt(c)}, ∞)</em>.<br>
-        &bull; Since <em>${fmt(rfMin)} &lt; ${fmt(c)}</em>, <strong>R_f &nsub; D_g</strong> &rArr; <strong>gf does NOT exist</strong>!
+        &bull; <span class="math">R<sub>f</sub> = [${fmt(rfMin)}, ${fmt(rfMax)}]</span> and <span class="math">D<sub>g</sub> = [${fmt(c)}, &infin;)</span>.<br>
+        &bull; Since <span class="math">${fmt(rfMin)} &lt; ${fmt(c)}</span>, <strong><span class="math">R<sub>f</sub> &nsub; D<sub>g</sub></span></strong> &rArr; <strong><span class="math">gf</span> does NOT exist</strong>!
       `;
-      compBanner.innerHTML = `To make <em>gf</em> exist, restrict <em>D_f</em> so that <em>x&sup2; − 1 &ge; ${fmt(c)}</em> (or lower <em>c</em> to &le; ${fmt(rfMin)}).`;
+      compBanner.innerHTML = `To make <span class="math">gf</span> exist, restrict <span class="math">D<sub>f</sub></span> so that <span class="math">x&sup2; &minus; 1 &ge; ${fmt(c)}</span> (or lower <span class="math">c</span> to <span class="math">&le; ${fmt(rfMin)}</span>).`;
     }
 
     const canvas = document.getElementById("compCanvas");
@@ -347,13 +396,14 @@
     ctx.clearRect(0, 0, W, H);
 
     const colX = [150, 440, 730];
-    const titles = ["Stage 1: D_f (Inputs x)", "Stage 2: R_f vs D_g", "Stage 3: R_{gf} (Outputs)"];
+    const titles = [
+      { prefix: "Stage 1: ", math: "D", sub: "f", suffix: " (Inputs x)" },
+      { prefix: "Stage 2: ", math: "R", sub: "f", mid: " vs ", math2: "D", sub2: "g", suffix: "" },
+      { prefix: "Stage 3: ", math: "R", sub: "gf", suffix: " (Outputs)" }
+    ];
 
     colX.forEach((cx, idx) => {
-      ctx.fillStyle = "#1e293b";
-      ctx.font = "bold 13px Segoe UI, sans-serif";
-      ctx.textAlign = "center";
-      ctx.fillText(titles[idx], cx, 32);
+      drawStageHeader(ctx, cx, 32, titles[idx]);
 
       // Vertical number line from -4 to 16
       ctx.strokeStyle = "#94a3b8";
@@ -364,42 +414,102 @@
       ctx.stroke();
 
       ctx.fillStyle = "#64748b";
-      ctx.font = "11px Segoe UI, sans-serif";
+      ctx.font = "11px 'Cambria Math', Georgia, serif";
+      ctx.textAlign = "right";
       for (let v = -4; v <= 16; v += 2) {
         const py = 415 - ((v + 4) / 20) * 350;
         ctx.beginPath(); ctx.moveTo(cx - 5, py); ctx.lineTo(cx + 5, py); ctx.stroke();
-        ctx.fillText(v, cx - 22, py + 4);
+        ctx.fillText(fmtCanvas(v), cx - 10, py + 4);
       }
     });
 
     const toY = v => 415 - ((Math.max(-4, Math.min(16, v)) + 4) / 20) * 350;
 
     // Bar 1: D_f = [a, b]
-    drawIntervalBar(ctx, colX[0], toY(a), toY(b), "#8b5cf6", `D_f = [${fmt(a)}, ${fmt(b)}]`);
+    drawIntervalBar(ctx, colX[0], toY(a), toY(b), "#8b5cf6", "D", "f", ` = [${fmtCanvas(a)}, ${fmtCanvas(b)}]`);
 
     // Bar 2: D_g = [c, 16] (offset right) and R_f = [rfMin, rfMax] (offset left)
-    drawIntervalBar(ctx, colX[1] + 14, toY(c), toY(16), "#0284c7", `D_g = [${fmt(c)}, ∞)`);
-    drawIntervalBar(ctx, colX[1] - 14, toY(rfMin), toY(rfMax), exists ? "#8b5cf6" : "#e11d48", `R_f = [${fmt(rfMin)}, ${fmt(rfMax)}]`);
+    drawIntervalBar(ctx, colX[1] + 22, toY(c), toY(16), "#0284c7", "D", "g", ` = [${fmtCanvas(c)}, ∞)`, 442);
+    drawIntervalBar(ctx, colX[1] - 22, toY(rfMin), toY(rfMax), exists ? "#8b5cf6" : "#e11d48", "R", "f", ` = [${fmtCanvas(rfMin)}, ${fmtCanvas(rfMax)}]`, 424);
 
     // Arrows Stage 1 -> Stage 2
-    drawArrow(ctx, colX[0] + 15, (toY(a) + toY(b)) / 2, colX[1] - 28, (toY(rfMin) + toY(rfMax)) / 2, "#8b5cf6", "apply f");
+    drawArrow(ctx, colX[0] + 15, (toY(a) + toY(b)) / 2, colX[1] - 34, (toY(rfMin) + toY(rfMax)) / 2, "#8b5cf6", "apply ", "f");
 
     // Bar 3: R_{gf} if valid
     if (exists) {
       const rgfMin = Math.sqrt(rfMin - c);
       const rgfMax = Math.sqrt(rfMax - c);
-      drawIntervalBar(ctx, colX[2], toY(rgfMin), toY(rgfMax), "#0f766e", `R_{gf} = [${fmt(rgfMin)}, ${fmt(rgfMax)}]`);
-      drawArrow(ctx, colX[1] + 28, (toY(rfMin) + toY(rfMax)) / 2, colX[2] - 15, (toY(rgfMin) + toY(rgfMax)) / 2, "#0f766e", "apply g");
+      drawIntervalBar(ctx, colX[2], toY(rgfMin), toY(rgfMax), "#0f766e", "R", "gf", ` = [${fmtCanvas(rgfMin)}, ${fmtCanvas(rgfMax)}]`);
+      drawArrow(ctx, colX[1] + 34, (toY(rfMin) + toY(rfMax)) / 2, colX[2] - 15, (toY(rgfMin) + toY(rgfMax)) / 2, "#0f766e", "apply ", "g");
     } else {
       ctx.fillStyle = "#e11d48";
       ctx.font = "bold 13px Segoe UI, sans-serif";
       ctx.textAlign = "center";
-      ctx.fillText("Blocked: R_f spills outside D_g!", colX[2], 235);
+      ctx.fillText("Blocked: Range spills outside domain!", colX[2], 235);
     }
     ctx.textAlign = "left";
   }
 
-  function drawIntervalBar(ctx, x, y1, y2, color, label) {
+  function drawStageHeader(ctx, cx, y, t) {
+    ctx.fillStyle = "#1e293b";
+    ctx.textAlign = "left";
+    const mainFont = "bold 13px Segoe UI, sans-serif";
+    const mathFont = "italic bold 14px 'Cambria Math', Georgia, serif";
+    const subFont = "italic bold 10.5px 'Cambria Math', Georgia, serif";
+
+    ctx.font = mainFont;
+    let totalW = ctx.measureText(t.prefix).width;
+    ctx.font = mathFont;
+    totalW += ctx.measureText(t.math).width;
+    ctx.font = subFont;
+    totalW += ctx.measureText(t.sub).width;
+    if (t.mid) {
+      ctx.font = mainFont;
+      totalW += ctx.measureText(t.mid).width;
+      ctx.font = mathFont;
+      totalW += ctx.measureText(t.math2).width;
+      ctx.font = subFont;
+      totalW += ctx.measureText(t.sub2).width;
+    }
+    if (t.suffix) {
+      ctx.font = mainFont;
+      totalW += ctx.measureText(t.suffix).width;
+    }
+
+    let curX = cx - totalW / 2;
+    ctx.font = mainFont;
+    ctx.fillText(t.prefix, curX, y);
+    curX += ctx.measureText(t.prefix).width;
+
+    ctx.font = mathFont;
+    ctx.fillText(t.math, curX, y);
+    curX += ctx.measureText(t.math).width;
+
+    ctx.font = subFont;
+    ctx.fillText(t.sub, curX, y + 3);
+    curX += ctx.measureText(t.sub).width;
+
+    if (t.mid) {
+      ctx.font = mainFont;
+      ctx.fillText(t.mid, curX, y);
+      curX += ctx.measureText(t.mid).width;
+
+      ctx.font = mathFont;
+      ctx.fillText(t.math2, curX, y);
+      curX += ctx.measureText(t.math2).width;
+
+      ctx.font = subFont;
+      ctx.fillText(t.sub2, curX, y + 3);
+      curX += ctx.measureText(t.sub2).width;
+    }
+
+    if (t.suffix) {
+      ctx.font = mainFont;
+      ctx.fillText(t.suffix, curX, y);
+    }
+  }
+
+  function drawIntervalBar(ctx, x, y1, y2, color, sym, sub, rest, labelY = 442) {
     ctx.strokeStyle = color;
     ctx.lineWidth = 8;
     ctx.beginPath();
@@ -414,13 +524,34 @@
       ctx.fill();
     });
 
+    // Draw formatted math label with subscript
     ctx.fillStyle = color;
-    ctx.font = "bold 11.5px Segoe UI, sans-serif";
-    ctx.textAlign = "center";
-    ctx.fillText(label, x, 442);
+    ctx.textAlign = "left";
+    const symFont = "italic bold 13px 'Cambria Math', Georgia, serif";
+    const subFont = "italic bold 10px 'Cambria Math', Georgia, serif";
+    const restFont = "12.5px 'Cambria Math', Georgia, serif";
+
+    ctx.font = symFont;
+    const wSym = ctx.measureText(sym).width;
+    ctx.font = subFont;
+    const wSub = ctx.measureText(sub).width;
+    ctx.font = restFont;
+    const wRest = ctx.measureText(rest).width;
+
+    let curX = x - (wSym + wSub + wRest) / 2;
+    ctx.font = symFont;
+    ctx.fillText(sym, curX, labelY);
+    curX += wSym;
+
+    ctx.font = subFont;
+    ctx.fillText(sub, curX, labelY + 3);
+    curX += wSub;
+
+    ctx.font = restFont;
+    ctx.fillText(rest, curX, labelY);
   }
 
-  function drawArrow(ctx, x1, y1, x2, y2, color, lbl) {
+  function drawArrow(ctx, x1, y1, x2, y2, color, prefix, fnSym) {
     ctx.strokeStyle = color;
     ctx.lineWidth = 2;
     ctx.beginPath();
@@ -428,10 +559,31 @@
     ctx.lineTo(x2, y2);
     ctx.stroke();
 
+    // Arrowhead
+    const angle = Math.atan2(y2 - y1, x2 - x1);
+    const headLen = 7;
     ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.moveTo(x2, y2);
+    ctx.lineTo(x2 - headLen * Math.cos(angle - Math.PI / 6), y2 - headLen * Math.sin(angle - Math.PI / 6));
+    ctx.lineTo(x2 - headLen * Math.cos(angle + Math.PI / 6), y2 - headLen * Math.sin(angle + Math.PI / 6));
+    ctx.closePath();
+    ctx.fill();
+
+    const midX = (x1 + x2) / 2;
+    const midY = (y1 + y2) / 2 - 8;
+    ctx.textAlign = "left";
     ctx.font = "bold 11.5px Segoe UI, sans-serif";
-    ctx.textAlign = "center";
-    ctx.fillText(lbl, (x1 + x2) / 2, (y1 + y2) / 2 - 8);
+    const w1 = ctx.measureText(prefix).width;
+    ctx.font = "italic bold 13px 'Cambria Math', Georgia, serif";
+    const w2 = ctx.measureText(fnSym).width;
+
+    let curX = midX - (w1 + w2) / 2;
+    ctx.font = "bold 11.5px Segoe UI, sans-serif";
+    ctx.fillText(prefix, curX, midY);
+    curX += w1;
+    ctx.font = "italic bold 13px 'Cambria Math', Georgia, serif";
+    ctx.fillText(fnSym, curX, midY);
   }
 
   draw();
