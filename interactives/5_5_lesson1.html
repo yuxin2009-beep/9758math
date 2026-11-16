@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>9758 H2 Math | 5.5 Lesson 1: Visualising Differential Equations — General &amp; Particular Solutions</title>
+  <title>9758 H2 Math | 5.5 Lesson 1: Differential Equations — General &amp; Particular Solutions</title>
   <style>
     :root {
       --bg: #fdfbf7;
@@ -44,6 +44,31 @@
     .wrapper {
       max-width: 1420px;
       margin: 0 auto;
+    }
+
+    /* CLEAN HTML FRACTIONS & MATH TYPOGRAPHY */
+    .math {
+      font-family: 'Cambria Math', 'Times New Roman', Georgia, serif;
+      font-size: 1.04em;
+    }
+
+    .frac {
+      display: inline-flex;
+      flex-direction: column;
+      vertical-align: middle;
+      text-align: center;
+      font-size: 0.88em;
+      line-height: 1.1;
+      margin: 0 2px;
+    }
+
+    .frac-num {
+      border-bottom: 1.3px solid currentColor;
+      padding: 0 3px 1px;
+    }
+
+    .frac-den {
+      padding: 1px 3px 0;
     }
 
     /* HOW-TO-USE GUIDE BANNER */
@@ -116,7 +141,7 @@
       border-radius: 10px;
       padding: 9px 11px;
       font-size: 0.78rem;
-      line-height: 1.45;
+      line-height: 1.48;
     }
 
     .guide-step-card strong {
@@ -127,7 +152,7 @@
 
     .app-container {
       display: grid;
-      grid-template-columns: 500px 1fr;
+      grid-template-columns: 515px 1fr;
       gap: 20px;
     }
 
@@ -145,11 +170,48 @@
       box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
     }
 
+    /* CONCEPT FOUNDATION CARD */
+    .concept-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .concept-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .concept-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-left: 3.5px solid var(--purple);
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.48;
+    }
+
+    .concept-box.teal-accent {
+      border-left-color: var(--teal);
+    }
+
+    .concept-box strong.heading {
+      display: block;
+      font-size: 0.73rem;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: #1e293b;
+      margin-bottom: 3px;
+    }
+
     .preset-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 7px;
-      margin-bottom: 12px;
+      margin-bottom: 11px;
     }
 
     .tab-btn {
@@ -163,7 +225,7 @@
       cursor: pointer;
       transition: 0.15s;
       text-align: center;
-      line-height: 1.35;
+      line-height: 1.45;
     }
 
     .tab-btn.active {
@@ -178,7 +240,7 @@
       border-radius: 11px;
       padding: 10px 12px;
       font-size: 0.8rem;
-      line-height: 1.48;
+      line-height: 1.52;
       margin-bottom: 11px;
     }
 
@@ -187,7 +249,7 @@
       background: var(--purple-bg);
       color: var(--purple-dark);
       font-weight: 700;
-      font-size: 0.75rem;
+      font-size: 0.76rem;
       padding: 3px 9px;
       border-radius: 6px;
       margin-top: 6px;
@@ -288,7 +350,7 @@
       padding: 11px 13px;
       color: #134e4a;
       font-size: 0.8rem;
-      line-height: 1.5;
+      line-height: 1.55;
       margin-bottom: 11px;
     }
 
@@ -306,13 +368,11 @@
       background: #f8fafc;
       border: 1.5px solid #64748b;
       border-radius: 8px;
-      padding: 8px 11px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-      font-size: 0.8rem;
-      font-weight: 700;
+      padding: 9px 12px;
+      font-size: 0.82rem;
       color: #0f172a;
       margin-top: 5px;
-      line-height: 1.5;
+      line-height: 1.65;
     }
 
     .solution-banner {
@@ -322,8 +382,7 @@
       padding: 10px 13px;
       color: #4c1d95;
       font-size: 0.8rem;
-      font-weight: 700;
-      line-height: 1.48;
+      line-height: 1.5;
     }
 
     /* CANVAS STAGE */
@@ -377,11 +436,11 @@
       position: absolute;
       top: 10px;
       left: 10px;
-      background: rgba(255, 255, 255, 0.92);
+      background: rgba(255, 255, 255, 0.94);
       border: 1px solid #cbd5e1;
       border-radius: 8px;
-      padding: 5px 9px;
-      font-size: 0.74rem;
+      padding: 5px 10px;
+      font-size: 0.75rem;
       font-weight: 700;
       color: #1e293b;
       pointer-events: none;
@@ -391,7 +450,7 @@
     .check-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.77rem;
+      font-size: 0.78rem;
       margin-top: 10px;
       background: #ffffff;
       border-radius: 10px;
@@ -418,7 +477,7 @@
       border-radius: 10px;
       padding: 9px 12px;
       font-size: 0.78rem;
-      line-height: 1.46;
+      line-height: 1.5;
       color: #78350f;
     }
 
@@ -454,6 +513,7 @@
       color: var(--text);
       cursor: pointer;
       transition: 0.15s;
+      line-height: 1.4;
     }
 
     .mcq-btn:hover {
@@ -476,7 +536,7 @@
     .grader-feedback {
       margin-top: 7px;
       font-size: 0.77rem;
-      line-height: 1.44;
+      line-height: 1.48;
       padding: 7px 10px;
       border-radius: 8px;
       display: none;
@@ -491,40 +551,54 @@
     <div class="guide-header" onclick="toggleGuide()">
       <div class="guide-title">
         <span class="guide-pill">User Guide</span>
-        <span>How to Use This Interactive Slope Field &amp; Particle Lab (20 Mins)</span>
+        <span>How to Use This Interactive Differential Equations Lab (20 Mins)</span>
       </div>
       <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
     </div>
     <div class="guide-steps" id="guideSteps">
       <div class="guide-step-card">
-        <strong>1. Switch Between the Two Differential Equations</strong>
-        Compare <em>dy/dx = 2x</em> (purely <em>x</em>-dependent, vertical shifts <em>y = x² + C</em>) against <em>dy/dx = 0.5y</em> (purely <em>y</em>-dependent, vertical scalings <em>y = Ae<sup>0.5x</sup></em>).
+        <strong>1. Compare Two First-Order Differential Equations</strong>
+        Switch between <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = 2<em>x</em></span> (vertical translations <em>y</em> = <em>x</em><sup>2</sup> + <em>C</em>) and <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = 0.5<em>y</em></span> (vertical scalings <em>y</em> = <em>A</em>e<sup>0.5<em>x</em></sup>).
       </div>
       <div class="guide-step-card">
-        <strong>2. Click on the Canvas to Drop Particles</strong>
-        Click anywhere on the slope field to place an initial condition <em>(x₀, y₀)</em>. Watch particles flow along tangent segments and trace unique particular solution curves.
+        <strong>2. Click on the Grid to Drop Particles</strong>
+        Click anywhere on the coordinate plane to specify an initial point (<em>x</em><sub>0</sub>, <em>y</em><sub>0</sub>) and watch particles trace the unique particular solution curve matching the tangent segments.
       </div>
       <div class="guide-step-card">
-        <strong>3. Probe the y = 0 Equilibrium Barrier</strong>
-        In <em>dy/dx = 0.5y</em>, drop particles above (<em>y₀ &gt; 0</em>), on (<em>y₀ = 0</em>), and below (<em>y₀ &lt; 0</em>) the <em>x</em>-axis to see why solution curves never cross <em>y = 0</em> when <em>A</em> changes sign.
+        <strong>3. Compare Positive, Zero &amp; Negative Constants</strong>
+        Use the slider or click <em>Seed C / A Comparison</em> to observe how changing <em>C</em> shifts curves vertically, whereas changing the sign of <em>A</em> reflects curves across <em>y</em> = 0.
       </div>
     </div>
   </div>
 
   <div class="app-container">
-    <!-- LEFT CONTROL & ALGEBRA PANEL -->
+    <!-- LEFT CONCEPT, CONTROL & ALGEBRA PANEL -->
     <div class="card">
       <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
         5.5 Lesson 1 &bull; Visualising Differential Equations
       </div>
 
+      <!-- CORE DEFINITIONS: WHAT IS A DE & WHAT IT MEANS TO SOLVE IT -->
+      <div class="concept-grid">
+        <div class="concept-box">
+          <strong class="heading">What is a Differential Equation?</strong>
+          An equation relating an independent variable (<em>x</em>), an unknown function (<em>y</em>), and one or more of its derivatives (such as <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span></span>). Geometrically, it prescribes the tangent gradient at every point (<em>x</em>, <em>y</em>).
+        </div>
+        <div class="concept-box teal-accent">
+          <strong class="heading">What Does It Mean to Solve One?</strong>
+          Finding a relationship between <em>y</em> and <em>x</em> (free of derivatives) that satisfies the equation identically. Integrating introduces an arbitrary constant giving a <strong>general solution</strong> (family of curves); substituting an initial condition (<em>x</em><sub>0</sub>, <em>y</em><sub>0</sub>) yields one <strong>particular solution</strong>.
+        </div>
+      </div>
+
       <!-- Model Selector Tabs -->
       <div class="preset-grid">
         <button class="tab-btn active" id="mode_shift" onclick="setMode('shift')">
-          1. dy/dx = 2x<br><span style="font-size:0.71rem; font-weight:600;">Vertical Translations: y = x² + C</span>
+          1. <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = 2<em>x</em></span><br>
+          <span style="font-size:0.72rem; font-weight:600;">Vertical Translations: <em>y</em> = <em>x</em><sup>2</sup> + <em>C</em></span>
         </button>
         <button class="tab-btn" id="mode_scale" onclick="setMode('scale')">
-          2. dy/dx = 0.5y<br><span style="font-size:0.71rem; font-weight:600;">Vertical Scalings: y = A e<sup>0.5x</sup></span>
+          2. <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = 0.5<em>y</em></span><br>
+          <span style="font-size:0.72rem; font-weight:600;">Vertical Scalings: <em>y</em> = <em>A</em>e<sup>0.5<em>x</em></sup></span>
         </button>
       </div>
 
@@ -535,19 +609,19 @@
       <div class="control-panel">
         <div class="panel-header">
           <span>Active Particular Solution Controls</span>
-          <span id="activeIcBadge" style="color:var(--purple-dark);">IC: (1.0, 2.0)</span>
+          <span id="activeIcBadge" style="color:var(--purple-dark);">Initial Condition: (1.0, 2.0)</span>
         </div>
 
         <div class="slider-row">
-          <span id="constLabel">Constant C:</span>
-          <input type="range" id="constSlider" min="-4" max="4" step="0.25" value="1" oninput="updateConstantFromSlider(this.value)" />
+          <span id="constLabel">Constant <em>C</em>:</span>
+          <input type="range" id="constSlider" min="-4" max="3.5" step="0.25" value="1" oninput="updateConstantFromSlider(this.value)" />
           <span class="val-badge" id="constValDisplay">1.00</span>
         </div>
 
         <div class="action-bar">
-          <button class="action-btn" id="familyBtn" onclick="toggleFamily()">Show Family of Curves: ON</button>
+          <button class="action-btn active-toggle" id="familyBtn" onclick="toggleFamily()">Show Family of Curves: ON</button>
           <button class="action-btn secondary" id="particleAnimBtn" onclick="toggleParticles()">Pause Particle Flow</button>
-          <button class="action-btn ghost" onclick="seedSignComparison()">Seed y₀ &gt; 0, = 0, &lt; 0</button>
+          <button class="action-btn ghost" id="seedBtn" onclick="seedSignComparison()">Seed C &gt; 0, = 0, &lt; 0</button>
           <button class="action-btn ghost" onclick="clearParticles()">Clear Dropped Particles</button>
         </div>
       </div>
@@ -555,18 +629,18 @@
       <!-- Step-by-Step Integration & Constant Transformation -->
       <div class="algebra-box" id="algebraBox"></div>
 
-      <!-- Equilibrium Barrier & Transformation Insight Banner -->
+      <!-- Transformation Insight Banner -->
       <div class="solution-banner" id="insightBanner"></div>
     </div>
 
-    <!-- RIGHT SLOPE FIELD CANVAS, PARTICLE TABLE & EXAM CHECK -->
+    <!-- RIGHT DIRECTION FIELD CANVAS, PARTICLE TABLE & EXAM CHECK -->
     <div class="card">
       <div class="canvas-header">
         <div style="font-size:1.02rem; font-weight:800; color:#1e293b;" id="canvasTitle">
-          Slope Field &amp; Particle Flow: dy/dx = 2x
+          Tangent Direction Field &amp; Solution Curves: <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = 2<em>x</em></span>
         </div>
         <div class="legend-row">
-          <div class="legend-item"><span class="swatch" style="background:#94a3b8;"></span>Tangent Field</div>
+          <div class="legend-item"><span class="swatch" style="background:#94a3b8;"></span>Tangent Segments</div>
           <div class="legend-item"><span class="swatch" style="background:#cbd5e1; border:1px dashed #64748b;"></span>General Family</div>
           <div class="legend-item"><span class="swatch" style="background:#7c3aed;"></span>Selected Curve</div>
           <div class="legend-item"><span class="swatch" style="background:#e11d48; border-radius:50%;"></span>Dropped Particles</div>
@@ -574,9 +648,9 @@
       </div>
 
       <div class="canvas-wrap">
-        <canvas id="slopeCanvas" width="760" height="360"></canvas>
+        <canvas id="directionCanvas" width="760" height="360"></canvas>
         <div class="canvas-overlay-badge" id="hoverReadout">
-          Hover or click canvas to drop a particle &bull; (x, y) = (0.00, 0.00), dy/dx = 0.00
+          Hover or click grid to drop a particle &bull; (<em>x</em>, <em>y</em>) = (0.00, 0.00), <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span></span> = 0.00
         </div>
       </div>
 
@@ -592,7 +666,7 @@
           <strong style="font-size:0.81rem; color:#1e293b;">9758 Concept Check: General vs Particular Solutions (<span id="qIdxLbl">1</span>/3)</strong>
           <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
         </div>
-        <div id="qPrompt" style="font-size:0.79rem; line-height:1.45; color:#334155;"></div>
+        <div id="qPrompt" style="font-size:0.79rem; line-height:1.48; color:#334155;"></div>
         <div class="mcq-options" id="qOpts"></div>
         <div class="grader-feedback" id="qFeedback"></div>
       </div>
@@ -608,7 +682,7 @@
     document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
   }
 
-  const canvas = document.getElementById("slopeCanvas");
+  const canvas = document.getElementById("directionCanvas");
   const ctx = canvas.getContext("2d");
 
   const X_MIN = -4, X_MAX = 4;
@@ -618,10 +692,7 @@
   let showFamily = true;
   let animateFlow = true;
 
-  // Primary selected initial condition & parameter
   let selectedIC = { x0: 1.0, y0: 2.0, param: 1.0 };
-
-  // List of dropped particles { id, x0, y0, x, y, param, color, trail: [] }
   let particles = [];
   let particleCounter = 1;
 
@@ -638,10 +709,8 @@
 
   function computeParamFromIC(x0, y0) {
     if (mode === "shift") {
-      // y = x^2 + C => C = y0 - x0^2
       return y0 - x0 * x0;
     } else {
-      // y = A e^(0.5x) => A = y0 * e^(-0.5 x0)
       return Math.abs(y0) < 0.06 ? 0 : y0 * Math.exp(-0.5 * x0);
     }
   }
@@ -677,14 +746,16 @@
 
     const slider = document.getElementById("constSlider");
     if (mode === "shift") {
-      document.getElementById("constLabel").textContent = "Constant C:";
+      document.getElementById("constLabel").innerHTML = "Constant <em>C</em>:";
+      document.getElementById("seedBtn").textContent = "Seed C > 0, = 0, < 0";
       slider.min = "-4";
       slider.max = "3.5";
       slider.step = "0.25";
       selectedIC = { x0: 1.0, y0: 2.0, param: 1.0 };
       slider.value = "1";
     } else {
-      document.getElementById("constLabel").textContent = "Constant A:";
+      document.getElementById("constLabel").innerHTML = "Constant <em>A</em>:";
+      document.getElementById("seedBtn").textContent = "Seed A > 0, = 0, < 0";
       slider.min = "-3";
       slider.max = "3";
       slider.step = "0.25";
@@ -692,20 +763,13 @@
       slider.value = "1";
     }
 
-    particles = [];
-    particleCounter = 1;
-    dropParticle(selectedIC.x0, selectedIC.y0, true);
     seedSignComparison();
     updateUI();
   }
 
   function updateConstantFromSlider(val) {
     const p = parseFloat(val);
-    if (mode === "shift") {
-      selectedIC = { x0: 0, y0: p, param: p };
-    } else {
-      selectedIC = { x0: 0, y0: p, param: p };
-    }
+    selectedIC = { x0: 0, y0: p, param: p };
     updateUI();
   }
 
@@ -731,19 +795,18 @@
     particles = [];
     particleCounter = 1;
     if (mode === "shift") {
-      dropParticle(-1.0, 2.5, false); // C = 1.5
-      dropParticle(0.0, 0.0, false);  // C = 0
+      dropParticle(-1.0, 2.5, false);  // C = 1.5
+      dropParticle(0.0, 0.0, false);   // C = 0
       dropParticle(1.2, -0.56, false); // C = -2
     } else {
-      dropParticle(-1.5, 0.7, false);  // A > 0 (upper half-plane)
-      dropParticle(-1.5, 0.0, false);  // A = 0 (equilibrium barrier y = 0)
-      dropParticle(-1.5, -0.7, false); // A < 0 (lower half-plane)
+      dropParticle(-1.5, 0.7, false);  // A > 0
+      dropParticle(-1.5, 0.0, false);  // A = 0
+      dropParticle(-1.5, -0.7, false); // A < 0
     }
     updateUI();
   }
 
   function dropParticle(x0, y0, makePrimary = true) {
-    // Snap very close to y = 0 in scale mode so students can easily test the equilibrium barrier
     if (mode === "scale" && Math.abs(y0) < 0.14) {
       y0 = 0;
     }
@@ -780,8 +843,8 @@
     const mx = toMathX((e.clientX - rect.left) * scaleX);
     const my = toMathY((e.clientY - rect.top) * scaleY);
     const slope = dydx(mx, my);
-    document.getElementById("hoverReadout").textContent =
-      `Click to drop particle • (x, y) = (${mx.toFixed(2)}, ${my.toFixed(2)}), dy/dx = ${slope.toFixed(2)}`;
+    document.getElementById("hoverReadout").innerHTML =
+      `Click grid to drop particle &bull; (<em>x</em>, <em>y</em>) = (${mx.toFixed(2)}, ${my.toFixed(2)}), <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span></span> = ${slope.toFixed(2)}`;
   });
 
   canvas.addEventListener("click", (e) => {
@@ -805,62 +868,64 @@
     const miscBox = document.getElementById("misconceptionBox");
 
     if (mode === "shift") {
-      document.getElementById("canvasTitle").textContent =
-        "Slope Field & Particle Flow: dy/dx = 2x (Purely x-Dependent)";
+      document.getElementById("canvasTitle").innerHTML =
+        `Tangent Direction Field &amp; Solution Curves: <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = 2<em>x</em></span>`;
 
       contextBox.innerHTML = `
-        <div><strong>Geometric Structure of dy/dx = 2x:</strong> The gradient depends <em>only on x</em>. Along any vertical line <em>x = k</em>, all tangent segments are parallel with identical slope <em>2k</em>.</div>
-        <div class="var-pill">General Solution: y = x² + C &nbsp;(Vertical Translations)</div>
+        <div><strong>Geometric Structure of <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = 2<em>x</em></span>:</strong> The gradient depends <em>only on x</em>. Along any vertical line <em>x</em> = <em>k</em>, all tangent segments are parallel with identical gradient 2<em>k</em>.</div>
+        <div class="var-pill">General Solution: <em>y</em> = <em>x</em><sup>2</sup> + <em>C</em> &nbsp;(Vertical Translations)</div>
       `;
 
+      const C = selectedIC.param;
+      const cSignStr = C >= 0 ? `+ ${fmt(C)}` : `&minus; ${fmt(Math.abs(C))}`;
       algebraBox.innerHTML = `
-        <span class="box-title">Integration &amp; Particular Solution Derivation</span>
+        <span class="box-title">Step-by-Step Integration &amp; Particular Solution</span>
         <div class="math-readout">
-          1. Direct Integration: y = &int; 2x dx = x² + C &nbsp;(C &isin; &reals;)<br>
-          2. Apply IC (${fmt(selectedIC.x0)}, ${fmt(selectedIC.y0)}): ${fmt(selectedIC.y0)} = (${fmt(selectedIC.x0)})² + C &rArr; C = ${fmt(selectedIC.param)}<br>
-          3. Particular Solution: <strong>y = x² ${selectedIC.param >= 0 ? "+ " + fmt(selectedIC.param) : "− " + fmt(Math.abs(selectedIC.param))}</strong>
+          1. Integrate w.r.t. <em>x</em>: <em>y</em> = &int; 2<em>x</em> d<em>x</em> = <em>x</em><sup>2</sup> + <em>C</em> &nbsp;(<em>C</em> &isin; &reals;)<br>
+          2. Substitute IC (${fmt(selectedIC.x0)}, ${fmt(selectedIC.y0)}): ${fmt(selectedIC.y0)} = (${fmt(selectedIC.x0)})<sup>2</sup> + <em>C</em> &rArr; <em>C</em> = ${fmt(C)}<br>
+          3. Particular Solution: <strong><em>y</em> = <em>x</em><sup>2</sup> ${cSignStr}</strong>
         </div>
       `;
 
       insightBanner.innerHTML = `
-        <strong>Why Additive Constant (+C) Gives Vertical Translations:</strong> Changing <em>C</em> shifts every point on <em>y = x²</em> vertically by <em>C</em> units. Unlike <em>dy/dx = 0.5y</em>, there is <strong>no horizontal equilibrium barrier</strong>—curves freely cross the <em>x</em>-axis whenever <em>C &lt; 0</em>.
+        <strong>Why Additive Constant (+<em>C</em>) Gives Vertical Translations:</strong> Varying <em>C</em> translates the base parabola <em>y</em> = <em>x</em><sup>2</sup> vertically by <em>C</em> units parallel to the <em>y</em>-axis. Solution curves pass smoothly across the <em>x</em>-axis whenever <em>C</em> &lt; 0.
       `;
 
       miscBox.innerHTML = `
         <strong>9758 Exam Alert (General vs Particular Solutions):</strong>
         <ul style="margin:3px 0 0 0; padding-left:18px;">
-          <li><strong>General Solution:</strong> Must include an arbitrary constant (<em>+ C</em>) representing the entire infinite family of curves.</li>
-          <li><strong>Particular Solution:</strong> Uses a given initial condition <em>y(x₀) = y₀</em> to lock in one specific numerical value of <em>C</em>.</li>
+          <li><strong>General Solution:</strong> Must retain an arbitrary constant (+ <em>C</em>) representing the entire infinite family of curves satisfying the differential equation.</li>
+          <li><strong>Particular Solution:</strong> Uses a given initial condition <em>y</em>(<em>x</em><sub>0</sub>) = <em>y</em><sub>0</sub> to determine one specific numerical value of <em>C</em>.</li>
         </ul>
       `;
     } else {
-      document.getElementById("canvasTitle").textContent =
-        "Slope Field & Particle Flow: dy/dx = 0.5y (Autonomous / y-Dependent)";
+      document.getElementById("canvasTitle").innerHTML =
+        `Tangent Direction Field &amp; Solution Curves: <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = 0.5<em>y</em></span>`;
 
       contextBox.innerHTML = `
-        <div><strong>Geometric Structure of dy/dx = 0.5y:</strong> The gradient depends <em>only on y</em>. Along any horizontal line <em>y = k</em>, all tangent segments have identical slope <em>0.5k</em>.</div>
-        <div class="var-pill">General Solution: y = A e<sup>0.5x</sup> &nbsp;(Vertical Scalings, A = &plusmn;e<sup>C</sup>)</div>
+        <div><strong>Geometric Structure of <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = 0.5<em>y</em></span>:</strong> The gradient depends <em>only on y</em>. Along any horizontal line <em>y</em> = <em>k</em>, all tangent segments have identical gradient 0.5<em>k</em>.</div>
+        <div class="var-pill">General Solution: <em>y</em> = <em>A</em>e<sup>0.5<em>x</em></sup> &nbsp;(Vertical Scalings, <em>A</em> = &plusmn;e<sup><em>C</em></sup> or 0)</div>
       `;
 
       const A = selectedIC.param;
       algebraBox.innerHTML = `
-        <span class="box-title">Separation of Variables &amp; Multiplicative Constant A</span>
+        <span class="box-title">Step-by-Step Separation of Variables &amp; Particular Solution</span>
         <div class="math-readout">
-          1. Separate: &int; (1/y) dy = &int; 0.5 dx &rArr; ln|y| = 0.5x + C<br>
-          2. Exponentiate: |y| = e<sup>C</sup> e<sup>0.5x</sup> &rArr; y = A e<sup>0.5x</sup> (A = &plusmn;e<sup>C</sup> or 0)<br>
-          3. Apply IC (${fmt(selectedIC.x0)}, ${fmt(selectedIC.y0)}): A = ${fmt(A)} &rArr; <strong>y = ${fmt(A)}e<sup>0.5x</sup></strong>
+          1. Separate variables (<em>y</em> &ne; 0): &int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>y</em></span></span> d<em>y</em> = &int; 0.5 d<em>x</em> &rArr; ln|<em>y</em>| = 0.5<em>x</em> + <em>C</em><br>
+          2. Exponentiate: |<em>y</em>| = e<sup><em>C</em></sup>e<sup>0.5<em>x</em></sup> &rArr; <em>y</em> = <em>A</em>e<sup>0.5<em>x</em></sup> &nbsp;(<em>A</em> = &plusmn;e<sup><em>C</em></sup>, including <em>A</em> = 0 for <em>y</em> = 0)<br>
+          3. Substitute IC (${fmt(selectedIC.x0)}, ${fmt(selectedIC.y0)}): <em>A</em> = ${fmt(A)} &rArr; <strong><em>y</em> = ${fmt(A)}e<sup>0.5<em>x</em></sup></strong>
         </div>
       `;
 
       insightBanner.innerHTML = `
-        <strong>Why y = 0 Acts as an Equilibrium Barrier:</strong> At <em>y = 0</em>, <em>dy/dx = 0.5(0) = 0</em> everywhere, making the <em>x</em>-axis a constant equilibrium solution (<em>A = 0</em>). Because <em>e<sup>0.5x</sup> &gt; 0</em> for all real <em>x</em>, the sign of <em>y</em> is permanently fixed by the sign of <em>A</em>: particles with <em>A &gt; 0</em> stay strictly above <em>y = 0</em>, while particles with <em>A &lt; 0</em> stay strictly below <em>y = 0</em>.
+        <strong>Why Multiplicative Constant (<em>A</em>) Gives Vertical Scalings:</strong> Varying <em>A</em> stretches <em>y</em> = e<sup>0.5<em>x</em></sup> vertically by factor |<em>A</em>|. Because e<sup>0.5<em>x</em></sup> &gt; 0 for all <em>x</em> &isin; &reals;, <em>A</em> &gt; 0 produces curves strictly in the upper half-plane (<em>y</em> &gt; 0), <em>A</em> &lt; 0 reflects curves into the lower half-plane (<em>y</em> &lt; 0), and <em>A</em> = 0 gives the horizontal line <em>y</em> = 0 where <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = 0</span>.
       `;
 
       miscBox.innerHTML = `
         <strong>9758 Exam Alert (Handling Modulus &amp; Exponential Constants):</strong>
         <ul style="margin:3px 0 0 0; padding-left:18px;">
-          <li><strong>Never write <em>y = e<sup>0.5x</sup> + C</em>:</strong> When exponentiating <em>ln|y| = 0.5x + C</em>, <em>C</em> is inside the exponent: <em>e<sup>0.5x + C</sup> = e<sup>C</sup>e<sup>0.5x</sup></em>.</li>
-          <li><strong>Replacing <em>&plusmn;e<sup>C</sup></em> with <em>A</em>:</strong> Since <em>e<sup>C</sup> &gt; 0</em>, <em>&plusmn;e<sup>C</sup></em> covers all non-zero real numbers, and including <em>A = 0</em> recovers the trivial equilibrium solution <em>y = 0</em>.</li>
+          <li><strong>Never write <em>y</em> = e<sup>0.5<em>x</em></sup> + <em>C</em>:</strong> When exponentiating ln|<em>y</em>| = 0.5<em>x</em> + <em>C</em>, the constant <em>C</em> sits inside the exponent: e<sup>0.5<em>x</em> + <em>C</em></sup> = e<sup><em>C</em></sup>e<sup>0.5<em>x</em></sup>.</li>
+          <li><strong>Replacing &plusmn;e<sup><em>C</em></sup> with <em>A</em>:</strong> Since e<sup><em>C</em></sup> &gt; 0 covers all positive reals, &plusmn;e<sup><em>C</em></sup> covers all non-zero reals, and including <em>A</em> = 0 recovers the trivial solution <em>y</em> = 0.</li>
         </ul>
       `;
     }
@@ -870,27 +935,31 @@
 
   function renderParticleTable() {
     const tbl = document.getElementById("particleTable");
-    const paramName = mode === "shift" ? "C" : "A";
+    const paramName = mode === "shift" ? "<em>C</em>" : "<em>A</em>";
     tbl.innerHTML = `
       <thead>
         <tr>
           <th>Particle</th>
-          <th>Initial Condition (x₀, y₀)</th>
+          <th>Initial Point (<em>x</em><sub>0</sub>, <em>y</em><sub>0</sub>)</th>
           <th>Constant (${paramName})</th>
           <th>Particular Solution</th>
-          <th>Region / Behaviour</th>
+          <th>Geometric Behaviour</th>
         </tr>
       </thead>
       <tbody>
         ${particles.map(p => {
           const eqStr = mode === "shift"
-            ? `y = x² ${p.param >= 0 ? "+ " + fmt(p.param) : "− " + fmt(Math.abs(p.param))}`
-            : `y = ${fmt(p.param)}e<sup>0.5x</sup>`;
+            ? `<em>y</em> = <em>x</em><sup>2</sup> ${p.param >= 0 ? "+ " + fmt(p.param) : "&minus; " + fmt(Math.abs(p.param))}`
+            : `<em>y</em> = ${fmt(p.param)}e<sup>0.5<em>x</em></sup>`;
           let region = "";
           if (mode === "shift") {
-            region = p.param < 0 ? "Crosses y = 0 twice" : (Math.abs(p.param) < 1e-5 ? "Tangent to y = 0" : "Strictly y > 0");
+            region = p.param < 0
+              ? "Shifted down (intersects <em>y</em> = 0 twice)"
+              : (Math.abs(p.param) < 1e-5 ? "Base curve (touches <em>y</em> = 0 at origin)" : "Shifted up (<em>y</em> &gt; 0 for all <em>x</em>)");
           } else {
-            region = p.param > 1e-5 ? "A > 0 (Trapped above y = 0)" : (p.param < -1e-5 ? "A < 0 (Trapped below y = 0)" : "A = 0 (Equilibrium barrier y = 0)");
+            region = p.param > 1e-5
+              ? "<em>A</em> &gt; 0: Lies strictly above <em>y</em> = 0"
+              : (p.param < -1e-5 ? "<em>A</em> &lt; 0: Reflected strictly below <em>y</em> = 0" : "<em>A</em> = 0: Constant solution <em>y</em> = 0");
           }
           return `
             <tr>
@@ -908,13 +977,6 @@
 
   function drawGridAndAxes() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Highlight equilibrium line y = 0 in scale mode
-    if (mode === "scale") {
-      const yZeroPx = toCanvasY(0);
-      ctx.fillStyle = "rgba(15, 118, 110, 0.08)";
-      ctx.fillRect(0, yZeroPx - 6, canvas.width, 12);
-    }
 
     // Grid lines
     ctx.strokeStyle = "#f1f5f9";
@@ -937,16 +999,14 @@
     // Axes
     const xAxisY = toCanvasY(0);
     const yAxisX = toCanvasX(0);
-    ctx.strokeStyle = mode === "scale" ? "#0f766e" : "#64748b";
-    ctx.lineWidth = mode === "scale" ? 2.2 : 1.5;
+    ctx.strokeStyle = "#64748b";
+    ctx.lineWidth = 1.6;
 
     ctx.beginPath();
     ctx.moveTo(0, xAxisY);
     ctx.lineTo(canvas.width, xAxisY);
     ctx.stroke();
 
-    ctx.strokeStyle = "#64748b";
-    ctx.lineWidth = 1.5;
     ctx.beginPath();
     ctx.moveTo(yAxisX, 0);
     ctx.lineTo(yAxisX, canvas.height);
@@ -964,12 +1024,12 @@
 
     if (mode === "scale") {
       ctx.fillStyle = "#0f766e";
-      ctx.font = "800 11px 'Segoe UI', sans-serif";
-      ctx.fillText("Equilibrium Barrier: y = 0 (A = 0)", canvas.width - 195, xAxisY - 8);
+      ctx.font = "700 11px 'Segoe UI', sans-serif";
+      ctx.fillText("y = 0 (A = 0, dy/dx = 0)", canvas.width - 145, xAxisY - 7);
     }
   }
 
-  function drawSlopeField() {
+  function drawDirectionField() {
     const stepX = 0.4;
     const stepY = 0.4;
     const segLenPx = 15;
@@ -980,7 +1040,6 @@
     for (let x = X_MIN + 0.2; x <= X_MAX - 0.2; x += stepX) {
       for (let y = Y_MIN + 0.2; y <= Y_MAX - 0.2; y += stepY) {
         const m = dydx(x, y);
-        // Convert math slope to pixel slope (accounting for aspect ratio)
         const scaleX = canvas.width / (X_MAX - X_MIN);
         const scaleY = canvas.height / (Y_MAX - Y_MIN);
         const angle = Math.atan2(-m * scaleY, scaleX);
@@ -1026,7 +1085,6 @@
   }
 
   function drawCurvesAndParticles() {
-    // 1. General Solution Family
     if (showFamily) {
       const familyParams = mode === "shift"
         ? [-3, -2, -1, 0, 1, 2, 3]
@@ -1034,15 +1092,12 @@
       familyParams.forEach(p => plotCurve(p, "#cbd5e1", 1.3, true));
     }
 
-    // 2. Particular Solution Curves for Dropped Particles
     particles.forEach(p => {
       plotCurve(p.param, p.color, 2.2, false);
     });
 
-    // 3. Primary Slider / Selected Particular Solution
     plotCurve(selectedIC.param, "#7c3aed", 3.0, false);
 
-    // Draw IC anchor dot for selectedIC
     ctx.fillStyle = "#7c3aed";
     ctx.beginPath();
     ctx.arc(toCanvasX(selectedIC.x0), toCanvasY(selectedIC.y0), 5.5, 0, Math.PI * 2);
@@ -1051,7 +1106,6 @@
     ctx.lineWidth = 1.5;
     ctx.stroke();
 
-    // 4. Update & Draw Flowing Particles
     particles.forEach(p => {
       if (animateFlow) {
         p.x += 0.018;
@@ -1069,7 +1123,6 @@
         if (p.trail.length > 26) p.trail.shift();
       }
 
-      // Draw glowing particle trail
       if (p.trail.length > 1) {
         ctx.strokeStyle = p.color;
         ctx.lineWidth = 4;
@@ -1085,7 +1138,6 @@
         ctx.globalAlpha = 1.0;
       }
 
-      // Draw initial drop pin
       ctx.fillStyle = "#ffffff";
       ctx.strokeStyle = p.color;
       ctx.lineWidth = 2;
@@ -1094,7 +1146,6 @@
       ctx.fill();
       ctx.stroke();
 
-      // Draw moving particle
       ctx.fillStyle = p.color;
       ctx.beginPath();
       ctx.arc(toCanvasX(p.x), toCanvasY(p.y), 6, 0, Math.PI * 2);
@@ -1107,7 +1158,7 @@
 
   function renderLoop() {
     drawGridAndAxes();
-    drawSlopeField();
+    drawDirectionField();
     drawCurvesAndParticles();
     requestAnimationFrame(renderLoop);
   }
@@ -1115,37 +1166,37 @@
   // 9758 EXAM CONCEPT CHECK QUESTIONS
   const examQs = [
     {
-      q: "Why do solution curves to dy/dx = 0.5y never cross the line y = 0?",
+      q: "What is the key difference between a general solution and a particular solution of a first-order differential equation?",
       opts: [
-        "Because y = 0 is an equilibrium solution (dy/dx = 0) and y = A e^{0.5x} keeps the sign of A for all x ∈ ℝ",
-        "Because e^{0.5x} is undefined when x = 0",
-        "Because dy/dx = 0.5y only has solutions for y > 0",
-        "Because integrating 1/y gives ln(y), which forces A > 0"
+        "A general solution contains an arbitrary constant representing a family of curves, whereas a particular solution uses an initial condition to find a specific constant",
+        "A general solution still contains dy/dx, whereas a particular solution removes dy/dx",
+        "A general solution only works when x = 0, whereas a particular solution works for all x",
+        "A general solution has no constants, whereas a particular solution has two constants"
       ],
       ans: 0,
-      exp: "Since e^{0.5x} > 0 for all real x, the sign of y = A e^{0.5x} is strictly determined by A (A > 0 stays above y = 0, A < 0 stays below y = 0, and A = 0 lies along y = 0)."
+      exp: "Solving a differential equation eliminates derivatives to link y and x; integrating introduces an arbitrary constant (general solution), and substituting a given point (x₀, y₀) fixes that constant (particular solution)."
     },
     {
       q: "How do the general solution families of dy/dx = 2x and dy/dx = 0.5y differ geometrically?",
       opts: [
         "dy/dx = 2x gives vertical translations (y = x² + C), whereas dy/dx = 0.5y gives vertical scalings (y = A e^{0.5x})",
-        "Both give vertical translations by a constant C",
+        "Both give vertical translations by an additive constant C",
         "dy/dx = 2x gives horizontal translations, whereas dy/dx = 0.5y gives vertical translations",
-        "Both families have a horizontal asymptote at y = 0"
+        "Both families consist of straight lines through the origin"
       ],
       ans: 0,
-      exp: "An additive constant (+C) translates curves parallel to the y-axis, whereas a multiplicative constant (A) scales curves parallel to the y-axis (including reflection across y = 0 when A < 0)."
+      exp: "An additive constant (+C) translates curves parallel to the y-axis, whereas a multiplicative constant (A) scales curves parallel to the y-axis (reflecting across y = 0 when A < 0)."
     },
     {
       q: "When solving dy/dx = 0.5y, why can ±e^C be replaced by a single arbitrary constant A ∈ ℝ?",
       opts: [
-        "Because e^C > 0 covers all positive reals, ±e^C covers all non-zero reals, and A = 0 gives the valid equilibrium solution y = 0",
-        "Because e^C can be negative when C < 0",
-        "Because modulus signs can always be ignored without justification",
+        "Because e^C > 0 covers all positive reals, ±e^C covers all non-zero reals, and A = 0 gives the valid constant solution y = 0",
+        "Because e^C is negative whenever C < 0",
+        "Because modulus signs can always be dropped without affecting the sign of y",
         "Because A must be a positive integer"
       ],
       ans: 0,
-      exp: "For C ∈ ℝ, e^C takes every positive real value, so ±e^C takes every non-zero real value; including A = 0 accounts for the trivial solution y = 0."
+      exp: "For C ∈ ℝ, e^C takes every positive real value, so ±e^C takes every non-zero real value; including A = 0 accounts for the trivial constant solution y = 0."
     }
   ];
 
@@ -1154,13 +1205,23 @@
   function renderExamQ() {
     const item = examQs[curQ];
     document.getElementById("qIdxLbl").textContent = curQ + 1;
-    document.getElementById("qPrompt").textContent = item.q;
+    document.getElementById("qPrompt").innerHTML = item.q
+      .replace(/dy\/dx/g, '<span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span></span>')
+      .replace(/e\^\{0\.5x\}/g, 'e<sup>0.5<em>x</em></sup>')
+      .replace(/e\^C/g, 'e<sup><em>C</em></sup>')
+      .replace(/x²/g, '<em>x</em><sup>2</sup>');
+
     const fb = document.getElementById("qFeedback");
     fb.style.display = "none";
 
-    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
-      <button class="mcq-btn" onclick="gradeExamQ(${i}, this)">${String.fromCharCode(65 + i)}. ${o}</button>
-    `).join("");
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => {
+      const formattedOpt = o
+        .replace(/dy\/dx/g, '<span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span></span>')
+        .replace(/e\^\{0\.5x\}/g, 'e<sup>0.5<em>x</em></sup>')
+        .replace(/e\^C/g, 'e<sup><em>C</em></sup>')
+        .replace(/x²/g, '<em>x</em><sup>2</sup>');
+      return `<button class="mcq-btn" onclick="gradeExamQ(${i}, this)">${String.fromCharCode(65 + i)}. ${formattedOpt}</button>`;
+    }).join("");
   }
 
   function gradeExamQ(idx, btn) {
@@ -1174,7 +1235,12 @@
     fb.style.display = "block";
     fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
     fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
-    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${item.exp}`;
+    const formattedExp = item.exp
+      .replace(/e\^\{0\.5x\}/g, 'e<sup>0.5<em>x</em></sup>')
+      .replace(/e\^C/g, 'e<sup><em>C</em></sup>')
+      .replace(/x₀/g, '<em>x</em><sub>0</sub>')
+      .replace(/y₀/g, '<em>y</em><sub>0</sub>');
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${formattedExp}`;
   }
 
   function nextExamQ() {
