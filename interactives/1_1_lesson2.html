@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>9758 H2 Math | 1.1 Lesson 2: One-One Functions &amp; Inverse Functions</title>
+  <title>9758 H2 Math | 1.1 Lesson 1: Domain, Range &amp; Function Concepts</title>
   <style>
     :root {
       --bg: #fdfbf7;
@@ -43,12 +43,45 @@
       margin: 0 auto;
     }
 
+    /* MATH NOTATION STYLING */
+    .math {
+      font-family: 'Cambria Math', 'Times New Roman', Georgia, serif;
+      font-style: italic;
+    }
+
+    .math-upright {
+      font-family: 'Cambria Math', 'Times New Roman', Georgia, serif;
+      font-style: normal;
+    }
+
+    /* STACKED FRACTION NOTATION */
+    .frac {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      vertical-align: middle;
+      margin: 0 2px;
+      font-size: 0.86em;
+      line-height: 1.08;
+    }
+
+    .frac-num {
+      padding: 0 3px 1px 3px;
+      border-bottom: 1.3px solid currentColor;
+      text-align: center;
+    }
+
+    .frac-den {
+      padding: 1px 3px 0 3px;
+      text-align: center;
+    }
+
     /* HOW-TO-USE GUIDE BANNER */
     .guide-banner {
       background: #ffffff;
       border: 1.5px solid #c4b5fd;
       border-radius: 14px;
-      padding: 12px 18px;
+      padding: 14px 18px;
       margin-bottom: 16px;
       box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
     }
@@ -95,9 +128,9 @@
     .guide-steps {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 10px;
-      padding-top: 10px;
+      gap: 14px;
+      margin-top: 12px;
+      padding-top: 12px;
       border-top: 1px dashed #e2e8f0;
     }
 
@@ -111,20 +144,24 @@
       background: #f8fafc;
       border: 1px solid #e2e8f0;
       border-radius: 10px;
-      padding: 9px 11px;
-      font-size: 0.78rem;
-      line-height: 1.45;
+      padding: 12px 14px;
+      font-size: 0.81rem;
+      line-height: 1.6;
+      word-spacing: normal;
+      letter-spacing: normal;
     }
 
-    .guide-step-card strong {
+    .guide-step-heading {
       color: #1e293b;
+      font-weight: 800;
       display: block;
-      margin-bottom: 2px;
+      margin-bottom: 6px;
+      font-size: 0.83rem;
     }
 
     .app-container {
       display: grid;
-      grid-template-columns: 485px 1fr;
+      grid-template-columns: 480px 1fr;
       gap: 20px;
     }
 
@@ -142,7 +179,7 @@
       box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
     }
 
-    .branch-row {
+    .preset-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 6px;
@@ -155,7 +192,7 @@
       border: 1px solid #cbd5e1;
       background: #f8fafc;
       font-weight: 700;
-      font-size: 0.75rem;
+      font-size: 0.76rem;
       color: var(--text);
       cursor: pointer;
       transition: 0.15s;
@@ -167,17 +204,24 @@
       border-color: var(--purple-dark);
     }
 
+    .slider-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
     .slider-group {
       background: #f8fafc;
       padding: 8px 10px;
       border-radius: 10px;
       border: 1px solid #e2e8f0;
-      margin-bottom: 10px;
     }
 
     .slider-header {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       font-size: 0.79rem;
       font-weight: 700;
       margin-bottom: 3px;
@@ -189,14 +233,39 @@
       cursor: pointer;
     }
 
-    .algebra-box {
+    .toggle-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .toggle-btn {
+      flex: 1;
+      padding: 7px 8px;
+      border-radius: 8px;
+      border: 1px solid #94a3b8;
+      background: #ffffff;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+      line-height: 1.4;
+    }
+
+    .toggle-btn.active {
+      background: var(--blue);
+      color: #ffffff;
+      border-color: #0369a1;
+    }
+
+    .info-box {
       background: var(--teal-bg);
       border: 1.5px solid #5eead4;
       border-radius: 12px;
       padding: 11px 13px;
       color: #134e4a;
       font-size: 0.81rem;
-      line-height: 1.52;
+      line-height: 1.65;
       margin-bottom: 11px;
     }
 
@@ -208,12 +277,12 @@
       color: #4c1d95;
       font-size: 0.83rem;
       font-weight: 700;
-      line-height: 1.45;
+      line-height: 1.65;
     }
 
     canvas {
       width: 100%;
-      height: 465px;
+      height: 500px;
       border: 1px solid #cbd5e1;
       border-radius: 12px;
       background: #ffffff;
@@ -228,7 +297,7 @@
       border-radius: 10px;
       padding: 11px 14px;
       font-size: 0.81rem;
-      line-height: 1.5;
+      line-height: 1.6;
       color: #78350f;
     }
   </style>
@@ -247,59 +316,71 @@
     </div>
     <div class="guide-steps" id="guideSteps">
       <div class="guide-step-card">
-        <strong>1. Run the Horizontal Line Test</strong>
-        Select <em>1. Unrestricted (x ∈ ℝ)</em> and drag the horizontal test line <em>y = k</em> to see two distinct x-values sharing the same y-output—proving <em>f⁻¹</em> does not exist.
+        <span class="guide-step-heading">1. Select a Function Type (Top-Left)</span>
+        Switch between <em>Quadratic</em>, <em>Rational</em>, and <em>Circle Relation</em> to see how domain restrictions shape the graph and test whether a rule is a valid function.
       </div>
       <div class="guide-step-card">
-        <strong>2. Restrict the Domain to a One-One Branch</strong>
-        Switch to <em>2. Right Branch (x ≥ 2)</em> or <em>3. Left Branch (x ≤ 2)</em> to restrict <em>f</em> to a monotonic branch where <em>f⁻¹</em> is well-defined.
+        <span class="guide-step-heading">2. Adjust Domain Endpoints &amp; Bracket Types</span>
+        Drag the <span class="math">a</span> and <span class="math">b</span> sliders and toggle open <span class="math-upright">( )</span> vs. closed <span class="math-upright">[ ]</span> endpoints to watch the green range projection on the <span class="math">y</span>-axis update live.
       </div>
       <div class="guide-step-card">
-        <strong>3. Compare Reflection Across y = x &amp; Sign Choice</strong>
-        Observe how <em>y = f⁻¹(x)</em> (teal) reflects <em>y = f(x)</em> (purple) across <em>y = x</em>, and notice how <em>x ≥ 2</em> selects the <strong>+√</strong> root while <em>x ≤ 2</em> selects the <strong>−√</strong> root.
+        <span class="guide-step-heading">3. Run the Vertical Line Test</span>
+        Drag the <span class="math">x = k</span> slider across the graph. If the vertical line cuts the curve more than once (as in the Circle Relation), it is not a function.
       </div>
     </div>
   </div>
 
   <div class="app-container">
+    <!-- LEFT CONTROLS -->
     <div class="card">
       <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
-        1.1 Lesson 2 &bull; One-One Functions &amp; Inverse Functions
+        1.1 Lesson 1 &bull; Domain, Range &amp; Vertical Line Test
       </div>
 
-      <div class="branch-row">
-        <button class="tab-btn active" id="br_all" onclick="setBranch('all')">1. Unrestricted (x ∈ ℝ)</button>
-        <button class="tab-btn" id="br_right" onclick="setBranch('right')">2. Right Branch (x ≥ 2)</button>
-        <button class="tab-btn" id="br_left" onclick="setBranch('left')">3. Left Branch (x ≤ 2)</button>
+      <div class="preset-row">
+        <button class="tab-btn active" id="fn_quad" onclick="setFn('quad')">1. Quadratic <span class="math">f(x)</span></button>
+        <button class="tab-btn" id="fn_rat" onclick="setFn('rat')">2. Rational <span class="math">f(x)</span></button>
+        <button class="tab-btn" id="fn_circle" onclick="setFn('circle')">3. Circle Relation</button>
       </div>
 
-      <div class="slider-group">
-        <div class="slider-header"><span>Horizontal Line Test (y = k)</span><span id="lbl_hlt" style="color:var(--blue);">3.0</span></div>
-        <input type="range" min="-2" max="7" step="0.25" value="3" oninput="hltY=parseFloat(this.value); draw();" />
+      <div class="slider-grid">
+        <div class="slider-group">
+          <div class="slider-header"><span>Domain Left (<span class="math">a</span>)</span><span id="lbl_a" style="color:var(--purple-dark);">0</span></div>
+          <input type="range" id="sl_a" min="-3" max="2" step="0.5" value="0" oninput="a=parseFloat(this.value); draw();" />
+        </div>
+        <div class="slider-group">
+          <div class="slider-header"><span>Domain Right (<span class="math">b</span>)</span><span id="lbl_b" style="color:var(--purple-dark);">5</span></div>
+          <input type="range" id="sl_b" min="1" max="6" step="0.5" value="5" oninput="b=parseFloat(this.value); draw();" />
+        </div>
+        <div class="slider-group" style="grid-column:span 2;">
+          <div class="slider-header"><span>Vertical Line Test (<span class="math">x = k</span>)</span><span id="lbl_vlt" style="color:var(--blue);">2</span></div>
+          <input type="range" min="-4" max="6" step="0.2" value="2" oninput="vltX=parseFloat(this.value); draw();" />
+        </div>
       </div>
 
-      <div class="slider-group">
-        <div class="slider-header"><span>Vertex Shift (h) in f(x) = (x − h)² − 1</span><span id="lbl_h" style="color:var(--purple-dark);">2</span></div>
-        <input type="range" min="0" max="3" step="1" value="2" oninput="h=parseInt(this.value,10); draw();" />
+      <div class="toggle-row">
+        <button class="toggle-btn active" id="incL_btn" onclick="incL=!incL; draw();">Left: <span class="math">[a</span> (Inclusive)</button>
+        <button class="toggle-btn" id="incR_btn" onclick="incR=!incR; draw();">Right: <span class="math">b)</span> (Exclusive)</button>
       </div>
 
-      <div class="algebra-box" id="invStepsBox"></div>
-      <div class="result-banner" id="invBanner"></div>
+      <div class="info-box" id="analysisBox"></div>
+      <div class="result-banner" id="rangeBanner"></div>
     </div>
 
+    <!-- RIGHT CANVAS -->
     <div class="card">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
-        <strong style="font-size:1.04rem; color:#1e293b;" id="canvasTitle">f(x) = (x − 2)² − 1 — Horizontal Line Test &amp; Reflection y = x</strong>
-        <span style="font-size:0.78rem; font-weight:700; color:var(--teal);">Purple: y = f(x) &nbsp;|&nbsp; Teal: y = f⁻¹(x)</span>
+        <strong style="font-size:1.04rem; color:#1e293b;" id="canvasTitle"><span class="math">f : x &mapsto; (x &minus; 2)&sup2; &minus; 3, &nbsp;x &isin; [0, 5)</span></strong>
+        <span style="font-size:0.78rem; font-weight:700; color:var(--teal);">Uniform 1:1 Scale &bull; Green band on <span class="math">y</span>-axis = Exact Range <span class="math">R<sub>f</sub></span></span>
       </div>
 
-      <canvas id="invCanvas" width="880" height="465"></canvas>
+      <canvas id="fnCanvas" width="880" height="500"></canvas>
 
       <div class="misconception-box">
-        <strong>9758 Misconception Alert (Inverse Functions):</strong>
+        <strong>9758 Misconception Alert (Domain &amp; Range):</strong>
         <ul style="margin:4px 0 0 0; padding-left:18px;">
-          <li><strong>Always state the domain of <em>f⁻¹</em>:</strong> Writing <em>f⁻¹(x) = 2 + √(x + 1)</em> without stating <strong>D_{f⁻¹} = R_f = [−1, ∞)</strong> loses 1 mark in 9758 exams.</li>
-          <li><strong>Choose the correct ± sign:</strong> When solving <em>y = (x − h)² − 1</em>, <em>x ≥ h</em> requires <strong>x = h + √(y + 1)</strong>, whereas <em>x ≤ h</em> requires <strong>x = h − √(y + 1)</strong>.</li>
+          <li><strong>Never plug in only the endpoints <span class="math">f(a)</span> and <span class="math">f(b)</span>:</strong> When a stationary point (like the vertex <span class="math">(2, &minus;3)</span>) lies inside <span class="math">D<sub>f</sub></span>, it determines the true minimum or maximum of <span class="math">R<sub>f</sub></span>.</li>
+          <li><strong>Vertical asymptotes at domain boundaries:</strong> For <span class="math">f(x) = 3 &minus; <span class="frac"><span class="frac-num">2</span><span class="frac-den">x &minus; 1</span></span></span> with <span class="math">x &isin; (1, b]</span>, <span class="math">x = 1</span> is excluded so <span class="math">f(x) &rarr; &minus;&infin;</span> as <span class="math">x &rarr; 1<sup>+</sup></span>, giving <strong><span class="math">R<sub>f</sub> = (&minus;&infin;, f(b)]</span></strong>.</li>
         </ul>
       </div>
     </div>
@@ -314,37 +395,122 @@
     document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
   }
 
-  let branch = "all";
-  let hltY = 3;
-  let h = 2;
+  let fnType = "quad";
+  let a = 0, b = 5, vltX = 2;
+  let incL = true, incR = false;
 
-  function setBranch(b) {
-    branch = b;
+  function setFn(t) {
+    fnType = t;
     document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
-    document.getElementById("br_" + b).classList.add("active");
+    document.getElementById("fn_" + t).classList.add("active");
+    if (t === "rat") {
+      a = 1; b = 5.5; incL = false; incR = false;
+      document.getElementById("sl_a").value = a;
+      document.getElementById("sl_b").value = b;
+    }
+    if (t === "quad") {
+      a = 0; b = 5; incL = true; incR = false;
+      document.getElementById("sl_a").value = a;
+      document.getElementById("sl_b").value = b;
+    }
     draw();
   }
 
-  function draw() {
-    document.getElementById("lbl_hlt").textContent = hltY.toFixed(2).replace(/\.?0+$/, "");
-    document.getElementById("lbl_h").textContent = h;
-    document.getElementById("br_right").textContent = `2. Right Branch (x ≥ ${h})`;
-    document.getElementById("br_left").textContent = `3. Left Branch (x ≤ ${h})`;
+  function gcd(x, y) {
+    x = Math.abs(x);
+    y = Math.abs(y);
+    while (y) {
+      const t = y;
+      y = x % y;
+      x = t;
+    }
+    return x;
+  }
 
-    const canvas = document.getElementById("invCanvas");
+  function fracHTML(num, den) {
+    return `<span class="frac"><span class="frac-num">${num}</span><span class="frac-den">${den}</span></span>`;
+  }
+
+  function fmt(n) {
+    if (!isFinite(n)) return n < 0 ? "&minus;&infin;" : "&infin;";
+    if (Math.abs(n - Math.round(n)) < 1e-9) {
+      const r = Math.round(n);
+      return r < 0 ? `&minus;${Math.abs(r)}` : `${r}`;
+    }
+    for (let d = 2; d <= 36; d++) {
+      const num = Math.round(n * d);
+      if (Math.abs(n - num / d) < 1e-7) {
+        const g = gcd(num, d);
+        const sn = num / g;
+        const sd = d / g;
+        if (sd === 1) return sn < 0 ? `&minus;${Math.abs(sn)}` : `${sn}`;
+        return sn < 0 ? `&minus;${fracHTML(Math.abs(sn), sd)}` : fracHTML(sn, sd);
+      }
+    }
+    const s = n.toFixed(2).replace(/\.?0+$/, "");
+    return s.startsWith("-") ? `&minus;${s.slice(1)}` : s;
+  }
+
+  function draw() {
+    if (b <= a + 0.5) b = a + 0.5;
+
+    const effIncL = (fnType === "rat" && Math.abs(a - 1) < 1e-9) ? false : incL;
+    const effIncR = (fnType === "rat" && Math.abs(b - 1) < 1e-9) ? false : incR;
+
+    document.getElementById("lbl_a").innerHTML = `<span class="math">${fmt(a)}</span>`;
+    document.getElementById("lbl_b").innerHTML = `<span class="math">${fmt(b)}</span>`;
+    document.getElementById("lbl_vlt").innerHTML = `<span class="math">${fmt(vltX)}</span>`;
+
+    const incLBtn = document.getElementById("incL_btn");
+    const incRBtn = document.getElementById("incR_btn");
+    incLBtn.classList.toggle("active", effIncL);
+    incRBtn.classList.toggle("active", effIncR);
+    incLBtn.innerHTML = (fnType === "rat" && Math.abs(a - 1) < 1e-9)
+      ? `Left: <span class="math">(1</span> (VA Excluded)`
+      : (effIncL ? `Left: <span class="math">[${fmt(a)}</span> (Inclusive)` : `Left: <span class="math">(${fmt(a)}</span> (Exclusive)`);
+    incRBtn.innerHTML = (fnType === "rat" && Math.abs(b - 1) < 1e-9)
+      ? `Right: <span class="math">1)</span> (VA Excluded)`
+      : (effIncR ? `Right: <span class="math">${fmt(b)}]</span> (Inclusive)` : `Right: <span class="math">${fmt(b)})</span> (Exclusive)`);
+
+    const canvas = document.getElementById("fnCanvas");
     const ctx = canvas.getContext("2d");
-    const W = canvas.width, H = canvas.height;
+    const rect = canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    const W = rect.width > 0 ? rect.width : 880;
+    const H = rect.height > 0 ? rect.height : 500;
+    canvas.width = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, W, H);
 
-    const xMin = -3, xMax = 8, yMin = -3, yMax = 8;
-    const toPxX = x => ((x - xMin) / (xMax - xMin)) * W;
-    const toPxY = y => H - ((y - yMin) / (yMax - yMin)) * H;
+    // Uniform 1:1 coordinate scale shared across ALL 3 function types
+    const xCenter = 1.5, yCenter = 1.5;
+    const targetXSpan = 12, targetYSpan = 12;
+    const pxPerUnit = Math.min(W / targetXSpan, H / targetYSpan);
 
-    // Grid
+    const toPxX = x => W / 2 + (x - xCenter) * pxPerUnit;
+    const toPxY = y => H / 2 - (y - yCenter) * pxPerUnit;
+
+    const xMin = xCenter - (W / 2) / pxPerUnit;
+    const xMax = xCenter + (W / 2) / pxPerUnit;
+    const yMin = yCenter - (H / 2) / pxPerUnit;
+    const yMax = yCenter + (H / 2) / pxPerUnit;
+
+    // Equal square grid
     ctx.strokeStyle = "#f1f5f9";
     ctx.lineWidth = 1;
-    for (let gx = xMin; gx <= xMax; gx++) { ctx.beginPath(); ctx.moveTo(toPxX(gx), 0); ctx.lineTo(toPxX(gx), H); ctx.stroke(); }
-    for (let gy = yMin; gy <= yMax; gy++) { ctx.beginPath(); ctx.moveTo(0, toPxY(gy)); ctx.lineTo(W, toPxY(gy)); ctx.stroke(); }
+    for (let gx = Math.ceil(xMin); gx <= Math.floor(xMax); gx++) {
+      ctx.beginPath(); ctx.moveTo(toPxX(gx), 0); ctx.lineTo(toPxX(gx), H); ctx.stroke();
+    }
+    for (let gy = Math.ceil(yMin); gy <= Math.floor(yMax); gy++) {
+      ctx.beginPath(); ctx.moveTo(0, toPxY(gy)); ctx.lineTo(W, toPxY(gy)); ctx.stroke();
+    }
+
+    // Domain shading on x-axis (for functions)
+    if (fnType !== "circle") {
+      ctx.fillStyle = "rgba(139, 92, 246, 0.08)";
+      ctx.fillRect(toPxX(a), 0, toPxX(b) - toPxX(a), H);
+    }
 
     // Axes
     ctx.strokeStyle = "#94a3b8";
@@ -354,119 +520,219 @@
     ctx.moveTo(toPxX(0), 0); ctx.lineTo(toPxX(0), H);
     ctx.stroke();
 
-    // Mirror line y = x
-    ctx.save();
-    ctx.strokeStyle = "#94a3b8";
-    ctx.lineWidth = 1.6;
-    ctx.setLineDash([6, 4]);
-    ctx.beginPath();
-    ctx.moveTo(toPxX(xMin), toPxY(xMin));
-    ctx.lineTo(toPxX(xMax), toPxY(xMax));
-    ctx.stroke();
-    ctx.fillStyle = "#475569";
-    ctx.font = "bold 11.5px Segoe UI, sans-serif";
-    ctx.fillText("Mirror Line y = x", toPxX(5.4), toPxY(5.8));
-    ctx.restore();
-
-    const f = x => (x - h) * (x - h) - 1;
-
-    // Ghost full parabola
-    ctx.save();
-    ctx.strokeStyle = "#cbd5e1";
-    ctx.setLineDash([4, 4]);
-    ctx.beginPath();
-    for (let x = xMin; x <= xMax; x += 0.04) {
-      if (x === xMin) ctx.moveTo(toPxX(x), toPxY(f(x)));
-      else ctx.lineTo(toPxX(x), toPxY(f(x)));
+    // Axis ticks & labels
+    ctx.fillStyle = "#64748b";
+    ctx.font = "11px 'Cambria Math', Georgia, serif";
+    for (let gx = Math.ceil(xMin); gx <= Math.floor(xMax); gx++) {
+      if (gx !== 0) ctx.fillText(gx < 0 ? `−${Math.abs(gx)}` : `${gx}`, toPxX(gx) - 5, toPxY(0) + 14);
     }
-    ctx.stroke();
-    ctx.restore();
-
-    // Active f(x) branch
-    ctx.strokeStyle = "#8b5cf6";
-    ctx.lineWidth = 3;
-    ctx.beginPath();
-    const startX = branch === "right" ? h : xMin;
-    const endX = branch === "left" ? h : xMax;
-    for (let x = startX; x <= endX; x += 0.02) {
-      if (x === startX) ctx.moveTo(toPxX(x), toPxY(f(x)));
-      else ctx.lineTo(toPxX(x), toPxY(f(x)));
+    for (let gy = Math.ceil(yMin); gy <= Math.floor(yMax); gy++) {
+      if (gy !== 0) ctx.fillText(gy < 0 ? `−${Math.abs(gy)}` : `${gy}`, toPxX(0) - 22, toPxY(gy) + 4);
     }
-    ctx.stroke();
+    ctx.font = "italic 13px 'Cambria Math', Georgia, serif";
+    ctx.fillText("x", W - 14, toPxY(0) - 6);
+    ctx.fillText("y", toPxX(0) + 8, 14);
+    ctx.fillText("O", toPxX(0) - 14, toPxY(0) + 14);
 
-    // Inverse f^{-1}(x) when one-one
-    if (branch !== "all") {
-      const fInv = x => branch === "right" ? h + Math.sqrt(x + 1) : h - Math.sqrt(x + 1);
-      ctx.strokeStyle = "#0f766e";
+    let yLow = Infinity, yHigh = -Infinity, lowInc = false, highInc = false;
+    let vltHits = [];
+    let splitRange = null;
+
+    if (fnType === "quad") {
+      const f = x => (x - 2) * (x - 2) - 3;
+      document.getElementById("canvasTitle").innerHTML = `<span class="math">f : x &mapsto; (x &minus; 2)&sup2; &minus; 3, &nbsp;x &isin; ${effIncL ? "[" : "("}${fmt(a)}, ${fmt(b)}${effIncR ? "]" : ")"}</span>`;
+
+      ctx.save();
+      ctx.strokeStyle = "#cbd5e1";
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      for (let x = xMin; x <= xMax; x += 0.04) {
+        if (x === xMin) ctx.moveTo(toPxX(x), toPxY(f(x)));
+        else ctx.lineTo(toPxX(x), toPxY(f(x)));
+      }
+      ctx.stroke();
+      ctx.restore();
+
+      ctx.strokeStyle = "#8b5cf6";
       ctx.lineWidth = 3;
       ctx.beginPath();
-      for (let x = -1; x <= xMax; x += 0.02) {
-        if (x === -1) ctx.moveTo(toPxX(x), toPxY(fInv(x)));
-        else ctx.lineTo(toPxX(x), toPxY(fInv(x)));
+      for (let x = a; x <= b; x += 0.02) {
+        if (x === a) ctx.moveTo(toPxX(x), toPxY(f(x)));
+        else ctx.lineTo(toPxX(x), toPxY(f(x)));
       }
       ctx.stroke();
 
-      // Vertex & reflected vertex
-      drawDot(ctx, toPxX(h), toPxY(-1), "#8b5cf6", 5.5);
-      drawDot(ctx, toPxX(-1), toPxY(h), "#0f766e", 5.5);
+      drawEndpoint(ctx, toPxX(a), toPxY(f(a)), effIncL);
+      drawEndpoint(ctx, toPxX(b), toPxY(f(b)), effIncR);
+
+      const fa = f(a), fb = f(b);
+      if (a < 2 && 2 < b) {
+        yLow = -3; lowInc = true;
+      } else {
+        yLow = Math.min(fa, fb);
+        lowInc = fa < fb ? effIncL : fa > fb ? effIncR : (effIncL || effIncR);
+      }
+      yHigh = Math.max(fa, fb);
+      highInc = fa > fb ? effIncL : fa < fb ? effIncR : (effIncL || effIncR);
+
+      if (vltX >= a && vltX <= b) vltHits.push(f(vltX));
+
+      document.getElementById("analysisBox").innerHTML = `
+        <strong>Function Rule:</strong> <span class="math">f(x) = (x &minus; 2)&sup2; &minus; 3</span> (Vertex at <span class="math">(2, &minus;3)</span>).<br>
+        <strong>Vertical Line Test:</strong> Cuts curve at most <strong>1 time</strong> &rArr; Valid function.<br>
+        <strong>Vertex Check:</strong> <span class="math">x = 2</span> ${a < 2 && 2 < b ? "<strong>lies inside <span class='math'>D<sub>f</sub></span></strong>, so minimum is <span class='math'>&minus;3</span>." : "is outside <span class='math'>D<sub>f</sub></span>, so range is determined by endpoints."}
+      `;
+      document.getElementById("rangeBanner").innerHTML =
+        `Exact Range <span class="math">R<sub>f</sub> = <strong>${lowInc ? "[" : "("}${fmt(yLow)}, ${fmt(yHigh)}${highInc ? "]" : ")"}</strong></span>`;
+
+    } else if (fnType === "rat") {
+      const f = x => 3 - 2 / (x - 1);
+      const ratRuleHTML = `3 &minus; ${fracHTML("2", "x &minus; 1")}`;
+      const domDomainNote = (a <= 1 && b >= 1 && !(Math.abs(a - 1) < 1e-9 || Math.abs(b - 1) < 1e-9)) ? ", x &ne; 1" : "";
+      document.getElementById("canvasTitle").innerHTML = `<span class="math">f : x &mapsto; ${ratRuleHTML}, &nbsp;x &isin; ${effIncL ? "[" : "("}${fmt(a)}, ${fmt(b)}${effIncR ? "]" : ")"}${domDomainNote}</span>`;
+
+      // Asymptotes x = 1 and y = 3
+      ctx.save();
+      ctx.strokeStyle = "#e11d48";
+      ctx.setLineDash([5, 4]);
+      ctx.beginPath(); ctx.moveTo(toPxX(1), 0); ctx.lineTo(toPxX(1), H); ctx.stroke();
+      ctx.strokeStyle = "#0284c7";
+      ctx.beginPath(); ctx.moveTo(0, toPxY(3)); ctx.lineTo(W, toPxY(3)); ctx.stroke();
+      ctx.restore();
+
+      ctx.strokeStyle = "#8b5cf6";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      let started = false;
+      for (let x = a; x <= b; x += 0.015) {
+        if (Math.abs(x - 1) < 0.03) { started = false; continue; }
+        const y = f(x);
+        if (y < yMin - 1 || y > yMax + 1) { started = false; continue; }
+        if (!started) { ctx.moveTo(toPxX(x), toPxY(y)); started = true; }
+        else ctx.lineTo(toPxX(x), toPxY(y));
+      }
+      ctx.stroke();
+
+      if (Math.abs(a - 1) > 0.05) drawEndpoint(ctx, toPxX(a), toPxY(f(a)), effIncL);
+      if (Math.abs(b - 1) > 0.05) drawEndpoint(ctx, toPxX(b), toPxY(f(b)), effIncR);
+
+      if (Math.abs(a - 1) < 1e-9) {
+        yLow = -Infinity;
+        lowInc = false;
+        yHigh = f(b);
+        highInc = effIncR;
+      } else if (Math.abs(b - 1) < 1e-9) {
+        yLow = f(a);
+        lowInc = effIncL;
+        yHigh = Infinity;
+        highInc = false;
+      } else if (a > 1) {
+        yLow = f(a); lowInc = effIncL;
+        yHigh = f(b); highInc = effIncR;
+      } else if (b < 1) {
+        yLow = f(b); lowInc = effIncR;
+        yHigh = f(a); highInc = effIncL;
+      } else {
+        splitRange = {
+          leftMax: f(b), leftMaxInc: effIncR,
+          rightMin: f(a), rightMinInc: effIncL
+        };
+      }
+
+      if (vltX >= a && vltX <= b && Math.abs(vltX - 1) > 0.04) vltHits.push(f(vltX));
+
+      document.getElementById("analysisBox").innerHTML = `
+        <strong>Function Rule:</strong> <span class="math">f(x) = ${ratRuleHTML}</span> (Strictly increasing on <span class="math">x &lt; 1</span> and <span class="math">x &gt; 1</span>).<br>
+        <strong>Asymptotes:</strong> Vertical <span class="math">x = 1</span> (red) and Horizontal <span class="math">y = 3</span> (blue).<br>
+        <strong>Boundary Behaviour:</strong> ${Math.abs(a - 1) < 1e-9 ? `As <span class="math">x &rarr; 1<sup>+</sup></span>, <span class="math">f(x) &rarr; &minus;&infin;</span>; at <span class="math">x = ${fmt(b)}</span>, <span class="math">f(${fmt(b)}) = ${fmt(f(b))}</span>.` : Math.abs(b - 1) < 1e-9 ? `At <span class="math">x = ${fmt(a)}</span>, <span class="math">f(${fmt(a)}) = ${fmt(f(a))}</span>; as <span class="math">x &rarr; 1<sup>&minus;</sup></span>, <span class="math">f(x) &rarr; &infin;</span>.` : `Evaluated across domain endpoints and asymptote <span class="math">x = 1</span>.`}
+      `;
+
+      if (splitRange) {
+        document.getElementById("rangeBanner").innerHTML =
+          `Split Domain Across VA <span class="math">x = 1</span>: <strong><span class="math">R<sub>f</sub> = (&minus;&infin;, ${fmt(splitRange.leftMax)}${splitRange.leftMaxInc ? "]" : ")"}) &cup; ${splitRange.rightMinInc ? "[" : "("}${fmt(splitRange.rightMin)}, &infin;)</span></strong>`;
+      } else {
+        document.getElementById("rangeBanner").innerHTML =
+          `Exact Range <span class="math">R<sub>f</sub> = <strong>${lowInc ? "[" : "("}${fmt(yLow)}, ${fmt(yHigh)}${highInc ? "]" : ")"}</strong></span>`;
+      }
+
+    } else {
+      document.getElementById("canvasTitle").innerHTML = `Relation: <span class="math">(x &minus; 2)&sup2; + (y &minus; 2)&sup2; = 9</span> (Same 1:1 Scale &mdash; NOT a Function!)`;
+      ctx.strokeStyle = "#e11d48";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.arc(toPxX(2), toPxY(2), 3 * pxPerUnit, 0, Math.PI * 2);
+      ctx.stroke();
+
+      yLow = -1; yHigh = 5; lowInc = true; highInc = true;
+      const dx = vltX - 2;
+      if (Math.abs(dx) <= 3) {
+        const dy = Math.sqrt(9 - dx * dx);
+        vltHits.push(2 + dy);
+        if (dy > 0.01) vltHits.push(2 - dy);
+      }
+
+      document.getElementById("analysisBox").innerHTML = `
+        <strong>Equation:</strong> <span class="math">(x &minus; 2)&sup2; + (y &minus; 2)&sup2; = 9</span> (Centre <span class="math">(2, 2)</span>, radius <span class="math">3</span>).<br>
+        <strong>Vertical Line Test:</strong> For <span class="math">&minus;1 &lt; x &lt; 5</span>, the vertical line cuts the circle <strong>TWICE</strong>!<br>
+        <strong>Conclusion:</strong> One <span class="math">x</span>-input maps to two <span class="math">y</span>-outputs &rArr; <strong>Not a function</strong>.
+      `;
+      document.getElementById("rangeBanner").innerHTML =
+        `Vertical Line Test at <span class="math">x = ${fmt(vltX)}</span>: <strong>${vltHits.length} intersection${vltHits.length === 1 ? "" : "s"}</strong> (${vltHits.length > 1 ? "Fails VLT &mdash; Not a Function" : "Move slider into <span class='math'>(&minus;1, 5)</span> to see 2 hits"})`;
     }
 
-    // Horizontal Line Test
+    // Green range highlight along y-axis
+    const yAxisX = toPxX(0);
+    ctx.strokeStyle = "#0f766e";
+    ctx.lineWidth = 6;
+    if (splitRange) {
+      ctx.beginPath();
+      ctx.moveTo(yAxisX, H);
+      ctx.lineTo(yAxisX, toPxY(Math.max(yMin, splitRange.leftMax)));
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(yAxisX, toPxY(Math.min(yMax, splitRange.rightMin)));
+      ctx.lineTo(yAxisX, 0);
+      ctx.stroke();
+    } else if (yLow < yHigh) {
+      const pyStart = yLow === -Infinity ? H : toPxY(Math.max(yMin, yLow));
+      const pyEnd = yHigh === Infinity ? 0 : toPxY(Math.min(yMax, yHigh));
+      ctx.beginPath();
+      ctx.moveTo(yAxisX, pyStart);
+      ctx.lineTo(yAxisX, pyEnd);
+      ctx.stroke();
+    }
+
+    // Vertical Line Test line
     ctx.save();
     ctx.strokeStyle = "#0284c7";
     ctx.lineWidth = 1.8;
     ctx.setLineDash([6, 4]);
     ctx.beginPath();
-    ctx.moveTo(0, toPxY(hltY));
-    ctx.lineTo(W, toPxY(hltY));
+    ctx.moveTo(toPxX(vltX), 0);
+    ctx.lineTo(toPxX(vltX), H);
     ctx.stroke();
     ctx.restore();
 
-    let hits = [];
-    if (hltY >= -1) {
-      const d = Math.sqrt(hltY + 1);
-      if (branch === "all") {
-        hits.push(h - d);
-        if (d > 0.01) hits.push(h + d);
-      } else if (branch === "right") {
-        hits.push(h + d);
-      } else {
-        hits.push(h - d);
-      }
-    }
-
-    hits.forEach(hx => {
-      drawDot(ctx, toPxX(hx), toPxY(hltY), hits.length > 1 ? "#e11d48" : "#0284c7", 5.5);
+    vltHits.forEach(hy => {
+      ctx.beginPath();
+      ctx.arc(toPxX(vltX), toPxY(hy), 5.5, 0, Math.PI * 2);
+      ctx.fillStyle = vltHits.length > 1 ? "#e11d48" : "#0284c7";
+      ctx.fill();
     });
-
-    if (branch === "all") {
-      document.getElementById("invStepsBox").innerHTML = `
-        <strong>1.</strong> Function: <em>f(x) = (x − ${h})² − 1</em> for <em>x ∈ ℝ</em>.<br>
-        <strong>2.</strong> Horizontal line <em>y = ${hltY}</em> cuts the curve <strong>${hits.length} time${hits.length === 1 ? "" : "s"}</strong>.<br>
-        <strong>3.</strong> Since <em>f(${h - 2}) = f(${h + 2}) = 3</em>, <em>f</em> is <strong>not one-one</strong> &rArr; <strong>f⁻¹ does not exist</strong>.
-      `;
-      document.getElementById("invBanner").innerHTML =
-        `Largest Domain Restrictions for f⁻¹ to Exist: <strong>x ≥ ${h}</strong> (right branch) or <strong>x ≤ ${h}</strong> (left branch).`;
-    } else {
-      const signStr = branch === "right" ? "+" : "−";
-      const domStr = branch === "right" ? `x ≥ ${h}` : `x ≤ ${h}`;
-      document.getElementById("invStepsBox").innerHTML = `
-        <strong>1.</strong> Let <em>y = (x − ${h})² − 1</em> &rArr; <em>x − ${h} = ±√(y + 1)</em>.<br>
-        <strong>2.</strong> Since <em>${domStr}</em>, we select the <strong>${signStr}√</strong> branch: <em>x = ${h} ${signStr} √(y + 1)</em>.<br>
-        <strong>3.</strong> Swap <em>x</em> and <em>y</em>, and set <em>D_{f⁻¹} = R_f = [−1, ∞)</em>.
-      `;
-      document.getElementById("invBanner").innerHTML =
-        `Exact Inverse: <strong>f⁻¹ : x ↦ ${h} ${signStr} √(x + 1),  x ∈ ℝ, x ≥ −1</strong>`;
-    }
   }
 
-  function drawDot(ctx, x, y, color, r) {
+  function drawEndpoint(ctx, px, py, filled) {
     ctx.beginPath();
-    ctx.arc(x, y, r, 0, Math.PI * 2);
-    ctx.fillStyle = color;
+    ctx.arc(px, py, 5.5, 0, Math.PI * 2);
+    ctx.fillStyle = filled ? "#8b5cf6" : "#ffffff";
     ctx.fill();
+    ctx.strokeStyle = "#8b5cf6";
+    ctx.lineWidth = 2.2;
+    ctx.stroke();
   }
 
+  window.addEventListener("resize", draw);
   draw();
 </script>
 
