@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 5.5 Lesson 3: Reducing Differential Equations via a Given Substitution</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* CLEAN HTML FRACTIONS & MATH TYPOGRAPHY */
+    .math {
+      font-family: 'Cambria Math', 'Times New Roman', Georgia, serif;
+      font-size: 1.04em;
+    }
+
+    .frac {
+      display: inline-flex;
+      flex-direction: column;
+      vertical-align: middle;
+      text-align: center;
+      font-size: 0.88em;
+      line-height: 1.1;
+      margin: 0 2px;
+    }
+
+    .frac-num {
+      border-bottom: 1.3px solid currentColor;
+      padding: 0 3px 1px;
+    }
+
+    .frac-den {
+      padding: 1px 3px 0;
+    }
+
+    .sqrt {
+      display: inline-flex;
+      align-items: baseline;
+    }
+
+    .sqrt-rad {
+      border-top: 1.25px solid currentColor;
+      padding: 0 2px;
+    }
+
+    /* HOW-TO-USE & SUBSTITUTION METHOD BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.5;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 550px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1060px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    /* HOW TO PERFORM A SUBSTITUTION EXPLANATION CARD */
+    .method-card {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-left: 4px solid var(--purple);
+      border-radius: 11px;
+      padding: 10px 12px;
+      margin-bottom: 12px;
+      font-size: 0.78rem;
+      line-height: 1.52;
+    }
+
+    .method-card-title {
+      font-size: 0.74rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.45px;
+      color: var(--purple-dark);
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    .method-steps-list {
+      margin: 0;
+      padding-left: 17px;
+    }
+
+    .method-steps-list li {
+      margin-bottom: 4px;
+    }
+
+    .method-steps-list li:last-child {
+      margin-bottom: 0;
+    }
+
+    /* PRESET GRID (3 PRESETS) */
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 11px;
+    }
+
+    @media (max-width: 600px) {
+      .preset-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .tab-btn {
+      padding: 8px 8px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.75rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+      line-height: 1.45;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.52;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    /* STEP-BY-STEP ALGEBRA REVEAL */
+    .stepper-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 9px;
+    }
+
+    .step-btn-group {
+      display: flex;
+      gap: 5px;
+    }
+
+    .action-btn {
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: none;
+      background: var(--purple-dark);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .action-btn:hover {
+      opacity: 0.92;
+    }
+
+    .action-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .action-btn.secondary {
+      background: var(--blue-bg);
+      color: var(--blue);
+      border: 1px solid #bae6fd;
+    }
+
+    .action-btn.ghost {
+      background: #f8fafc;
+      color: var(--text);
+      border: 1px solid #cbd5e1;
+    }
+
+    .algebra-stage {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 11px;
+    }
+
+    .step-card {
+      border: 1px solid #e2e8f0;
+      background: #f8fafc;
+      border-radius: 9px;
+      padding: 8px 11px;
+      margin-bottom: 7px;
+      font-size: 0.79rem;
+      line-height: 1.55;
+      transition: 0.2s;
+    }
+
+    .step-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .step-card.active-step {
+      border-color: var(--purple);
+      background: #faf5ff;
+      box-shadow: 0 2px 6px rgba(139, 92, 246, 0.08);
+    }
+
+    .step-card.locked {
+      opacity: 0.45;
+      background: #f1f5f9;
+      border-style: dashed;
+    }
+
+    .step-tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      padding: 2px 7px;
+      border-radius: 5px;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      margin-bottom: 3px;
+    }
+
+    .step-card.active-step .step-tag {
+      background: var(--purple-dark);
+      color: #ffffff;
+    }
+
+    .step-math {
+      font-size: 0.82rem;
+      color: #0f172a;
+      margin-top: 2px;
+    }
+
+    .insight-banner {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #134e4a;
+      font-size: 0.79rem;
+      line-height: 1.5;
+    }
+
+    /* SIDE-BY-SIDE DIRECTION FIELDS STAGE */
+    .canvas-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .legend-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 0.73rem;
+      font-weight: 700;
+      color: #475569;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .swatch {
+      width: 11px;
+      height: 11px;
+      border-radius: 3px;
+      display: inline-block;
+    }
+
+    .dual-canvas-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .dual-canvas-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .plane-card {
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    .plane-title {
+      background: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 6px 10px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: #1e293b;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 275px;
+      cursor: crosshair;
+    }
+
+    .plane-footer {
+      background: #f8fafc;
+      border-top: 1px solid #e2e8f0;
+      padding: 5px 10px;
+      font-size: 0.73rem;
+      font-weight: 700;
+      color: #475569;
+    }
+
+    .check-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.77rem;
+      margin-top: 10px;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .check-table th, .check-table td {
+      border: 1px solid #e2e8f0;
+      padding: 6px 8px;
+      text-align: left;
+    }
+
+    .check-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    .misconception-box {
+      margin-top: 10px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-size: 0.78rem;
+      line-height: 1.48;
+      color: #78350f;
+    }
+
+    .grader-card {
+      margin-top: 10px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 13px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 7px;
+    }
+
+    @media (max-width: 720px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      line-height: 1.4;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 7px;
+      font-size: 0.77rem;
+      line-height: 1.46;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Substitution Reduction Lab (25 Mins)</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Master the 3-Stage Substitution Workflow</strong>
+        Read the method card first: every substitution replaces <em>both</em> the dependent variable <em>y</em> and its derivative <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span></span> to eliminate <em>y</em> completely before separating variables.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Compare Side-by-Side Tangent Grids Before &amp; After</strong>
+        Click anywhere on either coordinate plane (<em>x</em>, <em>y</em>) or (<em>x</em>, <em>u</em>). Observe how coupled diagonal tangent segments in (<em>x</em>, <em>y</em>) align into clean, variable-separable patterns in (<em>x</em>, <em>u</em>).
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Step Through All 3 Canonical 9758 Substitutions</strong>
+        Use <em>Next Step &rarr;</em> across Linear (<span class="math"><em>u</em> = <em>x</em> + <em>y</em></span>), Homogeneous (<span class="math"><em>y</em> = <em>ux</em></span>), and Bernoulli (<span class="math"><em>u</em> = <em>y</em><sup>&minus;1</sup></span>) presets, then complete the 3-question check.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT METHOD EXPLANATION, PRESET SELECTOR & ALGEBRA STEPPER -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        5.5 Lesson 3 &bull; Reducing Differential Equations via a Given Substitution
+      </div>
+
+      <!-- EXPLANATION: HOW TO PERFORM A SUBSTITUTION -->
+      <div class="method-card">
+        <span class="method-card-title">How to Reduce a Differential Equation Using a Given Substitution</span>
+        <div>
+          When a differential equation cannot be separated directly into <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = <em>f</em>(<em>x</em>)<em>g</em>(<em>y</em>)</span>, a given substitution connecting <em>u</em>, <em>x</em>, and <em>y</em> transforms it into a separable equation in <em>u</em> and <em>x</em>:
+        </div>
+        <ol class="method-steps-list" style="margin-top:5px;">
+          <li><strong>Differentiate the substitution with respect to <em>x</em></strong> (using the Chain Rule or Product Rule) to express <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span></span> in terms of <span class="math"><span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span></span>, <em>u</em>, and <em>x</em>.</li>
+          <li><strong>Substitute for both <em>y</em> and <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span></span></strong> into the original differential equation and simplify until <strong>no <em>y</em> remains</strong>—yielding a separable equation <span class="math"><span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = <em>F</em>(<em>x</em>)<em>G</em>(<em>u</em>)</span>.</li>
+          <li><strong>Separate variables, integrate for <em>u</em>, and back-substitute</strong> the original expression for <em>u</em> in terms of <em>x</em> and <em>y</em> (applying any initial condition to find <em>C</em>).</li>
+        </ol>
+      </div>
+
+      <!-- 3 Canonical 9758 Substitution Presets -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="tab_linear" onclick="selectPreset('linear')">
+          Preset 1: Linear<br>
+          <span style="font-size:0.7rem; font-weight:600;"><em>u</em> = <em>x</em> + <em>y</em></span>
+        </button>
+        <button class="tab-btn" id="tab_homog" onclick="selectPreset('homog')">
+          Preset 2: Homogeneous<br>
+          <span style="font-size:0.7rem; font-weight:600;"><em>y</em> = <em>ux</em></span>
+        </button>
+        <button class="tab-btn" id="tab_bernoulli" onclick="selectPreset('bernoulli')">
+          Preset 3: Power / Bernoulli<br>
+          <span style="font-size:0.7rem; font-weight:600;"><em>u</em> = <em>y</em><sup>&minus;1</sup></span>
+        </button>
+      </div>
+
+      <!-- Problem Statement & Derivative Relation Pill -->
+      <div class="context-box" id="problemBox"></div>
+
+      <!-- Step-by-Step Algebra Controls -->
+      <div class="stepper-bar">
+        <span style="font-size:0.74rem; font-weight:800; color:#1e293b; text-transform:uppercase; letter-spacing:0.4px;">
+          4-Stage Reduction &amp; Solution (<span id="stepCountLbl">1</span>/4)
+        </span>
+        <div class="step-btn-group">
+          <button class="action-btn ghost" id="prevStepBtn" onclick="changeStep(-1)">&larr; Prev</button>
+          <button class="action-btn" id="nextStepBtn" onclick="changeStep(1)">Next Step &rarr;</button>
+          <button class="action-btn secondary" onclick="revealAllSteps()">Reveal All</button>
+        </div>
+      </div>
+
+      <!-- 4 Algebra Step Cards -->
+      <div class="algebra-stage" id="algebraStepsContainer"></div>
+
+      <!-- Structural Transformation Insight Banner -->
+      <div class="insight-banner" id="insightBanner"></div>
+    </div>
+
+    <!-- RIGHT SIDE-BY-SIDE VISUALISATION, COORDINATE MAP & EXAM CHECK -->
+    <div class="card">
+      <div class="canvas-header">
+        <div style="font-size:1.0rem; font-weight:800; color:#1e293b;" id="visualHeading">
+          Side-by-Side Tangent Grids &amp; Solution Curves: (<em>x</em>, <em>y</em>) &harr; (<em>x</em>, <em>u</em>)
+        </div>
+        <div class="legend-row">
+          <div class="legend-item"><span class="swatch" style="background:#94a3b8;"></span>Tangent Segments</div>
+          <div class="legend-item"><span class="swatch" style="background:#7c3aed;"></span>Solution Curve</div>
+          <div class="legend-item"><span class="swatch" style="background:#e11d48; border-radius:50%;"></span>Linked Point</div>
+        </div>
+      </div>
+
+      <!-- Side-by-Side Planes -->
+      <div class="dual-canvas-grid">
+        <div class="plane-card">
+          <div class="plane-title">
+            <span>Original Plane: (<em>x</em>, <em>y</em>)</span>
+            <span id="leftEqBadge" style="color:var(--purple-dark);">dy/dx = (x + y)²</span>
+          </div>
+          <canvas id="xyCanvas" width="380" height="275"></canvas>
+          <div class="plane-footer" id="xyFooter">Click anywhere on (<em>x</em>, <em>y</em>) to pick a point</div>
+        </div>
+
+        <div class="plane-card">
+          <div class="plane-title">
+            <span>Transformed Plane: (<em>x</em>, <em>u</em>)</span>
+            <span id="rightEqBadge" style="color:var(--teal);">du/dx = 1 + u²</span>
+          </div>
+          <canvas id="xuCanvas" width="380" height="275"></canvas>
+          <div class="plane-footer" id="xuFooter">Click anywhere on (<em>x</em>, <em>u</em>) to pick a point</div>
+        </div>
+      </div>
+
+      <!-- Linked Coordinate & Gradient Table -->
+      <table class="check-table" id="mappingTable"></table>
+
+      <!-- 9758 Exam Pitfall Box -->
+      <div class="misconception-box" id="pitfallBox"></div>
+
+      <!-- Quick 9758 Substitution Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 Substitution Mastery Check (<span id="qIdxLbl">1</span>/3)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.79rem; line-height:1.48; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  const xyCanvas = document.getElementById("xyCanvas");
+  const xyCtx = xyCanvas.getContext("2d");
+  const xuCanvas = document.getElementById("xuCanvas");
+  const xuCtx = xuCanvas.getContext("2d");
+
+  const presets = {
+    linear: {
+      name: "Preset 1: Linear Substitution",
+      statement: `Use the substitution <em>u</em> = <em>x</em> + <em>y</em> to reduce <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = (<em>x</em> + <em>y</em>)<sup>2</sup></span> into a separable differential equation, and find the general solution for <em>y</em> in terms of <em>x</em>.`,
+      derivPill: `Substitution link: <em>u</em> = <em>x</em> + <em>y</em> &nbsp;&rArr;&nbsp; <span class="math"><span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = 1 + <span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span></span>`,
+      leftEqLabel: `<span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = (<em>x</em> + <em>y</em>)<sup>2</sup></span>`,
+      rightEqLabel: `<span class="math"><span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = 1 + <em>u</em><sup>2</sup></span>`,
+      xyDomain: { x: [-2.5, 2.5], y: [-2.5, 2.5] },
+      xuDomain: { x: [-2.5, 2.5], u: [-2.5, 2.5] },
+      defaultPt: { x: 0.0, y: 0.0 },
+      yToU: (x, y) => x + y,
+      uToY: (x, u) => u - x,
+      dydx: (x, y) => (x + y) * (x + y),
+      dudx: (x, u) => 1 + u * u,
+      // Particular solution passing through (x0, u0): u(x) = tan(x + C), C = arctan(u0) - x0
+      paramFromXU: (x0, u0) => Math.atan(u0) - x0,
+      evalU: (x, C) => Math.tan(x + C),
+      evalY: (x, C) => Math.tan(x + C) - x,
+      steps: [
+        {
+          tag: "Step 1: Differentiate u = x + y w.r.t. x",
+          math: `Differentiating both sides with respect to <em>x</em> gives:<br>
+                 <span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = 1 + <span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> &nbsp;&rArr;&nbsp; <span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = <span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> &minus; 1`
+        },
+        {
+          tag: "Step 2: Substitute &amp; Simplify to Separable Form",
+          math: `Replace <span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> and (<em>x</em> + <em>y</em>): &nbsp; <span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> &minus; 1 = <em>u</em><sup>2</sup> &nbsp;&rArr;&nbsp; <strong><span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = 1 + <em>u</em><sup>2</sup></strong>`
+        },
+        {
+          tag: "Step 3: Separate Variables &amp; Integrate for u",
+          math: `&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den">1 + <em>u</em><sup>2</sup></span></span> d<em>u</em> = &int; 1 d<em>x</em> &nbsp;&rArr;&nbsp; tan<sup>&minus;1</sup> <em>u</em> = <em>x</em> + <em>C</em> &nbsp;&rArr;&nbsp; <em>u</em> = tan(<em>x</em> + <em>C</em>)`
+        },
+        {
+          tag: "Step 4: Back-Substitute u = x + y",
+          math: `<em>x</em> + <em>y</em> = tan(<em>x</em> + <em>C</em>) &nbsp;&rArr;&nbsp; <strong><em>y</em> = tan(<em>x</em> + <em>C</em>) &minus; <em>x</em></strong>`
+        }
+      ],
+      insight: `<strong>Visual Transformation:</strong> In the (<em>x</em>, <em>y</em>) plane, tangent segments depend on the diagonal sum <em>x</em> + <em>y</em> (constant along lines <em>x</em> + <em>y</em> = <em>k</em>). After substituting <em>u</em> = <em>x</em> + <em>y</em>, the transformed equation <span class="math"><span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = 1 + <em>u</em><sup>2</sup></span> depends <em>only on u</em>—so all tangent segments along any horizontal row <em>u</em> = <em>k</em> become parallel!`,
+      pitfall: `<strong>9758 Exam Pitfall (Forgetting to Replace dy/dx):</strong> A frequent error is replacing (<em>x</em> + <em>y</em>)<sup>2</sup> with <em>u</em><sup>2</sup> while leaving <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span></span> unchanged on the left. Always differentiate the substitution first so <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span></span> is completely eliminated.`
+    },
+
+    homog: {
+      name: "Preset 2: Homogeneous Substitution",
+      statement: `For <em>x</em> &gt; 0, use the substitution <em>y</em> = <em>ux</em> to reduce <span class="math"><em>x</em><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = <em>y</em> + <span class="sqrt">&radic;<span class="sqrt-rad"><em>x</em><sup>2</sup> + <em>y</em><sup>2</sup></span></span></span> into a separable equation, and find the general solution for <em>y</em>.`,
+      derivPill: `Product Rule link: <em>y</em> = <em>ux</em> &nbsp;&rArr;&nbsp; <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = <em>u</em> + <em>x</em><span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span></span>`,
+      leftEqLabel: `<span class="math"><em>x</em><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = <em>y</em> + <span class="sqrt">&radic;<span class="sqrt-rad"><em>x</em><sup>2</sup> + <em>y</em><sup>2</sup></span></span></span>`,
+      rightEqLabel: `<span class="math"><em>x</em><span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = <span class="sqrt">&radic;<span class="sqrt-rad">1 + <em>u</em><sup>2</sup></span></span></span>`,
+      xyDomain: { x: [0.2, 3.2], y: [-2.5, 3.5] },
+      xuDomain: { x: [0.2, 3.2], u: [-1.5, 2.5] },
+      defaultPt: { x: 1.0, y: 0.75 },
+      yToU: (x, y) => y / x,
+      uToY: (x, u) => u * x,
+      dydx: (x, y) => (y + Math.sqrt(x * x + y * y)) / x,
+      dudx: (x, u) => Math.sqrt(1 + u * u) / x,
+      // u + sqrt(1 + u^2) = A x => A = (u0 + sqrt(1 + u0^2)) / x0; u(x) = 0.5*(A*x - 1/(A*x))
+      paramFromXU: (x0, u0) => (u0 + Math.sqrt(1 + u0 * u0)) / x0,
+      evalU: (x, A) => 0.5 * (A * x - 1 / (A * x)),
+      evalY: (x, A) => 0.5 * x * (A * x - 1 / (A * x)),
+      steps: [
+        {
+          tag: "Step 1: Differentiate y = ux via the Product Rule",
+          math: `Since <em>u</em> is a function of <em>x</em>, applying the Product Rule gives:<br>
+                 <span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = <em>u</em>(1) + <em>x</em><span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = <em>u</em> + <em>x</em><span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span>`
+        },
+        {
+          tag: "Step 2: Substitute &amp; Cancel u on Both Sides",
+          math: `<em>x</em>(<em>u</em> + <em>x</em><span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span>) = <em>ux</em> + <span class="sqrt">&radic;<span class="sqrt-rad"><em>x</em><sup>2</sup> + <em>u</em><sup>2</sup><em>x</em><sup>2</sup></span></span> = <em>ux</em> + <em>x</em><span class="sqrt">&radic;<span class="sqrt-rad">1 + <em>u</em><sup>2</sup></span></span> (for <em>x</em> &gt; 0)<br>
+                 Dividing by <em>x</em>: &nbsp; <em>u</em> + <em>x</em><span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = <em>u</em> + <span class="sqrt">&radic;<span class="sqrt-rad">1 + <em>u</em><sup>2</sup></span></span> &nbsp;&rArr;&nbsp; <strong><em>x</em><span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = <span class="sqrt">&radic;<span class="sqrt-rad">1 + <em>u</em><sup>2</sup></span></span></strong>`
+        },
+        {
+          tag: "Step 3: Separate Variables &amp; Integrate (MF27)",
+          math: `&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="sqrt">&radic;<span class="sqrt-rad">1 + <em>u</em><sup>2</sup></span></span></span></span> d<em>u</em> = &int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>x</em></span></span> d<em>x</em> &nbsp;&rArr;&nbsp; ln(<em>u</em> + <span class="sqrt">&radic;<span class="sqrt-rad">1 + <em>u</em><sup>2</sup></span></span>) = ln <em>x</em> + <em>C</em> &nbsp;&rArr;&nbsp; <em>u</em> + <span class="sqrt">&radic;<span class="sqrt-rad">1 + <em>u</em><sup>2</sup></span></span> = <em>Ax</em>`
+        },
+        {
+          tag: "Step 4: Back-Substitute u = y/x",
+          math: `<span class="frac"><span class="frac-num"><em>y</em></span><span class="frac-den"><em>x</em></span></span> + <span class="sqrt">&radic;<span class="sqrt-rad">1 + <span class="frac"><span class="frac-num"><em>y</em><sup>2</sup></span><span class="frac-den"><em>x</em><sup>2</sup></span></span></span></span> = <em>Ax</em> &nbsp;&rArr;&nbsp; <strong><em>y</em> + <span class="sqrt">&radic;<span class="sqrt-rad"><em>x</em><sup>2</sup> + <em>y</em><sup>2</sup></span></span> = <em>Ax</em><sup>2</sup></strong> (or <em>y</em> = <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span>(<em>Ax</em><sup>2</sup> &minus; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>A</em></span></span>))`
+        }
+      ],
+      insight: `<strong>Visual Transformation:</strong> In the (<em>x</em>, <em>y</em>) plane, tangent gradients are identical along every ray <em>y</em> = <em>mx</em> through the origin. Setting <em>y</em> = <em>ux</em> maps each ray <em>y</em> = <em>mx</em> to a horizontal line <em>u</em> = <em>m</em>, separating the equation into <span class="math"><span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = <span class="frac"><span class="frac-num"><span class="sqrt">&radic;<span class="sqrt-rad">1 + <em>u</em><sup>2</sup></span></span></span><span class="frac-den"><em>x</em></span></span></span>.`,
+      pitfall: `<strong>9758 Exam Pitfall (Omitting the Product Rule on y = ux):</strong> Students frequently differentiate <em>y</em> = <em>ux</em> with respect to <em>x</em> and write <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = <span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span></span>, forgetting that both <em>u</em> and <em>x</em> vary with <em>x</em>. Always use <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = <em>u</em> + <em>x</em><span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span></span>.`
+    },
+
+    bernoulli: {
+      name: "Preset 3: Power / Bernoulli Substitution",
+      statement: `For <em>x</em> &gt; 0 and <em>y</em> &gt; 0, use the substitution <em>u</em> = <em>y</em><sup>&minus;1</sup> to reduce <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> + <span class="frac"><span class="frac-num"><em>y</em></span><span class="frac-den"><em>x</em></span></span> = <em>xy</em><sup>2</sup></span>, and find the general solution for <em>y</em> in terms of <em>x</em>.`,
+      derivPill: `Chain Rule link: <em>u</em> = <em>y</em><sup>&minus;1</sup> &nbsp;&rArr;&nbsp; <span class="math"><span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = &minus;<em>y</em><sup>&minus;2</sup><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span></span>`,
+      leftEqLabel: `<span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> + <span class="frac"><span class="frac-num"><em>y</em></span><span class="frac-den"><em>x</em></span></span> = <em>xy</em><sup>2</sup></span>`,
+      rightEqLabel: `<span class="math"><span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = <span class="frac"><span class="frac-num"><em>u</em></span><span class="frac-den"><em>x</em></span></span> &minus; <em>x</em></span>`,
+      xyDomain: { x: [0.3, 3.0], y: [0.2, 3.0] },
+      xuDomain: { x: [0.3, 3.0], u: [-1.5, 3.0] },
+      defaultPt: { x: 1.0, y: 1.0 },
+      yToU: (x, y) => 1 / y,
+      uToY: (x, u) => (Math.abs(u) < 0.05 ? 20 : 1 / u),
+      dydx: (x, y) => x * y * y - y / x,
+      dudx: (x, u) => u / x - x,
+      // u(x) = C*x - x^2 => C = (u0 + x0^2)/x0
+      paramFromXU: (x0, u0) => (u0 + x0 * x0) / x0,
+      evalU: (x, C) => C * x - x * x,
+      evalY: (x, C) => 1 / (C * x - x * x),
+      steps: [
+        {
+          tag: "Step 1: Differentiate u = y⁻¹ via the Chain Rule",
+          math: `<span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = &minus;<em>y</em><sup>&minus;2</sup><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> &nbsp;&rArr;&nbsp; <em>y</em><sup>&minus;2</sup><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = &minus;<span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span>`
+        },
+        {
+          tag: "Step 2: Divide Original DE by y² &amp; Substitute",
+          math: `Divide <span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> + <span class="frac"><span class="frac-num"><em>y</em></span><span class="frac-den"><em>x</em></span></span> = <em>xy</em><sup>2</sup> by <em>y</em><sup>2</sup>: &nbsp; <em>y</em><sup>&minus;2</sup><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> + <span class="frac"><span class="frac-num"><em>y</em><sup>&minus;1</sup></span><span class="frac-den"><em>x</em></span></span> = <em>x</em><br>
+                 Substitute <em>u</em> = <em>y</em><sup>&minus;1</sup>: &nbsp; &minus;<span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> + <span class="frac"><span class="frac-num"><em>u</em></span><span class="frac-den"><em>x</em></span></span> = <em>x</em> &nbsp;&rArr;&nbsp; <strong><span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> &minus; <span class="frac"><span class="frac-num"><em>u</em></span><span class="frac-den"><em>x</em></span></span> = &minus;<em>x</em></strong>`
+        },
+        {
+          tag: "Step 3: Solve Linear Equation for u (via Integrating Factor 1/x)",
+          math: `Multiply by <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>x</em></span></span>: &nbsp; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>x</em></span></span><span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> &minus; <span class="frac"><span class="frac-num"><em>u</em></span><span class="frac-den"><em>x</em><sup>2</sup></span></span> = &minus;1 &nbsp;&rArr;&nbsp; <span class="frac"><span class="frac-num">d</span><span class="frac-den">d<em>x</em></span></span>(<span class="frac"><span class="frac-num"><em>u</em></span><span class="frac-den"><em>x</em></span></span>) = &minus;1<br>
+                 Integrating w.r.t. <em>x</em>: &nbsp; <span class="frac"><span class="frac-num"><em>u</em></span><span class="frac-den"><em>x</em></span></span> = &minus;<em>x</em> + <em>C</em> &nbsp;&rArr;&nbsp; <em>u</em> = <em>Cx</em> &minus; <em>x</em><sup>2</sup>`
+        },
+        {
+          tag: "Step 4: Back-Substitute u = 1/y",
+          math: `<span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>y</em></span></span> = <em>Cx</em> &minus; <em>x</em><sup>2</sup> &nbsp;&rArr;&nbsp; <strong><em>y</em> = <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>Cx</em> &minus; <em>x</em><sup>2</sup></span></span></strong>`
+        }
+      ],
+      insight: `<strong>Visual Transformation:</strong> The nonlinear <em>y</em><sup>2</sup> term in <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> + <span class="frac"><span class="frac-num"><em>y</em></span><span class="frac-den"><em>x</em></span></span> = <em>xy</em><sup>2</sup></span> causes curves in the (<em>x</em>, <em>y</em>) plane to blow up steeply as <em>y</em> grows. Applying <em>u</em> = <em>y</em><sup>&minus;1</sup> turns those blowing-up curves into smooth parabolas <em>u</em> = <em>Cx</em> &minus; <em>x</em><sup>2</sup> in the (<em>x</em>, <em>u</em>) plane!`,
+      pitfall: `<strong>9758 Exam Pitfall (Missing the Minus Sign in du/dx):</strong> Differentiating <em>u</em> = <em>y</em><sup>&minus;1</sup> gives <span class="math"><span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span> = <strong>&minus;</strong><em>y</em><sup>&minus;2</sup><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span></span>. Dropping the negative sign flips the sign of <em>x</em> in the reduced equation and changes the final denominator.`
+    }
+  };
+
+  let curKey = "linear";
+  let revealedStep = 1;
+  let activePt = { x: 0.0, y: 0.0, u: 0.0, param: 0.0 };
+
+  function selectPreset(key) {
+    curKey = key;
+    revealedStep = 1;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("tab_" + key).classList.add("active");
+
+    const p = presets[key];
+    const x0 = p.defaultPt.x;
+    const y0 = p.defaultPt.y;
+    const u0 = p.yToU(x0, y0);
+    const param = p.paramFromXU(x0, u0);
+    activePt = { x: x0, y: y0, u: u0, param };
+
+    renderAll();
+  }
+
+  function changeStep(delta) {
+    revealedStep = Math.max(1, Math.min(4, revealedStep + delta));
+    renderSteps();
+  }
+
+  function revealAllSteps() {
+    revealedStep = 4;
+    renderSteps();
+  }
+
+  function renderAll() {
+    const p = presets[curKey];
+    document.getElementById("problemBox").innerHTML = `
+      <div><strong>${p.name}:</strong> ${p.statement}</div>
+      <div class="var-pill">${p.derivPill}</div>
+    `;
+    document.getElementById("leftEqBadge").innerHTML = p.leftEqLabel;
+    document.getElementById("rightEqBadge").innerHTML = p.rightEqLabel;
+    document.getElementById("insightBanner").innerHTML = p.insight;
+    document.getElementById("pitfallBox").innerHTML = p.pitfall;
+
+    renderSteps();
+    drawBothPlanes();
+    renderMappingTable();
+  }
+
+  function renderSteps() {
+    const p = presets[curKey];
+    document.getElementById("stepCountLbl").textContent = revealedStep;
+    document.getElementById("prevStepBtn").disabled = revealedStep === 1;
+    document.getElementById("nextStepBtn").disabled = revealedStep === 4;
+
+    const container = document.getElementById("algebraStepsContainer");
+    container.innerHTML = p.steps.map((st, idx) => {
+      const stepNum = idx + 1;
+      const isUnlocked = stepNum <= revealedStep;
+      const isCurrent = stepNum === revealedStep;
+      return `
+        <div class="step-card ${isCurrent ? "active-step" : ""} ${!isUnlocked ? "locked" : ""}">
+          <span class="step-tag">${st.tag}</span>
+          <div class="step-math">${isUnlocked ? st.math : "<em>Click &ldquo;Next Step &rarr;&rdquo; to reveal this step...</em>"}</div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  function drawPlane(ctx, canvas, xRange, yRange, gradFn, curveFn, ptX, ptY, yAxisName) {
+    const [X_MIN, X_MAX] = xRange;
+    const [Y_MIN, Y_MAX] = yRange;
+
+    const toPxX = (x) => ((x - X_MIN) / (X_MAX - X_MIN)) * canvas.width;
+    const toPxY = (y) => canvas.height - ((y - Y_MIN) / (Y_MAX - Y_MIN)) * canvas.height;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Grid lines
+    ctx.strokeStyle = "#f1f5f9";
+    ctx.lineWidth = 1;
+    for (let x = Math.ceil(X_MIN); x <= X_MAX; x += 0.5) {
+      const px = toPxX(x);
+      ctx.beginPath();
+      ctx.moveTo(px, 0);
+      ctx.lineTo(px, canvas.height);
+      ctx.stroke();
+    }
+    for (let y = Math.ceil(Y_MIN); y <= Y_MAX; y += 0.5) {
+      const py = toPxY(y);
+      ctx.beginPath();
+      ctx.moveTo(0, py);
+      ctx.lineTo(canvas.width, py);
+      ctx.stroke();
+    }
+
+    // Axes
+    ctx.strokeStyle = "#64748b";
+    ctx.lineWidth = 1.4;
+    if (Y_MIN <= 0 && Y_MAX >= 0) {
+      const y0Px = toPxY(0);
+      ctx.beginPath();
+      ctx.moveTo(0, y0Px);
+      ctx.lineTo(canvas.width, y0Px);
+      ctx.stroke();
+    }
+    if (X_MIN <= 0 && X_MAX >= 0) {
+      const x0Px = toPxX(0);
+      ctx.beginPath();
+      ctx.moveTo(x0Px, 0);
+      ctx.lineTo(x0Px, canvas.height);
+      ctx.stroke();
+    }
+
+    // Axis labels
+    ctx.fillStyle = "#475569";
+    ctx.font = "700 11px 'Segoe UI', sans-serif";
+    ctx.fillText("x", canvas.width - 14, (Y_MIN <= 0 && Y_MAX >= 0) ? toPxY(0) - 6 : canvas.height - 8);
+    ctx.fillText(yAxisName, (X_MIN <= 0 && X_MAX >= 0) ? toPxX(0) + 6 : 8, 14);
+
+    // Direction segments
+    const cols = 13;
+    const rows = 11;
+    const dxStep = (X_MAX - X_MIN) / cols;
+    const dyStep = (Y_MAX - Y_MIN) / rows;
+    const segLen = 13;
+
+    ctx.strokeStyle = "#94a3b8";
+    ctx.lineWidth = 1.3;
+
+    for (let i = 0.5; i < cols; i++) {
+      for (let j = 0.5; j < rows; j++) {
+        const x = X_MIN + i * dxStep;
+        const y = Y_MIN + j * dyStep;
+        const m = gradFn(x, y);
+        if (!isFinite(m)) continue;
+
+        const scaleX = canvas.width / (X_MAX - X_MIN);
+        const scaleY = canvas.height / (Y_MAX - Y_MIN);
+        const angle = Math.atan2(-m * scaleY, scaleX);
+
+        const cx = toPxX(x);
+        const cy = toPxY(y);
+        const vx = (segLen / 2) * Math.cos(angle);
+        const vy = (segLen / 2) * Math.sin(angle);
+
+        ctx.beginPath();
+        ctx.moveTo(cx - vx, cy - vy);
+        ctx.lineTo(cx + vx, cy + vy);
+        ctx.stroke();
+      }
+    }
+
+    // Solution curve through active point
+    ctx.strokeStyle = "#7c3aed";
+    ctx.lineWidth = 2.6;
+    ctx.beginPath();
+    let started = false;
+    for (let x = X_MIN; x <= X_MAX; x += (X_MAX - X_MIN) / 260) {
+      const y = curveFn(x, activePt.param);
+      if (isFinite(y) && y >= Y_MIN - 1 && y <= Y_MAX + 1) {
+        const px = toPxX(x);
+        const py = toPxY(y);
+        if (!started) {
+          ctx.moveTo(px, py);
+          started = true;
+        } else {
+          ctx.lineTo(px, py);
+        }
+      } else {
+        started = false;
+      }
+    }
+    ctx.stroke();
+
+    // Linked point marker
+    if (ptY >= Y_MIN - 0.5 && ptY <= Y_MAX + 0.5) {
+      ctx.fillStyle = "#e11d48";
+      ctx.beginPath();
+      ctx.arc(toPxX(ptX), toPxY(ptY), 5.2, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = "#ffffff";
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+    }
+  }
+
+  function drawBothPlanes() {
+    const p = presets[curKey];
+    drawPlane(
+      xyCtx,
+      xyCanvas,
+      p.xyDomain.x,
+      p.xyDomain.y,
+      p.dydx,
+      p.evalY,
+      activePt.x,
+      activePt.y,
+      "y"
+    );
+    drawPlane(
+      xuCtx,
+      xuCanvas,
+      p.xuDomain.x,
+      p.xuDomain.u,
+      p.dudx,
+      p.evalU,
+      activePt.x,
+      activePt.u,
+      "u"
+    );
+
+    const gradXY = p.dydx(activePt.x, activePt.y);
+    const gradXU = p.dudx(activePt.x, activePt.u);
+    document.getElementById("xyFooter").innerHTML =
+      `Point: (<em>x</em>, <em>y</em>) = (${activePt.x.toFixed(2)}, ${activePt.y.toFixed(2)}) &bull; <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span></span> = ${gradXY.toFixed(2)}`;
+    document.getElementById("xuFooter").innerHTML =
+      `Mapped: (<em>x</em>, <em>u</em>) = (${activePt.x.toFixed(2)}, ${activePt.u.toFixed(2)}) &bull; <span class="math"><span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span></span> = ${gradXU.toFixed(2)}`;
+  }
+
+  function renderMappingTable() {
+    const p = presets[curKey];
+    const gradXY = p.dydx(activePt.x, activePt.y);
+    const gradXU = p.dudx(activePt.x, activePt.u);
+
+    let subCheckText = "";
+    if (curKey === "linear") {
+      subCheckText = `<span class="math"><span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span></span> = 1 + <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span></span> = 1 + ${gradXY.toFixed(2)} = <strong>${gradXU.toFixed(2)}</strong>`;
+    } else if (curKey === "homog") {
+      subCheckText = `<span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span></span> = <em>u</em> + <em>x</em><span class="math"><span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span></span> = ${activePt.u.toFixed(2)} + (${activePt.x.toFixed(2)})(${gradXU.toFixed(2)}) = <strong>${gradXY.toFixed(2)}</strong>`;
+    } else {
+      subCheckText = `<span class="math"><span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span></span> = &minus;<em>y</em><sup>&minus;2</sup><span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span></span> = &minus;(${activePt.y.toFixed(2)})<sup>&minus;2</sup>(${gradXY.toFixed(2)}) = <strong>${gradXU.toFixed(2)}</strong>`;
+    }
+
+    document.getElementById("mappingTable").innerHTML = `
+      <thead>
+        <tr>
+          <th>Plane</th>
+          <th>Coordinates</th>
+          <th>Tangent Gradient</th>
+          <th>Chain / Product Rule Link Verification</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Original (<em>x</em>, <em>y</em>)</strong></td>
+          <td>(${activePt.x.toFixed(2)}, ${activePt.y.toFixed(2)})</td>
+          <td><span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span></span> = <strong>${gradXY.toFixed(3)}</strong></td>
+          <td rowspan="2" style="color:#0f766e;">${subCheckText}</td>
+        </tr>
+        <tr>
+          <td><strong>Transformed (<em>x</em>, <em>u</em>)</strong></td>
+          <td>(${activePt.x.toFixed(2)}, ${activePt.u.toFixed(2)})</td>
+          <td><span class="math"><span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span></span> = <strong>${gradXU.toFixed(3)}</strong></td>
+        </tr>
+      </tbody>
+    `;
+  }
+
+  xyCanvas.addEventListener("click", (e) => {
+    const p = presets[curKey];
+    const rect = xyCanvas.getBoundingClientRect();
+    const scaleX = xyCanvas.width / rect.width;
+    const scaleY = xyCanvas.height / rect.height;
+    const px = (e.clientX - rect.left) * scaleX;
+    const py = (e.clientY - rect.top) * scaleY;
+
+    const [X_MIN, X_MAX] = p.xyDomain.x;
+    const [Y_MIN, Y_MAX] = p.xyDomain.y;
+    const x0 = X_MIN + (px / xyCanvas.width) * (X_MAX - X_MIN);
+    const y0 = Y_MAX - (py / xyCanvas.height) * (Y_MAX - Y_MIN);
+    const u0 = p.yToU(x0, y0);
+    const param = p.paramFromXU(x0, u0);
+
+    activePt = { x: x0, y: y0, u: u0, param };
+    drawBothPlanes();
+    renderMappingTable();
+  });
+
+  xuCanvas.addEventListener("click", (e) => {
+    const p = presets[curKey];
+    const rect = xuCanvas.getBoundingClientRect();
+    const scaleX = xuCanvas.width / rect.width;
+    const scaleY = xuCanvas.height / rect.height;
+    const px = (e.clientX - rect.left) * scaleX;
+    const py = (e.clientY - rect.top) * scaleY;
+
+    const [X_MIN, X_MAX] = p.xuDomain.x;
+    const [U_MIN, U_MAX] = p.xuDomain.u;
+    const x0 = X_MIN + (px / xuCanvas.width) * (X_MAX - X_MIN);
+    const u0 = U_MAX - (py / xuCanvas.height) * (U_MAX - U_MIN);
+    const y0 = p.uToY(x0, u0);
+    const param = p.paramFromXU(x0, u0);
+
+    activePt = { x: x0, y: y0, u: u0, param };
+    drawBothPlanes();
+    renderMappingTable();
+  });
+
+  // 9758 EXAM SUBSTITUTION CHECK QUESTIONS
+  const examQs = [
+    {
+      q: "Using the substitution y = ux (where u is a function of x), what is the correct expression for dy/dx in terms of u, x, and du/dx?",
+      opts: [
+        "u + x(du/dx) by the Product Rule",
+        "du/dx only",
+        "u(du/dx)",
+        "x + u(du/dx)"
+      ],
+      ans: 0,
+      exp: "Since both u and x depend on x, differentiating y = ux with respect to x requires the Product Rule: dy/dx = u·(1) + x·(du/dx) = u + x(du/dx)."
+    },
+    {
+      q: "When reducing dy/dx = (x + y)² via u = x + y, which separable differential equation in u and x is obtained?",
+      opts: [
+        "du/dx = 1 + u²",
+        "du/dx = u²",
+        "du/dx = u² − 1",
+        "du/dx = x + u²"
+      ],
+      ans: 0,
+      exp: "Differentiating u = x + y gives du/dx = 1 + dy/dx, so dy/dx = du/dx − 1. Substituting gives du/dx − 1 = u² ⇒ du/dx = 1 + u²."
+    },
+    {
+      q: "When applying the substitution u = y⁻¹ to a differential equation, what is du/dx in terms of y and dy/dx?",
+      opts: [
+        "du/dx = −y⁻²(dy/dx)",
+        "du/dx = y⁻²(dy/dx)",
+        "du/dx = −ln(y)(dy/dx)",
+        "du/dx = (dy/dx)⁻¹"
+      ],
+      ans: 0,
+      exp: "By the Chain Rule, differentiating u = y⁻¹ with respect to x gives du/dx = −1·y⁻²·(dy/dx) = −y⁻²(dy/dx)."
+    }
+  ];
+
+  let curQ = 0;
+
+  function formatMathText(str) {
+    return str
+      .replace(/dy\/dx/g, '<span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span></span>')
+      .replace(/du\/dx/g, '<span class="math"><span class="frac"><span class="frac-num">d<em>u</em></span><span class="frac-den">d<em>x</em></span></span></span>')
+      .replace(/y⁻¹/g, '<em>y</em><sup>&minus;1</sup>')
+      .replace(/y⁻²/g, '<em>y</em><sup>&minus;2</sup>')
+      .replace(/u²/g, '<em>u</em><sup>2</sup>');
+  }
+
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").innerHTML = formatMathText(item.q);
+
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i}, this)">${String.fromCharCode(65 + i)}. ${formatMathText(o)}</button>
+    `).join("");
+  }
+
+  function gradeExamQ(idx, btn) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${formatMathText(item.exp)}`;
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  // Initialize
+  selectPreset("linear");
+  renderExamQ();
+</script>
+
+</body>
+</html>
