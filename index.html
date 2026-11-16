@@ -2294,33 +2294,32 @@
             videoEmbedUrl: "https://www.youtube.com/embed/p_di4Zn4wz4",
             prereq: "Antiderivatives, family of curves, and laws of indices/logarithms.",
             objectives: [
-              "Interpret a first-order differential equation dy/dx = f(x, y) geometrically by assigning a gradient at every point (x, y).",
-              "Distinguish between a general solution (containing an arbitrary constant C or A) and a particular solution determined by an initial condition y(x₀) = y₀.",
-              "Understand how additive constants (+C) shift curves vertically while multiplicative constants (A = ±e^C) scale curves vertically and absorb modulus signs."
+              "Understand what a first-order differential equation is and what it means to solve it (finding a derivative-free relation between y and x).",
+              "Distinguish between a general solution (containing an arbitrary constant +C representing a family of curves) and a particular solution determined by an initial condition y(x₀) = y₀.",
+              "Solve first-order differential equations of the form dy/dx = f(x) via direct integration and interpret +C geometrically as vertical translations."
             ],
             prompts: [
-              "Click anywhere on the canvas to drop an initial condition (x₀, y₀) and trace the unique particular solution curve.",
-              "Compare dy/dx = 2x (vertical translations y = x² + C) against dy/dx = 0.5y (vertical scalings y = A e^{0.5x}) and observe why y = 0 acts as an equilibrium barrier."
+              "Click anywhere on the coordinate grid to drop a particle at (x₀, y₀) and trace the unique particular solution curve.",
+              "Compare how changing C translates curves vertically in dy/dx = 2x (y = x² + C) versus how changing A scales curves vertically in dy/dx = 0.5y (y = A e^{0.5x})."
             ],
             pitfalls: [
-              "Omitting the arbitrary constant +C (or A) when asked for the general solution of a differential equation.",
-              "Writing y = e^{0.5x} + C instead of y = A e^{0.5x} (putting the arbitrary constant outside the exponential instead of inside the exponent before rewriting A = ±e^C)."
+              "Omitting the arbitrary constant +C when asked for the general solution of a differential equation.",
+              "Stopping after finding the value of C instead of writing out the complete particular solution equation y = f(x)."
             ],
             gcTip: "Verify your particular solution Y₁ on the TI-84 Plus CE by checking that Y₁(x₀) = y₀ and nDeriv(Y₁, X, x₀) matches the differential equation's right-hand side at x₀.",
             workedQuestion: `
-              <strong>(i)</strong> Find the general solution of the differential equation <span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = 2<em>y</em>, expressing <em>y</em> explicitly in terms of <em>x</em>. [3]<br>
-              <strong>(ii)</strong> Hence find the particular solution given that <em>y</em> = &minus;3 when <em>x</em> = 0. [2]
+              <strong>(i)</strong> Find the general solution of the differential equation <span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = 3<em>x</em><sup>2</sup> &minus; 4<em>x</em> + 2, expressing <em>y</em> in terms of <em>x</em>. [2]<br>
+              <strong>(ii)</strong> Hence find the particular solution given that <em>y</em> = 5 when <em>x</em> = 1. [2]
             `,
             workedSolution: `
-              <strong>(i)</strong> Separating variables (for <em>y &ne; 0</em>):<br>
-              <em>&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>y</em></span></span> d<em>y</em> = &int; 2 d<em>x</em> &rArr; ln|<em>y</em>| = 2<em>x</em> + <em>C</em></em>.<br>
-              Exponentiating both sides: <em>|<em>y</em>| = e<sup>2<em>x</em> + <em>C</em></sup> = e<sup><em>C</em></sup> e<sup>2<em>x</em></sup></em>.<br>
-              Letting <em>A = &plusmn;e<sup>C</sup></em> (noting <em>y = 0</em> corresponds to <em>A = 0</em>), the general solution is <strong><em>y = A e<sup>2x</sup></em></strong>, where <em>A &isin; &reals;</em>.<br><br>
-              <strong>(ii)</strong> Substituting <em>x = 0, y = &minus;3</em>: <em>&minus;3 = A e<sup>0</sup> &rArr; A = &minus;3</em>.<br>
-              Hence the particular solution is <strong><em>y = &minus;3e<sup>2x</sup></em></strong>.
+              <strong>(i)</strong> Integrating both sides directly with respect to <em>x</em>:<br>
+              <em>y</em> = &int; (3<em>x</em><sup>2</sup> &minus; 4<em>x</em> + 2) d<em>x</em> = <strong><em>x</em><sup>3</sup> &minus; 2<em>x</em><sup>2</sup> + 2<em>x</em> + <em>C</em></strong>, where <em>C</em> is an arbitrary constant.<br><br>
+              <strong>(ii)</strong> Substituting <em>x</em> = 1, <em>y</em> = 5:<br>
+              5 = (1)<sup>3</sup> &minus; 2(1)<sup>2</sup> + 2(1) + <em>C</em> &rArr; 5 = 1 + <em>C</em> &rArr; <em>C</em> = 4.<br>
+              Hence the particular solution is <strong><em>y</em> = <em>x</em><sup>3</sup> &minus; 2<em>x</em><sup>2</sup> + 2<em>x</em> + 4</strong>.
             `,
-            exitQuestion: "Why can we replace ±e^C with a single real constant A (including A = 0) when solving dy/dx = ky?",
-            exitAnswer: "Because e^C > 0 takes all positive real values, ±e^C covers all non-zero real numbers, and y = 0 (A = 0) is also a trivial solution to dy/dx = ky."
+            exitQuestion: "Find the particular solution of dy/dx = 2e^{2x} − 1 given that y = 3 when x = 0.",
+            exitAnswer: "Integrating gives y = e^{2x} − x + C. Substituting (0, 3) gives 3 = 1 + C ⇒ C = 2, so <strong>y = e^{2x} − x + 2</strong>."
           },
           {
             label: "Lesson 2: Separable Differential Equations dy/dx = f(x)g(y)",
