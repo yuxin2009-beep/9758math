@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 5.5 Lesson 4: Formulating &amp; Interpreting Differential Equations in Context</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* CLEAN HTML FRACTIONS & MATH TYPOGRAPHY */
+    .math {
+      font-family: 'Cambria Math', 'Times New Roman', Georgia, serif;
+      font-size: 1.04em;
+    }
+
+    .frac {
+      display: inline-flex;
+      flex-direction: column;
+      vertical-align: middle;
+      text-align: center;
+      font-size: 0.88em;
+      line-height: 1.1;
+      margin: 0 2px;
+    }
+
+    .frac-num {
+      border-bottom: 1.3px solid currentColor;
+      padding: 0 3px 1px;
+    }
+
+    .frac-den {
+      padding: 1px 3px 0;
+    }
+
+    .radicand {
+      display: inline-block;
+      border-top: 1.25px solid currentColor;
+      padding: 1px 2px 0 1px;
+      line-height: 1.15;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.5;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 560px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1060px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    /* CONCEPT TRANSLATION FOUNDATION CARD */
+    .method-card {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-left: 4px solid var(--purple);
+      border-radius: 11px;
+      padding: 10px 12px;
+      margin-bottom: 12px;
+      font-size: 0.78rem;
+      line-height: 1.52;
+    }
+
+    .method-card-title {
+      font-size: 0.74rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.45px;
+      color: var(--purple-dark);
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    .rule-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+      margin-top: 6px;
+    }
+
+    @media (max-width: 600px) {
+      .rule-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .rule-pill {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 6px 8px;
+      font-size: 0.76rem;
+      line-height: 1.42;
+    }
+
+    /* 4 REAL-WORLD SCENARIO TABS */
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 11px;
+    }
+
+    .tab-btn {
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.76rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+      line-height: 1.42;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.52;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    /* STEP-BY-STEP FORMULATION & SOLUTION REVEAL */
+    .stepper-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 9px;
+    }
+
+    .step-btn-group {
+      display: flex;
+      gap: 5px;
+    }
+
+    .action-btn {
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: none;
+      background: var(--purple-dark);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .action-btn:hover {
+      opacity: 0.92;
+    }
+
+    .action-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .action-btn.secondary {
+      background: var(--blue-bg);
+      color: var(--blue);
+      border: 1px solid #bae6fd;
+    }
+
+    .action-btn.ghost {
+      background: #f8fafc;
+      color: var(--text);
+      border: 1px solid #cbd5e1;
+    }
+
+    .algebra-stage {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 11px;
+    }
+
+    .step-card {
+      border: 1px solid #e2e8f0;
+      background: #f8fafc;
+      border-radius: 9px;
+      padding: 8px 11px;
+      margin-bottom: 7px;
+      font-size: 0.79rem;
+      line-height: 1.55;
+      transition: 0.2s;
+    }
+
+    .step-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .step-card.active-step {
+      border-color: var(--purple);
+      background: #faf5ff;
+      box-shadow: 0 2px 6px rgba(139, 92, 246, 0.08);
+    }
+
+    .step-card.locked {
+      opacity: 0.45;
+      background: #f1f5f9;
+      border-style: dashed;
+    }
+
+    .step-tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      padding: 2px 7px;
+      border-radius: 5px;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      margin-bottom: 3px;
+    }
+
+    .step-card.active-step .step-tag {
+      background: var(--purple-dark);
+      color: #ffffff;
+    }
+
+    .step-math {
+      font-size: 0.82rem;
+      color: #0f172a;
+      margin-top: 2px;
+    }
+
+    .insight-banner {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: #134e4a;
+      font-size: 0.79rem;
+      line-height: 1.52;
+    }
+
+    /* RIGHT MODELLING LAB: GRAPH + SLIDERS + INTERPRETATION TABLE */
+    .canvas-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .legend-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 0.73rem;
+      font-weight: 700;
+      color: #475569;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .swatch {
+      width: 11px;
+      height: 11px;
+      border-radius: 3px;
+      display: inline-block;
+    }
+
+    .canvas-wrap {
+      position: relative;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #ffffff;
+      margin-bottom: 10px;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 270px;
+      cursor: ew-resize;
+    }
+
+    .canvas-overlay-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 5px 10px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: #1e293b;
+      pointer-events: none;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+    }
+
+    .slider-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .slider-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .slider-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      padding: 7px 9px;
+    }
+
+    .slider-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 4px;
+    }
+
+    .val-badge {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      padding: 2px 7px;
+      border-radius: 5px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.74rem;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple-dark);
+      cursor: pointer;
+    }
+
+    .check-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.77rem;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .check-table th, .check-table td {
+      border: 1px solid #e2e8f0;
+      padding: 6px 8px;
+      text-align: left;
+    }
+
+    .check-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    .misconception-box {
+      margin-top: 10px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-size: 0.78rem;
+      line-height: 1.48;
+      color: #78350f;
+    }
+
+    .grader-card {
+      margin-top: 10px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 13px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 7px;
+    }
+
+    @media (max-width: 720px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      line-height: 1.4;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 7px;
+      font-size: 0.77rem;
+      line-height: 1.46;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Real-World Differential Equations Lab (25 Mins)</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Translate Word Statements into Rate Equations</strong>
+        Use the translation rules card to convert verbal phrases (<em>rate of increase</em>, <em>rate of decrease</em>, <em>net rate = inflow &minus; outflow</em>, and <em>connected rates</em>) into differential equations.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Step Through All 4 Real-World Models</strong>
+        Inspect <em>Newton&rsquo;s Law of Cooling</em>, <em>Logistic Population Growth</em>, <em>Chemical Mixing Tank</em>, and <em>Conical Water Tank Drainage</em> using the 4-stage formulation &amp; solution reveal.
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Vary Initial Values, Rate Constant &amp; Time</strong>
+        Adjust the sliders on the right to see how initial conditions (above or below the steady state) and rate parameter <em>k</em> affect short-term rates and long-term limiting behaviour.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT TRANSLATION GUIDE, SCENARIO TABS & 4-STAGE FORMULATION STEPPER -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        5.5 Lesson 4 &bull; Formulating &amp; Interpreting Differential Equations in Context
+      </div>
+
+      <!-- TRANSLATING REAL-WORLD DESCRIPTIONS INTO DEs -->
+      <div class="method-card">
+        <span class="method-card-title">How to Formulate &amp; Interpret a Differential Equation in Context</span>
+        <div class="rule-grid">
+          <div class="rule-pill">
+            <strong>1. Sign of Proportional Rate (<em>k</em> &gt; 0):</strong><br>
+            &bull; Increases at rate &prop; <em>y</em>: <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>t</em></span></span> = +<em>ky</em></span><br>
+            &bull; Decreases at rate &prop; <em>y</em>: <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>t</em></span></span> = &minus;<em>ky</em></span>
+          </div>
+          <div class="rule-pill">
+            <strong>2. Net Rate &amp; Connected Rates:</strong><br>
+            &bull; Mixing / Balance: <span class="math"><span class="frac"><span class="frac-num">d<em>Q</em></span><span class="frac-den">d<em>t</em></span></span> = Rate In &minus; Rate Out</span><br>
+            &bull; Geometry Chain Rule: <span class="math"><span class="frac"><span class="frac-num">d<em>V</em></span><span class="frac-den">d<em>t</em></span></span> = <span class="frac"><span class="frac-num">d<em>V</em></span><span class="frac-den">d<em>h</em></span></span> &middot; <span class="frac"><span class="frac-num">d<em>h</em></span><span class="frac-den">d<em>t</em></span></span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 Canonical 9758 Real-World Context Presets -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="tab_cooling" onclick="selectPreset('cooling')">
+          1. Newton&rsquo;s Law of Cooling<br>
+          <span style="font-size:0.7rem; font-weight:600;"><span class="math"><span class="frac"><span class="frac-num">d<em>&theta;</em></span><span class="frac-den">d<em>t</em></span></span> = &minus;<em>k</em>(<em>&theta;</em> &minus; 25)</span></span>
+        </button>
+        <button class="tab-btn" id="tab_logistic" onclick="selectPreset('logistic')">
+          2. Logistic Epidemic / Growth<br>
+          <span style="font-size:0.7rem; font-weight:600;"><span class="math"><span class="frac"><span class="frac-num">d<em>P</em></span><span class="frac-den">d<em>t</em></span></span> = <em>kP</em>(500 &minus; <em>P</em>)</span></span>
+        </button>
+        <button class="tab-btn" id="tab_mixing" onclick="selectPreset('mixing')">
+          3. Chemical Mixing Tank<br>
+          <span style="font-size:0.7rem; font-weight:600;"><span class="math"><span class="frac"><span class="frac-num">d<em>S</em></span><span class="frac-den">d<em>t</em></span></span> = 6 &minus; <span class="frac"><span class="frac-num">3<em>S</em></span><span class="frac-den">100</span></span></span></span>
+        </button>
+        <button class="tab-btn" id="tab_cone" onclick="selectPreset('cone')">
+          4. Conical Tank Drainage<br>
+          <span style="font-size:0.7rem; font-weight:600;"><span class="math"><em>h</em><sup>2</sup><span class="frac"><span class="frac-num">d<em>h</em></span><span class="frac-den">d<em>t</em></span></span> = &minus;<em>k</em></span></span>
+        </button>
+      </div>
+
+      <!-- Contextual Word Problem -->
+      <div class="context-box" id="problemBox"></div>
+
+      <!-- Step-by-Step Formulation & Solution Controls -->
+      <div class="stepper-bar">
+        <span style="font-size:0.74rem; font-weight:800; color:#1e293b; text-transform:uppercase; letter-spacing:0.4px;">
+          4-Stage Formulation &amp; Interpretation (<span id="stepCountLbl">1</span>/4)
+        </span>
+        <div class="step-btn-group">
+          <button class="action-btn ghost" id="prevStepBtn" onclick="changeStep(-1)">&larr; Prev</button>
+          <button class="action-btn" id="nextStepBtn" onclick="changeStep(1)">Next Step &rarr;</button>
+          <button class="action-btn secondary" onclick="revealAllSteps()">Reveal All</button>
+        </div>
+      </div>
+
+      <!-- 4 Algebra & Context Step Cards -->
+      <div class="algebra-stage" id="algebraStepsContainer"></div>
+
+      <!-- Long-Term Contextual Interpretation Banner -->
+      <div class="insight-banner" id="insightBanner"></div>
+    </div>
+
+    <!-- RIGHT INTERACTIVE MODELLING LAB, LIVE READOUTS & EXAM CHECK -->
+    <div class="card">
+      <div class="canvas-header">
+        <div style="font-size:1.0rem; font-weight:800; color:#1e293b;" id="graphTitle">
+          Interactive Context Simulation: Temperature &theta;(t) Over Time
+        </div>
+        <div class="legend-row">
+          <div class="legend-item"><span class="swatch" style="background:#7c3aed;"></span>Solution Trajectory</div>
+          <div class="legend-item"><span class="swatch" style="background:#0f766e;"></span>Steady State / Limit</div>
+          <div class="legend-item"><span class="swatch" style="background:#e11d48; border-radius:50%;"></span>State at Time <em>t</em></div>
+        </div>
+      </div>
+
+      <div class="canvas-wrap">
+        <canvas id="contextCanvas" width="760" height="270"></canvas>
+        <div class="canvas-overlay-badge" id="canvasBadge">
+          Click or drag along the timeline to inspect instantaneous rate and value
+        </div>
+      </div>
+
+      <!-- Interactive Parameter Sliders -->
+      <div class="slider-grid">
+        <div class="slider-box">
+          <div class="slider-label-row">
+            <span id="initSliderLabel">Initial &theta;(0):</span>
+            <span class="val-badge" id="initValBadge">90.0</span>
+          </div>
+          <input type="range" id="initSlider" oninput="updateSimulation()" />
+        </div>
+        <div class="slider-box">
+          <div class="slider-label-row">
+            <span id="rateSliderLabel">Rate Constant <em>k</em>:</span>
+            <span class="val-badge" id="rateValBadge">0.10</span>
+          </div>
+          <input type="range" id="rateSlider" oninput="updateSimulation()" />
+        </div>
+        <div class="slider-box">
+          <div class="slider-label-row">
+            <span id="timeSliderLabel">Inspect Time <em>t</em>:</span>
+            <span class="val-badge" id="timeValBadge">5.0</span>
+          </div>
+          <input type="range" id="timeSlider" oninput="updateSimulation()" />
+        </div>
+      </div>
+
+      <!-- Contextual Interpretation & Instantaneous Rate Table -->
+      <table class="check-table" id="contextTable"></table>
+
+      <!-- 9758 Exam Presentation Pitfall Box -->
+      <div class="misconception-box" id="pitfallBox"></div>
+
+      <!-- Quick 9758 Contextual Modelling Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 Contextual DE Mastery Check (<span id="qIdxLbl">1</span>/4)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.79rem; line-height:1.48; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  const canvas = document.getElementById("contextCanvas");
+  const ctx = canvas.getContext("2d");
+
+  const presets = {
+    cooling: {
+      title: "1. Newton’s Law of Cooling",
+      graphHeading: "Newton’s Law of Cooling: Temperature θ(t) vs Time t (mins)",
+      statement: `A drink at initial temperature <strong>&theta;<sub>0</sub> &deg;C</strong> is placed in a room held at a constant ambient temperature of <strong>25 &deg;C</strong>. The rate of change of temperature <em>&theta;</em> (&deg;C) at time <em>t</em> minutes is proportional to (<em>&theta;</em> &minus; 25).`,
+      modelPill: `Differential Equation: <span class="math"><span class="frac"><span class="frac-num">d<em>&theta;</em></span><span class="frac-den">d<em>t</em></span></span> = &minus;<em>k</em>(<em>&theta;</em> &minus; 25)</span> &nbsp;(<em>k</em> &gt; 0)`,
+      varName: "θ",
+      unit: "°C",
+      rateUnit: "°C/min",
+      timeUnit: "mins",
+      tMax: 30,
+      yMin: 0,
+      yMax: 100,
+      steadyY: 25,
+      steadyLabel: "Room Temp: 25 °C",
+      initSlider: { label: "Initial θ(0) (°C):", min: 5, max: 95, step: 5, val: 90 },
+      rateSlider: { label: "Cooling Rate k:", min: 0.04, max: 0.25, step: 0.01, val: 0.10 },
+      timeSlider: { label: "Time t (mins):", min: 0, max: 30, step: 0.5, val: 5 },
+      evalY: (t, y0, k) => 25 + (y0 - 25) * Math.exp(-k * t),
+      evalRate: (t, y, k) => -k * (y - 25),
+      steps: [
+        {
+          tag: "Step 1: Formulate the Differential Equation",
+          math: `Since <em>&theta;</em> cools toward 25 &deg;C when <em>&theta;</em> &gt; 25 (and warms when <em>&theta;</em> &lt; 25):<br>
+                 <strong><span class="frac"><span class="frac-num">d<em>&theta;</em></span><span class="frac-den">d<em>t</em></span></span> = &minus;<em>k</em>(<em>&theta;</em> &minus; 25)</strong>, where <em>k</em> is a positive constant.`
+        },
+        {
+          tag: "Step 2: Separate Variables &amp; Solve Generally",
+          math: `&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>&theta;</em> &minus; 25</span></span> d<em>&theta;</em> = &int; &minus;<em>k</em> d<em>t</em> &nbsp;&rArr;&nbsp; ln|<em>&theta;</em> &minus; 25| = &minus;<em>kt</em> + <em>C</em> &nbsp;&rArr;&nbsp; <em>&theta;</em> = 25 + <em>A</em>e<sup>&minus;<em>kt</em></sup>`
+        },
+        {
+          tag: "Step 3: Apply Initial Condition θ(0) = θ₀",
+          math: `At <em>t</em> = 0, <em>&theta;</em> = <em>&theta;</em><sub>0</sub>: &nbsp; <em>&theta;</em><sub>0</sub> = 25 + <em>A</em>e<sup>0</sup> &nbsp;&rArr;&nbsp; <em>A</em> = <em>&theta;</em><sub>0</sub> &minus; 25<br>
+                 Particular solution: <strong><em>&theta;</em>(<em>t</em>) = 25 + (<em>&theta;</em><sub>0</sub> &minus; 25)e<sup>&minus;<em>kt</em></sup></strong>`
+        },
+        {
+          tag: "Step 4: Interpret Long-Run Behaviour (t → ∞)",
+          math: `Since <em>k</em> &gt; 0, as <em>t</em> &rarr; &infin;, e<sup>&minus;<em>kt</em></sup> &rarr; 0, so <strong><em>&theta;</em>(<em>t</em>) &rarr; 25 &deg;C</strong>.<br>
+                 In context, the drink&rsquo;s temperature approaches the ambient room temperature of 25 &deg;C.`
+        }
+      ],
+      insight: `<strong>Try Both Hot &amp; Cold Initial Conditions:</strong> Set <em>&theta;</em>(0) = 90 &deg;C (hot coffee cooling down, <span class="math"><span class="frac"><span class="frac-num">d<em>&theta;</em></span><span class="frac-den">d<em>t</em></span></span> &lt; 0</span>) and then drag <em>&theta;</em>(0) = 5 &deg;C (iced water warming up, <span class="math"><span class="frac"><span class="frac-num">d<em>&theta;</em></span><span class="frac-den">d<em>t</em></span></span> &gt; 0</span>). Notice how the single equation <span class="math"><span class="frac"><span class="frac-num">d<em>&theta;</em></span><span class="frac-den">d<em>t</em></span></span> = &minus;<em>k</em>(<em>&theta;</em> &minus; 25)</span> handles both cases automatically!`,
+      pitfall: `<strong>9758 Exam Pitfall (Contextual Interpretation):</strong> When asked <em>&ldquo;Explain what happens to the temperature in the long run&rdquo;</em>, do not write only <em>&ldquo;25&rdquo;</em>. State the mathematical limit (<em>as t &rarr; &infin;, e<sup>&minus;kt</sup> &rarr; 0</em>) <strong>and</strong> its physical meaning with units (<em>the temperature approaches 25 &deg;C, the room temperature</em>).`
+    },
+
+    logistic: {
+      title: "2. Logistic Population / Epidemic Growth",
+      graphHeading: "Logistic Growth Model: Infected / Population P(t) vs Time t (days)",
+      statement: `In a community of <strong>500 people</strong>, the rate of increase of the number of infected individuals <em>P</em> at time <em>t</em> days is proportional to the product of the number infected and the number not yet infected.`,
+      modelPill: `Differential Equation: <span class="math"><span class="frac"><span class="frac-num">d<em>P</em></span><span class="frac-den">d<em>t</em></span></span> = <em>kP</em>(500 &minus; <em>P</em>)</span> &nbsp;(<em>k</em> &gt; 0)`,
+      varName: "P",
+      unit: "people",
+      rateUnit: "people/day",
+      timeUnit: "days",
+      tMax: 20,
+      yMin: 0,
+      yMax: 560,
+      steadyY: 500,
+      steadyLabel: "Carrying Capacity: 500",
+      initSlider: { label: "Initial P(0):", min: 5, max: 450, step: 5, val: 20 },
+      rateSlider: { label: "Constant k (×10⁻³):", min: 0.4, max: 2.0, step: 0.1, val: 1.0 },
+      timeSlider: { label: "Time t (days):", min: 0, max: 20, step: 0.5, val: 6 },
+      evalY: (t, y0, kScaled) => {
+        const k = kScaled * 0.001;
+        const A = y0 / (500 - y0);
+        return (500 * A * Math.exp(500 * k * t)) / (1 + A * Math.exp(500 * k * t));
+      },
+      evalRate: (t, y, kScaled) => {
+        const k = kScaled * 0.001;
+        return k * y * (500 - y);
+      },
+      steps: [
+        {
+          tag: "Step 1: Translate Product Proportionality into a DE",
+          math: `Number infected = <em>P</em>; number not yet infected = 500 &minus; <em>P</em>.<br>
+                 Hence <strong><span class="frac"><span class="frac-num">d<em>P</em></span><span class="frac-den">d<em>t</em></span></span> = <em>kP</em>(500 &minus; <em>P</em>)</strong>, where <em>k</em> &gt; 0.`
+        },
+        {
+          tag: "Step 2: Separate Variables via Partial Fractions",
+          math: `&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>P</em>(500 &minus; <em>P</em>)</span></span> d<em>P</em> = &int; <em>k</em> d<em>t</em> &nbsp;&rArr;&nbsp; <span class="frac"><span class="frac-num">1</span><span class="frac-den">500</span></span> &int; (<span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>P</em></span></span> + <span class="frac"><span class="frac-num">1</span><span class="frac-den">500 &minus; <em>P</em></span></span>) d<em>P</em> = <em>kt</em> + <em>C</em><br>
+                 ln|<span class="frac"><span class="frac-num"><em>P</em></span><span class="frac-den">500 &minus; <em>P</em></span></span>| = 500<em>kt</em> + 500<em>C</em> &nbsp;&rArr;&nbsp; <span class="frac"><span class="frac-num"><em>P</em></span><span class="frac-den">500 &minus; <em>P</em></span></span> = <em>A</em>e<sup>500<em>kt</em></sup>`
+        },
+        {
+          tag: "Step 3: Express P(t) Explicitly",
+          math: `At <em>t</em> = 0, <em>A</em> = <span class="frac"><span class="frac-num"><em>P</em><sub>0</sub></span><span class="frac-den">500 &minus; <em>P</em><sub>0</sub></span></span>. Rearranging gives:<br>
+                 <strong><em>P</em>(<em>t</em>) = <span class="frac"><span class="frac-num">500<em>A</em>e<sup>500<em>kt</em></sup></span><span class="frac-den">1 + <em>A</em>e<sup>500<em>kt</em></sup></span></span> = <span class="frac"><span class="frac-num">500</span><span class="frac-den">1 + (<span class="frac"><span class="frac-num">500 &minus; <em>P</em><sub>0</sub></span><span class="frac-den"><em>P</em><sub>0</sub></span></span>)e<sup>&minus;500<em>kt</em></sup></span></span></strong>`
+        },
+        {
+          tag: "Step 4: Interpret Inflection Point &amp; Carrying Capacity",
+          math: `&bull; Spread is fastest when <span class="frac"><span class="frac-num">d<em>P</em></span><span class="frac-den">d<em>t</em></span></span> = <em>kP</em>(500 &minus; <em>P</em>) is maximum, i.e. at <strong><em>P</em> = 250</strong> (half capacity).<br>
+                 &bull; As <em>t</em> &rarr; &infin;, e<sup>&minus;500<em>kt</em></sup> &rarr; 0, so <strong><em>P</em>(<em>t</em>) &rarr; 500</strong> (entire community infected).`
+        }
+      ],
+      insight: `<strong>S-Shaped Logistic Curve:</strong> Notice how <span class="math"><span class="frac"><span class="frac-num">d<em>P</em></span><span class="frac-den">d<em>t</em></span></span></span> starts small when <em>P</em> is small, peaks at the inflection level <em>P</em> = 250 (half of 500), and slows down toward 0 as <em>P</em> approaches the carrying capacity of 500.`,
+      pitfall: `<strong>9758 Exam Pitfall (Finding Fastest Rate of Growth):</strong> You do <strong>not</strong> need to differentiate <em>P</em>(<em>t</em>) twice to find when the spread is fastest! Directly from <span class="math"><span class="frac"><span class="frac-num">d<em>P</em></span><span class="frac-den">d<em>t</em></span></span> = <em>kP</em>(500 &minus; <em>P</em>)</span>, this downward quadratic in <em>P</em> attains its maximum midway between roots <em>P</em> = 0 and <em>P</em> = 500, at <strong><em>P</em> = 250</strong>.`
+    },
+
+    mixing: {
+      title: "3. Chemical Mixing Tank (Inflow − Outflow)",
+      graphHeading: "Chemical Mixing Tank: Mass of Salt S(t) vs Time t (mins)",
+      statement: `A tank holds <strong>100 litres</strong> of brine initially containing <strong><em>S</em><sub>0</sub> kg</strong> of dissolved salt. Brine containing <strong>2 kg/litre</strong> of salt enters at <strong>3 litres/min</strong>, and the well-stirred mixture leaves at <strong>3 litres/min</strong>.`,
+      modelPill: `Net Rate: <span class="math"><span class="frac"><span class="frac-num">d<em>S</em></span><span class="frac-den">d<em>t</em></span></span> = 6 &minus; <span class="frac"><span class="frac-num">3<em>S</em></span><span class="frac-den">100</span></span> = &minus;0.03(<em>S</em> &minus; 200)</span>`,
+      varName: "S",
+      unit: "kg",
+      rateUnit: "kg/min",
+      timeUnit: "mins",
+      tMax: 120,
+      yMin: 0,
+      yMax: 260,
+      steadyY: 200,
+      steadyLabel: "Equilibrium Mass: 200 kg",
+      initSlider: { label: "Initial Salt S(0) (kg):", min: 0, max: 250, step: 10, val: 20 },
+      rateSlider: { label: "Flow Rate r (L/min):", min: 1, max: 6, step: 0.5, val: 3 },
+      timeSlider: { label: "Time t (mins):", min: 0, max: 120, step: 2, val: 25 },
+      evalY: (t, y0, flow) => {
+        const k = flow / 100;
+        return 200 + (y0 - 200) * Math.exp(-k * t);
+      },
+      evalRate: (t, y, flow) => {
+        return 2 * flow - (flow / 100) * y;
+      },
+      steps: [
+        {
+          tag: "Step 1: Compute Rate In minus Rate Out",
+          math: `Since inflow rate = outflow rate = 3 L/min, tank volume remains constant at 100 L.<br>
+                 &bull; Rate In = (2 kg/L)(3 L/min) = <strong>6 kg/min</strong><br>
+                 &bull; Rate Out = (<span class="frac"><span class="frac-num"><em>S</em></span><span class="frac-den">100</span></span> kg/L)(3 L/min) = <strong><span class="frac"><span class="frac-num">3<em>S</em></span><span class="frac-den">100</span></span> kg/min</strong><br>
+                 Hence <strong><span class="frac"><span class="frac-num">d<em>S</em></span><span class="frac-den">d<em>t</em></span></span> = 6 &minus; <span class="frac"><span class="frac-num">3<em>S</em></span><span class="frac-den">100</span></span> = <span class="frac"><span class="frac-num">3(200 &minus; <em>S</em>)</span><span class="frac-den">100</span></span></strong>.`
+        },
+        {
+          tag: "Step 2: Separate Variables &amp; Integrate",
+          math: `&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den">200 &minus; <em>S</em></span></span> d<em>S</em> = &int; 0.03 d<em>t</em> &nbsp;&rArr;&nbsp; &minus;ln|200 &minus; <em>S</em>| = 0.03<em>t</em> + <em>C</em> &nbsp;&rArr;&nbsp; <em>S</em> = 200 + <em>A</em>e<sup>&minus;0.03<em>t</em></sup>`
+        },
+        {
+          tag: "Step 3: Apply Initial Condition S(0) = S₀",
+          math: `At <em>t</em> = 0, <em>S</em> = <em>S</em><sub>0</sub> &rArr; <em>A</em> = <em>S</em><sub>0</sub> &minus; 200.<br>
+                 Particular solution: <strong><em>S</em>(<em>t</em>) = 200 + (<em>S</em><sub>0</sub> &minus; 200)e<sup>&minus;0.03<em>t</em></sup></strong>`
+        },
+        {
+          tag: "Step 4: Interpret Steady-State Equilibrium",
+          math: `Setting <span class="frac"><span class="frac-num">d<em>S</em></span><span class="frac-den">d<em>t</em></span></span> = 0 gives 6 &minus; 0.03<em>S</em> = 0 &rArr; <strong><em>S</em> = 200 kg</strong>.<br>
+                 As <em>t</em> &rarr; &infin;, <em>S</em>(<em>t</em>) &rarr; 200 kg (concentration approaches 200 kg / 100 L = 2 kg/L, matching the incoming brine).`
+        }
+      ],
+      insight: `<strong>Physical Intuition for Steady State:</strong> Regardless of whether the tank starts with 20 kg (dilute) or 250 kg (concentrated) of salt, flushing 100 litres with 2 kg/L brine eventually brings the tank concentration to 2 kg/L, i.e. <strong>200 kg of salt</strong>.`,
+      pitfall: `<strong>9758 Exam Pitfall (Outflow Concentration):</strong> A common mistake is writing Rate Out = 3<em>S</em> instead of <span class="math">3 &times; <span class="frac"><span class="frac-num"><em>S</em></span><span class="frac-den">100</span></span></span>. Always multiply the outflow volumetric rate (L/min) by the <em>concentration</em> (<em>S</em> / Volume in kg/L) so units match (kg/min).`
+    },
+
+    cone: {
+      title: "4. Conical Tank Drainage (Connected Rates)",
+      graphHeading: "Conical Tank Drainage: Water Depth h(t) vs Time t (mins)",
+      statement: `An inverted right circular cone of radius <strong>5 m</strong> and height <strong>10 m</strong> (so <em>r</em> = <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span><em>h</em>) is initially filled to depth <strong><em>h</em><sub>0</sub> m</strong>. Water drains out through the vertex at a constant rate of <strong><em>k</em> m<sup>3</sup>/min</strong>.`,
+      modelPill: `Connected Rates: <span class="math"><span class="frac"><span class="frac-num">d<em>V</em></span><span class="frac-den">d<em>t</em></span></span> = <span class="frac"><span class="frac-num">d<em>V</em></span><span class="frac-den">d<em>h</em></span></span> &middot; <span class="frac"><span class="frac-num">d<em>h</em></span><span class="frac-den">d<em>t</em></span></span> = &minus;<em>k</em></span>`,
+      varName: "h",
+      unit: "m",
+      rateUnit: "m/min",
+      timeUnit: "mins",
+      tMax: 40,
+      yMin: 0,
+      yMax: 10.5,
+      steadyY: 0,
+      steadyLabel: "Tank Empty: h = 0 m",
+      initSlider: { label: "Initial Depth h(0) (m):", min: 3, max: 10, step: 0.5, val: 9 },
+      rateSlider: { label: "Drainage k (m³/min):", min: 2, max: 10, step: 0.5, val: 5 },
+      timeSlider: { label: "Time t (mins):", min: 0, max: 40, step: 0.5, val: 12 },
+      evalY: (t, h0, k) => {
+        const val = Math.pow(h0, 3) - (12 * k / Math.PI) * t;
+        return val > 0 ? Math.cbrt(val) : 0;
+      },
+      evalRate: (t, h, k) => {
+        if (h <= 0.05) return 0;
+        return -(4 * k) / (Math.PI * h * h);
+      },
+      steps: [
+        {
+          tag: "Step 1: Express Volume V in Terms of Depth h",
+          math: `By similar triangles, <span class="frac"><span class="frac-num"><em>r</em></span><span class="frac-den"><em>h</em></span></span> = <span class="frac"><span class="frac-num">5</span><span class="frac-den">10</span></span> &rArr; <em>r</em> = <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span><em>h</em>.<br>
+                 Volume of water: <em>V</em> = <span class="frac"><span class="frac-num">1</span><span class="frac-den">3</span></span>&pi;<em>r</em><sup>2</sup><em>h</em> = <span class="frac"><span class="frac-num">1</span><span class="frac-den">3</span></span>&pi;(<span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span><em>h</em>)<sup>2</sup><em>h</em> = <strong><span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">12</span></span><em>h</em><sup>3</sup></strong> &rArr; <span class="frac"><span class="frac-num">d<em>V</em></span><span class="frac-den">d<em>h</em></span></span> = <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">4</span></span><em>h</em><sup>2</sup>`
+        },
+        {
+          tag: "Step 2: Apply Connected Rates of Change",
+          math: `Given <span class="frac"><span class="frac-num">d<em>V</em></span><span class="frac-den">d<em>t</em></span></span> = &minus;<em>k</em>: &nbsp; <span class="frac"><span class="frac-num">d<em>V</em></span><span class="frac-den">d<em>h</em></span></span> &middot; <span class="frac"><span class="frac-num">d<em>h</em></span><span class="frac-den">d<em>t</em></span></span> = &minus;<em>k</em> &nbsp;&rArr;&nbsp; <strong><span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">4</span></span><em>h</em><sup>2</sup><span class="frac"><span class="frac-num">d<em>h</em></span><span class="frac-den">d<em>t</em></span></span> = &minus;<em>k</em></strong>`
+        },
+        {
+          tag: "Step 3: Separate Variables &amp; Solve for h(t)",
+          math: `&int; <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">4</span></span><em>h</em><sup>2</sup> d<em>h</em> = &int; &minus;<em>k</em> d<em>t</em> &nbsp;&rArr;&nbsp; <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">12</span></span><em>h</em><sup>3</sup> = &minus;<em>kt</em> + <em>C</em><br>
+                 At <em>t</em> = 0, <em>C</em> = <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">12</span></span><em>h</em><sub>0</sub><sup>3</sup> &nbsp;&rArr;&nbsp; <strong><em>h</em>(<em>t</em>) = (<em>h</em><sub>0</sub><sup>3</sup> &minus; <span class="frac"><span class="frac-num">12<em>k</em></span><span class="frac-den">&pi;</span></span><em>t</em>)<sup>1/3</sup></strong>`
+        },
+        {
+          tag: "Step 4: Interpret Finite Emptying Time &amp; Accelerating Drop",
+          math: `&bull; Unlike exponential decay, the tank empties completely in <strong>finite time</strong> <em>T</em> = <span class="frac"><span class="frac-num">&pi;<em>h</em><sub>0</sub><sup>3</sup></span><span class="frac-den">12<em>k</em></span></span>.<br>
+                 &bull; Since <span class="frac"><span class="frac-num">d<em>h</em></span><span class="frac-den">d<em>t</em></span></span> = &minus;<span class="frac"><span class="frac-num">4<em>k</em></span><span class="frac-den">&pi;<em>h</em><sup>2</sup></span></span>, as <em>h</em> gets smaller near the vertex, the water level drops <strong>faster and faster</strong>.`
+        }
+      ],
+      insight: `<strong>Why the Curve Steepens Downward:</strong> Because the cone narrows toward the bottom, removing the same volume <em>k</em> m<sup>3</sup> every minute causes a much larger vertical drop in depth <em>h</em> when <em>h</em> is small than when the tank is full.`,
+      pitfall: `<strong>9758 Exam Pitfall (Eliminating r Before Differentiating):</strong> In a conical tank, radius <em>r</em> varies with time <em>t</em>! Always use similar triangles (<span class="math"><span class="frac"><span class="frac-num"><em>r</em></span><span class="frac-den"><em>h</em></span></span> = <span class="frac"><span class="frac-num"><em>R</em></span><span class="frac-den"><em>H</em></span></span></span>) to express <em>V</em> solely in terms of <em>h</em> <strong>before</strong> computing <span class="math"><span class="frac"><span class="frac-num">d<em>V</em></span><span class="frac-den">d<em>h</em></span></span></span>.`
+    }
+  };
+
+  let curKey = "cooling";
+  let revealedStep = 1;
+
+  function selectPreset(key) {
+    curKey = key;
+    revealedStep = 1;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("tab_" + key).classList.add("active");
+
+    const p = presets[key];
+    const initS = document.getElementById("initSlider");
+    const rateS = document.getElementById("rateSlider");
+    const timeS = document.getElementById("timeSlider");
+
+    document.getElementById("initSliderLabel").textContent = p.initSlider.label;
+    initS.min = p.initSlider.min;
+    initS.max = p.initSlider.max;
+    initS.step = p.initSlider.step;
+    initS.value = p.initSlider.val;
+
+    document.getElementById("rateSliderLabel").innerHTML = p.rateSlider.label;
+    rateS.min = p.rateSlider.min;
+    rateS.max = p.rateSlider.max;
+    rateS.step = p.rateSlider.step;
+    rateS.value = p.rateSlider.val;
+
+    document.getElementById("timeSliderLabel").innerHTML = p.timeSlider.label;
+    timeS.min = p.timeSlider.min;
+    timeS.max = p.timeSlider.max;
+    timeS.step = p.timeSlider.step;
+    timeS.value = p.timeSlider.val;
+
+    renderAll();
+  }
+
+  function changeStep(delta) {
+    revealedStep = Math.max(1, Math.min(4, revealedStep + delta));
+    renderSteps();
+  }
+
+  function revealAllSteps() {
+    revealedStep = 4;
+    renderSteps();
+  }
+
+  function renderAll() {
+    const p = presets[curKey];
+    document.getElementById("graphTitle").textContent = p.graphHeading;
+    document.getElementById("problemBox").innerHTML = `
+      <div><strong>${p.title}:</strong> ${p.statement}</div>
+      <div class="var-pill">${p.modelPill}</div>
+    `;
+    document.getElementById("insightBanner").innerHTML = p.insight;
+    document.getElementById("pitfallBox").innerHTML = p.pitfall;
+
+    renderSteps();
+    updateSimulation();
+  }
+
+  function renderSteps() {
+    const p = presets[curKey];
+    document.getElementById("stepCountLbl").textContent = revealedStep;
+    document.getElementById("prevStepBtn").disabled = revealedStep === 1;
+    document.getElementById("nextStepBtn").disabled = revealedStep === 4;
+
+    const container = document.getElementById("algebraStepsContainer");
+    container.innerHTML = p.steps.map((st, idx) => {
+      const stepNum = idx + 1;
+      const isUnlocked = stepNum <= revealedStep;
+      const isCurrent = stepNum === revealedStep;
+      return `
+        <div class="step-card ${isCurrent ? "active-step" : ""} ${!isUnlocked ? "locked" : ""}">
+          <span class="step-tag">${st.tag}</span>
+          <div class="step-math">${isUnlocked ? st.math : "<em>Click &ldquo;Next Step &rarr;&rdquo; to reveal this stage...</em>"}</div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  function updateSimulation() {
+    const p = presets[curKey];
+    const y0 = parseFloat(document.getElementById("initSlider").value);
+    const kVal = parseFloat(document.getElementById("rateSlider").value);
+    const tVal = parseFloat(document.getElementById("timeSlider").value);
+
+    document.getElementById("initValBadge").textContent = y0.toFixed(1);
+    document.getElementById("rateValBadge").textContent = kVal.toFixed(curKey === "cooling" ? 2 : 1);
+    document.getElementById("timeValBadge").textContent = tVal.toFixed(1);
+
+    const curY = p.evalY(tVal, y0, kVal);
+    const curRate = p.evalRate(tVal, curY, kVal);
+
+    document.getElementById("canvasBadge").innerHTML =
+      `At <em>t</em> = ${tVal.toFixed(1)} ${p.timeUnit}: <strong>${p.varName} = ${curY.toFixed(2)} ${p.unit}</strong> &bull; Rate = <strong>${curRate.toFixed(2)} ${p.rateUnit}</strong>`;
+
+    drawChart(p, y0, kVal, tVal, curY);
+    renderContextTable(p, y0, kVal, tVal, curY, curRate);
+  }
+
+  function renderContextTable(p, y0, kVal, tVal, curY, curRate) {
+    let longTermDesc = "";
+    if (curKey === "cooling") {
+      longTermDesc = `As <em>t</em> &rarr; &infin;, e<sup>&minus;${kVal.toFixed(2)}<em>t</em></sup> &rarr; 0 &rArr; <strong><em>&theta;</em> &rarr; 25.0 &deg;C</strong> (ambient room temperature)`;
+    } else if (curKey === "logistic") {
+      longTermDesc = `As <em>t</em> &rarr; &infin;, e<sup>&minus;500<em>kt</em></sup> &rarr; 0 &rArr; <strong><em>P</em> &rarr; 500 people</strong> (full carrying capacity)`;
+    } else if (curKey === "mixing") {
+      longTermDesc = `As <em>t</em> &rarr; &infin;, e<sup>&minus;${(kVal / 100).toFixed(3)}<em>t</em></sup> &rarr; 0 &rArr; <strong><em>S</em> &rarr; 200.0 kg</strong> (steady-state equilibrium mass)`;
+    } else {
+      const tEmpty = (Math.PI * Math.pow(y0, 3)) / (12 * kVal);
+      longTermDesc = `Tank empties completely (<em>h</em> = 0 m) at finite time <strong><em>T</em> = ${tEmpty.toFixed(2)} mins</strong>`;
+    }
+
+    const rateMeaning = curRate > 0.001
+      ? `Increasing at <strong>${curRate.toFixed(2)} ${p.rateUnit}</strong>`
+      : (curRate < -0.001
+        ? `Decreasing at <strong>${Math.abs(curRate).toFixed(2)} ${p.rateUnit}</strong>`
+        : `Stationary / Zero rate (<strong>0.00 ${p.rateUnit}</strong>)`);
+
+    document.getElementById("contextTable").innerHTML = `
+      <thead>
+        <tr>
+          <th>Model Aspect</th>
+          <th>Mathematical Value</th>
+          <th>Real-World Contextual Interpretation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Initial State (<em>t</em> = 0)</strong></td>
+          <td>${p.varName}(0) = ${y0.toFixed(1)} ${p.unit}</td>
+          <td>Starting value used to determine the particular solution constant</td>
+        </tr>
+        <tr>
+          <td><strong>Instantaneous Rate at <em>t</em> = ${tVal.toFixed(1)}</strong></td>
+          <td><span class="math"><span class="frac"><span class="frac-num">d<em>${p.varName}</em></span><span class="frac-den">d<em>t</em></span></span></span> = ${curRate.toFixed(2)} ${p.rateUnit}</td>
+          <td>${rateMeaning}</td>
+        </tr>
+        <tr>
+          <td><strong>Long-Term / Limiting Behaviour</strong></td>
+          <td>As <em>t</em> &rarr; &infin; (or at <em>h</em> = 0)</td>
+          <td style="color:#0f766e;">${longTermDesc}</td>
+        </tr>
+      </tbody>
+    `;
+  }
+
+  function drawChart(p, y0, kVal, tVal, curY) {
+    const padL = 44, padR = 18, padT = 36, padB = 28;
+    const W = canvas.width - padL - padR;
+    const H = canvas.height - padT - padB;
+
+    const toPxX = (t) => padL + (t / p.tMax) * W;
+    const toPxY = (y) => padT + H - ((y - p.yMin) / (p.yMax - p.yMin)) * H;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Horizontal grid lines
+    ctx.strokeStyle = "#f1f5f9";
+    ctx.lineWidth = 1;
+    const yTicks = 5;
+    for (let i = 0; i <= yTicks; i++) {
+      const y = p.yMin + (i / yTicks) * (p.yMax - p.yMin);
+      const py = toPxY(y);
+      ctx.beginPath();
+      ctx.moveTo(padL, py);
+      ctx.lineTo(canvas.width - padR, py);
+      ctx.stroke();
+
+      ctx.fillStyle = "#64748b";
+      ctx.font = "600 10px 'Segoe UI', sans-serif";
+      ctx.fillText(Math.round(y).toString(), 8, py + 3);
+    }
+
+    // Vertical time ticks
+    const tTicks = 6;
+    for (let i = 0; i <= tTicks; i++) {
+      const t = (i / tTicks) * p.tMax;
+      const px = toPxX(t);
+      ctx.beginPath();
+      ctx.moveTo(px, padT);
+      ctx.lineTo(px, padT + H);
+      ctx.stroke();
+
+      ctx.fillStyle = "#64748b";
+      ctx.font = "600 10px 'Segoe UI', sans-serif";
+      ctx.fillText(Math.round(t).toString(), px - 6, canvas.height - 9);
+    }
+
+    // Axes
+    ctx.strokeStyle = "#64748b";
+    ctx.lineWidth = 1.4;
+    ctx.beginPath();
+    ctx.moveTo(padL, padT);
+    ctx.lineTo(padL, padT + H);
+    ctx.lineTo(canvas.width - padR, padT + H);
+    ctx.stroke();
+
+    // Steady state / horizontal asymptote line
+    if (p.steadyY > p.yMin && p.steadyY < p.yMax) {
+      const syPx = toPxY(p.steadyY);
+      ctx.save();
+      ctx.strokeStyle = "#0f766e";
+      ctx.lineWidth = 1.8;
+      ctx.setLineDash([6, 5]);
+      ctx.beginPath();
+      ctx.moveTo(padL, syPx);
+      ctx.lineTo(canvas.width - padR, syPx);
+      ctx.stroke();
+      ctx.restore();
+
+      ctx.fillStyle = "#0f766e";
+      ctx.font = "700 11px 'Segoe UI', sans-serif";
+      ctx.fillText(p.steadyLabel, canvas.width - padR - 145, syPx - 6);
+    }
+
+    // Solution curve
+    ctx.strokeStyle = "#7c3aed";
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    for (let i = 0; i <= 240; i++) {
+      const t = (i / 240) * p.tMax;
+      const y = p.evalY(t, y0, kVal);
+      const px = toPxX(t);
+      const py = toPxY(Math.max(p.yMin, Math.min(p.yMax, y)));
+      if (i === 0) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    }
+    ctx.stroke();
+
+    // Vertical guide line at inspect time tVal
+    const tx = toPxX(tVal);
+    const ty = toPxY(curY);
+    ctx.save();
+    ctx.strokeStyle = "#e11d48";
+    ctx.lineWidth = 1.2;
+    ctx.setLineDash([3, 3]);
+    ctx.beginPath();
+    ctx.moveTo(tx, padT + H);
+    ctx.lineTo(tx, ty);
+    ctx.stroke();
+    ctx.restore();
+
+    // Active time point dot
+    ctx.fillStyle = "#e11d48";
+    ctx.beginPath();
+    ctx.arc(tx, ty, 5.5, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = "#ffffff";
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+  }
+
+  // Click on canvas to move inspect time t
+  canvas.addEventListener("click", (e) => {
+    const p = presets[curKey];
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const px = (e.clientX - rect.left) * scaleX;
+    const padL = 44, padR = 18;
+    const W = canvas.width - padL - padR;
+    const rawT = ((px - padL) / W) * p.tMax;
+    const clamped = Math.max(0, Math.min(p.tMax, rawT));
+    const step = parseFloat(document.getElementById("timeSlider").step);
+    const snapped = Math.round(clamped / step) * step;
+    document.getElementById("timeSlider").value = snapped;
+    updateSimulation();
+  });
+
+  // 9758 EXAM CONTEXTUAL MODELLING CHECK QUESTIONS
+  const examQs = [
+    {
+      q: "The mass m grams of a radioactive isotope decays at a rate proportional to its mass present at time t days. Which differential equation models this situation (with k > 0)?",
+      opts: [
+        "dm/dt = −km",
+        "dm/dt = km",
+        "dm/dt = −k/m",
+        "dm/dt = m − k"
+      ],
+      ans: 0,
+      exp: "Because the mass decays (decreases) at a rate proportional to m, the rate of change dm/dt is negative: dm/dt = −km, where k > 0."
+    },
+    {
+      q: "A hot object cools according to θ = 22 + 68e^{−0.15t}, where θ is temperature in °C and t is time in minutes. What happens to the temperature in the long run?",
+      opts: [
+        "As t → ∞, e^{−0.15t} → 0, so the temperature approaches 22 °C (the room temperature)",
+        "As t → ∞, the temperature approaches 90 °C",
+        "As t → ∞, the temperature drops to 0 °C",
+        "As t → ∞, the temperature increases without bound"
+      ],
+      ans: 0,
+      exp: "Since −0.15 < 0, e^{−0.15t} → 0 as t → ∞, so θ → 22 + 68(0) = 22 °C. Always state both the limit and its physical meaning with units."
+    },
+    {
+      q: "A tank holds 50 litres of solution containing x kg of dye. Pure water enters at 2 litres/min and the well-mixed solution leaves at 2 litres/min. What is dx/dt?",
+      opts: [
+        "dx/dt = −2(x/50) = −x/25",
+        "dx/dt = 2 − 2x",
+        "dx/dt = −2x",
+        "dx/dt = 2(x/50)"
+      ],
+      ans: 0,
+      exp: "Pure water contains 0 kg/L of dye (Rate In = 0). Outflow concentration is x/50 kg/L at 2 L/min, so dx/dt = 0 − 2(x/50) = −x/25."
+    },
+    {
+      q: "A population P satisfies dP/dt = 0.002P(800 − P), where 0 < P < 800. At what population size P is the population growing most rapidly?",
+      opts: [
+        "P = 400 (midway between 0 and 800)",
+        "P = 800",
+        "P = 0",
+        "P = 200"
+      ],
+      ans: 0,
+      exp: "dP/dt = 0.002P(800 − P) is a downward-opening quadratic in P with roots P = 0 and P = 800, so its maximum occurs at the vertex P = (0 + 800)/2 = 400."
+    }
+  ];
+
+  let curQ = 0;
+
+  function formatMathText(str) {
+    return str
+      .replace(/dm\/dt/g, '<span class="math"><span class="frac"><span class="frac-num">d<em>m</em></span><span class="frac-den">d<em>t</em></span></span></span>')
+      .replace(/dx\/dt/g, '<span class="math"><span class="frac"><span class="frac-num">d<em>x</em></span><span class="frac-den">d<em>t</em></span></span></span>')
+      .replace(/dP\/dt/g, '<span class="math"><span class="frac"><span class="frac-num">d<em>P</em></span><span class="frac-den">d<em>t</em></span></span></span>')
+      .replace(/e\^\{−0\.15t\}/g, 'e<sup>&minus;0.15<em>t</em></sup>');
+  }
+
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").innerHTML = formatMathText(item.q);
+
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i}, this)">${String.fromCharCode(65 + i)}. ${formatMathText(o)}</button>
+    `).join("");
+  }
+
+  function gradeExamQ(idx, btn) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${formatMathText(item.exp)}`;
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  // Initialize
+  selectPreset("cooling");
+  renderExamQ();
+</script>
+
+</body>
+</html>
