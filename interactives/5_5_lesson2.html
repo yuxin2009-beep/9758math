@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 H2 Math | 5.5 Lesson 2: Separable Differential Equations dy/dx = f(x)g(y)</title>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* CLEAN HTML FRACTIONS & MATH TYPOGRAPHY */
+    .math {
+      font-family: 'Cambria Math', 'Times New Roman', Georgia, serif;
+      font-size: 1.04em;
+    }
+
+    .frac {
+      display: inline-flex;
+      flex-direction: column;
+      vertical-align: middle;
+      text-align: center;
+      font-size: 0.88em;
+      line-height: 1.1;
+      margin: 0 2px;
+    }
+
+    .frac-num {
+      border-bottom: 1.3px solid currentColor;
+      padding: 0 3px 1px;
+    }
+
+    .frac-den {
+      padding: 1px 3px 0;
+    }
+
+    /* HOW-TO-USE GUIDE BANNER */
+    .guide-banner {
+      background: #ffffff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
+    }
+
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .guide-pill {
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .guide-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    @media (max-width: 900px) {
+      .guide-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-step-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.48;
+    }
+
+    .guide-step-card strong {
+      color: #1e293b;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .app-container {
+      display: grid;
+      grid-template-columns: 545px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1040px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    /* PRESET GRID */
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 7px;
+      margin-bottom: 11px;
+    }
+
+    .tab-btn {
+      padding: 9px 10px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.77rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+      line-height: 1.45;
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.52;
+      margin-bottom: 11px;
+    }
+
+    .var-pill {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    /* STEP-BY-STEP ALGEBRA REVEAL CARDS */
+    .stepper-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 9px;
+    }
+
+    .step-btn-group {
+      display: flex;
+      gap: 5px;
+    }
+
+    .action-btn {
+      padding: 7px 11px;
+      border-radius: 8px;
+      border: none;
+      background: var(--purple-dark);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.76rem;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .action-btn:hover {
+      opacity: 0.92;
+    }
+
+    .action-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .action-btn.secondary {
+      background: var(--blue-bg);
+      color: var(--blue);
+      border: 1px solid #bae6fd;
+    }
+
+    .action-btn.ghost {
+      background: #f8fafc;
+      color: var(--text);
+      border: 1px solid #cbd5e1;
+    }
+
+    .algebra-stage {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 11px;
+    }
+
+    .step-card {
+      border: 1px solid #e2e8f0;
+      background: #f8fafc;
+      border-radius: 9px;
+      padding: 8px 11px;
+      margin-bottom: 7px;
+      font-size: 0.8rem;
+      line-height: 1.55;
+      transition: 0.2s;
+    }
+
+    .step-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .step-card.active-step {
+      border-color: var(--purple);
+      background: #faf5ff;
+      box-shadow: 0 2px 6px rgba(139, 92, 246, 0.08);
+    }
+
+    .step-card.locked {
+      opacity: 0.45;
+      background: #f1f5f9;
+      border-style: dashed;
+    }
+
+    .step-tag {
+      display: inline-block;
+      font-size: 0.69rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      padding: 2px 7px;
+      border-radius: 5px;
+      background: var(--purple-bg);
+      color: var(--purple-dark);
+      margin-bottom: 3px;
+    }
+
+    .step-card.active-step .step-tag {
+      background: var(--purple-dark);
+      color: #ffffff;
+    }
+
+    .step-math {
+      font-size: 0.83rem;
+      color: #0f172a;
+      margin-top: 2px;
+    }
+
+    /* TI-84 PLUS CE GRADIENT CHECK BOX */
+    .gc-box {
+      background: var(--teal-bg);
+      border: 1.5px solid #5eead4;
+      border-radius: 12px;
+      padding: 11px 13px;
+      color: #134e4a;
+      font-size: 0.79rem;
+      line-height: 1.5;
+    }
+
+    .box-title {
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .gc-controls {
+      display: grid;
+      grid-template-columns: 115px 1fr 62px;
+      align-items: center;
+      gap: 8px;
+      margin: 6px 0;
+      font-weight: 700;
+    }
+
+    .gc-controls input[type="range"] {
+      width: 100%;
+      accent-color: var(--teal);
+      cursor: pointer;
+    }
+
+    .val-badge {
+      background: #ffffff;
+      border: 1px solid #5eead4;
+      border-radius: 6px;
+      padding: 3px 6px;
+      text-align: center;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.78rem;
+      color: #0f172a;
+    }
+
+    .gc-screen {
+      background: #f1f5f9;
+      border: 2px solid #475569;
+      border-radius: 8px;
+      padding: 8px 11px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.55;
+      margin-top: 5px;
+    }
+
+    /* RIGHT GRAPH, TABLE & EXAM CHECK */
+    .canvas-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .legend-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: #475569;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .swatch {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      display: inline-block;
+    }
+
+    .canvas-wrap {
+      position: relative;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 315px;
+      cursor: ew-resize;
+    }
+
+    .canvas-overlay-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 5px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #1e293b;
+      pointer-events: none;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+    }
+
+    .check-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.77rem;
+      margin-top: 10px;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .check-table th, .check-table td {
+      border: 1px solid #e2e8f0;
+      padding: 6px 8px;
+      text-align: left;
+    }
+
+    .check-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    .misconception-box {
+      margin-top: 10px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-size: 0.78rem;
+      line-height: 1.48;
+      color: #78350f;
+    }
+
+    .grader-card {
+      margin-top: 10px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 11px 13px;
+    }
+
+    .mcq-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 7px;
+    }
+
+    @media (max-width: 720px) {
+      .mcq-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mcq-btn {
+      text-align: left;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.77rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.15s;
+      line-height: 1.4;
+    }
+
+    .mcq-btn:hover {
+      border-color: var(--purple);
+      background: #faf5ff;
+    }
+
+    .mcq-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .mcq-btn.wrong {
+      background: #ffe4e6;
+      border-color: #e11d48;
+      color: #881337;
+    }
+
+    .grader-feedback {
+      margin-top: 7px;
+      font-size: 0.77rem;
+      line-height: 1.46;
+      padding: 7px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- HOW TO USE THIS INTERACTIVE GUIDE -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="toggleGuide()">
+      <div class="guide-title">
+        <span class="guide-pill">User Guide</span>
+        <span>How to Use This Separable Differential Equations Lab</span>
+      </div>
+      <button class="guide-toggle-btn" id="guideToggleBtn">Hide Guide ▲</button>
+    </div>
+    <div class="guide-steps" id="guideSteps">
+      <div class="guide-step-card">
+        <strong>1. Choose One of the 4 Canonical 9758 Types</strong>
+        Work through <em>Polynomial-Exponential</em>, <em>Trigonometric (<span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = <em>y</em> cot <em>x</em></span>)</em>, <em>Inverse-Trig (<span class="math">1 + <em>y</em><sup>2</sup></span>)</em>, and <em>Partial-Fraction Logistic</em> separation.
+      </div>
+      <div class="guide-step-card">
+        <strong>2. Step Through the 4-Stage Algebra Reveal</strong>
+        Click <em>Next Step &rarr;</em> to uncover (1) Variable Separation, (2) Integration of Both Sides, (3) Applying the Initial Condition, and (4) Explicit Form <em>y</em> = f(<em>x</em>).
+      </div>
+      <div class="guide-step-card">
+        <strong>3. Run the TI-84 Plus CE Gradient Check</strong>
+        Drag the test point <em>x</em><sub>0</sub> slider (or click directly on the graph) to verify that <span class="math">nDeriv(Y<sub>1</sub>, X, <em>x</em><sub>0</sub>)</span> equals <span class="math"><em>f</em>(<em>x</em><sub>0</sub>)<em>g</em>(Y<sub>1</sub>(<em>x</em><sub>0</sub>))</span> to 5 decimal places.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- LEFT ALGEBRA STEPPER & TI-84 CHECK PANEL -->
+    <div class="card">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+        5.5 Lesson 2 &bull; Separable Differential Equations <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = <em>f</em>(<em>x</em>)<em>g</em>(<em>y</em>)</span>
+      </div>
+
+      <!-- 4 Canonical 9758 Separable Presets -->
+      <div class="preset-grid">
+        <button class="tab-btn active" id="tab_polyExp" onclick="selectPreset('polyExp')">
+          1. Rational &amp; Polynomial<br>
+          <span style="font-size:0.71rem; font-weight:600;"><span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = 2<em>x</em>(<em>y</em> &minus; 1)</span></span>
+        </button>
+        <button class="tab-btn" id="tab_trig" onclick="selectPreset('trig')">
+          2. Trigonometric Separation<br>
+          <span style="font-size:0.71rem; font-weight:600;"><span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = <em>y</em> cot <em>x</em></span></span>
+        </button>
+        <button class="tab-btn" id="tab_invTrig" onclick="selectPreset('invTrig')">
+          3. Inverse-Trig (<span class="math">tan<sup>&minus;1</sup><em>y</em></span>)<br>
+          <span style="font-size:0.71rem; font-weight:600;"><span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = (1 + <em>y</em><sup>2</sup>)e<sup><em>x</em></sup></span></span>
+        </button>
+        <button class="tab-btn" id="tab_logistic" onclick="selectPreset('logistic')">
+          4. Partial-Fraction Logistic<br>
+          <span style="font-size:0.71rem; font-weight:600;"><span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = <em>y</em>(4 &minus; <em>y</em>)</span></span>
+        </button>
+      </div>
+
+      <!-- Problem Statement & Factorisation Pill -->
+      <div class="context-box" id="problemBox"></div>
+
+      <!-- Step-by-Step Algebra Controls -->
+      <div class="stepper-bar">
+        <span style="font-size:0.75rem; font-weight:800; color:#1e293b; text-transform:uppercase; letter-spacing:0.4px;">
+          4-Stage Solution Reveal (<span id="stepCountLbl">1</span>/4)
+        </span>
+        <div class="step-btn-group">
+          <button class="action-btn ghost" id="prevStepBtn" onclick="changeStep(-1)">&larr; Prev</button>
+          <button class="action-btn" id="nextStepBtn" onclick="changeStep(1)">Next Step &rarr;</button>
+          <button class="action-btn secondary" onclick="revealAllSteps()">Reveal All</button>
+        </div>
+      </div>
+
+      <!-- 4 Algebra Step Cards -->
+      <div class="algebra-stage" id="algebraStepsContainer"></div>
+
+      <!-- TI-84 Plus CE Gradient Verification Simulator -->
+      <div class="gc-box">
+        <span class="box-title">TI-84 Plus CE Gradient Check: Verify nDeriv(Y<sub>1</sub>, X, <em>x</em><sub>0</sub>) = RHS(<em>x</em><sub>0</sub>, Y<sub>1</sub>(<em>x</em><sub>0</sub>))</span>
+        <div class="gc-controls">
+          <span>Test Point <em>x</em><sub>0</sub>:</span>
+          <input type="range" id="x0Slider" min="-1.5" max="1.5" step="0.05" value="0.5" oninput="updateX0(this.value)" />
+          <span class="val-badge" id="x0Badge">0.50</span>
+        </div>
+        <div class="gc-screen" id="gcScreenOutput"></div>
+      </div>
+    </div>
+
+    <!-- RIGHT VISUALISATION, VERIFICATION TABLE & EXAM CHECK -->
+    <div class="card">
+      <div class="canvas-header">
+        <div style="font-size:1.01rem; font-weight:800; color:#1e293b;" id="graphHeading">
+          Particular Solution Curve &amp; Tangent Verification at <em>x</em><sub>0</sub>
+        </div>
+        <div class="legend-row">
+          <div class="legend-item"><span class="swatch" style="background:#cbd5e1;"></span>Other Family Curves</div>
+          <div class="legend-item"><span class="swatch" style="background:#7c3aed;"></span>Particular Solution Y<sub>1</sub>(<em>x</em>)</div>
+          <div class="legend-item"><span class="swatch" style="background:#0f766e;"></span>Tangent Line at <em>x</em><sub>0</sub></div>
+          <div class="legend-item"><span class="swatch" style="background:#e11d48; border-radius:50%;"></span>Initial Point</div>
+        </div>
+      </div>
+
+      <div class="canvas-wrap">
+        <canvas id="verifyCanvas" width="760" height="315"></canvas>
+        <div class="canvas-overlay-badge" id="canvasBadge">
+          Drag slider or click graph to move test point <em>x</em><sub>0</sub>
+        </div>
+      </div>
+
+      <!-- Multi-Point Numerical Gradient Check Table -->
+      <table class="check-table" id="checkTable"></table>
+
+      <!-- 9758 Exam Pitfall Box -->
+      <div class="misconception-box" id="pitfallBox"></div>
+
+      <!-- Quick 9758 Separable DE Check -->
+      <div class="grader-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
+          <strong style="font-size:0.81rem; color:#1e293b;">9758 Separable DE Mastery Check (<span id="qIdxLbl">1</span>/4)</strong>
+          <button style="padding:3px 9px; border-radius:6px; border:1px solid #94a3b8; background:#fff; font-size:0.74rem; font-weight:700; cursor:pointer;" onclick="nextExamQ()">Next &rarr;</button>
+        </div>
+        <div id="qPrompt" style="font-size:0.79rem; line-height:1.48; color:#334155;"></div>
+        <div class="mcq-options" id="qOpts"></div>
+        <div class="grader-feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let guideOpen = true;
+  function toggleGuide() {
+    guideOpen = !guideOpen;
+    document.getElementById("guideSteps").style.display = guideOpen ? "grid" : "none";
+    document.getElementById("guideToggleBtn").textContent = guideOpen ? "Hide Guide ▲" : "Show Guide ▼";
+  }
+
+  const canvas = document.getElementById("verifyCanvas");
+  const ctx = canvas.getContext("2d");
+
+  const presets = {
+    polyExp: {
+      title: "1. Rational & Polynomial Separation",
+      statement: `Solve <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = 2<em>x</em>(<em>y</em> &minus; 1)</span> given that <em>y</em> = 3 when <em>x</em> = 0, expressing <em>y</em> explicitly in terms of <em>x</em>.`,
+      factorPill: `Factorised form: <em>f</em>(<em>x</em>) = 2<em>x</em>, &nbsp; <em>g</em>(<em>y</em>) = <em>y</em> &minus; 1 &nbsp;(<em>y</em> &ne; 1)`,
+      ic: { x: 0, y: 3 },
+      xDomain: [-1.4, 1.4],
+      yDomain: [-1, 7],
+      x0Default: 0.6,
+      x0Range: [-1.1, 1.1],
+      y1Label: "Y₁ = 1 + 2e^(X²)",
+      evalY: (x) => 1 + 2 * Math.exp(x * x),
+      evalFamily: (x, c) => 1 + c * Math.exp(x * x),
+      familyParams: [-1.5, -0.5, 0.5, 1, 3],
+      evalRHS: (x, y) => 2 * x * (y - 1),
+      steps: [
+        {
+          tag: "Step 1: Separate Variables",
+          math: `Divide by (<em>y</em> &minus; 1) and multiply by d<em>x</em> (assuming <em>y</em> &ne; 1):<br>
+                 &int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>y</em> &minus; 1</span></span> d<em>y</em> = &int; 2<em>x</em> d<em>x</em>`
+        },
+        {
+          tag: "Step 2: Integrate Both Sides",
+          math: `ln|<em>y</em> &minus; 1| = <em>x</em><sup>2</sup> + <em>C</em> &nbsp;&rArr;&nbsp; |<em>y</em> &minus; 1| = e<sup><em>C</em></sup>e<sup><em>x</em><sup>2</sup></sup> &nbsp;&rArr;&nbsp; <em>y</em> &minus; 1 = <em>A</em>e<sup><em>x</em><sup>2</sup></sup>, where <em>A</em> = &plusmn;e<sup><em>C</em></sup>`
+        },
+        {
+          tag: "Step 3: Apply Initial Condition (0, 3)",
+          math: `Substitute <em>x</em> = 0, <em>y</em> = 3: &nbsp; 3 &minus; 1 = <em>A</em>e<sup>0</sup> &nbsp;&rArr;&nbsp; <em>A</em> = 2`
+        },
+        {
+          tag: "Step 4: Explicit Particular Solution",
+          math: `<strong><em>y</em> = 1 + 2e<sup><em>x</em><sup>2</sup></sup></strong>`
+        }
+      ],
+      pitfall: `<strong>9758 Exam Pitfall (Additive Constant Placement):</strong> When exponentiating ln|<em>y</em> &minus; 1| = <em>x</em><sup>2</sup> + <em>C</em>, do <strong>not</strong> write <em>y</em> &minus; 1 = e<sup><em>x</em><sup>2</sup></sup> + <em>C</em>. The constant <em>C</em> starts inside the exponent: e<sup><em>x</em><sup>2</sup> + <em>C</em></sup> = e<sup><em>C</em></sup>e<sup><em>x</em><sup>2</sup></sup> = <em>A</em>e<sup><em>x</em><sup>2</sup></sup>.`
+    },
+
+    trig: {
+      title: "2. Trigonometric Separation",
+      statement: `Solve <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = <em>y</em> cot <em>x</em></span> for 0 &lt; <em>x</em> &lt; &pi;, given that <em>y</em> = 4 when <em>x</em> = <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">6</span></span>.`,
+      factorPill: `Factorised form: <em>f</em>(<em>x</em>) = cot <em>x</em> = <span class="frac"><span class="frac-num">cos <em>x</em></span><span class="frac-den">sin <em>x</em></span></span>, &nbsp; <em>g</em>(<em>y</em>) = <em>y</em>`,
+      ic: { x: Math.PI / 6, y: 4 },
+      xDomain: [0.1, 3.04],
+      yDomain: [-4, 10],
+      x0Default: 1.0,
+      x0Range: [0.25, 2.85],
+      y1Label: "Y₁ = 8sin(X)",
+      evalY: (x) => 8 * Math.sin(x),
+      evalFamily: (x, c) => c * Math.sin(x),
+      familyParams: [-4, 2, 4, 6, 10],
+      evalRHS: (x, y) => y * (Math.cos(x) / Math.sin(x)),
+      steps: [
+        {
+          tag: "Step 1: Separate Variables",
+          math: `For <em>y</em> &ne; 0 and 0 &lt; <em>x</em> &lt; &pi; (where sin <em>x</em> &gt; 0):<br>
+                 &int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>y</em></span></span> d<em>y</em> = &int; cot <em>x</em> d<em>x</em> = &int; <span class="frac"><span class="frac-num">cos <em>x</em></span><span class="frac-den">sin <em>x</em></span></span> d<em>x</em>`
+        },
+        {
+          tag: "Step 2: Integrate Using MF27 Standard Forms",
+          math: `ln|<em>y</em>| = ln|sin <em>x</em>| + <em>C</em> = ln(sin <em>x</em>) + <em>C</em> &nbsp;&rArr;&nbsp; |<em>y</em>| = e<sup><em>C</em></sup>sin <em>x</em> &nbsp;&rArr;&nbsp; <em>y</em> = <em>A</em> sin <em>x</em>`
+        },
+        {
+          tag: "Step 3: Apply Initial Condition (π/6, 4)",
+          math: `Substitute <em>x</em> = <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">6</span></span>, <em>y</em> = 4: &nbsp; 4 = <em>A</em> sin(<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">6</span></span>) = <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span><em>A</em> &nbsp;&rArr;&nbsp; <em>A</em> = 8`
+        },
+        {
+          tag: "Step 4: Explicit Particular Solution",
+          math: `<strong><em>y</em> = 8 sin <em>x</em></strong> &nbsp;(for 0 &lt; <em>x</em> &lt; &pi;)`
+        }
+      ],
+      pitfall: `<strong>9758 Exam Pitfall (Radian Mode &amp; Log-Trig Integration):</strong> Always ensure your TI-84 Plus CE is in <strong>RADIAN</strong> mode when evaluating <code>nDeriv</code> on trigonometric solutions. Also recall from MF27 that &int; cot <em>x</em> d<em>x</em> = ln|sin <em>x</em>| + <em>C</em> (do not confuse with &int; tan <em>x</em> d<em>x</em> = ln|sec <em>x</em>| + <em>C</em>).`
+    },
+
+    invTrig: {
+      title: "3. Inverse-Trig Separation (tan⁻¹ y)",
+      statement: `Solve <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = (1 + <em>y</em><sup>2</sup>)e<sup><em>x</em></sup></span> given that <em>y</em> = 1 when <em>x</em> = 0, expressing <em>y</em> in terms of <em>x</em>.`,
+      factorPill: `Factorised form: <em>f</em>(<em>x</em>) = e<sup><em>x</em></sup>, &nbsp; <em>g</em>(<em>y</em>) = 1 + <em>y</em><sup>2</sup> &nbsp;(always &gt; 0)`,
+      ic: { x: 0, y: 1 },
+      xDomain: [-2.0, 0.75],
+      yDomain: [-3, 6],
+      x0Default: 0.25,
+      x0Range: [-1.5, 0.55],
+      y1Label: "Y₁ = tan(e^X - 1 + π/4)",
+      evalY: (x) => Math.tan(Math.exp(x) - 1 + Math.PI / 4),
+      evalFamily: (x, c) => Math.tan(Math.exp(x) + c),
+      familyParams: [-0.9, -0.5, 0.1, 0.45],
+      evalRHS: (x, y) => (1 + y * y) * Math.exp(x),
+      steps: [
+        {
+          tag: "Step 1: Separate Variables",
+          math: `Since 1 + <em>y</em><sup>2</sup> &gt; 0 for all <em>y</em> &isin; &reals;, divide cleanly by (1 + <em>y</em><sup>2</sup>):<br>
+                 &int; <span class="frac"><span class="frac-num">1</span><span class="frac-den">1 + <em>y</em><sup>2</sup></span></span> d<em>y</em> = &int; e<sup><em>x</em></sup> d<em>x</em>`
+        },
+        {
+          tag: "Step 2: Integrate via MF27 Inverse Tangent",
+          math: `tan<sup>&minus;1</sup> <em>y</em> = e<sup><em>x</em></sup> + <em>C</em>`
+        },
+        {
+          tag: "Step 3: Apply Initial Condition (0, 1)",
+          math: `Substitute <em>x</em> = 0, <em>y</em> = 1: &nbsp; tan<sup>&minus;1</sup>(1) = e<sup>0</sup> + <em>C</em> &nbsp;&rArr;&nbsp; <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">4</span></span> = 1 + <em>C</em> &nbsp;&rArr;&nbsp; <em>C</em> = <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">4</span></span> &minus; 1`
+        },
+        {
+          tag: "Step 4: Explicit Particular Solution",
+          math: `Take tangent on both sides: &nbsp; <strong><em>y</em> = tan(e<sup><em>x</em></sup> + <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">4</span></span> &minus; 1)</strong>`
+        }
+      ],
+      pitfall: `<strong>9758 Exam Pitfall (Inverting tan⁻¹ Correctly):</strong> From tan<sup>&minus;1</sup> <em>y</em> = e<sup><em>x</em></sup> + <em>C</em>, taking tangent gives <em>y</em> = tan(e<sup><em>x</em></sup> + <em>C</em>)—you <strong>cannot</strong> distribute tan across a sum as tan(e<sup><em>x</em></sup>) + tan <em>C</em>! Notice also the vertical asymptote when e<sup><em>x</em></sup> + <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">4</span></span> &minus; 1 = <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">2</span></span> (<em>x</em> &approx; 0.58).`
+    },
+
+    logistic: {
+      title: "4. Partial-Fraction Logistic Separation",
+      statement: `Solve <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = <em>y</em>(4 &minus; <em>y</em>)</span> given that <em>y</em> = 1 when <em>x</em> = 0, expressing <em>y</em> explicitly in terms of <em>x</em>.`,
+      factorPill: `Factorised form: <em>f</em>(<em>x</em>) = 1, &nbsp; <em>g</em>(<em>y</em>) = <em>y</em>(4 &minus; <em>y</em>) &nbsp;(0 &lt; <em>y</em> &lt; 4)`,
+      ic: { x: 0, y: 1 },
+      xDomain: [-1.0, 1.5],
+      yDomain: [-0.5, 4.8],
+      x0Default: 0.35,
+      x0Range: [-0.8, 1.2],
+      y1Label: "Y₁ = 4e^(4X)/(3 + e^(4X))",
+      evalY: (x) => (4 * Math.exp(4 * x)) / (3 + Math.exp(4 * x)),
+      evalFamily: (x, c) => (4 * c * Math.exp(4 * x)) / (1 + c * Math.exp(4 * x)),
+      familyParams: [0.05, 0.15, 1, 3, -0.2],
+      evalRHS: (x, y) => y * (4 - y),
+      steps: [
+        {
+          tag: "Step 1: Separate &amp; Split into Partial Fractions",
+          math: `&int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>y</em>(4 &minus; <em>y</em>)</span></span> d<em>y</em> = &int; 1 d<em>x</em> &nbsp;&rArr;&nbsp; <span class="frac"><span class="frac-num">1</span><span class="frac-den">4</span></span> &int; (<span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>y</em></span></span> + <span class="frac"><span class="frac-num">1</span><span class="frac-den">4 &minus; <em>y</em></span></span>) d<em>y</em> = &int; 1 d<em>x</em>`
+        },
+        {
+          tag: "Step 2: Integrate &amp; Combine Logarithms",
+          math: `<span class="frac"><span class="frac-num">1</span><span class="frac-den">4</span></span>(ln|<em>y</em>| &minus; ln|4 &minus; <em>y</em>|) = <em>x</em> + <em>C</em> &nbsp;&rArr;&nbsp; ln|<span class="frac"><span class="frac-num"><em>y</em></span><span class="frac-den">4 &minus; <em>y</em></span></span>| = 4<em>x</em> + 4<em>C</em> &nbsp;&rArr;&nbsp; <span class="frac"><span class="frac-num"><em>y</em></span><span class="frac-den">4 &minus; <em>y</em></span></span> = <em>A</em>e<sup>4<em>x</em></sup>`
+        },
+        {
+          tag: "Step 3: Apply Initial Condition (0, 1)",
+          math: `Substitute <em>x</em> = 0, <em>y</em> = 1: &nbsp; <span class="frac"><span class="frac-num">1</span><span class="frac-den">4 &minus; 1</span></span> = <em>A</em>e<sup>0</sup> &nbsp;&rArr;&nbsp; <em>A</em> = <span class="frac"><span class="frac-num">1</span><span class="frac-den">3</span></span>`
+        },
+        {
+          tag: "Step 4: Rearrange Explicitly for y",
+          math: `<span class="frac"><span class="frac-num"><em>y</em></span><span class="frac-den">4 &minus; <em>y</em></span></span> = <span class="frac"><span class="frac-num">1</span><span class="frac-den">3</span></span>e<sup>4<em>x</em></sup> &nbsp;&rArr;&nbsp; 3<em>y</em> = (4 &minus; <em>y</em>)e<sup>4<em>x</em></sup> &nbsp;&rArr;&nbsp; <strong><em>y</em> = <span class="frac"><span class="frac-num">4e<sup>4<em>x</em></sup></span><span class="frac-den">3 + e<sup>4<em>x</em></sup></span></span></strong>`
+        }
+      ],
+      pitfall: `<strong>9758 Exam Pitfall (Minus Sign on &int; 1/(4 &minus; y) dy):</strong> Because the derivative of (4 &minus; <em>y</em>) with respect to <em>y</em> is <strong>&minus;1</strong>, &int; <span class="frac"><span class="frac-num">1</span><span class="frac-den">4 &minus; <em>y</em></span></span> d<em>y</em> = <strong>&minus;ln|4 &minus; <em>y</em>|</strong> + <em>C</em>. Missing this minus sign turns a quotient ln|<em>y</em>/(4 &minus; <em>y</em>)| into an incorrect product ln|<em>y</em>(4 &minus; <em>y</em>)|.`
+    }
+  };
+
+  let curKey = "polyExp";
+  let revealedStep = 1; // 1 to 4
+  let testX0 = 0.6;
+
+  function selectPreset(key) {
+    curKey = key;
+    revealedStep = 1;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("tab_" + key).classList.add("active");
+
+    const p = presets[key];
+    const slider = document.getElementById("x0Slider");
+    slider.min = p.x0Range[0];
+    slider.max = p.x0Range[1];
+    slider.step = "0.05";
+    testX0 = p.x0Default;
+    slider.value = testX0;
+
+    renderAll();
+  }
+
+  function changeStep(delta) {
+    revealedStep = Math.max(1, Math.min(4, revealedStep + delta));
+    renderSteps();
+  }
+
+  function revealAllSteps() {
+    revealedStep = 4;
+    renderSteps();
+  }
+
+  function updateX0(val) {
+    testX0 = parseFloat(val);
+    renderGCAndGraph();
+  }
+
+  function renderAll() {
+    const p = presets[curKey];
+    document.getElementById("problemBox").innerHTML = `
+      <div><strong>Problem:</strong> ${p.statement}</div>
+      <div class="var-pill">${p.factorPill}</div>
+    `;
+    document.getElementById("pitfallBox").innerHTML = p.pitfall;
+    renderSteps();
+    renderMultiPointTable();
+    renderGCAndGraph();
+  }
+
+  function renderSteps() {
+    const p = presets[curKey];
+    document.getElementById("stepCountLbl").textContent = revealedStep;
+    document.getElementById("prevStepBtn").disabled = revealedStep === 1;
+    document.getElementById("nextStepBtn").disabled = revealedStep === 4;
+
+    const container = document.getElementById("algebraStepsContainer");
+    container.innerHTML = p.steps.map((st, idx) => {
+      const stepNum = idx + 1;
+      const isUnlocked = stepNum <= revealedStep;
+      const isCurrent = stepNum === revealedStep;
+      return `
+        <div class="step-card ${isCurrent ? "active-step" : ""} ${!isUnlocked ? "locked" : ""}">
+          <span class="step-tag">${st.tag}</span>
+          <div class="step-math">${isUnlocked ? st.math : "<em>Click &ldquo;Next Step &rarr;&rdquo; to reveal this algebraic stage...</em>"}</div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  // Numerical central-difference derivative simulating TI-84 Plus CE nDeriv(Y1, X, x0)
+  function nDeriv(fn, x) {
+    const h = 1e-5;
+    return (fn(x + h) - fn(x - h)) / (2 * h);
+  }
+
+  function renderGCAndGraph() {
+    const p = presets[curKey];
+    document.getElementById("x0Badge").textContent = testX0.toFixed(2);
+
+    const yVal = p.evalY(testX0);
+    const lhsGrad = nDeriv(p.evalY, testX0);
+    const rhsGrad = p.evalRHS(testX0, yVal);
+    const diff = Math.abs(lhsGrad - rhsGrad);
+
+    document.getElementById("gcScreenOutput").innerHTML = `
+      <div>${p.y1Label} &nbsp;|&nbsp; X₀ = ${testX0.toFixed(2)}, Y₁(X₀) = ${yVal.toFixed(5)}</div>
+      <div>LHS: nDeriv(Y₁, X, ${testX0.toFixed(2)}) = <span style="color:#0f766e;">${lhsGrad.toFixed(5)}</span></div>
+      <div>RHS: f(${testX0.toFixed(2)})·g(Y₁) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= <span style="color:#7c3aed;">${rhsGrad.toFixed(5)}</span> &nbsp;(${diff < 1e-3 ? "✓ EXACT MATCH" : "Check"})</div>
+    `;
+
+    document.getElementById("canvasBadge").innerHTML =
+      `Test Point: (<em>x</em><sub>0</sub>, Y<sub>1</sub>(<em>x</em><sub>0</sub>)) = (${testX0.toFixed(2)}, ${yVal.toFixed(2)}) &bull; Gradient = ${lhsGrad.toFixed(3)}`;
+
+    drawGraph(p, testX0, yVal, lhsGrad);
+  }
+
+  function renderMultiPointTable() {
+    const p = presets[curKey];
+    const [xmin, xmax] = p.x0Range;
+    const sampleXs = [
+      p.ic.x,
+      xmin + 0.25 * (xmax - xmin),
+      xmin + 0.55 * (xmax - xmin),
+      xmin + 0.85 * (xmax - xmin)
+    ];
+
+    const tbl = document.getElementById("checkTable");
+    tbl.innerHTML = `
+      <thead>
+        <tr>
+          <th>Point Type</th>
+          <th><em>x</em><sub>0</sub></th>
+          <th>Y<sub>1</sub>(<em>x</em><sub>0</sub>)</th>
+          <th>GC <code>nDeriv(Y₁, X, x₀)</code></th>
+          <th>DE RHS <em>f</em>(<em>x</em><sub>0</sub>)<em>g</em>(<em>y</em><sub>0</sub>)</th>
+          <th>Verification</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${sampleXs.map((sx, idx) => {
+          const sy = p.evalY(sx);
+          const lhs = nDeriv(p.evalY, sx);
+          const rhs = p.evalRHS(sx, sy);
+          return `
+            <tr>
+              <td><strong>${idx === 0 ? "Initial Condition" : "Sample Point " + idx}</strong></td>
+              <td>${sx.toFixed(2)}</td>
+              <td>${sy.toFixed(4)}</td>
+              <td>${lhs.toFixed(4)}</td>
+              <td>${rhs.toFixed(4)}</td>
+              <td style="color:#0f766e; font-weight:700;">✓ Match</td>
+            </tr>
+          `;
+        }).join("")}
+      </tbody>
+    `;
+  }
+
+  function drawGraph(p, x0, y0, grad) {
+    const [X_MIN, X_MAX] = p.xDomain;
+    const [Y_MIN, Y_MAX] = p.yDomain;
+
+    const toPxX = (x) => ((x - X_MIN) / (X_MAX - X_MIN)) * canvas.width;
+    const toPxY = (y) => canvas.height - ((y - Y_MIN) / (Y_MAX - Y_MIN)) * canvas.height;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Grid lines
+    ctx.strokeStyle = "#f1f5f9";
+    ctx.lineWidth = 1;
+    const xStep = (X_MAX - X_MIN) > 3 ? 0.5 : 0.25;
+    const yStep = (Y_MAX - Y_MIN) > 8 ? 2 : 1;
+
+    for (let x = Math.ceil(X_MIN / xStep) * xStep; x <= X_MAX; x += xStep) {
+      const px = toPxX(x);
+      ctx.beginPath();
+      ctx.moveTo(px, 0);
+      ctx.lineTo(px, canvas.height);
+      ctx.stroke();
+    }
+    for (let y = Math.ceil(Y_MIN / yStep) * yStep; y <= Y_MAX; y += yStep) {
+      const py = toPxY(y);
+      ctx.beginPath();
+      ctx.moveTo(0, py);
+      ctx.lineTo(canvas.width, py);
+      ctx.stroke();
+    }
+
+    // Axes
+    ctx.strokeStyle = "#64748b";
+    ctx.lineWidth = 1.5;
+    if (Y_MIN <= 0 && Y_MAX >= 0) {
+      const y0Px = toPxY(0);
+      ctx.beginPath();
+      ctx.moveTo(0, y0Px);
+      ctx.lineTo(canvas.width, y0Px);
+      ctx.stroke();
+    }
+    if (X_MIN <= 0 && X_MAX >= 0) {
+      const x0Px = toPxX(0);
+      ctx.beginPath();
+      ctx.moveTo(x0Px, 0);
+      ctx.lineTo(x0Px, canvas.height);
+      ctx.stroke();
+    }
+
+    // Other curves in general family
+    p.familyParams.forEach(c => {
+      ctx.save();
+      ctx.strokeStyle = "#cbd5e1";
+      ctx.lineWidth = 1.3;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      let started = false;
+      for (let x = X_MIN; x <= X_MAX; x += (X_MAX - X_MIN) / 240) {
+        const y = p.evalFamily(x, c);
+        if (isFinite(y) && y >= Y_MIN - 2 && y <= Y_MAX + 2) {
+          const px = toPxX(x);
+          const py = toPxY(y);
+          if (!started) {
+            ctx.moveTo(px, py);
+            started = true;
+          } else {
+            ctx.lineTo(px, py);
+          }
+        } else {
+          started = false;
+        }
+      }
+      ctx.stroke();
+      ctx.restore();
+    });
+
+    // Particular solution curve Y1(x)
+    ctx.strokeStyle = "#7c3aed";
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    let started = false;
+    for (let x = X_MIN; x <= X_MAX; x += (X_MAX - X_MIN) / 300) {
+      const y = p.evalY(x);
+      if (isFinite(y) && y >= Y_MIN - 2 && y <= Y_MAX + 2) {
+        const px = toPxX(x);
+        const py = toPxY(y);
+        if (!started) {
+          ctx.moveTo(px, py);
+          started = true;
+        } else {
+          ctx.lineTo(px, py);
+        }
+      } else {
+        started = false;
+      }
+    }
+    ctx.stroke();
+
+    // Tangent line segment at x0
+    const span = (X_MAX - X_MIN) * 0.16;
+    const tx1 = x0 - span;
+    const ty1 = y0 - grad * span;
+    const tx2 = x0 + span;
+    const ty2 = y0 + grad * span;
+
+    ctx.strokeStyle = "#0f766e";
+    ctx.lineWidth = 2.4;
+    ctx.beginPath();
+    ctx.moveTo(toPxX(tx1), toPxY(ty1));
+    ctx.lineTo(toPxX(tx2), toPxY(ty2));
+    ctx.stroke();
+
+    // Initial Condition Pin (red)
+    ctx.fillStyle = "#e11d48";
+    ctx.beginPath();
+    ctx.arc(toPxX(p.ic.x), toPxY(p.ic.y), 5.5, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = "#ffffff";
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    ctx.fillStyle = "#be123c";
+    ctx.font = "700 11px 'Segoe UI', sans-serif";
+    ctx.fillText(`IC (${p.ic.x.toFixed(2)}, ${p.ic.y.toFixed(2)})`, toPxX(p.ic.x) + 8, toPxY(p.ic.y) - 6);
+
+    // Active Test Point Pin (teal)
+    ctx.fillStyle = "#0f766e";
+    ctx.beginPath();
+    ctx.arc(toPxX(x0), toPxY(y0), 5.5, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = "#ffffff";
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+  }
+
+  // Click on canvas to move test point x0
+  canvas.addEventListener("click", (e) => {
+    const p = presets[curKey];
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const px = (e.clientX - rect.left) * scaleX;
+    const [X_MIN, X_MAX] = p.xDomain;
+    const rawX = X_MIN + (px / canvas.width) * (X_MAX - X_MIN);
+    const clamped = Math.max(p.x0Range[0], Math.min(p.x0Range[1], rawX));
+    testX0 = Math.round(clamped * 20) / 20;
+    document.getElementById("x0Slider").value = testX0;
+    renderGCAndGraph();
+  });
+
+  // 9758 EXAM MASTERY CHECK QUESTIONS
+  const examQs = [
+    {
+      q: "Which of the following differential equations CANNOT be solved directly by separating variables into ∫ [1/g(y)] dy = ∫ f(x) dx?",
+      opts: [
+        "dy/dx = x + y (cannot be written as a product f(x)g(y))",
+        "dy/dx = y cot x (f(x) = cot x, g(y) = y)",
+        "dy/dx = (1 + y²)e^x (f(x) = e^x, g(y) = 1 + y²)",
+        "dy/dx = 2x(y − 1) (f(x) = 2x, g(y) = y − 1)"
+      ],
+      ans: 0,
+      exp: "Separation of variables requires the right-hand side to factorise as a product f(x)g(y). An additive equation like dy/dx = x + y cannot be separated by subtracting y."
+    },
+    {
+      q: "When integrating ∫ 1/[y(4 − y)] dy via partial fractions, what is the correct antiderivative?",
+      opts: [
+        "¼ ln|y/(4 − y)| + C",
+        "¼ ln|y(4 − y)| + C",
+        "ln|y/(4 − y)| + C",
+        "¼ ln|(4 − y)/y| + C"
+      ],
+      ans: 0,
+      exp: "1/[y(4 − y)] = ¼[1/y + 1/(4 − y)]. Integrating gives ¼(ln|y| − ln|4 − y|) + C = ¼ ln|y/(4 − y)| + C (note the minus sign from differentiating 4 − y)."
+    },
+    {
+      q: "After separating variables in dy/dx = y cot x for 0 < x < π, which integral expression is obtained?",
+      opts: [
+        "∫ (1/y) dy = ∫ cot x dx ⇒ ln|y| = ln(sin x) + C",
+        "∫ y dy = ∫ cot x dx ⇒ ½y² = ln(sin x) + C",
+        "∫ (1/y) dy = ∫ cot x dx ⇒ ln|y| = −cosec² x + C",
+        "∫ (1/y) dy = ∫ cot x dx ⇒ ln|y| = ln|sec x| + C"
+      ],
+      ans: 0,
+      exp: "Dividing by y gives ∫ (1/y) dy = ∫ (cos x / sin x) dx, which integrates directly to ln|y| = ln|sin x| + C."
+    },
+    {
+      q: "You obtain a particular solution Y₁(x) and want to verify it on a TI-84 Plus CE at x₀ = 0.5. Which two checks confirm Y₁(x) is completely correct?",
+      opts: [
+        "Check Y₁(x_initial) = y_initial AND nDeriv(Y₁, X, 0.5) = f(0.5)·g(Y₁(0.5))",
+        "Check only that Y₁(0.5) > 0",
+        "Check fnInt(Y₁, X, 0, 0.5) = 0",
+        "Check nDeriv(Y₁, X, 0.5) = 0"
+      ],
+      ans: 0,
+      exp: "A valid particular solution must satisfy both the initial condition at (x_initial, y_initial) and the differential equation dy/dx = f(x)g(y) at any test point x₀."
+    }
+  ];
+
+  let curQ = 0;
+
+  function formatMathText(str) {
+    return str
+      .replace(/dy\/dx/g, '<span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span></span>')
+      .replace(/e\^x/g, 'e<sup><em>x</em></sup>')
+      .replace(/y²/g, '<em>y</em><sup>2</sup>')
+      .replace(/½/g, '<span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span>')
+      .replace(/¼/g, '<span class="frac"><span class="frac-num">1</span><span class="frac-den">4</span></span>');
+  }
+
+  function renderExamQ() {
+    const item = examQs[curQ];
+    document.getElementById("qIdxLbl").textContent = curQ + 1;
+    document.getElementById("qPrompt").innerHTML = formatMathText(item.q);
+
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "none";
+
+    document.getElementById("qOpts").innerHTML = item.opts.map((o, i) => `
+      <button class="mcq-btn" onclick="gradeExamQ(${i}, this)">${String.fromCharCode(65 + i)}. ${formatMathText(o)}</button>
+    `).join("");
+  }
+
+  function gradeExamQ(idx, btn) {
+    const item = examQs[curQ];
+    document.querySelectorAll(".mcq-btn").forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.ans) b.classList.add("correct");
+      else if (i === idx) b.classList.add("wrong");
+    });
+    const fb = document.getElementById("qFeedback");
+    fb.style.display = "block";
+    fb.style.background = idx === item.ans ? "#dcfce7" : "#fef3c7";
+    fb.style.color = idx === item.ans ? "#14532d" : "#78350f";
+    fb.innerHTML = `<strong>${idx === item.ans ? "Correct!" : "Review:"}</strong> ${formatMathText(item.exp)}`;
+  }
+
+  function nextExamQ() {
+    curQ = (curQ + 1) % examQs.length;
+    renderExamQ();
+  }
+
+  // Initialize
+  selectPreset("polyExp");
+  renderExamQ();
+</script>
+
+</body>
+</html>
