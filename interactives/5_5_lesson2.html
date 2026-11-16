@@ -152,7 +152,7 @@
 
     .app-container {
       display: grid;
-      grid-template-columns: 545px 1fr;
+      grid-template-columns: 555px 1fr;
       gap: 20px;
     }
 
@@ -168,6 +168,43 @@
       border-radius: 16px;
       padding: 18px 20px;
       box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    }
+
+    /* CONCEPT FOUNDATION CARD */
+    .concept-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .concept-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .concept-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-left: 3.5px solid var(--purple);
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 0.78rem;
+      line-height: 1.48;
+    }
+
+    .concept-box.teal-accent {
+      border-left-color: var(--teal);
+    }
+
+    .concept-box strong.heading {
+      display: block;
+      font-size: 0.73rem;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: #1e293b;
+      margin-bottom: 3px;
     }
 
     /* PRESET GRID */
@@ -557,12 +594,12 @@
     </div>
     <div class="guide-steps" id="guideSteps">
       <div class="guide-step-card">
-        <strong>1. Choose One of the 4 Canonical 9758 Types</strong>
-        Work through <em>Polynomial-Exponential</em>, <em>Trigonometric (<span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = <em>y</em> cot <em>x</em></span>)</em>, <em>Inverse-Trig (<span class="math">1 + <em>y</em><sup>2</sup></span>)</em>, and <em>Partial-Fraction Logistic</em> separation.
+        <strong>1. Review What Makes a DE &ldquo;Variable Separable&rdquo;</strong>
+        Check the two foundation boxes first to see why <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span></span> must factorise as a <em>product</em> <span class="math"><em>f</em>(<em>x</em>)<em>g</em>(<em>y</em>)</span> before integrating each variable independently.
       </div>
       <div class="guide-step-card">
-        <strong>2. Step Through the 4-Stage Algebra Reveal</strong>
-        Click <em>Next Step &rarr;</em> to uncover (1) Variable Separation, (2) Integration of Both Sides, (3) Applying the Initial Condition, and (4) Explicit Form <em>y</em> = f(<em>x</em>).
+        <strong>2. Work Through the 4 Canonical 9758 Types</strong>
+        Select each preset and click <em>Next Step &rarr;</em> to uncover (1) Variable Separation, (2) Integration of Both Sides, (3) Initial Condition, and (4) Explicit Form <em>y</em> = f(<em>x</em>).
       </div>
       <div class="guide-step-card">
         <strong>3. Run the TI-84 Plus CE Gradient Check</strong>
@@ -572,10 +609,30 @@
   </div>
 
   <div class="app-container">
-    <!-- LEFT ALGEBRA STEPPER & TI-84 CHECK PANEL -->
+    <!-- LEFT CONCEPT, ALGEBRA STEPPER & TI-84 CHECK PANEL -->
     <div class="card">
       <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
         5.5 Lesson 2 &bull; Separable Differential Equations <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = <em>f</em>(<em>x</em>)<em>g</em>(<em>y</em>)</span>
+      </div>
+
+      <!-- VARIABLE SEPARABLE CONCEPT EXPLANATION -->
+      <div class="concept-grid">
+        <div class="concept-box">
+          <strong class="heading">What is a Variable Separable DE?</strong>
+          A first-order differential equation is <strong>variable separable</strong> if it can be written as a <em>product</em> of a function of <em>x</em> and a function of <em>y</em>:
+          <div style="margin-top:4px; font-weight:700; color:#1e293b;">
+            <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = <em>f</em>(<em>x</em>)<em>g</em>(<em>y</em>)</span> &nbsp;(e.g. 2<em>x</em>(<em>y</em> &minus; 1), <em>y</em> cot <em>x</em>)
+          </div>
+          Sums like <span class="math"><span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> = <em>x</em> + <em>y</em></span> cannot be factored into <em>f</em>(<em>x</em>)<em>g</em>(<em>y</em>) and are <strong>not</strong> directly separable.
+        </div>
+        <div class="concept-box teal-accent">
+          <strong class="heading">Why Separating Variables Works</strong>
+          Dividing both sides by <em>g</em>(<em>y</em>) (for <em>g</em>(<em>y</em>) &ne; 0) and integrating with respect to <em>x</em> applies the Chain Rule in reverse:
+          <div style="margin-top:4px; font-weight:700; color:#134e4a;">
+            &int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>g</em>(<em>y</em>)</span></span> <span class="frac"><span class="frac-num">d<em>y</em></span><span class="frac-den">d<em>x</em></span></span> d<em>x</em> = &int; <em>f</em>(<em>x</em>) d<em>x</em> &nbsp;&rArr;&nbsp; &int; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><em>g</em>(<em>y</em>)</span></span> d<em>y</em> = &int; <em>f</em>(<em>x</em>) d<em>x</em>
+          </div>
+          All <em>y</em>-terms sit with d<em>y</em> on the left, and all <em>x</em>-terms sit with d<em>x</em> on the right.
+        </div>
       </div>
 
       <!-- 4 Canonical 9758 Separable Presets -->
