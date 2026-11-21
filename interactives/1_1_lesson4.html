@@ -43,12 +43,69 @@
       margin: 0 auto;
     }
 
+    /* MATH NOTATION STYLING (9758 H2 MATH CONVENTION) */
+    /* Variables & unknown parameters (x, y, u, v, D, R) are italicised */
+    .math {
+      font-family: 'Cambria Math', 'Times New Roman', Georgia, serif;
+      font-style: italic;
+    }
+
+    /* Function names (f, g, gf), constants (e, i, pi), numbers, brackets & operators are upright */
+    .math-upright {
+      font-family: 'Cambria Math', 'Times New Roman', Georgia, serif;
+      font-style: normal;
+    }
+
+    /* STACKED FRACTION NOTATION */
+    .frac {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      vertical-align: middle;
+      margin: 0 2px;
+      font-size: 0.86em;
+      line-height: 1.08;
+    }
+
+    .frac-num {
+      padding: 0 3px 1px 3px;
+      border-bottom: 1.3px solid currentColor;
+      text-align: center;
+    }
+
+    .frac-den {
+      padding: 1px 3px 0 3px;
+      text-align: center;
+    }
+
+    /* CLEAN SQUARE ROOT OVERBAR NOTATION */
+    .sqrt {
+      display: inline-flex;
+      align-items: stretch;
+      vertical-align: baseline;
+      white-space: nowrap;
+    }
+
+    .sqrt-sign {
+      font-family: 'Cambria Math', 'Times New Roman', Georgia, serif;
+      font-style: normal;
+      margin-right: 1px;
+      line-height: 1;
+    }
+
+    .radicand {
+      border-top: 1.25px solid currentColor;
+      padding: 1px 3px 0 2px;
+      display: inline-block;
+      line-height: 1.12;
+    }
+
     /* HOW-TO-USE GUIDE BANNER */
     .guide-banner {
       background: #ffffff;
       border: 1.5px solid #c4b5fd;
       border-radius: 14px;
-      padding: 12px 18px;
+      padding: 14px 18px;
       margin-bottom: 16px;
       box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
     }
@@ -95,9 +152,9 @@
     .guide-steps {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 10px;
-      padding-top: 10px;
+      gap: 14px;
+      margin-top: 12px;
+      padding-top: 12px;
       border-top: 1px dashed #e2e8f0;
     }
 
@@ -111,15 +168,19 @@
       background: #f8fafc;
       border: 1px solid #e2e8f0;
       border-radius: 10px;
-      padding: 9px 11px;
-      font-size: 0.78rem;
-      line-height: 1.45;
+      padding: 12px 14px;
+      font-size: 0.81rem;
+      line-height: 1.6;
+      word-spacing: normal;
+      letter-spacing: normal;
     }
 
-    .guide-step-card strong {
+    .guide-step-heading {
       color: #1e293b;
+      font-weight: 800;
       display: block;
-      margin-bottom: 2px;
+      margin-bottom: 6px;
+      font-size: 0.83rem;
     }
 
     .app-container {
@@ -178,6 +239,7 @@
     .slider-header {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       font-size: 0.79rem;
       font-weight: 700;
       margin-bottom: 3px;
@@ -196,7 +258,7 @@
       padding: 11px 13px;
       color: #134e4a;
       font-size: 0.81rem;
-      line-height: 1.52;
+      line-height: 1.65;
       margin-bottom: 11px;
     }
 
@@ -206,9 +268,9 @@
       border-radius: 12px;
       padding: 10px 13px;
       color: #4c1d95;
-      font-size: 0.82rem;
+      font-size: 0.83rem;
       font-weight: 700;
-      line-height: 1.45;
+      line-height: 1.65;
     }
 
     canvas {
@@ -228,7 +290,7 @@
       border-radius: 10px;
       padding: 11px 14px;
       font-size: 0.81rem;
-      line-height: 1.5;
+      line-height: 1.6;
       color: #78350f;
     }
   </style>
@@ -247,16 +309,16 @@
     </div>
     <div class="guide-steps" id="guideSteps">
       <div class="guide-step-card">
-        <strong>1. Select an Identity Mode (Top-Left Tabs)</strong>
-        Compare <em>1. f⁻¹f(x) = x</em> (defined on <em>D_f</em>), <em>2. ff⁻¹(x) = x</em> (defined on <em>R_f</em>), and <em>3. Socks-Shoes Rule (gf)⁻¹ = f⁻¹g⁻¹</em>.
+        <span class="guide-step-heading">1. Select an Identity Mode (Top-Left Tabs)</span>
+        Compare <em>1. <span class="math-upright">f<sup>&minus;1</sup>f(</span><span class="math">x</span><span class="math-upright">) =</span> <span class="math">x</span></em> (defined on <span class="math">D</span><span class="math-upright"><sub>f</sub></span>), <em>2. <span class="math-upright">ff<sup>&minus;1</sup>(</span><span class="math">x</span><span class="math-upright">) =</span> <span class="math">x</span></em> (defined on <span class="math">R</span><span class="math-upright"><sub>f</sub></span>), and <em>3. Socks–Shoes Rule <span class="math-upright">(gf)<sup>&minus;1</sup> = f<sup>&minus;1</sup>g<sup>&minus;1</sup></span></em>.
       </div>
       <div class="guide-step-card">
-        <strong>2. Trace a Specific Input Value x₀</strong>
-        Drag the <em>Test Input x₀</em> slider to watch the round-trip mapping step-by-step on the canvas—from input to intermediate output and back.
+        <span class="guide-step-heading">2. Trace a Specific Input Value <span class="math">x</span><span class="math-upright"><sub>0</sub></span></span>
+        Drag the <em>Test Input <span class="math">x</span><span class="math-upright"><sub>0</sub></span></em> slider to watch the round-trip mapping step-by-step on the canvas&mdash;from input to intermediate output and back.
       </div>
       <div class="guide-step-card">
-        <strong>3. Check Domain Restrictions on y = x</strong>
-        Notice that <em>f⁻¹f(x) = x</em> and <em>ff⁻¹(x) = x</em> do not span all of <em>ℝ</em>—their graphs are segments of <em>y = x</em> restricted to <em>D_f</em> and <em>R_f</em> respectively!
+        <span class="guide-step-heading">3. Check Domain Restrictions on <span class="math">y</span> <span class="math-upright">=</span> <span class="math">x</span></span>
+        Notice that <span class="math-upright">f<sup>&minus;1</sup>f(</span><span class="math">x</span><span class="math-upright">) =</span> <span class="math">x</span> and <span class="math-upright">ff<sup>&minus;1</sup>(</span><span class="math">x</span><span class="math-upright">) =</span> <span class="math">x</span> do not span all of <span class="math-upright">&Ropf;</span>&mdash;their graphs are segments of <span class="math">y</span> <span class="math-upright">=</span> <span class="math">x</span> restricted to <span class="math">D</span><span class="math-upright"><sub>f</sub></span> and <span class="math">R</span><span class="math-upright"><sub>f</sub></span> respectively!
       </div>
     </div>
   </div>
@@ -268,13 +330,13 @@
       </div>
 
       <div class="mode-row">
-        <button class="tab-btn active" id="id_finvf" onclick="setMode('finvf')">1. f⁻¹f(x) = x</button>
-        <button class="tab-btn" id="id_ffinv" onclick="setMode('ffinv')">2. ff⁻¹(x) = x</button>
-        <button class="tab-btn" id="id_socks" onclick="setMode('socks')">3. (gf)⁻¹ = f⁻¹g⁻¹</button>
+        <button class="tab-btn active" id="id_finvf" onclick="setMode('finvf')">1. <span class="math-upright">f<sup>&minus;1</sup>f(</span><span class="math">x</span><span class="math-upright">) =</span> <span class="math">x</span></button>
+        <button class="tab-btn" id="id_ffinv" onclick="setMode('ffinv')">2. <span class="math-upright">ff<sup>&minus;1</sup>(</span><span class="math">x</span><span class="math-upright">) =</span> <span class="math">x</span></button>
+        <button class="tab-btn" id="id_socks" onclick="setMode('socks')">3. <span class="math-upright">(gf)<sup>&minus;1</sup> = f<sup>&minus;1</sup>g<sup>&minus;1</sup></span></button>
       </div>
 
       <div class="slider-group">
-        <div class="slider-header"><span>Trace Test Input (x₀)</span><span id="lbl_x0" style="color:var(--purple-dark);">3.0</span></div>
+        <div class="slider-header"><span>Trace Test Input (<span class="math">x</span><span class="math-upright"><sub>0</sub></span>)</span><span id="lbl_x0" style="color:var(--purple-dark);">3</span></div>
         <input type="range" id="sl_x0" min="1" max="5" step="0.25" value="3" oninput="x0=parseFloat(this.value); draw();" />
       </div>
 
@@ -284,7 +346,10 @@
 
     <div class="card">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
-        <strong style="font-size:1.04rem; color:#1e293b;" id="canvasTitle">f⁻¹f(x) = x for x ∈ D_f = [1, 5]</strong>
+        <strong style="font-size:1.04rem; color:#1e293b;" id="canvasTitle">
+          <span class="math-upright">f<sup>&minus;1</sup>f(</span><span class="math">x</span><span class="math-upright">) =</span> <span class="math">x</span> for <span class="math">x</span> <span class="math-upright">&isin;</span> <span class="math">D</span><span class="math-upright"><sub>f</sub> = [1, 5]</span>
+        </strong>
+        <span style="font-size:0.78rem; font-weight:700; color:var(--teal);" id="scaleBadge">Uniform 1:1 Scale &bull; Blue segment = Restricted <span class="math">y</span> <span class="math-upright">=</span> <span class="math">x</span></span>
       </div>
 
       <canvas id="idCanvas" width="880" height="465"></canvas>
@@ -292,8 +357,8 @@
       <div class="misconception-box">
         <strong>9758 Misconception Alert (Composite–Inverse Identities):</strong>
         <ul style="margin:4px 0 0 0; padding-left:18px;">
-          <li><strong>Different domains for <em>f⁻¹f</em> vs. <em>ff⁻¹</em>:</strong> <em>f⁻¹f(x) = x</em> holds only for <strong>x ∈ D_f</strong>, whereas <em>ff⁻¹(x) = x</em> holds only for <strong>x ∈ D_{f⁻¹} = R_f</strong>.</li>
-          <li><strong>Reverse the order when inverting a composite:</strong> Just like putting on socks (<em>f</em>) then shoes (<em>g</em>), undoing <em>gf</em> requires taking off shoes first (<em>g⁻¹</em>) then socks (<em>f⁻¹</em>): <strong>(gf)⁻¹ = f⁻¹g⁻¹</strong>.</li>
+          <li><strong>Different domains for <span class="math-upright">f<sup>&minus;1</sup>f</span> vs. <span class="math-upright">ff<sup>&minus;1</sup></span>:</strong> <span class="math-upright">f<sup>&minus;1</sup>f(</span><span class="math">x</span><span class="math-upright">) =</span> <span class="math">x</span> holds only for <strong><span class="math">x</span> <span class="math-upright">&isin;</span> <span class="math">D</span><span class="math-upright"><sub>f</sub></span></strong>, whereas <span class="math-upright">ff<sup>&minus;1</sup>(</span><span class="math">x</span><span class="math-upright">) =</span> <span class="math">x</span> holds only for <strong><span class="math">x</span> <span class="math-upright">&isin;</span> <span class="math">D</span><span class="math-upright"><sub>f<sup>&minus;1</sup></sub> =</span> <span class="math">R</span><span class="math-upright"><sub>f</sub></span></strong>.</li>
+          <li><strong>Reverse the order when inverting a composite:</strong> Just like putting on socks (<span class="math-upright">f</span>) then shoes (<span class="math-upright">g</span>), undoing <span class="math-upright">gf</span> requires taking off shoes first (<span class="math-upright">g<sup>&minus;1</sup></span>) then socks (<span class="math-upright">f<sup>&minus;1</sup></span>): <strong><span class="math-upright">(gf)<sup>&minus;1</sup> = f<sup>&minus;1</sup>g<sup>&minus;1</sup></span></strong>.</li>
         </ul>
       </div>
     </div>
@@ -323,15 +388,63 @@
     draw();
   }
 
+  function gcd(x, y) {
+    x = Math.abs(x);
+    y = Math.abs(y);
+    while (y) {
+      const t = y;
+      y = x % y;
+      x = t;
+    }
+    return x;
+  }
+
+  function fracHTML(num, den) {
+    return `<span class="frac"><span class="frac-num">${num}</span><span class="frac-den">${den}</span></span>`;
+  }
+
+  function sqrtHTML(expr) {
+    return `<span class="sqrt"><span class="sqrt-sign">&radic;</span><span class="radicand">${expr}</span></span>`;
+  }
+
   function fmt(n) {
-    return Number.isInteger(n) ? n.toString() : n.toFixed(2).replace(/\.?0+$/, "");
+    if (!isFinite(n)) return n < 0 ? `<span class="math-upright">&minus;&infin;</span>` : `<span class="math-upright">&infin;</span>`;
+    if (Math.abs(n - Math.round(n)) < 1e-9) {
+      const r = Math.round(n);
+      return r < 0 ? `<span class="math-upright">&minus;${Math.abs(r)}</span>` : `<span class="math-upright">${r}</span>`;
+    }
+    for (let d = 2; d <= 36; d++) {
+      const num = Math.round(n * d);
+      if (Math.abs(n - num / d) < 1e-7) {
+        const g = gcd(num, d);
+        const sn = num / g;
+        const sd = d / g;
+        if (sd === 1) return sn < 0 ? `<span class="math-upright">&minus;${Math.abs(sn)}</span>` : `<span class="math-upright">${sn}</span>`;
+        return sn < 0
+          ? `<span class="math-upright">&minus;${fracHTML(Math.abs(sn), sd)}</span>`
+          : `<span class="math-upright">${fracHTML(sn, sd)}</span>`;
+      }
+    }
+    const s = n.toFixed(2).replace(/\.?0+$/, "");
+    return s.startsWith("-") ? `<span class="math-upright">&minus;${s.slice(1)}</span>` : `<span class="math-upright">${s}</span>`;
+  }
+
+  function fmtCanvas(n) {
+    const s = Number.isInteger(n) ? n.toString() : n.toFixed(2).replace(/\.?0+$/, "");
+    return s.startsWith("-") ? `−${s.slice(1)}` : s;
   }
 
   function draw() {
-    document.getElementById("lbl_x0").textContent = fmt(x0);
+    document.getElementById("lbl_x0").innerHTML = fmt(x0);
     const canvas = document.getElementById("idCanvas");
     const ctx = canvas.getContext("2d");
-    const W = canvas.width, H = canvas.height;
+    const rect = canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    const W = rect.width > 0 ? rect.width : 880;
+    const H = rect.height > 0 ? rect.height : 465;
+    canvas.width = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, W, H);
 
     // f(x) = 2x - 2 on D_f = [1, 5] => R_f = [0, 8], f^{-1}(x) = (x + 2)/2 on [0, 8]
@@ -339,16 +452,33 @@
     const fInv = x => (x + 2) / 2;
 
     if (mode === "finvf" || mode === "ffinv") {
-      const xMin = -1, xMax = 9, yMin = -1, yMax = 9;
-      const toPxX = x => ((x - xMin) / (xMax - xMin)) * W;
-      const toPxY = y => H - ((y - yMin) / (yMax - yMin)) * H;
+      document.getElementById("scaleBadge").innerHTML =
+        `Uniform 1:1 Scale &bull; Blue segment = Restricted <span class="math">y</span> <span class="math-upright">=</span> <span class="math">x</span>`;
 
-      // Grid & Axes
+      // Uniform 1:1 coordinate scale so y = x sits at an exact 45-degree angle
+      const xCenter = 4.0, yCenter = 4.0;
+      const targetXSpan = 10.5, targetYSpan = 10.5;
+      const pxPerUnit = Math.min(W / targetXSpan, H / targetYSpan);
+
+      const toPxX = x => W / 2 + (x - xCenter) * pxPerUnit;
+      const toPxY = y => H / 2 - (y - yCenter) * pxPerUnit;
+
+      const xMin = xCenter - (W / 2) / pxPerUnit;
+      const xMax = xCenter + (W / 2) / pxPerUnit;
+      const yMin = yCenter - (H / 2) / pxPerUnit;
+      const yMax = yCenter + (H / 2) / pxPerUnit;
+
+      // Equal square grid
       ctx.strokeStyle = "#f1f5f9";
-      for (let g = 0; g <= 8; g++) {
-        ctx.beginPath(); ctx.moveTo(toPxX(g), 0); ctx.lineTo(toPxX(g), H); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(0, toPxY(g)); ctx.lineTo(W, toPxY(g)); ctx.stroke();
+      ctx.lineWidth = 1;
+      for (let gx = Math.ceil(xMin); gx <= Math.floor(xMax); gx++) {
+        ctx.beginPath(); ctx.moveTo(toPxX(gx), 0); ctx.lineTo(toPxX(gx), H); ctx.stroke();
       }
+      for (let gy = Math.ceil(yMin); gy <= Math.floor(yMax); gy++) {
+        ctx.beginPath(); ctx.moveTo(0, toPxY(gy)); ctx.lineTo(W, toPxY(gy)); ctx.stroke();
+      }
+
+      // Axes
       ctx.strokeStyle = "#94a3b8";
       ctx.lineWidth = 1.6;
       ctx.beginPath();
@@ -356,14 +486,35 @@
       ctx.moveTo(toPxX(0), 0); ctx.lineTo(toPxX(0), H);
       ctx.stroke();
 
-      // Full y = x dashed
+      // Axis ticks (upright numbers) & labels (italic x, y; upright point O)
+      ctx.fillStyle = "#64748b";
+      ctx.font = "11px 'Cambria Math', Georgia, serif";
+      for (let gx = Math.ceil(xMin); gx <= Math.floor(xMax); gx++) {
+        if (gx !== 0) ctx.fillText(fmtCanvas(gx), toPxX(gx) - 4, toPxY(0) + 14);
+      }
+      for (let gy = Math.ceil(yMin); gy <= Math.floor(yMax); gy++) {
+        if (gy !== 0) ctx.fillText(fmtCanvas(gy), toPxX(0) - 18, toPxY(gy) + 4);
+      }
+      ctx.font = "italic 13px 'Cambria Math', Georgia, serif";
+      ctx.fillText("x", W - 14, toPxY(0) - 6);
+      ctx.fillText("y", toPxX(0) + 8, 14);
+      ctx.font = "13px 'Cambria Math', Georgia, serif";
+      ctx.fillText("O", toPxX(0) - 14, toPxY(0) + 14);
+
+      // Full y = x dashed line
       ctx.save();
       ctx.strokeStyle = "#cbd5e1";
+      ctx.lineWidth = 1.5;
       ctx.setLineDash([5, 5]);
-      ctx.beginPath(); ctx.moveTo(toPxX(0), toPxY(0)); ctx.lineTo(toPxX(8.5), toPxY(8.5)); ctx.stroke();
+      const diagMin = Math.max(xMin, yMin);
+      const diagMax = Math.min(xMax, yMax);
+      ctx.beginPath();
+      ctx.moveTo(toPxX(diagMin), toPxY(diagMin));
+      ctx.lineTo(toPxX(diagMax), toPxY(diagMax));
+      ctx.stroke();
       ctx.restore();
 
-      // Plot f (purple) and f^{-1} (teal)
+      // Plot y = f(x) (purple) and y = f^{-1}(x) (teal)
       ctx.strokeStyle = "#8b5cf6";
       ctx.lineWidth = 2.5;
       ctx.beginPath(); ctx.moveTo(toPxX(1), toPxY(0)); ctx.lineTo(toPxX(5), toPxY(8)); ctx.stroke();
@@ -372,91 +523,196 @@
       ctx.lineWidth = 2.5;
       ctx.beginPath(); ctx.moveTo(toPxX(0), toPxY(1)); ctx.lineTo(toPxX(8), toPxY(5)); ctx.stroke();
 
+      // Curve labels (upright f, f^-1; italic x, y)
+      ctx.fillStyle = "#7c3aed";
+      ctx.font = "italic 12px 'Cambria Math', Georgia, serif";
+      ctx.fillText("y", toPxX(5.12), toPxY(8));
+      ctx.font = "12px 'Cambria Math', Georgia, serif";
+      ctx.fillText(" = f(", toPxX(5.12) + 7, toPxY(8));
+      ctx.font = "italic 12px 'Cambria Math', Georgia, serif";
+      ctx.fillText("x", toPxX(5.12) + 31, toPxY(8));
+      ctx.font = "12px 'Cambria Math', Georgia, serif";
+      ctx.fillText(")", toPxX(5.12) + 38, toPxY(8));
+
+      ctx.fillStyle = "#0f766e";
+      ctx.font = "italic 12px 'Cambria Math', Georgia, serif";
+      ctx.fillText("y", toPxX(8.12), toPxY(5));
+      ctx.font = "12px 'Cambria Math', Georgia, serif";
+      ctx.fillText(" = f⁻¹(", toPxX(8.12) + 7, toPxY(5));
+      ctx.font = "italic 12px 'Cambria Math', Georgia, serif";
+      ctx.fillText("x", toPxX(8.12) + 41, toPxY(5));
+      ctx.font = "12px 'Cambria Math', Georgia, serif";
+      ctx.fillText(")", toPxX(8.12) + 48, toPxY(5));
+
       // Restricted identity segment y = x
       const dLo = mode === "finvf" ? 1 : 0;
       const dHi = mode === "finvf" ? 5 : 8;
       ctx.strokeStyle = "#0284c7";
       ctx.lineWidth = 4;
       ctx.beginPath(); ctx.moveTo(toPxX(dLo), toPxY(dLo)); ctx.lineTo(toPxX(dHi), toPxY(dHi)); ctx.stroke();
+      drawDot(ctx, toPxX(dLo), toPxY(dLo), "#0284c7", 4.5);
+      drawDot(ctx, toPxX(dHi), toPxY(dHi), "#0284c7", 4.5);
+
+      const invRuleHTML = fracHTML(`<span class="math">x</span> <span class="math-upright">+ 2</span>`, `<span class="math-upright">2</span>`);
 
       if (mode === "finvf") {
         const y1 = f(x0);
         const y2 = fInv(y1);
+
+        // Dashed mapping trace path
+        ctx.save();
+        ctx.strokeStyle = "#94a3b8";
+        ctx.setLineDash([3, 3]);
+        ctx.beginPath();
+        ctx.moveTo(toPxX(x0), toPxY(0));
+        ctx.lineTo(toPxX(x0), toPxY(y1));
+        ctx.lineTo(toPxX(y1), toPxY(y1));
+        ctx.lineTo(toPxX(y1), toPxY(y2));
+        ctx.lineTo(toPxX(x0), toPxY(x0));
+        ctx.stroke();
+        ctx.restore();
+
         drawDot(ctx, toPxX(x0), toPxY(y1), "#8b5cf6", 5.5);
         drawDot(ctx, toPxX(y1), toPxY(y2), "#0f766e", 5.5);
         drawDot(ctx, toPxX(x0), toPxY(x0), "#0284c7", 6);
 
-        document.getElementById("canvasTitle").textContent = "Identity 1: f⁻¹f(x) = x for x ∈ D_f = [1, 5]";
+        document.getElementById("canvasTitle").innerHTML =
+          `Identity 1: <span class="math-upright">f<sup>&minus;1</sup>f(</span><span class="math">x</span><span class="math-upright">) =</span> <span class="math">x</span> for <span class="math">x</span> <span class="math-upright">&isin;</span> <span class="math">D</span><span class="math-upright"><sub>f</sub> = [1, 5]</span>`;
         document.getElementById("idStepsBox").innerHTML = `
-          <strong>1.</strong> Given <em>f(x) = 2x − 2</em> on <em>D_f = [1, 5]</em> &rArr; <em>R_f = [0, 8]</em>.<br>
-          <strong>2.</strong> Step 1: <em>f(${fmt(x0)}) = ${fmt(y1)}</em> (purple point).<br>
-          <strong>3.</strong> Step 2: <em>f⁻¹(${fmt(y1)}) = ${fmt(y2)}</em> (returns to <em>x₀ = ${fmt(x0)}</em> on blue segment).
+          <strong>1.</strong> Given <span class="math-upright">f(</span><span class="math">x</span><span class="math-upright">) = 2</span><span class="math">x</span> <span class="math-upright">&minus; 2</span> on <span class="math">D</span><span class="math-upright"><sub>f</sub> = [1, 5]</span> &rArr; <span class="math">R</span><span class="math-upright"><sub>f</sub> = [0, 8]</span>.<br>
+          <strong>2.</strong> Step 1: <span class="math-upright">f(</span>${fmt(x0)}<span class="math-upright">) =</span> ${fmt(y1)} (purple point).<br>
+          <strong>3.</strong> Step 2: <span class="math-upright">f<sup>&minus;1</sup>(</span>${fmt(y1)}<span class="math-upright">) =</span> ${fmt(y2)} (returns to <span class="math">x</span><span class="math-upright"><sub>0</sub> =</span> ${fmt(x0)} on blue segment).
         `;
         document.getElementById("idBanner").innerHTML =
-          `Exact Rule &amp; Domain: <strong>f⁻¹f(x) = x,  x ∈ [1, 5]</strong> (NOT all of ℝ!).`;
+          `Exact Rule &amp; Domain: <strong><span class="math-upright">f<sup>&minus;1</sup>f(</span><span class="math">x</span><span class="math-upright">) =</span> <span class="math">x</span><span class="math-upright">, &nbsp;</span><span class="math">x</span> <span class="math-upright">&isin; [1, 5]</span></strong> (NOT all of <span class="math-upright">&Ropf;</span>!).`;
       } else {
         const y1 = fInv(x0);
         const y2 = f(y1);
+
+        // Dashed mapping trace path
+        ctx.save();
+        ctx.strokeStyle = "#94a3b8";
+        ctx.setLineDash([3, 3]);
+        ctx.beginPath();
+        ctx.moveTo(toPxX(x0), toPxY(0));
+        ctx.lineTo(toPxX(x0), toPxY(y1));
+        ctx.lineTo(toPxX(y1), toPxY(y1));
+        ctx.lineTo(toPxX(y1), toPxY(y2));
+        ctx.lineTo(toPxX(x0), toPxY(x0));
+        ctx.stroke();
+        ctx.restore();
+
         drawDot(ctx, toPxX(x0), toPxY(y1), "#0f766e", 5.5);
         drawDot(ctx, toPxX(y1), toPxY(y2), "#8b5cf6", 5.5);
         drawDot(ctx, toPxX(x0), toPxY(x0), "#0284c7", 6);
 
-        document.getElementById("canvasTitle").textContent = "Identity 2: ff⁻¹(x) = x for x ∈ D_{f⁻¹} = R_f = [0, 8]";
+        document.getElementById("canvasTitle").innerHTML =
+          `Identity 2: <span class="math-upright">ff<sup>&minus;1</sup>(</span><span class="math">x</span><span class="math-upright">) =</span> <span class="math">x</span> for <span class="math">x</span> <span class="math-upright">&isin;</span> <span class="math">D</span><span class="math-upright"><sub>f<sup>&minus;1</sup></sub> =</span> <span class="math">R</span><span class="math-upright"><sub>f</sub> = [0, 8]</span>`;
         document.getElementById("idStepsBox").innerHTML = `
-          <strong>1.</strong> Inverse <em>f⁻¹(x) = (x + 2)/2</em> has domain <em>D_{f⁻¹} = R_f = [0, 8]</em>.<br>
-          <strong>2.</strong> Step 1: <em>f⁻¹(${fmt(x0)}) = ${fmt(y1)}</em> (teal point).<br>
-          <strong>3.</strong> Step 2: <em>f(${fmt(y1)}) = ${fmt(y2)}</em> (returns to <em>x₀ = ${fmt(x0)}</em> on blue segment).
+          <strong>1.</strong> Inverse <span class="math-upright">f<sup>&minus;1</sup>(</span><span class="math">x</span><span class="math-upright">) =</span> ${invRuleHTML} has domain <span class="math">D</span><span class="math-upright"><sub>f<sup>&minus;1</sup></sub> =</span> <span class="math">R</span><span class="math-upright"><sub>f</sub> = [0, 8]</span>.<br>
+          <strong>2.</strong> Step 1: <span class="math-upright">f<sup>&minus;1</sup>(</span>${fmt(x0)}<span class="math-upright">) =</span> ${fmt(y1)} (teal point).<br>
+          <strong>3.</strong> Step 2: <span class="math-upright">f(</span>${fmt(y1)}<span class="math-upright">) =</span> ${fmt(y2)} (returns to <span class="math">x</span><span class="math-upright"><sub>0</sub> =</span> ${fmt(x0)} on blue segment).
         `;
         document.getElementById("idBanner").innerHTML =
-          `Exact Rule &amp; Domain: <strong>ff⁻¹(x) = x,  x ∈ [0, 8]</strong> (notice the wider domain than f⁻¹f!).`;
+          `Exact Rule &amp; Domain: <strong><span class="math-upright">ff<sup>&minus;1</sup>(</span><span class="math">x</span><span class="math-upright">) =</span> <span class="math">x</span><span class="math-upright">, &nbsp;</span><span class="math">x</span> <span class="math-upright">&isin; [0, 8]</span></strong> (notice the wider domain than <span class="math-upright">f<sup>&minus;1</sup>f</span>!).`;
       }
     } else {
       // Socks-shoes pipeline: f(x) = x + 2, g(x) = 3x => gf(x) = 3(x + 2)
+      document.getElementById("scaleBadge").innerHTML =
+        `Forward (<span class="math-upright">f</span> then <span class="math-upright">g</span>) vs. Reverse (<span class="math-upright">g<sup>&minus;1</sup></span> then <span class="math-upright">f<sup>&minus;1</sup></span>)`;
+
       const u = x0 + 2;
       const v = 3 * u;
-      document.getElementById("canvasTitle").textContent = "Identity 3 (Socks-Shoes Rule): (gf)⁻¹(x) = f⁻¹g⁻¹(x)";
+      document.getElementById("canvasTitle").innerHTML =
+        `Identity 3 (Socks–Shoes Rule): <span class="math-upright">(gf)<sup>&minus;1</sup>(</span><span class="math">x</span><span class="math-upright">) = f<sup>&minus;1</sup>g<sup>&minus;1</sup>(</span><span class="math">x</span><span class="math-upright">)</span>`;
+
+      const scaleX = W / 880;
+      const boxW = 185 * scaleX;
+      const col1 = 75 * scaleX;
+      const col2 = 348 * scaleX;
+      const col3 = 620 * scaleX;
 
       const boxes = [
-        { x: 95, y: 95, lbl: "Input x₀", val: fmt(x0), col: "#8b5cf6" },
-        { x: 375, y: 95, lbl: "After f(x) = x + 2", val: fmt(u), col: "#0284c7" },
-        { x: 655, y: 95, lbl: "After g(u) = 3u", val: fmt(v), col: "#0f766e" },
-        { x: 655, y: 300, lbl: "Start at y₀ = gf(x₀)", val: fmt(v), col: "#0f766e" },
-        { x: 375, y: 300, lbl: "1st Undo g⁻¹(y) = y/3", val: fmt(u), col: "#0284c7" },
-        { x: 95, y: 300, lbl: "2nd Undo f⁻¹(u) = u − 2", val: fmt(x0), col: "#8b5cf6" }
+        { x: col1, y: 95, parts: [{ t: "Input ", m: false }, { t: "x", m: true }, { t: "₀", m: false }], val: fmtCanvas(x0), col: "#8b5cf6" },
+        { x: col2, y: 95, parts: [{ t: "After f(", m: false }, { t: "x", m: true }, { t: ") = ", m: false }, { t: "x", m: true }, { t: " + 2", m: false }], val: fmtCanvas(u), col: "#0284c7" },
+        { x: col3, y: 95, parts: [{ t: "After g(", m: false }, { t: "u", m: true }, { t: ") = 3", m: false }, { t: "u", m: true }], val: fmtCanvas(v), col: "#0f766e" },
+        { x: col3, y: 300, parts: [{ t: "Start at ", m: false }, { t: "y", m: true }, { t: "₀ = gf(", m: false }, { t: "x", m: true }, { t: "₀)", m: false }], val: fmtCanvas(v), col: "#0f766e" },
+        { x: col2, y: 300, parts: [{ t: "1st Undo g⁻¹(", m: false }, { t: "y", m: true }, { t: ") = ", m: false }, { t: "y", m: true }, { t: "/3", m: false }], val: fmtCanvas(u), col: "#0284c7" },
+        { x: col1, y: 300, parts: [{ t: "2nd Undo f⁻¹(", m: false }, { t: "u", m: true }, { t: ") = ", m: false }, { t: "u", m: true }, { t: " − 2", m: false }], val: fmtCanvas(x0), col: "#8b5cf6" }
       ];
 
       ctx.fillStyle = "#1e293b";
-      ctx.font = "bold 13.5px Segoe UI, sans-serif";
-      ctx.fillText("Forward Pipeline: Apply f first, then g  (gf(x) = 3(x + 2))", 95, 65);
-      ctx.fillText("Reverse Pipeline: Apply g⁻¹ first, then f⁻¹  ((gf)⁻¹(y) = y/3 − 2)", 95, 270);
+      drawMixedText(ctx, col1, 65, [
+        { t: "Forward Pipeline: Apply ", ui: true },
+        { t: "f", m: false },
+        { t: " first, then ", ui: true },
+        { t: "g", m: false },
+        { t: "  (gf(", m: false },
+        { t: "x", m: true },
+        { t: ") = 3(", m: false },
+        { t: "x", m: true },
+        { t: " + 2))", m: false }
+      ], 13.5);
+
+      drawMixedText(ctx, col1, 270, [
+        { t: "Reverse Pipeline: Apply ", ui: true },
+        { t: "g⁻¹", m: false },
+        { t: " first, then ", ui: true },
+        { t: "f⁻¹", m: false },
+        { t: "  ((gf)⁻¹(", m: false },
+        { t: "y", m: true },
+        { t: ") = ", m: false },
+        { t: "y", m: true },
+        { t: "/3 − 2)", m: false }
+      ], 13.5);
 
       boxes.forEach(b => {
         ctx.fillStyle = "#f8fafc";
         ctx.strokeStyle = b.col;
         ctx.lineWidth = 2;
-        ctx.fillRect(b.x, b.y, 175, 76);
-        ctx.strokeRect(b.x, b.y, 175, 76);
+        ctx.fillRect(b.x, b.y, boxW, 76);
+        ctx.strokeRect(b.x, b.y, boxW, 76);
+
         ctx.fillStyle = b.col;
-        ctx.font = "bold 11.5px Segoe UI, sans-serif";
-        ctx.fillText(b.lbl, b.x + 12, b.y + 24);
+        drawMixedText(ctx, b.x + 12, b.y + 24, b.parts, 12);
+
         ctx.fillStyle = "#0f172a";
-        ctx.font = "bold 20px Segoe UI, sans-serif";
+        ctx.font = "bold 20px 'Cambria Math', Georgia, serif";
         ctx.fillText(b.val, b.x + 12, b.y + 56);
       });
 
-      drawHArrow(ctx, 275, 133, 370, 133, "f");
-      drawHArrow(ctx, 555, 133, 650, 133, "g");
-      drawHArrow(ctx, 650, 338, 555, 338, "g⁻¹");
-      drawHArrow(ctx, 370, 338, 275, 338, "f⁻¹");
+      drawHArrow(ctx, col1 + boxW + 6, 133, col2 - 6, 133, "f");
+      drawHArrow(ctx, col2 + boxW + 6, 133, col3 - 6, 133, "g");
+      drawHArrow(ctx, col3 - 6, 338, col2 + boxW + 6, 338, "g⁻¹");
+      drawHArrow(ctx, col2 - 6, 338, col1 + boxW + 6, 338, "f⁻¹");
+
+      const xOver3 = fracHTML(`<span class="math">x</span>`, `<span class="math-upright">3</span>`);
+      const vOver3 = fracHTML(fmt(v), `<span class="math-upright">3</span>`);
 
       document.getElementById("idStepsBox").innerHTML = `
-        <strong>1.</strong> Forward: <em>x₀ = ${fmt(x0)} &xrightarrow{f} ${fmt(u)} &xrightarrow{g} ${fmt(v)}</em>.<br>
-        <strong>2.</strong> Reverse: To get back from <em>${fmt(v)}</em> to <em>${fmt(x0)}</em>, we must undo <em>g</em> first (<em>${fmt(v)}/3 = ${fmt(u)}</em>) and then undo <em>f</em> (<em>${fmt(u)} − 2 = ${fmt(x0)}</em>).<br>
-        <strong>3.</strong> Therefore, <strong>(gf)⁻¹(x) = f⁻¹(g⁻¹(x)) = x/3 − 2</strong>.
+        <strong>1.</strong> Forward: <span class="math">x</span><span class="math-upright"><sub>0</sub> =</span> ${fmt(x0)} <span class="math-upright">&xrightarrow{f}</span> ${fmt(u)} <span class="math-upright">&xrightarrow{g}</span> ${fmt(v)}.<br>
+        <strong>2.</strong> Reverse: To get back from ${fmt(v)} to ${fmt(x0)}, we must undo <span class="math-upright">g</span> first (${vOver3} <span class="math-upright">=</span> ${fmt(u)}) and then undo <span class="math-upright">f</span> (${fmt(u)} <span class="math-upright">&minus; 2 =</span> ${fmt(x0)}).<br>
+        <strong>3.</strong> Therefore, <strong><span class="math-upright">(gf)<sup>&minus;1</sup>(</span><span class="math">x</span><span class="math-upright">) = f<sup>&minus;1</sup>(g<sup>&minus;1</sup>(</span><span class="math">x</span><span class="math-upright">)) =</span> ${xOver3} <span class="math-upright">&minus; 2</span></strong>.
       `;
       document.getElementById("idBanner").innerHTML =
-        `Key Algebraic Identity: <strong>(gf)⁻¹ = f⁻¹g⁻¹</strong> (and similarly <strong>(fg)⁻¹ = g⁻¹f⁻¹</strong>).`;
+        `Key Algebraic Identity: <strong><span class="math-upright">(gf)<sup>&minus;1</sup> = f<sup>&minus;1</sup>g<sup>&minus;1</sup></span></strong> (and similarly <strong><span class="math-upright">(fg)<sup>&minus;1</sup> = g<sup>&minus;1</sup>f<sup>&minus;1</sup></span></strong>).`;
     }
+  }
+
+  function drawMixedText(ctx, x, y, segments, size) {
+    let curX = x;
+    ctx.textAlign = "left";
+    segments.forEach(seg => {
+      if (seg.ui) {
+        ctx.font = `bold ${size}px Segoe UI, sans-serif`;
+      } else if (seg.m) {
+        ctx.font = `italic bold ${size + 0.5}px 'Cambria Math', Georgia, serif`;
+      } else {
+        ctx.font = `bold ${size + 0.5}px 'Cambria Math', Georgia, serif`;
+      }
+      ctx.fillText(seg.t, curX, y);
+      curX += ctx.measureText(seg.t).width;
+    });
   }
 
   function drawDot(ctx, x, y, color, r) {
@@ -467,11 +723,26 @@
     ctx.strokeStyle = "#475569";
     ctx.lineWidth = 2;
     ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+
+    // Arrowhead
+    const angle = Math.atan2(y2 - y1, x2 - x1);
+    const headLen = 7;
+    ctx.fillStyle = "#475569";
+    ctx.beginPath();
+    ctx.moveTo(x2, y2);
+    ctx.lineTo(x2 - headLen * Math.cos(angle - Math.PI / 6), y2 - headLen * Math.sin(angle - Math.PI / 6));
+    ctx.lineTo(x2 - headLen * Math.cos(angle + Math.PI / 6), y2 - headLen * Math.sin(angle + Math.PI / 6));
+    ctx.closePath();
+    ctx.fill();
+
     ctx.fillStyle = "#1e293b";
-    ctx.font = "bold 12px Segoe UI, sans-serif";
-    ctx.fillText(lbl, (x1 + x2) / 2 - 8, y1 - 8);
+    ctx.font = "bold 13px 'Cambria Math', Georgia, serif";
+    ctx.textAlign = "center";
+    ctx.fillText(lbl, (x1 + x2) / 2, y1 - 8);
+    ctx.textAlign = "left";
   }
 
+  window.addEventListener("resize", draw);
   draw();
 </script>
 

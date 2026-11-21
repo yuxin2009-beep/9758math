@@ -43,12 +43,14 @@
       margin: 0 auto;
     }
 
-    /* MATH NOTATION STYLING */
+    /* MATH NOTATION STYLING (9758 H2 MATH CONVENTION) */
+    /* Variables & unknown parameters (x, y, a, b, c, D, R) are italicised */
     .math {
       font-family: 'Cambria Math', 'Times New Roman', Georgia, serif;
       font-style: italic;
     }
 
+    /* Function names (f, g, gf), constants (e, i, pi), numbers, brackets & operators are upright */
     .math-upright {
       font-family: 'Cambria Math', 'Times New Roman', Georgia, serif;
       font-style: normal;
@@ -144,6 +146,8 @@
       padding: 12px 14px;
       font-size: 0.81rem;
       line-height: 1.6;
+      word-spacing: normal;
+      letter-spacing: normal;
     }
 
     .guide-step-heading {
@@ -207,7 +211,7 @@
       border-radius: 12px;
       padding: 11px 13px;
       font-size: 0.81rem;
-      line-height: 1.6;
+      line-height: 1.65;
       margin-bottom: 11px;
     }
 
@@ -219,7 +223,7 @@
       color: #4c1d95;
       font-size: 0.83rem;
       font-weight: 700;
-      line-height: 1.6;
+      line-height: 1.65;
     }
 
     canvas {
@@ -258,16 +262,16 @@
     </div>
     <div class="guide-steps" id="guideSteps">
       <div class="guide-step-card">
-        <span class="guide-step-heading">1. Adjust Domain <span class="math">D<sub>f</sub></span> and Domain <span class="math">D<sub>g</sub></span></span>
-        Move the sliders on the left to change the input interval <span class="math">D<sub>f</sub> = [a, b]</span> of <span class="math">f(x) = x&sup2; &minus; 1</span> and the permitted domain <span class="math">D<sub>g</sub> = [c, &infin;)</span> of <span class="math">g(x) = <span class="sqrt"><span class="sqrt-sign">&radic;</span><span class="radicand">x &minus; c</span></span></span>.
+        <span class="guide-step-heading">1. Adjust Domain <span class="math">D</span><span class="math-upright"><sub>f</sub></span> and Domain <span class="math">D</span><span class="math-upright"><sub>g</sub></span></span>
+        Move the sliders on the left to change the input interval <span class="math">D</span><span class="math-upright"><sub>f</sub> = [</span><span class="math">a</span><span class="math-upright">,</span> <span class="math">b</span><span class="math-upright">]</span> of <span class="math-upright">f(</span><span class="math">x</span><span class="math-upright">) =</span> <span class="math">x</span><span class="math-upright">&sup2; &minus; 1</span> and the permitted domain <span class="math">D</span><span class="math-upright"><sub>g</sub> = [</span><span class="math">c</span><span class="math-upright">, &infin;)</span> of <span class="math-upright">g(</span><span class="math">x</span><span class="math-upright">) =</span> <span class="sqrt"><span class="sqrt-sign">&radic;</span><span class="radicand"><span class="math">x</span> <span class="math-upright">&minus;</span> <span class="math">c</span></span></span>.
       </div>
       <div class="guide-step-card">
-        <span class="guide-step-heading">2. Inspect the Pipeline (<span class="math">D<sub>f</sub> &rarr; R<sub>f</sub> &rarr; R<sub>gf</sub></span>)</span>
-        Watch the middle number line on the canvas: if the purple bar <span class="math">R<sub>f</sub></span> fits completely inside the blue bar <span class="math">D<sub>g</sub></span> (<span class="math">R<sub>f</sub> &sube; D<sub>g</sub></span>), then <span class="math">gf</span> exists!
+        <span class="guide-step-heading">2. Inspect the Pipeline (<span class="math">D</span><span class="math-upright"><sub>f</sub> &rarr;</span> <span class="math">R</span><span class="math-upright"><sub>f</sub> &rarr;</span> <span class="math">R</span><span class="math-upright"><sub>gf</sub></span>)</span>
+        Watch the middle number line on the canvas: if the purple bar <span class="math">R</span><span class="math-upright"><sub>f</sub></span> fits completely inside the blue bar <span class="math">D</span><span class="math-upright"><sub>g</sub></span> (<span class="math">R</span><span class="math-upright"><sub>f</sub> &sube;</span> <span class="math">D</span><span class="math-upright"><sub>g</sub></span>), then <span class="math-upright">gf</span> exists!
       </div>
       <div class="guide-step-card">
-        <span class="guide-step-heading">3. Compare <span class="math">R<sub>gf</sub></span> Against <span class="math">R<sub>g</sub></span></span>
-        Notice on the right-hand number line how <span class="math">R<sub>gf</sub></span> is computed by feeding only <span class="math">R<sub>f</sub></span> (not all of <span class="math">D<sub>g</sub></span>) into <span class="math">g</span>.
+        <span class="guide-step-heading">3. Compare <span class="math">R</span><span class="math-upright"><sub>gf</sub></span> Against <span class="math">R</span><span class="math-upright"><sub>g</sub></span></span>
+        Notice on the right-hand number line how <span class="math">R</span><span class="math-upright"><sub>gf</sub></span> is computed by feeding only <span class="math">R</span><span class="math-upright"><sub>f</sub></span> (not all of <span class="math">D</span><span class="math-upright"><sub>g</sub></span>) into <span class="math-upright">g</span>.
       </div>
     </div>
   </div>
@@ -275,25 +279,25 @@
   <div class="app-container">
     <div class="card">
       <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
-        1.1 Lesson 3 &bull; Composite Functions <span class="math" style="text-transform:none;">gf(x) = g(f(x))</span>
+        1.1 Lesson 3 &bull; Composite Functions <span class="math-upright" style="text-transform:none;">gf(</span><span class="math" style="text-transform:none;">x</span><span class="math-upright" style="text-transform:none;">) = g(f(</span><span class="math" style="text-transform:none;">x</span><span class="math-upright" style="text-transform:none;">))</span>
       </div>
 
       <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:10px; padding:10px 12px; font-size:0.82rem; line-height:1.65; margin-bottom:10px;">
-        <strong>Inner Function:</strong> <span class="math">f(x) = x&sup2; &minus; 1</span>, &nbsp;<span class="math">x &isin; [a, b]</span><br>
-        <strong>Outer Function:</strong> <span class="math">g(x) = <span class="sqrt"><span class="sqrt-sign">&radic;</span><span class="radicand">x &minus; c</span></span></span>, &nbsp;<span class="math">x &ge; c</span>
+        <strong>Inner Function:</strong> <span class="math-upright">f(</span><span class="math">x</span><span class="math-upright">) =</span> <span class="math">x</span><span class="math-upright">&sup2; &minus; 1, &nbsp;</span><span class="math">x</span> <span class="math-upright">&isin; [</span><span class="math">a</span><span class="math-upright">,</span> <span class="math">b</span><span class="math-upright">]</span><br>
+        <strong>Outer Function:</strong> <span class="math-upright">g(</span><span class="math">x</span><span class="math-upright">) =</span> <span class="sqrt"><span class="sqrt-sign">&radic;</span><span class="radicand"><span class="math">x</span> <span class="math-upright">&minus;</span> <span class="math">c</span></span></span><span class="math-upright">, &nbsp;</span><span class="math">x</span> <span class="math-upright">&ge;</span> <span class="math">c</span>
       </div>
 
       <div class="slider-grid">
         <div class="slider-group">
-          <div class="slider-header"><span><span class="math">D<sub>f</sub></span> Left (<span class="math">a</span>)</span><span id="lbl_a" style="color:var(--purple-dark);">&minus;1</span></div>
+          <div class="slider-header"><span><span class="math">D</span><span class="math-upright"><sub>f</sub></span> Left (<span class="math">a</span>)</span><span id="lbl_a" style="color:var(--purple-dark);">&minus;1</span></div>
           <input type="range" min="-3" max="1" step="0.5" value="-1" oninput="a=parseFloat(this.value); draw();" />
         </div>
         <div class="slider-group">
-          <div class="slider-header"><span><span class="math">D<sub>f</sub></span> Right (<span class="math">b</span>)</span><span id="lbl_b" style="color:var(--purple-dark);">3</span></div>
+          <div class="slider-header"><span><span class="math">D</span><span class="math-upright"><sub>f</sub></span> Right (<span class="math">b</span>)</span><span id="lbl_b" style="color:var(--purple-dark);">3</span></div>
           <input type="range" min="1" max="4" step="0.5" value="3" oninput="b=parseFloat(this.value); draw();" />
         </div>
         <div class="slider-group" style="grid-column:span 2;">
-          <div class="slider-header"><span><span class="math">D<sub>g</sub></span> Lower Bound (<span class="math">c</span>)</span><span id="lbl_c" style="color:var(--blue);">&minus;2</span></div>
+          <div class="slider-header"><span><span class="math">D</span><span class="math-upright"><sub>g</sub></span> Lower Bound (<span class="math">c</span>)</span><span id="lbl_c" style="color:var(--blue);">&minus;2</span></div>
           <input type="range" min="-3" max="3" step="0.5" value="-2" oninput="c=parseFloat(this.value); draw();" />
         </div>
       </div>
@@ -304,7 +308,7 @@
 
     <div class="card">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
-        <strong style="font-size:1.04rem; color:#1e293b;">Two-Stage Composite Mapping Pipeline: <span class="math">D<sub>f</sub> &rarr; R<sub>f</sub> &sube; D<sub>g</sub> &rarr; R<sub>gf</sub></span></strong>
+        <strong style="font-size:1.04rem; color:#1e293b;">Two-Stage Composite Mapping Pipeline: <span class="math">D</span><span class="math-upright"><sub>f</sub> &rarr;</span> <span class="math">R</span><span class="math-upright"><sub>f</sub> &sube;</span> <span class="math">D</span><span class="math-upright"><sub>g</sub> &rarr;</span> <span class="math">R</span><span class="math-upright"><sub>gf</sub></span></strong>
       </div>
 
       <canvas id="compCanvas" width="880" height="465"></canvas>
@@ -312,8 +316,8 @@
       <div class="misconception-box">
         <strong>9758 Misconception Alert (Composite Functions):</strong>
         <ul style="margin:4px 0 0 0; padding-left:18px;">
-          <li><strong>Existence condition <span class="math">R<sub>f</sub> &sube; D<sub>g</sub></span>:</strong> Always state both sets explicitly (e.g., <span class="math">R<sub>f</sub> = [&minus;1, 8] &sube; [&minus;2, &infin;) = D<sub>g</sub></span>) when justifying why <span class="math">gf</span> exists.</li>
-          <li><strong>Range of <span class="math">gf</span> is NOT <span class="math">R<sub>g</sub></span>:</strong> To find <span class="math">R<sub>gf</sub></span>, restrict the input of <span class="math">g</span> to <strong><span class="math">R<sub>f</sub></span></strong> (not all of <span class="math">D<sub>g</sub></span>).</li>
+          <li><strong>Existence condition <span class="math">R</span><span class="math-upright"><sub>f</sub> &sube;</span> <span class="math">D</span><span class="math-upright"><sub>g</sub></span>:</strong> Always state both sets explicitly (e.g., <span class="math">R</span><span class="math-upright"><sub>f</sub> = [&minus;1, 8] &sube; [&minus;2, &infin;) =</span> <span class="math">D</span><span class="math-upright"><sub>g</sub></span>) when justifying why <span class="math-upright">gf</span> exists.</li>
+          <li><strong>Range of <span class="math-upright">gf</span> is NOT <span class="math">R</span><span class="math-upright"><sub>g</sub></span>:</strong> To find <span class="math">R</span><span class="math-upright"><sub>gf</sub></span>, restrict the input of <span class="math-upright">g</span> to <strong><span class="math">R</span><span class="math-upright"><sub>f</sub></span></strong> (not all of <span class="math">D</span><span class="math-upright"><sub>g</sub></span>).</li>
         </ul>
       </div>
     </div>
@@ -331,9 +335,9 @@
   let a = -1, b = 3, c = -2;
 
   function fmt(n) {
-    if (!isFinite(n)) return n < 0 ? "&minus;&infin;" : "&infin;";
+    if (!isFinite(n)) return n < 0 ? `<span class="math-upright">&minus;&infin;</span>` : `<span class="math-upright">&infin;</span>`;
     const s = Number.isInteger(n) ? n.toString() : n.toFixed(2).replace(/\.?0+$/, "");
-    return s.startsWith("-") ? `&minus;${s.slice(1)}` : s;
+    return s.startsWith("-") ? `<span class="math-upright">&minus;${s.slice(1)}</span>` : `<span class="math-upright">${s}</span>`;
   }
 
   function fmtCanvas(n) {
@@ -346,9 +350,9 @@
   }
 
   function draw() {
-    document.getElementById("lbl_a").innerHTML = `<span class="math">${fmt(a)}</span>`;
-    document.getElementById("lbl_b").innerHTML = `<span class="math">${fmt(b)}</span>`;
-    document.getElementById("lbl_c").innerHTML = `<span class="math">${fmt(c)}</span>`;
+    document.getElementById("lbl_a").innerHTML = fmt(a);
+    document.getElementById("lbl_b").innerHTML = fmt(b);
+    document.getElementById("lbl_c").innerHTML = fmt(c);
 
     // f(x) = x^2 - 1 on [a, b]
     const rfMin = (a <= 0 && b >= 0) ? -1 : Math.min(a * a - 1, b * b - 1);
@@ -363,20 +367,22 @@
       const rgfMax = Math.sqrt(rfMax - c);
       const shift = 1 + c;
       const radicandExpr = Math.abs(shift) < 1e-9
-        ? "x&sup2;"
-        : (shift > 0 ? `x&sup2; &minus; ${fmt(shift)}` : `x&sup2; + ${fmt(Math.abs(shift))}`);
+        ? `<span class="math">x</span><span class="math-upright">&sup2;</span>`
+        : (shift > 0
+          ? `<span class="math">x</span><span class="math-upright">&sup2; &minus;</span> ${fmt(shift)}`
+          : `<span class="math">x</span><span class="math-upright">&sup2; +</span> ${fmt(Math.abs(shift))}`);
 
       existBox.style.background = "#ccfbf1";
       existBox.style.border = "1.5px solid #5eead4";
       existBox.style.color = "#134e4a";
       existBox.innerHTML = `
         <strong>Existence Check (PASS):</strong><br>
-        &bull; <span class="math">R<sub>f</sub> = [${fmt(rfMin)}, ${fmt(rfMax)}]</span> and <span class="math">D<sub>g</sub> = [${fmt(c)}, &infin;)</span>.<br>
-        &bull; Since <strong><span class="math">R<sub>f</sub> &sube; D<sub>g</sub></span></strong>, the composite function <strong><span class="math">gf</span> exists</strong>!
+        &bull; <span class="math">R</span><span class="math-upright"><sub>f</sub> = [</span>${fmt(rfMin)}<span class="math-upright">,</span> ${fmt(rfMax)}<span class="math-upright">]</span> and <span class="math">D</span><span class="math-upright"><sub>g</sub> = [</span>${fmt(c)}<span class="math-upright">, &infin;)</span>.<br>
+        &bull; Since <strong><span class="math">R</span><span class="math-upright"><sub>f</sub> &sube;</span> <span class="math">D</span><span class="math-upright"><sub>g</sub></span></strong>, the composite function <strong><span class="math-upright">gf</span> exists</strong>!
       `;
       compBanner.innerHTML = `
-        Rule: <strong><span class="math">gf(x) = ${sqrtHTML(radicandExpr)}</span></strong>, &nbsp;<span class="math">D<sub>gf</sub> = [${fmt(a)}, ${fmt(b)}]</span><br>
-        Exact Range: <strong><span class="math">R<sub>gf</sub> = [${fmt(rgfMin)}, ${fmt(rgfMax)}]</span></strong>
+        Rule: <strong><span class="math-upright">gf(</span><span class="math">x</span><span class="math-upright">) =</span> ${sqrtHTML(radicandExpr)}</strong>, &nbsp;<span class="math">D</span><span class="math-upright"><sub>gf</sub> = [</span>${fmt(a)}<span class="math-upright">,</span> ${fmt(b)}<span class="math-upright">]</span><br>
+        Exact Range: <strong><span class="math">R</span><span class="math-upright"><sub>gf</sub> = [</span>${fmt(rgfMin)}<span class="math-upright">,</span> ${fmt(rgfMax)}<span class="math-upright">]</span></strong>
       `;
     } else {
       existBox.style.background = "#ffe4e6";
@@ -384,20 +390,26 @@
       existBox.style.color = "#881337";
       existBox.innerHTML = `
         <strong>Existence Check (FAIL):</strong><br>
-        &bull; <span class="math">R<sub>f</sub> = [${fmt(rfMin)}, ${fmt(rfMax)}]</span> and <span class="math">D<sub>g</sub> = [${fmt(c)}, &infin;)</span>.<br>
-        &bull; Since <span class="math">${fmt(rfMin)} &lt; ${fmt(c)}</span>, <strong><span class="math">R<sub>f</sub> &nsub; D<sub>g</sub></span></strong> &rArr; <strong><span class="math">gf</span> does NOT exist</strong>!
+        &bull; <span class="math">R</span><span class="math-upright"><sub>f</sub> = [</span>${fmt(rfMin)}<span class="math-upright">,</span> ${fmt(rfMax)}<span class="math-upright">]</span> and <span class="math">D</span><span class="math-upright"><sub>g</sub> = [</span>${fmt(c)}<span class="math-upright">, &infin;)</span>.<br>
+        &bull; Since ${fmt(rfMin)} <span class="math-upright">&lt;</span> ${fmt(c)}, <strong><span class="math">R</span><span class="math-upright"><sub>f</sub> &nsub;</span> <span class="math">D</span><span class="math-upright"><sub>g</sub></span></strong> &rArr; <strong><span class="math-upright">gf</span> does NOT exist</strong>!
       `;
-      compBanner.innerHTML = `To make <span class="math">gf</span> exist, restrict <span class="math">D<sub>f</sub></span> so that <span class="math">x&sup2; &minus; 1 &ge; ${fmt(c)}</span> (or lower <span class="math">c</span> to <span class="math">&le; ${fmt(rfMin)}</span>).`;
+      compBanner.innerHTML = `To make <span class="math-upright">gf</span> exist, restrict <span class="math">D</span><span class="math-upright"><sub>f</sub></span> so that <span class="math">x</span><span class="math-upright">&sup2; &minus; 1 &ge;</span> ${fmt(c)} (or lower <span class="math">c</span> to <span class="math-upright">&le;</span> ${fmt(rfMin)}).`;
     }
 
     const canvas = document.getElementById("compCanvas");
     const ctx = canvas.getContext("2d");
-    const W = canvas.width, H = canvas.height;
+    const rect = canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    const W = rect.width > 0 ? rect.width : 880;
+    const H = rect.height > 0 ? rect.height : 465;
+    canvas.width = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, W, H);
 
-    const colX = [150, 440, 730];
+    const colX = [W * (150 / 880), W * (440 / 880), W * (730 / 880)];
     const titles = [
-      { prefix: "Stage 1: ", math: "D", sub: "f", suffix: " (Inputs x)" },
+      { prefix: "Stage 1: ", math: "D", sub: "f", suffix: " (Inputs ", varX: "x", end: ")" },
       { prefix: "Stage 2: ", math: "R", sub: "f", mid: " vs ", math2: "D", sub2: "g", suffix: "" },
       { prefix: "Stage 3: ", math: "R", sub: "gf", suffix: " (Outputs)" }
     ];
@@ -455,7 +467,8 @@
     ctx.textAlign = "left";
     const mainFont = "bold 13px Segoe UI, sans-serif";
     const mathFont = "italic bold 14px 'Cambria Math', Georgia, serif";
-    const subFont = "italic bold 10.5px 'Cambria Math', Georgia, serif";
+    // Function name subscripts (f, g, gf) are upright per 9758 convention
+    const subFont = "bold 10.5px 'Cambria Math', Georgia, serif";
 
     ctx.font = mainFont;
     let totalW = ctx.measureText(t.prefix).width;
@@ -474,6 +487,12 @@
     if (t.suffix) {
       ctx.font = mainFont;
       totalW += ctx.measureText(t.suffix).width;
+    }
+    if (t.varX) {
+      ctx.font = mathFont;
+      totalW += ctx.measureText(t.varX).width;
+      ctx.font = mainFont;
+      totalW += ctx.measureText(t.end).width;
     }
 
     let curX = cx - totalW / 2;
@@ -506,6 +525,15 @@
     if (t.suffix) {
       ctx.font = mainFont;
       ctx.fillText(t.suffix, curX, y);
+      curX += ctx.measureText(t.suffix).width;
+    }
+
+    if (t.varX) {
+      ctx.font = mathFont;
+      ctx.fillText(t.varX, curX, y);
+      curX += ctx.measureText(t.varX).width;
+      ctx.font = mainFont;
+      ctx.fillText(t.end, curX, y);
     }
   }
 
@@ -524,11 +552,11 @@
       ctx.fill();
     });
 
-    // Draw formatted math label with subscript
+    // Draw formatted math label: D, R italicised; function subscript f, g, gf & brackets upright
     ctx.fillStyle = color;
     ctx.textAlign = "left";
     const symFont = "italic bold 13px 'Cambria Math', Georgia, serif";
-    const subFont = "italic bold 10px 'Cambria Math', Georgia, serif";
+    const subFont = "bold 10px 'Cambria Math', Georgia, serif";
     const restFont = "12.5px 'Cambria Math', Georgia, serif";
 
     ctx.font = symFont;
@@ -575,17 +603,19 @@
     ctx.textAlign = "left";
     ctx.font = "bold 11.5px Segoe UI, sans-serif";
     const w1 = ctx.measureText(prefix).width;
-    ctx.font = "italic bold 13px 'Cambria Math', Georgia, serif";
+    // Function names f and g are upright
+    ctx.font = "bold 13px 'Cambria Math', Georgia, serif";
     const w2 = ctx.measureText(fnSym).width;
 
     let curX = midX - (w1 + w2) / 2;
     ctx.font = "bold 11.5px Segoe UI, sans-serif";
     ctx.fillText(prefix, curX, midY);
     curX += w1;
-    ctx.font = "italic bold 13px 'Cambria Math', Georgia, serif";
+    ctx.font = "bold 13px 'Cambria Math', Georgia, serif";
     ctx.fillText(fnSym, curX, midY);
   }
 
+  window.addEventListener("resize", draw);
   draw();
 </script>
 

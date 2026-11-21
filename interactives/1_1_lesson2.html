@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>9758 H2 Math | 1.1 Lesson 1: Domain, Range &amp; Function Concepts</title>
+  <title>9758 H2 Math | 1.1 Lesson 2: One-One &amp; Inverse Functions</title>
   <style>
     :root {
       --bg: #fdfbf7;
@@ -44,11 +44,13 @@
     }
 
     /* MATH NOTATION STYLING */
+    /* Variables & unknown parameters (x, y, a, b, k) are italicised */
     .math {
       font-family: 'Cambria Math', 'Times New Roman', Georgia, serif;
       font-style: italic;
     }
 
+    /* Function names (f, g, h), constants (e, i, pi), numbers, brackets & operators are upright */
     .math-upright {
       font-family: 'Cambria Math', 'Times New Roman', Georgia, serif;
       font-style: normal;
@@ -316,16 +318,16 @@
     </div>
     <div class="guide-steps" id="guideSteps">
       <div class="guide-step-card">
-        <span class="guide-step-heading">1. Select a Function Type (Top-Left)</span>
-        Switch between <em>Quadratic</em>, <em>Rational</em>, and <em>Circle Relation</em> to see how domain restrictions shape the graph and test whether a rule is a valid function.
+        <span class="guide-step-heading">1. Pick a Function Preset (Top-Left)</span>
+        Compare <em>Restricted Quadratic</em>, <em>Rational Function</em>, and <em>Exponential Function</em> to test one-one behaviour and view the inverse rule <span class="math-upright">f<sup>&minus;1</sup>(</span><span class="math">x</span><span class="math-upright">)</span>.
       </div>
       <div class="guide-step-card">
-        <span class="guide-step-heading">2. Adjust Domain Endpoints &amp; Bracket Types</span>
-        Drag the <span class="math">a</span> and <span class="math">b</span> sliders and toggle open <span class="math-upright">( )</span> vs. closed <span class="math-upright">[ ]</span> endpoints to watch the green range projection on the <span class="math">y</span>-axis update live.
+        <span class="guide-step-heading">2. Restrict Domain to Make <span class="math-upright">f</span> One-One</span>
+        Drag the left domain endpoint <span class="math">a</span> on the Quadratic preset across the turning point <span class="math">x</span> <span class="math-upright">= 1</span>. Notice how <span class="math-upright">f<sup>&minus;1</sup></span> exists if and only if <span class="math">a</span> <span class="math-upright">&ge; 1</span>!
       </div>
       <div class="guide-step-card">
-        <span class="guide-step-heading">3. Run the Vertical Line Test</span>
-        Drag the <span class="math">x = k</span> slider across the graph. If the vertical line cuts the curve more than once (as in the Circle Relation), it is not a function.
+        <span class="guide-step-heading">3. Run Horizontal Line Test &amp; Reflection</span>
+        Slide <span class="math">y</span> <span class="math-upright">=</span> <span class="math">k</span> vertically to check for at most 1 intersection, and toggle the <span class="math">y</span> <span class="math-upright">=</span> <span class="math">x</span> reflection to see <span class="math-upright">(</span><span class="math">x</span><span class="math-upright">,</span> <span class="math">y</span><span class="math-upright">) &harr; (</span><span class="math">y</span><span class="math-upright">,</span> <span class="math">x</span><span class="math-upright">)</span>.
       </div>
     </div>
   </div>
@@ -334,53 +336,55 @@
     <!-- LEFT CONTROLS -->
     <div class="card">
       <div style="font-size:0.75rem; font-weight:800; color:var(--purple-dark); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
-        1.1 Lesson 1 &bull; Domain, Range &amp; Vertical Line Test
+        1.1 Lesson 2 &bull; One-One Functions &amp; Inverse <span class="math-upright">f<sup>&minus;1</sup></span>
       </div>
 
       <div class="preset-row">
-        <button class="tab-btn active" id="fn_quad" onclick="setFn('quad')">1. Quadratic <span class="math">f(x)</span></button>
-        <button class="tab-btn" id="fn_rat" onclick="setFn('rat')">2. Rational <span class="math">f(x)</span></button>
-        <button class="tab-btn" id="fn_circle" onclick="setFn('circle')">3. Circle Relation</button>
+        <button class="tab-btn active" id="fn_quad" onclick="setFn('quad')">1. Quadratic <span class="math-upright">f(</span><span class="math">x</span><span class="math-upright">)</span></button>
+        <button class="tab-btn" id="fn_rat" onclick="setFn('rat')">2. Rational <span class="math-upright">f(</span><span class="math">x</span><span class="math-upright">)</span></button>
+        <button class="tab-btn" id="fn_exp" onclick="setFn('exp')">3. Exponential <span class="math-upright">f(</span><span class="math">x</span><span class="math-upright">)</span></button>
       </div>
 
       <div class="slider-grid">
         <div class="slider-group">
-          <div class="slider-header"><span>Domain Left (<span class="math">a</span>)</span><span id="lbl_a" style="color:var(--purple-dark);">0</span></div>
-          <input type="range" id="sl_a" min="-3" max="2" step="0.5" value="0" oninput="a=parseFloat(this.value); draw();" />
+          <div class="slider-header"><span>Domain Left (<span class="math">a</span>)</span><span id="lbl_a" style="color:var(--purple-dark);">1</span></div>
+          <input type="range" id="sl_a" min="-2" max="3" step="0.5" value="1" oninput="a=parseFloat(this.value); draw();" />
         </div>
         <div class="slider-group">
-          <div class="slider-header"><span>Domain Right (<span class="math">b</span>)</span><span id="lbl_b" style="color:var(--purple-dark);">5</span></div>
-          <input type="range" id="sl_b" min="1" max="6" step="0.5" value="5" oninput="b=parseFloat(this.value); draw();" />
+          <div class="slider-header"><span>Domain Right (<span class="math">b</span>)</span><span id="lbl_b" style="color:var(--purple-dark);">4</span></div>
+          <input type="range" id="sl_b" min="1.5" max="6" step="0.5" value="4" oninput="b=parseFloat(this.value); draw();" />
         </div>
         <div class="slider-group" style="grid-column:span 2;">
-          <div class="slider-header"><span>Vertical Line Test (<span class="math">x = k</span>)</span><span id="lbl_vlt" style="color:var(--blue);">2</span></div>
-          <input type="range" min="-4" max="6" step="0.2" value="2" oninput="vltX=parseFloat(this.value); draw();" />
+          <div class="slider-header"><span>Horizontal Line Test (<span class="math">y</span> <span class="math-upright">=</span> <span class="math">k</span>)</span><span id="lbl_hlt" style="color:var(--blue);">2</span></div>
+          <input type="range" id="sl_hlt" min="-3" max="6" step="0.2" value="2" oninput="hltY=parseFloat(this.value); draw();" />
         </div>
       </div>
 
       <div class="toggle-row">
-        <button class="toggle-btn active" id="incL_btn" onclick="incL=!incL; draw();">Left: <span class="math">[a</span> (Inclusive)</button>
-        <button class="toggle-btn" id="incR_btn" onclick="incR=!incR; draw();">Right: <span class="math">b)</span> (Exclusive)</button>
+        <button class="toggle-btn active" id="showInv_btn" onclick="showInv=!showInv; draw();">Show <span class="math">y</span> <span class="math-upright">= f<sup>&minus;1</sup>(</span><span class="math">x</span><span class="math-upright">)</span> &amp; <span class="math">y</span> <span class="math-upright">=</span> <span class="math">x</span></button>
+        <button class="toggle-btn active" id="showPair_btn" onclick="showPair=!showPair; draw();">Show Sample Point Swap</button>
       </div>
 
       <div class="info-box" id="analysisBox"></div>
-      <div class="result-banner" id="rangeBanner"></div>
+      <div class="result-banner" id="inverseBanner"></div>
     </div>
 
     <!-- RIGHT CANVAS -->
     <div class="card">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
-        <strong style="font-size:1.04rem; color:#1e293b;" id="canvasTitle"><span class="math">f : x &mapsto; (x &minus; 2)&sup2; &minus; 3, &nbsp;x &isin; [0, 5)</span></strong>
-        <span style="font-size:0.78rem; font-weight:700; color:var(--teal);">Uniform 1:1 Scale &bull; Green band on <span class="math">y</span>-axis = Exact Range <span class="math">R<sub>f</sub></span></span>
+        <strong style="font-size:1.04rem; color:#1e293b;" id="canvasTitle">
+          <span class="math-upright">f :</span> <span class="math">x</span> <span class="math-upright">&mapsto; (</span><span class="math">x</span> <span class="math-upright">&minus; 1)&sup2; &minus; 2, &nbsp;</span><span class="math">x</span> <span class="math-upright">&isin; [1, 4]</span>
+        </strong>
+        <span style="font-size:0.78rem; font-weight:700; color:var(--teal);">Uniform 1:1 Scale &bull; Purple = <span class="math">y</span> <span class="math-upright">= f(</span><span class="math">x</span><span class="math-upright">)</span> &bull; Teal = <span class="math">y</span> <span class="math-upright">= f<sup>&minus;1</sup>(</span><span class="math">x</span><span class="math-upright">)</span></span>
       </div>
 
-      <canvas id="fnCanvas" width="880" height="500"></canvas>
+      <canvas id="invCanvas" width="880" height="500"></canvas>
 
       <div class="misconception-box">
-        <strong>9758 Misconception Alert (Domain &amp; Range):</strong>
+        <strong>9758 Exam Precision Checklist (Inverse Functions):</strong>
         <ul style="margin:4px 0 0 0; padding-left:18px;">
-          <li><strong>Never plug in only the endpoints <span class="math">f(a)</span> and <span class="math">f(b)</span>:</strong> When a stationary point (like the vertex <span class="math">(2, &minus;3)</span>) lies inside <span class="math">D<sub>f</sub></span>, it determines the true minimum or maximum of <span class="math">R<sub>f</sub></span>.</li>
-          <li><strong>Vertical asymptotes at domain boundaries:</strong> For <span class="math">f(x) = 3 &minus; <span class="frac"><span class="frac-num">2</span><span class="frac-den">x &minus; 1</span></span></span> with <span class="math">x &isin; (1, b]</span>, <span class="math">x = 1</span> is excluded so <span class="math">f(x) &rarr; &minus;&infin;</span> as <span class="math">x &rarr; 1<sup>+</sup></span>, giving <strong><span class="math">R<sub>f</sub> = (&minus;&infin;, f(b)]</span></strong>.</li>
+          <li><strong>Proving <span class="math-upright">f</span> is one-one:</strong> Sketch <span class="math">y</span> <span class="math-upright">= f(</span><span class="math">x</span><span class="math-upright">)</span> over <span class="math">D</span><span class="math-upright"><sub>f</sub></span> and state: <em>"Every horizontal line <span class="math">y</span> <span class="math-upright">=</span> <span class="math">k</span> cuts the graph of <span class="math">y</span> <span class="math-upright">= f(</span><span class="math">x</span><span class="math-upright">)</span> at most once; hence <span class="math-upright">f</span> is one-one and <span class="math-upright">f<sup>&minus;1</sup></span> exists."</em></li>
+          <li><strong>Domain of <span class="math-upright">f<sup>&minus;1</sup></span> = Range of <span class="math-upright">f</span> (<span class="math">D</span><span class="math-upright"><sub>f<sup>&minus;1</sup></sub> =</span> <span class="math">R</span><span class="math-upright"><sub>f</sub></span>):</strong> Always state both the rule <span class="math-upright">f<sup>&minus;1</sup>(</span><span class="math">x</span><span class="math-upright">)</span> and its domain <span class="math">x</span> <span class="math-upright">&isin;</span> <span class="math">R</span><span class="math-upright"><sub>f</sub></span> when defining <span class="math-upright">f<sup>&minus;1</sup></span>.</li>
         </ul>
       </div>
     </div>
@@ -396,23 +400,33 @@
   }
 
   let fnType = "quad";
-  let a = 0, b = 5, vltX = 2;
-  let incL = true, incR = false;
+  let a = 1, b = 4, hltY = 2;
+  let showInv = true, showPair = true;
 
   function setFn(t) {
     fnType = t;
     document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
     document.getElementById("fn_" + t).classList.add("active");
-    if (t === "rat") {
-      a = 1; b = 5.5; incL = false; incR = false;
-      document.getElementById("sl_a").value = a;
-      document.getElementById("sl_b").value = b;
-    }
+
+    const slA = document.getElementById("sl_a");
+    const slB = document.getElementById("sl_b");
+
     if (t === "quad") {
-      a = 0; b = 5; incL = true; incR = false;
-      document.getElementById("sl_a").value = a;
-      document.getElementById("sl_b").value = b;
+      slA.min = -2; slA.max = 3; a = 1;
+      slB.min = 1.5; slB.max = 5; b = 4;
+      hltY = 2;
+    } else if (t === "rat") {
+      slA.min = 0.5; slA.max = 2; a = 0.5;
+      slB.min = 2.5; slB.max = 6; b = 5;
+      hltY = 2;
+    } else if (t === "exp") {
+      slA.min = -2; slA.max = 1; a = -1;
+      slB.min = 0.5; slB.max = 2.5; b = 2;
+      hltY = 1.5;
     }
+    slA.value = a;
+    slB.value = b;
+    document.getElementById("sl_hlt").value = hltY;
     draw();
   }
 
@@ -432,10 +446,10 @@
   }
 
   function fmt(n) {
-    if (!isFinite(n)) return n < 0 ? "&minus;&infin;" : "&infin;";
+    if (!isFinite(n)) return n < 0 ? `<span class="math-upright">&minus;&infin;</span>` : `<span class="math-upright">&infin;</span>`;
     if (Math.abs(n - Math.round(n)) < 1e-9) {
       const r = Math.round(n);
-      return r < 0 ? `&minus;${Math.abs(r)}` : `${r}`;
+      return r < 0 ? `<span class="math-upright">&minus;${Math.abs(r)}</span>` : `<span class="math-upright">${r}</span>`;
     }
     for (let d = 2; d <= 36; d++) {
       const num = Math.round(n * d);
@@ -443,36 +457,27 @@
         const g = gcd(num, d);
         const sn = num / g;
         const sd = d / g;
-        if (sd === 1) return sn < 0 ? `&minus;${Math.abs(sn)}` : `${sn}`;
-        return sn < 0 ? `&minus;${fracHTML(Math.abs(sn), sd)}` : fracHTML(sn, sd);
+        if (sd === 1) return sn < 0 ? `<span class="math-upright">&minus;${Math.abs(sn)}</span>` : `<span class="math-upright">${sn}</span>`;
+        return sn < 0
+          ? `<span class="math-upright">&minus;${fracHTML(Math.abs(sn), sd)}</span>`
+          : `<span class="math-upright">${fracHTML(sn, sd)}</span>`;
       }
     }
     const s = n.toFixed(2).replace(/\.?0+$/, "");
-    return s.startsWith("-") ? `&minus;${s.slice(1)}` : s;
+    return s.startsWith("-") ? `<span class="math-upright">&minus;${s.slice(1)}</span>` : `<span class="math-upright">${s}</span>`;
   }
 
   function draw() {
     if (b <= a + 0.5) b = a + 0.5;
 
-    const effIncL = (fnType === "rat" && Math.abs(a - 1) < 1e-9) ? false : incL;
-    const effIncR = (fnType === "rat" && Math.abs(b - 1) < 1e-9) ? false : incR;
+    document.getElementById("lbl_a").innerHTML = fmt(a);
+    document.getElementById("lbl_b").innerHTML = fmt(b);
+    document.getElementById("lbl_hlt").innerHTML = fmt(hltY);
 
-    document.getElementById("lbl_a").innerHTML = `<span class="math">${fmt(a)}</span>`;
-    document.getElementById("lbl_b").innerHTML = `<span class="math">${fmt(b)}</span>`;
-    document.getElementById("lbl_vlt").innerHTML = `<span class="math">${fmt(vltX)}</span>`;
+    document.getElementById("showInv_btn").classList.toggle("active", showInv);
+    document.getElementById("showPair_btn").classList.toggle("active", showPair);
 
-    const incLBtn = document.getElementById("incL_btn");
-    const incRBtn = document.getElementById("incR_btn");
-    incLBtn.classList.toggle("active", effIncL);
-    incRBtn.classList.toggle("active", effIncR);
-    incLBtn.innerHTML = (fnType === "rat" && Math.abs(a - 1) < 1e-9)
-      ? `Left: <span class="math">(1</span> (VA Excluded)`
-      : (effIncL ? `Left: <span class="math">[${fmt(a)}</span> (Inclusive)` : `Left: <span class="math">(${fmt(a)}</span> (Exclusive)`);
-    incRBtn.innerHTML = (fnType === "rat" && Math.abs(b - 1) < 1e-9)
-      ? `Right: <span class="math">1)</span> (VA Excluded)`
-      : (effIncR ? `Right: <span class="math">${fmt(b)}]</span> (Inclusive)` : `Right: <span class="math">${fmt(b)})</span> (Exclusive)`);
-
-    const canvas = document.getElementById("fnCanvas");
+    const canvas = document.getElementById("invCanvas");
     const ctx = canvas.getContext("2d");
     const rect = canvas.getBoundingClientRect();
     const dpr = window.devicePixelRatio || 1;
@@ -483,8 +488,8 @@
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, W, H);
 
-    // Uniform 1:1 coordinate scale shared across ALL 3 function types
-    const xCenter = 1.5, yCenter = 1.5;
+    // Uniform 1:1 coordinate scale so y = x is at an exact 45-degree angle
+    const xCenter = 2.0, yCenter = 2.0;
     const targetXSpan = 12, targetYSpan = 12;
     const pxPerUnit = Math.min(W / targetXSpan, H / targetYSpan);
 
@@ -506,12 +511,6 @@
       ctx.beginPath(); ctx.moveTo(0, toPxY(gy)); ctx.lineTo(W, toPxY(gy)); ctx.stroke();
     }
 
-    // Domain shading on x-axis (for functions)
-    if (fnType !== "circle") {
-      ctx.fillStyle = "rgba(139, 92, 246, 0.08)";
-      ctx.fillRect(toPxX(a), 0, toPxX(b) - toPxX(a), H);
-    }
-
     // Axes
     ctx.strokeStyle = "#94a3b8";
     ctx.lineWidth = 1.6;
@@ -520,7 +519,7 @@
     ctx.moveTo(toPxX(0), 0); ctx.lineTo(toPxX(0), H);
     ctx.stroke();
 
-    // Axis ticks & labels
+    // Axis ticks (upright numbers) & labels (italic x, y; upright point O)
     ctx.fillStyle = "#64748b";
     ctx.font = "11px 'Cambria Math', Georgia, serif";
     for (let gx = Math.ceil(xMin); gx <= Math.floor(xMax); gx++) {
@@ -532,25 +531,116 @@
     ctx.font = "italic 13px 'Cambria Math', Georgia, serif";
     ctx.fillText("x", W - 14, toPxY(0) - 6);
     ctx.fillText("y", toPxX(0) + 8, 14);
+    ctx.font = "13px 'Cambria Math', Georgia, serif";
     ctx.fillText("O", toPxX(0) - 14, toPxY(0) + 14);
 
-    let yLow = Infinity, yHigh = -Infinity, lowInc = false, highInc = false;
-    let vltHits = [];
-    let splitRange = null;
+    // Line of reflection y = x
+    if (showInv) {
+      ctx.save();
+      ctx.strokeStyle = "#94a3b8";
+      ctx.lineWidth = 1.6;
+      ctx.setLineDash([6, 4]);
+      const diagMin = Math.max(xMin, yMin);
+      const diagMax = Math.min(xMax, yMax);
+      ctx.beginPath();
+      ctx.moveTo(toPxX(diagMin), toPxY(diagMin));
+      ctx.lineTo(toPxX(diagMax), toPxY(diagMax));
+      ctx.stroke();
+      ctx.restore();
+
+      ctx.fillStyle = "#475569";
+      ctx.font = "italic 12px 'Cambria Math', Georgia, serif";
+      ctx.fillText("y = x", toPxX(diagMax - 1.1), toPxY(diagMax - 0.6));
+    }
+
+    let isOneOne = true;
+    let hltHits = [];
+    let samplePt = null;
 
     if (fnType === "quad") {
-      const f = x => (x - 2) * (x - 2) - 3;
-      document.getElementById("canvasTitle").innerHTML = `<span class="math">f : x &mapsto; (x &minus; 2)&sup2; &minus; 3, &nbsp;x &isin; ${effIncL ? "[" : "("}${fmt(a)}, ${fmt(b)}${effIncR ? "]" : ")"}</span>`;
+      // f(x) = (x - 1)^2 - 2 on [a, b]
+      const f = x => (x - 1) * (x - 1) - 2;
+      document.getElementById("canvasTitle").innerHTML =
+        `<span class="math-upright">f :</span> <span class="math">x</span> <span class="math-upright">&mapsto; (</span><span class="math">x</span> <span class="math-upright">&minus; 1)&sup2; &minus; 2, &nbsp;</span><span class="math">x</span> <span class="math-upright">&isin; [</span>${fmt(a)}<span class="math-upright">, </span>${fmt(b)}<span class="math-upright">]</span>`;
 
-      ctx.save();
-      ctx.strokeStyle = "#cbd5e1";
-      ctx.setLineDash([4, 4]);
+      isOneOne = (a >= 1) || (b <= 1);
+
+      // Draw f(x)
+      ctx.strokeStyle = "#8b5cf6";
+      ctx.lineWidth = 3;
       ctx.beginPath();
-      for (let x = xMin; x <= xMax; x += 0.04) {
-        if (x === xMin) ctx.moveTo(toPxX(x), toPxY(f(x)));
+      for (let x = a; x <= b; x += 0.02) {
+        if (x === a) ctx.moveTo(toPxX(x), toPxY(f(x)));
         else ctx.lineTo(toPxX(x), toPxY(f(x)));
       }
       ctx.stroke();
+      drawPoint(ctx, toPxX(a), toPxY(f(a)), "#8b5cf6");
+      drawPoint(ctx, toPxX(b), toPxY(f(b)), "#8b5cf6");
+
+      // HLT intersections
+      if (hltY >= -2) {
+        const d = Math.sqrt(hltY + 2);
+        const x1 = 1 - d, x2 = 1 + d;
+        if (x1 >= a - 1e-6 && x1 <= b + 1e-6) hltHits.push(x1);
+        if (d > 1e-4 && x2 >= a - 1e-6 && x2 <= b + 1e-6) hltHits.push(x2);
+      }
+
+      if (isOneOne && showInv) {
+        const y1 = Math.min(f(a), f(b));
+        const y2 = Math.max(f(a), f(b));
+        const invFn = a >= 1 ? (y => 1 + Math.sqrt(y + 2)) : (y => 1 - Math.sqrt(y + 2));
+
+        ctx.strokeStyle = "#0f766e";
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        for (let y = y1; y <= y2; y += 0.02) {
+          const xVal = invFn(y);
+          if (y === y1) ctx.moveTo(toPxX(y), toPxY(xVal));
+          else ctx.lineTo(toPxX(y), toPxY(xVal));
+        }
+        ctx.stroke();
+        drawPoint(ctx, toPxX(y1), toPxY(invFn(y1)), "#0f766e");
+        drawPoint(ctx, toPxX(y2), toPxY(invFn(y2)), "#0f766e");
+
+        const sx = (a + b) / 2;
+        samplePt = { x: sx, y: f(sx) };
+      }
+
+      if (isOneOne) {
+        const rMin = Math.min(f(a), f(b));
+        const rMax = Math.max(f(a), f(b));
+        const signStr = a >= 1 ? "+" : "&minus;";
+        document.getElementById("analysisBox").innerHTML = `
+          <strong>Horizontal Line Test:</strong> Every line <span class="math">y</span> <span class="math-upright">=</span> <span class="math">k</span> cuts <span class="math">y</span> <span class="math-upright">= f(</span><span class="math">x</span><span class="math-upright">)</span> <strong>at most once</strong> &rArr; <span class="math-upright">f</span> is <strong>one-one</strong>!<br>
+          <strong>Largest Possible Domain:</strong> Vertex is at <span class="math">x</span> <span class="math-upright">= 1</span>, so <span class="math">a</span> <span class="math-upright">&ge; 1</span> (or <span class="math">b</span> <span class="math-upright">&le; 1</span>) ensures <span class="math-upright">f<sup>&minus;1</sup></span> exists.<br>
+          <strong>Algebraic Derivation:</strong> <span class="math">y</span> <span class="math-upright">= (</span><span class="math">x</span> <span class="math-upright">&minus; 1)&sup2; &minus; 2 &rArr;</span> <span class="math">x</span> <span class="math-upright">= 1 ${signStr} &radic;(</span><span class="math">y</span> <span class="math-upright">+ 2)</span> (since <span class="math">x</span> <span class="math-upright">${a >= 1 ? "&ge;" : "&le;"} 1</span>).
+        `;
+        document.getElementById("inverseBanner").innerHTML =
+          `<span class="math-upright">f<sup>&minus;1</sup> :</span> <span class="math">x</span> <span class="math-upright">&mapsto; 1 ${signStr} &radic;(</span><span class="math">x</span> <span class="math-upright">+ 2), &nbsp;</span><span class="math">x</span> <span class="math-upright">&isin; [</span>${fmt(rMin)}<span class="math-upright">, </span>${fmt(rMax)}<span class="math-upright">]</span>`;
+      } else {
+        document.getElementById("analysisBox").innerHTML = `
+          <strong>Horizontal Line Test FAILED:</strong> Because <span class="math">a</span> <span class="math-upright">=</span> ${fmt(a)} <span class="math-upright">&lt; 1 &lt;</span> ${fmt(b)} <span class="math-upright">=</span> <span class="math">b</span>, the turning point <span class="math-upright">(1, &minus;2)</span> lies inside <span class="math">D</span><span class="math-upright"><sub>f</sub></span>.<br>
+          <strong>Counterexample:</strong> Line <span class="math">y</span> <span class="math-upright">=</span> ${fmt(hltY)} cuts the curve <strong>${hltHits.length} times</strong> (e.g., <span class="math-upright">f(0) = f(2) = &minus;1</span>).<br>
+          <strong>Fix:</strong> Drag slider <span class="math">a</span> to <span class="math">a</span> <span class="math-upright">&ge; 1</span> so <span class="math-upright">f</span> becomes strictly increasing!
+        `;
+        document.getElementById("inverseBanner").innerHTML =
+          `<strong><span class="math-upright">f<sup>&minus;1</sup></span> does NOT exist</strong> on <span class="math-upright">[</span>${fmt(a)}<span class="math-upright">, </span>${fmt(b)}<span class="math-upright">]</span> because <span class="math-upright">f</span> is not one-one.`;
+      }
+
+    } else if (fnType === "rat") {
+      // f(x) = 1 + 2 / (x + 1) on [a, b]
+      const f = x => 1 + 2 / (x + 1);
+      const ratRule = `<span class="math-upright">1 + ${fracHTML("2", "<span class='math'>x</span> + 1")}</span>`;
+      const invRule = `<span class="math-upright">${fracHTML("2", "<span class='math'>x</span> &minus; 1")} &minus; 1</span>`;
+      document.getElementById("canvasTitle").innerHTML =
+        `<span class="math-upright">f :</span> <span class="math">x</span> <span class="math-upright">&mapsto;</span> ${ratRule}<span class="math-upright">, &nbsp;</span><span class="math">x</span> <span class="math-upright">&isin; [</span>${fmt(a)}<span class="math-upright">, </span>${fmt(b)}<span class="math-upright">]</span>`;
+
+      // Asymptotes x = -1 and y = 1
+      ctx.save();
+      ctx.strokeStyle = "#e11d48";
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath(); ctx.moveTo(toPxX(-1), 0); ctx.lineTo(toPxX(-1), H); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0, toPxY(1)); ctx.lineTo(W, toPxY(1)); ctx.stroke();
       ctx.restore();
 
       ctx.strokeStyle = "#8b5cf6";
@@ -561,175 +651,136 @@
         else ctx.lineTo(toPxX(x), toPxY(f(x)));
       }
       ctx.stroke();
+      drawPoint(ctx, toPxX(a), toPxY(f(a)), "#8b5cf6");
+      drawPoint(ctx, toPxX(b), toPxY(f(b)), "#8b5cf6");
 
-      drawEndpoint(ctx, toPxX(a), toPxY(f(a)), effIncL);
-      drawEndpoint(ctx, toPxX(b), toPxY(f(b)), effIncR);
-
-      const fa = f(a), fb = f(b);
-      if (a < 2 && 2 < b) {
-        yLow = -3; lowInc = true;
-      } else {
-        yLow = Math.min(fa, fb);
-        lowInc = fa < fb ? effIncL : fa > fb ? effIncR : (effIncL || effIncR);
+      const yLow = f(b), yHigh = f(a);
+      if (hltY >= yLow - 1e-6 && hltY <= yHigh + 1e-6 && Math.abs(hltY - 1) > 1e-4) {
+        hltHits.push(2 / (hltY - 1) - 1);
       }
-      yHigh = Math.max(fa, fb);
-      highInc = fa > fb ? effIncL : fa < fb ? effIncR : (effIncL || effIncR);
 
-      if (vltX >= a && vltX <= b) vltHits.push(f(vltX));
+      if (showInv) {
+        ctx.strokeStyle = "#0f766e";
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        for (let x = yLow; x <= yHigh; x += 0.02) {
+          const yInv = 2 / (x - 1) - 1;
+          if (x === yLow) ctx.moveTo(toPxX(x), toPxY(yInv));
+          else ctx.lineTo(toPxX(x), toPxY(yInv));
+        }
+        ctx.stroke();
+        drawPoint(ctx, toPxX(yLow), toPxY(b), "#0f766e");
+        drawPoint(ctx, toPxX(yHigh), toPxY(a), "#0f766e");
+
+        const sx = (a + b) / 2;
+        samplePt = { x: sx, y: f(sx) };
+      }
 
       document.getElementById("analysisBox").innerHTML = `
-        <strong>Function Rule:</strong> <span class="math">f(x) = (x &minus; 2)&sup2; &minus; 3</span> (Vertex at <span class="math">(2, &minus;3)</span>).<br>
-        <strong>Vertical Line Test:</strong> Cuts curve at most <strong>1 time</strong> &rArr; Valid function.<br>
-        <strong>Vertex Check:</strong> <span class="math">x = 2</span> ${a < 2 && 2 < b ? "<strong>lies inside <span class='math'>D<sub>f</sub></span></strong>, so minimum is <span class='math'>&minus;3</span>." : "is outside <span class='math'>D<sub>f</sub></span>, so range is determined by endpoints."}
+        <strong>Horizontal Line Test:</strong> Strictly decreasing on <span class="math">x</span> <span class="math-upright">&gt; &minus;1</span> &rArr; Every line <span class="math">y</span> <span class="math-upright">=</span> <span class="math">k</span> cuts at most once (<span class="math-upright">f</span> is one-one).<br>
+        <strong>Swapped Asymptotes:</strong> <span class="math-upright">f</span> has VA <span class="math">x</span> <span class="math-upright">= &minus;1</span>, HA <span class="math">y</span> <span class="math-upright">= 1</span> &hArr; <span class="math-upright">f<sup>&minus;1</sup></span> has VA <span class="math">x</span> <span class="math-upright">= 1</span>, HA <span class="math">y</span> <span class="math-upright">= &minus;1</span>.<br>
+        <strong>Domain of <span class="math-upright">f<sup>&minus;1</sup></span>:</strong> <span class="math">D</span><span class="math-upright"><sub>f<sup>&minus;1</sup></sub> =</span> <span class="math">R</span><span class="math-upright"><sub>f</sub> = [f(</span>${fmt(b)}<span class="math-upright">), f(</span>${fmt(a)}<span class="math-upright">)] = [</span>${fmt(yLow)}<span class="math-upright">, </span>${fmt(yHigh)}<span class="math-upright">]</span>.
       `;
-      document.getElementById("rangeBanner").innerHTML =
-        `Exact Range <span class="math">R<sub>f</sub> = <strong>${lowInc ? "[" : "("}${fmt(yLow)}, ${fmt(yHigh)}${highInc ? "]" : ")"}</strong></span>`;
+      document.getElementById("inverseBanner").innerHTML =
+        `<span class="math-upright">f<sup>&minus;1</sup> :</span> <span class="math">x</span> <span class="math-upright">&mapsto;</span> ${invRule}<span class="math-upright">, &nbsp;</span><span class="math">x</span> <span class="math-upright">&isin; [</span>${fmt(yLow)}<span class="math-upright">, </span>${fmt(yHigh)}<span class="math-upright">]</span>`;
 
-    } else if (fnType === "rat") {
-      const f = x => 3 - 2 / (x - 1);
-      const ratRuleHTML = `3 &minus; ${fracHTML("2", "x &minus; 1")}`;
-      const domDomainNote = (a <= 1 && b >= 1 && !(Math.abs(a - 1) < 1e-9 || Math.abs(b - 1) < 1e-9)) ? ", x &ne; 1" : "";
-      document.getElementById("canvasTitle").innerHTML = `<span class="math">f : x &mapsto; ${ratRuleHTML}, &nbsp;x &isin; ${effIncL ? "[" : "("}${fmt(a)}, ${fmt(b)}${effIncR ? "]" : ")"}${domDomainNote}</span>`;
-
-      // Asymptotes x = 1 and y = 3
-      ctx.save();
-      ctx.strokeStyle = "#e11d48";
-      ctx.setLineDash([5, 4]);
-      ctx.beginPath(); ctx.moveTo(toPxX(1), 0); ctx.lineTo(toPxX(1), H); ctx.stroke();
-      ctx.strokeStyle = "#0284c7";
-      ctx.beginPath(); ctx.moveTo(0, toPxY(3)); ctx.lineTo(W, toPxY(3)); ctx.stroke();
-      ctx.restore();
+    } else {
+      // Exponential f(x) = e^x on [a, b] (constant e is upright!)
+      const f = x => Math.exp(x);
+      document.getElementById("canvasTitle").innerHTML =
+        `<span class="math-upright">f :</span> <span class="math">x</span> <span class="math-upright">&mapsto; e</span><sup><span class="math">x</span></sup><span class="math-upright">, &nbsp;</span><span class="math">x</span> <span class="math-upright">&isin; [</span>${fmt(a)}<span class="math-upright">, </span>${fmt(b)}<span class="math-upright">]</span>`;
 
       ctx.strokeStyle = "#8b5cf6";
       ctx.lineWidth = 3;
       ctx.beginPath();
-      let started = false;
-      for (let x = a; x <= b; x += 0.015) {
-        if (Math.abs(x - 1) < 0.03) { started = false; continue; }
-        const y = f(x);
-        if (y < yMin - 1 || y > yMax + 1) { started = false; continue; }
-        if (!started) { ctx.moveTo(toPxX(x), toPxY(y)); started = true; }
-        else ctx.lineTo(toPxX(x), toPxY(y));
+      for (let x = a; x <= b; x += 0.02) {
+        if (x === a) ctx.moveTo(toPxX(x), toPxY(f(x)));
+        else ctx.lineTo(toPxX(x), toPxY(f(x)));
       }
       ctx.stroke();
+      drawPoint(ctx, toPxX(a), toPxY(f(a)), "#8b5cf6");
+      drawPoint(ctx, toPxX(b), toPxY(f(b)), "#8b5cf6");
 
-      if (Math.abs(a - 1) > 0.05) drawEndpoint(ctx, toPxX(a), toPxY(f(a)), effIncL);
-      if (Math.abs(b - 1) > 0.05) drawEndpoint(ctx, toPxX(b), toPxY(f(b)), effIncR);
-
-      if (Math.abs(a - 1) < 1e-9) {
-        yLow = -Infinity;
-        lowInc = false;
-        yHigh = f(b);
-        highInc = effIncR;
-      } else if (Math.abs(b - 1) < 1e-9) {
-        yLow = f(a);
-        lowInc = effIncL;
-        yHigh = Infinity;
-        highInc = false;
-      } else if (a > 1) {
-        yLow = f(a); lowInc = effIncL;
-        yHigh = f(b); highInc = effIncR;
-      } else if (b < 1) {
-        yLow = f(b); lowInc = effIncR;
-        yHigh = f(a); highInc = effIncL;
-      } else {
-        splitRange = {
-          leftMax: f(b), leftMaxInc: effIncR,
-          rightMin: f(a), rightMinInc: effIncL
-        };
+      const yLow = f(a), yHigh = f(b);
+      if (hltY >= yLow && hltY <= yHigh) {
+        hltHits.push(Math.log(hltY));
       }
 
-      if (vltX >= a && vltX <= b && Math.abs(vltX - 1) > 0.04) vltHits.push(f(vltX));
+      if (showInv) {
+        ctx.strokeStyle = "#0f766e";
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        for (let x = yLow; x <= yHigh; x += 0.02) {
+          const yInv = Math.log(x);
+          if (x === yLow) ctx.moveTo(toPxX(x), toPxY(yInv));
+          else ctx.lineTo(toPxX(x), toPxY(yInv));
+        }
+        ctx.stroke();
+        drawPoint(ctx, toPxX(yLow), toPxY(a), "#0f766e");
+        drawPoint(ctx, toPxX(yHigh), toPxY(b), "#0f766e");
 
-      document.getElementById("analysisBox").innerHTML = `
-        <strong>Function Rule:</strong> <span class="math">f(x) = ${ratRuleHTML}</span> (Strictly increasing on <span class="math">x &lt; 1</span> and <span class="math">x &gt; 1</span>).<br>
-        <strong>Asymptotes:</strong> Vertical <span class="math">x = 1</span> (red) and Horizontal <span class="math">y = 3</span> (blue).<br>
-        <strong>Boundary Behaviour:</strong> ${Math.abs(a - 1) < 1e-9 ? `As <span class="math">x &rarr; 1<sup>+</sup></span>, <span class="math">f(x) &rarr; &minus;&infin;</span>; at <span class="math">x = ${fmt(b)}</span>, <span class="math">f(${fmt(b)}) = ${fmt(f(b))}</span>.` : Math.abs(b - 1) < 1e-9 ? `At <span class="math">x = ${fmt(a)}</span>, <span class="math">f(${fmt(a)}) = ${fmt(f(a))}</span>; as <span class="math">x &rarr; 1<sup>&minus;</sup></span>, <span class="math">f(x) &rarr; &infin;</span>.` : `Evaluated across domain endpoints and asymptote <span class="math">x = 1</span>.`}
-      `;
-
-      if (splitRange) {
-        document.getElementById("rangeBanner").innerHTML =
-          `Split Domain Across VA <span class="math">x = 1</span>: <strong><span class="math">R<sub>f</sub> = (&minus;&infin;, ${fmt(splitRange.leftMax)}${splitRange.leftMaxInc ? "]" : ")"}) &cup; ${splitRange.rightMinInc ? "[" : "("}${fmt(splitRange.rightMin)}, &infin;)</span></strong>`;
-      } else {
-        document.getElementById("rangeBanner").innerHTML =
-          `Exact Range <span class="math">R<sub>f</sub> = <strong>${lowInc ? "[" : "("}${fmt(yLow)}, ${fmt(yHigh)}${highInc ? "]" : ")"}</strong></span>`;
-      }
-
-    } else {
-      document.getElementById("canvasTitle").innerHTML = `Relation: <span class="math">(x &minus; 2)&sup2; + (y &minus; 2)&sup2; = 9</span> (Same 1:1 Scale &mdash; NOT a Function!)`;
-      ctx.strokeStyle = "#e11d48";
-      ctx.lineWidth = 3;
-      ctx.beginPath();
-      ctx.arc(toPxX(2), toPxY(2), 3 * pxPerUnit, 0, Math.PI * 2);
-      ctx.stroke();
-
-      yLow = -1; yHigh = 5; lowInc = true; highInc = true;
-      const dx = vltX - 2;
-      if (Math.abs(dx) <= 3) {
-        const dy = Math.sqrt(9 - dx * dx);
-        vltHits.push(2 + dy);
-        if (dy > 0.01) vltHits.push(2 - dy);
+        const sx = (a + b) / 2;
+        samplePt = { x: sx, y: f(sx) };
       }
 
       document.getElementById("analysisBox").innerHTML = `
-        <strong>Equation:</strong> <span class="math">(x &minus; 2)&sup2; + (y &minus; 2)&sup2; = 9</span> (Centre <span class="math">(2, 2)</span>, radius <span class="math">3</span>).<br>
-        <strong>Vertical Line Test:</strong> For <span class="math">&minus;1 &lt; x &lt; 5</span>, the vertical line cuts the circle <strong>TWICE</strong>!<br>
-        <strong>Conclusion:</strong> One <span class="math">x</span>-input maps to two <span class="math">y</span>-outputs &rArr; <strong>Not a function</strong>.
+        <strong>Horizontal Line Test:</strong> Strictly increasing (<span class="math-upright">f'(</span><span class="math">x</span><span class="math-upright">) = e</span><sup><span class="math">x</span></sup> <span class="math-upright">&gt; 0</span>) &rArr; Every horizontal line cuts at most once.<br>
+        <strong>Inverse Relationship:</strong> <span class="math">y</span> <span class="math-upright">= e</span><sup><span class="math">x</span></sup> <span class="math-upright">&hArr;</span> <span class="math">x</span> <span class="math-upright">= ln</span> <span class="math">y</span>, reflected across <span class="math">y</span> <span class="math-upright">=</span> <span class="math">x</span>.<br>
+        <strong>Domain &amp; Range Swap:</strong> <span class="math">D</span><span class="math-upright"><sub>f</sub> = [</span>${fmt(a)}<span class="math-upright">, </span>${fmt(b)}<span class="math-upright">]</span> &hArr; <span class="math">D</span><span class="math-upright"><sub>f<sup>&minus;1</sup></sub> =</span> <span class="math">R</span><span class="math-upright"><sub>f</sub> = [e</span><sup>${fmt(a)}</sup><span class="math-upright">, e</span><sup>${fmt(b)}</sup><span class="math-upright">] &approx; [${yLow.toFixed(2)}, ${yHigh.toFixed(2)}]</span>.
       `;
-      document.getElementById("rangeBanner").innerHTML =
-        `Vertical Line Test at <span class="math">x = ${fmt(vltX)}</span>: <strong>${vltHits.length} intersection${vltHits.length === 1 ? "" : "s"}</strong> (${vltHits.length > 1 ? "Fails VLT &mdash; Not a Function" : "Move slider into <span class='math'>(&minus;1, 5)</span> to see 2 hits"})`;
+      document.getElementById("inverseBanner").innerHTML =
+        `<span class="math-upright">f<sup>&minus;1</sup> :</span> <span class="math">x</span> <span class="math-upright">&mapsto; ln</span> <span class="math">x</span><span class="math-upright">, &nbsp;</span><span class="math">x</span> <span class="math-upright">&isin; [${yLow.toFixed(2)}, ${yHigh.toFixed(2)}]</span>`;
     }
 
-    // Green range highlight along y-axis
-    const yAxisX = toPxX(0);
-    ctx.strokeStyle = "#0f766e";
-    ctx.lineWidth = 6;
-    if (splitRange) {
-      ctx.beginPath();
-      ctx.moveTo(yAxisX, H);
-      ctx.lineTo(yAxisX, toPxY(Math.max(yMin, splitRange.leftMax)));
-      ctx.stroke();
+    // Draw sample coordinate swap (p, q) <-> (q, p)
+    if (showInv && showPair && samplePt) {
+      const px1 = toPxX(samplePt.x), py1 = toPxY(samplePt.y);
+      const px2 = toPxX(samplePt.y), py2 = toPxY(samplePt.x);
 
+      ctx.save();
+      ctx.strokeStyle = "#d97706";
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([3, 3]);
       ctx.beginPath();
-      ctx.moveTo(yAxisX, toPxY(Math.min(yMax, splitRange.rightMin)));
-      ctx.lineTo(yAxisX, 0);
+      ctx.moveTo(px1, py1);
+      ctx.lineTo(px2, py2);
       ctx.stroke();
-    } else if (yLow < yHigh) {
-      const pyStart = yLow === -Infinity ? H : toPxY(Math.max(yMin, yLow));
-      const pyEnd = yHigh === Infinity ? 0 : toPxY(Math.min(yMax, yHigh));
-      ctx.beginPath();
-      ctx.moveTo(yAxisX, pyStart);
-      ctx.lineTo(yAxisX, pyEnd);
-      ctx.stroke();
+      ctx.restore();
+
+      drawPoint(ctx, px1, py1, "#d97706");
+      drawPoint(ctx, px2, py2, "#0f766e");
+
+      ctx.fillStyle = "#92400e";
+      ctx.font = "11px 'Cambria Math', Georgia, serif";
+      ctx.fillText(`(${samplePt.x.toFixed(1)}, ${samplePt.y.toFixed(1)})`, px1 + 7, py1 - 6);
+      ctx.fillStyle = "#0f766e";
+      ctx.fillText(`(${samplePt.y.toFixed(1)}, ${samplePt.x.toFixed(1)})`, px2 + 7, py2 + 14);
     }
 
-    // Vertical Line Test line
+    // Horizontal Line Test line y = hltY
     ctx.save();
     ctx.strokeStyle = "#0284c7";
     ctx.lineWidth = 1.8;
     ctx.setLineDash([6, 4]);
     ctx.beginPath();
-    ctx.moveTo(toPxX(vltX), 0);
-    ctx.lineTo(toPxX(vltX), H);
+    ctx.moveTo(0, toPxY(hltY));
+    ctx.lineTo(W, toPxY(hltY));
     ctx.stroke();
     ctx.restore();
 
-    vltHits.forEach(hy => {
+    hltHits.forEach(hy => {
       ctx.beginPath();
-      ctx.arc(toPxX(vltX), toPxY(hy), 5.5, 0, Math.PI * 2);
-      ctx.fillStyle = vltHits.length > 1 ? "#e11d48" : "#0284c7";
+      ctx.arc(toPxX(hx = hy), toPxY(hltY), 5.5, 0, Math.PI * 2);
+      ctx.fillStyle = hltHits.length > 1 ? "#e11d48" : "#0284c7";
       ctx.fill();
     });
   }
 
-  function drawEndpoint(ctx, px, py, filled) {
+  function drawPoint(ctx, px, py, color) {
     ctx.beginPath();
-    ctx.arc(px, py, 5.5, 0, Math.PI * 2);
-    ctx.fillStyle = filled ? "#8b5cf6" : "#ffffff";
+    ctx.arc(px, py, 5, 0, Math.PI * 2);
+    ctx.fillStyle = color;
     ctx.fill();
-    ctx.strokeStyle = "#8b5cf6";
-    ctx.lineWidth = 2.2;
-    ctx.stroke();
   }
 
   window.addEventListener("resize", draw);

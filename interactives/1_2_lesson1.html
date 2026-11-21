@@ -43,12 +43,69 @@
       margin: 0 auto;
     }
 
+    /* MATH NOTATION STYLING (9758 H2 MATH CONVENTION) */
+    /* Variables & unknown parameters (x, y, a, b, c, d, e, h, k, m, R) are italicised */
+    .math {
+      font-family: 'Cambria Math', 'Times New Roman', Georgia, serif;
+      font-style: italic;
+    }
+
+    /* Function names (f, g), differential d, constants (e, i, pi), numbers, brackets & operators are upright */
+    .math-upright {
+      font-family: 'Cambria Math', 'Times New Roman', Georgia, serif;
+      font-style: normal;
+    }
+
+    /* STACKED FRACTION NOTATION */
+    .frac {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      vertical-align: middle;
+      margin: 0 2px;
+      font-size: 0.86em;
+      line-height: 1.08;
+    }
+
+    .frac-num {
+      padding: 0 3px 1px 3px;
+      border-bottom: 1.3px solid currentColor;
+      text-align: center;
+    }
+
+    .frac-den {
+      padding: 1px 3px 0 3px;
+      text-align: center;
+    }
+
+    /* CLEAN SQUARE ROOT OVERBAR NOTATION */
+    .sqrt {
+      display: inline-flex;
+      align-items: stretch;
+      vertical-align: baseline;
+      white-space: nowrap;
+    }
+
+    .sqrt-sign {
+      font-family: 'Cambria Math', 'Times New Roman', Georgia, serif;
+      font-style: normal;
+      margin-right: 1px;
+      line-height: 1;
+    }
+
+    .radicand {
+      border-top: 1.25px solid currentColor;
+      padding: 1px 3px 0 2px;
+      display: inline-block;
+      line-height: 1.12;
+    }
+
     /* HOW-TO-USE GUIDE BANNER */
     .guide-banner {
       background: #ffffff;
       border: 1.5px solid #c4b5fd;
       border-radius: 14px;
-      padding: 12px 18px;
+      padding: 14px 18px;
       margin-bottom: 16px;
       box-shadow: 0 3px 10px rgba(139, 92, 246, 0.06);
     }
@@ -95,9 +152,9 @@
     .guide-steps {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 10px;
-      padding-top: 10px;
+      gap: 14px;
+      margin-top: 12px;
+      padding-top: 12px;
       border-top: 1px dashed #e2e8f0;
     }
 
@@ -111,15 +168,19 @@
       background: #f8fafc;
       border: 1px solid #e2e8f0;
       border-radius: 10px;
-      padding: 9px 11px;
-      font-size: 0.78rem;
-      line-height: 1.45;
+      padding: 12px 14px;
+      font-size: 0.81rem;
+      line-height: 1.6;
+      word-spacing: normal;
+      letter-spacing: normal;
     }
 
-    .guide-step-card strong {
+    .guide-step-heading {
       color: #1e293b;
+      font-weight: 800;
       display: block;
-      margin-bottom: 2px;
+      margin-bottom: 6px;
+      font-size: 0.83rem;
     }
 
     .app-container {
@@ -184,6 +245,7 @@
     .slider-header {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       font-size: 0.79rem;
       font-weight: 700;
       margin-bottom: 3px;
@@ -202,7 +264,7 @@
       padding: 11px 13px;
       color: #134e4a;
       font-size: 0.81rem;
-      line-height: 1.52;
+      line-height: 1.65;
       margin-bottom: 11px;
     }
 
@@ -212,9 +274,9 @@
       border-radius: 12px;
       padding: 10px 13px;
       color: #4c1d95;
-      font-size: 0.82rem;
+      font-size: 0.83rem;
       font-weight: 700;
-      line-height: 1.45;
+      line-height: 1.65;
     }
 
     canvas {
@@ -234,7 +296,7 @@
       border-radius: 10px;
       padding: 11px 14px;
       font-size: 0.81rem;
-      line-height: 1.5;
+      line-height: 1.6;
       color: #78350f;
     }
   </style>
@@ -253,16 +315,16 @@
     </div>
     <div class="guide-steps" id="guideSteps">
       <div class="guide-step-card">
-        <strong>1. Choose Linear/Linear or Quadratic/Linear Form</strong>
-        Switch between <em>Type 1: y = (ax + b)/(cx + d)</em> (horizontal asymptote) and <em>Type 2: y = (ax² + bx + c)/(dx + e)</em> (oblique asymptote) using the top-left tabs.
+        <span class="guide-step-heading">1. Choose Linear/Linear or Quadratic/Linear Form</span>
+        Switch between <em>Type 1: <span class="math">y</span> <span class="math-upright">=</span> <span class="frac"><span class="frac-num"><span class="math">a</span><span class="math">x</span> <span class="math-upright">+</span> <span class="math">b</span></span><span class="frac-den"><span class="math">c</span><span class="math">x</span> <span class="math-upright">+</span> <span class="math">d</span></span></span></em> (horizontal asymptote) and <em>Type 2: <span class="math">y</span> <span class="math-upright">=</span> <span class="frac"><span class="frac-num"><span class="math">a</span><span class="math">x</span><span class="math-upright">&sup2; +</span> <span class="math">b</span><span class="math">x</span> <span class="math-upright">+</span> <span class="math">c</span></span><span class="frac-den"><span class="math">d</span><span class="math">x</span> <span class="math-upright">+</span> <span class="math">e</span></span></span></em> (oblique asymptote).
       </div>
       <div class="guide-step-card">
-        <strong>2. Adjust Coefficients &amp; Inspect Polynomial Division</strong>
-        Move the sliders to shift the vertical asymptote and remainder <em>R</em>, and observe how long division isolates the quotient line <em>y = mx + c</em> plus remainder <em>R/(dx + e)</em>.
+        <span class="guide-step-heading">2. Adjust Coefficients &amp; Inspect Polynomial Division</span>
+        Move the sliders to shift the vertical asymptote and remainder <span class="math">R</span>, and observe how long division isolates the quotient line <span class="math">y</span> <span class="math-upright">=</span> <span class="math">m</span><span class="math">x</span> <span class="math-upright">+</span> <span class="math">c</span> plus remainder <span class="frac"><span class="frac-num"><span class="math">R</span></span><span class="frac-den"><span class="math">x</span> <span class="math-upright">&minus;</span> <span class="math">h</span></span></span>.
       </div>
       <div class="guide-step-card">
-        <strong>3. Check Turning Points &amp; Asymptote Approaches</strong>
-        Watch how changing the sign of remainder <em>R</em> flips the two branches across the asymptotes and determines whether stationary points exist.
+        <span class="guide-step-heading">3. Check Turning Points &amp; Asymptote Approaches</span>
+        Watch how changing the sign of remainder <span class="math">R</span> flips the two branches across the asymptotes and determines whether stationary points exist.
       </div>
     </div>
   </div>
@@ -286,8 +348,10 @@
 
     <div class="card">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
-        <strong style="font-size:1.04rem; color:#1e293b;" id="canvasTitle">y = 2 + 3/(x − 1)</strong>
-        <span style="font-size:0.78rem; font-weight:700; color:var(--rose);">Dashed Red: Vertical Asymptote &nbsp;|&nbsp; Dashed Blue: Horizontal/Oblique Asymptote</span>
+        <strong style="font-size:1.04rem; color:#1e293b;" id="canvasTitle">
+          <span class="math">y</span> <span class="math-upright">= 2 +</span> <span class="frac"><span class="frac-num"><span class="math-upright">3</span></span><span class="frac-den"><span class="math">x</span> <span class="math-upright">&minus; 1</span></span></span>
+        </strong>
+        <span style="font-size:0.78rem; font-weight:700; color:var(--rose);">Uniform 1:1 Scale &bull; Dashed Red: VA &nbsp;|&nbsp; Dashed Blue: HA / OA</span>
       </div>
 
       <canvas id="ratCanvas" width="880" height="465"></canvas>
@@ -295,8 +359,8 @@
       <div class="misconception-box">
         <strong>9758 Misconception Alert (Rational Curve Sketching):</strong>
         <ul style="margin:4px 0 0 0; padding-left:18px;">
-          <li><strong>Always perform polynomial long division first:</strong> Writing <em>y = (x² + 2x − 1)/(x − 1) = x + 3 + 2/(x − 1)</em> immediately reveals the oblique asymptote <strong>y = x + 3</strong> (as <em>x → ±∞</em>, <em>2/(x − 1) → 0</em>).</li>
-          <li><strong>Label every asymptote equation and stationary point:</strong> In 9758 exams, sketch marks require explicit equations (<em>x = h</em>, <em>y = mx + c</em>), axial intercepts, and exact coordinates of any local maximum/minimum points.</li>
+          <li><strong>Always perform polynomial long division first:</strong> Writing <span class="math">y</span> <span class="math-upright">=</span> <span class="frac"><span class="frac-num"><span class="math">x</span><span class="math-upright">&sup2; + 2</span><span class="math">x</span> <span class="math-upright">&minus; 1</span></span><span class="frac-den"><span class="math">x</span> <span class="math-upright">&minus; 1</span></span></span> <span class="math-upright">=</span> <span class="math">x</span> <span class="math-upright">+ 3 +</span> <span class="frac"><span class="frac-num"><span class="math-upright">2</span></span><span class="frac-den"><span class="math">x</span> <span class="math-upright">&minus; 1</span></span></span> immediately reveals the oblique asymptote <strong><span class="math">y</span> <span class="math-upright">=</span> <span class="math">x</span> <span class="math-upright">+ 3</span></strong> (as <span class="math">x</span> <span class="math-upright">&rarr; &plusmn;&infin;</span>, <span class="frac"><span class="frac-num"><span class="math-upright">2</span></span><span class="frac-den"><span class="math">x</span> <span class="math-upright">&minus; 1</span></span></span> <span class="math-upright">&rarr; 0</span>).</li>
+          <li><strong>Label every asymptote equation and stationary point:</strong> In 9758 exams, sketch marks require explicit equations (<span class="math">x</span> <span class="math-upright">=</span> <span class="math">h</span>, <span class="math">y</span> <span class="math-upright">=</span> <span class="math">m</span><span class="math">x</span> <span class="math-upright">+</span> <span class="math">c</span>), axial intercepts, and exact coordinates of any local maximum/minimum points.</li>
         </ul>
       </div>
     </div>
@@ -315,6 +379,81 @@
   let linP = { k: 2, h: 1, r: 3 };
   let quadP = { m: 1, c: 1, h: 1, r: 2 };
 
+  function fracHTML(num, den) {
+    return `<span class="frac"><span class="frac-num">${num}</span><span class="frac-den">${den}</span></span>`;
+  }
+
+  function sqrtHTML(expr) {
+    return `<span class="sqrt"><span class="sqrt-sign">&radic;</span><span class="radicand">${expr}</span></span>`;
+  }
+
+  function fmt(n) {
+    if (!isFinite(n)) return n < 0 ? `<span class="math-upright">&minus;&infin;</span>` : `<span class="math-upright">&infin;</span>`;
+    const s = Number.isInteger(n) ? n.toString() : n.toFixed(2).replace(/\.?0+$/, "");
+    return s.startsWith("-") ? `<span class="math-upright">&minus;${s.slice(1)}</span>` : `<span class="math-upright">${s}</span>`;
+  }
+
+  function fmtCanvas(n) {
+    const s = Number.isInteger(n) ? n.toString() : n.toFixed(2).replace(/\.?0+$/, "");
+    return s.startsWith("-") ? `−${s.slice(1)}` : s;
+  }
+
+  function denomHTML(h) {
+    if (h === 0) return `<span class="math">x</span>`;
+    return h > 0
+      ? `<span class="math">x</span> <span class="math-upright">&minus; ${h}</span>`
+      : `<span class="math">x</span> <span class="math-upright">+ ${Math.abs(h)}</span>`;
+  }
+
+  function linearExprHTML(m, c) {
+    let parts = [];
+    if (m !== 0) {
+      if (m === 1) parts.push(`<span class="math">x</span>`);
+      else if (m === -1) parts.push(`<span class="math-upright">&minus;</span><span class="math">x</span>`);
+      else if (m < 0) parts.push(`<span class="math-upright">&minus;${Math.abs(m)}</span><span class="math">x</span>`);
+      else parts.push(`<span class="math-upright">${m}</span><span class="math">x</span>`);
+    }
+    if (c !== 0 || parts.length === 0) {
+      if (parts.length === 0) {
+        parts.push(c < 0 ? `<span class="math-upright">&minus;${Math.abs(c)}</span>` : `<span class="math-upright">${c}</span>`);
+      } else {
+        parts.push(c > 0 ? `<span class="math-upright">+ ${c}</span>` : `<span class="math-upright">&minus; ${Math.abs(c)}</span>`);
+      }
+    }
+    return parts.join(" ");
+  }
+
+  function quadExprHTML(a, b, c) {
+    let parts = [];
+    if (a !== 0) {
+      if (a === 1) parts.push(`<span class="math">x</span><span class="math-upright">&sup2;</span>`);
+      else if (a === -1) parts.push(`<span class="math-upright">&minus;</span><span class="math">x</span><span class="math-upright">&sup2;</span>`);
+      else if (a < 0) parts.push(`<span class="math-upright">&minus;${Math.abs(a)}</span><span class="math">x</span><span class="math-upright">&sup2;</span>`);
+      else parts.push(`<span class="math-upright">${a}</span><span class="math">x</span><span class="math-upright">&sup2;</span>`);
+    }
+    if (b !== 0) {
+      const absB = Math.abs(b) === 1 ? "" : `<span class="math-upright">${Math.abs(b)}</span>`;
+      if (parts.length === 0) {
+        parts.push(`${b < 0 ? `<span class="math-upright">&minus;</span>` : ""}${absB}<span class="math">x</span>`);
+      } else {
+        parts.push(`${b > 0 ? `<span class="math-upright">+</span> ` : `<span class="math-upright">&minus;</span> `}${absB}<span class="math">x</span>`);
+      }
+    }
+    if (c !== 0 || parts.length === 0) {
+      if (parts.length === 0) {
+        parts.push(c < 0 ? `<span class="math-upright">&minus;${Math.abs(c)}</span>` : `<span class="math-upright">${c}</span>`);
+      } else {
+        parts.push(c > 0 ? `<span class="math-upright">+ ${c}</span>` : `<span class="math-upright">&minus; ${Math.abs(c)}</span>`);
+      }
+    }
+    return parts.join(" ");
+  }
+
+  function remTermHTML(r, h) {
+    const sign = r >= 0 ? `<span class="math-upright">+</span>` : `<span class="math-upright">&minus;</span>`;
+    return `${sign} ${fracHTML(`<span class="math-upright">${Math.abs(r)}</span>`, denomHTML(h))}`;
+  }
+
   function setMode(m) {
     mode = m;
     document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
@@ -328,35 +467,35 @@
     if (mode === "lin") {
       wrap.innerHTML = `
         <div class="slider-group">
-          <div class="slider-header"><span>Horizontal Asymp (k)</span><span id="lbl_k" style="color:var(--blue);">${linP.k}</span></div>
-          <input type="range" min="-2" max="4" step="1" value="${linP.k}" oninput="linP.k=parseInt(this.value,10); document.getElementById('lbl_k').textContent=linP.k; draw();" />
+          <div class="slider-header"><span>Horizontal Asymp (<span class="math">k</span>)</span><span id="lbl_k" style="color:var(--blue);">${fmt(linP.k)}</span></div>
+          <input type="range" min="-2" max="4" step="1" value="${linP.k}" oninput="linP.k=parseInt(this.value,10); document.getElementById('lbl_k').innerHTML=fmt(linP.k); draw();" />
         </div>
         <div class="slider-group">
-          <div class="slider-header"><span>Vertical Asymp (h)</span><span id="lbl_h" style="color:var(--rose);">${linP.h}</span></div>
-          <input type="range" min="-3" max="3" step="1" value="${linP.h}" oninput="linP.h=parseInt(this.value,10); document.getElementById('lbl_h').textContent=linP.h; draw();" />
+          <div class="slider-header"><span>Vertical Asymp (<span class="math">h</span>)</span><span id="lbl_h" style="color:var(--rose);">${fmt(linP.h)}</span></div>
+          <input type="range" min="-3" max="3" step="1" value="${linP.h}" oninput="linP.h=parseInt(this.value,10); document.getElementById('lbl_h').innerHTML=fmt(linP.h); draw();" />
         </div>
         <div class="slider-group" style="grid-column:span 2;">
-          <div class="slider-header"><span>Numerator Remainder (R)</span><span id="lbl_r" style="color:var(--purple-dark);">${linP.r}</span></div>
-          <input type="range" min="-4" max="4" step="1" value="${linP.r}" oninput="linP.r=parseInt(this.value,10); if(linP.r===0) linP.r=1; document.getElementById('lbl_r').textContent=linP.r; draw();" />
+          <div class="slider-header"><span>Numerator Remainder (<span class="math">R</span>)</span><span id="lbl_r" style="color:var(--purple-dark);">${fmt(linP.r)}</span></div>
+          <input type="range" min="-4" max="4" step="1" value="${linP.r}" oninput="linP.r=parseInt(this.value,10); if(linP.r===0) linP.r=1; document.getElementById('lbl_r').innerHTML=fmt(linP.r); draw();" />
         </div>
       `;
     } else {
       wrap.innerHTML = `
         <div class="slider-group">
-          <div class="slider-header"><span>Oblique Slope (m)</span><span id="lbl_m" style="color:var(--blue);">${quadP.m}</span></div>
-          <input type="range" min="-2" max="2" step="1" value="${quadP.m}" oninput="quadP.m=parseInt(this.value,10); if(quadP.m===0) quadP.m=1; document.getElementById('lbl_m').textContent=quadP.m; draw();" />
+          <div class="slider-header"><span>Oblique Slope (<span class="math">m</span>)</span><span id="lbl_m" style="color:var(--blue);">${fmt(quadP.m)}</span></div>
+          <input type="range" min="-2" max="2" step="1" value="${quadP.m}" oninput="quadP.m=parseInt(this.value,10); if(quadP.m===0) quadP.m=1; document.getElementById('lbl_m').innerHTML=fmt(quadP.m); draw();" />
         </div>
         <div class="slider-group">
-          <div class="slider-header"><span>Oblique Intercept (c)</span><span id="lbl_c" style="color:var(--blue);">${quadP.c}</span></div>
-          <input type="range" min="-2" max="3" step="1" value="${quadP.c}" oninput="quadP.c=parseInt(this.value,10); document.getElementById('lbl_c').textContent=quadP.c; draw();" />
+          <div class="slider-header"><span>Oblique Intercept (<span class="math">c</span>)</span><span id="lbl_c" style="color:var(--blue);">${fmt(quadP.c)}</span></div>
+          <input type="range" min="-2" max="3" step="1" value="${quadP.c}" oninput="quadP.c=parseInt(this.value,10); document.getElementById('lbl_c').innerHTML=fmt(quadP.c); draw();" />
         </div>
         <div class="slider-group">
-          <div class="slider-header"><span>Vertical Asymp (h)</span><span id="lbl_qh" style="color:var(--rose);">${quadP.h}</span></div>
-          <input type="range" min="-2" max="2" step="1" value="${quadP.h}" oninput="quadP.h=parseInt(this.value,10); document.getElementById('lbl_qh').textContent=quadP.h; draw();" />
+          <div class="slider-header"><span>Vertical Asymp (<span class="math">h</span>)</span><span id="lbl_qh" style="color:var(--rose);">${fmt(quadP.h)}</span></div>
+          <input type="range" min="-2" max="2" step="1" value="${quadP.h}" oninput="quadP.h=parseInt(this.value,10); document.getElementById('lbl_qh').innerHTML=fmt(quadP.h); draw();" />
         </div>
         <div class="slider-group">
-          <div class="slider-header"><span>Remainder (R)</span><span id="lbl_qr" style="color:var(--purple-dark);">${quadP.r}</span></div>
-          <input type="range" min="-4" max="4" step="1" value="${quadP.r}" oninput="quadP.r=parseInt(this.value,10); if(quadP.r===0) quadP.r=1; document.getElementById('lbl_qr').textContent=quadP.r; draw();" />
+          <div class="slider-header"><span>Remainder (<span class="math">R</span>)</span><span id="lbl_qr" style="color:var(--purple-dark);">${fmt(quadP.r)}</span></div>
+          <input type="range" min="-4" max="4" step="1" value="${quadP.r}" oninput="quadP.r=parseInt(this.value,10); if(quadP.r===0) quadP.r=1; document.getElementById('lbl_qr').innerHTML=fmt(quadP.r); draw();" />
         </div>
       `;
     }
@@ -365,24 +504,60 @@
   function draw() {
     const canvas = document.getElementById("ratCanvas");
     const ctx = canvas.getContext("2d");
-    const W = canvas.width, H = canvas.height;
+    const rect = canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    const W = rect.width > 0 ? rect.width : 880;
+    const H = rect.height > 0 ? rect.height : 465;
+    canvas.width = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, W, H);
 
-    const xMin = -7, xMax = 7, yMin = -7, yMax = 9;
-    const toPxX = x => ((x - xMin) / (xMax - xMin)) * W;
-    const toPxY = y => H - ((y - yMin) / (yMax - yMin)) * H;
+    // Uniform 1:1 coordinate scale so oblique slopes and angles are visually true
+    const xCenter = 0.0, yCenter = 1.0;
+    const targetXSpan = 14, targetYSpan = 14;
+    const pxPerUnit = Math.min(W / targetXSpan, H / targetYSpan);
 
-    // Grid & Axes
+    const toPxX = x => W / 2 + (x - xCenter) * pxPerUnit;
+    const toPxY = y => H / 2 - (y - yCenter) * pxPerUnit;
+
+    const xMin = xCenter - (W / 2) / pxPerUnit;
+    const xMax = xCenter + (W / 2) / pxPerUnit;
+    const yMin = yCenter - (H / 2) / pxPerUnit;
+    const yMax = yCenter + (H / 2) / pxPerUnit;
+
+    // Equal square grid
     ctx.strokeStyle = "#f1f5f9";
-    for (let gx = xMin; gx <= xMax; gx++) { ctx.beginPath(); ctx.moveTo(toPxX(gx), 0); ctx.lineTo(toPxX(gx), H); ctx.stroke(); }
-    for (let gy = yMin; gy <= yMax; gy++) { ctx.beginPath(); ctx.moveTo(0, toPxY(gy)); ctx.lineTo(W, toPxY(gy)); ctx.stroke(); }
+    ctx.lineWidth = 1;
+    for (let gx = Math.ceil(xMin); gx <= Math.floor(xMax); gx++) {
+      ctx.beginPath(); ctx.moveTo(toPxX(gx), 0); ctx.lineTo(toPxX(gx), H); ctx.stroke();
+    }
+    for (let gy = Math.ceil(yMin); gy <= Math.floor(yMax); gy++) {
+      ctx.beginPath(); ctx.moveTo(0, toPxY(gy)); ctx.lineTo(W, toPxY(gy)); ctx.stroke();
+    }
 
+    // Axes
     ctx.strokeStyle = "#94a3b8";
     ctx.lineWidth = 1.6;
     ctx.beginPath();
     ctx.moveTo(0, toPxY(0)); ctx.lineTo(W, toPxY(0));
     ctx.moveTo(toPxX(0), 0); ctx.lineTo(toPxX(0), H);
     ctx.stroke();
+
+    // Axis ticks (upright numbers) & labels (italic x, y; upright point O)
+    ctx.fillStyle = "#64748b";
+    ctx.font = "11px 'Cambria Math', Georgia, serif";
+    for (let gx = Math.ceil(xMin); gx <= Math.floor(xMax); gx++) {
+      if (gx !== 0) ctx.fillText(fmtCanvas(gx), toPxX(gx) - 5, toPxY(0) + 14);
+    }
+    for (let gy = Math.ceil(yMin); gy <= Math.floor(yMax); gy++) {
+      if (gy !== 0) ctx.fillText(fmtCanvas(gy), toPxX(0) - 20, toPxY(gy) + 4);
+    }
+    ctx.font = "italic 13px 'Cambria Math', Georgia, serif";
+    ctx.fillText("x", W - 14, toPxY(0) - 6);
+    ctx.fillText("y", toPxX(0) + 8, 14);
+    ctx.font = "13px 'Cambria Math', Georgia, serif";
+    ctx.fillText("O", toPxX(0) - 14, toPxY(0) + 14);
 
     if (mode === "lin") {
       const { k, h, r } = linP;
@@ -396,20 +571,27 @@
       // Curve
       plotBranch(ctx, f, xMin, xMax, yMin, yMax, h, toPxX, toPxY);
 
-      const denomStr = `x ${h === 0 ? "" : h > 0 ? "− " + h : "+ " + Math.abs(h)}`;
-      const numStr = `${numA === 0 ? "" : (numA === 1 ? "x" : numA === -1 ? "−x" : numA + "x")} ${numB >= 0 ? "+ " + numB : "− " + Math.abs(numB)}`;
-      document.getElementById("canvasTitle").textContent = `y = (${numStr}) / (${denomStr}) = ${k} ${r >= 0 ? "+ " + r : "− " + Math.abs(r)}/(${denomStr})`;
+      const improperFrac = fracHTML(linearExprHTML(numA, numB), denomHTML(h));
+      const divForm = `${fmt(k)} ${remTermHTML(r, h)}`;
+
+      document.getElementById("canvasTitle").innerHTML =
+        `<span class="math">y</span> <span class="math-upright">=</span> ${improperFrac} <span class="math-upright">=</span> ${divForm}`;
       document.getElementById("divStepsBox").innerHTML = `
-        <strong>1.</strong> Division form: <em>y = ${k} ${r >= 0 ? "+ " + r : "− " + Math.abs(r)}/(${denomStr})</em>.<br>
-        <strong>2.</strong> Denominator = 0 &rArr; Vertical asymptote <strong>x = ${h}</strong>.<br>
-        <strong>3.</strong> As <em>x &rarr; &plusmn;&infin;</em>, remainder &rarr; 0 &rArr; Horizontal asymptote <strong>y = ${k}</strong> (no stationary points).
+        <strong>1.</strong> Division form: <span class="math">y</span> <span class="math-upright">=</span> ${divForm}.<br>
+        <strong>2.</strong> Denominator <span class="math-upright">= 0</span> &rArr; Vertical asymptote <strong><span class="math">x</span> <span class="math-upright">=</span> ${fmt(h)}</strong>.<br>
+        <strong>3.</strong> As <span class="math">x</span> <span class="math-upright">&rarr; &plusmn;&infin;</span>, ${fracHTML(`<span class="math-upright">${Math.abs(r)}</span>`, denomHTML(h))} <span class="math-upright">&rarr; 0</span> &rArr; Horizontal asymptote <strong><span class="math">y</span> <span class="math-upright">=</span> ${fmt(k)}</strong> (no stationary points).
       `;
       document.getElementById("asympBanner").innerHTML =
-        `Asymptotes: <strong>x = ${h}</strong> (VA) &nbsp;and&nbsp; <strong>y = ${k}</strong> (HA).`;
+        `Asymptotes: <strong><span class="math">x</span> <span class="math-upright">=</span> ${fmt(h)}</strong> (VA) &nbsp;and&nbsp; <strong><span class="math">y</span> <span class="math-upright">=</span> ${fmt(k)}</strong> (HA).`;
 
     } else {
       const { m, c, h, r } = quadP;
       const f = x => m * x + c + r / (x - h);
+
+      // Expand (mx + c)(x - h) + r = mx^2 + (c - mh)x + (r - ch)
+      const qA = m;
+      const qB = c - m * h;
+      const qC = r - c * h;
 
       // VA and OA
       drawDashed(ctx, toPxX(h), 0, toPxX(h), H, "#e11d48");
@@ -418,25 +600,29 @@
       plotBranch(ctx, f, xMin, xMax, yMin, yMax, h, toPxX, toPxY);
 
       // Check stationary points: dy/dx = m - r/(x - h)^2 = 0 => (x - h)^2 = r/m
-      let tpTxt = "None (since r/m < 0)";
+      let tpHTML = `None (since ${fracHTML(`<span class="math">R</span>`, `<span class="math">m</span>`)} <span class="math-upright">&lt; 0</span>)`;
       if (r / m > 0) {
         const d = Math.sqrt(r / m);
         const x1 = h - d, x2 = h + d;
         drawDot(ctx, toPxX(x1), toPxY(f(x1)), "#0f766e", 5.5);
         drawDot(ctx, toPxX(x2), toPxY(f(x2)), "#0f766e", 5.5);
-        tpTxt = `(${x1.toFixed(2)}, ${f(x1).toFixed(2)}) & (${x2.toFixed(2)}, ${f(x2).toFixed(2)})`;
+        tpHTML = `<span class="math-upright">(</span>${fmt(x1)}<span class="math-upright">,</span> ${fmt(f(x1))}<span class="math-upright">)</span> &amp; <span class="math-upright">(</span>${fmt(x2)}<span class="math-upright">,</span> ${fmt(f(x2))}<span class="math-upright">)</span>`;
       }
 
-      const denomStr = `x ${h === 0 ? "" : h > 0 ? "− " + h : "+ " + Math.abs(h)}`;
-      const lineStr = `${m === 1 ? "" : m === -1 ? "−" : m}x ${c >= 0 ? "+ " + c : "− " + Math.abs(c)}`;
-      document.getElementById("canvasTitle").textContent = `y = (${lineStr}) ${r >= 0 ? "+ " + r : "− " + Math.abs(r)}/(${denomStr})`;
+      const improperFrac = fracHTML(quadExprHTML(qA, qB, qC), denomHTML(h));
+      const lineHTML = linearExprHTML(m, c);
+      const divForm = `${lineHTML} ${remTermHTML(r, h)}`;
+      const dydxHTML = fracHTML(`<span class="math-upright">d</span><span class="math">y</span>`, `<span class="math-upright">d</span><span class="math">x</span>`);
+
+      document.getElementById("canvasTitle").innerHTML =
+        `<span class="math">y</span> <span class="math-upright">=</span> ${improperFrac} <span class="math-upright">=</span> ${divForm}`;
       document.getElementById("divStepsBox").innerHTML = `
-        <strong>1.</strong> Quotient + Remainder form: <em>y = ${lineStr} ${r >= 0 ? "+ " + r : "− " + Math.abs(r)}/(${denomStr})</em>.<br>
-        <strong>2.</strong> As <em>x &rarr; &plusmn;&infin;</em>, <em>${r}/(${denomStr}) &rarr; 0</em> &rArr; Oblique asymptote <strong>y = ${lineStr}</strong>.<br>
-        <strong>3.</strong> Stationary points (<em>dy/dx = 0</em>): <strong>${tpTxt}</strong>.
+        <strong>1.</strong> Quotient + Remainder form: <span class="math">y</span> <span class="math-upright">=</span> ${divForm}.<br>
+        <strong>2.</strong> As <span class="math">x</span> <span class="math-upright">&rarr; &plusmn;&infin;</span>, ${fracHTML(`<span class="math-upright">${Math.abs(r)}</span>`, denomHTML(h))} <span class="math-upright">&rarr; 0</span> &rArr; Oblique asymptote <strong><span class="math">y</span> <span class="math-upright">=</span> ${lineHTML}</strong>.<br>
+        <strong>3.</strong> Stationary points (${dydxHTML} <span class="math-upright">= 0</span>): <strong>${tpHTML}</strong>.
       `;
       document.getElementById("asympBanner").innerHTML =
-        `Asymptotes: <strong>x = ${h}</strong> (VA) &nbsp;and&nbsp; <strong>y = ${lineStr}</strong> (Oblique Asymptote).`;
+        `Asymptotes: <strong><span class="math">x</span> <span class="math-upright">=</span> ${fmt(h)}</strong> (VA) &nbsp;and&nbsp; <strong><span class="math">y</span> <span class="math-upright">=</span> ${lineHTML}</strong> (Oblique Asymptote).`;
     }
   }
 
@@ -468,6 +654,7 @@
     ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fillStyle = col; ctx.fill();
   }
 
+  window.addEventListener("resize", draw);
   renderSliders();
   draw();
 </script>
