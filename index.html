@@ -3390,6 +3390,108 @@
           }
         ]
       },
+      "summary": {
+        title: "📋 9758 H2 Mathematics Complete Summary & GC Reference",
+        syllabusNotes: "Comprehensive formula & concept reference covering O-Level pre-knowledge, Pure Mathematics (Topics 1.1–5.5), Probability & Statistics (Topics 6.1–6.6), and TI-84 Plus CE keystroke workflows.",
+        lessons: [
+          {
+            label: "Part 1: O-Level Pre-Knowledge",
+            file: "interactives/summary_part1.html",
+            videoEmbedUrl: "",
+            prereq: "O-Level Additional & Elementary Mathematics.",
+            objectives: [
+              "Recall laws of indices, surds, logarithms, and the change-of-base formula.",
+              "Apply trigonometric ratios, sine/cosine rules, radian sector formulas, and Pythagorean identities.",
+              "Use circle properties and 2D/3D similarity ratios (length, area, volume) in geometry problems."
+            ],
+            prompts: [
+              "Review the change-of-base identity and supplementary/negative angle identities before starting Functions & Calculus.",
+              "Verify that radian mode is active on your TI-84 Plus CE whenever using s = rθ or A = ½r²θ."
+            ],
+            pitfalls: [
+              "Using degree mode instead of radian mode in calculus and circular measure questions.",
+              "Forgetting the negative sign in cos(180° − θ) = −cos θ or tan(180° − θ) = −tan θ."
+            ],
+            gcTip: "Press [MODE] and verify RADIAN is highlighted before evaluating trigonometric expressions or graphing trig functions.",
+            workedQuestion: "Two similar cones have heights in the ratio 2 : 5. Find the ratio of their curved surface areas and volumes.",
+            workedSolution: "Ratio of lengths <em>k = 2/5</em>. Ratio of areas = <em>k² =</em> <strong>4 : 25</strong>. Ratio of volumes = <em>k³ =</em> <strong>8 : 125</strong>.",
+            exitQuestion: "Express log_a(b) in terms of natural logarithms.",
+            exitAnswer: "<strong>ln(b) / ln(a)</strong>"
+          },
+          {
+            label: "Part 2: Pure Math I (Algebra, Graphs & Series)",
+            file: "interactives/summary_part2.html",
+            videoEmbedUrl: "",
+            prereq: "Part 1: O-Level Pre-Knowledge.",
+            objectives: [
+              "Verify existence conditions and find rules/domains for inverse and composite functions.",
+              "Identify asymptotes, centres, and key features of rational graphs, conics, and modulus/reciprocal transformations.",
+              "Solve rational and modulus inequalities without cross-multiplying, and apply AP/GP formulas."
+            ],
+            prompts: [
+              "Compare algebraic sign-testing against the TI-84 Plus CE graphical intersection method for rational inequalities.",
+              "Check the existence condition R_f ⊆ D_g for composite functions gf and state D_{f⁻¹} = R_f for inverses."
+            ],
+            pitfalls: [
+              "Cross-multiplying across an inequality sign when the denominator can be negative, or including vertical asymptotes in the solution set.",
+              "Forgetting to specify the domain of f⁻¹(x) alongside its rule."
+            ],
+            gcTip: "Use [APPS] > [PlySmlt2] for polynomial roots and simultaneous equations, and [2nd] [PRGM] > [8: DrawInv] to inspect inverse graphs.",
+            workedQuestion: "Solve <em>(3 − 2x) / (2 − x²) ≤ 1</em> analytically.",
+            workedSolution: "Bring 1 to LHS: <em>[(3 − 2x) − (2 − x²)] / (2 − x²) ≤ 0 ⇒ (x − 1)² / [(√2 − x)(√2 + x)] ≤ 0</em>. Sign test gives <strong>x &lt; −√2</strong>, <strong>x &gt; √2</strong>, or <strong>x = 1</strong>.",
+            exitQuestion: "What is the condition for the composite function gf to exist?",
+            exitAnswer: "The range of f must be a subset of the domain of g (<strong>R_f ⊆ D_g</strong>)."
+          },
+          {
+            label: "Part 3: Pure Math II (Calculus, Vectors & Complex)",
+            file: "interactives/summary_part3.html",
+            videoEmbedUrl: "",
+            prereq: "Part 2: Pure Math I.",
+            objectives: [
+              "Apply differentiation rules, implicit/parametric differentiation, and MF27 Maclaurin expansions.",
+              "Select integration techniques (MF27 quadratic forms, substitution, LIATE by parts), compute areas/volumes, and solve separable DEs.",
+              "Compute 3D vector projections, line/plane intersections, and complex number operations on an Argand diagram."
+            ],
+            prompts: [
+              "Check the LIATE priority order before choosing u and dv/dx in Integration by Parts.",
+              "Compare sin θ = |d · n|/(|d||n|) for line-plane angle against cos θ = |n₁ · n₂|/(|n₁||n₂|) for plane-plane angle."
+            ],
+            pitfalls: [
+              "Using cos θ instead of sin θ for the acute angle between a line and a plane.",
+              "Forgetting to multiply by inner derivatives f'(x) in chain rule or dividing by k! in Maclaurin series."
+            ],
+            gcTip: "Use [ALPHA] [WINDOW] > [3: nDeriv(] and [4: fnInt(] to numerically verify derivatives and definite integrals.",
+            workedQuestion: "Given that <em>z = 2 − 3i</em> is a root of a polynomial equation with real coefficients, find a real quadratic factor of the polynomial.",
+            workedSolution: "By the Conjugate Root Theorem, <em>z* = 2 + 3i</em> is also a root. Real quadratic factor: <em>[z − (2 − 3i)][z − (2 + 3i)] = (z − 2)² + 9 =</em> <strong>z² − 4z + 13</strong>.",
+            exitQuestion: "Write down the formula for the length of projection of vector a onto vector b.",
+            exitAnswer: "<strong>|a · b̂| = |a · b| / |b|</strong>"
+          },
+          {
+            label: "Part 4: Statistics & TI-84 Plus CE Guide",
+            file: "interactives/summary_part4.html",
+            videoEmbedUrl: "",
+            prereq: "Topics 6.1 – 6.6.",
+            objectives: [
+              "Distinguish permutations, combinations, mutually exclusive, independent, and conditional events.",
+              "Compute Binomial and Normal probabilities, apply Central Limit Theorem, and find unbiased estimates x̄ and s².",
+              "Execute 1-tail and 2-tail z-tests and interpret correlation r and regression lines in context."
+            ],
+            prompts: [
+              "Review TI-84 Plus CE keystrokes for binompdf/cdf, normalcdf/invNorm, Z-Test, and LinReg(ax+b).",
+              "Check when to use the y-on-x vs. x-on-y regression line for estimation."
+            ],
+            pitfalls: [
+              "Confusing P(X ≥ k) = 1 − P(X ≤ k − 1) in Binomial distributions, or entering variance σ² instead of standard deviation σ in normalcdf.",
+              "Forgetting to divide σ² by n for X̄, or omitting 'approximately' when invoking the Central Limit Theorem."
+            ],
+            gcTip: "Enable DiagnosticOn via [2nd] [0] (CATALOG) so r displays automatically when running LinReg(ax+b).",
+            workedQuestion: "For <em>X ~ B(40, 0.25)</em>, state the TI-84 Plus CE expression to evaluate <em>P(X ≥ 6)</em>.",
+            workedSolution: "<em>P(X ≥ 6) = 1 − P(X ≤ 5) =</em> <strong>1 − binomcdf(40, 0.25, 5)</strong>.",
+            exitQuestion: "Which point must both the y-on-x and x-on-y least squares regression lines pass through?",
+            exitAnswer: "The centroid <strong>(x̄, ȳ)</strong>."
+          }
+        ]
+      },
     };
 /* STACKED FRACTION & PROPER MATH TYPOGRAPHY FORMATTER */
     function fracHTML(num, den) {
