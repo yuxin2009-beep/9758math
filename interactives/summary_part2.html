@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 Summary — Part 2: Pure Math I</title>
+  <script>
+    window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  <style>
+    :root { --bg:#f8fafc; --card:#ffffff; --border:#e2e8f0; --text:#0f172a; --primary:#4f46e5; --teal:#0d9488; --rose:#e11d48; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 18px; font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.55; }
+    .banner { background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 10px; padding: 12px 16px; margin-bottom: 18px; font-size: 0.92rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 16px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+    .card h3 { margin: 0 0 10px; font-size: 1.05rem; color: var(--primary); border-bottom: 2px solid #e0e7ff; padding-bottom: 6px; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin-top: 6px; }
+    th, td { border: 1px solid var(--border); padding: 7px 9px; text-align: left; vertical-align: top; }
+    th { background: #f1f5f9; font-weight: 600; }
+    .gc { font-family: ui-monospace, monospace; background: #f1f5f9; padding: 2px 5px; border-radius: 4px; font-size: 0.82rem; color: #0f766e; }
+    .warn { color: var(--rose); font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="banner">
+    <strong>Part 2: Pure Mathematics I</strong> — Equations &amp; Inequalities, Graphing &amp; Conics, Functions, and Sequences &amp; Series.
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>1. Equations &amp; Inequalities</h3>
+      <table>
+        <tr><th>Topic</th><th>Key Rules &amp; TI-84 Plus CE Steps</th></tr>
+        <tr>
+          <td><strong>Discriminant</strong><br>$ax^2+bx+c=0$</td>
+          <td>
+            $\Delta = b^2 - 4ac$:<br>
+            • $\Delta = 0 \Rightarrow$ real &amp; repeated roots<br>
+            • $\Delta > 0 \Rightarrow$ real &amp; distinct roots<br>
+            • $\Delta \ge 0 \Rightarrow$ real roots; $\Delta < 0 \Rightarrow$ no real roots
+          </td>
+        </tr>
+        <tr>
+          <td><strong>System of Linear Eqns</strong></td>
+          <td><span class="gc">[apps] &gt; [PlySmlt2] &gt; [2: SIMULT EQN SOLVER]</span> &rarr; set equations/unknowns &rarr; key coefficients &rarr; <span class="gc">[graph]</span> (SOLVE).</td>
+        </tr>
+        <tr>
+          <td><strong>Rational Inequalities</strong></td>
+          <td>
+            1. Bring all terms to LHS (<span class="warn">do NOT cross-multiply</span>).<br>
+            2. Combine into single fraction $\frac{f(x)}{g(x)} \le 0$.<br>
+            3. Factorise completely (complete square if $\Delta < 0$).<br>
+            4. Number line sign test; <span class="warn">exclude vertical asymptotes</span>.
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Modulus</strong></td>
+          <td>$|x - a| < b \iff a - b < x < a + b$<br>$|x - a| > b \iff x < a - b \text{ or } x > a + b$</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>2. Conics &amp; Rational Graphs</h3>
+      <table>
+        <tr><th>Curve</th><th>Key Features &amp; Asymptotes</th></tr>
+        <tr>
+          <td><strong>Rational</strong><br>$y = \frac{ax+b}{cx+d}$ or $\frac{ax^2+bx+c}{dx+e}$</td>
+          <td>
+            • Vertical asymptote: denominator $= 0$<br>
+            • Horizontal/Oblique asymptote: carry out long division<br>
+            • Label asymptote equations, axial intercepts &amp; turning points
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Hyperbola</strong><br>$\frac{(x-h)^2}{a^2} - \frac{(y-k)^2}{b^2} = 1$</td>
+          <td>
+            • Centre: $(h, k)$<br>
+            • Asymptotes: set RHS $= 0 \Rightarrow y - k = \pm\frac{b}{a}(x - h)$<br>
+            • GC: <span class="gc">[apps] &gt; [Conics] &gt; [3: Hyperbola]</span>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Parabola</strong></td>
+          <td>$(y-k)^2 = 4p(x-h)$ (horizontal) or $(x-h)^2 = 4p(y-k)$ (vertical); vertex $(h, k)$.</td>
+        </tr>
+        <tr>
+          <td><strong>Circle &amp; Ellipse</strong></td>
+          <td>
+            • Circle: $(x-h)^2 + (y-k)^2 = r^2$, centre $(h,k)$, radius $r$<br>
+            • Ellipse: $\frac{(x-h)^2}{a^2} + \frac{(y-k)^2}{b^2} = 1$, horizontal radius $a$, vertical radius $b$ (use <span class="gc">ZoomSquare</span>)
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>3. Graph Transformations</h3>
+      <table>
+        <tr><th>Transformation</th><th>Mapping &amp; Geometric Description</th></tr>
+        <tr><td>$y = f(x - a)$</td><td>$(x,y) \mapsto (x+a, y)$: Translate $+x$ direction by $a$ units</td></tr>
+        <tr><td>$y = f(x) + a$</td><td>$(x,y) \mapsto (x, y+a)$: Translate $+y$ direction by $a$ units</td></tr>
+        <tr><td>$y = f(ax)$</td><td>$(x,y) \mapsto (\frac{x}{a}, y)$: Scale parallel to $x$-axis by factor $\frac{1}{a}$</td></tr>
+        <tr><td>$y = af(x)$</td><td>$(x,y) \mapsto (x, ay)$: Scale parallel to $y$-axis by factor $a$</td></tr>
+        <tr><td>$y = f(-x)$ / $-f(x)$</td><td>Reflect in $y$-axis / Reflect in $x$-axis</td></tr>
+        <tr><td>$y = |f(x)|$</td><td>Keep $y \ge 0$; reflect portion where $y < 0$ in $x$-axis</td></tr>
+        <tr><td>$y = f(|x|)$</td><td>Keep $x \ge 0$; reflect $x > 0$ portion in $y$-axis</td></tr>
+        <tr><td>$y = \frac{1}{f(x)}$</td><td>$x$-int $\leftrightarrow$ VA; $y \mapsto \frac{1}{y}$; Max $\leftrightarrow$ Min; HA $y=c \mapsto y=\frac{1}{c}$</td></tr>
+        <tr><td>$y = f'(x)$</td><td>Stationary pts $\mapsto x$-int; VA unchanged; HA/OA $\mapsto$ HA</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>4. Functions &amp; Sequences / Series</h3>
+      <table>
+        <tr><th>Concept</th><th>Core Formula / Existence Condition</th></tr>
+        <tr>
+          <td><strong>Inverse $f^{-1}$</strong></td>
+          <td>Exists iff $f$ is 1-1 (Horizontal Line Test). $D_{f^{-1}} = R_f$, $R_{f^{-1}} = D_f$. Graphs reflect in $y=x$.</td>
+        </tr>
+        <tr>
+          <td><strong>Composite $fg$</strong></td>
+          <td>Exists iff $R_g \subseteq D_f$. Domain $D_{fg} = D_g$.</td>
+        </tr>
+        <tr>
+          <td><strong>AP &amp; GP</strong></td>
+          <td>
+            • $u_n = S_n - S_{n-1}$ ($n \ge 2$), $u_1 = S_1$<br>
+            • <strong>AP:</strong> $u_n = a+(n-1)d$, $S_n = \frac{n}{2}[2a+(n-1)d]$<br>
+            • <strong>GP:</strong> $u_n = ar^{n-1}$, $S_n = \frac{a(1-r^n)}{1-r}$, $S_\infty = \frac{a}{1-r}$ ($|r|<1$)
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Sigma &amp; Recurrence</strong></td>
+          <td>
+            • $\sum_{r=1}^n r = \frac{n(n+1)}{2}$, $\sum_{r=1}^n r^2 = \frac{n(n+1)(2n+1)}{6}$, $\sum_{r=1}^n r^3 = \left[\frac{n(n+1)}{2}\right]^2$<br>
+            • GC Sequence: <span class="gc">[mode] &gt; SEQ</span>; Limit: let $u_{n+1}, u_n \to L$
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

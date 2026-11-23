@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 Summary — Part 3: Pure Math II</title>
+  <script>
+    window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  <style>
+    :root { --bg:#f8fafc; --card:#ffffff; --border:#e2e8f0; --text:#0f172a; --primary:#4f46e5; --teal:#0d9488; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 18px; font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.55; }
+    .banner { background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 10px; padding: 12px 16px; margin-bottom: 18px; font-size: 0.92rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 16px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+    .card h3 { margin: 0 0 10px; font-size: 1.05rem; color: var(--primary); border-bottom: 2px solid #e0e7ff; padding-bottom: 6px; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.87rem; margin-top: 6px; }
+    th, td { border: 1px solid var(--border); padding: 7px 9px; text-align: left; vertical-align: top; }
+    th { background: #f1f5f9; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="banner">
+    <strong>Part 3: Pure Mathematics II</strong> — Differentiation, Maclaurin Series, Integration, Differential Equations, Vectors, and Complex Numbers.
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>1. Differentiation &amp; Maclaurin Series</h3>
+      <table>
+        <tr><th>Topic</th><th>Standard Results &amp; Rules</th></tr>
+        <tr>
+          <td><strong>Derivatives</strong></td>
+          <td>
+            • $\frac{\mathrm{d}}{\mathrm{d}x}[f(x)]^n = n[f(x)]^{n-1}f'(x)$<br>
+            • $\frac{\mathrm{d}}{\mathrm{d}x}e^{f(x)} = f'(x)e^{f(x)}$, $\frac{\mathrm{d}}{\mathrm{d}x}a^x = a^x\ln a$<br>
+            • $\frac{\mathrm{d}}{\mathrm{d}x}\ln f(x) = \frac{f'(x)}{f(x)}$, $\frac{\mathrm{d}}{\mathrm{d}x}\log_a x = \frac{1}{x\ln a}$<br>
+            • <strong>MF27 Inverse Trig:</strong> $\frac{\mathrm{d}}{\mathrm{d}x}\sin^{-1}x = \frac{1}{\sqrt{1-x^2}}$, $\frac{\mathrm{d}}{\mathrm{d}x}\cos^{-1}x = -\frac{1}{\sqrt{1-x^2}}$, $\frac{\mathrm{d}}{\mathrm{d}x}\tan^{-1}x = \frac{1}{1+x^2}$
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Parametric &amp; Curve</strong></td>
+          <td>
+            • $\frac{\mathrm{d}y}{\mathrm{d}x} = \frac{\mathrm{d}y/\mathrm{d}t}{\mathrm{d}x/\mathrm{d}t}$; Normal gradient $m_N = -\frac{1}{m_T}$<br>
+            • Increasing: $f'(x) > 0$; Concave up: $f''(x) > 0$
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Maclaurin &amp; Binomial</strong></td>
+          <td>
+            • $f(x) = f(0) + f'(0)x + \frac{f''(0)}{2!}x^2 + \frac{f'''(0)}{3!}x^3 + \dots$<br>
+            • $(1+x)^n = 1 + nx + \frac{n(n-1)}{2!}x^2 + \dots$ ($|x|<1$)<br>
+            • Small angles: $\sin\theta \approx \theta$, $\cos\theta \approx 1 - \frac{\theta^2}{2}$, $\tan\theta \approx \theta$
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>2. Integration &amp; Differential Equations</h3>
+      <table>
+        <tr><th>Technique</th><th>Formula &amp; Procedure</th></tr>
+        <tr>
+          <td><strong>Standard Forms</strong></td>
+          <td>
+            • $\int f'(x)[f(x)]^n\,\mathrm{d}x = \frac{[f(x)]^{n+1}}{n+1} + c$ ($n \neq -1$)<br>
+            • $\int \frac{f'(x)}{f(x)}\,\mathrm{d}x = \ln|f(x)| + c$; $\int f'(x)e^{f(x)}\,\mathrm{d}x = e^{f(x)} + c$<br>
+            • $\sin^2 x = \frac{1-\cos 2x}{2}$, $\cos^2 x = \frac{1+\cos 2x}{2}$, $\tan^2 x = \sec^2 x - 1$<br>
+            • <strong>MF27 Quadratics:</strong> $\int \frac{1}{a^2+x^2}\mathrm{d}x = \frac{1}{a}\tan^{-1}\frac{x}{a}$, $\int \frac{1}{\sqrt{a^2-x^2}}\mathrm{d}x = \sin^{-1}\frac{x}{a}$
+          </td>
+        </tr>
+        <tr>
+          <td><strong>By Parts (LIATE)</strong></td>
+          <td>$\int u\frac{\mathrm{d}v}{\mathrm{d}x}\,\mathrm{d}x = uv - \int v\frac{\mathrm{d}u}{\mathrm{d}x}\,\mathrm{d}x$ (Log, InvTrig, Alg, Trig, Exp)</td>
+        </tr>
+        <tr>
+          <td><strong>Area &amp; Volume</strong></td>
+          <td>
+            • Area: $\int_a^b y\,\mathrm{d}x$ (above $x$-axis) or $\int_c^d x\,\mathrm{d}y$ (right of $y$-axis)<br>
+            • Volume: $\pi\int_a^b y^2\,\mathrm{d}x$ (about $x$-axis) or $\pi\int_c^d x^2\,\mathrm{d}y$ (about $y$-axis)
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Separable DEs</strong></td>
+          <td>$\frac{\mathrm{d}y}{\mathrm{d}x} = f(x)g(y) \implies \int \frac{1}{g(y)}\,\mathrm{d}y = \int f(x)\,\mathrm{d}x$</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>3. 3D Vectors</h3>
+      <table>
+        <tr><th>Concept</th><th>Formula / Vector Geometry</th></tr>
+        <tr>
+          <td><strong>Ratio Theorem</strong></td>
+          <td>$C$ divides $AB$ in ratio $\lambda : \mu \implies \vec{c} = \frac{\mu\vec{a} + \lambda\vec{b}}{\lambda + \mu}$</td>
+        </tr>
+        <tr>
+          <td><strong>Dot &amp; Cross Product</strong></td>
+          <td>
+            • $\mathbf{a}\cdot\mathbf{b} = |\mathbf{a}||\mathbf{b}|\cos\theta$; $\mathbf{a}\perp\mathbf{b} \iff \mathbf{a}\cdot\mathbf{b} = 0$<br>
+            • $|\mathbf{a}\times\mathbf{b}| = |\mathbf{a}||\mathbf{b}|\sin\theta$; $\mathbf{a}\parallel\mathbf{b} \iff \mathbf{a}\times\mathbf{b} = \mathbf{0}$<br>
+            • Area of $\triangle OAB = \frac{1}{2}|\mathbf{a}\times\mathbf{b}|$
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Projections &amp; Distances</strong></td>
+          <td>
+            • Length of projection of $\mathbf{a}$ onto $\mathbf{b}$: $|\mathbf{a}\cdot\hat{\mathbf{b}}|$<br>
+            • Projection vector: $(\mathbf{a}\cdot\hat{\mathbf{b}})\hat{\mathbf{b}}$<br>
+            • Distance from point $A$ to line $OB$: $|\mathbf{a}\times\hat{\mathbf{b}}|$<br>
+            • Distance from point $P$ to plane $\mathbf{r}\cdot\mathbf{n} = d$: $\frac{|\vec{OP}\cdot\mathbf{n} - d|}{|\mathbf{n}|}$
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Lines &amp; Planes</strong></td>
+          <td>
+            • Line: $\mathbf{r} = \mathbf{a} + \lambda\mathbf{d}$; Plane: $\mathbf{r}\cdot\mathbf{n} = \mathbf{a}\cdot\mathbf{n} = d$<br>
+            • Angle between line &amp; plane: $\sin\theta = \frac{|\mathbf{d}\cdot\mathbf{n}|}{|\mathbf{d}||\mathbf{n}|}$
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>4. Complex Numbers</h3>
+      <table>
+        <tr><th>Form &amp; Operation</th><th>Key Rules</th></tr>
+        <tr>
+          <td><strong>Forms</strong></td>
+          <td>
+            • Cartesian: $z = x + iy$, conjugate $z^* = x - iy$<br>
+            • Polar / Exponential: $z = r(\cos\theta + i\sin\theta) = re^{i\theta}$<br>
+            • Modulus $r = |z| = \sqrt{x^2+y^2}$; Principal Arg $\theta \in (-\pi, \pi]$
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Properties</strong></td>
+          <td>
+            • $zz^* = |z|^2$; $|z_1 z_2| = |z_1||z_2|$; $\left|\frac{z_1}{z_2}\right| = \frac{|z_1|}{|z_2|}$<br>
+            • $\arg(z_1 z_2) = \arg(z_1) + \arg(z_2)$; $\arg\left(\frac{z_1}{z_2}\right) = \arg(z_1) - \arg(z_2)$<br>
+            • <strong>Conjugate Root Theorem:</strong> Real polynomial coefficients $\implies$ non-real roots occur in conjugate pairs $z, z^*$.
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Geometry</strong></td>
+          <td>$ze^{i\theta}$: anti-clockwise rotation by $\theta$ about $O$; $iz$: $+90^\circ$ rotation; $z^*$: reflection in real axis.</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

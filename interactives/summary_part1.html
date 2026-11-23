@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 Summary — Part 1: O-Level Pre-Knowledge</title>
+  <script>
+    window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  <style>
+    :root { --bg:#f8fafc; --card:#ffffff; --border:#e2e8f0; --text:#0f172a; --muted:#475569; --primary:#4f46e5; --teal:#0d9488; --amber:#d97706; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 18px; font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.55; }
+    .banner { background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 10px; padding: 12px 16px; margin-bottom: 18px; font-size: 0.92rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+    .card h3 { margin: 0 0 10px; font-size: 1.05rem; color: var(--primary); border-bottom: 2px solid #e0e7ff; padding-bottom: 6px; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin-top: 6px; }
+    th, td { border: 1px solid var(--border); padding: 7px 10px; text-align: left; vertical-align: top; }
+    th { background: #f1f5f9; font-weight: 600; }
+    .pill { display: inline-block; background: #ccfbf1; color: #115e59; font-weight: 600; font-size: 0.78rem; padding: 2px 8px; border-radius: 999px; margin-bottom: 6px; }
+  </style>
+</head>
+<body>
+  <div class="banner">
+    <strong>Part 1: Pre-Knowledge from O-Level Mathematics</strong> — Assumed algebraic, trigonometric, and geometric identities frequently required without prompting in 9758 H2 Math papers.
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>1. Laws of Indices &amp; Logarithms</h3>
+      <table>
+        <tr><th>Laws of Indices</th><th>Laws of Logarithms ($a > 0, a \neq 1$)</th></tr>
+        <tr><td>$a^m \times a^n = a^{m+n}$</td><td>$\log_a(xy) = \log_a x + \log_a y$</td></tr>
+        <tr><td>$a^m \div a^n = a^{m-n}$</td><td>$\log_a\left(\frac{x}{y}\right) = \log_a x - \log_a y$</td></tr>
+        <tr><td>$(a^m)^n = a^{mn}$</td><td>$\log_a(x^r) = r\log_a x$</td></tr>
+        <tr><td>$a^0 = 1, \quad a^{-n} = \frac{1}{a^n}$</td><td>$\log_a 1 = 0, \quad \log_a a = 1$</td></tr>
+        <tr><td>$a^{\frac{m}{n}} = \sqrt[n]{a^m}$</td><td>Change of Base: $\log_a b = \frac{\log_c b}{\log_c a} = \frac{\ln b}{\ln a}$</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>2. Trigonometry &amp; Radian Measure</h3>
+      <table>
+        <tr><th>Right-Angled &amp; General Angles</th><th>Non-Right Triangle &amp; Radian Measure</th></tr>
+        <tr>
+          <td>
+            $\sin\theta = \frac{\text{Opp}}{\text{Hyp}},\ \cos\theta = \frac{\text{Adj}}{\text{Hyp}},\ \tan\theta = \frac{\text{Opp}}{\text{Adj}}$<br>
+            <strong>Complementary:</strong> $\sin(90^\circ-\theta)=\cos\theta$, $\cos(90^\circ-\theta)=\sin\theta$<br>
+            <strong>Supplementary:</strong> $\sin(180^\circ-\theta)=\sin\theta$, $\cos(180^\circ-\theta)=-\cos\theta$<br>
+            <strong>Negative:</strong> $\sin(-\theta)=-\sin\theta$, $\cos(-\theta)=\cos\theta$, $\tan(-\theta)=-\tan\theta$
+          </td>
+          <td>
+            <strong>Sine Rule:</strong> $\frac{a}{\sin A} = \frac{b}{\sin B} = \frac{c}{\sin C}$<br>
+            <strong>Cosine Rule:</strong> $a^2 = b^2 + c^2 - 2bc\cos A$<br>
+            <strong>Area of $\triangle$:</strong> $\frac{1}{2}ab\sin C$<br>
+            <strong>Arc Length:</strong> $s = r\theta$ ($\theta$ in rad)<br>
+            <strong>Sector Area:</strong> $A = \frac{1}{2}r^2\theta$ ($\theta$ in rad)
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <strong>Pythagorean Identities:</strong> $\sin^2\theta + \cos^2\theta = 1 \;\Longleftrightarrow\; \tan^2\theta + 1 = \sec^2\theta \;\Longleftrightarrow\; 1 + \cot^2\theta = \csc^2\theta$
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>3. Circle Properties</h3>
+      <table>
+        <tr><th>Theorem</th><th>Property</th></tr>
+        <tr><td>Angle at Centre</td><td>$\angle \text{ at centre} = 2 \times \angle \text{ at circumference}$</td></tr>
+        <tr><td>Angles in Same Segment</td><td>Angles subtended by the same arc are equal ($\angle a = \angle b$)</td></tr>
+        <tr><td>Angle in Semicircle</td><td>Angle subtended by diameter $= 90^\circ$</td></tr>
+        <tr><td>Radius $\perp$ Tangent</td><td>Tangent at $P$ is perpendicular to radius $OP$ ($90^\circ$)</td></tr>
+        <tr><td>Cyclic Quadrilateral</td><td>Opposite angles sum to $180^\circ$ ($\angle a + \angle b = 180^\circ$)</td></tr>
+        <tr><td>Chord &amp; Tangents</td><td>$\perp$ bisector of chord passes through centre; Tangents from external point $T$: $TP = TQ$</td></tr>
+        <tr><td>Alternate Segment / Chords</td><td>$\angle$ between tangent &amp; chord $= \angle$ in alternate segment; $AX\cdot XB = CX\cdot XD$; $AX\cdot BX = TX^2$</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>4. Similar Figures (2D &amp; 3D)</h3>
+      <span class="pill">Length • Area • Volume Ratios</span>
+      <p style="margin:6px 0;">If two figures are geometrically similar with ratio of corresponding lengths $\frac{l_1}{l_2} = k$:</p>
+      <table>
+        <tr><th>Ratio of Corresponding Sides</th><th>Ratio of Areas</th><th>Ratio of Volumes</th></tr>
+        <tr><td>$\frac{l_1}{l_2} = k$</td><td>$\frac{A_1}{A_2} = k^2 = \left(\frac{l_1}{l_2}\right)^2$</td><td>$\frac{V_1}{V_2} = k^3 = \left(\frac{l_1}{l_2}\right)^3$</td></tr>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

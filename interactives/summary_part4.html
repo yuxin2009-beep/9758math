@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9758 Summary — Part 4: Statistics &amp; GC Workflows</title>
+  <script>
+    window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  <style>
+    :root { --bg:#f8fafc; --card:#ffffff; --border:#e2e8f0; --text:#0f172a; --primary:#4f46e5; --teal:#0d9488; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 18px; font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.55; }
+    .banner { background: #ccfbf1; border: 1px solid #99f6e4; border-radius: 10px; padding: 12px 16px; margin-bottom: 18px; font-size: 0.92rem; color: #115e59; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 16px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+    .card h3 { margin: 0 0 10px; font-size: 1.05rem; color: var(--teal); border-bottom: 2px solid #ccfbf1; padding-bottom: 6px; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.87rem; margin-top: 6px; }
+    th, td { border: 1px solid var(--border); padding: 7px 9px; text-align: left; vertical-align: top; }
+    th { background: #f1f5f9; font-weight: 600; }
+    .gc { font-family: ui-monospace, monospace; background: #f1f5f9; padding: 2px 5px; border-radius: 4px; font-size: 0.81rem; color: #0f766e; }
+  </style>
+</head>
+<body>
+  <div class="banner">
+    <strong>Part 4: Probability &amp; Statistics + TI-84 Plus CE Workflows</strong> — Counting, Probability, Random Variables, Binomial &amp; Normal Distributions, CLT, Hypothesis Testing, and Regression.
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>1. P&amp;C and Probability</h3>
+      <table>
+        <tr><th>Topic</th><th>Formulas &amp; Laws</th></tr>
+        <tr>
+          <td><strong>Counting</strong></td>
+          <td>
+            • Unordered selection: $^nC_r$; Ordered arrangement: $^nP_r$<br>
+            • Identical objects: $\frac{n!}{n_1!n_2!\dots n_k!}$<br>
+            • Circle (unnumbered): $(n-1)!$; Circle (numbered): $n!$<br>
+            • Methods: Box, Grouping, Slotting, Complement
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Probability Laws</strong></td>
+          <td>
+            • $P(A \cup B) = P(A) + P(B) - P(A \cap B)$<br>
+            • Mutually exclusive: $P(A \cap B) = 0$<br>
+            • Independent: $P(A \cap B) = P(A)P(B)$<br>
+            • Conditional: $P(A|B) = \frac{P(A \cap B)}{P(B)}$
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>2. Discrete RV &amp; Binomial Distribution</h3>
+      <table>
+        <tr><th>Concept</th><th>Formula &amp; TI-84 Plus CE</th></tr>
+        <tr>
+          <td><strong>Discrete RV</strong></td>
+          <td>
+            • $\sum P(X=x) = 1$; $E(X) = \sum x P(X=x)$<br>
+            • $\text{Var}(X) = E(X^2) - [E(X)]^2$<br>
+            • $E(aX+b) = aE(X)+b$; $\text{Var}(aX+b) = a^2\text{Var}(X)$
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Binomial</strong><br>$X \sim \text{B}(n, p)$</td>
+          <td>
+            • Conditions: $n$ independent trials, 2 outcomes, constant $p$<br>
+            • $E(X) = np$, $\text{Var}(X) = np(1-p)$<br>
+            • GC: <span class="gc">[2nd][vars] &gt; binompdf</span> for $P(X=x)$; <span class="gc">binomcdf</span> for $P(X \le x)$
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>3. Normal Distribution, Sampling &amp; CLT</h3>
+      <table>
+        <tr><th>Concept</th><th>Formula &amp; TI-84 Plus CE</th></tr>
+        <tr>
+          <td><strong>Normal</strong><br>$X \sim \text{N}(\mu, \sigma^2)$</td>
+          <td>
+            • Standardisation: $Z = \frac{X - \mu}{\sigma} \sim \text{N}(0, 1)$<br>
+            • $aX \pm bY \sim \text{N}(a\mu_X \pm b\mu_Y,\; a^2\sigma_X^2 + b^2\sigma_Y^2)$<br>
+            • Sample mean: $\bar{X} \sim \text{N}\left(\mu, \frac{\sigma^2}{n}\right)$<br>
+            • GC: <span class="gc">normalcdf(lower, upper, μ, σ)</span> &amp; <span class="gc">invNorm(area, μ, σ)</span>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>CLT &amp; Unbiased Estimates</strong></td>
+          <td>
+            • For large $n$ ($n \ge 30$), by CLT, $\bar{X} \sim \text{N}\left(\mu, \frac{\sigma^2}{n}\right)$ approx.<br>
+            • $\hat{\mu} = \bar{x} = \frac{\sum x}{n}$; $s^2 = \frac{1}{n-1}\left(\sum x^2 - \frac{(\sum x)^2}{n}\right)$
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>4. Hypothesis Testing &amp; Regression</h3>
+      <table>
+        <tr><th>Topic</th><th>Exam Structure &amp; GC Commands</th></tr>
+        <tr>
+          <td><strong>Hypothesis Test</strong></td>
+          <td>
+            1. Define $X$ and $\mu$; state $H_0: \mu = \mu_0$ vs $H_1$ (1-tail or 2-tail)<br>
+            2. State distribution of $\bar{X}$ under $H_0$ (cite CLT if non-normal &amp; large $n$)<br>
+            3. GC: <span class="gc">[stat] &gt; TESTS &gt; 1:Z-Test</span> &rarr; compute $p$-value<br>
+            4. If $p\text{-value} \le \alpha$, reject $H_0$ &amp; conclude in context
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Correlation &amp; Regression</strong></td>
+          <td>
+            • Turn on $r$: <span class="gc">[mode] &gt; Stat Diagnostics: ON</span><br>
+            • Line: <span class="gc">[stat] &gt; CALC &gt; 4:LinReg(ax+b)</span>; passes through $(\bar{x}, \bar{y})$<br>
+            • Use $y$ on $x$ if $x$ is independent; use $x$ on $y$ if $y$ is independent
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</body>
+</html>
