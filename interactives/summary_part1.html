@@ -3,93 +3,577 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>9758 Summary — Part 1: O-Level Pre-Knowledge</title>
-  <script>
-    window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
-  </script>
-  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  <title>Summary Part 1: Chapter 0 Basics & O-Level Pre-Knowledge</title>
   <style>
-    :root { --bg:#f8fafc; --card:#ffffff; --border:#e2e8f0; --text:#0f172a; --muted:#475569; --primary:#4f46e5; --teal:#0d9488; --amber:#d97706; }
-    * { box-sizing: border-box; }
-    body { margin: 0; padding: 18px; font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.55; }
-    .banner { background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 10px; padding: 12px 16px; margin-bottom: 18px; font-size: 0.92rem; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; }
-    .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
-    .card h3 { margin: 0 0 10px; font-size: 1.05rem; color: var(--primary); border-bottom: 2px solid #e0e7ff; padding-bottom: 6px; }
-    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin-top: 6px; }
-    th, td { border: 1px solid var(--border); padding: 7px 10px; text-align: left; vertical-align: top; }
-    th { background: #f1f5f9; font-weight: 600; }
-    .pill { display: inline-block; background: #ccfbf1; color: #115e59; font-weight: 600; font-size: 0.78rem; padding: 2px 8px; border-radius: 999px; margin-bottom: 6px; }
+    :root {
+      --bg: #fdfbf7;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --muted: #64748b;
+      --purple: #8b5cf6;
+      --purple-dark: #7c3aed;
+      --purple-bg: #f3e8ff;
+      --blue: #0284c7;
+      --blue-bg: #e0f2fe;
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px 22px;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .frac {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      vertical-align: middle;
+      margin: 0 2px;
+      font-size: 0.88em;
+      line-height: 1.08;
+    }
+    .frac-num {
+      padding: 0 3px 1px 3px;
+      border-bottom: 1.3px solid currentColor;
+      text-align: center;
+    }
+    .frac-den {
+      padding: 1px 3px 0 3px;
+      text-align: center;
+    }
+
+    .header-box {
+      background: linear-gradient(135deg, #f5f3ff 0%, #ffffff 100%);
+      border: 1px solid #ddd6fe;
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .header-box h2 {
+      margin: 0;
+      font-size: 1.15rem;
+      color: #1e293b;
+    }
+
+    .header-box p {
+      margin: 3px 0 0 0;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .tab-bar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .tab-btn {
+      padding: 8px 14px;
+      border-radius: 9px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 0.81rem;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .tab-btn:hover {
+      border-color: var(--purple);
+      color: var(--purple-dark);
+    }
+
+    .tab-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple-dark);
+    }
+
+    .section-panel {
+      display: none;
+    }
+
+    .section-panel.active {
+      display: block;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 18px;
+      box-shadow: 0 3px 10px rgba(148, 163, 184, 0.06);
+      margin-bottom: 14px;
+    }
+
+    .kicker {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 2px 8px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+    }
+
+    .k-purple { background: var(--purple-bg); color: var(--purple-dark); }
+    .k-blue { background: var(--blue-bg); color: var(--blue); }
+    .k-teal { background: var(--teal-bg); color: var(--teal); }
+    .k-amber { background: var(--amber-bg); color: var(--amber); }
+
+    h3 {
+      margin: 4px 0 8px 0;
+      font-size: 0.98rem;
+      color: #1e293b;
+    }
+
+    table.ref-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      margin-top: 8px;
+    }
+
+    table.ref-table th, table.ref-table td {
+      border: 1px solid #e2e8f0;
+      padding: 6px 9px;
+      text-align: left;
+    }
+
+    table.ref-table th {
+      background: #f8fafc;
+      font-weight: 700;
+      color: #1e293b;
+    }
+
+    .ex-card {
+      border: 1px solid #cbd5e1;
+      border-left: 4px solid var(--blue);
+      border-radius: 10px;
+      padding: 12px 14px;
+      background: #ffffff;
+      margin-bottom: 12px;
+      font-size: 0.84rem;
+      line-height: 1.5;
+    }
+
+    .ex-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .ex-title {
+      font-weight: 800;
+      color: #0c4a6e;
+      font-size: 0.86rem;
+    }
+
+    .ans-pill {
+      font-size: 0.74rem;
+      font-weight: 700;
+      background: #f1f5f9;
+      color: #475569;
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    .sol-btn {
+      margin-top: 8px;
+      padding: 6px 12px;
+      border-radius: 7px;
+      border: 1px solid var(--teal);
+      background: var(--teal-bg);
+      color: var(--teal);
+      font-weight: 700;
+      font-size: 0.78rem;
+      cursor: pointer;
+    }
+
+    .sol-btn:hover {
+      background: var(--teal);
+      color: #ffffff;
+    }
+
+    .sol-body {
+      display: none;
+      margin-top: 10px;
+      padding: 10px 12px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      line-height: 1.55;
+      color: #1e293b;
+    }
+
+    .formula-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 9px;
+      padding: 9px 12px;
+      font-size: 0.82rem;
+      line-height: 1.55;
+      margin-bottom: 8px;
+    }
   </style>
 </head>
 <body>
-  <div class="banner">
-    <strong>Part 1: Pre-Knowledge from O-Level Mathematics</strong> — Assumed algebraic, trigonometric, and geometric identities frequently required without prompting in 9758 H2 Math papers.
+
+  <div class="header-box">
+    <div>
+      <h2>Chapter 0: Basics &amp; Assumed Knowledge (9758 H2 Mathematics)</h2>
+      <p>Complete Formula Summary &amp; Worked Examples from <em>2027 P0 Basics</em> (Sections 1 to 5)</p>
+    </div>
+    <button class="sol-btn" style="margin-top:0;" onclick="toggleAllSolutions()">Show / Hide All Worked Solutions</button>
   </div>
 
-  <div class="grid">
-    <div class="card">
-      <h3>1. Laws of Indices &amp; Logarithms</h3>
-      <table>
-        <tr><th>Laws of Indices</th><th>Laws of Logarithms ($a > 0, a \neq 1$)</th></tr>
-        <tr><td>$a^m \times a^n = a^{m+n}$</td><td>$\log_a(xy) = \log_a x + \log_a y$</td></tr>
-        <tr><td>$a^m \div a^n = a^{m-n}$</td><td>$\log_a\left(\frac{x}{y}\right) = \log_a x - \log_a y$</td></tr>
-        <tr><td>$(a^m)^n = a^{mn}$</td><td>$\log_a(x^r) = r\log_a x$</td></tr>
-        <tr><td>$a^0 = 1, \quad a^{-n} = \frac{1}{a^n}$</td><td>$\log_a 1 = 0, \quad \log_a a = 1$</td></tr>
-        <tr><td>$a^{\frac{m}{n}} = \sqrt[n]{a^m}$</td><td>Change of Base: $\log_a b = \frac{\log_c b}{\log_c a} = \frac{\ln b}{\ln a}$</td></tr>
-      </table>
-    </div>
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="openTab('sec1', this)">1. Set &amp; Interval Notation</button>
+    <button class="tab-btn" onclick="openTab('sec2', this)">2. Algebra, Logs &amp; Graphs</button>
+    <button class="tab-btn" onclick="openTab('sec3', this)">3. Geometry &amp; Trigonometry</button>
+    <button class="tab-btn" onclick="openTab('sec4', this)">4. Modulus Functions</button>
+    <button class="tab-btn" onclick="openTab('sec5', this)">5. Basic Calculus</button>
+  </div>
 
-    <div class="card">
-      <h3>2. Trigonometry &amp; Radian Measure</h3>
-      <table>
-        <tr><th>Right-Angled &amp; General Angles</th><th>Non-Right Triangle &amp; Radian Measure</th></tr>
-        <tr>
-          <td>
-            $\sin\theta = \frac{\text{Opp}}{\text{Hyp}},\ \cos\theta = \frac{\text{Adj}}{\text{Hyp}},\ \tan\theta = \frac{\text{Opp}}{\text{Adj}}$<br>
-            <strong>Complementary:</strong> $\sin(90^\circ-\theta)=\cos\theta$, $\cos(90^\circ-\theta)=\sin\theta$<br>
-            <strong>Supplementary:</strong> $\sin(180^\circ-\theta)=\sin\theta$, $\cos(180^\circ-\theta)=-\cos\theta$<br>
-            <strong>Negative:</strong> $\sin(-\theta)=-\sin\theta$, $\cos(-\theta)=\cos\theta$, $\tan(-\theta)=-\tan\theta$
-          </td>
-          <td>
-            <strong>Sine Rule:</strong> $\frac{a}{\sin A} = \frac{b}{\sin B} = \frac{c}{\sin C}$<br>
-            <strong>Cosine Rule:</strong> $a^2 = b^2 + c^2 - 2bc\cos A$<br>
-            <strong>Area of $\triangle$:</strong> $\frac{1}{2}ab\sin C$<br>
-            <strong>Arc Length:</strong> $s = r\theta$ ($\theta$ in rad)<br>
-            <strong>Sector Area:</strong> $A = \frac{1}{2}r^2\theta$ ($\theta$ in rad)
-          </td>
-        </tr>
-        <tr>
-          <td colspan="2">
-            <strong>Pythagorean Identities:</strong> $\sin^2\theta + \cos^2\theta = 1 \;\Longleftrightarrow\; \tan^2\theta + 1 = \sec^2\theta \;\Longleftrightarrow\; 1 + \cot^2\theta = \csc^2\theta$
-          </td>
-        </tr>
-      </table>
-    </div>
+  <!-- SECTION 1: SET LANGUAGE & INTERVAL NOTATION -->
+  <div id="sec1" class="section-panel active">
+    <div class="grid-2">
+      <div class="card">
+        <span class="kicker k-purple">1.1 – 1.3 Key Concepts</span>
+        <h3>Number Sets, Set Operations &amp; Intervals</h3>
+        <table class="ref-table">
+          <tr><th>Notation</th><th>Meaning</th></tr>
+          <tr><td><strong>&empty;</strong> or <strong>{}</strong></td><td>Empty (null) set with no elements</td></tr>
+          <tr><td><strong>&Nopf;</strong> = <strong>&Zopf;<sup>+</sup></strong></td><td>Positive integers {1, 2, 3, &hellip;}</td></tr>
+          <tr><td><strong>&Zopf;</strong></td><td>All integers {&hellip;, &minus;2, &minus;1, 0, 1, 2, &hellip;}</td></tr>
+          <tr><td><strong>&Zopf;<sub>0</sub><sup>+</sup></strong> / <strong>&Zopf;<sub>0</sub><sup>&minus;</sup></strong></td><td>Non-negative {0, 1, 2, &hellip;} / Non-positive {&hellip;, &minus;1, 0}</td></tr>
+          <tr><td><strong>&Qopf;</strong> / <strong>&Ropf;</strong></td><td>Rational numbers (<em>a/b, b &ne; 0</em>) / Real numbers</td></tr>
+          <tr><td><strong>&Ropf;<sup>+</sup></strong> / <strong>&Ropf;<sub>0</sub><sup>+</sup></strong></td><td>(0, &infin;) / [0, &infin;) (includes 0)</td></tr>
+          <tr><td><strong>A &sube; B</strong> / <strong>A &sub; B</strong></td><td>Subset / Proper subset (<em>A &sube; B</em> and <em>A &ne; B</em>)</td></tr>
+          <tr><td><strong>A &cup; B</strong> / <strong>A &cap; B</strong></td><td>Union (in <em>A</em> or <em>B</em> or both) / Intersection (in both)</td></tr>
+          <tr><td><strong>&Ropf; \ {2}</strong></td><td>(&minus;&infin;, 2) &cup; (2, &infin;) (exclude 2)</td></tr>
+        </table>
+      </div>
 
-    <div class="card">
-      <h3>3. Circle Properties</h3>
-      <table>
-        <tr><th>Theorem</th><th>Property</th></tr>
-        <tr><td>Angle at Centre</td><td>$\angle \text{ at centre} = 2 \times \angle \text{ at circumference}$</td></tr>
-        <tr><td>Angles in Same Segment</td><td>Angles subtended by the same arc are equal ($\angle a = \angle b$)</td></tr>
-        <tr><td>Angle in Semicircle</td><td>Angle subtended by diameter $= 90^\circ$</td></tr>
-        <tr><td>Radius $\perp$ Tangent</td><td>Tangent at $P$ is perpendicular to radius $OP$ ($90^\circ$)</td></tr>
-        <tr><td>Cyclic Quadrilateral</td><td>Opposite angles sum to $180^\circ$ ($\angle a + \angle b = 180^\circ$)</td></tr>
-        <tr><td>Chord &amp; Tangents</td><td>$\perp$ bisector of chord passes through centre; Tangents from external point $T$: $TP = TQ$</td></tr>
-        <tr><td>Alternate Segment / Chords</td><td>$\angle$ between tangent &amp; chord $= \angle$ in alternate segment; $AX\cdot XB = CX\cdot XD$; $AX\cdot BX = TX^2$</td></tr>
-      </table>
-    </div>
-
-    <div class="card">
-      <h3>4. Similar Figures (2D &amp; 3D)</h3>
-      <span class="pill">Length • Area • Volume Ratios</span>
-      <p style="margin:6px 0;">If two figures are geometrically similar with ratio of corresponding lengths $\frac{l_1}{l_2} = k$:</p>
-      <table>
-        <tr><th>Ratio of Corresponding Sides</th><th>Ratio of Areas</th><th>Ratio of Volumes</th></tr>
-        <tr><td>$\frac{l_1}{l_2} = k$</td><td>$\frac{A_1}{A_2} = k^2 = \left(\frac{l_1}{l_2}\right)^2$</td><td>$\frac{V_1}{V_2} = k^3 = \left(\frac{l_1}{l_2}\right)^3$</td></tr>
-      </table>
+      <div>
+        <div class="ex-card">
+          <div class="ex-header">
+            <span class="ex-title">Chapter 0 — Example 1 (Interval Operations)</span>
+            <span class="ans-pill">Section 1.3</span>
+          </div>
+          Given that <em>B = [&minus;6, &minus;1]</em>, <em>C = (&minus;2, 3]</em>, and <em>D = (0, 5)</em>, write down:<br>
+          <strong>(a)</strong> <em>B &cup; C</em> &nbsp;&nbsp; <strong>(b)</strong> <em>B &cap; C</em> &nbsp;&nbsp; <strong>(c)</strong> <em>B &cap; D</em> &nbsp;&nbsp; <strong>(d)</strong> <em>B &cup; D</em> &nbsp;&nbsp; <strong>(e)</strong> <em>C &cup; &Ropf;<sub>0</sub><sup>+</sup></em>.
+          <br><button class="sol-btn" onclick="toggleSol('s1')">Toggle Worked Solution</button>
+          <div class="sol-body" id="s1">
+            Visualising the intervals on a real number line:<br>
+            <strong>(a)</strong> <em>B &cup; C = [&minus;6, &minus;1] &cup; (&minus;2, 3] =</em> <strong>[&minus;6, 3]</strong>.<br>
+            <strong>(b)</strong> <em>B &cap; C = [&minus;6, &minus;1] &cap; (&minus;2, 3] =</em> <strong>(&minus;2, &minus;1]</strong>.<br>
+            <strong>(c)</strong> <em>B &cap; D = [&minus;6, &minus;1] &cap; (0, 5) =</em> <strong>&empty;</strong> (disjoint intervals).<br>
+            <strong>(d)</strong> <em>B &cup; D =</em> <strong>[&minus;6, &minus;1] &cup; (0, 5)</strong>.<br>
+            <strong>(e)</strong> Since <em>&Ropf;<sub>0</sub><sup>+</sup> = [0, &infin;)</em>, <em>C &cup; &Ropf;<sub>0</sub><sup>+</sup> = (&minus;2, 3] &cup; [0, &infin;) =</em> <strong>(&minus;2, &infin;)</strong>.
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+
+  <!-- SECTION 2: ALGEBRA, LOGS & GRAPHS -->
+  <div id="sec2" class="section-panel">
+    <div class="grid-2">
+      <div class="card">
+        <span class="kicker k-purple">2.1 – 2.3 Key Identities &amp; Rules</span>
+        <h3>Quadratics, Polynomials, Partial Fractions &amp; Logs</h3>
+        <div class="formula-box">
+          <strong>Quadratics (<em>ax<sup>2</sup> + bx + c = 0, a &ne; 0</em>):</strong><br>
+          &bull; Sum of roots: <em>&alpha; + &beta; = &minus;b/a</em>; Product: <em>&alpha;&beta; = c/a</em>.<br>
+          &bull; Discriminant <em>&Delta; = b<sup>2</sup> &minus; 4ac</em>: <em>&Delta; &gt; 0</em> (2 real distinct), <em>&Delta; = 0</em> (equal), <em>&Delta; &lt; 0</em> (no real roots).<br>
+          &bull; Always positive: <em>a &gt; 0</em> and <em>b<sup>2</sup> &minus; 4ac &lt; 0</em>.
+        </div>
+        <div class="formula-box">
+          <strong>Standard Factorisations:</strong><br>
+          &bull; <em>a<sup>2</sup> &minus; b<sup>2</sup> = (a + b)(a &minus; b)</em><br>
+          &bull; <em>a<sup>3</sup> &minus; b<sup>3</sup> = (a &minus; b)(a<sup>2</sup> + ab + b<sup>2</sup>)</em><br>
+          &bull; <em>a<sup>3</sup> + b<sup>3</sup> = (a + b)(a<sup>2</sup> &minus; ab + b<sup>2</sup>)</em>
+        </div>
+        <div class="formula-box">
+          <strong>Partial Fractions (Check deg <em>P</em> &lt; deg <em>Q</em> first!):</strong><br>
+          &bull; Linear: <em><span class="frac"><span class="frac-num">A</span><span class="frac-den">ax + b</span></span></em> &nbsp;|&nbsp; Repeated: <em><span class="frac"><span class="frac-num">B</span><span class="frac-den">cx + d</span></span> + <span class="frac"><span class="frac-num">C</span><span class="frac-den">(cx + d)<sup>2</sup></span></span></em> &nbsp;|&nbsp; Irreducible quadratic: <em><span class="frac"><span class="frac-num">Bx + C</span><span class="frac-den">x<sup>2</sup> + c<sup>2</sup></span></span></em>.
+        </div>
+        <div class="formula-box">
+          <strong>Exponentials &amp; Logarithms (<em>a &gt; 0, a &ne; 1</em>):</strong><br>
+          &bull; <em>y = a<sup>x</sup> &hArr; x = log<sub>a</sub> y</em>; &nbsp;<em>x = e<sup>ln x</sup></em>; &nbsp;Change of base: <em>log<sub>a</sub> b = <span class="frac"><span class="frac-num">ln b</span><span class="frac-den">ln a</span></span></em>.
+        </div>
+      </div>
+
+      <div>
+        <div class="ex-card">
+          <div class="ex-header">
+            <span class="ex-title">Chapter 0 — Example 2 &amp; Example 3 (Quadratics)</span>
+            <span class="ans-pill">Section 2.1</span>
+          </div>
+          <strong>Ex 2:</strong> By completing the square, (i) show that <em>2x<sup>2</sup> &minus; 3x + 2</em> is always positive; (ii) find the minimum value of <em>2x<sup>2</sup> + 2x + 3</em> and deduce the range of <em><span class="frac"><span class="frac-num">1</span><span class="frac-den">2x<sup>2</sup> + 2x + 3</span></span></em>.<br>
+          <strong>Ex 3:</strong> (a) Find <em>k</em> if roots of <em>3x<sup>2</sup> + kx + 12 = 0</em> are equal. (b) Show roots of <em>ax<sup>2</sup> + (a + b)x + b = 0</em> are real for all non-zero <em>a, b</em>.
+          <br><button class="sol-btn" onclick="toggleSol('s2_1')">Toggle Worked Solution</button>
+          <div class="sol-body" id="s2_1">
+            <strong>Ex 2(i):</strong> <em>2x<sup>2</sup> &minus; 3x + 2 = 2(x &minus; <span class="frac"><span class="frac-num">3</span><span class="frac-den">4</span></span>)<sup>2</sup> + <span class="frac"><span class="frac-num">7</span><span class="frac-den">8</span></span></em>. Since <em>(x &minus; <span class="frac"><span class="frac-num">3</span><span class="frac-den">4</span></span>)<sup>2</sup> &ge; 0</em> for all <em>x &isin; &Ropf;</em>, expression &ge; <em><span class="frac"><span class="frac-num">7</span><span class="frac-den">8</span></span> &gt; 0</em> (always positive).<br>
+            <strong>Ex 2(ii):</strong> <em>2x<sup>2</sup> + 2x + 3 = 2(x + <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span>)<sup>2</sup> + <span class="frac"><span class="frac-num">5</span><span class="frac-den">2</span></span></em> &rArr; min value is <strong>5/2</strong>. Hence <em>2x<sup>2</sup> + 2x + 3 &ge; <span class="frac"><span class="frac-num">5</span><span class="frac-den">2</span></span> &rArr;</em> range of reciprocal is <strong>(0, 2/5]</strong>.<br>
+            <strong>Ex 3(a):</strong> Equal roots &rArr; <em>k<sup>2</sup> &minus; 4(3)(12) = 0 &rArr; k<sup>2</sup> = 144 &rArr;</em> <strong>k = &plusmn;12</strong>.<br>
+            <strong>Ex 3(b):</strong> Discriminant <em>&Delta; = (a + b)<sup>2</sup> &minus; 4ab = a<sup>2</sup> &minus; 2ab + b<sup>2</sup> = (a &minus; b)<sup>2</sup> &ge; 0</em> for all <em>a, b &isin; &Ropf;</em> &rArr; roots are always real.
+          </div>
+        </div>
+
+        <div class="ex-card">
+          <div class="ex-header">
+            <span class="ex-title">Chapter 0 — Example 4, Example 5 &amp; Example 6 (Polynomials &amp; Partial Fractions)</span>
+            <span class="ans-pill">Section 2.2</span>
+          </div>
+          <strong>Ex 4:</strong> (a) Find quotient and remainder when <em>x<sup>3</sup> + 3x<sup>2</sup> &minus; 6x + 2</em> is divided by <em>x + 2</em>. (b) Factorise <em>x<sup>3</sup> &minus; 2x + 1</em>.<br>
+          <strong>Ex 5:</strong> Factorise completely: (a) <em>x<sup>3</sup> + 8</em>; (b) <em>x<sup>6</sup> &minus; 64</em>.<br>
+          <strong>Ex 6:</strong> Express in partial fractions: (a) <em><span class="frac"><span class="frac-num">2x</span><span class="frac-den">x<sup>2</sup> &minus; 1</span></span></em>; (b) <em><span class="frac"><span class="frac-num">3x<sup>2</sup> + 3x + 2</span><span class="frac-den">(x + 1)(x<sup>2</sup> + 1)</span></span></em>; (c) <em><span class="frac"><span class="frac-num">11 &minus; x &minus; x<sup>2</sup></span><span class="frac-den">(x + 2)(x &minus; 1)<sup>2</sup></span></span></em>; (d) <em><span class="frac"><span class="frac-num">2x<sup>2</sup> + 6x &minus; 5</span><span class="frac-den">(x &minus; 1)(x + 2)</span></span></em>.
+          <br><button class="sol-btn" onclick="toggleSol('s2_2')">Toggle Worked Solution</button>
+          <div class="sol-body" id="s2_2">
+            <strong>Ex 4(a):</strong> Long division gives quotient <strong>x<sup>2</sup> + x &minus; 8</strong> and remainder <strong>18</strong>.<br>
+            <strong>Ex 4(b):</strong> Sub <em>x = 1</em>: <em>1 &minus; 2 + 1 = 0</em>, so <em>(x &minus; 1)</em> is a factor. Dividing gives <em>(x &minus; 1)(x<sup>2</sup> + x &minus; 1) =</em> <strong>(x &minus; 1)(x &minus; <span class="frac"><span class="frac-num">&minus;1 + &radic;5</span><span class="frac-den">2</span></span>)(x &minus; <span class="frac"><span class="frac-num">&minus;1 &minus; &radic;5</span><span class="frac-den">2</span></span>)</strong>.<br>
+            <strong>Ex 5(a):</strong> <em>x<sup>3</sup> + 2<sup>3</sup> =</em> <strong>(x + 2)(x<sup>2</sup> &minus; 2x + 4)</strong>.<br>
+            <strong>Ex 5(b):</strong> <em>(x<sup>2</sup>)<sup>3</sup> &minus; 4<sup>3</sup> = (x<sup>2</sup> &minus; 4)(x<sup>4</sup> + 4x<sup>2</sup> + 16) =</em> <strong>(x &minus; 2)(x + 2)(x<sup>4</sup> + 4x<sup>2</sup> + 16)</strong> (note: <em>x<sup>4</sup> + 4x<sup>2</sup> + 16 = (x<sup>2</sup> + 4)<sup>2</sup> &minus; 4x<sup>2</sup> = (x<sup>2</sup> &minus; 2x + 4)(x<sup>2</sup> + 2x + 4)</em>).<br>
+            <strong>Ex 6(a):</strong> <strong><span class="frac"><span class="frac-num">1</span><span class="frac-den">x &minus; 1</span></span> + <span class="frac"><span class="frac-num">1</span><span class="frac-den">x + 1</span></span></strong>.<br>
+            <strong>Ex 6(b):</strong> <strong><span class="frac"><span class="frac-num">1</span><span class="frac-den">x + 1</span></span> + <span class="frac"><span class="frac-num">2x + 1</span><span class="frac-den">x<sup>2</sup> + 1</span></span></strong>.<br>
+            <strong>Ex 6(c):</strong> <strong><span class="frac"><span class="frac-num">1</span><span class="frac-den">x + 2</span></span> &minus; <span class="frac"><span class="frac-num">2</span><span class="frac-den">x &minus; 1</span></span> + <span class="frac"><span class="frac-num">3</span><span class="frac-den">(x &minus; 1)<sup>2</sup></span></span></strong>.<br>
+            <strong>Ex 6(d):</strong> Improper (deg 2 / deg 2): <em>2 + <span class="frac"><span class="frac-num">4x &minus; 1</span><span class="frac-den">(x &minus; 1)(x + 2)</span></span> =</em> <strong>2 + <span class="frac"><span class="frac-num">1</span><span class="frac-den">x &minus; 1</span></span> + <span class="frac"><span class="frac-num">3</span><span class="frac-den">x + 2</span></span></strong>.
+          </div>
+        </div>
+
+        <div class="ex-card">
+          <div class="ex-header">
+            <span class="ex-title">Chapter 0 — Example 7, Example 8 &amp; Example 9 (Logs &amp; Power/Exp Graphs)</span>
+            <span class="ans-pill">Section 2.3</span>
+          </div>
+          <strong>Ex 7:</strong> Solve in exact form: (a) <em>log<sub>x</sub>(3x &minus; 2) = 2</em>; (b) <em>(3x)<sup>ln 3</sup> = (4x)<sup>ln 4</sup></em>.<br>
+          <strong>Ex 8 &amp; 9:</strong> Key graph features for (8a) <em>y = x<sup>2</sup></em> vs <em>y = x<sup>4</sup></em>, (8b) <em>y = x<sup>1/3</sup></em> vs <em>y = x<sup>3</sup></em>, (8c) <em>y = 1/x</em> vs <em>y = 1/x<sup>2</sup></em>, (9a) <em>y = 2<sup>x</sup></em> vs <em>y = log<sub>2</sub> x</em>, (9b) <em>y = e<sup>&minus;x</sup></em> vs <em>y = 1/10<sup>x</sup></em>.
+          <br><button class="sol-btn" onclick="toggleSol('s2_3')">Toggle Worked Solution</button>
+          <div class="sol-body" id="s2_3">
+            <strong>Ex 7(a):</strong> <em>x<sup>2</sup> = 3x &minus; 2 &rArr; (x &minus; 1)(x &minus; 2) = 0</em>. Since base <em>x &ne; 1</em>, <strong>x = 2</strong>.<br>
+            <strong>Ex 7(b):</strong> Take <em>ln</em> (requires <em>x &gt; 0</em>): <em>(ln 3)(ln 3 + ln x) = (ln 4)(ln 4 + ln x) &rArr; ln x (ln 3 &minus; ln 4) = (ln 4)<sup>2</sup> &minus; (ln 3)<sup>2</sup> = (ln 4 &minus; ln 3)(ln 4 + ln 3) &rArr; ln x = &minus;ln 12 &rArr;</em> <strong>x = 1/12</strong>.<br>
+            <strong>Ex 8 &amp; 9 Graph Summary:</strong><br>
+            &bull; <em>y = 2<sup>x</sup></em>: y-int (0, 1), horizontal asymptote <em>y = 0</em> (as <em>x &rarr; &minus;&infin;</em>). Reflection in <em>y = x</em> gives <em>y = log<sub>2</sub> x</em>: x-int (1, 0), vertical asymptote <em>x = 0</em>.<br>
+            &bull; <em>y = e<sup>&minus;x</sup></em> and <em>y = 10<sup>&minus;x</sup></em> both pass through (0, 1) with HA <em>y = 0</em> (<em>x &rarr; &infin;</em>); <em>10<sup>&minus;x</sup></em> is steeper for <em>x &lt; 0</em> and closer to 0 for <em>x &gt; 0</em>.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: GEOMETRY & TRIGONOMETRY -->
+  <div id="sec3" class="section-panel">
+    <div class="grid-2">
+      <div class="card">
+        <span class="kicker k-purple">3.1 – 3.2 Special Values &amp; Identities</span>
+        <h3>Trigonometric Formulae &amp; Special Angles</h3>
+        <table class="ref-table">
+          <tr><th><em>x</em></th><th>0</th><th><em>&pi;/6</em></th><th><em>&pi;/4</em></th><th><em>&pi;/3</em></th><th><em>&pi;/2</em></th></tr>
+          <tr><td><strong>sin <em>x</em></strong></td><td>0</td><td><em>1/2</em></td><td><em>&radic;2/2</em></td><td><em>&radic;3/2</em></td><td>1</td></tr>
+          <tr><td><strong>cos <em>x</em></strong></td><td>1</td><td><em>&radic;3/2</em></td><td><em>&radic;2/2</em></td><td><em>1/2</em></td><td>0</td></tr>
+          <tr><td><strong>tan <em>x</em></strong></td><td>0</td><td><em>1/&radic;3</em></td><td>1</td><td><em>&radic;3</em></td><td>undef.</td></tr>
+        </table>
+        <div class="formula-box" style="margin-top:10px;">
+          <strong>Triangle Rules:</strong><br>
+          &bull; Sine Rule: <em><span class="frac"><span class="frac-num">a</span><span class="frac-den">sin A</span></span> = <span class="frac"><span class="frac-num">b</span><span class="frac-den">sin B</span></span></em> &nbsp;|&nbsp; Cosine Rule: <em>c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup> &minus; 2ab cos C</em><br>
+          &bull; Area: <em>&frac12; ab sin C</em>
+        </div>
+        <div class="formula-box">
+          <strong>Compound &amp; Double Angles:</strong><br>
+          &bull; <em>sin(A &plusmn; B) = sin A cos B &plusmn; cos A sin B</em><br>
+          &bull; <em>cos(A &plusmn; B) = cos A cos B &#8723; sin A sin B</em><br>
+          &bull; <em>tan(A &plusmn; B) = <span class="frac"><span class="frac-num">tan A &plusmn; tan B</span><span class="frac-den">1 &#8723; tan A tan B</span></span></em><br>
+          &bull; <em>sin 2A = 2 sin A cos A</em>; &nbsp;<em>cos 2A = cos<sup>2</sup>A &minus; sin<sup>2</sup>A = 2cos<sup>2</sup>A &minus; 1 = 1 &minus; 2sin<sup>2</sup>A</em>.
+        </div>
+      </div>
+
+      <div>
+        <div class="ex-card">
+          <div class="ex-header">
+            <span class="ex-title">Chapter 0 — Example 11 &amp; Example 12 (Exact Trig &amp; Triangle Rules)</span>
+            <span class="ans-pill">Section 3.1</span>
+          </div>
+          <strong>Ex 11:</strong> Simplify to non-trig fractions with integral denominator: (a) <em><span class="frac"><span class="frac-num">cos(3&pi;/4) + sin(7&pi;/4)</span><span class="frac-den">tan(5&pi;/3) + cot(11&pi;/3)</span></span></em>; (b) <em>tan(<span class="frac"><span class="frac-num">7&pi;</span><span class="frac-den">12</span></span>)</em>.<br>
+          <strong>Ex 12:</strong> In &triangle;<em>ABC</em> with point <em>P</em> on <em>BC</em>, <em>&ang;ABP = 45&deg;</em>, <em>&ang;APC = 60&deg;</em>, <em>AP = 5 cm</em>, <em>CP = 8 cm</em>. Calculate (i) <em>AB</em>, (ii) <em>AC</em>, (iii) area of &triangle;<em>ABC</em>.
+          <br><button class="sol-btn" onclick="toggleSol('s3_1')">Toggle Worked Solution</button>
+          <div class="sol-body" id="s3_1">
+            <strong>Ex 11(a):</strong> <em><span class="frac"><span class="frac-num">&minus;&radic;2/2 &minus; &radic;2/2</span><span class="frac-den">&minus;&radic;3 &minus; 1/&radic;3</span></span> = <span class="frac"><span class="frac-num">&minus;&radic;2</span><span class="frac-den">&minus;4/&radic;3</span></span> =</em> <strong><span class="frac"><span class="frac-num">&radic;6</span><span class="frac-den">4</span></span></strong>.<br>
+            <strong>Ex 11(b):</strong> <em>tan(<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">3</span></span> + <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">4</span></span>) = <span class="frac"><span class="frac-num">&radic;3 + 1</span><span class="frac-den">1 &minus; &radic;3</span></span> = <span class="frac"><span class="frac-num">(&radic;3 + 1)<sup>2</sup></span><span class="frac-den">1 &minus; 3</span></span> =</em> <strong>&minus;2 &minus; &radic;3</strong>.<br>
+            <strong>Ex 12(i):</strong> <em>&ang;APB = 120&deg;</em>. Sine rule in &triangle;<em>ABP</em>: <em><span class="frac"><span class="frac-num">AB</span><span class="frac-den">sin 120&deg;</span></span> = <span class="frac"><span class="frac-num">5</span><span class="frac-den">sin 45&deg;</span></span> &rArr; AB = <span class="frac"><span class="frac-num">5(&radic;3/2)</span><span class="frac-den">&radic;2/2</span></span> =</em> <strong><span class="frac"><span class="frac-num">5&radic;6</span><span class="frac-den">2</span></span> cm</strong>.<br>
+            <strong>Ex 12(ii):</strong> Cosine rule in &triangle;<em>APC</em>: <em>AC<sup>2</sup> = 5<sup>2</sup> + 8<sup>2</sup> &minus; 2(5)(8) cos 60&deg; = 25 + 64 &minus; 40 = 49 &rArr;</em> <strong>AC = 7 cm</strong>.<br>
+            <strong>Ex 12(iii):</strong> <em>&ang;BAP = 15&deg; &rArr; BP = <span class="frac"><span class="frac-num">5 sin 15&deg;</span><span class="frac-den">sin 45&deg;</span></span> &approx; 1.830 cm</em>. Area = <em>&frac12; (BP + 8)(5 sin 60&deg;) &approx;</em> <strong>21.3 cm<sup>2</sup></strong>.
+          </div>
+        </div>
+
+        <div class="ex-card">
+          <div class="ex-header">
+            <span class="ex-title">Chapter 0 — Example 13 &amp; Example 14 (Trig Equations &amp; Identities)</span>
+            <span class="ans-pill">Section 3.2</span>
+          </div>
+          <strong>Ex 13:</strong> Solve for <em>0 &le; x &le; 2&pi;</em>: (a) <em>(sin x + 1)(cos x + 2) = 0</em>; (b) <em>sec x = 4 cos x</em>; (c) <em>cos 2x + sin x = 0</em>; (d) <em>cos x + &radic;3 sin x = &radic;3</em>.<br>
+          <strong>Ex 14:</strong> Prove identities (a) <em><span class="frac"><span class="frac-num">sin x</span><span class="frac-den">1 + cos x</span></span> &equiv; <span class="frac"><span class="frac-num">1 &minus; cos x</span><span class="frac-den">sin x</span></span></em>; (b) <em><span class="frac"><span class="frac-num">sin 2x</span><span class="frac-den">1 + cos 2x</span></span> &equiv; tan x</em>; (c) <em>cos 2x &equiv; <span class="frac"><span class="frac-num">1 &minus; tan<sup>2</sup>x</span><span class="frac-den">1 + tan<sup>2</sup>x</span></span></em>; (d) <em>cos P + cos Q &equiv; 2 cos(<span class="frac"><span class="frac-num">P + Q</span><span class="frac-den">2</span></span>) cos(<span class="frac"><span class="frac-num">P &minus; Q</span><span class="frac-den">2</span></span>)</em>.
+          <br><button class="sol-btn" onclick="toggleSol('s3_2')">Toggle Worked Solution</button>
+          <div class="sol-body" id="s3_2">
+            <strong>Ex 13(a):</strong> <em>sin x = &minus;1</em> (since <em>cos x = &minus;2</em> has no solution) &rArr; <strong>x = 3&pi;/2</strong>.<br>
+            <strong>Ex 13(b):</strong> <em>cos<sup>2</sup>x = <span class="frac"><span class="frac-num">1</span><span class="frac-den">4</span></span> &rArr; cos x = &plusmn;<span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span> &rArr;</em> <strong>x = &pi;/3, 2&pi;/3, 4&pi;/3, 5&pi;/3</strong>.<br>
+            <strong>Ex 13(c):</strong> <em>1 &minus; 2sin<sup>2</sup>x + sin x = 0 &rArr; (2sin x + 1)(sin x &minus; 1) = 0 &rArr; sin x = 1</em> or <em>&minus;<span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span> &rArr;</em> <strong>x = &pi;/2, 7&pi;/6, 11&pi;/6</strong>.<br>
+            <strong>Ex 13(d):</strong> <em>2 cos(x &minus; <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">3</span></span>) = &radic;3 &rArr; x &minus; <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">3</span></span> = &minus;<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">6</span></span>, <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">6</span></span> &rArr;</em> <strong>x = &pi;/6, &pi;/2</strong>.<br>
+            <strong>Ex 14 Proofs:</strong><br>
+            &bull; (a) LHS <em>= <span class="frac"><span class="frac-num">sin x(1 &minus; cos x)</span><span class="frac-den">1 &minus; cos<sup>2</sup>x</span></span> = <span class="frac"><span class="frac-num">sin x(1 &minus; cos x)</span><span class="frac-den">sin<sup>2</sup>x</span></span> =</em> RHS.<br>
+            &bull; (b) LHS <em>= <span class="frac"><span class="frac-num">2 sin x cos x</span><span class="frac-den">2 cos<sup>2</sup>x</span></span> = tan x =</em> RHS.<br>
+            &bull; (c) RHS <em>= <span class="frac"><span class="frac-num">1 &minus; sin<sup>2</sup>x/cos<sup>2</sup>x</span><span class="frac-den">sec<sup>2</sup>x</span></span> = cos<sup>2</sup>x &minus; sin<sup>2</sup>x = cos 2x =</em> LHS.<br>
+            &bull; (d) Let <em>A = <span class="frac"><span class="frac-num">P + Q</span><span class="frac-den">2</span></span></em>, <em>B = <span class="frac"><span class="frac-num">P &minus; Q</span><span class="frac-den">2</span></span></em> &rArr; <em>cos(A + B) + cos(A &minus; B) = 2 cos A cos B</em>.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: MODULUS FUNCTIONS -->
+  <div id="sec4" class="section-panel">
+    <div class="grid-2">
+      <div class="card">
+        <span class="kicker k-purple">4.1 – 4.3 Properties &amp; Graph Sketching</span>
+        <h3>Absolute Value |<em>f(x)</em>| Rules</h3>
+        <div class="formula-box">
+          <strong>Definition:</strong> <em>|x| = x</em> if <em>x &ge; 0</em>, and <em>&minus;x</em> if <em>x &lt; 0</em>.<br>
+          &bull; <em>|xy| = |x||y|</em>; &nbsp;<em>|x/y| = |x|/|y|</em> (<em>y &ne; 0</em>)<br>
+          &bull; <em>|x<sup>2</sup>| = |x|<sup>2</sup> = x<sup>2</sup></em>; &nbsp;<em>&radic;(x<sup>2</sup>) = |x|</em><br>
+          &bull; For <em>a &gt; 0</em>: <em>|x| = a &hArr; x = &plusmn;a</em>.
+        </div>
+        <div class="formula-box">
+          <strong>Sketching <em>y = |f(x)|</em>:</strong><br>
+          Retain the portion of <em>y = f(x)</em> on or above the x-axis (<em>f(x) &ge; 0</em>), and reflect the portion below the x-axis (<em>f(x) &lt; 0</em>) upward across the x-axis (forming sharp corners at x-intercepts).
+        </div>
+      </div>
+
+      <div>
+        <div class="ex-card">
+          <div class="ex-header">
+            <span class="ex-title">Chapter 0 — Example 15 &amp; Example 17 (Modulus Bounds &amp; Equations)</span>
+            <span class="ans-pill">Sections 4.1 – 4.3</span>
+          </div>
+          <strong>Ex 15:</strong> Given <em>x &isin; [&minus;5, 3]</em> and <em>y &isin; [1, 6]</em>, find the largest and least values of: (a) <em>|x &minus; y|</em>, (b) <em>|x + y|</em>, (c) <em>|xy|</em>, (d) <em>|x<sup>2</sup>y|</em>.<br>
+          <strong>Ex 17(b):</strong> Solve: (i) <em>|x<sup>2</sup> &minus; 2x &minus; 3| = 5</em>; (ii) <em>|x<sup>2</sup> &minus; 2x &minus; 3| = &minus;1</em>; (iii) <em>|ln x| = 1</em>; (iv) <em>|ln x| = |2x<sup>2</sup> &minus; 2x &minus; 3|</em>.
+          <br><button class="sol-btn" onclick="toggleSol('s4_1')">Toggle Worked Solution</button>
+          <div class="sol-body" id="s4_1">
+            <strong>Ex 15:</strong><br>
+            &bull; <strong>(a) |x &minus; y|:</strong> Largest at <em>x = &minus;5, y = 6 &rArr;</em> <strong>11</strong>; Least when <em>x = y</em> (e.g. <em>1</em>) &rArr; <strong>0</strong>.<br>
+            &bull; <strong>(b) |x + y|:</strong> Largest at <em>x = 3, y = 6 &rArr;</em> <strong>9</strong>; Least when <em>x + y = 0</em> (e.g. <em>x = &minus;2, y = 2</em>) &rArr; <strong>0</strong>.<br>
+            &bull; <strong>(c) |xy|:</strong> Largest at <em>x = &minus;5, y = 6 &rArr;</em> <strong>30</strong>; Least at <em>x = 0 &rArr;</em> <strong>0</strong>.<br>
+            &bull; <strong>(d) |x<sup>2</sup>y|:</strong> Largest at <em>x = &minus;5, y = 6 &rArr; 25 &times; 6 =</em> <strong>150</strong>; Least at <em>x = 0 &rArr;</em> <strong>0</strong>.<br><br>
+            <strong>Ex 17(b):</strong><br>
+            &bull; <strong>(i)</strong> <em>x<sup>2</sup> &minus; 2x &minus; 3 = 5 &rArr; (x &minus; 4)(x + 2) = 0 &rArr; x = &minus;2, 4</em> (and <em>x<sup>2</sup> &minus; 2x &minus; 3 = &minus;5</em> has no real roots) &rArr; <strong>&minus;2, 4</strong>.<br>
+            &bull; <strong>(ii)</strong> Modulus cannot be negative &rArr; <strong>no solution</strong>.<br>
+            &bull; <strong>(iii)</strong> <em>ln x = &plusmn;1 &rArr; x = e<sup>&minus;1</sup>, e</em> &approx; <strong>0.368, 2.72</strong>.<br>
+            &bull; <strong>(iv)</strong> By GC intersection of <em>Y<sub>1</sub> = |ln X|</em> and <em>Y<sub>2</sub> = |2X<sup>2</sup> &minus; 2X &minus; 3|</em>: <strong>x &approx; 0.0456, 2.73, 3.28</strong>.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: BASIC CALCULUS -->
+  <div id="sec5" class="section-panel">
+    <div class="grid-2">
+      <div class="card">
+        <span class="kicker k-purple">5.1 – 5.2 Differentiation &amp; Stationary Points</span>
+        <h3>Product Rule, Quotient Rule &amp; Nature Tests</h3>
+        <div class="formula-box">
+          <strong>Product Rule:</strong> <em><span class="frac"><span class="frac-num">d</span><span class="frac-den">dx</span></span>(uv) = u <span class="frac"><span class="frac-num">dv</span><span class="frac-den">dx</span></span> + v <span class="frac"><span class="frac-num">du</span><span class="frac-den">dx</span></span></em><br><br>
+          <strong>Quotient Rule:</strong> <em><span class="frac"><span class="frac-num">d</span><span class="frac-den">dx</span></span>(<span class="frac"><span class="frac-num">u</span><span class="frac-den">v</span></span>) = <span class="frac"><span class="frac-num">v <span class="frac"><span class="frac-num">du</span><span class="frac-den">dx</span></span> &minus; u <span class="frac"><span class="frac-num">dv</span><span class="frac-den">dx</span></span></span><span class="frac-den">v<sup>2</sup></span></span></em>
+        </div>
+        <div class="formula-box">
+          <strong>Stationary Points (<em><span class="frac"><span class="frac-num">dy</span><span class="frac-den">dx</span></span> = 0</em>):</strong><br>
+          &bull; <strong>Local Maximum:</strong> <em><span class="frac"><span class="frac-num">d<sup>2</sup>y</span><span class="frac-den">dx<sup>2</sup></span></span> &lt; 0</em> (or gradient changes <em>+ &rarr; 0 &rarr; &minus;</em>).<br>
+          &bull; <strong>Local Minimum:</strong> <em><span class="frac"><span class="frac-num">d<sup>2</sup>y</span><span class="frac-den">dx<sup>2</sup></span></span> &gt; 0</em> (or gradient changes <em>&minus; &rarr; 0 &rarr; +</em>).<br>
+          &bull; <strong>Stationary Point of Inflexion:</strong> gradient keeps same sign across stationary point.
+        </div>
+      </div>
+
+      <div>
+        <div class="ex-card">
+          <div class="ex-header">
+            <span class="ex-title">Chapter 0 — Section 5.1 &amp; 5.2 Worked Examples</span>
+            <span class="ans-pill">Calculus</span>
+          </div>
+          <strong>Ex 5.1:</strong> Differentiate with respect to <em>x</em>:<br>
+          (a) <em>y = x + (2a + 1) + <span class="frac"><span class="frac-num">(a + 1)<sup>2</sup></span><span class="frac-den">x &minus; 1</span></span></em> (<em>x &ne; 1, a &gt; 0</em>)<br>
+          (b) <em>y = <span class="frac"><span class="frac-num">x<sup>2</sup> &minus; 4x + k<sup>2</sup></span><span class="frac-den">x &minus; k</span></span></em> (<em>x &ne; k, k &ne; 0, 2</em>)<br>
+          <strong>Ex 5.2:</strong> Find the exact coordinates of the stationary points on <em>y = <span class="frac"><span class="frac-num">x<sup>2</sup> + 9</span><span class="frac-den">4 &minus; x</span></span></em> (<em>x &ne; 4</em>) and determine their nature.
+          <br><button class="sol-btn" onclick="toggleSol('s5_1')">Toggle Worked Solution</button>
+          <div class="sol-body" id="s5_1">
+            <strong>Ex 5.1(a):</strong> Treat <em>a</em> as a constant: <em><span class="frac"><span class="frac-num">dy</span><span class="frac-den">dx</span></span> =</em> <strong>1 &minus; <span class="frac"><span class="frac-num">(a + 1)<sup>2</sup></span><span class="frac-den">(x &minus; 1)<sup>2</sup></span></span></strong>.<br><br>
+            <strong>Ex 5.1(b):</strong> By Quotient Rule:<br>
+            <em><span class="frac"><span class="frac-num">dy</span><span class="frac-den">dx</span></span> = <span class="frac"><span class="frac-num">(x &minus; k)(2x &minus; 4) &minus; (x<sup>2</sup> &minus; 4x + k<sup>2</sup>)(1)</span><span class="frac-den">(x &minus; k)<sup>2</sup></span></span> =</em> <strong><span class="frac"><span class="frac-num">x<sup>2</sup> &minus; 2kx + 4k &minus; k<sup>2</sup></span><span class="frac-den">(x &minus; k)<sup>2</sup></span></span></strong>.<br><br>
+            <strong>Ex 5.2:</strong> <em><span class="frac"><span class="frac-num">dy</span><span class="frac-den">dx</span></span> = <span class="frac"><span class="frac-num">(4 &minus; x)(2x) &minus; (x<sup>2</sup> + 9)(&minus;1)</span><span class="frac-den">(4 &minus; x)<sup>2</sup></span></span> = <span class="frac"><span class="frac-num">&minus;x<sup>2</sup> + 8x + 9</span><span class="frac-den">(4 &minus; x)<sup>2</sup></span></span> = <span class="frac"><span class="frac-num">&minus;(x &minus; 9)(x + 1)</span><span class="frac-den">(4 &minus; x)<sup>2</sup></span></span></em>.<br>
+            Setting <em><span class="frac"><span class="frac-num">dy</span><span class="frac-den">dx</span></span> = 0</em> gives <em>x = 9</em> or <em>x = &minus;1</em>:<br>
+            &bull; At <em>x = 9</em>: <em>y = <span class="frac"><span class="frac-num">81 + 9</span><span class="frac-den">4 &minus; 9</span></span> = &minus;18</em>. First derivative sign test around 9 (<em>+ &rarr; 0 &rarr; &minus;</em>) &rArr; <strong>(9, &minus;18) is a local maximum</strong>.<br>
+            &bull; At <em>x = &minus;1</em>: <em>y = <span class="frac"><span class="frac-num">1 + 9</span><span class="frac-den">4 &minus; (&minus;1)</span></span> = 2</em>. First derivative sign test around &minus;1 (<em>&minus; &rarr; 0 &rarr; +</em>) &rArr; <strong>(&minus;1, 2) is a local minimum</strong>.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openTab(id, btn) {
+      document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    function toggleSol(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.style.display = el.style.display === 'block' ? 'none' : 'block';
+    }
+
+    let allOpen = false;
+    function toggleAllSolutions() {
+      allOpen = !allOpen;
+      document.querySelectorAll('.sol-body').forEach(el => {
+        el.style.display = allOpen ? 'block' : 'none';
+      });
+    }
+  </script>
 </body>
 </html>
