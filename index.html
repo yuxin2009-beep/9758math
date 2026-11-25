@@ -3394,28 +3394,40 @@ Since <em>r</em> is very close to +1, there is a <strong>strong positive linear 
         syllabusNotes: "Comprehensive formula & concept reference covering O-Level pre-knowledge, Pure Mathematics (Topics 1.1–5.5), Probability & Statistics (Topics 6.1–6.6), and TI-84 Plus CE keystroke workflows.",
         lessons: [
           {
-            label: "Part 1: O-Level Pre-Knowledge",
+            label: "Part 1: O-Level Pre-Knowledge & Chapter 0 Practices",
             file: "interactives/summary_part1.html",
             videoEmbedUrl: "",
-            prereq: "O-Level Additional & Elementary Mathematics.",
+            prereq: "O-Level Additional Mathematics (Sets, Quadratics, Polynomials/Partial Fractions, Logs, Trigonometry, Modulus, and Basic Calculus).",
             objectives: [
-              "Recall laws of indices, surds, logarithms, and the change-of-base formula.",
-              "Apply trigonometric ratios, sine/cosine rules, radian sector formulas, and Pythagorean identities.",
-              "Use circle properties and 2D/3D similarity ratios (length, area, volume) in geometry problems."
+              "Convert fluently between set-builder notation, interval notation, and number lines (union, intersection, exclusion).",
+              "Complete the square, apply discriminant conditions, perform polynomial long division, and decompose into partial fractions.",
+              "Solve exponential/logarithmic equations, apply exact special trig values, R-formula, modulus definitions, and product/quotient derivatives."
             ],
             prompts: [
-              "Review the change-of-base identity and supplementary/negative angle identities before starting Functions & Calculus.",
-              "Verify that radian mode is active on your TI-84 Plus CE whenever using s = rθ or A = ½r²θ."
+              "Work through the interactive Chapter 0 (P0 Basics) Example Bank inside the lab covering all 17 textbook examples with step-by-step solutions.",
+              "Check domain restrictions whenever solving logarithmic equations or decomposing improper rational functions into partial fractions."
             ],
             pitfalls: [
-              "Using degree mode instead of radian mode in calculus and circular measure questions.",
-              "Forgetting the negative sign in cos(180° − θ) = −cos θ or tan(180° − θ) = −tan θ."
+              "Decomposing an improper rational fraction into partial fractions without first performing polynomial long division.",
+              "Forgetting to check base/argument conditions (x > 0, x ≠ 1) when solving logarithmic equations, or omitting the minus sign in quotient rule."
             ],
-            gcTip: "Press [MODE] and verify RADIAN is highlighted before evaluating trigonometric expressions or graphing trig functions.",
-            workedQuestion: "Two similar cones have heights in the ratio 2 : 5. Find the ratio of their curved surface areas and volumes.",
-            workedSolution: "Ratio of lengths <em>k = 2/5</em>. Ratio of areas = <em>k² =</em> <strong>4 : 25</strong>. Ratio of volumes = <em>k³ =</em> <strong>8 : 125</strong>.",
-            exitQuestion: "Express log_a(b) in terms of natural logarithms.",
-            exitAnswer: "<strong>ln(b) / ln(a)</strong>"
+            gcTip: "Press [MODE] and verify RADIAN is active before evaluating exact trigonometric values or graphing modulus/exponential curves.",
+            workedQuestion: `
+              <strong>Chapter 0 Diagnostic Check (Examples 1, 6, 7 &amp; 13):</strong><br>
+              <strong>(a)</strong> Given <em>B = [&minus;6, &minus;1]</em>, <em>C = (&minus;2, 3]</em>, and <em>D = (0, 5)</em>, write down <em>B &cup; C</em>, <em>B &cap; C</em>, and <em>C &cup; &Ropf;<sub>0</sub><sup>+</sup></em>.<br>
+              <strong>(b)</strong> Express <em><span class="frac"><span class="frac-num">2x<sup>2</sup> + 6x &minus; 5</span><span class="frac-den">(x &minus; 1)(x + 2)</span></span></em> in partial fractions.<br>
+              <strong>(c)</strong> Solve <em>log<sub>x</sub>(3x &minus; 2) = 2</em> in exact form.<br>
+              <strong>(d)</strong> Solve <em>cos x + &radic;3 sin x = &radic;3</em> for <em>0 &le; x &le; 2&pi;</em>.
+            `,
+            workedSolution: `
+              <strong>(a)</strong> <em>B &cup; C =</em> <strong>[&minus;6, 3]</strong>; &nbsp;<em>B &cap; C =</em> <strong>(&minus;2, &minus;1]</strong>; &nbsp;<em>C &cup; &Ropf;<sub>0</sub><sup>+</sup> =</em> <strong>(&minus;2, &infin;)</strong>.<br><br>
+              <strong>(b)</strong> Since numerator and denominator both have degree 2, divide first: <em><span class="frac"><span class="frac-num">2x<sup>2</sup> + 6x &minus; 5</span><span class="frac-den">x<sup>2</sup> + x &minus; 2</span></span> = 2 + <span class="frac"><span class="frac-num">4x &minus; 1</span><span class="frac-den">(x &minus; 1)(x + 2)</span></span></em>.<br>
+              Cover-up gives <em>A = <span class="frac"><span class="frac-num">4(1) &minus; 1</span><span class="frac-den">1 + 2</span></span> = 1</em> and <em>B = <span class="frac"><span class="frac-num">4(&minus;2) &minus; 1</span><span class="frac-den">&minus;2 &minus; 1</span></span> = 3</em> &rArr; <strong>2 + <span class="frac"><span class="frac-num">1</span><span class="frac-den">x &minus; 1</span></span> + <span class="frac"><span class="frac-num">3</span><span class="frac-den">x + 2</span></span></strong>.<br><br>
+              <strong>(c)</strong> Domain requires <em>x &gt; 0, x &ne; 1</em> and <em>3x &minus; 2 &gt; 0</em>. Rewriting: <em>x<sup>2</sup> = 3x &minus; 2 &rArr; (x &minus; 1)(x &minus; 2) = 0</em>. Rejecting <em>x = 1</em> gives <strong>x = 2</strong>.<br><br>
+              <strong>(d)</strong> Express as <em>2 cos(x &minus; <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">3</span></span>) = &radic;3 &rArr; cos(x &minus; <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">3</span></span>) = <span class="frac"><span class="frac-num">&radic;3</span><span class="frac-den">2</span></span></em>. For <em>&minus;<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">3</span></span> &le; x &minus; <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">3</span></span> &le; <span class="frac"><span class="frac-num">5&pi;</span><span class="frac-den">3</span></span></em>: <em>x &minus; <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">3</span></span> = &minus;<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">6</span></span>, <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">6</span></span> &rArr;</em> <strong>x = <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">6</span></span>, <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">2</span></span></strong>.
+            `,
+            exitQuestion: "Find the exact coordinates of the stationary points on y = (x² + 9)/(4 − x) (x ≠ 4) and state their nature.",
+            exitAnswer: "dy/dx = [−x² + 8x + 9]/(4 − x)² = 0 ⇒ x = 9 or x = −1. Sign test gives a <strong>local maximum at (9, −18)</strong> and a <strong>local minimum at (−1, 2)</strong>."
           },
           {
             label: "Part 2: Pure Math I (Algebra, Graphs & Series)",
@@ -3589,40 +3601,55 @@ Since <em>r</em> is very close to +1, there is a <strong>strong positive linear 
         </button>
       `).join("");
 
-      const fullWidthVideoBlock = lesson.videoEmbedUrl
-        ? `
-          <section class="video-section">
-            <div class="video-toolbar">
-              <div style="display:flex; align-items:center; gap:10px;">
-                <span class="video-badge">Step 1 &bull; Concept Video</span>
-                <strong style="font-size:0.92rem; color:#1e293b;">${formatMathHTML(lesson.label)} — Video Walkthrough</strong>
-              </div>
-              <span style="font-size:0.78rem; color:#6b21a8; font-weight:600;">Watch before exploring the interactive lab below</span>
-            </div>
-            <div class="video-frame-wrap">
-              <iframe src="${lesson.videoEmbedUrl}" title="${lesson.label} Video" allowfullscreen></iframe>
-            </div>
-          </section>
-        `
-        : `
-          <section class="video-section">
-            <div class="video-toolbar">
-              <div style="display:flex; align-items:center; gap:10px;">
-                <span class="video-badge">Step 1 &bull; Concept Video</span>
-                <strong style="font-size:0.92rem; color:#1e293b;">${formatMathHTML(lesson.label)} — Video Walkthrough</strong>
-              </div>
-              <span style="font-size:0.78rem; color:#6b21a8; font-weight:600;">Full-Width Video Player Ready</span>
-            </div>
-            <div class="video-placeholder-banner">
-              <div class="play-icon-circle">&#9654;</div>
-              <div style="font-size:1.05rem; font-weight:800;">Lesson Video Placeholder: ${formatMathHTML(lesson.label)}</div>
-              <div style="font-size:0.84rem; color:#e0e7ff; max-width:650px; line-height:1.45;">
-                Paste your YouTube, Vimeo, or Google Drive embed URL into <code>videoEmbedUrl</code> for this lesson to display the full-width video walkthrough right here before the interactive lab.
-              </div>
-            </div>
-          </section>
-        `;
+      const isSummaryTopic = currentTopic === "summary";
 
+      const fullWidthVideoBlock = isSummaryTopic
+        ? ""
+        : lesson.videoEmbedUrl
+          ? `
+            <section class="video-section">
+              <div class="video-toolbar">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <span class="video-badge">Step 1 &bull; Concept Video</span>
+                  <strong style="font-size:0.92rem; color:#1e293b;">${formatMathHTML(lesson.label)} — Video Walkthrough</strong>
+                </div>
+                <span style="font-size:0.78rem; color:#6b21a8; font-weight:600;">Watch before exploring the interactive lab below</span>
+              </div>
+              <div class="video-frame-wrap">
+                <iframe src="${lesson.videoEmbedUrl}" title="${lesson.label} Video" allowfullscreen></iframe>
+              </div>
+            </section>
+          `
+          : `
+            <section class="video-section">
+              <div class="video-toolbar">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <span class="video-badge">Step 1 &bull; Concept Video</span>
+                  <strong style="font-size:0.92rem; color:#1e293b;">${formatMathHTML(lesson.label)} — Video Walkthrough</strong>
+                </div>
+                <span style="font-size:0.78rem; color:#6b21a8; font-weight:600;">Full-Width Video Player Ready</span>
+              </div>
+              <div class="video-placeholder-banner">
+                <div class="play-icon-circle">&#9654;</div>
+                <div style="font-size:1.05rem; font-weight:800;">Lesson Video Placeholder: ${formatMathHTML(lesson.label)}</div>
+                <div style="font-size:0.84rem; color:#e0e7ff; max-width:650px; line-height:1.45;">
+                  Paste your YouTube, Vimeo, or Google Drive embed URL into <code>videoEmbedUrl</code> for this lesson to display the full-width video walkthrough right here before the interactive lab.
+                </div>
+              </div>
+            </section>
+          `;
+<!-- INTERACTIVE APPLET -->
+        <div class="interactive-wrapper">
+          <div class="interactive-toolbar">
+            <span style="font-size:0.86rem; font-weight:800; color:#1e293b;">
+              ${isSummaryTopic ? "Step 1" : "Step 2"} &bull; Interactive Visual Lab: ${formatMathHTML(lesson.label)}
+            </span>
+            <a class="open-tab-link" href="${lesson.file}" target="_blank" rel="noopener">
+              Open Fullscreen Lab &#8599;
+            </a>
+          </div>
+          <iframe class="interactive-iframe" src="${lesson.file}" title="${lesson.label}"></iframe>
+        </div>
       main.innerHTML = `
         <div class="top-bar">
           <div>
