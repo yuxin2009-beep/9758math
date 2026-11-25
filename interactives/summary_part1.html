@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Summary Part 1: Chapter 0 Basics & O-Level Pre-Knowledge</title>
+  <title>Summary Part 1: Chapter 0 Basics &amp; Assumed Knowledge</title>
   <style>
     :root {
       --bg: #fdfbf7;
@@ -21,19 +21,7 @@
       --amber: #b45309;
       --amber-bg: #fef3c7;
     }
-.col-vec {
-      display: inline-flex;
-      flex-direction: column;
-      align-items: center;
-      vertical-align: middle;
-      border-left: 1.4px solid currentColor;
-      border-right: 1.4px solid currentColor;
-      border-radius: 5px;
-      padding: 0 5px;
-      margin: 0 2px;
-      font-size: 0.86em;
-      line-height: 1.15;
-    }
+
     * {
       box-sizing: border-box;
       font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -63,6 +51,29 @@
     .frac-den {
       padding: 1px 3px 0 3px;
       text-align: center;
+    }
+
+    .col-vec {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      vertical-align: middle;
+      border-left: 1.4px solid currentColor;
+      border-right: 1.4px solid currentColor;
+      border-radius: 5px;
+      padding: 0 5px;
+      margin: 0 2px;
+      font-size: 0.86em;
+      line-height: 1.15;
+    }
+
+    .sqrt {
+      display: inline-flex;
+      align-items: baseline;
+    }
+    .sqrt-rad {
+      border-top: 1.2px solid currentColor;
+      padding: 0 2px;
     }
 
     .header-box {
@@ -180,7 +191,7 @@
 
     table.ref-table th, table.ref-table td {
       border: 1px solid #e2e8f0;
-      padding: 6px 9px;
+      padding: 7px 9px;
       text-align: left;
     }
 
@@ -188,6 +199,15 @@
       background: #f8fafc;
       font-weight: 700;
       color: #1e293b;
+    }
+
+    table.trig-table th, table.trig-table td {
+      text-align: center;
+      padding: 8px 6px;
+    }
+    table.trig-table th:first-child, table.trig-table td:first-child {
+      text-align: left;
+      padding-left: 10px;
     }
 
     .ex-card {
@@ -198,7 +218,7 @@
       background: #ffffff;
       margin-bottom: 12px;
       font-size: 0.84rem;
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
     .ex-header {
@@ -249,7 +269,7 @@
       border: 1px solid #e2e8f0;
       border-radius: 8px;
       font-size: 0.82rem;
-      line-height: 1.55;
+      line-height: 1.65;
       color: #1e293b;
     }
 
@@ -259,7 +279,7 @@
       border-radius: 9px;
       padding: 9px 12px;
       font-size: 0.82rem;
-      line-height: 1.55;
+      line-height: 1.65;
       margin-bottom: 8px;
     }
   </style>
@@ -295,7 +315,7 @@
           <tr><td><strong>&Nopf;</strong> = <strong>&Zopf;<sup>+</sup></strong></td><td>Positive integers {1, 2, 3, &hellip;}</td></tr>
           <tr><td><strong>&Zopf;</strong></td><td>All integers {&hellip;, &minus;2, &minus;1, 0, 1, 2, &hellip;}</td></tr>
           <tr><td><strong>&Zopf;<sub>0</sub><sup>+</sup></strong> / <strong>&Zopf;<sub>0</sub><sup>&minus;</sup></strong></td><td>Non-negative {0, 1, 2, &hellip;} / Non-positive {&hellip;, &minus;1, 0}</td></tr>
-          <tr><td><strong>&Qopf;</strong> / <strong>&Ropf;</strong></td><td>Rational numbers (<em>a/b, b &ne; 0</em>) / Real numbers</td></tr>
+          <tr><td><strong>&Qopf;</strong> / <strong>&Ropf;</strong></td><td>Rational numbers (<em><span class="frac"><span class="frac-num">a</span><span class="frac-den">b</span></span>, b &ne; 0</em>) / Real numbers</td></tr>
           <tr><td><strong>&Ropf;<sup>+</sup></strong> / <strong>&Ropf;<sub>0</sub><sup>+</sup></strong></td><td>(0, &infin;) / [0, &infin;) (includes 0)</td></tr>
           <tr><td><strong>A &sube; B</strong> / <strong>A &sub; B</strong></td><td>Subset / Proper subset (<em>A &sube; B</em> and <em>A &ne; B</em>)</td></tr>
           <tr><td><strong>A &cup; B</strong> / <strong>A &cap; B</strong></td><td>Union (in <em>A</em> or <em>B</em> or both) / Intersection (in both)</td></tr>
@@ -306,7 +326,7 @@
       <div>
         <div class="ex-card">
           <div class="ex-header">
-            <span class="ex-title">Chapter 0 — Example 1 (Interval Operations)</span>
+            <span class="ex-title">Worked Example — Interval Operations</span>
             <span class="ans-pill">Section 1.3</span>
           </div>
           Given that <em>B = [&minus;6, &minus;1]</em>, <em>C = (&minus;2, 3]</em>, and <em>D = (0, 5)</em>, write down:<br>
@@ -333,7 +353,7 @@
         <h3>Quadratics, Polynomials, Partial Fractions &amp; Logs</h3>
         <div class="formula-box">
           <strong>Quadratics (<em>ax<sup>2</sup> + bx + c = 0, a &ne; 0</em>):</strong><br>
-          &bull; Sum of roots: <em>&alpha; + &beta; = &minus;b/a</em>; Product: <em>&alpha;&beta; = c/a</em>.<br>
+          &bull; Sum of roots: <em>&alpha; + &beta; = &minus;<span class="frac"><span class="frac-num">b</span><span class="frac-den">a</span></span></em>; &nbsp;Product of roots: <em>&alpha;&beta; = <span class="frac"><span class="frac-num">c</span><span class="frac-den">a</span></span></em>.<br>
           &bull; Discriminant <em>&Delta; = b<sup>2</sup> &minus; 4ac</em>: <em>&Delta; &gt; 0</em> (2 real distinct), <em>&Delta; = 0</em> (equal), <em>&Delta; &lt; 0</em> (no real roots).<br>
           &bull; Always positive: <em>a &gt; 0</em> and <em>b<sup>2</sup> &minus; 4ac &lt; 0</em>.
         </div>
@@ -356,55 +376,54 @@
       <div>
         <div class="ex-card">
           <div class="ex-header">
-            <span class="ex-title">Chapter 0 — Example 2 &amp; Example 3 (Quadratics)</span>
+            <span class="ex-title">Worked Example — Completing the Square &amp; Discriminant</span>
             <span class="ans-pill">Section 2.1</span>
           </div>
-          <strong>Ex 2:</strong> By completing the square, (i) show that <em>2x<sup>2</sup> &minus; 3x + 2</em> is always positive; (ii) find the minimum value of <em>2x<sup>2</sup> + 2x + 3</em> and deduce the range of <em><span class="frac"><span class="frac-num">1</span><span class="frac-den">2x<sup>2</sup> + 2x + 3</span></span></em>.<br>
-          <strong>Ex 3:</strong> (a) Find <em>k</em> if roots of <em>3x<sup>2</sup> + kx + 12 = 0</em> are equal. (b) Show roots of <em>ax<sup>2</sup> + (a + b)x + b = 0</em> are real for all non-zero <em>a, b</em>.
+          <strong>(a)</strong> By completing the square, (i) show that <em>2x<sup>2</sup> &minus; 3x + 2</em> is always positive; (ii) find the minimum value of <em>2x<sup>2</sup> + 2x + 3</em> and deduce the range of <em><span class="frac"><span class="frac-num">1</span><span class="frac-den">2x<sup>2</sup> + 2x + 3</span></span></em>.<br>
+          <strong>(b)</strong> (i) Find <em>k</em> if the roots of <em>3x<sup>2</sup> + kx + 12 = 0</em> are equal. (ii) Show that the roots of <em>ax<sup>2</sup> + (a + b)x + b = 0</em> are real for all non-zero <em>a, b</em>.
           <br><button class="sol-btn" onclick="toggleSol('s2_1')">Toggle Worked Solution</button>
           <div class="sol-body" id="s2_1">
-            <strong>Ex 2(i):</strong> <em>2x<sup>2</sup> &minus; 3x + 2 = 2(x &minus; <span class="frac"><span class="frac-num">3</span><span class="frac-den">4</span></span>)<sup>2</sup> + <span class="frac"><span class="frac-num">7</span><span class="frac-den">8</span></span></em>. Since <em>(x &minus; <span class="frac"><span class="frac-num">3</span><span class="frac-den">4</span></span>)<sup>2</sup> &ge; 0</em> for all <em>x &isin; &Ropf;</em>, expression &ge; <em><span class="frac"><span class="frac-num">7</span><span class="frac-den">8</span></span> &gt; 0</em> (always positive).<br>
-            <strong>Ex 2(ii):</strong> <em>2x<sup>2</sup> + 2x + 3 = 2(x + <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span>)<sup>2</sup> + <span class="frac"><span class="frac-num">5</span><span class="frac-den">2</span></span></em> &rArr; min value is <strong>5/2</strong>. Hence <em>2x<sup>2</sup> + 2x + 3 &ge; <span class="frac"><span class="frac-num">5</span><span class="frac-den">2</span></span> &rArr;</em> range of reciprocal is <strong>(0, 2/5]</strong>.<br>
-            <strong>Ex 3(a):</strong> Equal roots &rArr; <em>k<sup>2</sup> &minus; 4(3)(12) = 0 &rArr; k<sup>2</sup> = 144 &rArr;</em> <strong>k = &plusmn;12</strong>.<br>
-            <strong>Ex 3(b):</strong> Discriminant <em>&Delta; = (a + b)<sup>2</sup> &minus; 4ab = a<sup>2</sup> &minus; 2ab + b<sup>2</sup> = (a &minus; b)<sup>2</sup> &ge; 0</em> for all <em>a, b &isin; &Ropf;</em> &rArr; roots are always real.
+            <strong>(a)(i)</strong> <em>2x<sup>2</sup> &minus; 3x + 2 = 2(x &minus; <span class="frac"><span class="frac-num">3</span><span class="frac-den">4</span></span>)<sup>2</sup> + <span class="frac"><span class="frac-num">7</span><span class="frac-den">8</span></span></em>. Since <em>(x &minus; <span class="frac"><span class="frac-num">3</span><span class="frac-den">4</span></span>)<sup>2</sup> &ge; 0</em> for all <em>x &isin; &Ropf;</em>, the expression is <em>&ge; <span class="frac"><span class="frac-num">7</span><span class="frac-den">8</span></span> &gt; 0</em> (always positive).<br>
+            <strong>(a)(ii)</strong> <em>2x<sup>2</sup> + 2x + 3 = 2(x + <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span>)<sup>2</sup> + <span class="frac"><span class="frac-num">5</span><span class="frac-den">2</span></span></em> &rArr; minimum value is <strong><span class="frac"><span class="frac-num">5</span><span class="frac-den">2</span></span></strong>. Hence <em>2x<sup>2</sup> + 2x + 3 &ge; <span class="frac"><span class="frac-num">5</span><span class="frac-den">2</span></span> &rArr;</em> range of reciprocal is <strong>(0, <span class="frac"><span class="frac-num">2</span><span class="frac-den">5</span></span>]</strong>.<br>
+            <strong>(b)(i)</strong> Equal roots &rArr; <em>k<sup>2</sup> &minus; 4(3)(12) = 0 &rArr; k<sup>2</sup> = 144 &rArr;</em> <strong>k = &plusmn;12</strong>.<br>
+            <strong>(b)(ii)</strong> Discriminant <em>&Delta; = (a + b)<sup>2</sup> &minus; 4ab = a<sup>2</sup> &minus; 2ab + b<sup>2</sup> = (a &minus; b)<sup>2</sup> &ge; 0</em> for all <em>a, b &isin; &Ropf;</em> &rArr; roots are always real.
           </div>
         </div>
 
         <div class="ex-card">
           <div class="ex-header">
-            <span class="ex-title">Chapter 0 — Example 4, Example 5 &amp; Example 6 (Polynomials &amp; Partial Fractions)</span>
+            <span class="ex-title">Worked Example — Polynomial Division, Factorisation &amp; Partial Fractions</span>
             <span class="ans-pill">Section 2.2</span>
           </div>
-          <strong>Ex 4:</strong> (a) Find quotient and remainder when <em>x<sup>3</sup> + 3x<sup>2</sup> &minus; 6x + 2</em> is divided by <em>x + 2</em>. (b) Factorise <em>x<sup>3</sup> &minus; 2x + 1</em>.<br>
-          <strong>Ex 5:</strong> Factorise completely: (a) <em>x<sup>3</sup> + 8</em>; (b) <em>x<sup>6</sup> &minus; 64</em>.<br>
-          <strong>Ex 6:</strong> Express in partial fractions: (a) <em><span class="frac"><span class="frac-num">2x</span><span class="frac-den">x<sup>2</sup> &minus; 1</span></span></em>; (b) <em><span class="frac"><span class="frac-num">3x<sup>2</sup> + 3x + 2</span><span class="frac-den">(x + 1)(x<sup>2</sup> + 1)</span></span></em>; (c) <em><span class="frac"><span class="frac-num">11 &minus; x &minus; x<sup>2</sup></span><span class="frac-den">(x + 2)(x &minus; 1)<sup>2</sup></span></span></em>; (d) <em><span class="frac"><span class="frac-num">2x<sup>2</sup> + 6x &minus; 5</span><span class="frac-den">(x &minus; 1)(x + 2)</span></span></em>.
+          <strong>(a)</strong> Find the quotient and remainder when <em>x<sup>3</sup> + 3x<sup>2</sup> &minus; 6x + 2</em> is divided by <em>x + 2</em>, and factorise <em>x<sup>3</sup> &minus; 2x + 1</em> completely.<br>
+          <strong>(b)</strong> Factorise completely: (i) <em>x<sup>3</sup> + 8</em>; (ii) <em>x<sup>6</sup> &minus; 64</em>.<br>
+          <strong>(c)</strong> Express in partial fractions: (i) <em><span class="frac"><span class="frac-num">2x</span><span class="frac-den">x<sup>2</sup> &minus; 1</span></span></em>; (ii) <em><span class="frac"><span class="frac-num">3x<sup>2</sup> + 3x + 2</span><span class="frac-den">(x + 1)(x<sup>2</sup> + 1)</span></span></em>; (iii) <em><span class="frac"><span class="frac-num">11 &minus; x &minus; x<sup>2</sup></span><span class="frac-den">(x + 2)(x &minus; 1)<sup>2</sup></span></span></em>; (iv) <em><span class="frac"><span class="frac-num">2x<sup>2</sup> + 6x &minus; 5</span><span class="frac-den">(x &minus; 1)(x + 2)</span></span></em>.
           <br><button class="sol-btn" onclick="toggleSol('s2_2')">Toggle Worked Solution</button>
           <div class="sol-body" id="s2_2">
-            <strong>Ex 4(a):</strong> Long division gives quotient <strong>x<sup>2</sup> + x &minus; 8</strong> and remainder <strong>18</strong>.<br>
-            <strong>Ex 4(b):</strong> Sub <em>x = 1</em>: <em>1 &minus; 2 + 1 = 0</em>, so <em>(x &minus; 1)</em> is a factor. Dividing gives <em>(x &minus; 1)(x<sup>2</sup> + x &minus; 1) =</em> <strong>(x &minus; 1)(x &minus; <span class="frac"><span class="frac-num">&minus;1 + &radic;5</span><span class="frac-den">2</span></span>)(x &minus; <span class="frac"><span class="frac-num">&minus;1 &minus; &radic;5</span><span class="frac-den">2</span></span>)</strong>.<br>
-            <strong>Ex 5(a):</strong> <em>x<sup>3</sup> + 2<sup>3</sup> =</em> <strong>(x + 2)(x<sup>2</sup> &minus; 2x + 4)</strong>.<br>
-            <strong>Ex 5(b):</strong> <em>(x<sup>2</sup>)<sup>3</sup> &minus; 4<sup>3</sup> = (x<sup>2</sup> &minus; 4)(x<sup>4</sup> + 4x<sup>2</sup> + 16) =</em> <strong>(x &minus; 2)(x + 2)(x<sup>4</sup> + 4x<sup>2</sup> + 16)</strong> (note: <em>x<sup>4</sup> + 4x<sup>2</sup> + 16 = (x<sup>2</sup> + 4)<sup>2</sup> &minus; 4x<sup>2</sup> = (x<sup>2</sup> &minus; 2x + 4)(x<sup>2</sup> + 2x + 4)</em>).<br>
-            <strong>Ex 6(a):</strong> <strong><span class="frac"><span class="frac-num">1</span><span class="frac-den">x &minus; 1</span></span> + <span class="frac"><span class="frac-num">1</span><span class="frac-den">x + 1</span></span></strong>.<br>
-            <strong>Ex 6(b):</strong> <strong><span class="frac"><span class="frac-num">1</span><span class="frac-den">x + 1</span></span> + <span class="frac"><span class="frac-num">2x + 1</span><span class="frac-den">x<sup>2</sup> + 1</span></span></strong>.<br>
-            <strong>Ex 6(c):</strong> <strong><span class="frac"><span class="frac-num">1</span><span class="frac-den">x + 2</span></span> &minus; <span class="frac"><span class="frac-num">2</span><span class="frac-den">x &minus; 1</span></span> + <span class="frac"><span class="frac-num">3</span><span class="frac-den">(x &minus; 1)<sup>2</sup></span></span></strong>.<br>
-            <strong>Ex 6(d):</strong> Improper (deg 2 / deg 2): <em>2 + <span class="frac"><span class="frac-num">4x &minus; 1</span><span class="frac-den">(x &minus; 1)(x + 2)</span></span> =</em> <strong>2 + <span class="frac"><span class="frac-num">1</span><span class="frac-den">x &minus; 1</span></span> + <span class="frac"><span class="frac-num">3</span><span class="frac-den">x + 2</span></span></strong>.
+            <strong>(a)</strong> Long division gives quotient <strong>x<sup>2</sup> + x &minus; 8</strong> and remainder <strong>18</strong>. For <em>f(x) = x<sup>3</sup> &minus; 2x + 1</em>, <em>f(1) = 0 &rArr; (x &minus; 1)</em> is a factor; dividing gives <em>(x &minus; 1)(x<sup>2</sup> + x &minus; 1) =</em> <strong>(x &minus; 1)(x &minus; <span class="frac"><span class="frac-num">&minus;1 + <span class="sqrt">&radic;<span class="sqrt-rad">5</span></span></span><span class="frac-den">2</span></span>)(x &minus; <span class="frac"><span class="frac-num">&minus;1 &minus; <span class="sqrt">&radic;<span class="sqrt-rad">5</span></span></span><span class="frac-den">2</span></span>)</strong>.<br>
+            <strong>(b)(i)</strong> <em>x<sup>3</sup> + 2<sup>3</sup> =</em> <strong>(x + 2)(x<sup>2</sup> &minus; 2x + 4)</strong>.<br>
+            <strong>(b)(ii)</strong> <em>(x<sup>3</sup> &minus; 8)(x<sup>3</sup> + 8) =</em> <strong>(x &minus; 2)(x<sup>2</sup> + 2x + 4)(x + 2)(x<sup>2</sup> &minus; 2x + 4)</strong>.<br>
+            <strong>(c)(i)</strong> <strong><span class="frac"><span class="frac-num">1</span><span class="frac-den">x &minus; 1</span></span> + <span class="frac"><span class="frac-num">1</span><span class="frac-den">x + 1</span></span></strong>.<br>
+            <strong>(c)(ii)</strong> <strong><span class="frac"><span class="frac-num">1</span><span class="frac-den">x + 1</span></span> + <span class="frac"><span class="frac-num">2x + 1</span><span class="frac-den">x<sup>2</sup> + 1</span></span></strong>.<br>
+            <strong>(c)(iii)</strong> <strong><span class="frac"><span class="frac-num">1</span><span class="frac-den">x + 2</span></span> &minus; <span class="frac"><span class="frac-num">2</span><span class="frac-den">x &minus; 1</span></span> + <span class="frac"><span class="frac-num">3</span><span class="frac-den">(x &minus; 1)<sup>2</sup></span></span></strong>.<br>
+            <strong>(c)(iv)</strong> Improper (deg 2 / deg 2): <em>2 + <span class="frac"><span class="frac-num">4x &minus; 1</span><span class="frac-den">(x &minus; 1)(x + 2)</span></span> =</em> <strong>2 + <span class="frac"><span class="frac-num">1</span><span class="frac-den">x &minus; 1</span></span> + <span class="frac"><span class="frac-num">3</span><span class="frac-den">x + 2</span></span></strong>.
           </div>
         </div>
 
         <div class="ex-card">
           <div class="ex-header">
-            <span class="ex-title">Chapter 0 — Example 7, Example 8 &amp; Example 9 (Logs &amp; Power/Exp Graphs)</span>
+            <span class="ex-title">Worked Example — Logarithmic Equations &amp; Standard Graph Features</span>
             <span class="ans-pill">Section 2.3</span>
           </div>
-          <strong>Ex 7:</strong> Solve in exact form: (a) <em>log<sub>x</sub>(3x &minus; 2) = 2</em>; (b) <em>(3x)<sup>ln 3</sup> = (4x)<sup>ln 4</sup></em>.<br>
-          <strong>Ex 8 &amp; 9:</strong> Key graph features for (8a) <em>y = x<sup>2</sup></em> vs <em>y = x<sup>4</sup></em>, (8b) <em>y = x<sup>1/3</sup></em> vs <em>y = x<sup>3</sup></em>, (8c) <em>y = 1/x</em> vs <em>y = 1/x<sup>2</sup></em>, (9a) <em>y = 2<sup>x</sup></em> vs <em>y = log<sub>2</sub> x</em>, (9b) <em>y = e<sup>&minus;x</sup></em> vs <em>y = 1/10<sup>x</sup></em>.
+          <strong>(a)</strong> Solve in exact form: (i) <em>log<sub>x</sub>(3x &minus; 2) = 2</em>; (ii) <em>(3x)<sup>ln 3</sup> = (4x)<sup>ln 4</sup></em>.<br>
+          <strong>(b)</strong> State the axial intercepts and equations of asymptotes for <em>y = 2<sup>x</sup></em>, <em>y = log<sub>2</sub> x</em>, <em>y = e<sup>&minus;x</sup></em>, and <em>y = <span class="frac"><span class="frac-num">1</span><span class="frac-den">10<sup>x</sup></span></span></em>.
           <br><button class="sol-btn" onclick="toggleSol('s2_3')">Toggle Worked Solution</button>
           <div class="sol-body" id="s2_3">
-            <strong>Ex 7(a):</strong> <em>x<sup>2</sup> = 3x &minus; 2 &rArr; (x &minus; 1)(x &minus; 2) = 0</em>. Since base <em>x &ne; 1</em>, <strong>x = 2</strong>.<br>
-            <strong>Ex 7(b):</strong> Take <em>ln</em> (requires <em>x &gt; 0</em>): <em>(ln 3)(ln 3 + ln x) = (ln 4)(ln 4 + ln x) &rArr; ln x (ln 3 &minus; ln 4) = (ln 4)<sup>2</sup> &minus; (ln 3)<sup>2</sup> = (ln 4 &minus; ln 3)(ln 4 + ln 3) &rArr; ln x = &minus;ln 12 &rArr;</em> <strong>x = 1/12</strong>.<br>
-            <strong>Ex 8 &amp; 9 Graph Summary:</strong><br>
-            &bull; <em>y = 2<sup>x</sup></em>: y-int (0, 1), horizontal asymptote <em>y = 0</em> (as <em>x &rarr; &minus;&infin;</em>). Reflection in <em>y = x</em> gives <em>y = log<sub>2</sub> x</em>: x-int (1, 0), vertical asymptote <em>x = 0</em>.<br>
-            &bull; <em>y = e<sup>&minus;x</sup></em> and <em>y = 10<sup>&minus;x</sup></em> both pass through (0, 1) with HA <em>y = 0</em> (<em>x &rarr; &infin;</em>); <em>10<sup>&minus;x</sup></em> is steeper for <em>x &lt; 0</em> and closer to 0 for <em>x &gt; 0</em>.
+            <strong>(a)(i)</strong> <em>x<sup>2</sup> = 3x &minus; 2 &rArr; (x &minus; 1)(x &minus; 2) = 0</em>. Since base <em>x &gt; 0, x &ne; 1</em>, <strong>x = 2</strong>.<br>
+            <strong>(a)(ii)</strong> For <em>x &gt; 0</em>, taking <em>ln</em>: <em>(ln 3)(ln 3 + ln x) = (ln 4)(ln 4 + ln x) &rArr; ln x (ln 3 &minus; ln 4) = (ln 4)<sup>2</sup> &minus; (ln 3)<sup>2</sup> &rArr; ln x = &minus;ln 12 &rArr;</em> <strong>x = <span class="frac"><span class="frac-num">1</span><span class="frac-den">12</span></span></strong> (note: <em>x = 0</em> also satisfies <em>0<sup>b</sup> = 0</em> for <em>b &gt; 0</em>).<br>
+            <strong>(b) Graph Features:</strong><br>
+            &bull; <em>y = 2<sup>x</sup></em>: y-intercept <strong>(0, 1)</strong>, horizontal asymptote <strong>y = 0</strong> (as <em>x &rarr; &minus;&infin;</em>). Reflection in <em>y = x</em> gives <em>y = log<sub>2</sub> x</em>: x-intercept <strong>(1, 0)</strong>, vertical asymptote <strong>x = 0</strong>.<br>
+            &bull; <em>y = e<sup>&minus;x</sup></em> and <em>y = <span class="frac"><span class="frac-num">1</span><span class="frac-den">10<sup>x</sup></span></span></em> both pass through <strong>(0, 1)</strong> with horizontal asymptote <strong>y = 0</strong> (as <em>x &rarr; &infin;</em>); <em>10<sup>&minus;x</sup></em> is steeper for <em>x &lt; 0</em> and closer to the x-axis for <em>x &gt; 0</em>.
           </div>
         </div>
       </div>
@@ -417,16 +436,44 @@
       <div class="card">
         <span class="kicker k-purple">3.1 – 3.2 Special Values &amp; Identities</span>
         <h3>Trigonometric Formulae &amp; Special Angles</h3>
-        <table class="ref-table">
-          <tr><th><em>x</em></th><th>0</th><th><em>&pi;/6</em></th><th><em>&pi;/4</em></th><th><em>&pi;/3</em></th><th><em>&pi;/2</em></th></tr>
-          <tr><td><strong>sin <em>x</em></strong></td><td>0</td><td><em>1/2</em></td><td><em>&radic;2/2</em></td><td><em>&radic;3/2</em></td><td>1</td></tr>
-          <tr><td><strong>cos <em>x</em></strong></td><td>1</td><td><em>&radic;3/2</em></td><td><em>&radic;2/2</em></td><td><em>1/2</em></td><td>0</td></tr>
-          <tr><td><strong>tan <em>x</em></strong></td><td>0</td><td><em>1/&radic;3</em></td><td>1</td><td><em>&radic;3</em></td><td>undef.</td></tr>
+        <table class="ref-table trig-table">
+          <tr>
+            <th><em>x</em></th>
+            <th>0</th>
+            <th><span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">6</span></span></th>
+            <th><span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">4</span></span></th>
+            <th><span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">3</span></span></th>
+            <th><span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">2</span></span></th>
+          </tr>
+          <tr>
+            <td><strong>sin <em>x</em></strong></td>
+            <td>0</td>
+            <td><span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span></td>
+            <td><span class="frac"><span class="frac-num"><span class="sqrt">&radic;<span class="sqrt-rad">2</span></span></span><span class="frac-den">2</span></span></td>
+            <td><span class="frac"><span class="frac-num"><span class="sqrt">&radic;<span class="sqrt-rad">3</span></span></span><span class="frac-den">2</span></span></td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td><strong>cos <em>x</em></strong></td>
+            <td>1</td>
+            <td><span class="frac"><span class="frac-num"><span class="sqrt">&radic;<span class="sqrt-rad">3</span></span></span><span class="frac-den">2</span></span></td>
+            <td><span class="frac"><span class="frac-num"><span class="sqrt">&radic;<span class="sqrt-rad">2</span></span></span><span class="frac-den">2</span></span></td>
+            <td><span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span></td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td><strong>tan <em>x</em></strong></td>
+            <td>0</td>
+            <td><span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="sqrt">&radic;<span class="sqrt-rad">3</span></span></span></span></td>
+            <td>1</td>
+            <td><span class="sqrt">&radic;<span class="sqrt-rad">3</span></span></td>
+            <td>undef.</td>
+          </tr>
         </table>
         <div class="formula-box" style="margin-top:10px;">
           <strong>Triangle Rules:</strong><br>
-          &bull; Sine Rule: <em><span class="frac"><span class="frac-num">a</span><span class="frac-den">sin A</span></span> = <span class="frac"><span class="frac-num">b</span><span class="frac-den">sin B</span></span></em> &nbsp;|&nbsp; Cosine Rule: <em>c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup> &minus; 2ab cos C</em><br>
-          &bull; Area: <em>&frac12; ab sin C</em>
+          &bull; Sine Rule: <em><span class="frac"><span class="frac-num">a</span><span class="frac-den">sin A</span></span> = <span class="frac"><span class="frac-num">b</span><span class="frac-den">sin B</span></span> = <span class="frac"><span class="frac-num">c</span><span class="frac-den">sin C</span></span></em> &nbsp;|&nbsp; Cosine Rule: <em>c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup> &minus; 2ab cos C</em><br>
+          &bull; Area of Triangle: <em><span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span> ab sin C</em>
         </div>
         <div class="formula-box">
           <strong>Compound &amp; Double Angles:</strong><br>
@@ -440,45 +487,46 @@
       <div>
         <div class="ex-card">
           <div class="ex-header">
-            <span class="ex-title">Chapter 0 — Example 11 &amp; Example 12 (Exact Trig &amp; Triangle Rules)</span>
+            <span class="ex-title">Worked Example — Exact Trig Ratios &amp; Triangle Rules</span>
             <span class="ans-pill">Section 3.1</span>
           </div>
-          <strong>Ex 11:</strong> Simplify to non-trig fractions with integral denominator: (a) <em><span class="frac"><span class="frac-num">cos(3&pi;/4) + sin(7&pi;/4)</span><span class="frac-den">tan(5&pi;/3) + cot(11&pi;/3)</span></span></em>; (b) <em>tan(<span class="frac"><span class="frac-num">7&pi;</span><span class="frac-den">12</span></span>)</em>.<br>
-          <strong>Ex 12:</strong> In &triangle;<em>ABC</em> with point <em>P</em> on <em>BC</em>, <em>&ang;ABP = 45&deg;</em>, <em>&ang;APC = 60&deg;</em>, <em>AP = 5 cm</em>, <em>CP = 8 cm</em>. Calculate (i) <em>AB</em>, (ii) <em>AC</em>, (iii) area of &triangle;<em>ABC</em>.
+          <strong>(a)</strong> Simplify to exact non-trigonometric form with integral denominator: (i) <em><span class="frac"><span class="frac-num">cos(<span class="frac"><span class="frac-num">3&pi;</span><span class="frac-den">4</span></span>) + sin(<span class="frac"><span class="frac-num">7&pi;</span><span class="frac-den">4</span></span>)</span><span class="frac-den">tan(<span class="frac"><span class="frac-num">5&pi;</span><span class="frac-den">3</span></span>) + cot(<span class="frac"><span class="frac-num">11&pi;</span><span class="frac-den">3</span></span>)</span></span></em>; (ii) <em>tan(<span class="frac"><span class="frac-num">7&pi;</span><span class="frac-den">12</span></span>)</em>.<br>
+          <strong>(b)</strong> In &triangle;<em>ABC</em> with point <em>P</em> on <em>BC</em>, <em>&ang;ABP = 45&deg;</em>, <em>&ang;APC = 60&deg;</em>, <em>AP = 5 cm</em>, and <em>CP = 8 cm</em>. Calculate (i) <em>AB</em>, (ii) <em>AC</em>, and (iii) the area of &triangle;<em>ABC</em>.
           <br><button class="sol-btn" onclick="toggleSol('s3_1')">Toggle Worked Solution</button>
           <div class="sol-body" id="s3_1">
-            <strong>Ex 11(a):</strong> <em><span class="frac"><span class="frac-num">&minus;&radic;2/2 &minus; &radic;2/2</span><span class="frac-den">&minus;&radic;3 &minus; 1/&radic;3</span></span> = <span class="frac"><span class="frac-num">&minus;&radic;2</span><span class="frac-den">&minus;4/&radic;3</span></span> =</em> <strong><span class="frac"><span class="frac-num">&radic;6</span><span class="frac-den">4</span></span></strong>.<br>
-            <strong>Ex 11(b):</strong> <em>tan(<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">3</span></span> + <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">4</span></span>) = <span class="frac"><span class="frac-num">&radic;3 + 1</span><span class="frac-den">1 &minus; &radic;3</span></span> = <span class="frac"><span class="frac-num">(&radic;3 + 1)<sup>2</sup></span><span class="frac-den">1 &minus; 3</span></span> =</em> <strong>&minus;2 &minus; &radic;3</strong>.<br>
-            <strong>Ex 12(i):</strong> <em>&ang;APB = 120&deg;</em>. Sine rule in &triangle;<em>ABP</em>: <em><span class="frac"><span class="frac-num">AB</span><span class="frac-den">sin 120&deg;</span></span> = <span class="frac"><span class="frac-num">5</span><span class="frac-den">sin 45&deg;</span></span> &rArr; AB = <span class="frac"><span class="frac-num">5(&radic;3/2)</span><span class="frac-den">&radic;2/2</span></span> =</em> <strong><span class="frac"><span class="frac-num">5&radic;6</span><span class="frac-den">2</span></span> cm</strong>.<br>
-            <strong>Ex 12(ii):</strong> Cosine rule in &triangle;<em>APC</em>: <em>AC<sup>2</sup> = 5<sup>2</sup> + 8<sup>2</sup> &minus; 2(5)(8) cos 60&deg; = 25 + 64 &minus; 40 = 49 &rArr;</em> <strong>AC = 7 cm</strong>.<br>
-            <strong>Ex 12(iii):</strong> <em>&ang;BAP = 15&deg; &rArr; BP = <span class="frac"><span class="frac-num">5 sin 15&deg;</span><span class="frac-den">sin 45&deg;</span></span> &approx; 1.830 cm</em>. Area = <em>&frac12; (BP + 8)(5 sin 60&deg;) &approx;</em> <strong>21.3 cm<sup>2</sup></strong>.
+            <strong>(a)(i)</strong> <em><span class="frac"><span class="frac-num">&minus;<span class="frac"><span class="frac-num"><span class="sqrt">&radic;<span class="sqrt-rad">2</span></span></span><span class="frac-den">2</span></span> &minus; <span class="frac"><span class="frac-num"><span class="sqrt">&radic;<span class="sqrt-rad">2</span></span></span><span class="frac-den">2</span></span></span><span class="frac-den">&minus;<span class="sqrt">&radic;<span class="sqrt-rad">3</span></span> &minus; <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="sqrt">&radic;<span class="sqrt-rad">3</span></span></span></span></span></span> = <span class="frac"><span class="frac-num">&minus;<span class="sqrt">&radic;<span class="sqrt-rad">2</span></span></span><span class="frac-den">&minus;<span class="frac"><span class="frac-num">4</span><span class="frac-den"><span class="sqrt">&radic;<span class="sqrt-rad">3</span></span></span></span></span></span> =</em> <strong><span class="frac"><span class="frac-num"><span class="sqrt">&radic;<span class="sqrt-rad">6</span></span></span><span class="frac-den">4</span></span></strong>.<br>
+            <strong>(a)(ii)</strong> <em>tan(<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">3</span></span> + <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">4</span></span>) = <span class="frac"><span class="frac-num"><span class="sqrt">&radic;<span class="sqrt-rad">3</span></span> + 1</span><span class="frac-den">1 &minus; <span class="sqrt">&radic;<span class="sqrt-rad">3</span></span></span></span> = <span class="frac"><span class="frac-num">(<span class="sqrt">&radic;<span class="sqrt-rad">3</span></span> + 1)<sup>2</sup></span><span class="frac-den">1 &minus; 3</span></span> =</em> <strong>&minus;2 &minus; <span class="sqrt">&radic;<span class="sqrt-rad">3</span></span></strong>.<br>
+            <strong>(b)(i)</strong> <em>&ang;APB = 120&deg;</em>. By Sine Rule in &triangle;<em>ABP</em>: <em><span class="frac"><span class="frac-num">AB</span><span class="frac-den">sin 120&deg;</span></span> = <span class="frac"><span class="frac-num">5</span><span class="frac-den">sin 45&deg;</span></span> &rArr; AB = <span class="frac"><span class="frac-num">5(<span class="frac"><span class="frac-num"><span class="sqrt">&radic;<span class="sqrt-rad">3</span></span></span><span class="frac-den">2</span></span>)</span><span class="frac-den"><span class="frac"><span class="frac-num"><span class="sqrt">&radic;<span class="sqrt-rad">2</span></span></span><span class="frac-den">2</span></span></span></span> =</em> <strong><span class="frac"><span class="frac-num">5<span class="sqrt">&radic;<span class="sqrt-rad">6</span></span></span><span class="frac-den">2</span></span> cm</strong>.<br>
+            <strong>(b)(ii)</strong> By Cosine Rule in &triangle;<em>APC</em>: <em>AC<sup>2</sup> = 5<sup>2</sup> + 8<sup>2</sup> &minus; 2(5)(8) cos 60&deg; = 25 + 64 &minus; 40 = 49 &rArr;</em> <strong>AC = 7 cm</strong>.<br>
+            <strong>(b)(iii)</strong> <em>&ang;BAP = 15&deg;</em>. Area &triangle;<em>ABC</em> = Area &triangle;<em>ABP</em> + Area &triangle;<em>APC</em> = <em><span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span>(5)(<span class="frac"><span class="frac-num">5<span class="sqrt">&radic;<span class="sqrt-rad">6</span></span></span><span class="frac-den">2</span></span>) sin 15&deg; + <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span>(5)(8) sin 60&deg; &approx;</em> <strong>21.3 cm<sup>2</sup></strong> (3 s.f.).
           </div>
         </div>
 
         <div class="ex-card">
           <div class="ex-header">
-            <span class="ex-title">Chapter 0 — Example 13 &amp; Example 14 (Trig Equations &amp; Identities)</span>
+            <span class="ex-title">Worked Example — Trigonometric Equations &amp; Identities</span>
             <span class="ans-pill">Section 3.2</span>
           </div>
-          <strong>Ex 13:</strong> Solve for <em>0 &le; x &le; 2&pi;</em>: (a) <em>(sin x + 1)(cos x + 2) = 0</em>; (b) <em>sec x = 4 cos x</em>; (c) <em>cos 2x + sin x = 0</em>; (d) <em>cos x + &radic;3 sin x = &radic;3</em>.<br>
-          <strong>Ex 14:</strong> Prove identities (a) <em><span class="frac"><span class="frac-num">sin x</span><span class="frac-den">1 + cos x</span></span> &equiv; <span class="frac"><span class="frac-num">1 &minus; cos x</span><span class="frac-den">sin x</span></span></em>; (b) <em><span class="frac"><span class="frac-num">sin 2x</span><span class="frac-den">1 + cos 2x</span></span> &equiv; tan x</em>; (c) <em>cos 2x &equiv; <span class="frac"><span class="frac-num">1 &minus; tan<sup>2</sup>x</span><span class="frac-den">1 + tan<sup>2</sup>x</span></span></em>; (d) <em>cos P + cos Q &equiv; 2 cos(<span class="frac"><span class="frac-num">P + Q</span><span class="frac-den">2</span></span>) cos(<span class="frac"><span class="frac-num">P &minus; Q</span><span class="frac-den">2</span></span>)</em>.
+          <strong>(a)</strong> Solve for <em>0 &le; x &le; 2&pi;</em>: (i) <em>(sin x + 1)(cos x + 2) = 0</em>; (ii) <em>sec x = 4 cos x</em>; (iii) <em>cos 2x + sin x = 0</em>; (iv) <em>cos x + <span class="sqrt">&radic;<span class="sqrt-rad">3</span></span> sin x = <span class="sqrt">&radic;<span class="sqrt-rad">3</span></span></em>.<br>
+          <strong>(b)</strong> Prove the identities: (i) <em><span class="frac"><span class="frac-num">sin x</span><span class="frac-den">1 + cos x</span></span> &equiv; <span class="frac"><span class="frac-num">1 &minus; cos x</span><span class="frac-den">sin x</span></span></em>; (ii) <em><span class="frac"><span class="frac-num">sin 2x</span><span class="frac-den">1 + cos 2x</span></span> &equiv; tan x</em>; (iii) <em>cos 2x &equiv; <span class="frac"><span class="frac-num">1 &minus; tan<sup>2</sup>x</span><span class="frac-den">1 + tan<sup>2</sup>x</span></span></em>; (iv) <em>cos P + cos Q &equiv; 2 cos(<span class="frac"><span class="frac-num">P + Q</span><span class="frac-den">2</span></span>) cos(<span class="frac"><span class="frac-num">P &minus; Q</span><span class="frac-den">2</span></span>)</em>.
           <br><button class="sol-btn" onclick="toggleSol('s3_2')">Toggle Worked Solution</button>
           <div class="sol-body" id="s3_2">
-            <strong>Ex 13(a):</strong> <em>sin x = &minus;1</em> (since <em>cos x = &minus;2</em> has no solution) &rArr; <strong>x = 3&pi;/2</strong>.<br>
-            <strong>Ex 13(b):</strong> <em>cos<sup>2</sup>x = <span class="frac"><span class="frac-num">1</span><span class="frac-den">4</span></span> &rArr; cos x = &plusmn;<span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span> &rArr;</em> <strong>x = &pi;/3, 2&pi;/3, 4&pi;/3, 5&pi;/3</strong>.<br>
-            <strong>Ex 13(c):</strong> <em>1 &minus; 2sin<sup>2</sup>x + sin x = 0 &rArr; (2sin x + 1)(sin x &minus; 1) = 0 &rArr; sin x = 1</em> or <em>&minus;<span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span> &rArr;</em> <strong>x = &pi;/2, 7&pi;/6, 11&pi;/6</strong>.<br>
-            <strong>Ex 13(d):</strong> <em>2 cos(x &minus; <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">3</span></span>) = &radic;3 &rArr; x &minus; <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">3</span></span> = &minus;<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">6</span></span>, <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">6</span></span> &rArr;</em> <strong>x = &pi;/6, &pi;/2</strong>.<br>
-            <strong>Ex 14 Proofs:</strong><br>
-            &bull; (a) LHS <em>= <span class="frac"><span class="frac-num">sin x(1 &minus; cos x)</span><span class="frac-den">1 &minus; cos<sup>2</sup>x</span></span> = <span class="frac"><span class="frac-num">sin x(1 &minus; cos x)</span><span class="frac-den">sin<sup>2</sup>x</span></span> =</em> RHS.<br>
-            &bull; (b) LHS <em>= <span class="frac"><span class="frac-num">2 sin x cos x</span><span class="frac-den">2 cos<sup>2</sup>x</span></span> = tan x =</em> RHS.<br>
-            &bull; (c) RHS <em>= <span class="frac"><span class="frac-num">1 &minus; sin<sup>2</sup>x/cos<sup>2</sup>x</span><span class="frac-den">sec<sup>2</sup>x</span></span> = cos<sup>2</sup>x &minus; sin<sup>2</sup>x = cos 2x =</em> LHS.<br>
-            &bull; (d) Let <em>A = <span class="frac"><span class="frac-num">P + Q</span><span class="frac-den">2</span></span></em>, <em>B = <span class="frac"><span class="frac-num">P &minus; Q</span><span class="frac-den">2</span></span></em> &rArr; <em>cos(A + B) + cos(A &minus; B) = 2 cos A cos B</em>.
+            <strong>(a)(i)</strong> <em>sin x = &minus;1</em> (since <em>|cos x| &le; 1</em>, <em>cos x = &minus;2</em> has no solution) &rArr; <strong>x = <span class="frac"><span class="frac-num">3&pi;</span><span class="frac-den">2</span></span></strong>.<br>
+            <strong>(a)(ii)</strong> <em>cos<sup>2</sup>x = <span class="frac"><span class="frac-num">1</span><span class="frac-den">4</span></span> &rArr; cos x = &plusmn;<span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span> &rArr;</em> <strong>x = <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">3</span></span>, <span class="frac"><span class="frac-num">2&pi;</span><span class="frac-den">3</span></span>, <span class="frac"><span class="frac-num">4&pi;</span><span class="frac-den">3</span></span>, <span class="frac"><span class="frac-num">5&pi;</span><span class="frac-den">3</span></span></strong>.<br>
+            <strong>(a)(iii)</strong> <em>1 &minus; 2sin<sup>2</sup>x + sin x = 0 &rArr; (2sin x + 1)(sin x &minus; 1) = 0 &rArr; sin x = 1</em> or <em>&minus;<span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span> &rArr;</em> <strong>x = <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">2</span></span>, <span class="frac"><span class="frac-num">7&pi;</span><span class="frac-den">6</span></span>, <span class="frac"><span class="frac-num">11&pi;</span><span class="frac-den">6</span></span></strong>.<br>
+            <strong>(a)(iv)</strong> Using R-formula: <em>2 cos(x &minus; <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">3</span></span>) = <span class="sqrt">&radic;<span class="sqrt-rad">3</span></span> &rArr; x &minus; <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">3</span></span> = &minus;<span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">6</span></span>, <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">6</span></span> &rArr;</em> <strong>x = <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">6</span></span>, <span class="frac"><span class="frac-num">&pi;</span><span class="frac-den">2</span></span></strong>.<br>
+            <strong>(b) Proofs:</strong><br>
+            &bull; (i) LHS <em>= <span class="frac"><span class="frac-num">sin x(1 &minus; cos x)</span><span class="frac-den">1 &minus; cos<sup>2</sup>x</span></span> = <span class="frac"><span class="frac-num">sin x(1 &minus; cos x)</span><span class="frac-den">sin<sup>2</sup>x</span></span> =</em> RHS.<br>
+            &bull; (ii) LHS <em>= <span class="frac"><span class="frac-num">2 sin x cos x</span><span class="frac-den">2 cos<sup>2</sup>x</span></span> = tan x =</em> RHS.<br>
+            &bull; (iii) RHS <em>= <span class="frac"><span class="frac-num">1 &minus; tan<sup>2</sup>x</span><span class="frac-den">sec<sup>2</sup>x</span></span> = cos<sup>2</sup>x &minus; sin<sup>2</sup>x = cos 2x =</em> LHS.<br>
+            &bull; (iv) Let <em>A = <span class="frac"><span class="frac-num">P + Q</span><span class="frac-den">2</span></span></em>, <em>B = <span class="frac"><span class="frac-num">P &minus; Q</span><span class="frac-den">2</span></span></em> &rArr; <em>cos(A + B) + cos(A &minus; B) = 2 cos A cos B</em>.
           </div>
         </div>
       </div>
     </div>
   </div>
-<!-- SECTION 4: 2D VECTORS -->
+
+  <!-- SECTION 4: 2D VECTORS -->
   <div id="sec4" class="section-panel">
     <div class="grid-2">
       <div class="card">
@@ -496,7 +544,7 @@
           <tr>
             <td><strong>4.4 – 4.6 Column Form, Magnitude &amp; Zero</strong></td>
             <td>
-              <em>PQ&#8407; = <span class="col-vec"><span>a</span><span>b</span></span> = a<strong>i</strong> + b<strong>j</strong></em>; &nbsp;<em>|PQ&#8407;| = &radic;(a<sup>2</sup> + b<sup>2</sup>)</em><br>
+              <em>PQ&#8407; = <span class="col-vec"><span>a</span><span>b</span></span> = a<strong>i</strong> + b<strong>j</strong></em>; &nbsp;<em>|PQ&#8407;| = <span class="sqrt">&radic;<span class="sqrt-rad">a<sup>2</sup> + b<sup>2</sup></span></span></em><br>
               <strong>Negative:</strong> <em>&minus;PQ&#8407; = QP&#8407; = <span class="col-vec"><span>&minus;a</span><span>&minus;b</span></span></em>; &nbsp;<strong>Zero:</strong> <em><strong>0</strong> = <span class="col-vec"><span>0</span><span>0</span></span> = PP&#8407;</em>
             </td>
           </tr>
@@ -528,37 +576,47 @@
       <div>
         <div class="ex-card">
           <div class="ex-header">
-            <span class="ex-title">Chapter 0 — Example 19 &amp; Example 21 (Column Vectors &amp; Parallelism)</span>
+            <span class="ex-title">Worked Example — Column Vectors &amp; Parallelism</span>
             <span class="ans-pill">Sections 4.4 – 4.8</span>
           </div>
-          <strong>Ex 19:</strong> Given <em><strong>a</strong> = <span class="col-vec"><span>&minus;1</span><span>&minus;4</span></span></em>, <em><strong>b</strong> = <span class="col-vec"><span>7</span><span>4</span></span></em>, and <em><strong>c</strong> = <span class="col-vec"><span>&minus;5</span><span>2</span></span></em>, find (a) <em><strong>a</strong> + 2<strong>b</strong> &minus; 3<strong>c</strong></em>, (b) <em>|2<strong>a</strong> &minus; <strong>b</strong>|</em>, and (c) <em><strong>d</strong></em> if <em><strong>b</strong> &minus; 2<strong>d</strong> = 5<strong>c</strong></em>.<br>
-          <strong>Ex 21:</strong> Vector <em><strong>u</strong> = <span class="col-vec"><span>15</span><span>8</span></span></em>. If <em><strong>u</strong></em> and <em><strong>v</strong></em> are parallel in the same direction and <em>|<strong>v</strong>| = 51</em>, find <em><strong>v</strong></em>.
+          <strong>(a)</strong> Given <em><strong>a</strong> = <span class="col-vec"><span>&minus;1</span><span>&minus;4</span></span></em>, <em><strong>b</strong> = <span class="col-vec"><span>7</span><span>4</span></span></em>, and <em><strong>c</strong> = <span class="col-vec"><span>&minus;5</span><span>2</span></span></em>, find (i) <em><strong>a</strong> + 2<strong>b</strong> &minus; 3<strong>c</strong></em>, (ii) <em>|2<strong>a</strong> &minus; <strong>b</strong>|</em>, and (iii) <em><strong>d</strong></em> if <em><strong>b</strong> &minus; 2<strong>d</strong> = 5<strong>c</strong></em>.<br>
+          <strong>(b)</strong> Vector <em><strong>u</strong> = <span class="col-vec"><span>15</span><span>8</span></span></em>. If <em><strong>u</strong></em> and <em><strong>v</strong></em> are parallel in the same direction and <em>|<strong>v</strong>| = 51</em>, find <em><strong>v</strong></em>.
           <br><button class="sol-btn" onclick="toggleSol('s4_vec1')">Toggle Worked Solution</button>
           <div class="sol-body" id="s4_vec1">
-            <strong>Ex 19(a):</strong> <em><span class="col-vec"><span>&minus;1</span><span>&minus;4</span></span> + <span class="col-vec"><span>14</span><span>8</span></span> &minus; <span class="col-vec"><span>&minus;15</span><span>6</span></span> =</em> <strong><span class="col-vec"><span>28</span><span>&minus;2</span></span></strong>.<br>
-            <strong>Ex 19(b):</strong> <em>2<strong>a</strong> &minus; <strong>b</strong> = <span class="col-vec"><span>&minus;9</span><span>&minus;12</span></span> = &minus;3<span class="col-vec"><span>3</span><span>4</span></span> &rArr; |2<strong>a</strong> &minus; <strong>b</strong>| = 3&radic;(3<sup>2</sup> + 4<sup>2</sup>) =</em> <strong>15 units</strong>.<br>
-            <strong>Ex 19(c):</strong> <em><strong>d</strong> = &frac12;(<strong>b</strong> &minus; 5<strong>c</strong>) = &frac12;[<span class="col-vec"><span>7</span><span>4</span></span> &minus; <span class="col-vec"><span>&minus;25</span><span>10</span></span>] =</em> <strong><span class="col-vec"><span>16</span><span>&minus;3</span></span></strong>.<br>
-            <strong>Ex 21:</strong> <em>|<strong>u</strong>| = &radic;(15<sup>2</sup> + 8<sup>2</sup>) = 17</em>. Since <em><strong>v</strong> = k<strong>u</strong></em> (<em>k &gt; 0</em>) and <em>|<strong>v</strong>| = 51 = 3(17)</em>, <em>k = 3 &rArr; <strong>v</strong> = 3<span class="col-vec"><span>15</span><span>8</span></span> =</em> <strong><span class="col-vec"><span>45</span><span>24</span></span></strong>.
+            <strong>(a)(i)</strong> <em><span class="col-vec"><span>&minus;1</span><span>&minus;4</span></span> + <span class="col-vec"><span>14</span><span>8</span></span> &minus; <span class="col-vec"><span>&minus;15</span><span>6</span></span> =</em> <strong><span class="col-vec"><span>28</span><span>&minus;2</span></span></strong>.<br>
+            <strong>(a)(ii)</strong> <em>2<strong>a</strong> &minus; <strong>b</strong> = <span class="col-vec"><span>&minus;9</span><span>&minus;12</span></span> = &minus;3<span class="col-vec"><span>3</span><span>4</span></span> &rArr; |2<strong>a</strong> &minus; <strong>b</strong>| = 3<span class="sqrt">&radic;<span class="sqrt-rad">3<sup>2</sup> + 4<sup>2</sup></span></span> =</em> <strong>15 units</strong>.<br>
+            <strong>(a)(iii)</strong> <em><strong>d</strong> = <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span>(<strong>b</strong> &minus; 5<strong>c</strong>) = <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span>[<span class="col-vec"><span>7</span><span>4</span></span> &minus; <span class="col-vec"><span>&minus;25</span><span>10</span></span>] =</em> <strong><span class="col-vec"><span>16</span><span>&minus;3</span></span></strong>.<br>
+            <strong>(b)</strong> <em>|<strong>u</strong>| = <span class="sqrt">&radic;<span class="sqrt-rad">15<sup>2</sup> + 8<sup>2</sup></span></span> = 17</em>. Since <em><strong>v</strong> = k<strong>u</strong></em> (<em>k &gt; 0</em>) and <em>|<strong>v</strong>| = 51 = 3(17)</em>, <em>k = 3 &rArr; <strong>v</strong> = 3<span class="col-vec"><span>15</span><span>8</span></span> =</em> <strong><span class="col-vec"><span>45</span><span>24</span></span></strong>.
           </div>
         </div>
 
         <div class="ex-card">
           <div class="ex-header">
-            <span class="ex-title">Chapter 0 — Example 23 (Geometric Vectors &amp; Area Ratios)</span>
-            <span class="ans-pill">Sections 4.7 – 4.10</span>
+            <span class="ex-title">Exam-Style Worked Example — Geometric Vectors, Collinearity &amp; Area Ratios</span>
+            <span class="ans-pill">H2 Exam Style</span>
           </div>
-          Diagonals <em>PR</em> and <em>QS</em> of quadrilateral <em>PQRS</em> intersect at <em>T</em>, with <em>PR&#8407; = 3PT&#8407;</em>, <em>PS&#8407; = 5<strong>b</strong></em>, <em>PQ&#8407; = 4<strong>a</strong> + <strong>b</strong></em>, and <em>PR&#8407; = 3<strong>a</strong> + 12<strong>b</strong></em>.<br>
-          (a) Express <em>RT&#8407;</em> and <em>RQ&#8407;</em> in terms of <em><strong>a</strong></em> and <em><strong>b</strong></em>. &nbsp;(b) Show <em>QT&#8407; = 3(<strong>b</strong> &minus; <strong>a</strong>)</em> and find <em>QS&#8407;</em>. &nbsp;(c) Deduce <em><span class="frac"><span class="frac-num">Area &triangle;PQT</span><span class="frac-den">Area &triangle;PQS</span></span></em>.
+          Relative to an origin <em>O</em>, the points <em>A</em> and <em>B</em> have position vectors <em><strong>a</strong></em> and <em><strong>b</strong></em> respectively, where <em><strong>a</strong></em> and <em><strong>b</strong></em> are non-parallel. The point <em>M</em> is the midpoint of <em>AB</em>, and the point <em>P</em> lies on <em>OB</em> produced such that <em>OB : BP = 2 : 1</em>. The line segment <em>AP</em> intersects <em>OM</em> at <em>X</em>.<br>
+          <strong>(a)</strong> Express <em>OM&#8407;</em> and <em>AP&#8407;</em> in terms of <em><strong>a</strong></em> and <em><strong>b</strong></em>.<br>
+          <strong>(b)</strong> Given that <em>OX&#8407; = &lambda;OM&#8407;</em> and <em>AX&#8407; = &mu;AP&#8407;</em>, find the values of <em>&lambda;</em> and <em>&mu;</em>.<br>
+          <strong>(c)</strong> Hence show that <em>O, X, M</em> are collinear and find the ratio <em><span class="frac"><span class="frac-num">Area of &triangle;OAX</span><span class="frac-den">Area of &triangle;OAP</span></span></em>.
           <br><button class="sol-btn" onclick="toggleSol('s4_vec2')">Toggle Worked Solution</button>
           <div class="sol-body" id="s4_vec2">
-            <strong>(a)</strong> <em>RT&#8407; = <span class="frac"><span class="frac-num">2</span><span class="frac-den">3</span></span>RP&#8407; = &minus;<span class="frac"><span class="frac-num">2</span><span class="frac-den">3</span></span>(3<strong>a</strong> + 12<strong>b</strong>) =</em> <strong>&minus;2<strong>a</strong> &minus; 8<strong>b</strong></strong>; &nbsp;<em>RQ&#8407; = PQ&#8407; &minus; PR&#8407; =</em> <strong><strong>a</strong> &minus; 11<strong>b</strong></strong>.<br>
-            <strong>(b)</strong> <em>QT&#8407; = QR&#8407; + RT&#8407; = (&minus;<strong>a</strong> + 11<strong>b</strong>) + (&minus;2<strong>a</strong> &minus; 8<strong>b</strong>) =</em> <strong>3(<strong>b</strong> &minus; <strong>a</strong>)</strong>; &nbsp;<em>QS&#8407; = PS&#8407; &minus; PQ&#8407; = 5<strong>b</strong> &minus; (4<strong>a</strong> + <strong>b</strong>) =</em> <strong>4(<strong>b</strong> &minus; <strong>a</strong>)</strong>.<br>
-            <strong>(c)</strong> Since <em>QT&#8407; = <span class="frac"><span class="frac-num">3</span><span class="frac-den">4</span></span>QS&#8407;</em> and &triangle;<em>PQT</em>, &triangle;<em>PQS</em> share a common height from <em>P</em>, ratio of areas = <em>QT / QS =</em> <strong>3/4</strong>.
+            <strong>(a)</strong> Since <em>M</em> is the midpoint of <em>AB</em>, <em>OM&#8407; =</em> <strong><span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span>(<strong>a</strong> + <strong>b</strong>)</strong>.<br>
+            Since <em>OB : BP = 2 : 1</em> on <em>OB</em> produced, <em>OP&#8407; = <span class="frac"><span class="frac-num">3</span><span class="frac-den">2</span></span><strong>b</strong> &rArr; AP&#8407; = OP&#8407; &minus; OA&#8407; =</em> <strong><span class="frac"><span class="frac-num">3</span><span class="frac-den">2</span></span><strong>b</strong> &minus; <strong>a</strong></strong>.<br><br>
+            <strong>(b)</strong> Express <em>OX&#8407;</em> in two ways:<br>
+            &bull; <em>OX&#8407; = &lambda;OM&#8407; = <span class="frac"><span class="frac-num">&lambda;</span><span class="frac-den">2</span></span><strong>a</strong> + <span class="frac"><span class="frac-num">&lambda;</span><span class="frac-den">2</span></span><strong>b</strong></em><br>
+            &bull; <em>OX&#8407; = OA&#8407; + &mu;AP&#8407; = <strong>a</strong> + &mu;(<span class="frac"><span class="frac-num">3</span><span class="frac-den">2</span></span><strong>b</strong> &minus; <strong>a</strong>) = (1 &minus; &mu;)<strong>a</strong> + <span class="frac"><span class="frac-num">3&mu;</span><span class="frac-den">2</span></span><strong>b</strong></em><br>
+            Since <em><strong>a</strong></em> and <em><strong>b</strong></em> are non-parallel, equate coefficients:<br>
+            <em><span class="frac"><span class="frac-num">&lambda;</span><span class="frac-den">2</span></span> = 1 &minus; &mu;</em> and <em><span class="frac"><span class="frac-num">&lambda;</span><span class="frac-den">2</span></span> = <span class="frac"><span class="frac-num">3&mu;</span><span class="frac-den">2</span></span> &rArr; 1 &minus; &mu; = <span class="frac"><span class="frac-num">3&mu;</span><span class="frac-den">2</span></span> &rArr;</em> <strong>&mu; = <span class="frac"><span class="frac-num">2</span><span class="frac-den">5</span></span></strong>, <strong>&lambda; = <span class="frac"><span class="frac-num">6</span><span class="frac-den">5</span></span></strong>.<br><br>
+            <strong>(c)</strong> Since <em>OX&#8407; = <span class="frac"><span class="frac-num">6</span><span class="frac-den">5</span></span>OM&#8407;</em> and <em>O</em> is a common point, <em>O, X, M</em> are collinear.<br>
+            Since &triangle;<em>OAX</em> and &triangle;<em>OAP</em> share the same perpendicular height from <em>O</em> to line <em>AP</em>, and <em>AX&#8407; = <span class="frac"><span class="frac-num">2</span><span class="frac-den">5</span></span>AP&#8407;</em>:<br>
+            <em><span class="frac"><span class="frac-num">Area of &triangle;OAX</span><span class="frac-den">Area of &triangle;OAP</span></span> = <span class="frac"><span class="frac-num">AX</span><span class="frac-den">AP</span></span> =</em> <strong><span class="frac"><span class="frac-num">2</span><span class="frac-den">5</span></span></strong>.
           </div>
         </div>
       </div>
     </div>
   </div>
+
   <!-- SECTION 5: MODULUS FUNCTIONS -->
   <div id="sec5" class="section-panel">
     <div class="grid-2">
@@ -567,8 +625,8 @@
         <h3>Absolute Value |<em>f(x)</em>| Rules</h3>
         <div class="formula-box">
           <strong>Definition:</strong> <em>|x| = x</em> if <em>x &ge; 0</em>, and <em>&minus;x</em> if <em>x &lt; 0</em>.<br>
-          &bull; <em>|xy| = |x||y|</em>; &nbsp;<em>|x/y| = |x|/|y|</em> (<em>y &ne; 0</em>)<br>
-          &bull; <em>|x<sup>2</sup>| = |x|<sup>2</sup> = x<sup>2</sup></em>; &nbsp;<em>&radic;(x<sup>2</sup>) = |x|</em><br>
+          &bull; <em>|xy| = |x||y|</em>; &nbsp;<em>|<span class="frac"><span class="frac-num">x</span><span class="frac-den">y</span></span>| = <span class="frac"><span class="frac-num">|x|</span><span class="frac-den">|y|</span></span></em> (<em>y &ne; 0</em>)<br>
+          &bull; <em>|x<sup>2</sup>| = |x|<sup>2</sup> = x<sup>2</sup></em>; &nbsp;<em><span class="sqrt">&radic;<span class="sqrt-rad">x<sup>2</sup></span></span> = |x|</em><br>
           &bull; For <em>a &gt; 0</em>: <em>|x| = a &hArr; x = &plusmn;a</em>.
         </div>
         <div class="formula-box">
@@ -580,19 +638,19 @@
       <div>
         <div class="ex-card">
           <div class="ex-header">
-            <span class="ex-title">Chapter 0 — Example 15 &amp; Example 17 (Modulus Bounds &amp; Equations)</span>
+            <span class="ex-title">Worked Example — Modulus Bounds &amp; Equations</span>
             <span class="ans-pill">Sections 5.1 – 5.3</span>
           </div>
-          <strong>Ex 15:</strong> Given <em>x &isin; [&minus;5, 3]</em> and <em>y &isin; [1, 6]</em>, find the largest and least values of: (a) <em>|x &minus; y|</em>, (b) <em>|x + y|</em>, (c) <em>|xy|</em>, (d) <em>|x<sup>2</sup>y|</em>.<br>
-          <strong>Ex 17(b):</strong> Solve: (i) <em>|x<sup>2</sup> &minus; 2x &minus; 3| = 5</em>; (ii) <em>|x<sup>2</sup> &minus; 2x &minus; 3| = &minus;1</em>; (iii) <em>|ln x| = 1</em>; (iv) <em>|ln x| = |2x<sup>2</sup> &minus; 2x &minus; 3|</em>.
+          <strong>(a)</strong> Given <em>x &isin; [&minus;5, 3]</em> and <em>y &isin; [1, 6]</em>, find the largest and least values of: (i) <em>|x &minus; y|</em>, (ii) <em>|x + y|</em>, (iii) <em>|xy|</em>, (iv) <em>|x<sup>2</sup>y|</em>.<br>
+          <strong>(b)</strong> Solve: (i) <em>|x<sup>2</sup> &minus; 2x &minus; 3| = 5</em>; (ii) <em>|x<sup>2</sup> &minus; 2x &minus; 3| = &minus;1</em>; (iii) <em>|ln x| = 1</em>; (iv) <em>|ln x| = |2x<sup>2</sup> &minus; 2x &minus; 3|</em>.
           <br><button class="sol-btn" onclick="toggleSol('s4_1')">Toggle Worked Solution</button>
           <div class="sol-body" id="s4_1">
-            <strong>Ex 15:</strong><br>
-            &bull; <strong>(a) |x &minus; y|:</strong> Largest at <em>x = &minus;5, y = 6 &rArr;</em> <strong>11</strong>; Least when <em>x = y</em> (e.g. <em>1</em>) &rArr; <strong>0</strong>.<br>
-            &bull; <strong>(b) |x + y|:</strong> Largest at <em>x = 3, y = 6 &rArr;</em> <strong>9</strong>; Least when <em>x + y = 0</em> (e.g. <em>x = &minus;2, y = 2</em>) &rArr; <strong>0</strong>.<br>
-            &bull; <strong>(c) |xy|:</strong> Largest at <em>x = &minus;5, y = 6 &rArr;</em> <strong>30</strong>; Least at <em>x = 0 &rArr;</em> <strong>0</strong>.<br>
-            &bull; <strong>(d) |x<sup>2</sup>y|:</strong> Largest at <em>x = &minus;5, y = 6 &rArr; 25 &times; 6 =</em> <strong>150</strong>; Least at <em>x = 0 &rArr;</em> <strong>0</strong>.<br><br>
-            <strong>Ex 17(b):</strong><br>
+            <strong>(a) Bounds:</strong><br>
+            &bull; <strong>(i) |x &minus; y|:</strong> Largest at <em>x = &minus;5, y = 6 &rArr;</em> <strong>11</strong>; Least when <em>x = y</em> (e.g. <em>1</em>) &rArr; <strong>0</strong>.<br>
+            &bull; <strong>(ii) |x + y|:</strong> Largest at <em>x = 3, y = 6 &rArr;</em> <strong>9</strong>; Least when <em>x + y = 0</em> (e.g. <em>x = &minus;2, y = 2</em>) &rArr; <strong>0</strong>.<br>
+            &bull; <strong>(iii) |xy|:</strong> Largest at <em>x = &minus;5, y = 6 &rArr;</em> <strong>30</strong>; Least at <em>x = 0 &rArr;</em> <strong>0</strong>.<br>
+            &bull; <strong>(iv) |x<sup>2</sup>y|:</strong> Largest at <em>x = &minus;5, y = 6 &rArr; 25 &times; 6 =</em> <strong>150</strong>; Least at <em>x = 0 &rArr;</em> <strong>0</strong>.<br><br>
+            <strong>(b) Equations:</strong><br>
             &bull; <strong>(i)</strong> <em>x<sup>2</sup> &minus; 2x &minus; 3 = 5 &rArr; (x &minus; 4)(x + 2) = 0 &rArr; x = &minus;2, 4</em> (and <em>x<sup>2</sup> &minus; 2x &minus; 3 = &minus;5</em> has no real roots) &rArr; <strong>&minus;2, 4</strong>.<br>
             &bull; <strong>(ii)</strong> Modulus cannot be negative &rArr; <strong>no solution</strong>.<br>
             &bull; <strong>(iii)</strong> <em>ln x = &plusmn;1 &rArr; x = e<sup>&minus;1</sup>, e</em> &approx; <strong>0.368, 2.72</strong>.<br>
@@ -624,19 +682,19 @@
       <div>
         <div class="ex-card">
           <div class="ex-header">
-            <span class="ex-title">Chapter 0 — Section 6.1 &amp; 6.2 Worked Examples</span>
-            <span class="ans-pill">Calculus</span>
+            <span class="ex-title">Worked Example — Differentiation &amp; Stationary Points</span>
+            <span class="ans-pill">Sections 6.1 – 6.2</span>
           </div>
-          <strong>Ex 6.1:</strong> Differentiate with respect to <em>x</em>:<br>
-          (a) <em>y = x + (2a + 1) + <span class="frac"><span class="frac-num">(a + 1)<sup>2</sup></span><span class="frac-den">x &minus; 1</span></span></em> (<em>x &ne; 1, a &gt; 0</em>)<br>
-          (b) <em>y = <span class="frac"><span class="frac-num">x<sup>2</sup> &minus; 4x + k<sup>2</sup></span><span class="frac-den">x &minus; k</span></span></em> (<em>x &ne; k, k &ne; 0, 2</em>)<br>
-          <strong>Ex 6.2:</strong> Find the exact coordinates of the stationary points on <em>y = <span class="frac"><span class="frac-num">x<sup>2</sup> + 9</span><span class="frac-den">4 &minus; x</span></span></em> (<em>x &ne; 4</em>) and determine their nature.
+          <strong>(a)</strong> Differentiate with respect to <em>x</em>:<br>
+          (i) <em>y = x + (2a + 1) + <span class="frac"><span class="frac-num">(a + 1)<sup>2</sup></span><span class="frac-den">x &minus; 1</span></span></em> (<em>x &ne; 1, a &gt; 0</em>)<br>
+          (ii) <em>y = <span class="frac"><span class="frac-num">x<sup>2</sup> &minus; 4x + k<sup>2</sup></span><span class="frac-den">x &minus; k</span></span></em> (<em>x &ne; k, k &ne; 0, 2</em>)<br>
+          <strong>(b)</strong> Find the exact coordinates of the stationary points on <em>y = <span class="frac"><span class="frac-num">x<sup>2</sup> + 9</span><span class="frac-den">4 &minus; x</span></span></em> (<em>x &ne; 4</em>) and determine their nature.
           <br><button class="sol-btn" onclick="toggleSol('s5_1')">Toggle Worked Solution</button>
           <div class="sol-body" id="s5_1">
-            <strong>Ex 6.1(a):</strong> Treat <em>a</em> as a constant: <em><span class="frac"><span class="frac-num">dy</span><span class="frac-den">dx</span></span> =</em> <strong>1 &minus; <span class="frac"><span class="frac-num">(a + 1)<sup>2</sup></span><span class="frac-den">(x &minus; 1)<sup>2</sup></span></span></strong>.<br><br>
-            <strong>Ex 6.1(b):</strong> By Quotient Rule:<br>
+            <strong>(a)(i)</strong> Treat <em>a</em> as a constant: <em><span class="frac"><span class="frac-num">dy</span><span class="frac-den">dx</span></span> =</em> <strong>1 &minus; <span class="frac"><span class="frac-num">(a + 1)<sup>2</sup></span><span class="frac-den">(x &minus; 1)<sup>2</sup></span></span></strong>.<br><br>
+            <strong>(a)(ii)</strong> By Quotient Rule:<br>
             <em><span class="frac"><span class="frac-num">dy</span><span class="frac-den">dx</span></span> = <span class="frac"><span class="frac-num">(x &minus; k)(2x &minus; 4) &minus; (x<sup>2</sup> &minus; 4x + k<sup>2</sup>)(1)</span><span class="frac-den">(x &minus; k)<sup>2</sup></span></span> =</em> <strong><span class="frac"><span class="frac-num">x<sup>2</sup> &minus; 2kx + 4k &minus; k<sup>2</sup></span><span class="frac-den">(x &minus; k)<sup>2</sup></span></span></strong>.<br><br>
-            <strong>Ex 6.2:</strong> <em><span class="frac"><span class="frac-num">dy</span><span class="frac-den">dx</span></span> = <span class="frac"><span class="frac-num">(4 &minus; x)(2x) &minus; (x<sup>2</sup> + 9)(&minus;1)</span><span class="frac-den">(4 &minus; x)<sup>2</sup></span></span> = <span class="frac"><span class="frac-num">&minus;x<sup>2</sup> + 8x + 9</span><span class="frac-den">(4 &minus; x)<sup>2</sup></span></span> = <span class="frac"><span class="frac-num">&minus;(x &minus; 9)(x + 1)</span><span class="frac-den">(4 &minus; x)<sup>2</sup></span></span></em>.<br>
+            <strong>(b)</strong> <em><span class="frac"><span class="frac-num">dy</span><span class="frac-den">dx</span></span> = <span class="frac"><span class="frac-num">(4 &minus; x)(2x) &minus; (x<sup>2</sup> + 9)(&minus;1)</span><span class="frac-den">(4 &minus; x)<sup>2</sup></span></span> = <span class="frac"><span class="frac-num">&minus;x<sup>2</sup> + 8x + 9</span><span class="frac-den">(4 &minus; x)<sup>2</sup></span></span> = <span class="frac"><span class="frac-num">&minus;(x &minus; 9)(x + 1)</span><span class="frac-den">(4 &minus; x)<sup>2</sup></span></span></em>.<br>
             Setting <em><span class="frac"><span class="frac-num">dy</span><span class="frac-den">dx</span></span> = 0</em> gives <em>x = 9</em> or <em>x = &minus;1</em>:<br>
             &bull; At <em>x = 9</em>: <em>y = <span class="frac"><span class="frac-num">81 + 9</span><span class="frac-den">4 &minus; 9</span></span> = &minus;18</em>. First derivative sign test around 9 (<em>+ &rarr; 0 &rarr; &minus;</em>) &rArr; <strong>(9, &minus;18) is a local maximum</strong>.<br>
             &bull; At <em>x = &minus;1</em>: <em>y = <span class="frac"><span class="frac-num">1 + 9</span><span class="frac-den">4 &minus; (&minus;1)</span></span> = 2</em>. First derivative sign test around &minus;1 (<em>&minus; &rarr; 0 &rarr; +</em>) &rArr; <strong>(&minus;1, 2) is a local minimum</strong>.
@@ -670,3 +728,4 @@
   </script>
 </body>
 </html>
+```[cite: 99]
