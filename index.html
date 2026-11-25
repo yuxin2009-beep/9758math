@@ -3615,8 +3615,9 @@ Since <em>r</em> is very close to +1, there is a <strong>strong positive linear 
                 </div>
                 <span style="font-size:0.78rem; color:#6b21a8; font-weight:600;">Watch before exploring the interactive lab below</span>
               </div>
+              ${lesson.videoPrompt ? `<div style="padding:10px 18px; background:#faf5ff; border-bottom:1px solid #e9d5ff; font-size:0.83rem; color:#581c87;"><strong>Viewing Guide:</strong> ${formatMathHTML(lesson.videoPrompt)}</div>` : ""}
               <div class="video-frame-wrap">
-                <iframe src="${lesson.videoEmbedUrl}" title="${lesson.label} Video" allowfullscreen></iframe>
+                <iframe src="${lesson.videoEmbedUrl}" title="${lesson.label.replace(/"/g, '&quot;')} Video" allowfullscreen></iframe>
               </div>
             </section>
           `
@@ -3638,18 +3639,7 @@ Since <em>r</em> is very close to +1, there is a <strong>strong positive linear 
               </div>
             </section>
           `;
-<!-- INTERACTIVE APPLET -->
-        <div class="interactive-wrapper">
-          <div class="interactive-toolbar">
-            <span style="font-size:0.86rem; font-weight:800; color:#1e293b;">
-              ${isSummaryTopic ? "Step 1" : "Step 2"} &bull; Interactive Visual Lab: ${formatMathHTML(lesson.label)}
-            </span>
-            <a class="open-tab-link" href="${lesson.file}" target="_blank" rel="noopener">
-              Open Fullscreen Lab &#8599;
-            </a>
-          </div>
-          <iframe class="interactive-iframe" src="${lesson.file}" title="${lesson.label}"></iframe>
-        </div>
+
       main.innerHTML = `
         <div class="top-bar">
           <div>
@@ -3664,6 +3654,9 @@ Since <em>r</em> is very close to +1, there is a <strong>strong positive linear 
         <div class="pedagogy-grid">
           <div class="info-card">
             <span class="card-kicker" style="color:var(--purple-dark);">Lesson Objectives &amp; Prerequisites</span>
+            <span style="font-size:0.86rem; font-weight:800; color:#1e293b;">
+              ${isSummaryTopic ? "Step 1" : "Step 2"} &bull; Interactive Visual Lab: ${formatMathHTML(lesson.label)}
+            </span>
             <div style="font-size:0.81rem; color:var(--muted); margin-bottom:6px;">
               <strong>Prerequisite Check:</strong> ${formatMathHTML(lesson.prereq)}
             </div>
